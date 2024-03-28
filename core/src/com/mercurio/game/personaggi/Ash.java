@@ -2,6 +2,7 @@ package com.mercurio.game.personaggi;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -32,22 +34,15 @@ public class Ash {
     TextureRegion currentFrame;
 
     boolean movingLeft = false;
-	boolean movingRight = false;
-	boolean movingUp = false;
-	boolean movingDown = false;
+    boolean movingRight = false;
+    boolean movingUp = false;
+    boolean movingDown = false;
 
     private int player_width;
     private int player_height;
 
-    //variabili per il posizionamento corretto del personaggio
-    int windowWidth;
-    int windowHeight;
-    float windowCenterX;
-    float windowCenterY;
-
-    float speed = 0.7f; // Velocità di movimento del personaggio
-    
-    private Rectangle collision_box;
+    private int speed_Camminata_orizontale = 50;
+    private int speed_Camminata_verticale = 40;
 
     public Ash() {
         //dichiarazione generale delle animazione personaggi
@@ -69,7 +64,7 @@ public class Ash {
         int regionHeightDx = textureDestra.getHeight();
         int regionWidthSx = textureSinistra.getWidth() / 3;
         int regionHeightSx = textureSinistra.getHeight();
-        
+
         for (int i = 0; i < 3; i++) {
             indietro[i] = new TextureRegion(textureIndietro, i * regionWidthInd, 0, regionWidthInd, regionHeightInd);
             avanti[i] = new TextureRegion(textureAvanti, i * regionWidthAv, 0, regionWidthAv, regionHeightAv);
@@ -77,93 +72,71 @@ public class Ash {
             sinistra[i] = new TextureRegion(textureSinistra, i * regionWidthSx, 0, regionWidthSx, regionHeightSx);
         }
 
-        
         //calcolo centro personaggio
-        windowWidth = Gdx.graphics.getWidth();
-        windowHeight = Gdx.graphics.getHeight();
+        float windowWidth = Gdx.graphics.getWidth();
+        float windowHeight = Gdx.graphics.getHeight();
 
-        windowCenterX = windowWidth / 2.3f;
-        windowCenterY = windowHeight / 2.3f;
+        float windowCenterX = windowWidth / 4f;
+        float windowCenterY = windowHeight / 3.2f;
 
+        characterPosition= new Vector2(windowCenterX, windowCenterY);
 
+        player_width = 18; // Larghezza del personaggio
+        player_height = 24; // Altezza del personaggio
 
         characterAnimation = new Animation<>(0.14f, indietro[0]);
         stateTime = 0f;
     }
 
-    public void gestioneCollisioni(MapLayer collisioniLayer) {
 
-    }
-
-    private boolean checkCollision(MapLayer collisioniLayer) {
-        for (MapObject object : collisioniLayer.getObjects()) {
-            if (object instanceof RectangleMapObject) {
-                Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-                // Controlla la collisione con il rettangolo "rect"
-                if (collision_box.overlaps(rect)) {
-                    // Collisione rilevata
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 
     //rendering del personaggio
-    public void render(SpriteBatch batch) {
+    public void render(SpriteBatch batch, MapLayer collisioniLayer, OrthographicCamera camera) {
 
         stateTime += Gdx.graphics.getDeltaTime();
         currentFrame = characterAnimation.getKeyFrame(stateTime, true);
-        controlloTasti();
-        batch.draw(currentFrame,windowCenterX,windowCenterY,100,130);
-
-
+        
+        camera.position.set(getPlayerPosition().x + player_width / 2, getPlayerPosition().y + player_height / 2, 0);
+        camera.update();
+        
+        controlloTasti(collisioniLayer);
+        batch.draw(currentFrame, characterPosition.x, characterPosition.y, player_width, player_height);
 
     }
-    
+
 
     //controllo del tasti e quindi del movimento del personaggio
-    public void controlloTasti() {
+    public void controlloTasti(MapLayer collisioniLayer) {
+
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             characterAnimation = new Animation<>(0.14f, destra);
-            movingLeft = false;
-            movingRight = true;
-            movingUp = false;
-            movingDown = false;
+            characterPosition.x += speed_Camminata_orizontale * Gdx.graphics.getDeltaTime(); // Aumenta la coordinata x
         }
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             characterAnimation = new Animation<>(0.14f, sinistra);
-            movingLeft = true;
-            movingRight = false;
-            movingUp = false;
-            movingDown = false;
+            characterPosition.x -= speed_Camminata_orizontale * Gdx.graphics.getDeltaTime(); // Diminuisci la coordinata x
         }
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             characterAnimation = new Animation<>(0.14f, indietro);
-            movingLeft = false;
-            movingRight = false;
-            movingUp = false;
-            movingDown = true;
+            characterPosition.y -= speed_Camminata_verticale * Gdx.graphics.getDeltaTime(); // Diminuisci la coordinata y
         }
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             characterAnimation = new Animation<>(0.14f, avanti);
-            movingLeft = false;
-            movingRight = false;
-            movingUp = true;
-            movingDown = false;
+            characterPosition.y += speed_Camminata_verticale * Gdx.graphics.getDeltaTime(); // Aumenta la coordinata y
         }
 
         //controllo per non far muovere il personaggio nel caso in cui nessuno stia premendo il tasto
         if (!Gdx.input.isKeyPressed(Input.Keys.A) && movingLeft) {
-			currentFrame = sinistra[0];
-		} else if (!Gdx.input.isKeyPressed(Input.Keys.D) && movingRight) {
-			currentFrame = destra[0];
-		} else if (!Gdx.input.isKeyPressed(Input.Keys.W) && movingUp) {
-			currentFrame = avanti[0];
-		} else if (!Gdx.input.isKeyPressed(Input.Keys.S) && movingDown) {
-			currentFrame = indietro[0];
-		}
+            currentFrame = sinistra[0];
+        } else if (!Gdx.input.isKeyPressed(Input.Keys.D) && movingRight) {
+            currentFrame = destra[0];
+        } else if (!Gdx.input.isKeyPressed(Input.Keys.W) && movingUp) {
+            currentFrame = avanti[0];
+        } else if (!Gdx.input.isKeyPressed(Input.Keys.S) && movingDown) {
+            currentFrame = indietro[0];
+        }
+        
+
     }
 
     public Vector2 getPlayerPosition() {

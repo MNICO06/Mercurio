@@ -7,9 +7,12 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.mercurio.game.personaggi.Ash;
 
 public class CasaSpawn extends ScreenAdapter{
@@ -27,10 +30,12 @@ public class CasaSpawn extends ScreenAdapter{
 
     private int speed = 1;
 
+    private Vector2 map_size;
+
+
     public CasaSpawn(MercurioMain game) {
         this.game = game;
         this.ash = new Ash();
-        
     }
 
     @Override
@@ -38,7 +43,6 @@ public class CasaSpawn extends ScreenAdapter{
         batch = new SpriteBatch();
 
         camera = new OrthographicCamera(100, 100);
-        //camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
         camera.setToOrtho(false, Gdx.graphics.getWidth()  , Gdx.graphics.getHeight());
 
         TmxMapLoader mapLoader = new TmxMapLoader();
@@ -46,14 +50,14 @@ public class CasaSpawn extends ScreenAdapter{
 
         //prendo il layer delle collisioni
         collisionLayer = casaAsh.getLayers().get("collisioni");
-        ash.gestioneCollisioni(collisionLayer);
 
         tileRenderer = new OrthogonalTiledMapRenderer(casaAsh);
         float scale = 0.2f;
         camera.zoom = scale;
-        camera.position.set(220,220,0);
+        camera.position.set(220, 200, 0);
         camera.update();
-        
+
+        map_size = new Vector2(casaAsh.getProperties().get("width",Integer.class), casaAsh.getProperties().get("height",Integer.class));
         
         batch = new SpriteBatch();
     }
@@ -68,21 +72,27 @@ public class CasaSpawn extends ScreenAdapter{
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+
         tileRenderer.setView(camera);
         tileRenderer.render();
 
+        // Imposta la matrice di proiezione del batch sulla matrice di proiezione della telecamera
+        batch.setProjectionMatrix(camera.combined);
+
+
+        camera.position.set(ash.getPlayerPosition().x + ash.getPlayerWidth() / 2, ash.getPlayerPosition().y + ash.getPlayerHeight() / 2, 0);
+        camera.update();
+
+        
         batch.begin();
-        ash.render(batch);
+        
+        ash.render(batch, collisionLayer, camera);
+        
         batch.end();
 
 
-        muoviMappa();
+        //muoviMappa();
         camera.update();
-
-        /* accedere a posizioni per controllo collisioni
-        camera.position.x
-        camera.position.y
-        */
 
     }
 
