@@ -2,17 +2,13 @@ package com.mercurio.game.personaggi;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.mercurio.game.Screen.MercurioMain;
 
 public class Ash {
 
@@ -23,6 +19,9 @@ public class Ash {
     TextureRegion[] destra;
     TextureRegion[] avanti;
     Animation<TextureRegion> characterAnimation;
+
+    private TextureRegion currentAnimation;
+
     float stateTime;
     Vector2 characterPosition;
 
@@ -44,7 +43,25 @@ public class Ash {
     private int speed_Camminata_orizontale = 50;
     private int speed_Camminata_verticale = 40;
 
-    public Ash() {
+    MercurioMain game;
+
+    private float camminataFrame_speed = 0.14f;
+
+    private Animation<TextureRegion> camminaSinistra;
+    private Animation<TextureRegion> camminaDestra;
+    private Animation<TextureRegion> camminaAvanti;
+    private Animation<TextureRegion> camminaIndietro;
+    private Animation<TextureRegion> fermoSinistra;
+    private Animation<TextureRegion> fermoDestra;
+    private Animation<TextureRegion> fermoAvanti;
+    private Animation<TextureRegion> fermoIndietro;
+
+    /**
+     * @param game
+     */
+    public Ash(MercurioMain game) {
+        this.game = game;
+
         //dichiarazione generale delle animazione personaggi
         indietro = new TextureRegion[3];
         avanti = new TextureRegion[3];
@@ -72,7 +89,16 @@ public class Ash {
             sinistra[i] = new TextureRegion(textureSinistra, i * regionWidthSx, 0, regionWidthSx, regionHeightSx);
         }
 
-        //calcolo centro personaggio
+        camminaSinistra = new Animation<>(camminataFrame_speed, sinistra);
+        camminaDestra = new Animation<>(camminataFrame_speed, destra);
+        camminaAvanti = new Animation<>(camminataFrame_speed,avanti);
+        camminaIndietro = new Animation<>(camminataFrame_speed, indietro);
+        fermoSinistra = new Animation<>(camminataFrame_speed, sinistra[0]);
+        fermoDestra = new Animation<>(camminataFrame_speed, destra[0]);
+        fermoAvanti = new Animation<>(camminataFrame_speed, avanti[0]);
+        fermoIndietro = new Animation<>(camminataFrame_speed, indietro[0]);
+
+        //calcolo centro per posizionare personaggio
         float windowWidth = Gdx.graphics.getWidth();
         float windowHeight = Gdx.graphics.getHeight();
 
@@ -88,55 +114,63 @@ public class Ash {
         stateTime = 0f;
     }
 
+    public void move(MapLayer collisioniLayer) {
+        boolean keyPressed = false; // Controlla se un tasto è premuto
 
-
-    //rendering del personaggio
-    public void render(SpriteBatch batch, MapLayer collisioniLayer, OrthographicCamera camera) {
-
-        stateTime += Gdx.graphics.getDeltaTime();
-        currentFrame = characterAnimation.getKeyFrame(stateTime, true);
-        
-        camera.position.set(getPlayerPosition().x + player_width / 2, getPlayerPosition().y + player_height / 2, 0);
-        camera.update();
-        
-        controlloTasti(collisioniLayer);
-        batch.draw(currentFrame, characterPosition.x, characterPosition.y, player_width, player_height);
-
-    }
-
-
-    //controllo del tasti e quindi del movimento del personaggio
-    public void controlloTasti(MapLayer collisioniLayer) {
-
+        movingLeft = false;
+        movingRight = false;
+        movingUp = false;
+        movingDown = false;
+    
+    
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            characterAnimation = new Animation<>(0.14f, destra);
-            characterPosition.x += speed_Camminata_orizontale * Gdx.graphics.getDeltaTime(); // Aumenta la coordinata x
+            currentAnimation = camminaDestra.getKeyFrame(stateTime, true);
+            characterPosition.x += speed_Camminata_orizontale * Gdx.graphics.getDeltaTime();
+            keyPressed = true;
+
+            movingRight = true;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            characterAnimation = new Animation<>(0.14f, sinistra);
-            characterPosition.x -= speed_Camminata_orizontale * Gdx.graphics.getDeltaTime(); // Diminuisci la coordinata x
+            currentAnimation = camminaSinistra.getKeyFrame(stateTime, true);
+            characterPosition.x -= speed_Camminata_orizontale * Gdx.graphics.getDeltaTime();
+            keyPressed = true;
+
+            movingLeft = true;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            characterAnimation = new Animation<>(0.14f, indietro);
-            characterPosition.y -= speed_Camminata_verticale * Gdx.graphics.getDeltaTime(); // Diminuisci la coordinata y
+            currentAnimation = camminaIndietro.getKeyFrame(stateTime, true);
+            characterPosition.y -= speed_Camminata_verticale * Gdx.graphics.getDeltaTime();
+            keyPressed = true;
+
+            movingDown = true;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            characterAnimation = new Animation<>(0.14f, avanti);
-            characterPosition.y += speed_Camminata_verticale * Gdx.graphics.getDeltaTime(); // Aumenta la coordinata y
-        }
+            currentAnimation = camminaAvanti.getKeyFrame(stateTime, true);
+            characterPosition.y += speed_Camminata_verticale * Gdx.graphics.getDeltaTime();
+            keyPressed = true;
 
-        //controllo per non far muovere il personaggio nel caso in cui nessuno stia premendo il tasto
-        if (!Gdx.input.isKeyPressed(Input.Keys.A) && movingLeft) {
-            currentFrame = sinistra[0];
-        } else if (!Gdx.input.isKeyPressed(Input.Keys.D) && movingRight) {
-            currentFrame = destra[0];
-        } else if (!Gdx.input.isKeyPressed(Input.Keys.W) && movingUp) {
-            currentFrame = avanti[0];
-        } else if (!Gdx.input.isKeyPressed(Input.Keys.S) && movingDown) {
-            currentFrame = indietro[0];
+            movingUp = true;
+        }
+    
+        // Se nessun tasto è premuto, imposta l'animazione fermo
+        if (!keyPressed) {
+            if (movingLeft) {
+                currentAnimation = fermoSinistra.getKeyFrame(0); // Imposta il frame fermo a 0
+            } else if (movingRight) {
+                currentAnimation = fermoDestra.getKeyFrame(0);
+            } else if (movingUp) {
+                currentAnimation = fermoAvanti.getKeyFrame(0);
+            } else if (movingDown) {
+                currentAnimation = fermoIndietro.getKeyFrame(0);
+            }
+        }
+        if (keyPressed) {
+            // Aggiorna lo stateTime solo se un tasto è premuto
+            stateTime += Gdx.graphics.getDeltaTime();
+        }else {
+            stateTime = 0;
         }
         
-
     }
 
     public Vector2 getPlayerPosition() {
@@ -149,6 +183,17 @@ public class Ash {
 
     public int getPlayerHeight() {
         return player_height;
+    }
+
+    public TextureRegion getAnimazione() {
+        return currentAnimation;
+    }
+
+    public void dispose() {
+        textureAvanti.dispose();
+        textureDestra.dispose();
+        textureIndietro.dispose();
+        textureSinistra.dispose();
     }
 
 }

@@ -5,28 +5,19 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.mercurio.game.personaggi.Ash;
 
-public class CasaSpawn extends ScreenAdapter{
+public class CasaSpawn extends ScreenAdapter {
     private final MercurioMain game;
 
 
     private TiledMap casaAsh;
-    private MapLayer collisionLayer;
+    
     private OrthogonalTiledMapRenderer tileRenderer;
     private OrthographicCamera camera;
-
-    private SpriteBatch batch;
-
-    private Ash ash;
 
     private int speed = 1;
 
@@ -35,31 +26,27 @@ public class CasaSpawn extends ScreenAdapter{
 
     public CasaSpawn(MercurioMain game) {
         this.game = game;
-        this.ash = new Ash();
     }
 
     @Override
     public void show() {
-        batch = new SpriteBatch();
-
-        camera = new OrthographicCamera(100, 100);
-        camera.setToOrtho(false, Gdx.graphics.getWidth()  , Gdx.graphics.getHeight());
 
         TmxMapLoader mapLoader = new TmxMapLoader();
         casaAsh = mapLoader.load(Constant.CASA_ASH);
-
-        //prendo il layer delle collisioni
-        collisionLayer = casaAsh.getLayers().get("collisioni");
-
         tileRenderer = new OrthogonalTiledMapRenderer(casaAsh);
-        float scale = 0.2f;
-        camera.zoom = scale;
-        camera.position.set(220, 200, 0);
+
+        //calcolo e assegno dimensioni alla mappa
+        int mapWidth = casaAsh.getProperties().get("width", Integer.class) * casaAsh.getProperties().get("tilewidth", Integer.class);
+        int mapHeight = casaAsh.getProperties().get("height", Integer.class) * casaAsh.getProperties().get("tileheight", Integer.class);
+        map_size = new Vector2(mapWidth,mapHeight);
+
+        //creo la camera
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false, map_size.x/1.9f, map_size.y/2f);
         camera.update();
 
-        map_size = new Vector2(casaAsh.getProperties().get("width",Integer.class), casaAsh.getProperties().get("height",Integer.class));
+        game.setMap(casaAsh, tileRenderer, camera, map_size.x, map_size.y);
         
-        batch = new SpriteBatch();
     }
 
     @Override
@@ -69,35 +56,24 @@ public class CasaSpawn extends ScreenAdapter{
 
     @Override
     public void render(float delta) {
+        
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-
-        tileRenderer.setView(camera);
-        tileRenderer.render();
-
-        // Imposta la matrice di proiezione del batch sulla matrice di proiezione della telecamera
-        batch.setProjectionMatrix(camera.combined);
-
-
-        camera.position.set(ash.getPlayerPosition().x + ash.getPlayerWidth() / 2, ash.getPlayerPosition().y + ash.getPlayerHeight() / 2, 0);
-        camera.update();
-
-        
-        batch.begin();
-        
-        ash.render(batch, collisionLayer, camera);
-        
-        batch.end();
-
-
-        //muoviMappa();
-        camera.update();
+        cambiaProfondita();
+        controllaCollisionePorta();
+        controllaInterazioni();
 
     }
 
     //cambio continuamente forground e background in base alla pos del personaggio
-    private void cambiaCollisioni() {
+    private void cambiaProfondita() {
+        //background
+        tileRenderer.render();
+        
+
+        game.renderPlayer();
+
+        //foreground
         
     }
 

@@ -2,21 +2,15 @@ package com.mercurio.game.Screen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mercurio.game.personaggi.Ash;
 
 
@@ -24,27 +18,66 @@ public class MercurioMain extends Game{
 
     private ShapeRenderer shapeRenderer;
 
-    //dimensioni
     private int screen_id;
 
+    private TiledMap map;
+
+    private Vector2 map_size;
+
+    private OrthogonalTiledMapRenderer tileRenderer;
 
     Ash ash;
+
+    private OrthographicCamera camera;
+
+    private MapLayer collisionLayer;
+
+    private float elapsedTime = 0;
+
+    private SpriteBatch batch;
 
 
 
     @Override
     public void create() {
         setPage(Constant.MENU_SCREEN);
-
+        ash = new Ash(this);
+        batch = new SpriteBatch();
         
     }
 
-    public void render (Stage stage) {
+    @Override
+    public void render () {
+
+        super.render();
+
+        // Calcolo del tempo trascorso dall'inizio
+        elapsedTime += Gdx.graphics.getDeltaTime();
+
+        if (screen_id != 0) {
+
+            float cameraX = MathUtils.clamp(ash.getPlayerPosition().x + ash.getPlayerWidth() / 2, camera.viewportWidth / 2, map_size.x - camera.viewportWidth / 2);
+            float cameraY = MathUtils.clamp(ash.getPlayerPosition().y + ash.getPlayerHeight() / 2, camera.viewportHeight / 2, map_size.y - camera.viewportHeight / 2);
+
+            ash.move(collisionLayer);
+
+            // Imposta la posizione della telecamera in modo che segua il giocatore
+            camera.position.set(cameraX, cameraY, 0);
+
+            camera.update();
+
+            tileRenderer.setView(camera);
+        }
 
     }
 
     public void renderPlayer() {
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
 
+        batch.draw(ash.getAnimazione(), ash.getPlayerPosition().x, ash.getPlayerPosition().y);
+
+        batch.end();
     }
 
     @Override
@@ -59,7 +92,12 @@ public class MercurioMain extends Game{
 
     @Override
     public void dispose() {
-        
+        if (batch != null) {
+            batch.dispose();
+        }
+        if (ash != null) {
+            ash.dispose();
+        }
     }
 
     //avvia un altra scheda 
@@ -90,7 +128,18 @@ public class MercurioMain extends Game{
     }
 
     public void setMap(TiledMap map, OrthogonalTiledMapRenderer render, OrthographicCamera camera, float larghezza, float altezza) {
-        
+        this.map = map;
+        map_size = new Vector2(larghezza, altezza);
+        tileRenderer = render;
+        this.camera = camera;
+        camera.update();
+
+        //prendo il layer delle collisioni
+        try {
+            collisionLayer = map.getLayers().get("collisioni");
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /*
