@@ -4,38 +4,41 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.PolygonMapObject;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mercurio.game.Screen.MercurioMain;
 
 public class Ash {
 
-    SpriteBatch batch;
-    Texture characterSheet;
-    TextureRegion[] indietro;
-    TextureRegion[] sinistra;
-    TextureRegion[] destra;
-    TextureRegion[] avanti;
-    Animation<TextureRegion> characterAnimation;
+    private Texture characterSheet;
+    private TextureRegion[] indietro;
+    private TextureRegion[] sinistra;
+    private TextureRegion[] destra;
+    private TextureRegion[] avanti;
+    private Animation<TextureRegion> characterAnimation;
 
     private TextureRegion currentAnimation;
 
-    float stateTime;
-    Vector2 characterPosition;
+    private float stateTime;
+    private Vector2 characterPosition;
 
-    Texture textureIndietro;
-    Texture textureAvanti;
-    Texture textureDestra;
-    Texture textureSinistra;
+    private Texture textureIndietro;
+    private Texture textureAvanti;
+    private Texture textureDestra;
+    private Texture textureSinistra;
 
-    TextureRegion currentFrame;
+    private TextureRegion currentFrame;
 
-    boolean movingLeft = false;
-    boolean movingRight = false;
-    boolean movingUp = false;
-    boolean movingDown = false;
+    private boolean movingLeft = false;
+    private boolean movingRight = false;
+    private boolean movingUp = false;
+    private boolean movingDown = false;
 
     private int player_width;
     private int player_height;
@@ -43,7 +46,7 @@ public class Ash {
     private int speed_Camminata_orizontale = 50;
     private int speed_Camminata_verticale = 40;
 
-    MercurioMain game;
+    private MercurioMain game;
 
     private float camminataFrame_speed = 0.14f;
 
@@ -56,9 +59,10 @@ public class Ash {
     private Animation<TextureRegion> fermoAvanti;
     private Animation<TextureRegion> fermoIndietro;
 
-    /**
-     * @param game
-     */
+    private Rectangle boxPlayer;
+
+    private Polygon characterPolygon;
+
     public Ash(MercurioMain game) {
         this.game = game;
 
@@ -110,12 +114,26 @@ public class Ash {
         player_width = 18; // Larghezza del personaggio
         player_height = 24; // Altezza del personaggio
 
+        // Definizione dei vertici del poligono per un personaggio rettangolare
+        float[] vertices = {
+            characterPosition.x, characterPosition.y,                         // Vertice in alto a sinistra
+            characterPosition.x + player_width, characterPosition.y,          // Vertice in alto a destra
+            characterPosition.x + player_width, characterPosition.y + player_height, // Vertice in basso a destra
+            characterPosition.x, characterPosition.y + player_height          // Vertice in basso a sinistra
+        };
+
+        // Creazione del poligono con i vertici definiti
+        characterPolygon = new Polygon(vertices);
+
+
         characterAnimation = new Animation<>(0.14f, indietro[0]);
         stateTime = 0f;
     }
 
-    public void move(MapLayer collisioniLayer) {
+    public void move(MapLayer collisionLayer) {
         boolean keyPressed = false; // Controlla se un tasto è premuto
+
+        stateTime += Gdx.graphics.getDeltaTime();
 
         movingLeft = false;
         movingRight = false;
@@ -152,26 +170,52 @@ public class Ash {
             movingUp = true;
         }
     
-        // Se nessun tasto è premuto, imposta l'animazione fermo
+        // Se nessun tasto è premuto, imposta l'animazione fermo solo se l'animazione corrente è in uno stato fermo
         if (!keyPressed) {
-            if (movingLeft) {
+            if (currentAnimation == camminaSinistra.getKeyFrame(stateTime, true)) {
                 currentAnimation = fermoSinistra.getKeyFrame(0); // Imposta il frame fermo a 0
-            } else if (movingRight) {
+            } else if (currentAnimation == camminaDestra.getKeyFrame(stateTime, true)) {
                 currentAnimation = fermoDestra.getKeyFrame(0);
-            } else if (movingUp) {
+            } else if (currentAnimation == camminaAvanti.getKeyFrame(stateTime, true)) {
                 currentAnimation = fermoAvanti.getKeyFrame(0);
-            } else if (movingDown) {
+            } else if (currentAnimation == camminaIndietro.getKeyFrame(stateTime, true)) {
                 currentAnimation = fermoIndietro.getKeyFrame(0);
             }
         }
-        if (keyPressed) {
-            // Aggiorna lo stateTime solo se un tasto è premuto
-            stateTime += Gdx.graphics.getDeltaTime();
-        }else {
-            stateTime = 0;
-        }
+
         
+        float old_x = characterPosition.x;
+        float old_y = characterPosition.y;
+
+        
+        characterPolygon.setPosition(characterPosition.x, characterPosition.y);
+    
+
+        if (checkCollisions(collisionLayer, characterPolygon)) {
+            System.out.println("no");
+        }
+
+        
+
     }
+
+    private boolean checkCollisions(MapLayer collisionLayer, Polygon characterPolygon) {
+        // Scorri gli oggetti del layer collision
+        for(MapObject object : collisionLayer.getObjects()) {
+            if(object instanceof PolygonMapObject) {
+                // Ottieni il poligono dell'oggetto sulla mappa
+                PolygonMapObject polygonObject = (PolygonMapObject) object;
+                Polygon objectPolygon = polygonObject.getPolygon();
+                
+                // Verifica la collisione tra il poligono del personaggio e il poligono dell'oggetto
+                if(Intersector.overlapConvexPolygons(characterPolygon, objectPolygon)) {
+                    return true; // Collisione rilevata
+                }
+            }
+        }
+        return false; // Nessuna collisione rilevata
+    }
+    
 
     public Vector2 getPlayerPosition() {
         return characterPosition;
