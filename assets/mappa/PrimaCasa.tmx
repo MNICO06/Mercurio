@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="19">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="56">
  <tileset firstgid="1" name="cat1" tilewidth="16" tileheight="16" tilecount="1248" columns="16">
   <image source="1_Generic_Shadowless.png" width="256" height="1248"/>
  </tileset>
@@ -145,24 +145,35 @@
 </data>
  </layer>
  <objectgroup id="7" name="collisioni">
-  <object id="3" x="15" y="30">
-   <polygon points="0,0 32.5,0.5 32.5,7 32.5,8.5 97,8.5 97,2 128.5,1.5 129.5,81.5 98,81.5 97,113.5 257,113.5 257.5,83 160.5,82.5 160.5,54.5 197.5,54.5 197.5,39 161,39.5 161.5,18 208.5,17.5 208.5,1.5 240,1.5 240.5,7.5 287.5,8 290,8 290,129.5 113,130.5 113,162 145.5,162 146,168.5 160.5,168.5 160.5,171 176,171.5 176,169 273,169 273,171.5 288,171.5 288.5,249 283.5,246 278,246.5 275,249.5 275,253.5 275.5,260 277,261.5 287.5,261.5 288,271.5 275.5,272 276,288.5 160.5,288.5 160.5,291.5 127.5,291.5 128,289 95.5,288.5 96.5,288 97,259 0.5,258.5 0.5,204 95.5,203 96,194 0.5,194.5 1,121.5 32.5,121.5 33,83.5 0,83 0,3.5 -14.5,3.5 -15,296.5 305.5,295 305,-29 -16,-30 -15,1"/>
-  </object>
-  <object id="4" x="191" y="241.5">
-   <polygon points="0,0 17,-0.5 17.5,-16 32,-16 32,-1 49,-1 49,-17 63.5,-16.5 64,-1.5 83.5,-1 83.5,36.5 64.5,36.5 64.5,45.5 49,45.5 49.5,37 33.5,37 33,46 17,46.5 17,38 16.5,36.5 -1,36.5"/>
-  </object>
-  <object id="5" x="54" y="270">
-   <polygon points="0,0 20.5,0 22,-13.5 -4,-14"/>
-  </object>
-  <object id="6" x="57" y="91">
-   <polygon points="0,0 0,-28 45,-27.5 45.5,1.5 45.5,3.5 -0.5,4"/>
-  </object>
-  <object id="7" x="131.5" y="44.5">
-   <polygon points="0,0 10.5,0 11,-6 -1,-6"/>
-  </object>
-  <object id="8" x="31" y="44.5">
-   <polygon points="0,0 -14,0 -14,-6 -0.5,-6"/>
-  </object>
+  <object id="20" x="56.3333" y="57.3333" width="47" height="36.6667"/>
+  <object id="21" x="0.333333" y="0.333333" width="318.333" height="31"/>
+  <object id="22" x="0" y="30.6667" width="15.3333" height="288.667"/>
+  <object id="23" x="304" y="32.3333" width="15.6667" height="287.667"/>
+  <object id="24" x="17" y="31.6667" width="14.6667" height="14.6667"/>
+  <object id="25" x="128.667" y="32" width="15.3333" height="14.6667"/>
+  <object id="26" x="48.3333" y="31.6667" width="64" height="8.66667"/>
+  <object id="27" x="145" y="32.3333" width="30.3333" height="79"/>
+  <object id="28" x="176.333" y="31.6667" width="46.6667" height="16.6667"/>
+  <object id="29" x="255.667" y="31.3333" width="48.3333" height="7.33333"/>
+  <object id="30" x="290" y="54.3333" width="12.3333" height="7.33333"/>
+  <object id="32" x="176" y="65.3334" width="36.6667" height="20.6666"/>
+  <object id="33" x="177" y="60.3333" width="3.33333" height="3.33333"/>
+  <object id="36" x="20" y="142.333" width="24.6667" height="11.3333"/>
+  <object id="38" x="161.333" y="191.667" width="141.667" height="8"/>
+  <object id="40" x="189.333" y="241.333" width="84.6667" height="33"/>
+  <object id="41" x="208.667" y="224" width="13.6667" height="14.3333"/>
+  <object id="42" x="239.667" y="223.667" width="15.6667" height="14.3333"/>
+  <object id="43" x="209.333" y="275" width="12.6667" height="11.3333"/>
+  <object id="44" x="241.333" y="275.333" width="13.6667" height="12"/>
+  <object id="45" x="288" y="275.333" width="14.6667" height="16.3333"/>
+  <object id="46" x="289.333" y="298.333" width="13.6667" height="15"/>
+  <object id="48" x="35.3333" y="214.333" width="57" height="17.3333"/>
+  <object id="49" x="16.6667" y="288.667" width="94" height="24"/>
+  <object id="50" x="95.6667" y="223.667" width="15" height="9.33333"/>
+  <object id="51" x="16" y="224.333" width="14.6667" height="8.33333"/>
+  <object id="52" x="127.333" y="176" width="176" height="15"/>
+  <object id="54" x="15.6667" y="128.667" width="32.3333" height="14"/>
+  <object id="55" x="111.333" y="128" width="160" height="14.6667"/>
  </objectgroup>
  <objectgroup color="#0000ff" id="9" name="Livello di oggetti PrimoPiano">
   <object id="15" x="178.617" y="69.4831">

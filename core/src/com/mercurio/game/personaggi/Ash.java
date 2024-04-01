@@ -7,16 +7,13 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.PolygonMapObject;
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mercurio.game.Screen.MercurioMain;
 
 public class Ash {
 
-    private Texture characterSheet;
     private TextureRegion[] indietro;
     private TextureRegion[] sinistra;
     private TextureRegion[] destra;
@@ -33,8 +30,6 @@ public class Ash {
     private Texture textureDestra;
     private Texture textureSinistra;
 
-    private TextureRegion currentFrame;
-
     private boolean movingLeft = false;
     private boolean movingRight = false;
     private boolean movingUp = false;
@@ -43,8 +38,11 @@ public class Ash {
     private int player_width;
     private int player_height;
 
-    private int speed_Camminata_orizontale = 50;
-    private int speed_Camminata_verticale = 40;
+    private float speed_Camminata_orizontale = 50;
+    private float speed_Camminata_verticale = 40;
+    private float muovi_X = 0;
+    private float muovi_Y = 0;
+
 
     private MercurioMain game;
 
@@ -60,8 +58,6 @@ public class Ash {
     private Animation<TextureRegion> fermoIndietro;
 
     private Rectangle boxPlayer;
-
-    private Polygon characterPolygon;
 
     public Ash(MercurioMain game) {
         this.game = game;
@@ -108,23 +104,15 @@ public class Ash {
 
         float windowCenterX = windowWidth / 4f;
         float windowCenterY = windowHeight / 3.2f;
+        
 
         characterPosition= new Vector2(windowCenterX, windowCenterY);
 
         player_width = 18; // Larghezza del personaggio
         player_height = 24; // Altezza del personaggio
 
-        // Definizione dei vertici del poligono per un personaggio rettangolare
-        float[] vertices = {
-            characterPosition.x, characterPosition.y,                         // Vertice in alto a sinistra
-            characterPosition.x + player_width, characterPosition.y,          // Vertice in alto a destra
-            characterPosition.x + player_width, characterPosition.y + player_height, // Vertice in basso a destra
-            characterPosition.x, characterPosition.y + player_height          // Vertice in basso a sinistra
-        };
-
-        // Creazione del poligono con i vertici definiti
-        characterPolygon = new Polygon(vertices);
-
+        
+        boxPlayer = new Rectangle(characterPosition.x+player_width/4, characterPosition.y+2, player_width/2, player_height/6);
 
         characterAnimation = new Animation<>(0.14f, indietro[0]);
         stateTime = 0f;
@@ -140,31 +128,34 @@ public class Ash {
         movingUp = false;
         movingDown = false;
     
-    
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             currentAnimation = camminaDestra.getKeyFrame(stateTime, true);
-            characterPosition.x += speed_Camminata_orizontale * Gdx.graphics.getDeltaTime();
+            muovi_X = speed_Camminata_orizontale;
+            //characterPosition.x += speed_Camminata_orizontale * Gdx.graphics.getDeltaTime();
             keyPressed = true;
 
             movingRight = true;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             currentAnimation = camminaSinistra.getKeyFrame(stateTime, true);
-            characterPosition.x -= speed_Camminata_orizontale * Gdx.graphics.getDeltaTime();
+            muovi_X = speed_Camminata_orizontale * -1;
+            //characterPosition.x -= speed_Camminata_orizontale * Gdx.graphics.getDeltaTime();
             keyPressed = true;
 
             movingLeft = true;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             currentAnimation = camminaIndietro.getKeyFrame(stateTime, true);
-            characterPosition.y -= speed_Camminata_verticale * Gdx.graphics.getDeltaTime();
+            muovi_Y = speed_Camminata_verticale * -1;
+            //characterPosition.y -= speed_Camminata_verticale * Gdx.graphics.getDeltaTime();
             keyPressed = true;
 
             movingDown = true;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             currentAnimation = camminaAvanti.getKeyFrame(stateTime, true);
-            characterPosition.y += speed_Camminata_verticale * Gdx.graphics.getDeltaTime();
+            muovi_Y = speed_Camminata_verticale;
+            //characterPosition.y += speed_Camminata_verticale * Gdx.graphics.getDeltaTime();
             keyPressed = true;
 
             movingUp = true;
@@ -183,38 +174,50 @@ public class Ash {
             }
         }
 
-        
+        //salvo le vecchie posizioni
         float old_x = characterPosition.x;
         float old_y = characterPosition.y;
 
-        
-        characterPolygon.setPosition(characterPosition.x, characterPosition.y);
-    
-
-        if (checkCollisions(collisionLayer, characterPolygon)) {
-            System.out.println("no");
+        //se si deve muovere per la x entra in questo if e controlla la collisione
+        if (muovi_X != 0) {
+            characterPosition.x += muovi_X * Gdx.graphics.getDeltaTime();
+            boxPlayer.setPosition(characterPosition.x+player_width/4, characterPosition.y+2);
+            if (checkCollisions(collisionLayer) == true) {
+                characterPosition.x = old_x;
+            }
         }
 
-        
+        //se si deve muovere verso la y entra in questo if e controlla la collisione
+        if (muovi_Y != 0) {
+            characterPosition.y += muovi_Y * Gdx.graphics.getDeltaTime();
+            boxPlayer.setPosition(characterPosition.x+player_width/4, characterPosition.y+2);
+            if (checkCollisions(collisionLayer) == true) {
+                characterPosition.y = old_y;
+            }
+        }
 
+        muovi_X = 0;
+        muovi_Y = 0;
     }
 
-    private boolean checkCollisions(MapLayer collisionLayer, Polygon characterPolygon) {
-        // Scorri gli oggetti del layer collision
-        for(MapObject object : collisionLayer.getObjects()) {
-            if(object instanceof PolygonMapObject) {
-                // Ottieni il poligono dell'oggetto sulla mappa
-                PolygonMapObject polygonObject = (PolygonMapObject) object;
-                Polygon objectPolygon = polygonObject.getPolygon();
-                
-                // Verifica la collisione tra il poligono del personaggio e il poligono dell'oggetto
-                if(Intersector.overlapConvexPolygons(characterPolygon, objectPolygon)) {
-                    return true; // Collisione rilevata
+    private boolean checkCollisions(MapLayer collisionLayer) {
+        // Itera sulle celle del livello di collisione
+        for (MapObject object : collisionLayer.getObjects()) {
+            if (object instanceof RectangleMapObject) {
+                Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+                // Controlla la collisione con il rettangolo "rect"
+                if (boxPlayer.overlaps(rect)) {
+                    // Collisione rilevata
+                    return true;
                 }
             }
         }
-        return false; // Nessuna collisione rilevata
+        // Nessuna collisione rilevata
+        return false;
     }
+
+    
     
 
     public Vector2 getPlayerPosition() {
