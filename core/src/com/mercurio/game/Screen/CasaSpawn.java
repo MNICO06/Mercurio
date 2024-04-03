@@ -1,5 +1,7 @@
 package com.mercurio.game.Screen;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
@@ -67,6 +69,9 @@ public class CasaSpawn extends ScreenAdapter {
 
     //cambio continuamente forground e background in base alla pos del personaggio
     private void cambiaProfondita() {
+        ArrayList<Integer> background = new ArrayList<Integer>();
+        ArrayList<Integer> foreground = new ArrayList<Integer>();
+
         //background
         tileRenderer.render();
         
