@@ -23,7 +23,7 @@ public class Menu extends ScreenAdapter{
     private Image background;
     private Image pokemon;
     Label labelContinua;
-    String testoContinua = "Premi un qualsiasi tasto per continuare";
+    String testoContinua = "Premi S tasto per continuare";
     String testoNome = "MERCURIO";
     Label labelNome;
 
@@ -48,7 +48,7 @@ public class Menu extends ScreenAdapter{
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = fontBase; 
         labelContinua = new Label(testoContinua, labelStyle);
-        labelContinua.setPosition(220, 20);
+        labelContinua.setPosition(300, 20);
 
         //creazione e scrittura del del titolo con il nome del gioco
         BitmapFont fontTitolo = new BitmapFont(Gdx.files.internal("font/small_letters_font.fnt"));
@@ -144,9 +144,9 @@ public class Menu extends ScreenAdapter{
     }
 
     private void controlloTasti() {
-        if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
             game.setPage(Constant.CASA_ASH_SCREEN);
         }
     }
-
 }
+

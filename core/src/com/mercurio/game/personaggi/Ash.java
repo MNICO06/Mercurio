@@ -30,6 +30,14 @@ public class Ash {
     private Texture textureDestra;
     private Texture textureSinistra;
 
+
+
+    private Texture textureMamma;
+    TextureRegion[] indietroM;
+    TextureRegion[] sinistraM;
+    TextureRegion[] destraM;
+    TextureRegion[] avantiM;
+
     private boolean movingLeft = false;
     private boolean movingRight = false;
     private boolean movingUp = false;
@@ -73,6 +81,8 @@ public class Ash {
         textureSinistra = new Texture(Gdx.files.internal("player/personaggioSinistra.png"));
 
 
+
+
         int regionWidthInd = textureIndietro.getWidth() / 3;
         int regionHeightInd = textureIndietro.getHeight();
         int regionWidthAv = textureIndietro.getWidth() / 3;
@@ -89,10 +99,7 @@ public class Ash {
             sinistra[i] = new TextureRegion(textureSinistra, i * regionWidthSx, 0, regionWidthSx, regionHeightSx);
         }
 
-        camminaSinistra = new Animation<>(camminataFrame_speed, sinistra);
-        camminaDestra = new Animation<>(camminataFrame_speed, destra);
-        camminaAvanti = new Animation<>(camminataFrame_speed,avanti);
-        camminaIndietro = new Animation<>(camminataFrame_speed, indietro);
+        
         fermoSinistra = new Animation<>(camminataFrame_speed, sinistra[0]);
         fermoDestra = new Animation<>(camminataFrame_speed, destra[0]);
         fermoAvanti = new Animation<>(camminataFrame_speed, avanti[0]);
@@ -111,7 +118,23 @@ public class Ash {
         player_width = 18; // Larghezza del personaggio
         player_height = 24; // Altezza del personaggio
 
+
+
+
+
+        //prova mamma ------------------------------------------------------------------
+
         
+
+
+        
+
+
+
+
+
+        //----------------------------------------------------------------
+
         boxPlayer = new Rectangle(characterPosition.x+player_width/4, characterPosition.y+2, player_width/2, player_height/6);
 
         characterAnimation = new Animation<>(0.14f, indietro[0]);
@@ -160,6 +183,7 @@ public class Ash {
 
             movingUp = true;
         }
+
     
         // Se nessun tasto è premuto, imposta l'animazione fermo solo se l'animazione corrente è in uno stato fermo
         if (!keyPressed) {

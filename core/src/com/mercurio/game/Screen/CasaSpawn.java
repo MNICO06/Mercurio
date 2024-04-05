@@ -7,9 +7,14 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class CasaSpawn extends ScreenAdapter {
@@ -24,6 +29,8 @@ public class CasaSpawn extends ScreenAdapter {
     private int speed = 1;
 
     private Vector2 map_size;
+
+    private MapLayer lineeLayer;
 
 
     public CasaSpawn(MercurioMain game) {
@@ -61,25 +68,65 @@ public class CasaSpawn extends ScreenAdapter {
         
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        cambiaProfondita();
+        lineeLayer = game.getLineeLayer();
+        cambiaProfondita(lineeLayer);
         controllaCollisionePorta();
         controllaInterazioni();
 
     }
 
     //cambio continuamente forground e background in base alla pos del personaggio
-    private void cambiaProfondita() {
-        ArrayList<Integer> background = new ArrayList<Integer>();
-        ArrayList<Integer> foreground = new ArrayList<Integer>();
+    private void cambiaProfondita(MapLayer lineeLayer) {
+        ArrayList<String> background = new ArrayList<String>();
+        ArrayList<String> foreground = new ArrayList<String>();
+
+        background.add("floor");
+        background.add("WallAlwaysBack");
+        background.add("AlwaysBack_1");
+        background.add("AlwaysBack_2");
+
+
+        for (MapObject object : lineeLayer.getObjects()) {
+            if (object instanceof RectangleMapObject) {
+                RectangleMapObject rectangleObject = (RectangleMapObject)object;
+
+                //salvo il nome del layer che verrà inserito in una delle due liste
+                String layerName = (String)rectangleObject.getProperties().get("layer");
+
+                if (game.getPlayer().getPlayerPosition().y < rectangleObject.getRectangle().getY()) {
+                    background.add(layerName);
+                }else {
+                    foreground.add(layerName);
+                }
+            }
+        }
 
         //background
-        tileRenderer.render();
-        
+        for (String layerName : background) {
+            renderLayer(layerName);
+        }
 
         game.renderPlayer();
 
         //foreground
+        for (String layerName : foreground) {
+            renderLayer(layerName);
+            
+        }
         
+        
+    }
+
+    // Metodo per renderizzare un singolo layer
+    private void renderLayer(String layerName) {
+        tileRenderer.getBatch().begin();
+        
+        // Recupera il layer dalla mappa
+        MapLayer layer = casaAsh.getLayers().get(layerName);
+        // Renderizza il layer
+        tileRenderer.renderTileLayer((TiledMapTileLayer)layer);
+
+        tileRenderer.getBatch().end();
     }
 
     //controlla la collisione con la porta per uscire dalla casa
@@ -92,25 +139,6 @@ public class CasaSpawn extends ScreenAdapter {
 
     }
 
-    private void muoviMappa() {
-        //movimento a sinistra
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            camera.translate (speed * -1,0,0);
-        }
-        //movimento a destra
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            camera.translate (speed,0,0);
-        }
-        //movimento in su
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            camera.translate (0,speed,0);
-        }
-        //movimento in giù
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            camera.translate (0,speed * -1,0);
-        }
-
-    }
 
     @Override
     public void dispose() {

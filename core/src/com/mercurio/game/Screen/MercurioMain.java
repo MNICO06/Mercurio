@@ -31,6 +31,7 @@ public class MercurioMain extends Game{
     private OrthographicCamera camera;
 
     private MapLayer collisionLayer;
+    private MapLayer lineeLayer;
 
     private float elapsedTime = 0;
 
@@ -137,9 +138,18 @@ public class MercurioMain extends Game{
         //prendo il layer delle collisioni
         try {
             collisionLayer = map.getLayers().get("collisioni");
+            lineeLayer = map.getLayers().get("linee");
         } catch(Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public MapLayer getLineeLayer() {
+        return lineeLayer;
+    }
+
+    public Ash getPlayer() {
+        return ash;
     }
 
     /*
