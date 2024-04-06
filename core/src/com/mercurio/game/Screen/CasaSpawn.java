@@ -14,11 +14,12 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.mercurio.game.personaggi.MammaAsh;
 
 public class CasaSpawn extends ScreenAdapter {
     private final MercurioMain game;
+    private MammaAsh mammaAsh;
 
 
     private TiledMap casaAsh;
@@ -33,8 +34,10 @@ public class CasaSpawn extends ScreenAdapter {
     private MapLayer lineeLayer;
 
 
+
     public CasaSpawn(MercurioMain game) {
         this.game = game;
+        mammaAsh = new MammaAsh();
     }
 
     @Override
@@ -101,18 +104,31 @@ public class CasaSpawn extends ScreenAdapter {
             }
         }
 
+        boolean isForeground = false;
+        if (game.getPlayer().getPlayerPosition().y < mammaAsh.getPosition().y){
+            isForeground = true;
+        }
+
         //background
         for (String layerName : background) {
             renderLayer(layerName);
         }
 
-        game.renderPlayer();
+        if (isForeground) {
+            game.renderPersonaggiSecondari(mammaAsh.getTexture(), mammaAsh.getPosition().x, mammaAsh.getPosition().y, mammaAsh.getWidth(), mammaAsh.getHeight());
+        }
 
+        game.renderPlayer();
+        
         //foreground
         for (String layerName : foreground) {
             renderLayer(layerName);
-            
         }
+
+        if (!isForeground) {
+            game.renderPersonaggiSecondari(mammaAsh.getTexture(), mammaAsh.getPosition().x, mammaAsh.getPosition().y, mammaAsh.getWidth(), mammaAsh.getHeight());
+        }
+        
         
         
     }

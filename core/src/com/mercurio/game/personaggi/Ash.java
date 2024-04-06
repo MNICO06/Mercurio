@@ -30,14 +30,6 @@ public class Ash {
     private Texture textureDestra;
     private Texture textureSinistra;
 
-
-
-    private Texture textureMamma;
-    TextureRegion[] indietroM;
-    TextureRegion[] sinistraM;
-    TextureRegion[] destraM;
-    TextureRegion[] avantiM;
-
     private boolean movingLeft = false;
     private boolean movingRight = false;
     private boolean movingUp = false;
@@ -64,6 +56,7 @@ public class Ash {
     private Animation<TextureRegion> fermoDestra;
     private Animation<TextureRegion> fermoAvanti;
     private Animation<TextureRegion> fermoIndietro;
+    
 
     private Rectangle boxPlayer;
 
@@ -79,8 +72,6 @@ public class Ash {
         textureAvanti = new Texture(Gdx.files.internal("player/personaggioAvanti.png"));
         textureDestra = new Texture(Gdx.files.internal("player/personaggioDestra.png"));
         textureSinistra = new Texture(Gdx.files.internal("player/personaggioSinistra.png"));
-
-
 
 
         int regionWidthInd = textureIndietro.getWidth() / 3;
@@ -99,7 +90,12 @@ public class Ash {
             sinistra[i] = new TextureRegion(textureSinistra, i * regionWidthSx, 0, regionWidthSx, regionHeightSx);
         }
 
-        
+        camminaSinistra = new Animation<>(camminataFrame_speed, sinistra);
+        camminaDestra = new Animation<>(camminataFrame_speed, destra);
+        camminaAvanti = new Animation<>(camminataFrame_speed, avanti);
+        camminaIndietro = new Animation<>(camminataFrame_speed, indietro);
+
+
         fermoSinistra = new Animation<>(camminataFrame_speed, sinistra[0]);
         fermoDestra = new Animation<>(camminataFrame_speed, destra[0]);
         fermoAvanti = new Animation<>(camminataFrame_speed, avanti[0]);
@@ -119,25 +115,9 @@ public class Ash {
         player_height = 24; // Altezza del personaggio
 
 
-
-
-
-        //prova mamma ------------------------------------------------------------------
-
-        
-
-
-        
-
-
-
-
-
-        //----------------------------------------------------------------
-
         boxPlayer = new Rectangle(characterPosition.x+player_width/4, characterPosition.y+2, player_width/2, player_height/6);
 
-        characterAnimation = new Animation<>(0.14f, indietro[0]);
+        currentAnimation = fermoIndietro.getKeyFrame(0);
         stateTime = 0f;
     }
 
@@ -238,6 +218,15 @@ public class Ash {
             }
         }
         // Nessuna collisione rilevata
+        return false;
+    }
+
+    //metodo per il controllo collisioni su personaggi secondari
+
+    private boolean checkCollisionPlayer(Rectangle otherRectangle) {
+        if (boxPlayer.overlaps(otherRectangle)) {
+            return true;
+        }
         return false;
     }
 

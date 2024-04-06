@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -79,6 +80,15 @@ public class MercurioMain extends Game{
         batch.draw(ash.getAnimazione(), ash.getPlayerPosition().x, ash.getPlayerPosition().y);
 
         batch.end();
+    }
+
+    public void renderPersonaggiSecondari(TextureRegion animazione, float x, float y, float width, float height) {
+        batch.begin();
+
+        batch.draw(animazione, x, y, width, height);
+
+        batch.end();
+
     }
 
     @Override

@@ -15,8 +15,14 @@ public class MammaAsh {
 
     private Animation<TextureRegion> camminaSinistra;
     private Animation<TextureRegion> camminaDestra;
+    private Animation<TextureRegion> fermoSinistra;
+    private Animation<TextureRegion> fermoDestra;
+    private Animation<TextureRegion> fermoAvanti;
+    private Animation<TextureRegion> fermoIndietro;
+
     private Animation<TextureRegion> characterAnimation;
     private TextureRegion currentAnimation;
+
 
     private float stateTime;
     private Vector2 characterPosition;
@@ -25,8 +31,6 @@ public class MammaAsh {
 
     private boolean movingLeft = false;
     private boolean movingRight = false;
-    private boolean movingUp = false;
-    private boolean movingDown = false;
 
     private int player_width;
     private int player_height;
@@ -37,8 +41,11 @@ public class MammaAsh {
     private float camminataFrame_speed = 0.14f;
 
     private Rectangle boxPlayer;
+    private Rectangle boxInteraction;
 
-    public void mammaAsh() {
+
+    public MammaAsh() {
+
         texture = new Texture (Gdx.files.internal("player/mammaAsh.png"));
         TextureRegion[][] tmp = TextureRegion.split(texture, texture.getWidth() / 4, texture.getHeight() / 4);
         indietro = new TextureRegion[4];
@@ -66,8 +73,43 @@ public class MammaAsh {
         
         camminaSinistra = new Animation<>(camminataFrame_speed, sinistra);
         camminaDestra = new Animation<>(camminataFrame_speed, destra);
+        fermoSinistra = new Animation<>(camminataFrame_speed, sinistra[0]);
+        fermoDestra = new Animation<>(camminataFrame_speed, destra[0]);
+        fermoAvanti = new Animation<>(camminataFrame_speed, avanti[0]);
+        fermoIndietro = new Animation<>(camminataFrame_speed, indietro[0]);
 
+        characterPosition = new Vector2(188, 110);
+
+        player_width = 24; // Larghezza del personaggio
+        player_height = 22; // Altezza del personaggio
+
+        //per collisione
+        boxPlayer = new Rectangle(characterPosition.x, characterPosition.y, player_width, player_height);
+
+        //per interaction
+        boxInteraction = new Rectangle(characterPosition.x, characterPosition.y, player_width, player_height);
+
+        currentAnimation = fermoAvanti.getKeyFrame(0);
+        stateTime = 0f;
+        
     }
+
+    public TextureRegion getTexture() {
+        return currentAnimation;
+    }
+
+    public Vector2 getPosition() {
+        return characterPosition;
+    }
+
+    public float getWidth() {
+        return player_width;
+    }
+
+    public float getHeight() {
+        return player_height;
+    }
+    
 
     
 }
