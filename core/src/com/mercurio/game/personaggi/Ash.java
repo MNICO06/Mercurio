@@ -1,5 +1,7 @@
 package com.mercurio.game.personaggi;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
@@ -121,8 +123,9 @@ public class Ash {
         stateTime = 0f;
     }
 
-    public void move(MapLayer collisionLayer) {
+    public void move(MapLayer collisionLayer, ArrayList<Rectangle> rectList) {
         boolean keyPressed = false; // Controlla se un tasto è premuto
+
 
         stateTime += Gdx.graphics.getDeltaTime();
 
@@ -186,7 +189,7 @@ public class Ash {
         if (muovi_X != 0) {
             characterPosition.x += muovi_X * Gdx.graphics.getDeltaTime();
             boxPlayer.setPosition(characterPosition.x+player_width/4, characterPosition.y+2);
-            if (checkCollisions(collisionLayer) == true) {
+            if (checkCollisions(collisionLayer)) {
                 characterPosition.x = old_x;
             }
         }
@@ -195,7 +198,7 @@ public class Ash {
         if (muovi_Y != 0) {
             characterPosition.y += muovi_Y * Gdx.graphics.getDeltaTime();
             boxPlayer.setPosition(characterPosition.x+player_width/4, characterPosition.y+2);
-            if (checkCollisions(collisionLayer) == true) {
+            if (checkCollisions(collisionLayer)) {
                 characterPosition.y = old_y;
             }
         }
@@ -220,6 +223,24 @@ public class Ash {
         // Nessuna collisione rilevata
         return false;
     }
+    /*
+    private boolean checkCollisionsPlayer(ArrayList<Rectangle> rectList) {
+        if (rectList.isEmpty()) {
+
+        }
+        else {
+            for (Rectangle rect : rectList) {
+                if (boxPlayer.overlaps(rect)) {
+                    //collisione rilavata
+                    return true;
+                }
+            }
+        }
+        
+        //nessuna collisione rilevata
+        return false;
+    }
+    */
 
     //metodo per il controllo collisioni su personaggi secondari
 

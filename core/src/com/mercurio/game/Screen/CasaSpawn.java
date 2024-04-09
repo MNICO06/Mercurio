@@ -14,6 +14,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mercurio.game.personaggi.MammaAsh;
 
@@ -33,15 +34,19 @@ public class CasaSpawn extends ScreenAdapter {
 
     private MapLayer lineeLayer;
 
+    private ArrayList<Rectangle> rectList = null;
+
 
 
     public CasaSpawn(MercurioMain game) {
         this.game = game;
         mammaAsh = new MammaAsh();
+        rectList = new ArrayList<Rectangle>();
     }
 
     @Override
     public void show() {
+
 
         TmxMapLoader mapLoader = new TmxMapLoader();
         casaAsh = mapLoader.load(Constant.CASA_ASH);
@@ -58,6 +63,8 @@ public class CasaSpawn extends ScreenAdapter {
         camera.update();
 
         game.setMap(casaAsh, tileRenderer, camera, map_size.x, map_size.y);
+
+        rectList.add(mammaAsh.getBoxPlayer());
         
     }
 
@@ -72,6 +79,7 @@ public class CasaSpawn extends ScreenAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         lineeLayer = game.getLineeLayer();
+        game.setRectangleList(rectList);
         cambiaProfondita(lineeLayer);
         controllaCollisionePorta();
         controllaInterazioni();
@@ -114,9 +122,11 @@ public class CasaSpawn extends ScreenAdapter {
             renderLayer(layerName);
         }
 
+        /* */
         if (isForeground) {
             game.renderPersonaggiSecondari(mammaAsh.getTexture(), mammaAsh.getPosition().x, mammaAsh.getPosition().y, mammaAsh.getWidth(), mammaAsh.getHeight());
         }
+        /**/
 
         game.renderPlayer();
         
@@ -125,11 +135,11 @@ public class CasaSpawn extends ScreenAdapter {
             renderLayer(layerName);
         }
 
+        /**/
         if (!isForeground) {
             game.renderPersonaggiSecondari(mammaAsh.getTexture(), mammaAsh.getPosition().x, mammaAsh.getPosition().y, mammaAsh.getWidth(), mammaAsh.getHeight());
         }
-        
-        
+        /**/
         
     }
 

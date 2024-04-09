@@ -109,6 +109,10 @@ public class MammaAsh {
     public float getHeight() {
         return player_height;
     }
+
+    public Rectangle getBoxPlayer() {
+        return boxPlayer;
+    }
     
 
     

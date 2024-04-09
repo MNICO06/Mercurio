@@ -1,5 +1,7 @@
 package com.mercurio.game.Screen;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -11,6 +13,7 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mercurio.game.personaggi.Ash;
 
@@ -38,6 +41,8 @@ public class MercurioMain extends Game{
 
     private SpriteBatch batch;
 
+    private ArrayList<Rectangle> rectList = null;
+
 
 
     @Override
@@ -61,7 +66,7 @@ public class MercurioMain extends Game{
             float cameraX = MathUtils.clamp(ash.getPlayerPosition().x + ash.getPlayerWidth() / 2, camera.viewportWidth / 2, map_size.x - camera.viewportWidth / 2);
             float cameraY = MathUtils.clamp(ash.getPlayerPosition().y + ash.getPlayerHeight() / 2, camera.viewportHeight / 2, map_size.y - camera.viewportHeight / 2);
 
-            ash.move(collisionLayer);
+            ash.move(collisionLayer, rectList);
 
             // Imposta la posizione della telecamera in modo che segua il giocatore
             camera.position.set(cameraX, cameraY, 0);
@@ -71,6 +76,10 @@ public class MercurioMain extends Game{
             tileRenderer.setView(camera);
         }
 
+    }
+
+    public void setRectangleList(ArrayList<Rectangle> rectList) {
+        this.rectList = rectList;
     }
 
     public void renderPlayer() {
@@ -83,6 +92,7 @@ public class MercurioMain extends Game{
     }
 
     public void renderPersonaggiSecondari(TextureRegion animazione, float x, float y, float width, float height) {
+        batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
         batch.draw(animazione, x, y, width, height);
