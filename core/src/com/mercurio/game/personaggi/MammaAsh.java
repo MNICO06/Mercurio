@@ -84,10 +84,9 @@ public class MammaAsh {
         player_height = 22; // Altezza del personaggio
 
         //per collisione
-        boxPlayer = new Rectangle(characterPosition.x, characterPosition.y, player_width, player_height);
-
+        boxPlayer = new Rectangle(characterPosition.x+player_width/4, characterPosition.y+2, player_width/2, player_height/6);
         //per interaction
-        boxInteraction = new Rectangle(characterPosition.x, characterPosition.y, player_width, player_height);
+        boxInteraction = new Rectangle(characterPosition.x, characterPosition.y-10, player_width, player_height+10);
 
         currentAnimation = fermoAvanti.getKeyFrame(0);
         stateTime = 0f;

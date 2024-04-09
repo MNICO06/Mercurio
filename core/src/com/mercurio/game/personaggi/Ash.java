@@ -185,23 +185,32 @@ public class Ash {
         float old_x = characterPosition.x;
         float old_y = characterPosition.y;
 
-        //se si deve muovere per la x entra in questo if e controlla la collisione
+        //metodi controllo collisione in altezza (sia oggetti che npc)
         if (muovi_X != 0) {
             characterPosition.x += muovi_X * Gdx.graphics.getDeltaTime();
             boxPlayer.setPosition(characterPosition.x+player_width/4, characterPosition.y+2);
             if (checkCollisions(collisionLayer)) {
                 characterPosition.x = old_x;
             }
+            if (checkCollisionsPlayer(rectList)) {
+                characterPosition.x = old_x;
+            }
         }
 
-        //se si deve muovere verso la y entra in questo if e controlla la collisione
+
+
+        //metodi controllo collisione in orizzontale (sia oggetti che npc)
         if (muovi_Y != 0) {
             characterPosition.y += muovi_Y * Gdx.graphics.getDeltaTime();
             boxPlayer.setPosition(characterPosition.x+player_width/4, characterPosition.y+2);
             if (checkCollisions(collisionLayer)) {
                 characterPosition.y = old_y;
             }
+            if (checkCollisionsPlayer(rectList)) {
+                characterPosition.y = old_y;
+            }
         }
+
 
         muovi_X = 0;
         muovi_Y = 0;
@@ -223,12 +232,9 @@ public class Ash {
         // Nessuna collisione rilevata
         return false;
     }
-    /*
+    
     private boolean checkCollisionsPlayer(ArrayList<Rectangle> rectList) {
-        if (rectList.isEmpty()) {
-
-        }
-        else {
+        if (rectList != null) {
             for (Rectangle rect : rectList) {
                 if (boxPlayer.overlaps(rect)) {
                     //collisione rilavata
@@ -236,11 +242,9 @@ public class Ash {
                 }
             }
         }
-        
         //nessuna collisione rilevata
         return false;
     }
-    */
 
     //metodo per il controllo collisioni su personaggi secondari
 
