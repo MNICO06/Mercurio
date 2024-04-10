@@ -81,6 +81,7 @@ public class CasaSpawn extends ScreenAdapter {
         lineeLayer = game.getLineeLayer();
         game.setRectangleList(rectList);
         cambiaProfondita(lineeLayer);
+        giraMamma();
         controllaCollisionePorta();
         controllaInterazioni();
 
@@ -162,6 +163,26 @@ public class CasaSpawn extends ScreenAdapter {
 
     //controllo interazioni con oggetti (tecnicamente mamma e poi bho)
     private void controllaInterazioni() {
+
+    }
+
+    public void giraMamma() {
+        //si trova dentro quello sotto
+        if (game.getPlayer().getBoxPlayer().overlaps(mammaAsh.getInterBoxVert())) {
+            mammaAsh.setIndietro();
+        }
+        //si trova dentro quello a destra
+        else if (game.getPlayer().getBoxPlayer().overlaps(mammaAsh.getInterBoxOrizDx())) {
+            mammaAsh.setDestra();
+        }
+        //si trova dentro quello a sinistra
+        else if (game.getPlayer().getBoxPlayer().overlaps(mammaAsh.getInterBoxOrizSx())) {
+            mammaAsh.setSinstra();
+        }
+        else {
+            //conta il temp e dopo 5 secondi in cui non avviene nessuna delle altre cose fa questa
+        }
+
 
     }
 

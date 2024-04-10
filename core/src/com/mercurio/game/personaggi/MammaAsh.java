@@ -41,7 +41,9 @@ public class MammaAsh {
     private float camminataFrame_speed = 0.14f;
 
     private Rectangle boxPlayer;
-    private Rectangle boxInteraction;
+    private Rectangle boxInteractionVerticale;
+    private Rectangle boxInteractionOrizzontaleDestro;
+    private Rectangle boxInteractionOrizzontaleSinistro;
 
 
     public MammaAsh() {
@@ -80,17 +82,33 @@ public class MammaAsh {
 
         characterPosition = new Vector2(188, 110);
 
-        player_width = 24; // Larghezza del personaggio
+        player_width = 24; // Larghezza del personaggio5
         player_height = 22; // Altezza del personaggio
 
         //per collisione
-        boxPlayer = new Rectangle(characterPosition.x+player_width/4, characterPosition.y+2, player_width/2, player_height/6);
+        boxPlayer = new Rectangle(characterPosition.x+player_width/4 - 2, characterPosition.y-2, player_width/2 + 2, player_height/6 + 6);
         //per interaction
-        boxInteraction = new Rectangle(characterPosition.x, characterPosition.y-10, player_width, player_height+10);
+        boxInteractionVerticale = new Rectangle(characterPosition.x+player_width/4 - 2, characterPosition.y - 20, player_width/2 + 2, player_height - 8);
+        boxInteractionOrizzontaleDestro = new Rectangle(characterPosition.x+player_width/4 + 12, characterPosition.y -2, player_width/2 + 2, player_height - 8);
+        boxInteractionOrizzontaleSinistro = new Rectangle(characterPosition.x+player_width/4 - 15, characterPosition.y -2, player_width/2 + 2, player_height - 8);
 
         currentAnimation = fermoAvanti.getKeyFrame(0);
         stateTime = 0f;
         
+    }
+
+
+    public void setSinstra() {
+        currentAnimation = fermoSinistra.getKeyFrame(0);
+    }
+    public void setDestra() {
+        currentAnimation = fermoDestra.getKeyFrame(0);
+    }
+    public void setIndietro() {
+        currentAnimation = fermoIndietro.getKeyFrame(0);
+    }
+    public void setAvanti() {
+        currentAnimation = fermoAvanti.getKeyFrame(0);
     }
 
     public TextureRegion getTexture() {
@@ -113,6 +131,15 @@ public class MammaAsh {
         return boxPlayer;
     }
     
-
+    //metodi che mi servono per far spostare la madre
+    public Rectangle getInterBoxVert() {
+        return boxInteractionVerticale;
+    }
+    public Rectangle getInterBoxOrizSx() {
+        return boxInteractionOrizzontaleSinistro;
+    }
+    public Rectangle getInterBoxOrizDx() {
+        return boxInteractionOrizzontaleDestro;
+    }
     
 }

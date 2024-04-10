@@ -111,7 +111,8 @@ public class Ash {
         float windowCenterY = windowHeight / 3.2f;
         
 
-        characterPosition= new Vector2(windowCenterX, windowCenterY);
+        //characterPosition= new Vector2(windowCenterX, windowCenterY);
+        characterPosition= new Vector2(170, 90);
 
         player_width = 18; // Larghezza del personaggio
         player_height = 24; // Altezza del personaggio
@@ -246,18 +247,6 @@ public class Ash {
         return false;
     }
 
-    //metodo per il controllo collisioni su personaggi secondari
-
-    private boolean checkCollisionPlayer(Rectangle otherRectangle) {
-        if (boxPlayer.overlaps(otherRectangle)) {
-            return true;
-        }
-        return false;
-    }
-
-    
-    
-
     public Vector2 getPlayerPosition() {
         return characterPosition;
     }
@@ -272,6 +261,10 @@ public class Ash {
 
     public TextureRegion getAnimazione() {
         return currentAnimation;
+    }
+    
+    public Rectangle getBoxPlayer() {
+        return boxPlayer;
     }
 
     public void dispose() {
