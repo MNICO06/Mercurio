@@ -1,6 +1,7 @@
 package com.mercurio.game.Screen;
 
 import java.util.ArrayList;
+import java.util.TimerTask;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -17,6 +18,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mercurio.game.personaggi.MammaAsh;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class CasaSpawn extends ScreenAdapter {
     private final MercurioMain game;
@@ -36,17 +39,34 @@ public class CasaSpawn extends ScreenAdapter {
 
     private ArrayList<Rectangle> rectList = null;
 
+    private Timer timer;
+    private TimerTask mammaTimerTask;
+
+    private boolean isInBox = false;
+
+    private boolean check = true;
+    private int checkInt = 0;
+
 
 
     public CasaSpawn(MercurioMain game) {
         this.game = game;
         mammaAsh = new MammaAsh();
         rectList = new ArrayList<Rectangle>();
+        
+    
     }
 
     @Override
     public void show() {
 
+        timer = new Timer();
+        mammaTimerTask = new TimerTask() {
+            @Override
+            public void run() {
+                mammaAsh.setAvanti();
+            }
+        };
 
         TmxMapLoader mapLoader = new TmxMapLoader();
         casaAsh = mapLoader.load(Constant.CASA_ASH);
@@ -166,24 +186,66 @@ public class CasaSpawn extends ScreenAdapter {
 
     }
 
+
+    public void startTimerForMamma() {
+        
+        // Pianifica un nuovo compito per far tornare la mamma nella posizione "avanti" dopo 5 secondi
+        mammaTimerTask = new TimerTask() {
+            @Override
+            public void run() {
+                mammaAsh.setAvanti();
+                check = false;
+                checkInt = 0;
+            }
+        };
+
+        // Avvia il timer per il compito della mamma
+        checkInt ++;
+        System.out.println("attivo");
+        timer.schedule(mammaTimerTask, 5000);
+
+
+    }
+
+
+    // Metodo per annullare il compito del timer della mamma
+    public void cancelTimerForMamma() {
+        // Cancella il compito del timer della mamma se è stato pianificato in precedenza
+        if (mammaTimerTask != null) {
+            System.out.println("chiudo");
+            mammaTimerTask.cancel();
+            mammaTimerTask = null; // Imposta il compito del timer della mamma su null per indicare che è stato cancellato
+        }
+    }
+
+    //metodo che fa girare la mamma
     public void giraMamma() {
+        isInBox = false;
+        boolean gira = false;
         //si trova dentro quello sotto
         if (game.getPlayer().getBoxPlayer().overlaps(mammaAsh.getInterBoxVert())) {
             mammaAsh.setIndietro();
+            isInBox = true;
+            check = true;
         }
         //si trova dentro quello a destra
         else if (game.getPlayer().getBoxPlayer().overlaps(mammaAsh.getInterBoxOrizDx())) {
             mammaAsh.setDestra();
+            isInBox = true;
+            check = true;
         }
         //si trova dentro quello a sinistra
         else if (game.getPlayer().getBoxPlayer().overlaps(mammaAsh.getInterBoxOrizSx())) {
             mammaAsh.setSinstra();
-        }
-        else {
-            //conta il temp e dopo 5 secondi in cui non avviene nessuna delle altre cose fa questa
+            isInBox = true;
+            check = true;
         }
 
-
+        if (isInBox) {
+            cancelTimerForMamma();
+        }
+        
+        
     }
 
 
