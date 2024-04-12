@@ -43,9 +43,10 @@ public class CasaSpawn extends ScreenAdapter {
     private TimerTask mammaTimerTask;
 
     private boolean isInBox = false;
+    
+    private boolean wasInBox = false;
 
-    private boolean check = true;
-    private int checkInt = 0;
+
 
 
 
@@ -194,14 +195,10 @@ public class CasaSpawn extends ScreenAdapter {
             @Override
             public void run() {
                 mammaAsh.setAvanti();
-                check = false;
-                checkInt = 0;
             }
         };
 
         // Avvia il timer per il compito della mamma
-        checkInt ++;
-        System.out.println("attivo");
         timer.schedule(mammaTimerTask, 5000);
 
 
@@ -212,7 +209,6 @@ public class CasaSpawn extends ScreenAdapter {
     public void cancelTimerForMamma() {
         // Cancella il compito del timer della mamma se è stato pianificato in precedenza
         if (mammaTimerTask != null) {
-            System.out.println("chiudo");
             mammaTimerTask.cancel();
             mammaTimerTask = null; // Imposta il compito del timer della mamma su null per indicare che è stato cancellato
         }
@@ -226,24 +222,31 @@ public class CasaSpawn extends ScreenAdapter {
         if (game.getPlayer().getBoxPlayer().overlaps(mammaAsh.getInterBoxVert())) {
             mammaAsh.setIndietro();
             isInBox = true;
-            check = true;
         }
         //si trova dentro quello a destra
         else if (game.getPlayer().getBoxPlayer().overlaps(mammaAsh.getInterBoxOrizDx())) {
             mammaAsh.setDestra();
             isInBox = true;
-            check = true;
         }
         //si trova dentro quello a sinistra
         else if (game.getPlayer().getBoxPlayer().overlaps(mammaAsh.getInterBoxOrizSx())) {
             mammaAsh.setSinstra();
             isInBox = true;
-            check = true;
         }
 
+        
+        
         if (isInBox) {
+        	if (mammaTimerTask!=null)
             cancelTimerForMamma();
         }
+        else {
+        	if (!isInBox && wasInBox) {
+        		startTimerForMamma();
+        	}
+        }
+        
+        wasInBox = isInBox;
         
         
     }
