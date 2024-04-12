@@ -82,7 +82,7 @@ public class MammaAsh {
 
         characterPosition = new Vector2(188, 110);
 
-        player_width = 24; // Larghezza del personaggio5
+        player_width = 24; // Larghezza del personaggio
         player_height = 22; // Altezza del personaggio
 
         //per collisione
@@ -140,6 +140,10 @@ public class MammaAsh {
     }
     public Rectangle getInterBoxOrizDx() {
         return boxInteractionOrizzontaleDestro;
+    }
+
+    public void dispose() {
+        texture.dispose();
     }
     
 }

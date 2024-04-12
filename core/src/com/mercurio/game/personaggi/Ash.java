@@ -65,7 +65,7 @@ public class Ash {
     public Ash(MercurioMain game) {
         this.game = game;
 
-        //dichiarazione generale delle animazione personaggi
+        //vado a dichiarare e a prendere tutte le texture di immagini
         indietro = new TextureRegion[3];
         avanti = new TextureRegion[3];
         destra = new TextureRegion[3];
@@ -103,30 +103,23 @@ public class Ash {
         fermoAvanti = new Animation<>(camminataFrame_speed, avanti[0]);
         fermoIndietro = new Animation<>(camminataFrame_speed, indietro[0]);
 
-        //calcolo centro per posizionare personaggio
-        float windowWidth = Gdx.graphics.getWidth();
-        float windowHeight = Gdx.graphics.getHeight();
-
-        float windowCenterX = windowWidth / 4f;
-        float windowCenterY = windowHeight / 3.2f;
-        
-
-        //characterPosition= new Vector2(windowCenterX, windowCenterY);
+        //segnere la posizione del personaggio (poi mettere quella salvata)
         characterPosition= new Vector2(170, 90);
 
         player_width = 18; // Larghezza del personaggio
         player_height = 24; // Altezza del personaggio
 
-
+        //box player con i piedi per le collisioni
         boxPlayer = new Rectangle(characterPosition.x+player_width/4, characterPosition.y+2, player_width/2, player_height/6);
 
+        //animazione attuale che viene renderizzata(da cambiare per cambiarre l'animazione del personaggio)
         currentAnimation = fermoIndietro.getKeyFrame(0);
         stateTime = 0f;
     }
 
+    //metodo del movimento che chiama anche il controllo collisione
     public void move(MapLayer collisionLayer, ArrayList<Rectangle> rectList) {
         boolean keyPressed = false; // Controlla se un tasto è premuto
-
 
         stateTime += Gdx.graphics.getDeltaTime();
 
@@ -217,6 +210,7 @@ public class Ash {
         muovi_Y = 0;
     }
 
+    //metodo controllo collisione (prende il layer collisione poi prendo rettangolo per rettangolo e controllo)
     private boolean checkCollisions(MapLayer collisionLayer) {
         // Itera sulle celle del livello di collisione
         for (MapObject object : collisionLayer.getObjects()) {
@@ -234,6 +228,7 @@ public class Ash {
         return false;
     }
     
+    //stessa cosa di quello sopra solo che ho già il rettangolo
     private boolean checkCollisionsPlayer(ArrayList<Rectangle> rectList) {
         if (rectList != null) {
             for (Rectangle rect : rectList) {

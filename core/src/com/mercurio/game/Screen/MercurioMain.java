@@ -6,8 +6,10 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -15,6 +17,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mercurio.game.personaggi.Ash;
 
 
@@ -43,13 +46,18 @@ public class MercurioMain extends Game{
 
     private ArrayList<Rectangle> rectList = null;
 
+    private MenuLabel menuLabel;
 
-
+    private Stage stage;
+    
     @Override
     public void create() {
+        
         setPage(Constant.MENU_SCREEN);
         ash = new Ash(this);
         batch = new SpriteBatch();
+        menuLabel = new MenuLabel();
+        
         
     }
 
@@ -68,12 +76,15 @@ public class MercurioMain extends Game{
 
             ash.move(collisionLayer, rectList);
 
+            menuLabel.render();
+            
             // Imposta la posizione della telecamera in modo che segua il giocatore
             camera.position.set(cameraX, cameraY, 0);
 
             camera.update();
 
             tileRenderer.setView(camera);
+            
         }
 
     }
