@@ -50,7 +50,6 @@ public class MenuLabel {
         label.setWidth(75); // Imposta la larghezza desiderata della label
         label.setHeight(75); // Imposta l'altezza desiderata della label
         label.setWrap(true);
-
     }
 
     public void render() {

@@ -24,6 +24,7 @@ import java.util.TimerTask;
 public class CasaSpawn extends ScreenAdapter {
     private final MercurioMain game;
     private MammaAsh mammaAsh;
+    private LabelDiscorsi labelDiscorsi;
 
 
     private TiledMap casaAsh;
@@ -53,6 +54,8 @@ public class CasaSpawn extends ScreenAdapter {
     public CasaSpawn(MercurioMain game) {
         this.game = game;
         mammaAsh = new MammaAsh();
+        labelDiscorsi = new LabelDiscorsi();
+        
         rectList = new ArrayList<Rectangle>();
     }
 
@@ -104,6 +107,7 @@ public class CasaSpawn extends ScreenAdapter {
         game.setRectangleList(rectList);
         cambiaProfondita(lineeLayer);
         giraMamma();
+        labelDiscorsi.render();
         controllaCollisionePorta();
         controllaInterazioni();
 
