@@ -20,22 +20,29 @@ import com.badlogic.gdx.utils.Timer;
 
 public class MenuLabel {
 
-    private SpriteBatch batch;
+	private SpriteBatch batch;
     private BitmapFont font;
-    private Label label;
+    private Label openMenuLabel;
     private Stage stage;
     private boolean menuOpened;
-    private boolean menuAperto = true;
-    private Label openMenuLabel;
-    private boolean xKeyPressed = true;
-    private NinePatch backgroundPatch;
-    
+    private boolean xKeyPressed;
+
     public MenuLabel() {
-    	batch = new SpriteBatch();
+        batch = new SpriteBatch();
+        font = new BitmapFont(Gdx.files.internal("font/small_letters_font.fnt"));
+
         stage = new Stage();
-        menuAperto = false;
-        
-        // Carica il font personalizzato da file .fnt
+        Gdx.input.setInputProcessor(stage);
+
+        createOpenMenuLabel();
+
+        menuOpened = false;
+        xKeyPressed = true; // Permette l'apertura iniziale del menu con la label
+    }
+
+    
+    private void createOpenMenuLabel() {
+    	 // Carica il font personalizzato da file .fnt
         font = new BitmapFont(Gdx.files.internal("font/small_letters_font.fnt"));
         Skin skin = new Skin();
         skin.add("custom-font", font);
@@ -45,7 +52,7 @@ public class MenuLabel {
         // Crea un NinePatch dalle texture (specificando le dimensioni dei bordi)
         int left = 10;
         int right = 10;
-        int top = 10;
+        int top = 10; 
         int bottom = 10;
         NinePatch backgroundPatch = new NinePatch(backgroundTexture, left, right, top, bottom);
 
@@ -66,31 +73,29 @@ public class MenuLabel {
         openMenuLabel.setWidth(75); // Imposta la larghezza desiderata della label
         openMenuLabel.setHeight(75); // Imposta l'altezza desiderata della label
         openMenuLabel.setWrap(true);
-        
-        
-        // Aggiungi un listener per aprire il menù quando la label viene cliccata
+
         openMenuLabel.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (!menuOpened) {
+                    // Se il menu non è aperto, apri il menu
                     apriMenu();
-                    menuOpened = true;
+                } else {
+                    // Se il menu è aperto, chiudi il menu
+                    chiudiMenu();
                 }
             }
         });
-        
-        
-        // Aggiungi gli attori allo stage
+
         stage.addActor(openMenuLabel);
-
-        // Imposta l'input processor per gestire il click del mouse
-        Gdx.input.setInputProcessor(stage);
-
     }
     
     
     private void apriMenu() {
-        if (!menuAperto) {
+        if (!menuOpened && xKeyPressed) {
+        	
+
+        	
             // Aggiungi lo sfondo del menù
             Texture backgroundTexture = new Texture("sfondo/sfondo.png");
             Image menuBackground = new Image(backgroundTexture);
@@ -104,7 +109,7 @@ public class MenuLabel {
             addMenuItem("Pokémon", labelY - 100);
             addMenuItem("Salva", labelY - 150);
 
-            menuAperto = true;
+            menuOpened = true;
             xKeyPressed = false; // Disabilita temporaneamente il tasto X dopo l'apertura del menu
             
             addCloseLabel();
@@ -155,7 +160,7 @@ public class MenuLabel {
     
 
     private void chiudiMenu() {
-        if (menuAperto) {
+        if (menuOpened) {
             Array<Actor> actors = stage.getActors();
             Array<Actor> actorsToRemove = new Array<>();
 
@@ -165,6 +170,7 @@ public class MenuLabel {
                     actorsToRemove.add(actor);
                 }
             }
+            xKeyPressed=true;
 
             // Rimuovi gli attori in modo ritardato per simulare una chiusura più graduale
             Timer.schedule(new Timer.Task() {
@@ -173,7 +179,7 @@ public class MenuLabel {
                     for (Actor actor : actorsToRemove) {
                         actor.remove();
                     }
-                    menuAperto = false;
+                    menuOpened = false;
                 }
             }, 0.1f); // Ritardo di 0.3 secondi prima di rimuovere gli attori
         }
@@ -190,27 +196,20 @@ public class MenuLabel {
     }
 
     public void render() {
-    	if (Gdx.input.isKeyPressed(Input.Keys.X) && xKeyPressed) {
-            if (!menuOpened) {
-                // Se il menu non è aperto, apri il menu
+        // Controlla se il tasto X è premuto per aprire o chiudere il menu
+        if (Gdx.input.isKeyJustPressed(Input.Keys.X)) {
+            if (!menuOpened && xKeyPressed) {
+                // Se il menu non è aperto e il tasto X è abilitato, apri il menu
                 apriMenu();
-                menuOpened = true;
-                xKeyPressed = false; // Disabilita temporaneamente il tasto X
-                Timer.schedule(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        xKeyPressed = true; // Riabilita il tasto X dopo un breve ritardo
-                    }
-                }, 0.3f);
-            } else {
+            } else if (menuOpened) {
                 // Se il menu è aperto, chiudi il menu
                 chiudiMenu();
-                menuOpened = false;
             }
         }
-    	
+
+        // Rendering dello stage
         batch.begin();
-        stage.draw(); // Disegna gli attori dello stage
+        stage.draw();
         batch.end();
     }
 
