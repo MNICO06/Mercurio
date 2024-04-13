@@ -26,7 +26,6 @@ public class CasaSpawn extends ScreenAdapter {
     private MammaAsh mammaAsh;
     private LabelDiscorsi labelDiscorsi;
 
-
     private TiledMap casaAsh;
     
     private OrthogonalTiledMapRenderer tileRenderer;
@@ -42,11 +41,14 @@ public class CasaSpawn extends ScreenAdapter {
 
     private Timer timer;
     private TimerTask mammaTimerTask;
+    private TimerTask textTimerTask;
 
     private boolean isInBox = false;
     
     private boolean wasInBox = false;
 
+    private boolean tieniApertoDiscorso = false;
+    private boolean fPressed = false;
 
 
 
@@ -69,6 +71,13 @@ public class CasaSpawn extends ScreenAdapter {
             @Override
             public void run() {
                 mammaAsh.setAvanti();
+            }
+        };
+
+        textTimerTask = new TimerTask() {
+            @Override
+            public void run() {
+                tieniApertoDiscorso = false;
             }
         };
 
@@ -107,7 +116,7 @@ public class CasaSpawn extends ScreenAdapter {
         game.setRectangleList(rectList);
         cambiaProfondita(lineeLayer);
         giraMamma();
-        labelDiscorsi.render();
+        controlloTesto();
         controllaCollisionePorta();
         controllaInterazioni();
 
@@ -203,7 +212,21 @@ public class CasaSpawn extends ScreenAdapter {
 
         // Avvia il timer per il compito della mamma
         timer.schedule(mammaTimerTask, 3000);
+    }
 
+    public void startTimerForText() {
+        // Pianifica un nuovo compito per far tornare la mamma nella posizione "avanti" dopo 5 secondi
+        textTimerTask = new TimerTask() {
+            @Override
+            public void run() {
+                tieniApertoDiscorso = false;
+                fPressed = false;
+                game.getPlayer().setMovement(true);
+            }
+        };
+
+        // Avvia il timer per il compito della mamma
+        timer.schedule(textTimerTask, 3000);
 
     }
 
@@ -237,8 +260,15 @@ public class CasaSpawn extends ScreenAdapter {
             isInBox = true;
         }
 
-        
-        
+        if (isInBox  && !fPressed) {
+            if (Gdx.input.isKeyPressed(Input.Keys.F)) {
+                tieniApertoDiscorso = true;
+                fPressed = true;
+                game.getPlayer().setMovement(false);
+                startTimerForText();
+            }
+        }
+
         if (isInBox) {
         	if (mammaTimerTask!=null)
             cancelTimerForMamma();
@@ -252,6 +282,17 @@ public class CasaSpawn extends ScreenAdapter {
         wasInBox = isInBox;
         
         
+    }
+
+    public void controlloTesto() {
+        if (tieniApertoDiscorso) {
+            labelDiscorsi.renderDiscMamma();
+        }
+        else {
+            if (textTimerTask!=null) {
+                textTimerTask.cancel();
+            }
+        }
     }
 
 

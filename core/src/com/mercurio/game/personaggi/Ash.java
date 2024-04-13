@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mercurio.game.Screen.MercurioMain;
 
 public class Ash {
+    private boolean canMove = true;
 
     private TextureRegion[] indietro;
     private TextureRegion[] sinistra;
@@ -119,95 +120,99 @@ public class Ash {
 
     //metodo del movimento che chiama anche il controllo collisione
     public void move(MapLayer collisionLayer, ArrayList<Rectangle> rectList) {
-        boolean keyPressed = false; // Controlla se un tasto è premuto
+        if (canMove) {
 
-        stateTime += Gdx.graphics.getDeltaTime();
+            boolean keyPressed = false; // Controlla se un tasto è premuto
 
-        movingLeft = false;
-        movingRight = false;
-        movingUp = false;
-        movingDown = false;
-    
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            currentAnimation = camminaDestra.getKeyFrame(stateTime, true);
-            muovi_X = speed_Camminata_orizontale;
-            //characterPosition.x += speed_Camminata_orizontale * Gdx.graphics.getDeltaTime();
-            keyPressed = true;
+            stateTime += Gdx.graphics.getDeltaTime();
 
-            movingRight = true;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            currentAnimation = camminaSinistra.getKeyFrame(stateTime, true);
-            muovi_X = speed_Camminata_orizontale * -1;
-            //characterPosition.x -= speed_Camminata_orizontale * Gdx.graphics.getDeltaTime();
-            keyPressed = true;
+            movingLeft = false;
+            movingRight = false;
+            movingUp = false;
+            movingDown = false;
+        
+            if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+                currentAnimation = camminaDestra.getKeyFrame(stateTime, true);
+                muovi_X = speed_Camminata_orizontale;
+                //characterPosition.x += speed_Camminata_orizontale * Gdx.graphics.getDeltaTime();
+                keyPressed = true;
 
-            movingLeft = true;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            currentAnimation = camminaIndietro.getKeyFrame(stateTime, true);
-            muovi_Y = speed_Camminata_verticale * -1;
-            //characterPosition.y -= speed_Camminata_verticale * Gdx.graphics.getDeltaTime();
-            keyPressed = true;
-
-            movingDown = true;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            currentAnimation = camminaAvanti.getKeyFrame(stateTime, true);
-            muovi_Y = speed_Camminata_verticale;
-            //characterPosition.y += speed_Camminata_verticale * Gdx.graphics.getDeltaTime();
-            keyPressed = true;
-
-            movingUp = true;
-        }
-
-    
-        // Se nessun tasto è premuto, imposta l'animazione fermo solo se l'animazione corrente è in uno stato fermo
-        if (!keyPressed) {
-            if (currentAnimation == camminaSinistra.getKeyFrame(stateTime, true)) {
-                currentAnimation = fermoSinistra.getKeyFrame(0); // Imposta il frame fermo a 0
-            } else if (currentAnimation == camminaDestra.getKeyFrame(stateTime, true)) {
-                currentAnimation = fermoDestra.getKeyFrame(0);
-            } else if (currentAnimation == camminaAvanti.getKeyFrame(stateTime, true)) {
-                currentAnimation = fermoAvanti.getKeyFrame(0);
-            } else if (currentAnimation == camminaIndietro.getKeyFrame(stateTime, true)) {
-                currentAnimation = fermoIndietro.getKeyFrame(0);
+                movingRight = true;
             }
+            if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+                currentAnimation = camminaSinistra.getKeyFrame(stateTime, true);
+                muovi_X = speed_Camminata_orizontale * -1;
+                //characterPosition.x -= speed_Camminata_orizontale * Gdx.graphics.getDeltaTime();
+                keyPressed = true;
+
+                movingLeft = true;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+                currentAnimation = camminaIndietro.getKeyFrame(stateTime, true);
+                muovi_Y = speed_Camminata_verticale * -1;
+                //characterPosition.y -= speed_Camminata_verticale * Gdx.graphics.getDeltaTime();
+                keyPressed = true;
+
+                movingDown = true;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+                currentAnimation = camminaAvanti.getKeyFrame(stateTime, true);
+                muovi_Y = speed_Camminata_verticale;
+                //characterPosition.y += speed_Camminata_verticale * Gdx.graphics.getDeltaTime();
+                keyPressed = true;
+
+                movingUp = true;
+            }
+
+        
+            // Se nessun tasto è premuto, imposta l'animazione fermo solo se l'animazione corrente è in uno stato fermo
+            if (!keyPressed) {
+                if (currentAnimation == camminaSinistra.getKeyFrame(stateTime, true)) {
+                    currentAnimation = fermoSinistra.getKeyFrame(0); // Imposta il frame fermo a 0
+                } else if (currentAnimation == camminaDestra.getKeyFrame(stateTime, true)) {
+                    currentAnimation = fermoDestra.getKeyFrame(0);
+                } else if (currentAnimation == camminaAvanti.getKeyFrame(stateTime, true)) {
+                    currentAnimation = fermoAvanti.getKeyFrame(0);
+                } else if (currentAnimation == camminaIndietro.getKeyFrame(stateTime, true)) {
+                    currentAnimation = fermoIndietro.getKeyFrame(0);
+                }
+            }
+
+            //salvo le vecchie posizioni
+            float old_x = characterPosition.x;
+            float old_y = characterPosition.y;
+
+            //metodi controllo collisione in altezza (sia oggetti che npc)
+            if (muovi_X != 0) {
+                characterPosition.x += muovi_X * Gdx.graphics.getDeltaTime();
+                boxPlayer.setPosition(characterPosition.x+player_width/4, characterPosition.y+2);
+                if (checkCollisions(collisionLayer)) {
+                    characterPosition.x = old_x;
+                }
+                if (checkCollisionsPlayer(rectList)) {
+                    characterPosition.x = old_x;
+                }
+            }
+
+
+
+            //metodi controllo collisione in orizzontale (sia oggetti che npc)
+            if (muovi_Y != 0) {
+                characterPosition.y += muovi_Y * Gdx.graphics.getDeltaTime();
+                boxPlayer.setPosition(characterPosition.x+player_width/4, characterPosition.y+2);
+                if (checkCollisions(collisionLayer)) {
+                    characterPosition.y = old_y;
+                }
+                if (checkCollisionsPlayer(rectList)) {
+                    characterPosition.y = old_y;
+                }
+            }
+
+
+            muovi_X = 0;
+            muovi_Y = 0;
+
         }
-
-        //salvo le vecchie posizioni
-        float old_x = characterPosition.x;
-        float old_y = characterPosition.y;
-
-        //metodi controllo collisione in altezza (sia oggetti che npc)
-        if (muovi_X != 0) {
-            characterPosition.x += muovi_X * Gdx.graphics.getDeltaTime();
-            boxPlayer.setPosition(characterPosition.x+player_width/4, characterPosition.y+2);
-            if (checkCollisions(collisionLayer)) {
-                characterPosition.x = old_x;
-            }
-            if (checkCollisionsPlayer(rectList)) {
-                characterPosition.x = old_x;
-            }
-        }
-
-
-
-        //metodi controllo collisione in orizzontale (sia oggetti che npc)
-        if (muovi_Y != 0) {
-            characterPosition.y += muovi_Y * Gdx.graphics.getDeltaTime();
-            boxPlayer.setPosition(characterPosition.x+player_width/4, characterPosition.y+2);
-            if (checkCollisions(collisionLayer)) {
-                characterPosition.y = old_y;
-            }
-            if (checkCollisionsPlayer(rectList)) {
-                characterPosition.y = old_y;
-            }
-        }
-
-
-        muovi_X = 0;
-        muovi_Y = 0;
     }
 
     //metodo controllo collisione (prende il layer collisione poi prendo rettangolo per rettangolo e controllo)
@@ -260,6 +265,10 @@ public class Ash {
     
     public Rectangle getBoxPlayer() {
         return boxPlayer;
+    }
+
+    public void setMovement(boolean canMove) {
+        this.canMove = canMove;
     }
 
     public void dispose() {

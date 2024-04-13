@@ -13,9 +13,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class LabelDiscorsi {
     // Dichiarazioni delle texture
-    private Label label;
+    private Label labelMamma;
     private BitmapFont font;
     private SpriteBatch batch;
+
+    // Variabili per il timer
+    private float timer;
+    private float intervalloLettera = 0.5f; // Intervallo di tempo tra le lettere
+    private int indiceDiscorso;
+    private boolean continuaDiscorso;
+    private String discorsoMamma = "ciao figliuolo come stai, come mai stai uscendo dove stai andando?";
     
     private Texture standardGrigioBordoTexture;
     private Texture standardGrigioTexture;
@@ -46,14 +53,18 @@ public class LabelDiscorsi {
         skin.add("custom-font", font);
 
         // Carica la texture originale
-        Texture texture = new Texture("sfondo/q.jpg");
         standardGrigioBordoTexture = new Texture ("sfondo/primoBoxText.png");
+        standardArancioneTexture = new Texture ("sfondo/boxTextArancio.png");
+
+        indiceDiscorso = 0;
+        continuaDiscorso = true;
+        
         
         int left = 10;
         int right = 10;
         int top = 10;
         int bottom = 10;
-        NinePatch backgroundPatch = new NinePatch(standardGrigioBordoTexture, left, right, top, bottom);
+        NinePatch backgroundPatch = new NinePatch(standardArancioneTexture, left, right, top, bottom);
 
         NinePatchDrawable backgroundDrawable = new NinePatchDrawable(backgroundPatch);
         
@@ -64,17 +75,18 @@ public class LabelDiscorsi {
         
         style.background = backgroundDrawable;
         
-        label = new Label("funziona considerate che ora è fisso ed è una prova", style);
-        label.setPosition(280, 10); // Imposta la posizione della label sulla mappa
-        label.setWidth(400); // Imposta la larghezza desiderata della label
-        label.setHeight(75); // Imposta l'altezza desiderata della label
-        label.setWrap(true);
+        labelMamma = new Label(discorsoMamma, style);
+        labelMamma.setPosition(280, 10); // Imposta la posizione della label sulla mappa
+        labelMamma.setWidth(400); // Imposta la larghezza desiderata della label
+        labelMamma.setHeight(75); // Imposta l'altezza desiderata della label
+        labelMamma.setWrap(true);
+
     
     }
 
-    public void render() {
+    public void renderDiscMamma() {
         batch.begin();
-        label.draw(batch, 1); // Disegna la label nello SpriteBatch
+        labelMamma.draw(batch, 1); // Disegna la label nello SpriteBatch
         batch.end();
     }
 }
