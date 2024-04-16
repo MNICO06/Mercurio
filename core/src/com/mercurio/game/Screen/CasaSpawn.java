@@ -74,12 +74,14 @@ public class CasaSpawn extends ScreenAdapter {
             }
         };
 
+        /*
         textTimerTask = new TimerTask() {
             @Override
             public void run() {
                 tieniApertoDiscorso = false;
             }
         };
+        */
 
         TmxMapLoader mapLoader = new TmxMapLoader();
         casaAsh = mapLoader.load(Constant.CASA_ASH);
@@ -214,6 +216,7 @@ public class CasaSpawn extends ScreenAdapter {
         timer.schedule(mammaTimerTask, 3000);
     }
 
+    /*
     public void startTimerForText() {
         // Pianifica un nuovo compito per far tornare la mamma nella posizione "avanti" dopo 5 secondi
         textTimerTask = new TimerTask() {
@@ -227,8 +230,8 @@ public class CasaSpawn extends ScreenAdapter {
 
         // Avvia il timer per il compito della mamma
         timer.schedule(textTimerTask, 3000);
-
     }
+    */
 
 
     // Metodo per annullare il compito del timer della mamma
@@ -261,11 +264,14 @@ public class CasaSpawn extends ScreenAdapter {
         }
 
         if (isInBox  && !fPressed) {
-            if (Gdx.input.isKeyPressed(Input.Keys.F)) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
                 tieniApertoDiscorso = true;
                 fPressed = true;
                 game.getPlayer().setMovement(false);
-                startTimerForText();
+            }
+        } else if (fPressed) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
+                tieniApertoDiscorso = false;
             }
         }
 
@@ -287,8 +293,16 @@ public class CasaSpawn extends ScreenAdapter {
     public void controlloTesto() {
         if (tieniApertoDiscorso) {
             labelDiscorsi.renderDiscMamma();
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+                //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
+                //labelDiscorsi.renderDiscMamma();
+            }
         }
         else {
+            //quando deve terminare 
+            tieniApertoDiscorso = false;
+            fPressed = false;
+            game.getPlayer().setMovement(true);
             if (textTimerTask!=null) {
                 textTimerTask.cancel();
             }

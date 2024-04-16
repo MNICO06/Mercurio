@@ -1,12 +1,12 @@
 package com.mercurio.game.Screen;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
@@ -23,6 +23,8 @@ public class LabelDiscorsi {
     private int indiceDiscorso;
     private boolean continuaDiscorso;
     private String discorsoMamma = "ciao figliuolo come stai, come mai stai uscendo dove stai andando?";
+    private String pezzoDiscorso;
+    private ArrayList<String> discorsoDivisoMamma;
     
     private Texture standardGrigioBordoTexture;
     private Texture standardGrigioTexture;
@@ -74,6 +76,7 @@ public class LabelDiscorsi {
         style.font.getData().setScale(2.5f);
         
         style.background = backgroundDrawable;
+
         
         labelMamma = new Label(discorsoMamma, style);
         labelMamma.setPosition(280, 10); // Imposta la posizione della label sulla mappa
@@ -81,7 +84,6 @@ public class LabelDiscorsi {
         labelMamma.setHeight(75); // Imposta l'altezza desiderata della label
         labelMamma.setWrap(true);
 
-    
     }
 
     public void renderDiscMamma() {
