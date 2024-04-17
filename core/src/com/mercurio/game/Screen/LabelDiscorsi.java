@@ -1,6 +1,8 @@
 package com.mercurio.game.Screen;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -16,13 +18,20 @@ public class LabelDiscorsi {
     private Label labelMamma;
     private BitmapFont font;
     private SpriteBatch batch;
-
+    private ArrayList<String> righeDiscorso;
+    private int rigaCorrente;
+    private Timer timer;
+    private TimerTask letterTask;
+    private String testoCorrente;
+    private int indiceLettera;
+    private boolean isPrimaRigaStampata;
+    private boolean isPrimaRiga;
+    
     // Variabili per il timer
-    private float timer;
-    private float intervalloLettera = 0.5f; // Intervallo di tempo tra le lettere
+    private float intervalloLettera = 0.05f; // Intervallo di tempo tra le lettere
     private int indiceDiscorso;
     private boolean continuaDiscorso;
-    private String discorsoMamma = "ciao figliuolo come stai, come mai stai uscendo dove stai andando?";
+    private String discorsoMamma = "Ciao figliuolo come stai, come mai stai uscendo dove stai andando?";
     private String pezzoDiscorso;
     private ArrayList<String> discorsoDivisoMamma;
     
@@ -47,48 +56,153 @@ public class LabelDiscorsi {
     private Texture tappetoTexture;
     private Texture erbettaTexture;
 
+
     public LabelDiscorsi() {
         batch = new SpriteBatch();
-
         font = new BitmapFont(Gdx.files.internal("font/small_letters_font.fnt"));
+        createLabel();
+
+        String discorsoMamma = "Ciao figliuolo come stai, come mai stai uscendo e dove stai andando?";
+        righeDiscorso = splitTestoInRighe(discorsoMamma, 30);
+        rigaCorrente = 0;
+        isPrimaRigaStampata = false;
+    }
+
+    private void createLabel() {
         Skin skin = new Skin();
         skin.add("custom-font", font);
 
-        // Carica la texture originale
-        standardGrigioBordoTexture = new Texture ("sfondo/primoBoxText.png");
-        standardArancioneTexture = new Texture ("sfondo/boxTextArancio.png");
+        NinePatchDrawable backgroundDrawable = new NinePatchDrawable(new NinePatch(new Texture("sfondo/boxTextArancio.png"), 10, 10, 10, 10));
 
-        indiceDiscorso = 0;
-        continuaDiscorso = true;
-        
-        
-        int left = 10;
-        int right = 10;
-        int top = 10;
-        int bottom = 10;
-        NinePatch backgroundPatch = new NinePatch(standardArancioneTexture, left, right, top, bottom);
-
-        NinePatchDrawable backgroundDrawable = new NinePatchDrawable(backgroundPatch);
-        
         Label.LabelStyle style = new Label.LabelStyle();
         style.font = skin.getFont("custom-font");
-
         style.font.getData().setScale(2.5f);
-        
         style.background = backgroundDrawable;
 
-        
-        labelMamma = new Label(discorsoMamma, style);
-        labelMamma.setPosition(280, 10); // Imposta la posizione della label sulla mappa
-        labelMamma.setWidth(400); // Imposta la larghezza desiderata della label
-        labelMamma.setHeight(75); // Imposta l'altezza desiderata della label
+        labelMamma = new Label("", style);
+        labelMamma.setPosition(280, 20); // Posizione della label
+        labelMamma.setWidth(400);
+        labelMamma.setHeight(75); // Altezza sufficiente per due righe
         labelMamma.setWrap(true);
-
     }
 
     public void renderDiscMamma() {
+    	
         batch.begin();
-        labelMamma.draw(batch, 1); // Disegna la label nello SpriteBatch
+        labelMamma.draw(batch, 1);
         batch.end();
+
+        if (!isPrimaRigaStampata && labelMamma.getPrefHeight() > 0) {
+            // Stampare subito la prima riga con animazione
+        	startLetterAnimation(righeDiscorso.get(rigaCorrente));
+            isPrimaRigaStampata = true;
+
+            // Avvia l'animazione della seconda riga se presente
+            if (rigaCorrente + 1 < righeDiscorso.size()) {
+                startLetterAnimation(righeDiscorso.get(rigaCorrente + 1));
+            }
+        }
+    }
+
+    private ArrayList<String> splitTestoInRighe(String testo, int lunghezzaMassima) {
+        ArrayList<String> righe = new ArrayList<>();
+        String[] parole = testo.split(" ");
+        StringBuilder rigaCorrente = new StringBuilder(parole[0]);
+
+        for (int i = 1; i < parole.length; i++) {
+            if (rigaCorrente.length() + 1 + parole[i].length() <= lunghezzaMassima) {
+                rigaCorrente.append(" ").append(parole[i]);
+            } else {
+                righe.add(rigaCorrente.toString());
+                rigaCorrente = new StringBuilder(parole[i]);
+            }
+        }
+
+        if (rigaCorrente.length() > 0) {
+            righe.add(rigaCorrente.toString());
+        }
+
+        return righe;
+    }
+
+    public void advanceText() {
+        if (isPrimaRigaStampata && rigaCorrente < righeDiscorso.size() - 2) {
+            rigaCorrente++;
+            updateTwoLines();
+        } 
+    }
+
+    private void updateTwoLines() {
+        String testoPrimaRiga = righeDiscorso.get(rigaCorrente);
+        String testoSecondaRiga = righeDiscorso.get(rigaCorrente + 1);
+        labelMamma.setText(testoPrimaRiga + "\n" + testoSecondaRiga);
+
+        // Avvia l'animazione solo per la seconda riga
+        startLetterAnimation(testoSecondaRiga);
+    }
+
+    private void startLetterAnimation(String testo) {
+        testoCorrente = testo;
+        indiceLettera = 0;
+
+        if (letterTask != null) {
+            letterTask.cancel();
+            letterTask = null;
+        }
+
+        letterTask = new TimerTask() {
+            @Override
+            public void run() {
+                Gdx.app.postRunnable(() -> {
+                    if (indiceLettera <= testoCorrente.length()) {
+                        // Aggiorna solo la seconda riga con l'animazione carattere per carattere
+                        String testoCompleto = righeDiscorso.get(rigaCorrente) + "\n" + testoCorrente.substring(0, indiceLettera);
+                        labelMamma.setText(testoCompleto);
+                        indiceLettera++;
+                    } else {
+                        cancelTextAnimation();
+                    }
+                });
+            }
+        };
+
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+        timer = new Timer();
+        timer.scheduleAtFixedRate(letterTask, 0, (long) (intervalloLettera * 1000)); // Parte subito e si ripete ogni intervalloLettera secondi
+    }
+
+    
+    public void cancelTextAnimation() {
+        if (letterTask != null) {
+            letterTask.cancel();
+            letterTask = null;
+        }
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+    }
+     
+    public void reset() {
+        // Interrompi qualsiasi animazione in corso
+        cancelTextAnimation();
+
+        // Reimposta le variabili di stato
+        rigaCorrente = 0;
+        isPrimaRigaStampata = false;
+
+        // Ricrea la label con il testo vuoto
+        labelMamma.setText("");
+
+        // Avvia nuovamente l'animazione della prima e seconda riga
+        if (righeDiscorso.size() > 0) {
+            startLetterAnimation(righeDiscorso.get(0)); // Avvia l'animazione per la prima riga
+        }
+        if (righeDiscorso.size() > 1) {
+            startLetterAnimation(righeDiscorso.get(1)); // Avvia l'animazione per la seconda riga se presente
+        }
     }
 }

@@ -284,7 +284,7 @@ public class CasaSpawn extends ScreenAdapter {
             labelDiscorsi.renderDiscMamma();
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
                 //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
-                //labelDiscorsi.renderDiscMamma();
+                labelDiscorsi.advanceText();
             }
         }
         else {
@@ -295,6 +295,7 @@ public class CasaSpawn extends ScreenAdapter {
             if (textTimerTask!=null) {
                 textTimerTask.cancel();
             }
+            labelDiscorsi.reset();
         }
     }
 
