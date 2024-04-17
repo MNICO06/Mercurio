@@ -80,4 +80,41 @@ public class Dottoressa {
         stateTime = 0f;
     }
 
+    public void setSinstra() {
+        currentAnimation = fermoSinistra.getKeyFrame(0);
+    }
+    public void setDestra() {
+        currentAnimation = fermoDestra.getKeyFrame(0);
+    }
+    public void setIndietro() {
+        currentAnimation = fermoIndietro.getKeyFrame(0);
+    }
+    public void setAvanti() {
+        currentAnimation = fermoAvanti.getKeyFrame(0);
+    }
+
+    public TextureRegion getTexture() {
+        return currentAnimation;
+    }
+
+    public Vector2 getPosition() {
+        return characterPosition;
+    }
+
+    public float getWidth() {
+        return player_width;
+    }
+
+    public float getHeight() {
+        return player_height;
+    }
+
+    public Rectangle getBoxPlayer() {
+        return boxPlayer;
+    }
+
+    public void dispose() {
+        texture.dispose();
+    }
+    
 }

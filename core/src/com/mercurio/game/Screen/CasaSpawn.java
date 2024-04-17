@@ -26,18 +26,16 @@ public class CasaSpawn extends ScreenAdapter {
     private MammaAsh mammaAsh;
     private LabelDiscorsi labelDiscorsi;
 
+    //dati per render della mappa
     private TiledMap casaAsh;
-    
     private OrthogonalTiledMapRenderer tileRenderer;
     private OrthographicCamera camera;
-
-    private int speed = 1;
-
     private Vector2 map_size;
-
     private MapLayer lineeLayer;
 
+    //rettangolo con la lista delle persone che collidono
     private ArrayList<Rectangle> rectList = null;
+
 
     private Timer timer;
     private TimerTask mammaTimerTask;
@@ -49,8 +47,6 @@ public class CasaSpawn extends ScreenAdapter {
 
     private boolean tieniApertoDiscorso = false;
     private boolean fPressed = false;
-
-
 
 
     public CasaSpawn(MercurioMain game) {
@@ -119,8 +115,6 @@ public class CasaSpawn extends ScreenAdapter {
         cambiaProfondita(lineeLayer);
         giraMamma();
         controlloTesto();
-        controllaCollisionePorta();
-        controllaInterazioni();
 
     }
 
@@ -129,11 +123,14 @@ public class CasaSpawn extends ScreenAdapter {
         ArrayList<String> background = new ArrayList<String>();
         ArrayList<String> foreground = new ArrayList<String>();
 
+        
+
         background.add("floor");
         background.add("WallAlwaysBack");
         background.add("AlwaysBack_1");
         background.add("AlwaysBack_2");
 
+        
 
         for (MapObject object : lineeLayer.getObjects()) {
             if (object instanceof RectangleMapObject) {
@@ -149,7 +146,7 @@ public class CasaSpawn extends ScreenAdapter {
                 }
             }
         }
-
+       
         boolean isForeground = false;
         if (game.getPlayer().getPlayerPosition().y < mammaAsh.getPosition().y){
             isForeground = true;
@@ -171,11 +168,9 @@ public class CasaSpawn extends ScreenAdapter {
             renderLayer(layerName);
         }
 
-        /**/
         if (!isForeground) {
             game.renderPersonaggiSecondari(mammaAsh.getTexture(), mammaAsh.getPosition().x, mammaAsh.getPosition().y, mammaAsh.getWidth(), mammaAsh.getHeight());
         }
-        /**/
         
     }
 
@@ -195,12 +190,6 @@ public class CasaSpawn extends ScreenAdapter {
     private void controllaCollisionePorta() {
 
     }
-
-    //controllo interazioni con oggetti (tecnicamente mamma e poi bho)
-    private void controllaInterazioni() {
-
-    }
-
 
     public void startTimerForMamma() {
         

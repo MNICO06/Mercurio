@@ -146,6 +146,10 @@ public class MercurioMain extends Game{
                 screen_id = 1;
                 break;
 
+                case Constant.CENTRO_POKEMON_SCREEN:
+                newScreen = new PokeCenter(this);
+                screen_id = 2;
+                break;
             default:
                 break;
         }
@@ -176,11 +180,17 @@ public class MercurioMain extends Game{
     }
 
     public MapLayer getLineeLayer() {
-        return lineeLayer;
+        if (lineeLayer != null) {
+            return lineeLayer;
+        }
+        return null;
     }
 
     public Ash getPlayer() {
-        return ash;
+        if (ash != null) {
+            return ash;
+        }
+        return null;
     }
 
     /*
