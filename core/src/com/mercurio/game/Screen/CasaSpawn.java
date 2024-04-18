@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -17,9 +18,9 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.mercurio.game.personaggi.Ash;
 import com.mercurio.game.personaggi.MammaAsh;
 import java.util.Timer;
-import java.util.TimerTask;
 
 public class CasaSpawn extends ScreenAdapter {
     private final MercurioMain game;
@@ -36,6 +37,7 @@ public class CasaSpawn extends ScreenAdapter {
     //rettangolo con la lista delle persone che collidono
     private ArrayList<Rectangle> rectList = null;
 
+    private Rectangle rectangleUscita;
 
     private Timer timer;
     private TimerTask mammaTimerTask;
@@ -98,6 +100,17 @@ public class CasaSpawn extends ScreenAdapter {
         //aggiungo alla lista dei rettangoli per le collisioni quello della mamma
         rectList.add(mammaAsh.getBoxPlayer());
         
+        //prendere rettangolo per mappa
+        MapObjects objects = casaAsh.getLayers().get("exit").getObjects();
+        for (MapObject object : objects) {
+            if (object instanceof RectangleMapObject) {
+                // Se l'oggetto è un rettangolo
+                RectangleMapObject rectangleObject = (RectangleMapObject) object;
+
+                // Ottieni il rettangolo
+                rectangleUscita = rectangleObject.getRectangle();
+            }        
+        }
     }
 
     @Override
@@ -115,6 +128,7 @@ public class CasaSpawn extends ScreenAdapter {
         cambiaProfondita(lineeLayer);
         giraMamma();
         controlloTesto();
+        controllaUscita();
 
     }
 
@@ -296,6 +310,12 @@ public class CasaSpawn extends ScreenAdapter {
                 textTimerTask.cancel();
             }
             labelDiscorsi.reset();
+        }
+    }
+
+    public void controllaUscita() {
+        if(game.getPlayer().getBoxPlayer().overlaps(rectangleUscita)) {
+            game.setPage(Constant.CENTRO_POKEMON_SCREEN);
         }
     }
 
