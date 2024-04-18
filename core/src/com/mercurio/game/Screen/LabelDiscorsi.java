@@ -24,7 +24,7 @@ public class LabelDiscorsi {
     private TimerTask letterTask;
     private String testoCorrente;
     private int indiceLettera;
-    private boolean isPrimaRigaStampata;
+    private boolean isPrimaRigaStampata = false;
     private boolean isPrimaRiga;
     
     // Variabili per il timer
@@ -86,6 +86,7 @@ public class LabelDiscorsi {
         labelMamma.setWrap(true);
     }
 
+
     public void renderDiscMamma() {
     	
         batch.begin();
@@ -93,14 +94,16 @@ public class LabelDiscorsi {
         batch.end();
 
         if (!isPrimaRigaStampata && labelMamma.getPrefHeight() > 0) {
-            // Stampare subito la prima riga con animazione
-        	startLetterAnimation(righeDiscorso.get(rigaCorrente));
-            isPrimaRigaStampata = true;
+        	isPrimaRigaStampata = true;
 
             // Avvia l'animazione della seconda riga se presente
-            if (rigaCorrente + 1 < righeDiscorso.size()) {
-                startLetterAnimation(righeDiscorso.get(rigaCorrente + 1));
+        	 if (isPrimaRigaStampata && rigaCorrente + 1 < righeDiscorso.size()) {
+                startLetterAnimationFirstLine(righeDiscorso.get(rigaCorrente) + " " + righeDiscorso.get(rigaCorrente + 1));
             }
+        	 
+        	 else {
+        		 startLetterAnimationFirstLine(righeDiscorso.get(rigaCorrente + 1)); 
+        	 }
         }
     }
 
@@ -133,9 +136,7 @@ public class LabelDiscorsi {
     }
 
     private void updateTwoLines() {
-        String testoPrimaRiga = righeDiscorso.get(rigaCorrente);
         String testoSecondaRiga = righeDiscorso.get(rigaCorrente + 1);
-        labelMamma.setText(testoPrimaRiga + "\n" + testoSecondaRiga);
 
         // Avvia l'animazione solo per la seconda riga
         startLetterAnimation(testoSecondaRiga);
@@ -155,10 +156,46 @@ public class LabelDiscorsi {
             public void run() {
                 Gdx.app.postRunnable(() -> {
                     if (indiceLettera <= testoCorrente.length()) {
-                        // Aggiorna solo la seconda riga con l'animazione carattere per carattere
+                    	
+                		// Aggiorna solo la seconda riga con l'animazione carattere per carattere
                         String testoCompleto = righeDiscorso.get(rigaCorrente) + "\n" + testoCorrente.substring(0, indiceLettera);
                         labelMamma.setText(testoCompleto);
                         indiceLettera++;
+                        
+                    } else {
+                        cancelTextAnimation();
+                    }
+                });
+            }
+        };
+
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+        timer = new Timer();
+        timer.scheduleAtFixedRate(letterTask, 0, (long) (intervalloLettera * 1000)); // Parte subito e si ripete ogni intervalloLettera secondi
+    }
+
+    
+    private void startLetterAnimationFirstLine(String testo) {
+        testoCorrente = testo;
+        indiceLettera = 0;
+
+        if (letterTask != null) {
+            letterTask.cancel();
+            letterTask = null;
+        }
+
+        letterTask = new TimerTask() {
+            @Override
+            public void run() {
+                Gdx.app.postRunnable(() -> {
+                    if (indiceLettera <= testoCorrente.length()) {
+                            String testoCompleto = testoCorrente.substring(0, indiceLettera);
+                            labelMamma.setText(testoCompleto);
+                            indiceLettera++;
+                        
                     } else {
                         cancelTextAnimation();
                     }
