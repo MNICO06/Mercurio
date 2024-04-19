@@ -26,7 +26,8 @@ public class MenuLabel {
     private Stage stage;
     private boolean menuOpened;
     private boolean xKeyPressed;
-
+    private Borsa borsa;
+    
     public MenuLabel() {
         batch = new SpriteBatch();
         font = new BitmapFont(Gdx.files.internal("font/small_letters_font.fnt"));
@@ -93,21 +94,35 @@ public class MenuLabel {
     
     private void apriMenu() {
         if (!menuOpened && xKeyPressed) {
-        	
-
-        	
+            float Xlabel = 240;
+            float YLabel = 156;
             // Aggiungi lo sfondo del menù
             Texture backgroundTexture = new Texture("sfondo/sfondo.png");
             Image menuBackground = new Image(backgroundTexture);
             menuBackground.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
             stage.addActor(menuBackground);
 
-            // Aggiungi le label del menù
-            float labelY = Gdx.graphics.getHeight() - 100; // Posizione iniziale delle label
-            addMenuItem("Borsa", labelY);
-            addMenuItem("Pokédex", labelY - 50);
-            addMenuItem("Pokémon", labelY - 100);
-            addMenuItem("Salva", labelY - 150);
+            // Aggiungi le label del menù con sfondo personalizzato e testo
+            float labelY = Gdx.graphics.getHeight() - 205; // Posizione iniziale delle label
+            float labelX = Gdx.graphics.getHeight() - 500; // Posizione iniziale delle label
+            addMenuItem(labelY, labelX, "sfondo/pokedex.png", "Pokédex", Xlabel, YLabel, () -> {
+                apriPokedex();
+            }); 
+            addMenuItem(labelY - 231, labelX, "sfondo/pokemon.png", "Pokémon", Xlabel, YLabel, () -> {
+            	apriPokemon();
+            }); 
+            addMenuItem(labelY - 462, labelX, "sfondo/borsa.png", "Borsa", Xlabel, YLabel, () -> {
+            	apriBorsa();
+            }); 
+            addMenuItem(labelY, labelX + 400, "sfondo/medaglie.png", "Medaglie", Xlabel, YLabel, () -> {
+            	apriMedaglie();
+            }); 
+            addMenuItem(labelY - 231, labelX + 400, "sfondo/salva.png", "Salva", Xlabel, YLabel, () -> {
+                salvataggio();
+            }); 
+            addMenuItem(labelY - 462, labelX + 400, "sfondo/spegni.png", "Spegni", Xlabel, YLabel, () -> {
+                spegnimento();
+            }); 
 
             menuOpened = true;
             xKeyPressed = false; // Disabilita temporaneamente il tasto X dopo l'apertura del menu
@@ -121,6 +136,59 @@ public class MenuLabel {
                 }
             }, 0.1f);
         }
+    }
+
+    private void apriPokedex() {
+    	System.out.println("Pokedex aperto");
+    }
+    
+	private void apriPokemon() {
+		System.out.println("Pokemon aperti");
+	}
+	    
+	private void apriBorsa() {
+		System.out.println("Borsa aperta");
+	    borsa = new Borsa();
+	}
+	
+	private void apriMedaglie() {
+		System.out.println("Medaglie aperte");
+	}
+	
+	private void salvataggio() {
+		System.out.println("Salvato");
+	}
+	
+	private void spegnimento() {
+		System.out.println("Spento");
+	}
+
+    
+    // Metodo per aggiungere una label con uno sfondo personalizzato, testo e dimensioni specifiche
+    private void addMenuItem(float y, float x, String backgroundImagePath, String labelText, float width, float height, final Runnable action) {
+        // Aggiungi sfondo come immagine
+        Texture backgroundTexture = new Texture(backgroundImagePath);
+        Image menuBackground = new Image(backgroundTexture);
+        menuBackground.setSize(width, height);
+        menuBackground.setPosition(x, y);
+        stage.addActor(menuBackground);
+        
+     // Aggiungi gestore di eventi di input per eseguire l'azione quando l'immagine viene premuta
+        menuBackground.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                // Esegui l'azione associata a questa label quando viene premuta
+                action.run();
+            }
+        });
+        
+        // Aggiungi testo sotto l'immagine come label
+        Label.LabelStyle labelStyle = new Label.LabelStyle(); // Stile predefinito
+        labelStyle.font = new BitmapFont(Gdx.files.internal("font/small_letters_font.fnt"));
+        Label label = new Label(labelText, labelStyle);
+        labelStyle.font.getData().setScale(5f);
+        label.setPosition(x + (width - label.getPrefWidth()) / 2, y - label.getPrefHeight() + 20); // Posizione testo sotto l'immagine
+        stage.addActor(label);
     }
     
     
@@ -208,6 +276,9 @@ public class MenuLabel {
         }
 
         // Rendering dello stage
+        if (borsa != null) {
+        	borsa.render();
+        }
         batch.begin();
         stage.draw();
         batch.end();
