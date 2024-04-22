@@ -65,6 +65,12 @@ public class FullMap extends ScreenAdapter{
         background.add("Livello tile deco");
         background.add("Livello tile path");
         background.add("Livello tile piantine");
+        background.add("AlberiMezzo");
+        background.add("AlberiFondo");
+        background.add("FixingLayer1");
+
+        foreground.add("AlberiCima");
+
         
         for (MapObject object : lineeLayer.getObjects()) {
             if (object instanceof RectangleMapObject) {
