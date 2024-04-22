@@ -256,15 +256,7 @@ public class MenuLabel {
         }
     }
 
-    private void addMenuItem(String text, float posY) {
-        Label.LabelStyle style = new Label.LabelStyle();
-        style.font = font;
-        style.font.getData().setScale(2.0f);
-
-        Label menuItemLabel = new Label(text, style);
-        menuItemLabel.setPosition(100, posY);
-        stage.addActor(menuItemLabel);
-    }
+ 
 
     public void render() {
         // Controlla se il tasto X è premuto per aprire o chiudere il menu

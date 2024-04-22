@@ -10,16 +10,21 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
 
 public class Borsa {
 
+    private TextureRegion frame;
     private Stage stage;
     private SpriteBatch batch;
     private BitmapFont font;
@@ -44,6 +49,13 @@ public class Borsa {
     private Animation<TextureRegion> nsBall;
     private Animation<TextureRegion> nsKey;
     private Animation<TextureRegion> nsMT;
+
+    private Image labelBall;
+    private Image labelCure;
+    private Image labelMT;
+    private Image labelKey;
+
+    private float stateTime;
     
     public Borsa(Stage stage) {
         this.batch = (SpriteBatch) stage.getBatch();
@@ -73,64 +85,65 @@ public class Borsa {
     private void createUI() {
         float screenWidth = Gdx.graphics.getWidth();
         float screenHeight = Gdx.graphics.getHeight();
+
+        // Add background and close button
+        Texture backgroundTexture = new Texture("sfondo/sfondo.png");
+        Image background = new Image(backgroundTexture);
+        background.setSize(screenWidth, screenHeight);
+        stage.addActor(background);
+    
+        // Load textures and create TextureRegions
+        textureCure = new Texture(Gdx.files.internal("sfondo/cureBag.png"));
+        textureBall = new Texture(Gdx.files.internal("sfondo/ballBag.png"));
+        textureKey = new Texture(Gdx.files.internal("sfondo/keyBag.png"));
+        textureMT = new Texture(Gdx.files.internal("sfondo/mtBag.png"));
+    
         cure = new TextureRegion[3];
         ball = new TextureRegion[3];
         key = new TextureRegion[3];
         mt = new TextureRegion[3];
-        textureCure = new Texture(Gdx.files.internal("sfondo/cureBag.png"));
-        textureBall = new Texture(Gdx.files.internal("player/ballBag.png"));
-        textureKey = new Texture(Gdx.files.internal("player/keyBag.png"));
-        textureMT = new Texture(Gdx.files.internal("player/mtBag.png"));
-        
-        int regionWidthCure = textureCure.getWidth();
-        int regionHeightCure = textureCure.getHeight() / 3;
-        int regionWidthBall = textureBall.getWidth();
-        int regionHeightBall = textureBall.getHeight() / 3;
-        int regionWidthKey = textureKey.getWidth();
-        int regionHeightKey = textureKey.getHeight() / 3;
-        int regionWidthMT = textureMT.getWidth();
-        int regionHeightMT = textureMT.getHeight() / 3;
-
+    
+        int regionHeight = textureCure.getHeight() / 3; // Assuming each texture has 3 rows
+    
         for (int i = 0; i < 3; i++) {
-            cure[i] = new TextureRegion(textureCure, i * regionWidthCure, 0, regionWidthCure, regionHeightCure);
-            ball[i] = new TextureRegion(textureBall, i * regionWidthBall, 0, regionWidthBall, regionHeightBall);
-            key[i] = new TextureRegion(textureKey, i * regionWidthKey, 0, regionWidthKey, regionHeightKey);
-            mt[i] = new TextureRegion(textureMT, i * regionWidthMT, 0, regionWidthMT, regionHeightMT);
+            cure[i] = new TextureRegion(textureCure, 0, i * regionHeight, textureCure.getWidth(), regionHeight);
+            ball[i] = new TextureRegion(textureBall, 0, i * regionHeight, textureBall.getWidth(), regionHeight);
+            key[i] = new TextureRegion(textureKey, 0, i * regionHeight, textureKey.getWidth(), regionHeight);
+            mt[i] = new TextureRegion(textureMT, 0, i * regionHeight, textureMT.getWidth(), regionHeight);
         }
         
         cambiaCure = new Animation<>(cambioFrame_speed, cure);
         cambiaBall = new Animation<>(cambioFrame_speed, ball);
         cambiaKey = new Animation<>(cambioFrame_speed, key);
         cambiaMT = new Animation<>(cambioFrame_speed, mt);
-        
+
         nsCure = new Animation<>(cambioFrame_speed, cure[0]);
         nsBall = new Animation<>(cambioFrame_speed, ball[0]);
         nsKey = new Animation<>(cambioFrame_speed, key[0]);
         nsMT = new Animation<>(cambioFrame_speed, mt[0]);
-        
-        Image labelCure = createImageWithTexture(textureCure);
-        labelCure.setPosition(50, screenHeight - 100);
+    
+        // Create Image actors using TextureRegions
+         labelCure = new Image(cure[0]);
+        labelCure.setSize(100, 100);
+        labelCure.setPosition(70, screenHeight - 150);
         stage.addActor(labelCure);
-        borsaActors.add(labelCure); // Aggiungi l'etichetta Cure agli attori della borsa
-
-        Image labelBall = createImageWithTexture(textureBall);
-        labelBall.setPosition(150, screenHeight - 100);
+    
+         labelBall = new Image(ball[0]);
+        labelBall.setSize(100, 100);
+        labelBall.setPosition(200, screenHeight - 150);
         stage.addActor(labelBall);
-        borsaActors.add(labelBall); // Aggiungi l'etichetta Ball agli attori della borsa
-
-        Image labelKey = createImageWithTexture(textureKey);
-        labelKey.setPosition(250, screenHeight - 100);
+    
+         labelKey = new Image(key[0]);
+        labelKey.setSize(100, 100);
+        labelKey.setPosition(330, screenHeight - 150);
         stage.addActor(labelKey);
-        borsaActors.add(labelKey); // Aggiungi l'etichetta Key agli attori della borsa
-
-        Image labelMT = createImageWithTexture(textureMT);
-        labelMT.setPosition(350, screenHeight - 100);
+    
+         labelMT = new Image(mt[0]);
+        labelMT.setSize(100, 100);
+        labelMT.setPosition(460, screenHeight - 150);
         stage.addActor(labelMT);
-        borsaActors.add(labelMT); // Aggiungi l'etichetta MT agli attori della borsa
-
-
-        
-     // Gestisci il comportamento quando le etichette vengono premute
+    
+        // Handle click events on labels
         labelCure.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -138,7 +151,7 @@ public class Borsa {
                 deactivateAnimations(labelBall, labelKey, labelMT);
             }
         });
-
+    
         labelBall.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -146,7 +159,7 @@ public class Borsa {
                 deactivateAnimations(labelCure, labelKey, labelMT);
             }
         });
-
+    
         labelKey.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -154,7 +167,7 @@ public class Borsa {
                 deactivateAnimations(labelCure, labelBall, labelMT);
             }
         });
-
+    
         labelMT.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -162,25 +175,14 @@ public class Borsa {
                 deactivateAnimations(labelCure, labelBall, labelKey);
             }
         });
+    
         
-        // Sfondo della borsa
-        Texture backgroundTexture = new Texture("sfondo/sfondo.png");
-        Image background = new Image(backgroundTexture);
-        background.setSize(screenWidth, screenHeight);
-        stage.addActor(background);
-        borsaActors.add(background); // Aggiungi il background agli attori della borsa
-
-        // Etichetta della borsa
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = font;
-
-
-        // Pulsante per chiudere la borsa
+    
         Texture closeButtonTexture = new Texture("sfondo/x.png");
         NinePatch closeButtonPatch = new NinePatch(closeButtonTexture, 10, 10, 10, 10);
         NinePatchDrawable closeButtonDrawable = new NinePatchDrawable(closeButtonPatch);
-
-        Label closeLabel = new Label("", labelStyle);
+    
+        Label closeLabel = new Label("", new Label.LabelStyle(font, null));
         closeLabel.setWidth(75);
         closeLabel.setHeight(75);
         closeLabel.setPosition(screenWidth - 100, screenHeight - 100);
@@ -192,8 +194,12 @@ public class Borsa {
             }
         });
         stage.addActor(closeLabel);
-        borsaActors.add(closeLabel); // Aggiungi il pulsante di chiusura agli attori della borsa
+    
+        // Add actors to the borsaActors array
+        borsaActors.addAll(labelCure, labelBall, labelKey, labelMT, background, closeLabel);
+
     }
+    
 
     private void close() {
         // Rimuovi gli attori della borsa in modo ritardato per simulare una chiusura graduale
@@ -208,22 +214,42 @@ public class Borsa {
         }, 0.1f); // Ritardo di 0.1 secondi prima di rimuovere gli attori
     }
     
- // Metodo per creare un'immagine con una texture specifica
-    private Image createImageWithTexture(Texture texture) {
-        Image image = new Image(texture);
-        return image;
-    }
-
-    // Metodo per attivare l'animazione su un'immagine specifica e disattivare le altre
     private void activateAnimation(Image image, Animation<TextureRegion> animation) {
-        image.setDrawable(new NinePatchDrawable());
-        image.setDrawable((Drawable) animation.getKeyFrame(0, true));
-    }
+        stateTime = 1f;
+        frame = animation.getKeyFrame(stateTime, true);
+        image.setDrawable(new TextureRegionDrawable(frame));
 
-    // Metodo per disattivare le animazioni su una serie di immagini specifiche
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                stateTime = 2f;
+                frame = animation.getKeyFrame(stateTime, true);
+                image.setDrawable(new TextureRegionDrawable(frame));
+            }
+        }, 0.02f);
+    }
+    
+
+
     private void deactivateAnimations(Image... images) {
         for (Image image : images) {
-            image.setDrawable(new NinePatchDrawable());
+            // Ottieni l'animazione associata all'immagine
+            Animation<TextureRegion> animation = null;
+            if (image == labelCure) {
+                animation = nsCure;
+            } else if (image == labelBall) {
+                animation = nsBall;
+            } else if (image == labelKey) {
+                animation = nsKey;
+            } else if (image == labelMT) {
+                animation = nsMT;
+            }
+    
+            // Se l'animazione esiste, reimposta l'immagine al frame 0 dell'animazione
+            if (animation != null) {
+                TextureRegion frame = animation.getKeyFrame(0); // Ottieni il frame 0 dell'animazione
+                image.setDrawable(new TextureRegionDrawable(frame));
+            }
         }
-}
+    }
 }
