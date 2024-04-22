@@ -1,11 +1,16 @@
 package com.mercurio.game.Screen;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -50,6 +55,54 @@ public class FullMap extends ScreenAdapter{
     }
 
     private void cambiaProfondita(MapLayer lineeLayer) {
+        ArrayList<String> background = new ArrayList<String>();
+        ArrayList<String> foreground = new ArrayList<String>();
+
+        background.add("Livello tile ground");
+        background.add("Livello tile case");
+        background.add("Livello tile deco2");
+        background.add("Livello tile deco1");
+        background.add("Livello tile deco");
+        background.add("Livello tile path");
+        background.add("Livello tile piantine");
         
+        for (MapObject object : lineeLayer.getObjects()) {
+            if (object instanceof RectangleMapObject) {
+                RectangleMapObject rectangleObject = (RectangleMapObject)object;
+
+                //salvo il nome del layer che verrà inserito in una delle due liste
+                String layerName = (String)rectangleObject.getProperties().get("layer");
+
+                if (game.getPlayer().getPlayerPosition().y < rectangleObject.getRectangle().getY()) {
+                    background.add(layerName);
+                }else {
+                    foreground.add(layerName);
+                }
+            }
+        }
+
+        //background
+        for (String layerName : background) {
+            renderLayer(layerName);
+        }
+
+        game.renderPlayer();
+
+        //foreground
+        for (String layerName : foreground) {
+            renderLayer(layerName);
+        }
+
+    }
+
+    private void renderLayer(String layerName) {
+        tileRenderer.getBatch().begin();
+        
+        // Recupera il layer dalla mappa
+        MapLayer layer = mappa.getLayers().get(layerName);
+        // Renderizza il layer
+        tileRenderer.renderTileLayer((TiledMapTileLayer)layer);
+
+        tileRenderer.getBatch().end();
     }
 }
