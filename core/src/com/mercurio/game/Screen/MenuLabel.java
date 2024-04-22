@@ -148,7 +148,7 @@ public class MenuLabel {
 	    
 	private void apriBorsa() {
 		System.out.println("Borsa aperta");
-	    borsa = new Borsa();
+	    borsa = new Borsa(getStage());
 	}
 	
 	private void apriMedaglie() {
@@ -163,6 +163,9 @@ public class MenuLabel {
 		System.out.println("Spento");
 	}
 
+	public Stage getStage() {
+	    return stage;
+	}
     
     // Metodo per aggiungere una label con uno sfondo personalizzato, testo e dimensioni specifiche
     private void addMenuItem(float y, float x, String backgroundImagePath, String labelText, float width, float height, final Runnable action) {
@@ -277,8 +280,9 @@ public class MenuLabel {
 
         // Rendering dello stage
         if (borsa != null) {
-        	borsa.render();
+            borsa.render();
         }
+
         batch.begin();
         stage.draw();
         batch.end();
