@@ -603,6 +603,6 @@
   </object>
  </objectgroup>
  <objectgroup color="#62ff00" id="31" name="exit">
-  <object id="73" x="145.497" y="315.789" width="28.0702"/>
+  <object id="73" x="145.497" y="305.289" width="28.0702" height="11.625"/>
  </objectgroup>
 </map>
