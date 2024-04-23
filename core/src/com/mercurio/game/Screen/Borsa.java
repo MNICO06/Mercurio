@@ -9,12 +9,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
@@ -24,6 +26,8 @@ import com.badlogic.gdx.utils.Timer;
 
 public class Borsa {
 
+    private Array<Actor> inventoryItemActors = new Array<>(); // Array per tracciare gli attori degli oggetti dell'inventario
+    private int currentPageIndex = 0;
     private TextureRegion frame;
     private Stage stage;
     private SpriteBatch batch;
@@ -149,6 +153,7 @@ public class Borsa {
             public void clicked(InputEvent event, float x, float y) {
                 activateAnimation(labelCure, cambiaCure);
                 deactivateAnimations(labelBall, labelKey, labelMT);
+                showInventoryItems();
             }
         });
     
@@ -157,6 +162,7 @@ public class Borsa {
             public void clicked(InputEvent event, float x, float y) {
                 activateAnimation(labelBall, cambiaBall);
                 deactivateAnimations(labelCure, labelKey, labelMT);
+                clearInventoryItems(); //solo per prova, questo comando va poi tolto
             }
         });
     
@@ -165,6 +171,7 @@ public class Borsa {
             public void clicked(InputEvent event, float x, float y) {
                 activateAnimation(labelKey, cambiaKey);
                 deactivateAnimations(labelCure, labelBall, labelMT);
+                clearInventoryItems(); //solo per prova, questo comando va poi tolto
             }
         });
     
@@ -173,6 +180,7 @@ public class Borsa {
             public void clicked(InputEvent event, float x, float y) {
                 activateAnimation(labelMT, cambiaMT);
                 deactivateAnimations(labelCure, labelBall, labelKey);
+                clearInventoryItems(); //solo per prova, questo comando va poi tolto
             }
         });
     
@@ -202,6 +210,7 @@ public class Borsa {
     
 
     private void close() {
+        clearInventoryItems();
         // Rimuovi gli attori della borsa in modo ritardato per simulare una chiusura graduale
         Timer.schedule(new Timer.Task() {
             @Override
@@ -226,7 +235,7 @@ public class Borsa {
                 frame = animation.getKeyFrame(stateTime, true);
                 image.setDrawable(new TextureRegionDrawable(frame));
             }
-        }, 0.02f);
+        }, 0.2f);
     }
     
 
@@ -251,5 +260,136 @@ public class Borsa {
                 image.setDrawable(new TextureRegionDrawable(frame));
             }
         }
+    }
+
+    private void showInventoryItems() {
+
+        clearInventoryItems();
+        // Simulazione di un inventario
+        String[][] inventoryItems = {
+            {"Pokeball", "10"},
+            {"Pozione", "5"},
+            {"Acqua", "3"},
+            {"MT", "1"},
+            {"RevitalizzanteMax", "2"},
+            {"CaramellaRara", "4"},
+            {"MegaBall", "4"},
+            {"UltraBall", "8"},
+            {"Campana", "8"},
+            {"MasterBall", "309"}
+        };
+    
+        // Calcola la posizione di partenza per visualizzare le etichette
+
+        float itemWidth = 65;
+        float itemHeight = 65;
+        float padding = 50;
+    
+        // Visualizza al massimo 4 oggetti contemporaneamente
+        int maxNumPages = inventoryItems.length/4;
+
+        if (maxNumPages*4<inventoryItems.length){
+            maxNumPages++;
+        }
+        int maxItemsToShow = 4;
+        int numItems = Math.min(inventoryItems.length, maxItemsToShow); // Numero di oggetti da mostrare
+    
+        for (int i = 0; i < numItems; i++) {
+            if (i+currentPageIndex*4<inventoryItems.length){
+            String itemName = inventoryItems[i+currentPageIndex*4][0];
+            String itemQuantity = inventoryItems[i+currentPageIndex*4][1];
+    
+            float itemX = 100;
+            float itemY =110+  i * (itemWidth + padding);
+
+            Texture backgroundTexture = new Texture("sfondo/sfondo1.png");
+            Image background2 = new Image(backgroundTexture);
+            background2.setSize(680, 82);
+            background2.setPosition(itemX, itemY-5);  
+            stage.addActor(background2);
+            inventoryItemActors.add(background2);
+            
+
+            background2.addListener(new InputListener() { 
+                @Override
+                public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                    // Questo metodo viene chiamato quando il cursore entra nell'area dell'immagine
+                    background2.setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("sfondo/sfondo2.png")))));
+                }
+                
+                @Override
+                public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                    // Questo metodo viene chiamato quando il cursore esce dall'area dell'immagine
+                    background2.setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("sfondo/sfondo1.png")))));
+                }
+            });
+
+
+            // Carica l'immagine dell'oggetto
+            Texture itemTexture = new Texture(Gdx.files.internal("oggetti/" + itemName.toLowerCase() + ".png"));
+            Image itemImage = new Image(itemTexture);
+            itemImage.setSize(itemWidth, itemHeight);
+            itemImage.setPosition(itemX + 20, itemY);
+            stage.addActor(itemImage);
+            inventoryItemActors.add(itemImage);
+    
+            // Crea una label per il nome dell'oggetto
+            Label itemNameLabel = new Label(itemName, new Label.LabelStyle(font, null));
+            itemNameLabel.setPosition(itemX+110, itemY+25);
+            itemNameLabel.setFontScale(5);
+            stage.addActor(itemNameLabel);
+            inventoryItemActors.add(itemNameLabel);
+    
+            // Crea una label per la quantità dell'oggetto
+            Label itemQuantityLabel = new Label("x " + itemQuantity, new Label.LabelStyle(font, null));
+            itemQuantityLabel.setPosition(itemX + 565, itemY+ 25);
+            itemQuantityLabel.setFontScale(4);
+            stage.addActor(itemQuantityLabel);
+            inventoryItemActors.add(itemQuantityLabel);
+        }
+    
+        float btnX = 100;
+        float btnY = 75;
+
+        // Aggiungi un pulsante per visualizzare gli oggetti successivi
+        if (inventoryItems.length > maxItemsToShow && maxNumPages!=currentPageIndex+1) {
+            Texture nextButtonTexture = new Texture(Gdx.files.internal("sfondo/avanti.png"));
+            Image nextButton = new Image(nextButtonTexture);
+            nextButton.setSize(45, 80);
+            nextButton.setPosition(btnX + 50, btnY - 60);
+            nextButton.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    currentPageIndex += 1;
+                    showInventoryItems();
+                }
+            });
+            stage.addActor(nextButton);
+            inventoryItemActors.add(nextButton);
+        }
+            if (currentPageIndex>0){
+            Texture backButtonTexture = new Texture(Gdx.files.internal("sfondo/indietro.png"));
+            Image backButton = new Image(backButtonTexture);
+            backButton.setSize(45, 80);
+            backButton.setPosition(btnX, btnY - 60);
+            backButton.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    currentPageIndex -= 1;
+                    showInventoryItems();
+                }
+            });
+            stage.addActor(backButton);
+            inventoryItemActors.add(backButton);
+        }
+    }
+    }
+
+    private void clearInventoryItems() {
+        // Rimuovi gli attori dell'inventario aggiunti durante la visualizzazione precedente
+        for (Actor actor : inventoryItemActors) {
+            actor.remove(); // Rimuovi l'attore dalla stage
+        }
+        inventoryItemActors.clear(); // Pulisci l'array degli attori dell'inventario
     }
 }
