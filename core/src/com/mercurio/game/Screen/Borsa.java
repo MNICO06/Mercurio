@@ -1,5 +1,7 @@
 package com.mercurio.game.Screen;
 
+import org.json.JSONArray;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -23,9 +25,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Borsa {
-
+    
+    private Texture itemTexture;
     private Array<Actor> inventoryItemActors = new Array<>(); // Array per tracciare gli attori degli oggetti dell'inventario
     private int currentPageIndex = 0;
     private TextureRegion frame;
@@ -37,7 +44,14 @@ public class Borsa {
     private TextureRegion[] ball;
     private TextureRegion[] key; 
     private TextureRegion[] mt;
-    
+    private String[][] inventoryCure;
+    private String[][] inventoryBall;
+    private String[][] inventoryMT;
+    private String[][] inventoryKey;
+    private JSONArray jsonCure;
+    private JSONArray jsonBall;
+    private JSONArray jsonKey;
+    private JSONArray jsonMT;
     private Texture textureCure;
     private Texture textureBall;
     private Texture textureKey;
@@ -66,10 +80,42 @@ public class Borsa {
         this.font = new BitmapFont(Gdx.files.internal("font/small_letters_font.fnt"));
         this.stage = stage;
         this.borsaActors = new Array<>(); // Inizializza l'array degli attori della borsa
-
         Gdx.input.setInputProcessor(stage);
 
+        try (FileReader fileReader = new FileReader("./assets/ashJson/borsa.json")) {
+            // Utilizza JSONTokener per leggere il file JSON
+            JSONTokener tokener = new JSONTokener(fileReader);
+            JSONObject inventoryData = new JSONObject(tokener);
+
+            // Riempire le matrici di inventario
+            jsonCure = inventoryData.getJSONArray("inventoryCure");
+            jsonBall = inventoryData.getJSONArray("inventoryBall");
+            jsonMT = inventoryData.getJSONArray("inventoryMT");
+            jsonKey = inventoryData.getJSONArray("inventoryKey");
+
+            inventoryCure = jsonArrayToMatrix(jsonCure);
+            inventoryBall = jsonArrayToMatrix(jsonBall);
+            inventoryMT = jsonArrayToMatrix(jsonMT);
+            inventoryKey = jsonArrayToMatrix(jsonKey);
+        } catch (IOException e) {
+            System.err.println("Errore durante la lettura del file JSON: " + e.getMessage());
+        }
+
         createUI();
+    }
+
+    //trasforma gli array in matrici E MI RISPARMIA ORE DI LAVORO
+    private static String[][] jsonArrayToMatrix(JSONArray jsonArray) {
+        int length = jsonArray.length();
+        String[][] matrix = new String[length][2]; // Altezza variabile, larghezza fissa a 2
+        for (int i = 0; i < length; i++) {
+            JSONObject item = jsonArray.getJSONObject(i);
+            String itemName = item.getString("name");
+            int quantity = item.getInt("quantity");
+            matrix[i][0] = itemName;
+            matrix[i][1] = String.valueOf(quantity);
+        }
+        return matrix;
     }
 
     public void render() {
@@ -145,7 +191,7 @@ public class Borsa {
          labelMT = new Image(mt[0]);
         labelMT.setSize(100, 100);
         labelMT.setPosition(460, screenHeight - 150);
-        stage.addActor(labelMT);
+        stage.addActor(labelMT); 
     
         // Handle click events on labels
         labelCure.addListener(new ClickListener() {
@@ -153,7 +199,8 @@ public class Borsa {
             public void clicked(InputEvent event, float x, float y) {
                 activateAnimation(labelCure, cambiaCure);
                 deactivateAnimations(labelBall, labelKey, labelMT);
-                showInventoryItems();
+                currentPageIndex = 0;
+                showInventoryItems(inventoryCure);
             }
         });
     
@@ -162,7 +209,8 @@ public class Borsa {
             public void clicked(InputEvent event, float x, float y) {
                 activateAnimation(labelBall, cambiaBall);
                 deactivateAnimations(labelCure, labelKey, labelMT);
-                clearInventoryItems(); //solo per prova, questo comando va poi tolto
+                currentPageIndex = 0;
+                showInventoryItems(inventoryBall);
             }
         });
     
@@ -171,7 +219,8 @@ public class Borsa {
             public void clicked(InputEvent event, float x, float y) {
                 activateAnimation(labelKey, cambiaKey);
                 deactivateAnimations(labelCure, labelBall, labelMT);
-                clearInventoryItems(); //solo per prova, questo comando va poi tolto
+                currentPageIndex = 0;
+                showInventoryItems(inventoryKey);
             }
         });
     
@@ -180,7 +229,8 @@ public class Borsa {
             public void clicked(InputEvent event, float x, float y) {
                 activateAnimation(labelMT, cambiaMT);
                 deactivateAnimations(labelCure, labelBall, labelKey);
-                clearInventoryItems(); //solo per prova, questo comando va poi tolto
+                currentPageIndex = 0;
+                showInventoryItems(inventoryMT);
             }
         });
     
@@ -251,7 +301,7 @@ public class Borsa {
             } else if (image == labelKey) {
                 animation = nsKey;
             } else if (image == labelMT) {
-                animation = nsMT;
+                animation = nsMT; 
             }
     
             // Se l'animazione esiste, reimposta l'immagine al frame 0 dell'animazione
@@ -262,10 +312,11 @@ public class Borsa {
         }
     }
 
-    private void showInventoryItems() {
+    private void showInventoryItems(String[][] inventoryItems) {
 
         clearInventoryItems();
-        // Simulazione di un inventario
+
+        /*Simulazione di un inventario
         String[][] inventoryItems = {
             {"Pokeball", "10"},
             {"Pozione", "5"},
@@ -277,7 +328,7 @@ public class Borsa {
             {"UltraBall", "8"},
             {"Campana", "8"},
             {"MasterBall", "309"}
-        };
+        };*/
     
         // Calcola la posizione di partenza per visualizzare le etichette
 
@@ -326,7 +377,13 @@ public class Borsa {
 
 
             // Carica l'immagine dell'oggetto
-            Texture itemTexture = new Texture(Gdx.files.internal("oggetti/" + itemName.toLowerCase() + ".png"));
+            String primiDueCaratteri = itemName.substring(0, 2);
+            if (primiDueCaratteri.charAt(0) == 'M' && primiDueCaratteri.charAt(1) == 'T'){
+                itemTexture = new Texture(Gdx.files.internal("oggetti/MT.png"));
+            }
+            else{
+                itemTexture = new Texture(Gdx.files.internal("oggetti/" + itemName.toLowerCase() + ".png"));
+            }
             Image itemImage = new Image(itemTexture);
             itemImage.setSize(itemWidth, itemHeight);
             itemImage.setPosition(itemX + 20, itemY);
@@ -361,7 +418,7 @@ public class Borsa {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     currentPageIndex += 1;
-                    showInventoryItems();
+                    showInventoryItems(inventoryItems);
                 }
             });
             stage.addActor(nextButton);
@@ -376,7 +433,7 @@ public class Borsa {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     currentPageIndex -= 1;
-                    showInventoryItems();
+                    showInventoryItems(inventoryItems);
                 }
             });
             stage.addActor(backButton);
