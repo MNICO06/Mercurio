@@ -6,18 +6,18 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Timer;
 import com.mercurio.game.personaggi.Ash;
 
 
@@ -49,16 +49,26 @@ public class MercurioMain extends Game{
     private MenuLabel menuLabel;
 
     private Stage stage;
+    private TiledMap mappa;
     
     @Override
     public void create() {
-        
-        setPage(Constant.MENU_SCREEN);
         ash = new Ash(this);
         batch = new SpriteBatch();
         menuLabel = new MenuLabel();
+        setPage(Constant.SCHERMATA_LOGO);
         
-        
+
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                // Carica la mappa
+                TmxMapLoader mapLoader = new TmxMapLoader();
+                mappa = mapLoader.load(Constant.MAPPA);
+
+                setPage(Constant.MENU_SCREEN);
+            }
+        }, 1); // Ritarda di 2 secondi (puoi modificare questo valore)
     }
 
     @Override
@@ -84,10 +94,10 @@ public class MercurioMain extends Game{
             camera.update();
 
             tileRenderer.setView(camera);
-            
-        }
 
+        }
     }
+
 
     public void setRectangleList(ArrayList<Rectangle> rectList) {
         this.rectList = rectList;
@@ -132,7 +142,7 @@ public class MercurioMain extends Game{
         }
     }
 
-    //avvia un altra scheda 
+    //avvia un altra scheda
     public void setPage(String screen) {
         Screen newScreen = null;
         switch(screen) {
@@ -150,11 +160,24 @@ public class MercurioMain extends Game{
                 newScreen = new PokeCenter(this);
                 screen_id = 2;
                 break;
+
+                case Constant.MAPPA_SCREEN:
+                newScreen = new FullMap(this, mappa);
+                screen_id = 3;
+                break;
+
+                case Constant.SCHERMATA_LOGO:
+                newScreen = new SchermataLogo(this);
+                setPage(Constant.MENU_SCREEN);
+                break;
+
             default:
                 break;
         }
 
         setScreen (newScreen);
+
+        
         
     }
 
