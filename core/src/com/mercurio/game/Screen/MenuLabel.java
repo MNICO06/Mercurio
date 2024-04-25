@@ -20,6 +20,8 @@ import com.badlogic.gdx.utils.Timer;
 
 public class MenuLabel {
 
+    private Battle battle;
+
 	private SpriteBatch batch;
     private BitmapFont font;
     private Label openMenuLabel;
@@ -252,7 +254,7 @@ public class MenuLabel {
                     }
                     menuOpened = false;
                 }
-            }, 0.1f); // Ritardo di 0.3 secondi prima di rimuovere gli attori
+            }, 0.1f); // Ritardo di 0.1 secondi prima di rimuovere gli attori
         }
     }
 
@@ -261,18 +263,23 @@ public class MenuLabel {
     public void render() {
         // Controlla se il tasto X è premuto per aprire o chiudere il menu
         if (Gdx.input.isKeyJustPressed(Input.Keys.X)) {
-            if (!menuOpened && xKeyPressed) {
+            /*if (!menuOpened && xKeyPressed) {
                 // Se il menu non è aperto e il tasto X è abilitato, apri il menu
                 apriMenu();
             } else if (menuOpened) {
                 // Se il menu è aperto, chiudi il menu
                 chiudiMenu();
-            }
+            }*/
+            battle = new Battle();
         }
 
         // Rendering dello stage
-        if (borsa != null) {
+        /*if (borsa != null) {
             borsa.render();
+        }*/
+
+        if (battle != null){
+            battle.render();
         }
 
         batch.begin();

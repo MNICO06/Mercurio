@@ -136,7 +136,7 @@ public class Borsa {
         float screenWidth = Gdx.graphics.getWidth();
         float screenHeight = Gdx.graphics.getHeight();
 
-        // Add background and close button
+        // Add background 
         Texture backgroundTexture = new Texture("sfondo/sfondo.png");
         Image background = new Image(backgroundTexture);
         background.setSize(screenWidth, screenHeight);
@@ -153,7 +153,7 @@ public class Borsa {
         key = new TextureRegion[3];
         mt = new TextureRegion[3];
     
-        int regionHeight = textureCure.getHeight() / 3; // Assuming each texture has 3 rows
+        int regionHeight = textureCure.getHeight() / 3;
     
         for (int i = 0; i < 3; i++) {
             cure[i] = new TextureRegion(textureCure, 0, i * regionHeight, textureCure.getWidth(), regionHeight);
