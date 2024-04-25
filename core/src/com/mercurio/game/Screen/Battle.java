@@ -18,12 +18,15 @@ import com.badlogic.gdx.utils.Timer;
 
 public class Battle extends ScreenAdapter {
 
+    private Texture ballTexture = new Texture("battle/pokeBallPlayer.png"); //questo lo si prende dal json
+    private boolean isInNext=true; 
     private int lanciato = 0;
     private Image labelBaseU;
     private Image labelBaseD;
     private Texture textureLancio;
     private TextureRegion[] player;
     private TextureRegion[] ball;
+    private TextureRegion ball2;
     private SpriteBatch batch;
     private BitmapFont font;
     private Stage stage;
@@ -31,6 +34,7 @@ public class Battle extends ScreenAdapter {
     private TextureRegion frame;
     private Image imagePlayer;
     private Image imageBall;
+    private Image imageBall2;
     private Animation<TextureRegion> muoviPlayer;
     private Animation<TextureRegion> muoviBall;
     private float cambioFrame_speed = 0.7f;
@@ -62,6 +66,15 @@ public class Battle extends ScreenAdapter {
         initialPosXU = 0;
 
         animationTime = 0f;
+
+        
+
+        int ballWidth = ballTexture.getWidth() / 3;
+        int ballHeight = ballTexture.getHeight();
+    
+        ball2 =  new TextureRegion(ballTexture, 0, 0, ballWidth, ballHeight);
+        
+
         // Add background 
         Texture backgroundTexture = new Texture("battle/sfondoBattle.png");
         Image background = new Image(backgroundTexture);
@@ -90,9 +103,18 @@ public class Battle extends ScreenAdapter {
         labelBaseU.setSize(128*3, 62*3);
         stage.addActor(labelBaseU);
 
+        imageBall2 = new Image(ball2);
+        imageBall2.setSize(16*4, 25*4);
+        imageBall2.setPosition(-300, -300); //fuori dallo schermo che non si deve vedere
+        stage.addActor(imageBall2);
+
         imagePlayer = new Image(player[0]);
         imagePlayer.setSize(66*4, 52*4);
         stage.addActor(imagePlayer);
+
+        
+
+        
             
         }
 
@@ -112,7 +134,7 @@ public class Battle extends ScreenAdapter {
             labelBaseD.setPosition(newXD, 125);
             float newXU = MathUtils.lerp(initialPosXU, targetPosXU, progress);
             labelBaseU.setPosition(newXU, 300);
-            imagePlayer.setPosition(newXD + 128*2, 125);
+            imagePlayer.setPosition(newXD + 370, 125);
         } else {
             // Avvia l'animazione del player
             if (animationTime < animationDuration + 1f) {
@@ -120,20 +142,30 @@ public class Battle extends ScreenAdapter {
                 if (animationTime > animationDuration) {
                     // Cambia l'immagine del player a player[1]
                     imagePlayer.setDrawable(new TextureRegionDrawable(player[1]));
+                    imageBall2.setPosition(190, 195);
                 }
             } else {
+                
                 // Dopo un secondo, sposta il player fino al bordo dello schermo
                 float newX = imagePlayer.getX() - 300 * Gdx.graphics.getDeltaTime(); // Spostamento di 300 pixel al secondo
-                
-                if (newX + imagePlayer.getWidth() < 190) {
+
+                if (isInNext){
+                    imageBall2.setPosition(newX+10, 195);
+                }
+                else{
+                    imageBall2.setPosition(newX+10, 220);
+                }
+
+                if (newX + imagePlayer.getWidth() < 120) {
                     // Una volta che il player è fuori dallo schermo, cambia l'animazione a player[2] e player[3]
                     imagePlayer.setDrawable(new TextureRegionDrawable(player[3]));
                     lanciato++;  
+                   isInNext=true;
                     // Rimuovi il player dallo stage dopo l'ultima animazione
                 }
-                else if (newX + imagePlayer.getWidth() > 190 && newX + imagePlayer.getWidth() < 300) {
+                else if (newX + imagePlayer.getWidth() > 120 && newX + imagePlayer.getWidth() < 270) {
                     imagePlayer.setDrawable(new TextureRegionDrawable(player[2]));
-
+                    isInNext=false;
                     if (muoviPlayer.isAnimationFinished(3f)) {
                         Timer.schedule(new Timer.Task() {
                             @Override
@@ -141,24 +173,17 @@ public class Battle extends ScreenAdapter {
                                 imagePlayer.remove(); // Rimuovi lo sprite dallo stage
                             }
                         }, 2f);
-                        
-                        
                     }
                 }
                 
+                
+
                 if(imagePlayer!=null)
                     imagePlayer.setPosition(newX, imagePlayer.getY());
                 
             }
             if (lanciato==1){
-                Texture ballTexture = new Texture("battle/pokeBallPlayer.png");
-                Timer.schedule(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        showBall(ballTexture);
-                    }
-                }, 0.16f);
-                
+                showBall(ballTexture);
             }
         }
 
@@ -204,7 +229,7 @@ public class Battle extends ScreenAdapter {
                 if (elapsed <= duration) {
                     // Calcola la posizione sulla traiettoria curva
                     float percent = elapsed / duration;;
-                    imageBall.setPosition(startX * percent * 175, startY - (startY - 110)* percent * percent); // Utilizza una curva quadratica
+                    imageBall.setPosition((startX * percent * 175)+35, startY - (startY - 110)* percent * percent); // Utilizza una curva quadratica
                     elapsed += 0.1f;
                 } else {
                     // Avvia l'animazione dei frame della ball
