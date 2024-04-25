@@ -7,5 +7,6 @@ public class Constant {
     public static final String CENTRO_POKEMON = "mappa/CentroPokemon.tmx";
     public static final String CENTRO_POKEMON_SCREEN = "centroPokemon";
     public static final String MAPPA_SCREEN = "mappa";
-    public static final String MAPPA = "mappa/FullMapLimited.tmx";
+    public static final String MAPPA = "mappa/FullMapLimitedNV2.tmx";
+    public static final String SCHERMATA_LOGO = "logo";
 }
