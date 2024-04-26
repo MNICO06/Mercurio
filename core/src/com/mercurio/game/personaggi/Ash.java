@@ -251,6 +251,10 @@ public class Ash {
         return characterPosition;
     }
 
+    public void setPosition (float x, float y) {
+        characterPosition.set(x, y);
+    }
+
     public int getPlayerWidth() {
         return player_width;
     }

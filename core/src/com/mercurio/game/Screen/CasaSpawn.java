@@ -219,24 +219,6 @@ public class CasaSpawn extends ScreenAdapter {
         timer.schedule(mammaTimerTask, 3000);
     }
 
-    /*
-    public void startTimerForText() {
-        // Pianifica un nuovo compito per far tornare la mamma nella posizione "avanti" dopo 5 secondi
-        textTimerTask = new TimerTask() {
-            @Override
-            public void run() {
-                tieniApertoDiscorso = false;
-                fPressed = false;
-                game.getPlayer().setMovement(true);
-            }
-        };
-
-        // Avvia il timer per il compito della mamma
-        timer.schedule(textTimerTask, 3000);
-    }
-    */
-
-
     // Metodo per annullare il compito del timer della mamma
     public void cancelTimerForMamma() {
         // Cancella il compito del timer della mamma se è stato pianificato in precedenza
@@ -315,7 +297,8 @@ public class CasaSpawn extends ScreenAdapter {
 
     public void controllaUscita() {
         if(game.getPlayer().getBoxPlayer().overlaps(rectangleUscita)) {
-            game.setPage(Constant.CENTRO_POKEMON_SCREEN);
+            game.setTeleport("uscitaCasa");
+            game.setPage(Constant.MAPPA_SCREEN);
         }
     }
 

@@ -7,10 +7,15 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+
 
 public class FullMap extends ScreenAdapter{
     private final MercurioMain game;
@@ -37,8 +42,11 @@ public class FullMap extends ScreenAdapter{
         map_size = new Vector2(mapWidth,mapHeight);
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, map_size.x/1.9f, map_size.y/2f);
+        camera.setToOrtho(false, map_size.x/38f, map_size.y/40f);
         camera.update();
+        game.getPlayer().setPosition(3000,100);
+
+        setPositionPlayer();
 
         game.setMap(mappa, tileRenderer, camera, map_size.x, map_size.y);
     }
@@ -56,3 +64,27 @@ public class FullMap extends ScreenAdapter{
         ArrayList<String> foreground = new ArrayList<String>();
 
         tileRenderer.render();
+        game.renderPlayer();
+    }
+
+    public void setPositionPlayer() {
+        String luogo = game.getTeleport();
+        float x = 100;
+        float y = 3000;
+        MapLayer uscita = mappa.getLayers().get("uscita");
+        for (MapObject object : uscita.getObjects()) {
+            if (object instanceof RectangleMapObject) {
+                RectangleMapObject rectObject = (RectangleMapObject) object;
+                Rectangle rect = rectObject.getRectangle();
+                
+                if (object.getName().equals(luogo)) {
+                    x = rect.getX();
+                    y = rect.getY();
+                }
+            }
+        }
+        game.getPlayer().setPosition(x, y);
+        
+    }
+
+}

@@ -50,6 +50,8 @@ public class MercurioMain extends Game{
 
     private Stage stage;
     private TiledMap mappa;
+
+    private String teleport;
     
     @Override
     public void create() {
@@ -216,24 +218,12 @@ public class MercurioMain extends Game{
         return null;
     }
 
-    /*
-    //visualizza dettagliato bianco
-    public void showInteractionBorder(Object obj) {
-        shapeRenderer.setProjectionMatrix(camera.combined);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.setColor(Color.WHITE);
-
-        if (obj instanceof PolygonMapObject) {
-            PolygonMapObject polygonObject = (PolygonMapObject) obj;
-            float[] vertices = polygonObject.getPolygon().getTransformedVertices();
-
-            shapeRenderer.polygon(vertices);
-        }
-
-        shapeRenderer.end();
+    public void setTeleport(String teleport) {
+        this.teleport = teleport;
     }
-    */
 
-
-    
+    public String getTeleport() {
+        return teleport;
+    }
+ 
 }
