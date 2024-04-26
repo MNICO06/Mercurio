@@ -62,6 +62,41 @@ public class FullMap extends ScreenAdapter{
     private void cambiaProfondita(MapLayer lineeLayer) {
         ArrayList<String> background = new ArrayList<String>();
         ArrayList<String> foreground = new ArrayList<String>();
+        float y;
+
+        background.add("Livello tile ground");
+        background.add("Livello tile case");
+        background.add("Livello tile deco2");
+        background.add("Livello tile deco1");
+        background.add("Livello tile deco");
+        background.add("Livello tile path");
+        background.add("Livello tile piantine");
+        background.add("AlberiMezzo");
+        background.add("FixingLayer2");
+        background.add("AlberiFondo");
+        background.add("FixingLayer1");
+        background.add("AlberiCima");
+        //background.add("");
+
+        for (MapObject obj : lineeLayer.getObjects()) {
+            if (obj instanceof RectangleMapObject) {
+                RectangleMapObject rectObj = (RectangleMapObject)obj;
+
+                String layerName = (String)rectObj.getProperties().get("layer");
+
+                y = rectObj.getRectangle().getY() - game.getPlayer().getPlayerPosition().y;
+                if (y > 0 && y < 200) {
+                    background.add(layerName);
+                    
+                }
+                else if (y<0 && y > -200) {
+                    foreground.add(layerName);
+                }
+            }
+        }
+
+        System.out.println(background+ "\n \n \n \n");
+        System.out.println(foreground + "\n \n \n \n");
 
         tileRenderer.render();
         game.renderPlayer();
