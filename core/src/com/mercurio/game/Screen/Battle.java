@@ -18,7 +18,10 @@ import com.badlogic.gdx.utils.Timer;
 
 public class Battle extends ScreenAdapter {
 
-    private Texture ballTexture = new Texture("battle/pokeBallPlayer.png"); //questo lo si prende dal json
+    private boolean isBotFight = true;
+    private Image botImage;
+    private Texture ballTexture = new Texture("battle/pokeBallPlayer.png");
+    private Texture ballTextureBot = new Texture("battle/pokeBallPlayer.png"); //questo lo si prende dal json
     private boolean isInNext=true; 
     private int lanciato = 0;
     private Image labelBaseU;
@@ -26,6 +29,7 @@ public class Battle extends ScreenAdapter {
     private Texture textureLancio;
     private TextureRegion[] player;
     private TextureRegion[] ball;
+    private TextureRegion[] ballBot;
     private TextureRegion ball2;
     private SpriteBatch batch;
     private BitmapFont font;
@@ -34,9 +38,11 @@ public class Battle extends ScreenAdapter {
     private TextureRegion frame;
     private Image imagePlayer;
     private Image imageBall;
+    private Image imageBallBot;
     private Image imageBall2;
     private Animation<TextureRegion> muoviPlayer;
     private Animation<TextureRegion> muoviBall;
+    private Animation<TextureRegion> muoviBallBot;
     private float cambioFrame_speed = 0.7f;
     private float animationTime;
     private float animationDuration = 3f; // Durata dell'animazione in secondi
@@ -44,18 +50,64 @@ public class Battle extends ScreenAdapter {
     private float targetPosXD;
     private float initialPosXU;
     private float targetPosXU;
-
+    private LabelDiscorsi labelDiscorsi1;
+    private LabelDiscorsi labelDiscorsi2;
+    private LabelDiscorsi labelDiscorsi3;
+    private LabelDiscorsi labelDiscorsi4;
+    private LabelDiscorsi labelDiscorsi5;
+    private LabelDiscorsi labelDiscorsi6;
+    private LabelDiscorsi labelDiscorsi7;
+    private LabelDiscorsi labelDiscorsi8;
+    private LabelDiscorsi labelDiscorsi9;
+    private String nomePoke;
+    private String nomeMossa="Oscurotuffo";
+    private String soldiPresi = "309";
+    private int dimMax;
+    private String nomeBot;
 
     public Battle() {
+
         batch = new SpriteBatch();
         font = new BitmapFont(Gdx.files.internal("font/small_letters_font.fnt"));
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
+        nomeBot = "Magni (montanaro)";
+        nomePoke ="Giratina";
+        dimMax=200;
+
+        String discorso1= "Parte la sfida di "+nomeBot+"!";
+        labelDiscorsi1 = new LabelDiscorsi(discorso1,dimMax,0,true);
+        
+        String discorso2= "Vai "+ nomePoke + "!";
+        labelDiscorsi2 = new LabelDiscorsi(discorso2,dimMax,0,true);
+
+        String discorso3= "Hai sconfitto "+ nomeBot+"!";
+        labelDiscorsi3 = new LabelDiscorsi(discorso3,dimMax,0,true);
+
+        String discorso4= nomePoke + " utilizza " + nomeMossa+"!";
+        labelDiscorsi4 = new LabelDiscorsi(discorso4,dimMax,0,true);
+
+        String discorso5= "E' superefficace!";
+        labelDiscorsi5 = new LabelDiscorsi(discorso5,dimMax,0,true);
+
+        String discorso6= "Non e' molto efficace...!";
+        labelDiscorsi6 = new LabelDiscorsi(discorso6,dimMax,0,true);
+
+        String discorso7= "Non ha effetto!";
+        labelDiscorsi7 = new LabelDiscorsi(discorso7,dimMax,0,true);
+
+        String discorso8= "Hai guadagnato "+ soldiPresi+".";
+        labelDiscorsi8 = new LabelDiscorsi(discorso8,dimMax,0,true);
+
+        String discorso9= "Brutto colpo!";
+        labelDiscorsi9 = new LabelDiscorsi(discorso9,dimMax,0,true);
+        
         show();
     }
 
     @Override
     public void show() {
+        
         float screenWidth = Gdx.graphics.getWidth();
         float screenHeight = Gdx.graphics.getHeight();
 
@@ -108,14 +160,19 @@ public class Battle extends ScreenAdapter {
         imageBall2.setPosition(-300, -300); //fuori dallo schermo che non si deve vedere
         stage.addActor(imageBall2);
 
+
         imagePlayer = new Image(player[0]);
         imagePlayer.setSize(66*4, 52*4);
         stage.addActor(imagePlayer);
 
+        Texture botTexture = new Texture("bots/bot1.png");
+        botImage = new Image(botTexture);
+        botImage.setPosition(labelBaseU.getX()+68, labelBaseU.getY());
+        botImage.setSize(320, 320);
+        stage.addActor(botImage);
         
-
-        
-            
+        labelDiscorsi1.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
+        stage.addActor(labelDiscorsi1.getLabel());
         }
 
 
@@ -126,15 +183,19 @@ public class Battle extends ScreenAdapter {
     }
 
     public void render() {
+        
         animationTime += 0.045f;
         if (animationTime < animationDuration) {
+            labelDiscorsi1.renderDisc();
             // Continua l'animazione della baseD e baseU
             float progress = animationTime / animationDuration;
             float newXD = MathUtils.lerp(initialPosXD, targetPosXD, progress);
             labelBaseD.setPosition(newXD, 125);
             float newXU = MathUtils.lerp(initialPosXU, targetPosXU, progress);
             labelBaseU.setPosition(newXU, 300);
+            botImage.setPosition(labelBaseU.getX()+40, labelBaseU.getY()+70);
             imagePlayer.setPosition(newXD + 370, 125);
+
         } else {
             // Avvia l'animazione del player
             if (animationTime < animationDuration + 1f) {
@@ -148,6 +209,7 @@ public class Battle extends ScreenAdapter {
                 
                 // Dopo un secondo, sposta il player fino al bordo dello schermo
                 float newX = imagePlayer.getX() - 300 * Gdx.graphics.getDeltaTime(); // Spostamento di 300 pixel al secondo
+                float newXBot = botImage.getX() + 300 * Gdx.graphics.getDeltaTime();
 
                 if (isInNext){
                     imageBall2.setPosition(newX+10, 195);
@@ -171,6 +233,7 @@ public class Battle extends ScreenAdapter {
                             @Override
                             public void run() {
                                 imagePlayer.remove(); // Rimuovi lo sprite dallo stage
+                                botImage.remove();
                             }
                         }, 2f);
                     }
@@ -180,6 +243,9 @@ public class Battle extends ScreenAdapter {
 
                 if(imagePlayer!=null)
                     imagePlayer.setPosition(newX, imagePlayer.getY());
+
+                if(botImage!=null)
+                    botImage.setPosition(newXBot, botImage.getY());    
                 
             }
             if (lanciato==1){
@@ -204,8 +270,18 @@ public class Battle extends ScreenAdapter {
         for (int i = 0; i < 3; i++) {
             ball[i] = new TextureRegion(textureBall, i * regionWidth, 0, regionWidth, regionHeight);
         }
+
+        ballBot = new TextureRegion[3];
+        for (int i = 0; i < 3; i++) {
+            ballBot[i] = new TextureRegion(ballTextureBot, i * regionWidth, 0, regionWidth, regionHeight);
+        }
     
         // Crea e aggiungi l'immagine della ball allo stage
+        imageBallBot = new Image(ballBot[0]);
+        imageBallBot.setSize(16*4, 25*4);
+
+        muoviBallBot = new Animation<>(0.5f, ballBot);
+
         imageBall = new Image(ball[0]);
         imageBall.setSize(16*4, 25*4);
 
@@ -215,8 +291,15 @@ public class Battle extends ScreenAdapter {
         float startX = 1;
         float startY = 220;
 
+        float startXBot = stage.getHeight();
+        float startYBot = 800;
+        
         imageBall.setPosition(0, startY);
+        imageBallBot.setPosition(01000, 1000);
+
         stage.addActor(imageBall);
+        stage.addActor(imageBallBot);
+
         // Durata del movimento della ball (secondi)
         float duration = 2.5f;
     
@@ -229,15 +312,20 @@ public class Battle extends ScreenAdapter {
                 if (elapsed <= duration) {
                     // Calcola la posizione sulla traiettoria curva
                     float percent = elapsed / duration;;
-                    imageBall.setPosition((startX * percent * 175)+35, startY - (startY - 110)* percent * percent); // Utilizza una curva quadratica
+                    imageBall.setPosition((startX * percent * 175)+35, startY - (startY - 110)* percent * percent); 
+                    imageBallBot.setPosition(startXBot - (startXBot * percent) + 800, startYBot - (startYBot - 330) * percent * percent * percent); // Utilizza una curva quadratica
                     elapsed += 0.1f;
                 } else {
                     // Avvia l'animazione dei frame della ball
                     activateAnimation(imageBall, muoviBall);
+                    activateAnimation(imageBallBot, muoviBallBot);
                     this.cancel(); // Interrompi il Timer.Task
+
                 }
             }
         }, 0, Gdx.graphics.getDeltaTime());
+
+
     }
     
 
@@ -247,14 +335,17 @@ public class Battle extends ScreenAdapter {
             public void run() {
                 stateTime = 2f;
                 frame = animation.getKeyFrame(stateTime, false);
-                imageBall.setDrawable(new TextureRegionDrawable(frame));
+                image.setDrawable(new TextureRegionDrawable(frame));
 
                 if (animation.isAnimationFinished(stateTime)) {
                     Timer.schedule(new Timer.Task() {
                         @Override
                         public void run() {
-                            imageBall.remove();
-                            
+                            image.remove();
+                            showPokemon(labelBaseD, nomePoke);
+                            if (isBotFight){
+                                showPokemon(labelBaseU, "bidoof");        
+                            }                   
                         }
                     }, 0.5f);
                     this.cancel();
@@ -262,5 +353,73 @@ public class Battle extends ScreenAdapter {
             }
         }, 0.3f);
     }
+
+    private void showPokemon(Image baseImage, String nome) {
+        Texture pokemonTexture = new Texture("pokemon/"+nome+".png");
+        int frameWidth = pokemonTexture.getWidth() / 4;
+        int frameHeight = pokemonTexture.getHeight();
+    
+        TextureRegion[] pokemonFrames;
+        Animation<TextureRegion> pokemonAnimation;
+        Image pokemonImage;
+    
+        if (baseImage == labelBaseD) {
+            pokemonFrames = new TextureRegion[2];
+            int startX = frameWidth * 2; // Inizia dalla terza parte dell'immagine
+            for (int i = 0; i < 2; i++) {
+                pokemonFrames[i] = new TextureRegion(pokemonTexture, startX + i * frameWidth, 0, frameWidth, frameHeight);
+            }
+            pokemonAnimation = new Animation<>(0.4f, pokemonFrames);
+    
+            pokemonImage = new Image(pokemonFrames[0]);
+            pokemonImage.setSize(frameWidth * 3, frameHeight * 3);
+            pokemonImage.setPosition(labelBaseD.getX()+270, labelBaseD.getY());
+        } else if (baseImage == labelBaseU) {
+            pokemonFrames = new TextureRegion[2];
+            for (int i = 0; i < 2; i++) {
+                pokemonFrames[i] = new TextureRegion(pokemonTexture, i * frameWidth, 0, frameWidth, frameHeight);
+            }
+            pokemonAnimation = new Animation<>(0.4f, pokemonFrames);
+    
+            pokemonImage = new Image(pokemonFrames[0]);
+            pokemonImage.setSize(frameWidth * 3, frameHeight * 3);
+            pokemonImage.setPosition(labelBaseU.getX()+60, labelBaseU.getY()+20);
+        } else {
+            // Gestisci altri casi se necessario
+            return; // Esci dalla funzione in caso di baseImage non gestito
+        }
+    
+        stage.addActor(pokemonImage);
+
+        final Animation<TextureRegion> finalPokemonAnimation = pokemonAnimation; // Copia final dell'animazione
+    
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                float stateTime = 0f;
+                TextureRegion frame = finalPokemonAnimation.getKeyFrame(stateTime, false);
+                pokemonImage.setDrawable(new TextureRegionDrawable(frame));
+    
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        float stateTime = 1f;
+                        TextureRegion frame = finalPokemonAnimation.getKeyFrame(stateTime, false);
+                        pokemonImage.setDrawable(new TextureRegionDrawable(frame));
+    
+                        Timer.schedule(new Timer.Task() {
+                            @Override
+                            public void run() {
+                                float stateTime = 0f;
+                                TextureRegion frame = finalPokemonAnimation.getKeyFrame(stateTime, false);
+                                pokemonImage.setDrawable(new TextureRegionDrawable(frame));
+                            }
+                        }, 0.7f); // Mostra il secondo frame per 1 secondo
+                    }
+                }, 0.3f); // Aspetta 1 secondo prima di mostrare il secondo frame
+            }
+        }, 0f); // Inizia subito l'animazione
+    }
+    
     
 }

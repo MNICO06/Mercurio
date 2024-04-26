@@ -9,13 +9,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
+import javafx.stage.Stage;
+
 public class LabelDiscorsi {
     // Dichiarazioni delle texture
-    private Label labelMamma;
+    private Label label;
     private BitmapFont font;
     private SpriteBatch batch;
     private ArrayList<String> righeDiscorso;
@@ -26,15 +29,17 @@ public class LabelDiscorsi {
     private int indiceLettera;
     private boolean isPrimaRigaStampata = false;
     private boolean isPrimaRiga;
-    
+    private TextureRegion[] textBoxTextures;
+
     // Variabili per il timer
     private float intervalloLettera = 0.05f; // Intervallo di tempo tra le lettere
     private int indiceDiscorso;
     private boolean continuaDiscorso;
-    private String discorsoMamma = "Ciao figliuolo come stai, come mai stai uscendo dove stai andando?";
+    private String discorso;
     private String pezzoDiscorso;
     private ArrayList<String> discorsoDivisoMamma;
     
+    private boolean checkBattle;
     private Texture standardGrigioBordoTexture;
     private Texture standardGrigioTexture;
     private Texture standardRossoTexture;
@@ -57,43 +62,88 @@ public class LabelDiscorsi {
     private Texture erbettaTexture;
 
 
-    public LabelDiscorsi() {
+    public LabelDiscorsi(String disc, int dimMax, int index, boolean battle) {
+        this.checkBattle=battle;
+        this.discorso=disc;
+        this.textBoxTextures = loadTextBoxTextures();
+        righeDiscorso = splitTestoInRighe(discorso, dimMax);
         batch = new SpriteBatch();
         font = new BitmapFont(Gdx.files.internal("font/small_letters_font.fnt"));
-        createLabel();
+        createLabel(index);
 
-        String discorsoMamma = "Ciao figliuolo come stai, come mai stai uscendo e dove stai andando?";
-        righeDiscorso = splitTestoInRighe(discorsoMamma, 30);
+        
         rigaCorrente = 0;
         isPrimaRigaStampata = false;
     }
 
-    private void createLabel() {
+    public Label getLabel() {
+        return label;
+    }
+
+
+    private TextureRegion[] loadTextBoxTextures() {
+        TextureRegion[] textures = new TextureRegion[20]; 
+    
+        // Carica l'immagine contenente tutte le label
+        Texture textBoxesImage = new Texture("sfondo/boxText.png");
+    
+        // Calcola le dimensioni di ogni label nella griglia
+        int textBoxWidth = textBoxesImage.getWidth() / 2; // Due colonne
+        int textBoxHeight = textBoxesImage.getHeight() / 10; // Dieci righe
+
+        // Estrai ogni label dall'immagine e salvala nell'array di texture
+        for (int row = 0; row < 10; row++) {
+            for (int col = 0; col < 2; col++) {
+                int index = row * 2 + col; // Calcola l'indice dell'array
+    
+                int startX = col * textBoxWidth;
+                int startY = row * textBoxHeight;  
+                textures[index] = new TextureRegion(textBoxesImage, startX, startY, textBoxWidth, textBoxHeight);
+            }
+        }
+    
+        return textures;
+    }
+    
+    
+    
+    
+
+    private void createLabel(int index) {
         Skin skin = new Skin();
         skin.add("custom-font", font);
 
-        NinePatchDrawable backgroundDrawable = new NinePatchDrawable(new NinePatch(new Texture("sfondo/boxTextArancio.png"), 10, 10, 10, 10));
-
+        TextureRegion backgroundTexture = textBoxTextures[index];
+        NinePatchDrawable backgroundDrawable = new NinePatchDrawable(new NinePatch(backgroundTexture, 10, 10, 10, 10));
         Label.LabelStyle style = new Label.LabelStyle();
         style.font = skin.getFont("custom-font");
         style.font.getData().setScale(2.5f);
         style.background = backgroundDrawable;
 
-        labelMamma = new Label("", style);
-        labelMamma.setPosition(280, 20); // Posizione della label
-        labelMamma.setWidth(400);
-        labelMamma.setHeight(75); // Altezza sufficiente per due righe
-        labelMamma.setWrap(true);
+        label = new Label("", style);
+        if (!checkBattle){
+            label.setPosition(280, 20); // Posizione della label
+            label.setWidth(400);
+            label.setHeight(75); // Altezza sufficiente per due righe
+            label.setWrap(true);
+        }
+        else {
+            label.setPosition(0, 0); // Posizione della label
+            label.setWidth(1024);
+            label.setHeight(125); // Altezza sufficiente per due righe
+            style.font.getData().setScale(3.5f);
+            label.setWrap(true);
+        }
     }
 
 
-    public void renderDiscMamma() {
+    public void renderDisc() {
     	
         batch.begin();
-        labelMamma.draw(batch, 1);
+        label.draw(batch, 1);
         batch.end();
 
-        if (!isPrimaRigaStampata && labelMamma.getPrefHeight() > 0) {
+        if (!isPrimaRigaStampata && label.getPrefHeight() > 0) {
         	isPrimaRigaStampata = true;
 
             // Avvia l'animazione della seconda riga se presente
@@ -102,7 +152,7 @@ public class LabelDiscorsi {
             }
         	 
         	 else {
-        		 startLetterAnimationFirstLine(righeDiscorso.get(rigaCorrente + 1)); 
+        		 startLetterAnimationFirstLine(righeDiscorso.get(rigaCorrente)); 
         	 }
         }
     }
@@ -159,7 +209,7 @@ public class LabelDiscorsi {
                     	
                 		// Aggiorna solo la seconda riga con l'animazione carattere per carattere
                         String testoCompleto = righeDiscorso.get(rigaCorrente) + "\n" + testoCorrente.substring(0, indiceLettera);
-                        labelMamma.setText(testoCompleto);
+                        label.setText(testoCompleto);
                         indiceLettera++;
                         
                     } else {
@@ -193,7 +243,7 @@ public class LabelDiscorsi {
                 Gdx.app.postRunnable(() -> {
                     if (indiceLettera <= testoCorrente.length()) {
                             String testoCompleto = testoCorrente.substring(0, indiceLettera);
-                            labelMamma.setText(testoCompleto);
+                            label.setText(testoCompleto);
                             indiceLettera++;
                         
                     } else {
@@ -232,7 +282,7 @@ public class LabelDiscorsi {
         isPrimaRigaStampata = false;
 
         // Ricrea la label con il testo vuoto
-        labelMamma.setText("");
+        label.setText("");
 
         // Avvia nuovamente l'animazione della prima e seconda riga
         if (righeDiscorso.size() > 0) {

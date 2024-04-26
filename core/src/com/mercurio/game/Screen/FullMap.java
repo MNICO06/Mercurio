@@ -56,3 +56,5 @@ public class FullMap extends ScreenAdapter{
         ArrayList<String> foreground = new ArrayList<String>();
 
         tileRenderer.render();
+    }
+}
