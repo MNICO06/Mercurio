@@ -6,11 +6,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.MapGroupLayer;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -65,17 +67,22 @@ public class FullMap extends ScreenAdapter{
         float y;
 
         background.add("Livello tile ground");
+        background.add("Livello tile path");
         background.add("Livello tile case");
         background.add("Livello tile deco2");
         background.add("Livello tile deco1");
         background.add("Livello tile deco");
-        background.add("Livello tile path");
         background.add("Livello tile piantine");
-        background.add("AlberiMezzo");
-        background.add("FixingLayer2");
-        background.add("AlberiFondo");
-        background.add("FixingLayer1");
+
         background.add("AlberiCima");
+        background.add("FixingLayer1");
+        background.add("AlberiFondo");
+        background.add("FixingLayer2");
+        background.add("AlberiMezzo");
+        
+        
+        
+        
         //background.add("");
 
         for (MapObject obj : lineeLayer.getObjects()) {
@@ -95,12 +102,73 @@ public class FullMap extends ScreenAdapter{
             }
         }
 
-        System.out.println(background+ "\n \n \n \n");
-        System.out.println(foreground + "\n \n \n \n");
+        //background
+        for (String layerName : background) {
+            if (layerName != null) {
+                renderLayer(layerName);
+            }
+        }
 
-        tileRenderer.render();
         game.renderPlayer();
+
+        //foreground
+        for (String layerName : foreground) {
+            if (layerName != null) {
+                renderLayer(layerName);
+            }
+        }
+
     }
+
+    private void renderLayer(String layerName) {
+        MapLayer layer;
+        String nomeFolder = findGroupByLayerName(mappa, layerName);
+        tileRenderer.getBatch().begin();
+        
+        
+        // Recupera il layer dalla mappa
+        if (nomeFolder != null) {
+            layer = findLayerInGroup(mappa, nomeFolder, layerName);
+        }
+        else {
+            layer = mappa.getLayers().get(layerName);
+        }
+
+        // Renderizza il layer
+        tileRenderer.renderTileLayer((TiledMapTileLayer)layer); 
+
+        tileRenderer.getBatch().end();
+
+    }
+
+    private String findGroupByLayerName(TiledMap map, String layerName) {
+        for (MapLayer mapLayer : map.getLayers()) {
+            if (mapLayer instanceof MapGroupLayer) {
+                MapGroupLayer groupLayer = (MapGroupLayer) mapLayer;
+                for (MapLayer subLayer : groupLayer.getLayers()) {
+                    if (subLayer.getName().equals(layerName)) {
+                        return groupLayer.getName();
+                    }
+                }
+            }
+        }
+        return null; // Se il layer non è all'interno di alcuna cartella
+    }
+
+    private MapLayer findLayerInGroup(TiledMap map, String groupName, String layerName) {
+        MapLayer groupLayer = map.getLayers().get(groupName);
+        if (groupLayer instanceof MapGroupLayer) {
+            MapGroupLayer mapGroupLayer = (MapGroupLayer) groupLayer;
+            for (MapLayer mapLayer : mapGroupLayer.getLayers()) {
+                if (mapLayer.getName().equals(layerName)) {
+                    return mapLayer;
+                }
+            }
+        }
+        return null;
+    }
+
+
 
     public void setPositionPlayer() {
         String luogo = game.getTeleport();

@@ -72,14 +72,6 @@ public class CasaSpawn extends ScreenAdapter {
             }
         };
 
-        /*
-        textTimerTask = new TimerTask() {
-            @Override
-            public void run() {
-                tieniApertoDiscorso = false;
-            }
-        };
-        */
 
         TmxMapLoader mapLoader = new TmxMapLoader();
         casaAsh = mapLoader.load(Constant.CASA_ASH);
