@@ -54,7 +54,11 @@ public class CasaSpawn extends ScreenAdapter {
     public CasaSpawn(MercurioMain game) {
         this.game = game;
         mammaAsh = new MammaAsh();
-        labelDiscorsi = new LabelDiscorsi();
+
+        /*variabili che andranno lette da file */
+        String discorso= "Ciao figliuolo come stai, come mai stai uscendo e dove stai andando?";
+        int dimMax=30;
+        labelDiscorsi = new LabelDiscorsi(discorso,dimMax,10,false);
         
         rectList = new ArrayList<Rectangle>();
     }
@@ -269,7 +273,7 @@ public class CasaSpawn extends ScreenAdapter {
 
     public void controlloTesto() {
         if (tieniApertoDiscorso) {
-            labelDiscorsi.renderDiscMamma();
+            labelDiscorsi.renderDisc();
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
                 //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
                 labelDiscorsi.advanceText();
