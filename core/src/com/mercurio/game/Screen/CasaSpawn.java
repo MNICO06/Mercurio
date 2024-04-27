@@ -301,12 +301,17 @@ public class CasaSpawn extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        casaAsh.dispose();
+        System.out.println("No");
+        if (casaAsh != null)  {
+            casaAsh.dispose();
+        }
         if (mammaTimerTask != null) {
             mammaTimerTask.cancel();
         }
-        mammaAsh.dispose();
-        
+        if (mammaAsh != null) {
+            mammaAsh.dispose();
+        }
+        tileRenderer.dispose();
     }
 
 }

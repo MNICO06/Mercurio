@@ -52,6 +52,8 @@ public class MercurioMain extends Game{
     private TiledMap mappa;
 
     private String teleport;
+
+    private Screen currentScreen;
     
     @Override
     public void create() {
@@ -142,6 +144,8 @@ public class MercurioMain extends Game{
         if (ash != null) {
             ash.dispose();
         }
+        currentScreen.dispose();
+        map.dispose();
     }
 
     //avvia un altra scheda
@@ -177,9 +181,16 @@ public class MercurioMain extends Game{
                 break;
         }
 
-        setScreen (newScreen);
+        if (newScreen != null) {
+            if (currentScreen != null) {
+                currentScreen.dispose();
+            }
 
-        
+            currentScreen = newScreen;
+
+            setScreen (newScreen);
+
+        }
         
     }
 

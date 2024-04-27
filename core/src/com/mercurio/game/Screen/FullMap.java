@@ -65,6 +65,7 @@ public class FullMap extends ScreenAdapter{
         ArrayList<String> background = new ArrayList<String>();
         ArrayList<String> foreground = new ArrayList<String>();
         float y;
+        float x;
 
         background.add("Livello tile ground");
         background.add("Livello tile path");
@@ -80,9 +81,6 @@ public class FullMap extends ScreenAdapter{
         background.add("FixingLayer2");
         background.add("AlberiMezzo");
         
-        
-        
-        
         //background.add("");
 
         for (MapObject obj : lineeLayer.getObjects()) {
@@ -92,11 +90,12 @@ public class FullMap extends ScreenAdapter{
                 String layerName = (String)rectObj.getProperties().get("layer");
 
                 y = rectObj.getRectangle().getY() - game.getPlayer().getPlayerPosition().y;
-                if (y > 0 && y < 200) {
+                x = rectObj.getRectangle().getX() - game.getPlayer().getPlayerPosition().x;
+                if (y > 0 && y < 200 && x > -300 && x < 300) {
                     background.add(layerName);
                     
                 }
-                else if (y<0 && y > -200) {
+                else if (y<0 && y > -200 && x > -300 && x < 300) {
                     foreground.add(layerName);
                 }
             }
@@ -188,6 +187,11 @@ public class FullMap extends ScreenAdapter{
         }
         game.getPlayer().setPosition(x, y);
         
+    }
+
+    @Override
+    public void dispose() {
+        mappa.dispose();
     }
 
 }
