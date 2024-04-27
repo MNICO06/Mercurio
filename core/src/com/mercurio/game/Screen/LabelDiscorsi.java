@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
-import javafx.stage.Stage;
+//import javafx.stage.Stage;
 
 public class LabelDiscorsi {
     // Dichiarazioni delle texture

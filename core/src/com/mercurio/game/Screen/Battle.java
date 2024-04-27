@@ -1,7 +1,10 @@
 package com.mercurio.game.Screen;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -9,18 +12,26 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Timer;
 
 public class Battle extends ScreenAdapter {
-
+    private ArrayList<Image> labelMosseArray = new ArrayList<>();
+    private ArrayList<Label> labelNomeMosseArray = new ArrayList<>();
+    private int currentIndex = 0; // Variabile per tenere traccia dell'indice corrente
+    private int index;
+    private TextureRegion[] fightLabels;
     private boolean isBotFight = true;
     private Image botImage;
-    private Texture ballTexture = new Texture("battle/pokeBallPlayer.png");
+    private Texture ballTexture ;
     private Texture ballTextureBot = new Texture("battle/pokeBallPlayer.png"); //questo lo si prende dal json
     private boolean isInNext=true; 
     private int lanciato = 0;
@@ -43,6 +54,7 @@ public class Battle extends ScreenAdapter {
     private Animation<TextureRegion> muoviPlayer;
     private Animation<TextureRegion> muoviBall;
     private Animation<TextureRegion> muoviBallBot;
+    private TextureRegion newTextureRegionFight;
     private float cambioFrame_speed = 0.7f;
     private float animationTime;
     private float animationDuration = 3f; // Durata dell'animazione in secondi
@@ -59,11 +71,23 @@ public class Battle extends ScreenAdapter {
     private LabelDiscorsi labelDiscorsi7;
     private LabelDiscorsi labelDiscorsi8;
     private LabelDiscorsi labelDiscorsi9;
+    private Label label1;
+    private Label label2;
+    private Label label3;
+    private Label label4;
+    private Label label5;
+    private Label label6;
+    private Label label7;
+    private Label label8;
+    private Label label9;
     private String nomePoke;
-    private String nomeMossa="Oscurotuffo";
+    private String nomeMossa;
     private String soldiPresi = "309";
     private int dimMax;
     private String nomeBot;
+    private ArrayList<Mossa> listaMosse = new ArrayList<>();
+    private String nomeBall;
+
 
     public Battle() {
 
@@ -72,8 +96,9 @@ public class Battle extends ScreenAdapter {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         nomeBot = "Magni (montanaro)";
-        nomePoke ="Giratina";
         dimMax=200;
+        leggiPoke();
+        ballTexture = new Texture("battle/"+nomeBall+"Player.png");
 
         String discorso1= "Parte la sfida di "+nomeBot+"!";
         labelDiscorsi1 = new LabelDiscorsi(discorso1,dimMax,0,true);
@@ -84,8 +109,7 @@ public class Battle extends ScreenAdapter {
         String discorso3= "Hai sconfitto "+ nomeBot+"!";
         labelDiscorsi3 = new LabelDiscorsi(discorso3,dimMax,0,true);
 
-        String discorso4= nomePoke + " utilizza " + nomeMossa+"!";
-        labelDiscorsi4 = new LabelDiscorsi(discorso4,dimMax,0,true);
+        
 
         String discorso5= "E' superefficace!";
         labelDiscorsi5 = new LabelDiscorsi(discorso5,dimMax,0,true);
@@ -172,7 +196,9 @@ public class Battle extends ScreenAdapter {
         stage.addActor(botImage);
         
         labelDiscorsi1.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
-        stage.addActor(labelDiscorsi1.getLabel());
+        label1=labelDiscorsi1.getLabel();
+        stage.addActor(label1);
+
         }
 
 
@@ -251,6 +277,12 @@ public class Battle extends ScreenAdapter {
             if (lanciato==1){
                 showBall(ballTexture);
             }
+            if (label2!=null){
+                labelDiscorsi2.renderDisc();
+            }
+            if (label4!=null){
+                labelDiscorsi4.renderDisc();
+            }
         }
 
         float deltaTime = Gdx.graphics.getDeltaTime();
@@ -319,6 +351,18 @@ public class Battle extends ScreenAdapter {
                     // Avvia l'animazione dei frame della ball
                     activateAnimation(imageBall, muoviBall);
                     activateAnimation(imageBallBot, muoviBallBot);
+                    label1.remove();
+
+                    label2=labelDiscorsi2.getLabel();
+                    stage.addActor(label2);
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            label2.remove();
+                            createFightLabels();
+                        }
+                    }, 2f);
+                    
                     this.cancel(); // Interrompi il Timer.Task
 
                 }
@@ -326,6 +370,162 @@ public class Battle extends ScreenAdapter {
         }, 0, Gdx.graphics.getDeltaTime());
 
 
+    }
+
+    
+
+    private void createFightLabels() {
+        fightLabels = new TextureRegion[8]; 
+    
+        // Carica l'immagine contenente tutte le label
+        Texture textBoxesImage = new Texture("battle/fightBox.png");
+    
+        // Calcola le dimensioni di ogni label nella griglia
+        int textBoxWidth = textBoxesImage.getWidth() / 2; // Due colonne
+        int textBoxHeight = textBoxesImage.getHeight() / 4; // Dieci righe
+    
+        // Estrai ogni label dall'immagine e salvala nell'array di texture
+        for (int row = 0; row < 4; row++) {
+            for (int col = 0; col < 2; col++) {
+                int index = row * 2 + col; // Calcola l'indice dell'array
+    
+                int startX = col * textBoxWidth;
+                int startY = row * textBoxHeight;  
+                fightLabels[index] = new TextureRegion(textBoxesImage, startX, startY, textBoxWidth, textBoxHeight);
+            }
+        }
+    
+
+        Image label1 = new Image(fightLabels[0]);
+        label1.setSize(256, 125);
+        label1.setPosition(0, 0); // Posizione delle etichette sulla schermata
+        stage.addActor(label1);
+
+        label1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                currentIndex = 0; // Imposta l'indice corrente sulla base di quale etichetta è stata cliccata
+                updateLabelImage(label1); // Aggiorna l'immagine della label cliccata
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        piazzaMosse();
+                    }
+                }, 0.3f);
+            }
+        });
+
+
+        Image label2 = new Image(fightLabels[2]);
+        label2.setSize(256, 125);
+        label2.setPosition(256, 0); // Posizione delle etichette sulla schermata
+        stage.addActor(label2);
+
+        label2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                currentIndex = 2; // Imposta l'indice corrente sulla base di quale etichetta è stata cliccata
+                updateLabelImage(label2); // Aggiorna l'immagine della label cliccata
+            }
+        });
+
+
+        Image label3 = new Image(fightLabels[4]);
+        label3.setSize(256, 125);
+        label3.setPosition(256*2, 0); // Posizione delle etichette sulla schermata
+        stage.addActor(label3);
+
+        label3.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                currentIndex = 4; // Imposta l'indice corrente sulla base di quale etichetta è stata cliccata
+                updateLabelImage(label3); // Aggiorna l'immagine della label cliccata
+            }
+        });
+
+
+        Image label4 = new Image(fightLabels[6]);
+        label4.setSize(256, 125);
+        label4.setPosition(3*256, 0); // Posizione delle etichette sulla schermata
+        stage.addActor(label4);
+
+        label4.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                currentIndex = 6; // Imposta l'indice corrente sulla base di quale etichetta è stata cliccata
+                updateLabelImage(label4); // Aggiorna l'immagine della label cliccata
+            }
+        });
+        
+    }
+
+    private void restorePreviousImage(Image label) {
+        Drawable newDrawable = new TextureRegionDrawable(fightLabels[currentIndex]);
+        label.setDrawable(newDrawable);
+    }
+    
+    private void updateLabelImage(Image label) {
+        Drawable newDrawable = new TextureRegionDrawable(fightLabels[currentIndex+1]);
+        label.setDrawable(newDrawable);
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                restorePreviousImage(label); // Ripristina l'immagine precedente dopo 0.5 secondi
+            }
+        }, 0.3f);
+    }
+    
+
+
+    private void piazzaMosse(){
+        for (int i=0;i<4;i++){
+        Image labelMosse = new Image(listaMosse.get(i).getLabelTipo(listaMosse.get(i).getTipo()));
+        labelMosse.setPosition(i*256, 0);
+        labelMosse.setSize(256,125);
+        stage.addActor(labelMosse);
+        labelMosseArray.add(labelMosse);
+
+        Label labelNomeMossa = new Label(listaMosse.get(i).getNome(), new Label.LabelStyle(font, null));
+        labelNomeMossa.setPosition(labelMosse.getX() + 40, labelMosse.getY() + 75); // Posiziona la label accanto all'immagine della mossa
+        labelNomeMossa.setFontScale(3f);
+        stage.addActor(labelNomeMossa);
+        labelNomeMosseArray.add(labelNomeMossa);
+
+        labelMosse.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                float trovaX= (labelMosse.getX())/256;
+                int X = (int) trovaX;
+                nomeMossa=listaMosse.get(X).getNome();
+                sistemaLabel4(nomeMossa);
+                labelDiscorsi4.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
+                label4=labelDiscorsi4.getLabel(); 
+                stage.addActor(label4);
+
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        label4.remove();
+                        for (Image label : labelMosseArray) {
+                            label.remove();
+                        }
+                        labelMosseArray.clear();
+
+                        for (Label label : labelNomeMosseArray) {
+                            label.remove();
+                        }
+                        labelNomeMosseArray.clear();
+                    }
+                }, 2.5f);
+            }
+        });
+        }
+    }
+
+    private void sistemaLabel4(String nome){
+        this.nomeMossa=nome;
+        String discorso4= nomePoke + " utilizza " + nomeMossa+"!";
+        labelDiscorsi4 = new LabelDiscorsi(discorso4,dimMax,0,true);
     }
     
 
@@ -421,5 +621,29 @@ public class Battle extends ScreenAdapter {
         }, 0f); // Inizia subito l'animazione
     }
     
+
+    public void leggiPoke() {
+        // Carica il file JSON
+        FileHandle file = Gdx.files.internal("ashJson/squadra.json");
+        String jsonString = file.readString();
+        
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+        JsonValue json = new JsonReader().parse(jsonString);
+
+        // Cicla attraverso i pokemon
+            JsonValue pokeJson = json.get("poke1");
+            nomePoke = pokeJson.getString("nomePokemon");
+            JsonValue statistiche = pokeJson.get("statistiche"); //da sistemare
+            JsonValue mosse = pokeJson.get("mosse");
+            nomeBall = pokeJson.getString("tipoBall");
+            for (JsonValue mossaJson : mosse) {
+                String nomeMossa = mossaJson.getString("nome");
+                String tipoMossa = mossaJson.getString("tipo");
+                // Aggiungi la mossa alla lista
+                Mossa mossa=new Mossa(nomeMossa, tipoMossa);
+                listaMosse.add(mossa);
+            }
+
+    }
     
 }

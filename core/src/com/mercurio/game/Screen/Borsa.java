@@ -82,7 +82,7 @@ public class Borsa {
         this.borsaActors = new Array<>(); // Inizializza l'array degli attori della borsa
         Gdx.input.setInputProcessor(stage);
 
-        try (FileReader fileReader = new FileReader("./assets/ashJson/borsa.json")) {
+        try (FileReader fileReader = new FileReader("assets/ashJson/borsa.json")) {
             // Utilizza JSONTokener per leggere il file JSON
             JSONTokener tokener = new JSONTokener(fileReader);
             JSONObject inventoryData = new JSONObject(tokener);

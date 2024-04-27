@@ -1,0 +1,110 @@
+{
+    "poke1": {
+      "nomePokemon": "Giratina",
+      "statistiche": {
+        "hp": 35,
+        "attack": 55,
+        "defense": 40,
+        "special_attack": 50,
+        "special_defense": 50,
+        "speed": 90
+      },
+      "mosse": [
+        {"nome": "Oscurotuffo", "tipo": "Spettro"},
+        {"nome": "Fulmine", "tipo": "Elettro"},
+        {"nome": "Dragartigli", "tipo": "Drago"},
+        {"nome": "Forzasfera", "tipo": "Lotta"}
+      ],
+      "tipoBall": "masterBall"
+    },
+    "poke2": {
+        "nomePokemon": "Pikachu",
+        "statistiche": {
+          "hp": 35,
+          "attack": 55,
+          "defense": 40,
+          "special_attack": 50,
+          "special_defense": 50,
+          "speed": 90
+        },
+        "mosse": [
+          {"nome": "Tuonopugno", "tipo": "Elettro"},
+          {"nome": "Fulmine", "tipo": "Elettro"},
+          {"nome": "Scintilla", "tipo": "Elettro"},
+          {"nome": "Tuononda", "tipo": "Elettro"}
+        ],
+        "tipoBall": "Poke Ball"
+      },
+      "poke3": {
+        "nomePokemon": "Pikachu",
+        "statistiche": {
+          "hp": 35,
+          "attack": 55,
+          "defense": 40,
+          "special_attack": 50,
+          "special_defense": 50,
+          "speed": 90
+        },
+        "mosse": [
+          {"nome": "Tuonopugno", "tipo": "Elettro"},
+          {"nome": "Fulmine", "tipo": "Elettro"},
+          {"nome": "Scintilla", "tipo": "Elettro"},
+          {"nome": "Tuononda", "tipo": "Elettro"}
+        ],
+        "tipoBall": "Poke Ball"
+      },
+      "poke4": {
+        "nomePokemon": "Pikachu",
+        "statistiche": {
+          "hp": 35,
+          "attack": 55,
+          "defense": 40,
+          "special_attack": 50,
+          "special_defense": 50,
+          "speed": 90
+        },
+        "mosse": [
+          {"nome": "Tuonopugno", "tipo": "Elettro"},
+          {"nome": "Fulmine", "tipo": "Elettro"},
+          {"nome": "Scintilla", "tipo": "Elettro"},
+          {"nome": "Tuononda", "tipo": "Elettro"}
+        ],
+        "tipoBall": "Poke Ball"
+      },
+      "poke5": {
+        "nomePokemon": "Pikachu",
+        "statistiche": {
+          "hp": 35,
+          "attack": 55,
+          "defense": 40,
+          "special_attack": 50,
+          "special_defense": 50,
+          "speed": 90
+        },
+        "mosse": [
+          {"nome": "Tuonopugno", "tipo": "Elettro"},
+          {"nome": "Fulmine", "tipo": "Elettro"},
+          {"nome": "Scintilla", "tipo": "Elettro"},
+          {"nome": "Tuononda", "tipo": "Elettro"}
+        ],
+        "tipoBall": "Poke Ball"
+      },
+      "poke6": {
+        "nomePokemon": "Pikachu",
+        "statistiche": {
+          "hp": 35,
+          "attack": 55,
+          "defense": 40,
+          "special_attack": 50,
+          "special_defense": 50,
+          "speed": 90
+        },
+        "mosse": [
+          {"nome": "Tuonopugno", "tipo": "Elettro"},
+          {"nome": "Fulmine", "tipo": "Elettro"},
+          {"nome": "Scintilla", "tipo": "Elettro"},
+          {"nome": "Tuononda", "tipo": "Elettro"}
+        ],
+        "tipoBall": "Poke Ball"
+      }
+  }
