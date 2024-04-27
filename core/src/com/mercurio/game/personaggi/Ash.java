@@ -41,8 +41,8 @@ public class Ash {
     private int player_width;
     private int player_height;
 
-    private float speed_Camminata_orizontale = 200;
-    private float speed_Camminata_verticale = 200;
+    private float speed_Camminata_orizontale = 50;
+    private float speed_Camminata_verticale = 40;
     private float muovi_X = 0;
     private float muovi_Y = 0;
 
@@ -280,6 +280,7 @@ public class Ash {
         textureDestra.dispose();
         textureIndietro.dispose();
         textureSinistra.dispose();
+        
     }
 
 }
