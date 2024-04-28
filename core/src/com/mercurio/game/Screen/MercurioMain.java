@@ -34,6 +34,7 @@ public class MercurioMain extends Game{
     private OrthogonalTiledMapRenderer tileRenderer;
 
     Ash ash;
+    Erba erba;
 
     private OrthographicCamera camera;
 
@@ -54,10 +55,15 @@ public class MercurioMain extends Game{
     private String teleport;
 
     private Screen currentScreen;
+
+    private String luogo;
+
+    private boolean isInMovement = false;
     
     @Override
     public void create() {
         ash = new Ash(this);
+        erba = new Erba (this);
         batch = new SpriteBatch();
         menuLabel = new MenuLabel();
         setPage(Constant.SCHERMATA_LOGO);
@@ -98,6 +104,10 @@ public class MercurioMain extends Game{
             camera.update();
 
             tileRenderer.setView(camera);
+
+            if (map != null) {
+                erba.controllaPokemon(map);
+            }
 
         }
     }
@@ -146,6 +156,7 @@ public class MercurioMain extends Game{
         }
         currentScreen.dispose();
         map.dispose();
+        mappa.dispose();
     }
 
     //avvia un altra scheda
@@ -189,9 +200,8 @@ public class MercurioMain extends Game{
             currentScreen = newScreen;
 
             setScreen (newScreen);
-
         }
-        
+
     }
 
     //carica gioco con i vecchi dati
@@ -236,5 +246,22 @@ public class MercurioMain extends Game{
     public String getTeleport() {
         return teleport;
     }
- 
+
+    public void setLuogo(String luogo) {
+        this.luogo = luogo;
+    }
+    public String getLuogo () {
+        return luogo;
+    }
+
+    public TiledMap getMap() {
+        return map;
+    }
+
+    public void setisInMovement(boolean isInMovement) {
+        this.isInMovement = isInMovement;
+    }
+    public boolean getIsInMovement () {
+        return isInMovement;
+    }
 }

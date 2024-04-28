@@ -67,6 +67,8 @@ public class CasaSpawn extends ScreenAdapter {
     @Override
     public void show() {
 
+        game.setLuogo("casaSpawn");
+
         //timer da usare dopo per far girare la mamma sui fornelli
         timer = new Timer();
         mammaTimerTask = new TimerTask() {
@@ -95,6 +97,8 @@ public class CasaSpawn extends ScreenAdapter {
 
         //aggiungo alla lista dei rettangoli per le collisioni quello della mamma
         rectList.add(mammaAsh.getBoxPlayer());
+
+        game.getPlayer().setPosition(100, 50);
         
         //prendere rettangolo per mappa
         MapObjects objects = casaAsh.getLayers().get("exit").getObjects();
@@ -105,7 +109,7 @@ public class CasaSpawn extends ScreenAdapter {
 
                 // Ottieni il rettangolo
                 rectangleUscita = rectangleObject.getRectangle();
-            }        
+            } 
         }
     }
 
@@ -194,11 +198,6 @@ public class CasaSpawn extends ScreenAdapter {
         tileRenderer.renderTileLayer((TiledMapTileLayer)layer);
 
         tileRenderer.getBatch().end();
-    }
-
-    //controlla la collisione con la porta per uscire dalla casa
-    private void controllaCollisionePorta() {
-
     }
 
     public void startTimerForMamma() {
@@ -301,7 +300,6 @@ public class CasaSpawn extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        System.out.println("No");
         if (casaAsh != null)  {
             casaAsh.dispose();
         }

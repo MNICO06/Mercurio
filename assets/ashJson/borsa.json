@@ -28,6 +28,10 @@
             "name": "Pozione"
         },
         {
+            "quantity": 7,
+            "name": "CaramellaRara"
+        },
+        {
             "quantity": 1,
             "name": "Superpozione"
         },

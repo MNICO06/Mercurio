@@ -1,7 +1,13 @@
 {
+    "bot1":{
+    "nome" : "Magni",
+    "testo1" : "bho",
+    "testo2" : "bho 2",
+    "affrontato" : 0,
+    "soldi" : 309,
     "poke1": {
-      "nomePokemon": "Giratina",
-      "livello": "100",
+      "nomePokemon": "Bidoof",
+      "livello": "15",
       "statistiche": {
         "hp": 35,
         "hpTot": 35,
@@ -16,8 +22,7 @@
         {"nome": "Fulmine", "tipo": "Elettro"},
         {"nome": "Dragartigli", "tipo": "Drago"},
         {"nome": "Forzasfera", "tipo": "Lotta"}
-      ],
-      "tipoBall": "masterBall"
+      ]
     },
     "poke2": {
         "nomePokemon": "Pikachu",
@@ -36,8 +41,7 @@
           {"nome": "Fulmine", "tipo": "Elettro"},
           {"nome": "Scintilla", "tipo": "Elettro"},
           {"nome": "Tuononda", "tipo": "Elettro"}
-        ],
-        "tipoBall": "Poke Ball"
+        ]
       },
       "poke3": {
         "nomePokemon": "Pikachu",
@@ -56,8 +60,7 @@
           {"nome": "Fulmine", "tipo": "Elettro"},
           {"nome": "Scintilla", "tipo": "Elettro"},
           {"nome": "Tuononda", "tipo": "Elettro"}
-        ],
-        "tipoBall": "Poke Ball"
+        ]
       },
       "poke4": {
         "nomePokemon": "Pikachu",
@@ -76,8 +79,7 @@
           {"nome": "Fulmine", "tipo": "Elettro"},
           {"nome": "Scintilla", "tipo": "Elettro"},
           {"nome": "Tuononda", "tipo": "Elettro"}
-        ],
-        "tipoBall": "Poke Ball"
+        ]
       },
       "poke5": {
         "nomePokemon": "Pikachu",
@@ -96,12 +98,11 @@
           {"nome": "Fulmine", "tipo": "Elettro"},
           {"nome": "Scintilla", "tipo": "Elettro"},
           {"nome": "Tuononda", "tipo": "Elettro"}
-        ],
-        "tipoBall": "Poke Ball"
+        ]
       },
       "poke6": {
         "nomePokemon": "",
-        "livello": "15",
+        "livello": "",
         "statistiche": {
           "hp": 0,
           "hpTot": 0,
@@ -116,7 +117,7 @@
           {"nome": "", "tipo": ""},
           {"nome": "", "tipo": ""},
           {"nome": "", "tipo": ""}
-        ],
-        "tipoBall": ""
+        ]
       }
+    }
   }

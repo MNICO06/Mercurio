@@ -50,6 +50,8 @@ public class PokeCenter extends ScreenAdapter {
         camera.update();
 
         game.setMap(pokeCenterMap, tileRenderer, camera, map_size.x, map_size.y);
+
+        game.setLuogo("pokeCenter");
     }
 
     @Override

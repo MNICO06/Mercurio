@@ -68,7 +68,7 @@ public class LabelDiscorsi {
         this.textBoxTextures = loadTextBoxTextures();
         righeDiscorso = splitTestoInRighe(discorso, dimMax);
         batch = new SpriteBatch();
-        font = new BitmapFont(Gdx.files.internal("font/small_letters_font.fnt"));
+        font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
         createLabel(index);
 
         

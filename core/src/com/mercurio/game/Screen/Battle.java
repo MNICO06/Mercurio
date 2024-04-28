@@ -9,21 +9,31 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Timer;
 
 public class Battle extends ScreenAdapter {
+
+    private Sprite[] spriteArrayBallsSquadra;
+    private boolean labelPokePiazzate = false;
     private ArrayList<Image> labelMosseArray = new ArrayList<>();
     private ArrayList<Label> labelNomeMosseArray = new ArrayList<>();
     private int currentIndex = 0; // Variabile per tenere traccia dell'indice corrente
@@ -31,6 +41,8 @@ public class Battle extends ScreenAdapter {
     private TextureRegion[] fightLabels;
     private boolean isBotFight = true;
     private Image botImage;
+    private Image playerArrow;
+    private Image botArrow;
     private Texture ballTexture ;
     private Texture ballTextureBot = new Texture("battle/pokeBallPlayer.png"); //questo lo si prende dal json
     private boolean isInNext=true; 
@@ -81,12 +93,20 @@ public class Battle extends ScreenAdapter {
     private Label label8;
     private Label label9;
     private String nomePoke;
+    private String nomePokeSquad;
+    private String currentPokeHP;
+    private String nomePokeSquadBot;
+    private String currentPokeHPBot;
     private String nomeMossa;
-    private String soldiPresi = "309";
+    private String soldiPresi;
     private int dimMax;
     private String nomeBot;
     private ArrayList<Mossa> listaMosse = new ArrayList<>();
+    private ArrayList<Mossa> listaMosseBot = new ArrayList<>();
     private String nomeBall;
+    private String nomePokeBot;
+
+
 
 
     public Battle() {
@@ -97,7 +117,9 @@ public class Battle extends ScreenAdapter {
         Gdx.input.setInputProcessor(stage);
         nomeBot = "Magni (montanaro)";
         dimMax=200;
-        leggiPoke();
+        leggiPoke(1);
+        leggiBot(1);
+        leggiPokeBot(1,1);
         ballTexture = new Texture("battle/"+nomeBall+"Player.png");
 
         String discorso1= "Parte la sfida di "+nomeBot+"!";
@@ -108,8 +130,6 @@ public class Battle extends ScreenAdapter {
 
         String discorso3= "Hai sconfitto "+ nomeBot+"!";
         labelDiscorsi3 = new LabelDiscorsi(discorso3,dimMax,0,true);
-
-        
 
         String discorso5= "E' superefficace!";
         labelDiscorsi5 = new LabelDiscorsi(discorso5,dimMax,0,true);
@@ -223,15 +243,22 @@ public class Battle extends ScreenAdapter {
             imagePlayer.setPosition(newXD + 370, 125);
 
         } else {
+
+
             // Avvia l'animazione del player
-            if (animationTime < animationDuration + 1f) {
-                // Aspetta un secondo prima di cambiare l'immagine del player
+            if (animationTime < animationDuration + 2f) {
+                // Aspetta due secondi prima di cambiare l'immagine del player
                 if (animationTime > animationDuration) {
                     // Cambia l'immagine del player a player[1]
                     imagePlayer.setDrawable(new TextureRegionDrawable(player[1]));
                     imageBall2.setPosition(190, 195);
+
                 }
             } else {
+                if(!labelPokePiazzate){
+                    posizionaLabelSquadra();
+                }
+
                 
                 // Dopo un secondo, sposta il player fino al bordo dello schermo
                 float newX = imagePlayer.getX() - 300 * Gdx.graphics.getDeltaTime(); // Spostamento di 300 pixel al secondo
@@ -544,7 +571,7 @@ public class Battle extends ScreenAdapter {
                             image.remove();
                             showPokemon(labelBaseD, nomePoke);
                             if (isBotFight){
-                                showPokemon(labelBaseU, "bidoof");        
+                                showPokemon(labelBaseU, nomePokeBot);        
                             }                   
                         }
                     }, 0.5f);
@@ -622,7 +649,7 @@ public class Battle extends ScreenAdapter {
     }
     
 
-    public void leggiPoke() {
+    public void leggiPoke(int numero) {
         // Carica il file JSON
         FileHandle file = Gdx.files.internal("ashJson/squadra.json");
         String jsonString = file.readString();
@@ -631,7 +658,7 @@ public class Battle extends ScreenAdapter {
         JsonValue json = new JsonReader().parse(jsonString);
 
         // Cicla attraverso i pokemon
-            JsonValue pokeJson = json.get("poke1");
+            JsonValue pokeJson = json.get("poke"+numero);
             nomePoke = pokeJson.getString("nomePokemon");
             JsonValue statistiche = pokeJson.get("statistiche"); //da sistemare
             JsonValue mosse = pokeJson.get("mosse");
@@ -643,6 +670,220 @@ public class Battle extends ScreenAdapter {
                 Mossa mossa=new Mossa(nomeMossa, tipoMossa);
                 listaMosse.add(mossa);
             }
+
+    }
+
+    public void leggiPokeSecondario(int numero) {
+        // Carica il file JSON
+        FileHandle file = Gdx.files.internal("ashJson/squadra.json");
+        String jsonString = file.readString();
+        
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+        JsonValue json = new JsonReader().parse(jsonString);
+
+        JsonValue pokeJson = json.get("poke"+numero);
+        nomePokeSquad = pokeJson.getString("nomePokemon");
+        currentPokeHP = pokeJson.get("statistiche").getString("HP");
+
+    }
+
+    private void posizionaLabelSquadra(){
+
+        labelPokePiazzate=true;
+ 
+        Texture arrowPlayer = new Texture("battle/playerArrow.png");
+        playerArrow = new Image(arrowPlayer);
+        //playerArrow.setPosition(1024-250,270);
+        playerArrow.setPosition(1024,270); //inizialmente fuori dallo schermo
+        playerArrow.setSize(250, 26);
+        stage.addActor(playerArrow);
+
+        Texture arrowBot = new Texture("battle/botArrow.png");
+        botArrow = new Image(arrowBot);
+        //botArrow.setPosition(0,650);
+        botArrow.setPosition(-250,650); //inizialmente fuori dallo schermo
+        botArrow.setSize(250, 26);
+        stage.addActor(botArrow);
+
+        // Creazione delle azioni per lo spostamento delle frecce
+        Action playerArrowAction = Actions.moveTo(1024-250, 270, 0.5f); // duration è la durata dell'animazione in secondi
+        Action botArrowAction = Actions.moveTo(0, 650, 0.5f);
+
+        // Applicazione delle azioni alle frecce
+        playerArrow.addAction(playerArrowAction);
+        botArrow.addAction(botArrowAction);
+
+        piazzaSquad();
+        piazzaSquadBot();
+    }
+
+
+    private void piazzaSquad(){
+        Texture texture = new Texture("battle/ballsForNumber.png");
+        TextureRegion[][] textureRegions = TextureRegion.split(texture, texture.getWidth() / 8, texture.getHeight() / 3);
+        // Inizializza l'array di sprite
+        spriteArrayBallsSquadra = new Sprite[8];
+        int colonna=-1;
+
+        for (int i=0; i<6; i++){
+            leggiPokeSecondario(i+1);
+            if (nomePokeSquad.isEmpty()){
+                colonna=2;
+            }
+            else {
+                if (currentPokeHP.equals("0")){
+                    colonna=1;
+                }
+                else{
+                    colonna=0;
+                }
+            }
+
+
+            // Riempie l'array di sprite
+            int indice = 0;
+            for (int riga = 0; riga < 3; riga++) {
+                    spriteArrayBallsSquadra[indice++] = new Sprite(textureRegions[riga][colonna]);
+            }
+
+            final int index = i;
+            final int col =colonna;
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    TextureRegion region = textureRegions[col][0];
+                    Image image = new Image(region); // Crea un'istanza di Image con la texture region corrispondente
+
+                    // Imposta l'origine dell'immagine al centro per rendere la rotazione attorno al suo asse centrale
+                    image.setOrigin(Align.center);
+                    image.setPosition(1024, 270); // Posiziona l'immagine fuori dallo schermo
+                    image.setSize(32, 30);
+                    stage.addActor(image); // Aggiungi l'immagine allo stage
+                    
+
+                    Action moveAction = Actions.moveTo(playerArrow.getX() + (30 * (6-index) + 10 * (6-index) - 20), playerArrow.getY(), 1f); // Sposta l'immagine sulla freccia del giocatore
+                    image.setOrigin(image.getWidth() / 2, image.getHeight() / 2);
+                    Action rotateAction = Actions.rotateBy(360, 1f); // Ruota l'immagine di 360 gradi in 1 secondi
+                    Action changeImageAction = Actions.run(() -> {
+                        image.setDrawable(new TextureRegionDrawable(region)); // Cambia l'immagine
+                    });
+                    ParallelAction parallelAction = Actions.parallel(moveAction, rotateAction);
+                    SequenceAction sequenceAction = Actions.sequence(parallelAction, changeImageAction);
+                    image.addAction(sequenceAction); // Applica le azioni all'immagine
+
+                }
+            }, 0.5f*(6-i));
+        }
+
+
+    }
+
+    private void piazzaSquadBot(){
+        Texture texture = new Texture("battle/ballsForNumber.png");
+        TextureRegion[][] textureRegions = TextureRegion.split(texture, texture.getWidth() / 8, texture.getHeight() / 3);
+        // Inizializza l'array di sprite
+        spriteArrayBallsSquadra = new Sprite[8];
+        int colonna=-1;
+
+        for (int i=0; i<6; i++){
+            leggiPokeSecondarioBot(i+1,1);
+            if (nomePokeSquadBot.isEmpty()){
+                colonna=2;
+            }
+            else {
+                if (currentPokeHPBot.equals("0")){
+                    colonna=1;
+                }
+                else{
+                    colonna=0;
+                }
+            }
+
+
+            // Riempie l'array di sprite
+            int indice = 0;
+            for (int riga = 0; riga < 3; riga++) {
+                    spriteArrayBallsSquadra[indice++] = new Sprite(textureRegions[riga][colonna]);
+            }
+
+            final int index = i;
+            final int col =colonna;
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    TextureRegion region = textureRegions[col][0];
+                    Image image = new Image(region); // Crea un'istanza di Image con la texture region corrispondente
+
+                    // Imposta l'origine dell'immagine al centro per rendere la rotazione attorno al suo asse centrale
+                    image.setOrigin(Align.center);
+                    image.setPosition(0, 650); // Posiziona l'immagine fuori dallo schermo
+                    image.setSize(32, 30);
+                    stage.addActor(image); // Aggiungi l'immagine allo stage
+                    
+
+                    Action moveAction = Actions.moveTo(botArrow.getX() + (30 * index + 10 * index), botArrow.getY(), 1f); // Sposta l'immagine sulla freccia del giocatore
+                    image.setOrigin(image.getWidth() / 2, image.getHeight() / 2);
+                    Action rotateAction = Actions.rotateBy(360, 1f); // Ruota l'immagine di 360 gradi in 1.5 secondi
+                    Action changeImageAction = Actions.run(() -> {
+                        image.setDrawable(new TextureRegionDrawable(region)); // Cambia l'immagine
+                    });
+                    ParallelAction parallelAction = Actions.parallel(moveAction, rotateAction);
+                    SequenceAction sequenceAction = Actions.sequence(parallelAction, changeImageAction);
+                    image.addAction(sequenceAction); // Applica le azioni all'immagine
+
+                }
+            }, 0.5f*(6-i));
+        }
+
+
+    }
+
+
+
+    private void leggiBot(int numero){
+        FileHandle file = Gdx.files.internal("bots/bots.json");
+        String jsonString = file.readString();
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+        JsonValue json = new JsonReader().parse(jsonString);
+        JsonValue pokeJson = json.get("bot"+numero);
+        nomeBot = pokeJson.getString("nome");
+        soldiPresi = pokeJson.getString("soldi");
+
+    }
+
+    private void leggiPokeBot(int numero, int numeroPoke) {
+        // Carica il file JSON
+        FileHandle file = Gdx.files.internal("bots/bots.json");
+        String jsonString = file.readString();
+        
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+        JsonValue json = new JsonReader().parse(jsonString);
+
+            JsonValue pokeJson = json.get("bot"+numero).get("poke"+numeroPoke);
+            nomePokeBot = pokeJson.getString("nomePokemon");
+            JsonValue statistiche = pokeJson.get("statistiche"); //da sistemare
+            JsonValue mosse = pokeJson.get("mosse");
+            for (JsonValue mossaJson : mosse) {
+                String nomeMossa = mossaJson.getString("nome");
+                String tipoMossa = mossaJson.getString("tipo");
+                // Aggiungi la mossa alla lista
+                Mossa mossa=new Mossa(nomeMossa, tipoMossa);
+                listaMosseBot.add(mossa);
+            }
+
+    }
+
+    public void leggiPokeSecondarioBot(int numero, int numBot) {
+        // Carica il file JSON
+        FileHandle file = Gdx.files.internal("bots/bots.json");
+        String jsonString = file.readString();
+        
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+        JsonValue json = new JsonReader().parse(jsonString);
+
+        JsonValue pokeJson = json.get("bot"+ numBot).get("poke"+numero);
+        nomePokeSquadBot = pokeJson.getString("nomePokemon");
+        currentPokeHPBot = pokeJson.get("statistiche").getString("HP");
 
     }
     

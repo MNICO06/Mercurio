@@ -1,7 +1,7 @@
 {
     "com.badlogic.gdx.graphics.g2d.BitmapFont": {
         "custom-font": {
-            "file": "font/small_letters_font.fnt"
+            "file": "font/font.fnt"
         }
     }
 }
