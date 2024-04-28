@@ -95,6 +95,8 @@ public class CasaSpawn extends ScreenAdapter {
 
         //aggiungo alla lista dei rettangoli per le collisioni quello della mamma
         rectList.add(mammaAsh.getBoxPlayer());
+
+        game.getPlayer().setPosition(100, 50);
         
         //prendere rettangolo per mappa
         MapObjects objects = casaAsh.getLayers().get("exit").getObjects();
@@ -105,7 +107,7 @@ public class CasaSpawn extends ScreenAdapter {
 
                 // Ottieni il rettangolo
                 rectangleUscita = rectangleObject.getRectangle();
-            }        
+            } 
         }
     }
 
@@ -301,7 +303,6 @@ public class CasaSpawn extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        System.out.println("No");
         if (casaAsh != null)  {
             casaAsh.dispose();
         }

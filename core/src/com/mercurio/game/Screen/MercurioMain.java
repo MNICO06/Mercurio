@@ -158,6 +158,7 @@ public class MercurioMain extends Game{
                 break;
 
             case Constant.CASA_ASH_SCREEN:
+                System.out.println("no");
                 newScreen = new CasaSpawn(this);
                 screen_id = 1;
                 break;

@@ -59,6 +59,7 @@ public class FullMap extends ScreenAdapter{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         lineeLayer = game.getLineeLayer();
         cambiaProfondita(lineeLayer);
+        teleport();
     }
 
     private void cambiaProfondita(MapLayer lineeLayer) {
@@ -116,14 +117,12 @@ public class FullMap extends ScreenAdapter{
                 renderLayer(layerName);
             }
         }
-
     }
 
     private void renderLayer(String layerName) {
         MapLayer layer;
         String nomeFolder = findGroupByLayerName(mappa, layerName);
         tileRenderer.getBatch().begin();
-        
         
         // Recupera il layer dalla mappa
         if (nomeFolder != null) {
@@ -167,6 +166,23 @@ public class FullMap extends ScreenAdapter{
         return null;
     }
 
+    public void teleport() {
+        MapObjects objects = mappa.getLayers().get("teleport").getObjects();
+        for (MapObject object : objects) {
+            if (object instanceof RectangleMapObject) {
+                // Se l'oggetto è un rettangolo
+                RectangleMapObject rectangleObject = (RectangleMapObject) object;
+
+                if (game.getPlayer().getBoxPlayer().overlaps(rectangleObject.getRectangle())) {
+                    change(rectangleObject);
+                }
+            } 
+        }
+    }
+
+    public void change(RectangleMapObject rectangleObject) {
+        game.setPage(rectangleObject.getName());
+    }
 
 
     public void setPositionPlayer() {
