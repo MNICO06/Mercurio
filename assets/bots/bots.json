@@ -5,6 +5,7 @@
     "testo2" : "bho 2",
     "affrontato" : 0,
     "soldi" : 309,
+    "tipo" : "Montanaro",
     "poke1": {
       "nomePokemon": "Bidoof",
       "livello": "15",

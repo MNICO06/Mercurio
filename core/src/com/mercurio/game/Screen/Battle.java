@@ -105,6 +105,7 @@ public class Battle extends ScreenAdapter {
     private ArrayList<Mossa> listaMosseBot = new ArrayList<>();
     private String nomeBall;
     private String nomePokeBot;
+    private String tipoBot;
 
 
 
@@ -112,17 +113,16 @@ public class Battle extends ScreenAdapter {
     public Battle() {
 
         batch = new SpriteBatch();
-        font = new BitmapFont(Gdx.files.internal("font/small_letters_font.fnt"));
         stage = new Stage();
+        font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
         Gdx.input.setInputProcessor(stage);
-        nomeBot = "Magni (montanaro)";
         dimMax=200;
         leggiPoke(1);
         leggiBot(1);
         leggiPokeBot(1,1);
         ballTexture = new Texture("battle/"+nomeBall+"Player.png");
 
-        String discorso1= "Parte la sfida di "+nomeBot+"!";
+        String discorso1= "Parte la sfida di "+nomeBot+" ("+tipoBot+")"+"!";
         labelDiscorsi1 = new LabelDiscorsi(discorso1,dimMax,0,true);
         
         String discorso2= "Vai "+ nomePoke + "!";
@@ -513,12 +513,12 @@ public class Battle extends ScreenAdapter {
         labelMosseArray.add(labelMosse);
 
         Label labelNomeMossa = new Label(listaMosse.get(i).getNome(), new Label.LabelStyle(font, null));
-        labelNomeMossa.setPosition(labelMosse.getX() + 40, labelMosse.getY() + 75); // Posiziona la label accanto all'immagine della mossa
-        labelNomeMossa.setFontScale(3f);
+        labelNomeMossa.setPosition(labelMosse.getX() + 20, labelMosse.getY() + 68); // Posiziona la label accanto all'immagine della mossa
+        labelNomeMossa.setFontScale(1.5f);
         stage.addActor(labelNomeMossa);
         labelNomeMosseArray.add(labelNomeMossa);
 
-        labelMosse.addListener(new ClickListener() {
+        ClickListener listener = new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 float trovaX= (labelMosse.getX())/256;
@@ -545,7 +545,9 @@ public class Battle extends ScreenAdapter {
                     }
                 }, 2.5f);
             }
-        });
+        };
+        labelMosse.addListener(listener);
+        labelNomeMossa.addListener(listener);
         }
     }
 
@@ -847,6 +849,7 @@ public class Battle extends ScreenAdapter {
         JsonValue json = new JsonReader().parse(jsonString);
         JsonValue pokeJson = json.get("bot"+numero);
         nomeBot = pokeJson.getString("nome");
+        tipoBot = pokeJson.getString("tipo");
         soldiPresi = pokeJson.getString("soldi");
 
     }

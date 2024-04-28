@@ -58,7 +58,7 @@ public class CasaSpawn extends ScreenAdapter {
         /*variabili che andranno lette da file */
         String discorso= "Ciao figliuolo come stai, come mai stai uscendo e dove stai andando?";
         int dimMax=30;
-        labelDiscorsi = new LabelDiscorsi(discorso,dimMax,10,false);
+        labelDiscorsi = new LabelDiscorsi(discorso,30,10,false);
         
         rectList = new ArrayList<Rectangle>();
     }

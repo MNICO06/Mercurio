@@ -117,7 +117,6 @@ public class LabelDiscorsi {
         NinePatchDrawable backgroundDrawable = new NinePatchDrawable(new NinePatch(backgroundTexture, 10, 10, 10, 10));
         Label.LabelStyle style = new Label.LabelStyle();
         style.font = skin.getFont("custom-font");
-        style.font.getData().setScale(2.5f);
         style.background = backgroundDrawable;
 
         label = new Label("", style);
@@ -131,7 +130,7 @@ public class LabelDiscorsi {
             label.setPosition(0, 0); // Posizione della label
             label.setWidth(1024);
             label.setHeight(125); // Altezza sufficiente per due righe
-            style.font.getData().setScale(3.5f);
+            style.font.getData().setScale(1.5f);
             label.setWrap(true);
         }
     }
@@ -148,7 +147,7 @@ public class LabelDiscorsi {
 
             // Avvia l'animazione della seconda riga se presente
         	 if (isPrimaRigaStampata && rigaCorrente + 1 < righeDiscorso.size()) {
-                startLetterAnimationFirstLine(righeDiscorso.get(rigaCorrente) + " " + righeDiscorso.get(rigaCorrente + 1));
+                startLetterAnimationFirstLine(righeDiscorso.get(rigaCorrente) + "\n" + righeDiscorso.get(rigaCorrente + 1));
             }
         	 
         	 else {
