@@ -67,6 +67,8 @@ public class CasaSpawn extends ScreenAdapter {
     @Override
     public void show() {
 
+        game.setLuogo("casaSpawn");
+
         //timer da usare dopo per far girare la mamma sui fornelli
         timer = new Timer();
         mammaTimerTask = new TimerTask() {
@@ -196,11 +198,6 @@ public class CasaSpawn extends ScreenAdapter {
         tileRenderer.renderTileLayer((TiledMapTileLayer)layer);
 
         tileRenderer.getBatch().end();
-    }
-
-    //controlla la collisione con la porta per uscire dalla casa
-    private void controllaCollisionePorta() {
-
     }
 
     public void startTimerForMamma() {

@@ -176,6 +176,10 @@ public class Ash {
                 } else if (currentAnimation == camminaIndietro.getKeyFrame(stateTime, true)) {
                     currentAnimation = fermoIndietro.getKeyFrame(0);
                 }
+                game.setisInMovement(false);
+            }
+            else {
+                game.setisInMovement(true);
             }
 
             //salvo le vecchie posizioni

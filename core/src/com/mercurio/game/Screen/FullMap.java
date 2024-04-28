@@ -60,6 +60,7 @@ public class FullMap extends ScreenAdapter{
         lineeLayer = game.getLineeLayer();
         cambiaProfondita(lineeLayer);
         teleport();
+        checkLuogo();
     }
 
     private void cambiaProfondita(MapLayer lineeLayer) {
@@ -166,6 +167,20 @@ public class FullMap extends ScreenAdapter{
         return null;
     }
 
+    public void checkLuogo() {
+        MapObjects objects = mappa.getLayers().get("controlloLuogo").getObjects();
+        for (MapObject object : objects) {
+            if (object instanceof RectangleMapObject) {
+                // Se l'oggetto è un rettangolo
+                RectangleMapObject rectangleObject = (RectangleMapObject) object;
+
+                if (game.getPlayer().getBoxPlayer().overlaps(rectangleObject.getRectangle())) {
+                    game.setLuogo(rectangleObject.getName());
+                }
+            } 
+        }
+    }
+
     public void teleport() {
         MapObjects objects = mappa.getLayers().get("teleport").getObjects();
         for (MapObject object : objects) {
@@ -207,7 +222,7 @@ public class FullMap extends ScreenAdapter{
 
     @Override
     public void dispose() {
-        mappa.dispose();
+        //mappa.dispose();
     }
 
 }
