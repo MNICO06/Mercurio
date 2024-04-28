@@ -24,11 +24,46 @@ public class Erba {
 
                     int num = random.nextInt(200);
                     if (num == 4) {
-                        System.out.println("no");
+                        
+                    }
+                }
+                break;
+            
+            case "bosco":
+                if (check(map, "erbaAltaBosco") && game.getIsInMovement()) {
+                    int num = random.nextInt(200);
+                    if (num == 5) {
+                    
                     }
                 }
                 break;
 
+            case "percorso2":
+                if (check(map, "erbaAltaPercorso2") && game.getIsInMovement()) {
+                    int num = random.nextInt(200);
+                    if (num == 6) {
+                    
+                    }
+                }
+                break;
+
+            case "percorso3":
+                if (check(map, "acquaPercoso3") && game.getIsInMovement()) {
+                    int num = random.nextInt(200);
+                    if (num == 6) {
+                    
+                    }
+                }
+                break;
+                
+            case "percorso4":
+                if (check(map, "erbaAltaPercorso4") && game.getIsInMovement()) {
+                    int num = random.nextInt(200);
+                    if (num == 6) {
+                    
+                    }
+                }
+                break;
             default:
                 break;
         }
