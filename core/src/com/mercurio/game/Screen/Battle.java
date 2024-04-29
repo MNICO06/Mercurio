@@ -106,6 +106,8 @@ public class Battle extends ScreenAdapter {
     private String nomeBall;
     private String nomePokeBot;
     private String tipoBot;
+    private Image playerHPBar;
+    private Image botHPBar;
 
 
 
@@ -484,6 +486,19 @@ public class Battle extends ScreenAdapter {
             }
         });
         
+
+
+        //e ora piazza le hp Bar
+        Texture imageHPPlayer = new Texture("battle/playerHPBar.png");
+        playerHPBar = new Image(imageHPPlayer);
+        playerHPBar.setSize(256, 47*2);
+        playerHPBar.setPosition(1024, 140);
+        stage.addActor(playerHPBar);
+
+        Action moveAction = Actions.moveTo(1024-256, 140, 0.5f);
+        // Applica l'azione all'immagine
+        playerHPBar.addAction(moveAction);
+
     }
 
     private void restorePreviousImage(Image label) {
