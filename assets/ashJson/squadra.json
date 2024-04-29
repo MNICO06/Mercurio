@@ -20,7 +20,7 @@
       "tipoBall": "masterBall"
     },
     "poke2": {
-        "nomePokemon": "Pikachu",
+        "nomePokemon": "Bidoof",
         "livello": "15",
         "statistiche": {
           "hp": 35,
@@ -40,7 +40,7 @@
         "tipoBall": "Poke Ball"
       },
       "poke3": {
-        "nomePokemon": "Pikachu",
+        "nomePokemon": "Bidoof",
         "livello": "15",
         "statistiche": {
           "hp": 35,
@@ -60,7 +60,7 @@
         "tipoBall": "Poke Ball"
       },
       "poke4": {
-        "nomePokemon": "Pikachu",
+        "nomePokemon": "Bidoof",
         "livello": "15",
         "statistiche": {
           "hp": 0,
@@ -80,7 +80,7 @@
         "tipoBall": "Poke Ball"
       },
       "poke5": {
-        "nomePokemon": "Pikachu",
+        "nomePokemon": "Bidoof",
         "livello": "15",
         "statistiche": {
           "hp": 35,
@@ -101,7 +101,7 @@
       },
       "poke6": {
         "nomePokemon": "",
-        "livello": "15",
+        "livello": "",
         "statistiche": {
           "hp": 0,
           "hpTot": 0,

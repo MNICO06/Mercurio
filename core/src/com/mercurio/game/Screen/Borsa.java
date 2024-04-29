@@ -365,25 +365,15 @@ public class Borsa {
             background2.addListener(new InputListener() {
                 @Override
                 public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                    // Questo metodo viene chiamato quando il cursore entra nell'area dell'immagine
-                    // Crea un'azione di fading in
-                    AlphaAction fadeInAction = Actions.fadeIn(1f); // Imposta la durata del fading a 1 secondo
-                    
                     // Imposta l'immagine di sfondo con la nuova texture
                     background2.setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("sfondo/sfondo2.png")))));
                     
-                    // Applica l'azione di fading in all'immagine
-                    background2.addAction(fadeInAction);
                 }
                 
                 @Override
                 public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                    // Questo metodo viene chiamato quando il cursore esce dall'area dell'immagine
-                    // Crea un'azione di fading out
-                    AlphaAction fadeOutAction = Actions.fadeOut(1f); // Imposta la durata del fading a 1 secondo
-                    
-                    // Applica l'azione di fading out all'immagine
-                    background2.addAction(fadeOutAction);
+
+                    background2.setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("sfondo/sfondo1.png")))));
                 }
             });
 

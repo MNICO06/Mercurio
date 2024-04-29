@@ -21,7 +21,7 @@ import com.badlogic.gdx.utils.Timer;
 public class MenuLabel {
 
     private Battle battle;
-
+    private Squadra squadra;
 	private SpriteBatch batch;
     private BitmapFont font;
     private Label openMenuLabel;
@@ -146,6 +146,7 @@ public class MenuLabel {
     
 	private void apriPokemon() {
 		System.out.println("Pokemon aperti");
+        squadra = new Squadra(getStage());
 	}
 	    
 	private void apriBorsa() {
@@ -274,10 +275,22 @@ public class MenuLabel {
         }
 
         // Rendering dello stage
-        /*if (borsa != null) {
+        if (borsa != null) {
             borsa.render();
-        }*/
+        }
 
+        // Rendering dello stage
+        if (squadra != null) {
+            squadra.render();
+        }
+
+        // Rendering dello stage
+        if (borsa != null) {
+            borsa.render();
+        }
+
+
+        //VA TOLTO DOPO
         if (battle != null){
             battle.render();
         }
