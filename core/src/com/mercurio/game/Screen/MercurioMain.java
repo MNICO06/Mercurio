@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -35,6 +36,8 @@ public class MercurioMain extends Game{
 
     Ash ash;
     Erba erba;
+    Musica musica;
+    AssetManager assetManager = new AssetManager();
 
     private OrthographicCamera camera;
 
@@ -64,6 +67,7 @@ public class MercurioMain extends Game{
     public void create() {
         ash = new Ash(this);
         erba = new Erba (this);
+        musica = new Musica (this, assetManager);
         batch = new SpriteBatch();
         menuLabel = new MenuLabel();
         setPage(Constant.SCHERMATA_LOGO);
@@ -263,5 +267,9 @@ public class MercurioMain extends Game{
     }
     public boolean getIsInMovement () {
         return isInMovement;
+    }
+
+    public Musica getMusica () {
+        return musica;
     }
 }

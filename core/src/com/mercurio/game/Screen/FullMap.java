@@ -46,7 +46,6 @@ public class FullMap extends ScreenAdapter{
         camera = new OrthographicCamera();
         camera.setToOrtho(false, map_size.x/38f, map_size.y/40f);
         camera.update();
-        game.getPlayer().setPosition(3000,100);
 
         setPositionPlayer();
 
@@ -176,8 +175,9 @@ public class FullMap extends ScreenAdapter{
 
                 if (game.getPlayer().getBoxPlayer().overlaps(rectangleObject.getRectangle())) {
                     game.setLuogo(rectangleObject.getName());
+                    game.getMusica().startMusic(rectangleObject.getName());
                 }
-            } 
+            }
         }
     }
 
@@ -198,7 +198,6 @@ public class FullMap extends ScreenAdapter{
     public void change(RectangleMapObject rectangleObject) {
         game.setPage(rectangleObject.getName());
     }
-
 
     public void setPositionPlayer() {
         String luogo = game.getTeleport();
