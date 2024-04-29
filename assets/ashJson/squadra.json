@@ -3,8 +3,8 @@
       "nomePokemon": "Giratina",
       "livello": "100",
       "statistiche": {
-        "hp": 35,
-        "hpTot": 35,
+        "hp": 400,
+        "hpTot": 400,
         "attack": 55,
         "defense": 40,
         "special_attack": 50,
