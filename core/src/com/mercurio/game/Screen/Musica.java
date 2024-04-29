@@ -60,7 +60,7 @@ public class Musica {
 
             case "capitale":
                 if (current != "capitale") {
-                    playMusic("musica/canzoneCheSpacca.mp3");
+                    playMusic("musica/capitale.mp3");
                     current = "capitale";
                 }
                 break;
