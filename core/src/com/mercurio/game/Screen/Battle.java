@@ -105,7 +105,7 @@ public class Battle extends ScreenAdapter {
     private int dimMax;
     private String nomeBot;
     private ArrayList<Mossa> listaMosse = new ArrayList<>();
-    private ArrayList<Mossa> listaMosseBot = new ArrayList<>();
+    private ArrayList<MossaBot> listaMosseBot = new ArrayList<>();
     private String nomeBall;
     private String nomePokeBot;
     private String tipoBot;
@@ -113,7 +113,6 @@ public class Battle extends ScreenAdapter {
     private Image botHPBar;
     private String LVPokeBot;
     private String LVPoke;
-
 
 
 
@@ -616,6 +615,24 @@ public class Battle extends ScreenAdapter {
         stage.addActor(labelNomeMossa);
         labelNomeMosseArray.add(labelNomeMossa);
 
+        Label labelPPTot = new Label(listaMosse.get(i).getmaxPP(), new Label.LabelStyle(font, null));
+        labelPPTot.setPosition(labelMosse.getX() + 195, labelMosse.getY() + 30); 
+        labelPPTot.setFontScale(1.3f);
+        stage.addActor(labelPPTot);
+        labelNomeMosseArray.add(labelPPTot);
+
+
+        Label labelPPatt = new Label(listaMosse.get(i).getattPP(), new Label.LabelStyle(font, null));
+        if(Integer.parseInt(listaMosse.get(i).getattPP())>9){
+            labelPPatt.setPosition(labelMosse.getX() + 145, labelMosse.getY() + 30); 
+        }
+        else{
+            labelPPatt.setPosition(labelMosse.getX() + 158, labelMosse.getY() + 30);
+        }
+        labelPPatt.setFontScale(1.3f);
+        stage.addActor(labelPPatt);
+        labelNomeMosseArray.add(labelPPatt);
+
         ClickListener listener = new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -635,17 +652,14 @@ public class Battle extends ScreenAdapter {
                             label.remove();
                         }
                         labelMosseArray.clear();
-
-                        for (Label label : labelNomeMosseArray) {
-                            label.remove();
-                        }
-                        labelNomeMosseArray.clear();
                     }
                 }, 2.5f);
             }
         };
         labelMosse.addListener(listener);
         labelNomeMossa.addListener(listener);
+        labelPPTot.addListener(listener);
+        labelPPatt.addListener(listener);
         }
     }
 
@@ -768,8 +782,11 @@ public class Battle extends ScreenAdapter {
             for (JsonValue mossaJson : mosse) {
                 String nomeMossa = mossaJson.getString("nome");
                 String tipoMossa = mossaJson.getString("tipo");
+                String attPP = mossaJson.getString("ppAtt");
+                String maxPP = mossaJson.getString("ppTot");
+                
                 // Aggiungi la mossa alla lista
-                Mossa mossa=new Mossa(nomeMossa, tipoMossa);
+                Mossa mossa=new Mossa(nomeMossa, tipoMossa, maxPP, attPP);
                 listaMosse.add(mossa);
             }
 
@@ -969,7 +986,7 @@ public class Battle extends ScreenAdapter {
                 String nomeMossa = mossaJson.getString("nome");
                 String tipoMossa = mossaJson.getString("tipo");
                 // Aggiungi la mossa alla lista
-                Mossa mossa=new Mossa(nomeMossa, tipoMossa);
+                MossaBot mossa=new MossaBot(nomeMossa, tipoMossa);
                 listaMosseBot.add(mossa);
             }
 

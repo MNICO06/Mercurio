@@ -1,11 +1,14 @@
 package com.mercurio.game.personaggi;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
 
 public class Dottoressa {
     private TextureRegion[] indietro;
@@ -117,4 +120,33 @@ public class Dottoressa {
         texture.dispose();
     }
     
+
+    private void cura(){
+        // Carica il file JSON
+        FileHandle file = Gdx.files.internal("ashJson/squadra.json");
+        String jsonString = file.readString();
+        
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+        JsonValue json = new JsonReader().parse(jsonString);
+        
+        for (int i=0; i<6; i++){
+            JsonValue pokeJson = json.get("poke"+i+1);
+            String nomePoke = pokeJson.getString("nomePokemon");
+
+            if (!nomePoke.equals("")){
+            JsonValue statistiche = pokeJson.get("statistiche"); 
+            String maxPokeHP = statistiche.getString("hpTot");
+            //ripristina gli hp al massimo
+            statistiche.get("hp").set(maxPokeHP);
+            JsonValue mosse = pokeJson.get("mosse");
+            for (JsonValue mossaJson : mosse) {
+                String maxPP = mossaJson.getString("ppTot");
+                // ripristina attPP al massimo per ogni mossa
+                mossaJson.get("ppAtt").set(maxPP);
+            }
+        }
+
+    }
 }
+}
+

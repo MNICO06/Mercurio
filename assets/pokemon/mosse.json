@@ -1,0 +1,869 @@
+{
+    "Azione": {
+      "potenza": 40,
+      "precisione": 100,
+      "pp": 35,
+      "attacco": "fisico"
+    },
+    "Attacco rapido": {
+      "potenza": 40,
+      "precisione": 100,
+      "priorita":1,
+      "pp": 30,
+      "attacco": "fisico"
+    },
+    "Gigaimpatto": {
+      "potenza": 150,
+      "precisione": 90,
+      "pp": 5,
+      "attacco": "fisico"
+    },
+    "Iperaggio": {
+      "potenza": 150,
+      "precisione": 90,
+      "pp": 5,
+      "attacco": "fisico"
+    },
+    "Lacerazione": {
+      "potenza": 75,
+      "precisione": 100,
+      "pp": 20,
+      "attacco": "fisico"
+    },
+    "Comete": {
+      "potenza": 60,
+      "precisione": 110,
+      "pp": 20,
+      "attacco": "speciale"
+    },
+    "Pestone": {
+      "potenza": 65,
+      "precisione": 100,
+      "pp": 20,
+      "attacco": "fisico"
+    },
+    "Taglio": {
+      "potenza": 40,
+      "precisione": 100,
+      "pp": 30,
+      "attacco": "fisico"
+    },
+    "Pistolacqua": {
+      "potenza": 40,
+      "precisione": 100,
+      "pp": 30,
+      "attacco": "speciale"
+    },
+    "Idropompa": {
+      "potenza": 110,
+      "precisione": 70,
+      "pp": 5,
+      "attacco": "speciale"
+    },
+    "Idropulsar": {
+      "potenza": 60,
+      "precisione": 110,
+      "pp": 15,
+      "attacco": "speciale"
+    },
+    "Surf": {
+      "potenza": 90,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "speciale"
+    },
+    "Idrondata": {
+      "potenza": 90,
+      "precisione": 90,
+      "pp": 15,
+      "attacco": "speciale"
+    },
+    "Idrobreccia": {
+      "potenza": 85,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Bollaraggio": {
+      "potenza": 65,
+      "precisione": 100,
+      "pp": 30,
+      "attacco": "speciale"
+    },
+    "Cascata": {
+      "potenza": 80,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Fogliame": {
+      "potenza": 40,
+      "precisione": 100,
+      "pp": 30,
+      "attacco": "fisico"
+    },
+    "Verdebufera": {
+      "potenza": 130,
+      "precisione": 70,
+      "pp": 5,
+      "attacco": "speciale"
+    },
+    "Fogliamagica": {
+      "potenza": 60,
+      "precisione": 110,
+      "pp": 20,
+      "attacco": "speciale"
+    },
+    "Megassorbimento": {
+      "potenza": 40,
+      "precisione": 100,
+      "pp": 25,
+      "attacco": "speciale"
+    },
+    "Gigassorbimento": {
+      "potenza": 75,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "speciale"
+    },
+    "Fendifoglia": {
+      "potenza": 55,
+      "precisione": 95,
+      "pp": 15,
+      "attacco": "speciale"
+    },
+    "Frustata": {
+      "potenza": 45,
+      "precisione": 100,
+      "pp": 30,
+      "attacco": "fisico"
+    },
+    "Energipalla": {
+      "potenza": 90,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "speciale"
+    },
+    "Braciere": {
+      "potenza": 40,
+      "precisione": 100,
+      "pp": 30,
+      "attacco": "speciale"
+    },
+    "Fuocobomba": {
+      "potenza": 110,
+      "precisione": 70,
+      "pp": 5,
+      "attacco": "speciale"
+    },
+    "Lanciafiamme": {
+      "potenza": 90,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "speciale"
+    },
+    "Rogodenti": {
+      "potenza": 65,
+      "precisione": 100,
+      "pp": 25,
+      "attacco": "fisico"
+    },
+    "Nitrocarica": {
+      "potenza": 50,
+      "precisione": 100,
+      "pp": 20,
+      "attacco": "fisico"
+    },
+    "Lavasbuffo": {
+      "potenza": 80,
+      "precisione": 100,
+      "pp": 10,
+      "attacco": "speciale"
+    },
+    "Fuocopugno": {
+      "potenza": 75,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Vampata": {
+      "potenza": 130,
+      "precisione": 90,
+      "pp": 5,
+      "attacco": "speciale"
+    },
+    "Terremoto": {
+      "potenza": 100,
+      "precisione": 100,
+      "pp": 10,
+      "attacco": "fisico"
+    },
+    "Battiterra": {
+      "potenza": 65,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Colpo di fango": {
+      "potenza": 20,
+      "precisione": 100,
+      "pp": 35,
+      "attacco": "fisico"
+    },
+    "Geoforza": {
+      "potenza": 90,
+      "precisione": 90,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Forza equina": {
+      "potenza": 95,
+      "precisione": 95,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Giravvita": {
+      "potenza": 80,
+      "precisione": 95,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Abisso": {
+      "potenza": 0,
+      "precisione": 30,
+      "pp": 5,
+      "attacco": "speciale"
+    },
+    "Sabbiotomba": {
+      "potenza": 35,
+      "precisione": 85,
+      "pp": 30,
+      "attacco": "fisico"
+    },
+    "Pietrataglio": {
+      "potenza": 100,
+      "precisione": 80,
+      "pp": 10,
+      "attacco": "fisico"
+    },
+    "Frana": {
+      "potenza": 75,
+      "precisione": 90,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Rocciotomba": {
+      "potenza": 60,
+      "precisione": 95,
+      "pp": 20,
+      "attacco": "fisico"
+    },
+    "Devastomasso": {
+      "potenza": 150,
+      "precisione": 90,
+      "pp": 5,
+      "attacco": "fisico"
+    },
+    "Forzantica": {
+      "potenza": 60,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Abbattimento": {
+      "potenza": 60,
+      "precisione": 100,
+      "pp": 20,
+      "attacco": "fisico"
+    },
+    "Sassata": {
+      "potenza": 50,
+      "precisione": 90,
+      "pp": 25,
+      "attacco": "fisico"
+    },
+    "Cadutamassi": {
+      "potenza": 50,
+      "precisione": 90,
+      "pp": 25,
+      "attacco": "fisico"
+    },
+    "Ronzio": {
+      "potenza": 90,
+      "precisione": 100,
+      "pp": 10,
+      "attacco": "speciale"
+    },
+    "Megacorno": {
+      "potenza": 120,
+      "precisione": 85,
+      "pp": 10,
+      "attacco": "fisico"
+    },
+    "Assalto": {
+      "potenza": 80,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Missispillo": {
+      "potenza": 25,
+      "precisione": 100,
+      "pp": 35,
+      "attacco": "fisico"
+    },
+    "Forbice X": {
+      "potenza": 80,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Ventargenteo": {
+      "potenza": 60,
+      "precisione": 100,
+      "pp": 20,
+      "attacco": "fisico"
+    },
+    "Pungiglione": {
+      "potenza": 50,
+      "precisione": 100,
+      "pp": 30,
+      "attacco": "fisico"
+    },
+    "Segnoraggio": {
+      "potenza": 75,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Velenoshock": {
+      "potenza": 65,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "speciale"
+    },
+    "Fangobomba": {
+      "potenza": 90,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Fangonda": {
+      "potenza": 95,
+      "precisione": 100,
+      "pp": 10,
+      "attacco": "fisico"
+    },
+    "Velenospina": {
+      "potenza": 30,
+      "precisione": 100,
+      "pp": 30,
+      "attacco": "fisico"
+    },
+    "Velenocroce": {
+      "potenza": 80,
+      "precisione": 100,
+      "pp": 20,
+      "attacco": "speciale"
+    },
+    "Velenodenti": {
+      "potenza": 65,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Fango": {
+      "potenza": 65,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Velenpuntura": {
+      "potenza": 80,
+      "precisione": 100, 
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Codacciaio": {
+      "potenza": 100,
+      "precisione": 75,
+      "pp": 10,
+      "attacco": "fisico"
+    },
+    "Cannonflash": {
+      "potenza": 80,
+      "precisione": 100,
+      "pp": 10,
+      "attacco": "speciale"
+    },
+    "Metaltestata": {
+      "potenza": 80,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Ferrartigli": {
+      "potenza": 65,
+      "precisione": 95,
+      "pp": 25,
+      "attacco": "fisico"
+    },
+    "Meteorpugno": {
+      "potenza": 90,
+      "precisione": 90,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Alacciaio": {
+      "potenza": 70,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Pugnoscarica": {
+      "potenza": 40,
+      "precisione": 100,
+      "priorita":1,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Sottilcorno": {
+      "potenza": 70,
+      "precisione": 110,
+      "pp": 10,
+      "attacco": "fisico"
+    },
+    "Dragopulsar": {
+      "potenza": 85,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "speciale"
+    },
+    "Dragartigli": {
+      "potenza": 80,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Dragospiro": {
+      "potenza": 60,
+      "precisione": 100,
+      "pp": 20,
+      "attacco": "speciale"
+    },
+    "Dragobolide": {
+      "potenza": 130,
+      "precisione": 90,
+      "pp": 5,
+      "attacco": "speciale"
+    },
+    "Codadrago": {
+      "potenza": 60,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Ira di drago": {
+      "potenza": 999,
+      "precisione": 100,
+      "pp": 30,
+      "attacco": "fisico"
+    },
+    "Vastoimpatto": {
+      "potenza": 60,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Dragofuria": {
+      "potenza": 100,
+      "precisione": 50,
+      "pp": 10,
+      "attacco": "fisico"
+    },
+    "Forza lunare": {
+      "potenza": 95,
+      "precisione": 100,
+      "pp": 10,
+      "attacco": "speciale"
+    },
+    "Magibrillo": {
+      "potenza": 80,
+      "precisione": 100,
+      "pp": 10,
+      "attacco": "speciale"
+    },
+    "Carineria": {
+      "potenza": 90,
+      "precisione": 90,
+      "pp": 10,
+      "attacco": "speciale"
+    },
+    "Assorbibacio": {
+      "potenza": 50,
+      "precisione": 100,
+      "pp": 20,
+      "attacco": "speciale"
+    },
+    "Incantavoce": {
+      "potenza": 40,
+      "precisione": 100,
+      "pp": 25,
+      "attacco": "speciale"
+    },
+    "Vento di fata": {
+      "potenza": 40,
+      "precisione": 100,
+      "pp": 25,
+      "attacco": "speciale"
+    },
+    "Ammaliavoce": {
+      "potenza": 80,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "speciale"
+    },
+    "Nebbioscoppio": {
+      "potenza": 100,
+      "precisione": 100,
+      "pp": 10,
+      "attacco": "speciale"
+    },
+    "Volo": {
+      "potenza": 90,
+      "precisione": 95,
+      "pp": 10,
+      "attacco": "fisico"
+    },
+    "Aereoassalto": {
+      "potenza": 60,
+      "precisione": 110,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Beccata": {
+      "potenza": 35,
+      "precisione": 100,
+      "pp": 25,
+      "attacco": "fisico"
+    },
+    "Perforbecco": {
+      "potenza": 80,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Eterelama": {
+      "potenza": 75,
+      "precisione": 95,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Attacco d'ala": {
+      "potenza": 60,
+      "precisione": 100,
+      "pp": 25,
+      "attacco": "fisico"
+    },
+    "Tifone": {
+      "potenza": 110,
+      "precisione": 70,
+      "pp": 5,
+      "attacco": "speciale"
+    },
+    "Spennata": {
+      "potenza": 60,
+      "precisione": 100,
+      "pp": 20,
+      "attacco": "fisico"
+    },
+    "Morso": {
+      "potenza": 60,
+      "precisione": 100,
+      "pp": 20,
+      "attacco": "fisico"
+    },
+    "Sgranocchio": {
+      "potenza": 80,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Colpo infernale": {
+      "potenza": 80,
+      "precisione": 100,
+      "pp": 10,
+      "attacco": "fisico"
+    },
+    "Rivincita": {
+      "potenza": 60,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Nottesferza": {
+      "potenza": 70,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Sbigoattacco": {
+      "potenza": 70,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Urlorabbia": {
+      "potenza": 55,
+      "precisione": 95,
+      "pp": 20,
+      "attacco": "fisico"
+    },
+    "Neropulsar": {
+      "potenza": 80,
+      "precisione": 100,
+      "pp": 10,
+      "attacco": "speciale"
+    },
+    "Oscurotuffo": {
+      "potenza": 150,
+      "precisione": 110,
+      "pp": 5,
+      "attacco": "fisico"
+    },
+    "Ombrarigli": {
+      "potenza": 70,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Palla ombra": {
+      "potenza": 80,
+      "precisione": 100,
+      "pp":  10,
+      "attacco": "speciale"
+    },
+    "Ombra notturna": {
+      "potenza": 55,
+      "precisione": 95,
+      "pp": 25,
+      "attacco": "speciale"
+    },
+    "Leccata": {
+      "potenza": 30,
+      "precisione": 100,
+      "pp": 35,
+      "attacco": "fisico"
+    },
+    "Funestovento": {
+      "potenza": 60,
+      "precisione": 100,
+      "pp": 20,
+      "attacco": "speciale"
+    },
+    "Pugno d'ombra": {
+      "potenza": 60,
+      "precisione": 110,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Furtivombra": {
+      "potenza": 40,
+      "precisione": 100,
+      "pp": 30,
+      "attacco": "speciale"
+    },
+    "Breccia": {
+      "potenza": 75,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Zuffa": {
+      "potenza": 120,
+      "precisione": 100,
+      "pp": 5,
+      "attacco": "fisico"
+    },
+    "Forzasfera": {
+      "potenza": 80,
+      "precisione": 110,
+      "pp": 20,
+      "attacco": "speciale"
+    },
+    "Incrocolpo": {
+      "potenza": 100,
+      "precisione": 80,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Dinamipugno": {
+      "potenza": 100,
+      "precisione": 50,
+      "pp": 10,
+      "attacco": "fisico"
+    },
+    "Focalcolpo": {
+      "potenza": 120,
+      "precisione": 70,
+      "pp": 5,
+      "attacco": "fisico"
+    },
+    "Crescipugno": {
+      "potenza": 40,
+      "precisione": 100,
+      "pp": 25,
+      "attacco": "fisico"
+    },
+    "Assorbipugno": {
+      "potenza": 75,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Psichico": {
+      "potenza": 90,
+      "precisione": 100,
+      "pp": 10,
+      "attacco": "speciale"
+    },
+    "Psicoraggio": {
+      "potenza": 65,
+      "precisione": 100,
+      "pp": 20,
+      "attacco": "speciale"
+    },
+    "Psicozanna": {
+      "potenza": 80,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Confusione": {
+      "potenza": 50,
+      "precisione": 90,
+      "pp": 20,
+      "attacco": "speciale"
+    },
+    "Extrasenso": {
+      "potenza": 80,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "speciale"
+    },
+    "Psicotaglio": {
+      "potenza": 70,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Piscoshok": {
+      "potenza": 80,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "speciale"
+    },
+    "Cozzata zen": {
+      "potenza": 80,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Fulmine": {
+      "potenza": 90,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "speciale"
+    },
+    "Tuono": {
+      "potenza": 110,
+      "precisione": 70,
+      "pp": 5,
+      "attacco": "speciale"
+    },
+    "Tuonopugno": {
+      "potenza": 75,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Fulmindenti": {
+      "potenza": 65,
+      "precisione": 100,
+      "pp": 25,
+      "attacco": "speciale"
+    },
+    "Raggioscossa": {
+      "potenza": 65,
+      "precisione": 100,
+      "pp": 25,
+      "attacco": "speciale"
+    },
+    "Scarica": {
+      "potenza": 80,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "speciale"
+    },
+    "Scintilla": {
+      "potenza": 40,
+      "precisione": 100,
+      "pp": 30,
+      "attacco": "speciale"
+    },
+    "Tuonoshok": {
+      "potenza": 40,
+      "precisione": 100,
+      "pp": 30,
+      "attacco": "speciale"
+    },
+    "Bora": {
+      "potenza": 110,
+      "precisione": 70,
+      "pp": 5,
+      "attacco": "speciale"
+    },
+    "Geloraggio": {
+      "potenza": 90,
+      "precisione": 100,
+      "pp": 10,
+      "attacco": "speciale"
+    },
+    "Gelodenti": {
+      "potenza": 65,
+      "precisione": 100,
+      "pp": 25,
+      "attacco": "fisico"
+    },
+    "Gelopugno": {
+      "potenza": 75,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
+    },
+    "Slavina": {
+      "potenza": 60,
+      "precisione": 100,
+      "pp": 20,
+      "attacco": "fisico"
+    },
+    "Purogelo": {
+      "potenza": 0,
+      "precisione": 30,
+      "pp": 5,
+      "attacco": "speciale"
+    },
+    "Polneve": {
+      "potenza": 55,
+      "precisione": 100,
+      "pp": 20,
+      "attacco": "speciale"
+    },
+    "Palla gelo": {
+      "potenza": 30,
+      "precisione": 90,
+      "pp": 30,
+      "attacco": "speciale"
+    }
+  }
+  
