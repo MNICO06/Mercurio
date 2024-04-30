@@ -370,8 +370,8 @@
 
       "p1_bot3":{
         "nome" : "Walter",
-        "testo1" : "",
-        "testo2" : "Un uomo saggio una volta mi disse: dimentica il passato, non puoi cambiarlo.",
+        "testo1" : "Ao uagliu che'ssi pronto pe'ss' arato?!",
+        "testo2" : "N'omm saggiu 'na volta me disse: hai da scurdà 'o passat', nun lu puoi mutà!",
         "affrontato" : 0,
         "soldi" : 20,
         "tipo" : "Bimbo",
@@ -981,6 +981,498 @@
                       {"nome": "", "tipo": ""}
                     ]
                   }
-                }
+                },
+
+                "bosco_bot3":{
+                  "nome" : "Giulia",
+                  "testo1" : "  ",
+                  "testo2" : "",
+                  "affrontato" : 0,
+                  "soldi" : 49,
+                  "tipo" : "Particellina",
+                  "poke1": {
+                    "nomePokemon": "nidoranM",
+                    "livello": "6",
+                    "statistiche": {
+                      "hp": 68.8,
+                      "hpTot": 68.8,
+                      "attack": 68.8,
+                      "defense": 50.4,
+                      "special_attack": 50.4,
+                      "special_defense": 50.4,
+                      "speed": 61.2
+                    },
+                    "mosse": [
+                      {"nome": "", "tipo": ""},
+                      {"nome": "", "tipo": ""},
+                      {"nome": "", "tipo": ""},
+                      {"nome": "", "tipo": ""}
+                    ]
+                  },
+                  "poke2": {
+                      "nomePokemon": "bidoof",
+                      "livello": "5",
+                      "statistiche": {
+                        "hp": 72.7,
+                        "hpTot": 72.7,
+                        "attack": 49.2,
+                        "defense": 44.4,
+                        "special_attack": 39.6,
+                        "special_defense": 44.4,
+                        "speed": 35.76
+                      },
+                      "mosse": [
+                        {"nome": "", "tipo": ""},
+                        {"nome": "", "tipo": ""},
+                        {"nome": "", "tipo": ""},
+                        {"nome": "", "tipo": ""}
+                      ]
+                    },
+                    "poke3": {
+                      "nomePokemon": "",
+                      "livello": "",
+                      "statistiche": {
+                        "hp": 0,
+                        "hpTot": 0,
+                        "attack": 0,
+                        "defense": 0,
+                        "special_attack": 0,
+                        "special_defense": 0,
+                        "speed": 0
+                      },
+                      "mosse": [
+                        {"nome": "", "tipo": ""},
+                        {"nome": "", "tipo": ""},
+                        {"nome": "", "tipo": ""},
+                        {"nome": "", "tipo": ""}
+                      ]
+                    },
+                    "poke4": {
+                      "nomePokemon": "",
+                      "livello": "",
+                      "statistiche": {
+                        "hp": 0,
+                        "hpTot": 0,
+                        "attack": 0,
+                        "defense": 0,
+                        "special_attack": 0,
+                        "special_defense": 0,
+                        "speed": 0
+                      },
+                      "mosse": [
+                        {"nome": "", "tipo": ""},
+                        {"nome": "", "tipo": ""},
+                        {"nome": "", "tipo": ""},
+                        {"nome": "", "tipo": ""}
+                      ]
+                    },
+                    "poke5": {
+                      "nomePokemon": "",
+                      "livello": "",
+                      "statistiche": {
+                        "hp": 0,
+                        "hpTot": 0,
+                        "attack": 0,
+                        "defense": 0,
+                        "special_attack": 0,
+                        "special_defense": 0,
+                        "speed": 0
+                      },
+                      "mosse": [
+                        {"nome": "", "tipo": ""},
+                        {"nome": "", "tipo": ""},
+                        {"nome": "", "tipo": ""},
+                        {"nome": "", "tipo": ""}
+                      ]
+                    },
+                    "poke6": {
+                      "nomePokemon": "",
+                      "livello": "",
+                      "statistiche": {
+                        "hp": 0,
+                        "hpTot": 0,
+                        "attack": 0,
+                        "defense": 0,
+                        "special_attack": 0,
+                        "special_defense": 0,
+                        "speed": 0
+                      },
+                      "mosse": [
+                        {"nome": "", "tipo": ""},
+                        {"nome": "", "tipo": ""},
+                        {"nome": "", "tipo": ""},
+                        {"nome": "", "tipo": ""}
+                      ]
+                    }
+                  },
+
+                  "bosco_bot4":{
+                    "nome" : "Maurizio",
+                    "testo1" : "  ",
+                    "testo2" : "",
+                    "affrontato" : 0,
+                    "soldi" : 87,
+                    "tipo" : "Retino",
+                    "poke1": {
+                      "nomePokemon": "kakuna",
+                      "livello": "7",
+                      "statistiche": {
+                        "hp": 93.6,
+                        "hpTot": 93.6,
+                        "attack": 44.4,
+                        "defense": 84.4,
+                        "special_attack": 44.4,
+                        "special_defense": 44.4,
+                        "speed": 58.8
+                      },
+                      "mosse": [
+                        {"nome": "", "tipo": ""},
+                        {"nome": "", "tipo": ""},
+                        {"nome": "", "tipo": ""},
+                        {"nome": "", "tipo": ""}
+                      ]
+                    },
+                    "poke2": {
+                        "nomePokemon": "Geodude",
+                        "livello": "7",
+                        "statistiche": {
+                          "hp": 63,
+                          "hpTot": 63,
+                          "attack": 94.8,
+                          "defense": 116.4,
+                          "special_attack": 40.8,
+                          "special_defense": 40.8,
+                          "speed": 30
+                        },
+                        "mosse": [
+                          {"nome": "", "tipo": ""},
+                          {"nome": "", "tipo": ""},
+                          {"nome": "", "tipo": ""},
+                          {"nome": "", "tipo": ""}
+                        ]
+                      },
+                      "poke3": {
+                        "nomePokemon": "kakuna",
+                        "livello": "4",
+                        "statistiche": {
+                          "hp": 72,
+                          "hpTot": 72,
+                          "attack": 34.8,
+                          "defense": 64.8,
+                          "special_attack": 34.8,
+                          "special_defense": 34.8,
+                          "speed": 46.8
+                        },
+                        "mosse": [
+                          {"nome": "", "tipo": ""},
+                          {"nome": "", "tipo": ""},
+                          {"nome": "", "tipo": ""},
+                          {"nome": "", "tipo": ""}
+                        ]
+                      },
+                      "poke4": {
+                        "nomePokemon": "",
+                        "livello": "",
+                        "statistiche": {
+                          "hp": 0,
+                          "hpTot": 0,
+                          "attack": 0,
+                          "defense": 0,
+                          "special_attack": 0,
+                          "special_defense": 0,
+                          "speed": 0
+                        },
+                        "mosse": [
+                          {"nome": "", "tipo": ""},
+                          {"nome": "", "tipo": ""},
+                          {"nome": "", "tipo": ""},
+                          {"nome": "", "tipo": ""}
+                        ]
+                      },
+                      "poke5": {
+                        "nomePokemon": "",
+                        "livello": "",
+                        "statistiche": {
+                          "hp": 0,
+                          "hpTot": 0,
+                          "attack": 0,
+                          "defense": 0,
+                          "special_attack": 0,
+                          "special_defense": 0,
+                          "speed": 0
+                        },
+                        "mosse": [
+                          {"nome": "", "tipo": ""},
+                          {"nome": "", "tipo": ""},
+                          {"nome": "", "tipo": ""},
+                          {"nome": "", "tipo": ""}
+                        ]
+                      },
+                      "poke6": {
+                        "nomePokemon": "",
+                        "livello": "",
+                        "statistiche": {
+                          "hp": 0,
+                          "hpTot": 0,
+                          "attack": 0,
+                          "defense": 0,
+                          "special_attack": 0,
+                          "special_defense": 0,
+                          "speed": 0
+                        },
+                        "mosse": [
+                          {"nome": "", "tipo": ""},
+                          {"nome": "", "tipo": ""},
+                          {"nome": "", "tipo": ""},
+                          {"nome": "", "tipo": ""}
+                        ]
+                      }
+                    },
+
+                    "bosco_bot5":{
+                      "nome" : "Jonatan",
+                      "testo1" : "",
+                      "testo2" : "",
+                      "affrontato" : 0,
+                      "soldi" : 78,
+                      "tipo" : "Retino",
+                      "poke1": {
+                        "nomePokemon": "Geodude",
+                        "livello": "7",
+                        "statistiche": {
+                          "hp": 63,
+                          "hpTot": 63,
+                          "attack": 94.8,
+                          "defense": 116.4,
+                          "special_attack": 40.8,
+                          "special_defense": 40.8,
+                          "speed": 30
+                        },
+                        "mosse": [
+                          {"nome": "", "tipo": ""},
+                          {"nome": "", "tipo": ""},
+                          {"nome": "", "tipo": ""},
+                          {"nome": "", "tipo": ""}
+                        ]
+                      },
+                        "poke2": {
+                          "nomePokemon": "Geodude",
+                          "livello": "7",
+                          "statistiche": {
+                            "hp": 63,
+                            "hpTot": 63,
+                            "attack": 94.8,
+                            "defense": 116.4,
+                            "special_attack": 40.8,
+                            "special_defense": 40.8,
+                            "speed": 30
+                          },
+                          "mosse": [
+                            {"nome": "", "tipo": ""},
+                            {"nome": "", "tipo": ""},
+                            {"nome": "", "tipo": ""},
+                            {"nome": "", "tipo": ""}
+                          ]
+                        },
+                        "poke3": {
+                          "nomePokemon": "pikachu",
+                          "livello": "6",
+                          "statistiche": {
+                            "hp": 73.8,
+                            "hpTot": 73.8,
+                            "attack": 86.4,
+                            "defense": 64.8,
+                            "special_attack": 79.2,
+                            "special_defense": 79.2,
+                            "speed": 136.8
+                          },
+                          "mosse": [
+                            {"nome": "", "tipo": ""},
+                            {"nome": "", "tipo": ""},
+                            {"nome": "", "tipo": ""},
+                            {"nome": "", "tipo": ""}
+                          ]
+                        },
+                        "poke4": {
+                          "nomePokemon": "",
+                          "livello": "",
+                          "statistiche": {
+                            "hp": 0,
+                            "hpTot": 0,
+                            "attack": 0,
+                            "defense": 0,
+                            "special_attack": 0,
+                            "special_defense": 0,
+                            "speed": 0
+                          },
+                          "mosse": [
+                            {"nome": "", "tipo": ""},
+                            {"nome": "", "tipo": ""},
+                            {"nome": "", "tipo": ""},
+                            {"nome": "", "tipo": ""}
+                          ]
+                        },
+                        "poke5": {
+                          "nomePokemon": "",
+                          "livello": "",
+                          "statistiche": {
+                            "hp": 0,
+                            "hpTot": 0,
+                            "attack": 0,
+                            "defense": 0,
+                            "special_attack": 0,
+                            "special_defense": 0,
+                            "speed": 0
+                          },
+                          "mosse": [
+                            {"nome": "", "tipo": ""},
+                            {"nome": "", "tipo": ""},
+                            {"nome": "", "tipo": ""},
+                            {"nome": "", "tipo": ""}
+                          ]
+                        },
+                        "poke6": {
+                          "nomePokemon": "",
+                          "livello": "",
+                          "statistiche": {
+                            "hp": 0,
+                            "hpTot": 0,
+                            "attack": 0,
+                            "defense": 0,
+                            "special_attack": 0,
+                            "special_defense": 0,
+                            "speed": 0
+                          },
+                          "mosse": [
+                            {"nome": "", "tipo": ""},
+                            {"nome": "", "tipo": ""},
+                            {"nome": "", "tipo": ""},
+                            {"nome": "", "tipo": ""}
+                          ]
+                        }
+                      },
+
+                      "bosco_bot6":{
+                        "nome" : "Roberta e Roberto",
+                        "testo1" : "",
+                        "testo2" : "",
+                        "affrontato" : 0,
+                        "soldi" : 109,
+                        "tipo" : "Gemelle",
+                        "poke1": {
+                          "nomePokemon": "weedle",
+                          "livello": "7",
+                          "statistiche": {
+                            "hp": 84.6,
+                            "hpTot": 84.6,
+                            "attack": 58.8,
+                            "defense": 51.6,
+                            "special_attack": 37.2,
+                            "special_defense": 37.2,
+                            "speed": 80.4
+                          },
+                          "mosse": [
+                            {"nome": "", "tipo": ""},
+                            {"nome": "", "tipo": ""},
+                            {"nome": "", "tipo": ""},
+                            {"nome": "", "tipo": ""}
+                          ]
+                        },
+                        "poke2": {
+                            "nomePokemon": "bidoof",
+                            "livello": "8",
+                            "statistiche": {
+                              "hp": 99.4,
+                              "hpTot": 99.4,
+                              "attack": 63.6,
+                              "defense": 57.6,
+                              "special_attack": 51.6,
+                              "special_defense": 57.6,
+                              "speed": 46.8
+                            },
+                            "mosse": [
+                              {"nome": "", "tipo": ""},
+                              {"nome": "", "tipo": ""},
+                              {"nome": "", "tipo": ""},
+                              {"nome": "", "tipo": ""}
+                            ]
+                          },
+                          "poke3": {
+                            "nomePokemon": "",
+                            "livello": "",
+                            "statistiche": {
+                              "hp": 0,
+                              "hpTot": 0,
+                              "attack": 0,
+                              "defense": 0,
+                              "special_attack": 0,
+                              "special_defense": 0,
+                              "speed": 0
+                            },
+                            "mosse": [
+                              {"nome": "", "tipo": ""},
+                              {"nome": "", "tipo": ""},
+                              {"nome": "", "tipo": ""},
+                              {"nome": "", "tipo": ""}
+                            ]
+                          },
+                          "poke4": {
+                            "nomePokemon": "",
+                            "livello": "",
+                            "statistiche": {
+                              "hp": 0,
+                              "hpTot": 0,
+                              "attack": 0,
+                              "defense": 0,
+                              "special_attack": 0,
+                              "special_defense": 0,
+                              "speed": 0
+                            },
+                            "mosse": [
+                              {"nome": "", "tipo": ""},
+                              {"nome": "", "tipo": ""},
+                              {"nome": "", "tipo": ""},
+                              {"nome": "", "tipo": ""}
+                            ]
+                          },
+                          "poke5": {
+                            "nomePokemon": "",
+                            "livello": "",
+                            "statistiche": {
+                              "hp": 0,
+                              "hpTot": 0,
+                              "attack": 0,
+                              "defense": 0,
+                              "special_attack": 0,
+                              "special_defense": 0,
+                              "speed": 0
+                            },
+                            "mosse": [
+                              {"nome": "", "tipo": ""},
+                              {"nome": "", "tipo": ""},
+                              {"nome": "", "tipo": ""},
+                              {"nome": "", "tipo": ""}
+                            ]
+                          },
+                          "poke6": {
+                            "nomePokemon": "",
+                            "livello": "",
+                            "statistiche": {
+                              "hp": 0,
+                              "hpTot": 0,
+                              "attack": 0,
+                              "defense": 0,
+                              "special_attack": 0,
+                              "special_defense": 0,
+                              "speed": 0
+                            },
+                            "mosse": [
+                              {"nome": "", "tipo": ""},
+                              {"nome": "", "tipo": ""},
+                              {"nome": "", "tipo": ""},
+                              {"nome": "", "tipo": ""}
+                            ]
+                          }
+                        }
 
   }
