@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.ai.btree.utils.DistributionAdapters.IntegerAdapter;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -12,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -32,6 +35,8 @@ import com.badlogic.gdx.utils.Timer;
 
 public class Battle extends ScreenAdapter {
 
+    private Borsa borsa;
+    private Squadra squadra;
     private Sprite[] spriteArrayBallsSquadra;
     private boolean labelPokePiazzate = false;
     private ArrayList<Image> labelMosseArray = new ArrayList<>();
@@ -98,8 +103,10 @@ public class Battle extends ScreenAdapter {
     private String currentPokeHP;
     private String currentPokeHPforSquad;
     private String maxPokeHP;
+    private String maxPokeHPBot;
     private String nomePokeSquadBot;
     private String currentPokeHPBot;
+    private String currentPokeHPBotSquad;
     private String nomeMossa;
     private String soldiPresi;
     private int dimMax;
@@ -113,11 +120,17 @@ public class Battle extends ScreenAdapter {
     private Image botHPBar;
     private String LVPokeBot;
     private String LVPoke;
+    private ArrayList<Integer> statsPlayer = new ArrayList<>();
+    private ArrayList<Integer> statsBot = new ArrayList<>();
+    private Image HPplayer;
+    private Image HPbot;
+    private boolean checkLabel5 = true;
+    private boolean checkLabel6 = true;
+    private MenuLabel chiamante;
 
+    public Battle(MenuLabel chiamante) {
 
-
-    public Battle() {
-
+        this.chiamante = chiamante;
         batch = new SpriteBatch();
         stage = new Stage();
         font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
@@ -228,11 +241,19 @@ public class Battle extends ScreenAdapter {
         }
 
 
-    public void dispose() {
-        batch.dispose();
-        font.dispose();
-        stage.dispose();
-    }
+        @Override
+        public void dispose() {
+            if (!isBotFight){
+            batch.dispose();
+            font.dispose();
+            stage.dispose();
+            textureLancio.dispose();
+            ballTexture.dispose();
+            Gdx.input.setInputProcessor(null);
+            chiamante.closeBattle();
+            }
+    
+        }
 
     public void render() {
         
@@ -315,6 +336,18 @@ public class Battle extends ScreenAdapter {
             }
             if (label4!=null){
                 labelDiscorsi4.renderDisc();
+            }
+            if (label5!=null){
+                labelDiscorsi5.renderDisc();
+            }
+            if (label6!=null){
+                labelDiscorsi6.renderDisc();
+            }
+            if (label7!=null){
+                labelDiscorsi7.renderDisc();
+            }
+            if (label9!=null){
+                labelDiscorsi9.renderDisc();
             }
         }
 
@@ -459,6 +492,12 @@ public class Battle extends ScreenAdapter {
             public void clicked(InputEvent event, float x, float y) {
                 currentIndex = 2; // Imposta l'indice corrente sulla base di quale etichetta è stata cliccata
                 updateLabelImage(label2); // Aggiorna l'immagine della label cliccata
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        squadra = new Squadra(stage,true);
+                    }
+                }, 0.3f);
             }
         });
 
@@ -473,6 +512,13 @@ public class Battle extends ScreenAdapter {
             public void clicked(InputEvent event, float x, float y) {
                 currentIndex = 4; // Imposta l'indice corrente sulla base di quale etichetta è stata cliccata
                 updateLabelImage(label3); // Aggiorna l'immagine della label cliccata
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        borsa = new Borsa(stage,true);
+                    }
+                }, 0.3f);
+                
             }
         });
 
@@ -487,6 +533,12 @@ public class Battle extends ScreenAdapter {
             public void clicked(InputEvent event, float x, float y) {
                 currentIndex = 6; // Imposta l'indice corrente sulla base di quale etichetta è stata cliccata
                 updateLabelImage(label4); // Aggiorna l'immagine della label cliccata
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        dispose();
+                    }
+                }, 0.3f);
             }
         });
         
@@ -503,6 +555,12 @@ public class Battle extends ScreenAdapter {
         // Applica l'azione all'immagine
         playerHPBar.addAction(moveActionPlayer);
 
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+            HPplayer=placeHpBar(playerHPBar,144,38,currentPokeHP,maxPokeHP); 
+            }
+        }, 0.51f);
 
         //e ora piazza le hp Bar
         Texture imageHPBot = new Texture("battle/botHPBar.png");
@@ -515,6 +573,12 @@ public class Battle extends ScreenAdapter {
         // Applica l'azione all'immagine
         botHPBar.addAction(moveActionBot);
 
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                HPbot=placeHpBar(botHPBar,100,16,currentPokeHPBot,maxPokeHPBot); 
+            }
+        }, 0.51f);
 
 
         Label labelNomePokemon = new Label(nomePoke, new Label.LabelStyle(font, null));
@@ -644,6 +708,36 @@ public class Battle extends ScreenAdapter {
                 label4=labelDiscorsi4.getLabel(); 
                 stage.addActor(label4);
 
+                FileHandle mosseFile = Gdx.files.internal("pokemon/mosse.json");
+                String mosseJsonString = mosseFile.readString();
+                // Utilizza la classe JsonReader di LibGDX per leggere il file JSON delle mosse
+                JsonValue mosseJson = new JsonReader().parse(mosseJsonString);
+                JsonValue tipoJson = mosseJson.get(nomeMossa);
+                String tipologiaMossa = tipoJson.getString("attacco");
+                int danno;
+                if (tipologiaMossa.equals("fisico")){
+                    danno=listaMosse.get(X).calcolaDanno(statsPlayer.get(2),statsBot.get(3),Integer.parseInt(LVPoke),nomePoke,nomePokeBot);
+                }
+                else{
+                    danno=listaMosse.get(X).calcolaDanno(statsPlayer.get(4),statsBot.get(5),Integer.parseInt(LVPoke),nomePoke,nomePokeBot);
+                }   
+
+                currentPokeHPBot= Integer.toString((Integer.parseInt(currentPokeHPBot))-danno);
+
+                if(Integer.parseInt(currentPokeHPBot)<0){
+                    currentPokeHPBot= Integer.toString(0);
+                }
+
+
+                if (danno!=0){
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        updateHpBarWidth(HPbot, currentPokeHPBot, maxPokeHPBot);
+                    }
+                }, 1.5f);
+                }
+
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
@@ -651,7 +745,11 @@ public class Battle extends ScreenAdapter {
                         for (Image label : labelMosseArray) {
                             label.remove();
                         }
+                        for (Label label : labelNomeMosseArray) {
+                            label.remove();
+                        }
                         labelMosseArray.clear();
+                        labelNomeMosseArray.clear();
                     }
                 }, 2.5f);
             }
@@ -774,7 +872,12 @@ public class Battle extends ScreenAdapter {
             JsonValue pokeJson = json.get("poke"+numero);
             nomePoke = pokeJson.getString("nomePokemon");
             LVPoke = pokeJson.getString("livello");
-            JsonValue statistiche = pokeJson.get("statistiche"); //da sistemare
+
+            JsonValue statistiche = pokeJson.get("statistiche"); 
+            for (JsonValue stat : statistiche) {
+                statsPlayer.add(stat.asInt());
+            }
+
             maxPokeHP = statistiche.getString("hpTot");
             currentPokeHP = statistiche.getString("hp");
             JsonValue mosse = pokeJson.get("mosse");
@@ -786,7 +889,7 @@ public class Battle extends ScreenAdapter {
                 String maxPP = mossaJson.getString("ppTot");
                 
                 // Aggiungi la mossa alla lista
-                Mossa mossa=new Mossa(nomeMossa, tipoMossa, maxPP, attPP);
+                Mossa mossa=new Mossa(nomeMossa, tipoMossa, maxPP, attPP, this); //gli passo Battle stesso con "this" per poter chiamare anche i metodi di Battle da Mossa
                 listaMosse.add(mossa);
             }
 
@@ -908,7 +1011,7 @@ public class Battle extends ScreenAdapter {
                 colonna=2;
             }
             else {
-                if (currentPokeHPBot.equals("0")){
+                if (currentPokeHPBotSquad.equals("0")){
                     colonna=1;
                 }
                 else{
@@ -980,7 +1083,14 @@ public class Battle extends ScreenAdapter {
             JsonValue pokeJson = json.get("bot"+numero).get("poke"+numeroPoke);
             nomePokeBot = pokeJson.getString("nomePokemon");
             LVPokeBot = pokeJson.getString("livello");
-            JsonValue statistiche = pokeJson.get("statistiche"); //da sistemare
+
+            JsonValue statistiche = pokeJson.get("statistiche"); 
+            for (JsonValue stat : statistiche) {
+                statsBot.add(stat.asInt());
+            }
+            maxPokeHPBot = statistiche.getString("hpTot");
+            currentPokeHPBot = pokeJson.get("statistiche").getString("HP");
+
             JsonValue mosse = pokeJson.get("mosse");
             for (JsonValue mossaJson : mosse) {
                 String nomeMossa = mossaJson.getString("nome");
@@ -1002,8 +1112,151 @@ public class Battle extends ScreenAdapter {
 
         JsonValue pokeJson = json.get("bot"+ numBot).get("poke"+numero);
         nomePokeSquadBot = pokeJson.getString("nomePokemon");
-        currentPokeHPBot = pokeJson.get("statistiche").getString("HP");
+        currentPokeHPBotSquad = pokeJson.get("statistiche").getString("HP");
 
+    }
+
+
+    private Image placeHpBar(Image image, int diffX, int diffY, String currentHP, String maxHP){
+        // Calcola la percentuale degli HP attuali rispetto agli HP totali
+        float percentualeHP = Float.parseFloat(currentHP)  / Float.parseFloat(maxHP);
+        float lunghezzaHPBar = 96 * percentualeHP;
+         // Crea e posiziona la hpBar sopra imageHPPlayer con l'offset specificato
+         Image hpBar = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("battle/white_pixel.png"))));
+         hpBar.setSize((int)lunghezzaHPBar, 6);
+         hpBar.setPosition(image.getX() + diffX, image.getY() + diffY);
+         //hpBar.setPosition(400, 400);
+        // Determina il colore della hpBar in base alla percentuale calcolata
+        Color coloreHPBar;
+        if (percentualeHP >= 0.5f) {
+            coloreHPBar = Color.GREEN; // Verde se sopra il 50%
+        } else if (percentualeHP > 0.15f && percentualeHP < 0.5f) {
+            coloreHPBar = Color.YELLOW; // Giallo se tra il 15% e il 50%
+        } else {
+            coloreHPBar = Color.RED; // Rosso se sotto il 15%
+        }
+
+        hpBar.setColor(coloreHPBar);
+        // Aggiungi hpBar allo stage
+        stage.addActor(hpBar);
+
+        return hpBar;
+    }
+
+
+    // Metodo per aggiornare la larghezza della barra degli HP con un'animazione
+    private void updateHpBarWidth(Image hpBar, String currentHP, String maxHP) {
+
+        float percentualeHP = Float.parseFloat(currentHP)  / Float.parseFloat(maxHP);
+        float lunghezzaHPBar = 96 * percentualeHP;
+
+        Color coloreHPBar;
+        if (percentualeHP >= 0.5f) {
+            coloreHPBar = Color.GREEN; // Verde se sopra il 50%
+        } else if (percentualeHP > 0.15f && percentualeHP < 0.5f) {
+            coloreHPBar = Color.YELLOW; // Giallo se tra il 15% e il 50%
+        } else {
+            coloreHPBar = Color.RED; // Rosso se sotto il 15%
+        }
+        // Crea un'azione parallela per aggiornare la larghezza della barra
+        hpBar.addAction(Actions.sizeTo(lunghezzaHPBar, hpBar.getHeight(), 1f));
+
+        // Aggiungi un'azione per cambiare il colore della barra
+        hpBar.addAction(Actions.color(coloreHPBar, 1f));
+    }
+
+    public void piazzaLabel5(){
+        if (checkLabel5){
+            checkLabel5=false;
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                labelDiscorsi5.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
+                label5=labelDiscorsi5.getLabel();
+                stage.addActor(label5);
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        labelDiscorsi5.reset();
+                        label5.remove();
+                        label5=null;
+                        checkLabel5=true;
+                    }
+                }, 1.2f);
+            }
+        }, 2f);
+    }
+    }
+
+    public void piazzaLabel6(){
+        if (checkLabel6){
+            checkLabel6=false;
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                labelDiscorsi6.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
+                label6=labelDiscorsi6.getLabel();
+                stage.addActor(label6);
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        labelDiscorsi6.reset();
+                        label6.remove();
+                        label6=null;
+                        checkLabel6=true;
+                    }
+                }, 1.5f);
+            }
+        }, 2f);
+    }
+    }
+
+
+    public void piazzaLabel7(){
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+            labelDiscorsi7.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
+            label7=labelDiscorsi7.getLabel();
+            stage.addActor(label7);
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    labelDiscorsi7.reset();
+                    label7.remove();
+                    label7=null;
+                }
+            }, 1.2f);
+        }
+    }, 2f);
+
+    }
+
+    public void piazzaLabel9(){
+        //delay se è attiva già un'altra animazione
+        float d=0;
+        if (!checkLabel5 || !checkLabel6){
+            d=1.2f;
+        }
+
+        final float delay=d;
+
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+            labelDiscorsi9.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
+            label9=labelDiscorsi9.getLabel();
+            stage.addActor(label9);
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    labelDiscorsi9.reset();
+                    label9.remove();
+                    label9=null;
+                }
+            }, 1.2f);
+        }
+    }, 2f+delay);
     }
     
 }

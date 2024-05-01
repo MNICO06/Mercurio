@@ -145,13 +145,11 @@ public class MenuLabel {
     }
     
 	private void apriPokemon() {
-		System.out.println("Pokemon aperti");
-        squadra = new Squadra(getStage());
+        squadra = new Squadra(getStage(),false);
 	}
 	    
 	private void apriBorsa() {
-		System.out.println("Borsa aperta");
-	    borsa = new Borsa(getStage());
+	    borsa = new Borsa(getStage(),false);
 	}
 	
 	private void apriMedaglie() {
@@ -163,8 +161,32 @@ public class MenuLabel {
 	}
 	
 	private void spegnimento() {
-		System.out.println("Spento");
-	}
+        System.out.println("Spegnimento in corso...");
+    
+        // Termina tutti i thread attivi
+        ThreadGroup rootGroup = Thread.currentThread().getThreadGroup();
+        ThreadGroup parentGroup;
+        while ((parentGroup = rootGroup.getParent()) != null) {
+            rootGroup = parentGroup;
+        }
+        Thread[] threads = new Thread[rootGroup.activeCount()];
+        rootGroup.enumerate(threads);
+        for (Thread thread : threads) {
+            if (thread != null && thread.isAlive()) {
+                thread.interrupt();
+            }
+        }
+    
+        // Chiudi il batch
+        batch.dispose();
+        // Rimuovi tutti gli attori dallo stage
+        stage.clear();
+        // Chiudi l'applicazione
+        Gdx.app.exit();
+        // Chiudi l'applicazione
+        System.exit(0);
+    }
+    
 
 	public Stage getStage() {
 	    return stage;
@@ -271,7 +293,7 @@ public class MenuLabel {
                 // Se il menu è aperto, chiudi il menu
                 chiudiMenu();
             }*/
-            battle = new Battle();
+            battle = new Battle(this);
         }
 
         // Rendering dello stage
@@ -304,5 +326,10 @@ public class MenuLabel {
         batch.dispose();
         font.dispose();
         stage.dispose();
+    }
+
+    public void closeBattle() {
+        Gdx.input.setInputProcessor(stage);
+        battle = null;
     }
 }
