@@ -70,11 +70,8 @@ public class MammaAsh {
                     avanti[j] = tmp [i][j];
                 }
             }
-            
         }
         
-        camminaSinistra = new Animation<>(camminataFrame_speed, sinistra);
-        camminaDestra = new Animation<>(camminataFrame_speed, destra);
         fermoSinistra = new Animation<>(camminataFrame_speed, sinistra[0]);
         fermoDestra = new Animation<>(camminataFrame_speed, destra[0]);
         fermoAvanti = new Animation<>(camminataFrame_speed, avanti[0]);
