@@ -2,15 +2,19 @@ package com.mercurio.game.Screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
@@ -26,7 +30,10 @@ public class Squadra {
     private Stage stage;
     private Array<Actor> squadActors;
     private String currentPokeHPforSquad;
+    private String maxPokeHPforSquad;
     private String nomePokeSquad;
+    private String LVPoke;
+    private boolean battaglia;
     boolean isCursorInside = false;
 
     Array<Texture> animationTextures = new Array<>();
@@ -34,7 +41,8 @@ public class Squadra {
     Array<Boolean> animazionePartita = new Array<>();
     Array<Boolean> controllo = new Array<>();
 
-    public Squadra(Stage stage){
+    public Squadra(Stage stage, boolean battaglia){
+        this.battaglia=battaglia;
         this.batch = (SpriteBatch) stage.getBatch();
         this.font = new BitmapFont(Gdx.files.internal("font/small_letters_font.fnt"));
         this.stage = stage;
@@ -102,6 +110,32 @@ public class Squadra {
                 image.setPosition(posX, posY);
                 image.setSize(126*3, 45*3);
 
+                Image hpBar= placeHpBar(image,63*3,18*3,currentPokeHPforSquad,maxPokeHPforSquad);
+
+                Label labelNomePokemon = new Label(nomePokeSquad, new Label.LabelStyle(font, null));
+                labelNomePokemon.setPosition(image.getX()+90,image.getY()+93); 
+                labelNomePokemon.setFontScale(3.5f);
+
+                Label labelLV = new Label(LVPoke, new Label.LabelStyle(font, null));
+                labelLV.setPosition(image.getX()+65,image.getY()+23); 
+                labelLV.setFontScale(2.5f);
+
+                int diff;
+                if (Integer.parseInt(currentPokeHPforSquad) > 99) {
+                    diff = 0;
+                } else if (Integer.parseInt(currentPokeHPforSquad) > 9) {
+                    diff = 10;
+                } else {
+                    diff = 20;
+                }
+                Label labelHP= new Label(currentPokeHPforSquad, new Label.LabelStyle(font, null));
+                labelHP.setPosition(image.getX()+210+diff,image.getY()+25);
+                labelHP.setFontScale(2.5f);
+
+                Label labelHPTot= new Label(maxPokeHPforSquad, new Label.LabelStyle(font, null));
+                labelHPTot.setPosition(image.getX()+278,image.getY()+25);
+                labelHPTot.setFontScale(2.5f);
+
 
                 Texture animationTexture = new Texture("pokemon/" + nomePokeSquad + "Label.png");
                 animationTextures.add(animationTexture);
@@ -121,14 +155,17 @@ public class Squadra {
                 TextureRegionDrawable fisrtDrawable = new TextureRegionDrawable(firstTexture);
                 TextureRegionDrawable selectedDrawable = new TextureRegionDrawable(selectedTex);
                 final int index=i;
-                image.addListener(new InputListener() {
+                InputListener imageListener = new InputListener() {
                     @Override
                     public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                         image.setDrawable(selectedDrawable);
                         image.setSize(126*3, 49*3);
                         isCursorInside = true;
                         controllo.set(index,true);
-
+                        hpBar.setPosition(image.getX()+63*3-1, image.getY()+19*3);
+                        labelLV.setY(labelLV.getY()+3);
+                        labelHP.setY(labelHP.getY()+3);
+                        labelHPTot.setY(labelHPTot.getY()+3);
                     }
     
                     @Override
@@ -145,12 +182,38 @@ public class Squadra {
                         //ferma animazione
                         TextureRegion newRegion = new TextureRegion(animationTexture, 0, 0, animationTexture.getWidth() / 2, animationTexture.getHeight());
                         animationImage.setDrawable(new TextureRegionDrawable(newRegion));
+                        hpBar.setPosition(image.getX()+63*3, image.getY()+18*3);
+                        labelLV.setY(labelLV.getY()-3);
+                        labelHP.setY(labelHP.getY()-3);
+                        labelHPTot.setY(labelHPTot.getY()-3);
+
                     }
-                });
-    
+                };
+                
+                image.addListener(imageListener);
                 stage.addActor(image);
                 squadActors.add(image);
+                
+                hpBar.addListener(imageListener);
+                hpBar.toFront();
 
+                labelNomePokemon.addListener(imageListener);
+                stage.addActor(labelNomePokemon);
+                squadActors.add(labelNomePokemon);
+
+                labelLV.addListener(imageListener);
+                stage.addActor(labelLV);
+                squadActors.add(labelLV);
+
+                labelHP.addListener(imageListener);
+                stage.addActor(labelHP);
+                squadActors.add(labelHP);
+
+                labelHPTot.addListener(imageListener);
+                stage.addActor(labelHPTot);
+                squadActors.add(labelHPTot);
+
+                animationImage.addListener(imageListener);
                 stage.addActor(animationImage);
                 squadActors.add(animationImage);
                 
@@ -215,7 +278,9 @@ public class Squadra {
         JsonValue json = new JsonReader().parse(jsonString);
         JsonValue pokeJson = json.get("poke"+numero);
         currentPokeHPforSquad = pokeJson.get("Statistiche").getString("hp");
+        maxPokeHPforSquad = pokeJson.get("Statistiche").getString("hpTot");
         nomePokeSquad = pokeJson.getString("nomePokemon");
+        LVPoke = pokeJson.getString("livello");
 
     }
 
@@ -249,6 +314,34 @@ public class Squadra {
         Image animationImage = animationImages.get(index); // Ottieni l'immagine corrispondente all'indice
         TextureRegion newRegion = new TextureRegion(animationTexture, 0, 0, animationTexture.getWidth() / 2, animationTexture.getHeight());
         animationImage.setDrawable(new TextureRegionDrawable(newRegion));
+    }
+
+
+    private Image placeHpBar(Image image, int diffX, int diffY, String currentHP, String maxHP){
+        // Calcola la percentuale degli HP attuali rispetto agli HP totali
+        float percentualeHP = Float.parseFloat(currentHP)  / Float.parseFloat(maxHP);
+        float lunghezzaHPBar = 48*3 * percentualeHP;
+         // Crea e posiziona la hpBar sopra imageHPPlayer con l'offset specificato
+         Image hpBar = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("battle/white_pixel.png"))));
+         hpBar.setSize((int)lunghezzaHPBar, 12);
+         hpBar.setPosition(image.getX() + diffX, image.getY() + diffY);
+         //hpBar.setPosition(400, 400);
+        // Determina il colore della hpBar in base alla percentuale calcolata
+        Color coloreHPBar;
+        if (percentualeHP >= 0.5f) {
+            coloreHPBar = Color.GREEN; // Verde se sopra il 50%
+        } else if (percentualeHP > 0.15f && percentualeHP < 0.5f) {
+            coloreHPBar = Color.YELLOW; // Giallo se tra il 15% e il 50%
+        } else {
+            coloreHPBar = Color.RED; // Rosso se sotto il 15%
+        }
+
+        hpBar.setColor(coloreHPBar);
+        // Aggiungi hpBar allo stage
+        stage.addActor(hpBar);
+        squadActors.add(hpBar);
+
+        return hpBar;
     }
 
 }

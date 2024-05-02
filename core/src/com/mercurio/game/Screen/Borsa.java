@@ -57,6 +57,7 @@ public class Borsa {
     private Texture textureBall;
     private Texture textureKey;
     private Texture textureMT;
+    private boolean battle;
     
     private float cambioFrame_speed = 0.14f;
     
@@ -76,10 +77,11 @@ public class Borsa {
 
     private float stateTime;
     
-    public Borsa(Stage stage) {
+    public Borsa(Stage stage, boolean battle) {
         this.batch = (SpriteBatch) stage.getBatch();
         this.font = new BitmapFont(Gdx.files.internal("font/small_letters_font.fnt"));
         this.stage = stage;
+        this.battle=battle;
         this.borsaActors = new Array<>(); // Inizializza l'array degli attori della borsa
         Gdx.input.setInputProcessor(stage);
 
@@ -187,12 +189,14 @@ public class Borsa {
          labelKey = new Image(key[0]);
         labelKey.setSize(100, 100);
         labelKey.setPosition(330, screenHeight - 150);
-        stage.addActor(labelKey);
+        if (!battle)
+            stage.addActor(labelKey);
     
          labelMT = new Image(mt[0]);
         labelMT.setSize(100, 100);
         labelMT.setPosition(460, screenHeight - 150);
-        stage.addActor(labelMT); 
+        if (!battle)
+            stage.addActor(labelMT); 
     
         // Handle click events on labels
         labelCure.addListener(new ClickListener() {
@@ -255,8 +259,10 @@ public class Borsa {
         stage.addActor(closeLabel);
     
         // Add actors to the borsaActors array
-        borsaActors.addAll(labelCure, labelBall, labelKey, labelMT, background, closeLabel);
-
+        if (!battle)
+            borsaActors.addAll(labelCure, labelBall, labelKey, labelMT, background, closeLabel);
+        else
+            borsaActors.addAll(labelCure, labelBall, background, closeLabel);
     }
     
 
