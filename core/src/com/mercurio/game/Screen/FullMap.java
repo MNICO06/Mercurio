@@ -13,10 +13,12 @@ import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.mercurio.game.personaggi.Bot;
+import com.mercurio.game.personaggi.TeenagerF;
+import com.mercurio.game.personaggi.TeenagerM;
 
 
 public class FullMap extends ScreenAdapter{
@@ -28,9 +30,15 @@ public class FullMap extends ScreenAdapter{
     private Vector2 map_size;
     private MapLayer lineeLayer;
 
+    //rettangolo con la lista delle persone che collidono
+    private ArrayList<Rectangle> rectList = null;
+    private ArrayList<Bot> botList;
+
     public FullMap(MercurioMain game, TiledMap mappa) {
         this.game = game;
         this.mappa = mappa;
+        rectList = new ArrayList<Rectangle>();
+        botList = new ArrayList<Bot>();
     }
 
     
@@ -48,6 +56,10 @@ public class FullMap extends ScreenAdapter{
         camera.update();
 
         setPositionPlayer();
+        setPositionBot();
+
+        //esempio poi da fare con il ciclo per prendere tutte
+        //rectList.add(botList.get(0).getBoxBlocca());
 
         game.setMap(mappa, tileRenderer, camera, map_size.x, map_size.y);
     }
@@ -60,6 +72,7 @@ public class FullMap extends ScreenAdapter{
         cambiaProfondita(lineeLayer);
         teleport();
         checkLuogo();
+        game.setRectangleList(rectList);
     }
 
     private void cambiaProfondita(MapLayer lineeLayer) {
@@ -92,11 +105,11 @@ public class FullMap extends ScreenAdapter{
 
                 y = rectObj.getRectangle().getY() - game.getPlayer().getPlayerPosition().y;
                 x = rectObj.getRectangle().getX() - game.getPlayer().getPlayerPosition().x;
-                if (y > 0 && y < 200 && x > -300 && x < 300) {
+                if (y > 0 && y < 250 && x > -500 && x < 500) {
                     background.add(layerName);
-                    
                 }
-                else if (y<0 && y > -200 && x > -300 && x < 300) {
+
+                else if (y<0 && y > -250 && x > -500 && x < 500) {
                     foreground.add(layerName);
                 }
             }
@@ -108,6 +121,11 @@ public class FullMap extends ScreenAdapter{
                 renderLayer(layerName);
             }
         }
+
+        for (Bot bot : botList) {
+            game.renderPersonaggiSecondari(bot.getCurrentAnimation(),bot.getPosition().x, bot.getPosition().y, bot.getWidth(), bot.getHeight());
+        }
+        
 
         game.renderPlayer();
 
@@ -216,7 +234,34 @@ public class FullMap extends ScreenAdapter{
             }
         }
         game.getPlayer().setPosition(x, y);
-        
+    }
+
+    public void setPositionBot() {
+        MapLayer posizione = mappa.getLayers().get("p1_bot");
+        for (MapObject object : posizione.getObjects()) {
+            if (object instanceof RectangleMapObject) {
+                RectangleMapObject rectObject = (RectangleMapObject) object;
+                Rectangle rect = rectObject.getRectangle();
+
+                switch (object.getName()) {
+                    case "TeenagerM":
+                        TeenagerM bot = new TeenagerM();
+                        bot.setPosition(rect.getX(),rect.getY());
+                        botList.add(bot);
+                        //assegno al layer che mi da la poszione un layer che ha il nome del layer della collisione
+                        break;
+                    
+                    case "TeenagerF":
+                        TeenagerF bot1 = new TeenagerF();
+                        bot1.setPosition(rect.getX(),rect.getY());
+                        botList.add(bot1);
+                        break;
+                
+                    default:
+                        break;
+                }
+            }
+        }
     }
 
     @Override

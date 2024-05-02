@@ -29,14 +29,8 @@ public class MammaAsh {
 
     private Texture texture;
 
-    private boolean movingLeft = false;
-    private boolean movingRight = false;
-
     private int player_width;
     private int player_height;
-
-    private float speed_Camminata_orizontale = 50;
-    private float speed_Camminata_verticale = 40;
 
     private float camminataFrame_speed = 0.14f;
 
@@ -89,23 +83,23 @@ public class MammaAsh {
         boxInteractionOrizzontaleDestro = new Rectangle(characterPosition.x+player_width/4 + 12, characterPosition.y -2, player_width/2 + 2, player_height - 8);
         boxInteractionOrizzontaleSinistro = new Rectangle(characterPosition.x+player_width/4 - 15, characterPosition.y -2, player_width/2 + 2, player_height - 8);
 
-        currentAnimation = fermoAvanti.getKeyFrame(0);
         stateTime = 0f;
+        currentAnimation = fermoAvanti.getKeyFrame(stateTime);
         
     }
 
 
     public void setSinstra() {
-        currentAnimation = fermoSinistra.getKeyFrame(0);
+        currentAnimation = fermoSinistra.getKeyFrame(stateTime);
     }
     public void setDestra() {
-        currentAnimation = fermoDestra.getKeyFrame(0);
+        currentAnimation = fermoDestra.getKeyFrame(stateTime);
     }
     public void setIndietro() {
-        currentAnimation = fermoIndietro.getKeyFrame(0);
+        currentAnimation = fermoIndietro.getKeyFrame(stateTime);
     }
     public void setAvanti() {
-        currentAnimation = fermoAvanti.getKeyFrame(0);
+        currentAnimation = fermoAvanti.getKeyFrame(stateTime);
     }
 
     public TextureRegion getTexture() {

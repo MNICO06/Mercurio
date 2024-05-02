@@ -112,7 +112,6 @@ public class MercurioMain extends Game{
             if (map != null) {
                 erba.controllaPokemon(map);
             }
-
         }
     }
 
