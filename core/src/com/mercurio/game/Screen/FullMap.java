@@ -33,12 +33,16 @@ public class FullMap extends ScreenAdapter{
     //rettangolo con la lista delle persone che collidono
     private ArrayList<Rectangle> rectList = null;
     private ArrayList<Bot> botList;
+    private ArrayList<Bot> botListBack;
+    private ArrayList<Bot> botListFore;
 
     public FullMap(MercurioMain game, TiledMap mappa) {
         this.game = game;
         this.mappa = mappa;
         rectList = new ArrayList<Rectangle>();
         botList = new ArrayList<Bot>();
+        botListBack = new ArrayList<Bot>();
+        botListFore = new ArrayList<Bot>();
     }
 
     
@@ -73,6 +77,7 @@ public class FullMap extends ScreenAdapter{
         teleport();
         checkLuogo();
         game.setRectangleList(rectList);
+        checkInteractionBot();
     }
 
     private void cambiaProfondita(MapLayer lineeLayer) {
@@ -115,6 +120,17 @@ public class FullMap extends ScreenAdapter{
             }
         }
 
+        //stessa cosa che faccio con i layer ma con la lista dei bot
+        for (Bot bot : botList) {
+            if (game.getPlayer().getPlayerPosition().y < bot.getPosition().y) {
+                botListFore.add(bot);
+            }
+            else {
+                botListFore.add(bot);
+            }
+            
+        }
+
         //background
         for (String layerName : background) {
             if (layerName != null) {
@@ -122,12 +138,10 @@ public class FullMap extends ScreenAdapter{
             }
         }
 
-        for (Bot bot : botList) {
+        for (Bot bot : botListBack) {
             game.renderPersonaggiSecondari(bot.getCurrentAnimation(),bot.getPosition().x, bot.getPosition().y, bot.getWidth(), bot.getHeight());
         }
-        if (game.getPlayer().getBoxPlayer().overlaps(botList.get(0).getBoxBlocca()));
         
-
         game.renderPlayer();
 
         //foreground
@@ -136,7 +150,30 @@ public class FullMap extends ScreenAdapter{
                 renderLayer(layerName);
             }
         }
+
+        for (Bot bot : botListFore) {
+            game.renderPersonaggiSecondari(bot.getCurrentAnimation(),bot.getPosition().x, bot.getPosition().y, bot.getWidth(), bot.getHeight());
+        }
+
     }
+
+    //metodo per fermare l'utente se passa di fronte al bot
+    public void checkInteractionBot() {
+        for (Bot bot : botList) {
+            if(checkOverlaps(bot)) {
+                game.getPlayer().setMovement(false);
+            }
+        }
+    }
+
+    public boolean checkOverlaps(Bot bot) {
+        if (game.getPlayer().getBoxPlayer().overlaps(bot.getBoxBlocca())) {
+            return true;
+        }
+        return false;
+    }
+
+    
 
     private void renderLayer(String layerName) {
         MapLayer layer;
@@ -237,6 +274,7 @@ public class FullMap extends ScreenAdapter{
         game.getPlayer().setPosition(x, y);
     }
 
+    //metodo che va a posizionare i bot
     public void setPositionBot() {
         MapLayer rettangoliBlocca = mappa.getLayers().get("p1_bot_linea");
         MapLayer posizione = mappa.getLayers().get("p1_bot");
@@ -247,10 +285,12 @@ public class FullMap extends ScreenAdapter{
 
                 switch (object.getName()) {
                     case "TeenagerM":
+                        //se il rettangolo di posizione si chiama così allora mi salvo come bot di tipo TeenagerM nella lista
                         TeenagerM bot = new TeenagerM();
                         bot.setPosition(rect.getX(),rect.getY());
-                        
 
+                        //ciclo per andare a controllare se la proprietà stringa check è uguale a quella del rettangolo per fermare il bot
+                        //se si faccio un set di quel rettangolo
                         for (MapObject obj : rettangoliBlocca.getObjects()) {
                             if (obj instanceof RectangleMapObject) {
                                 RectangleMapObject rectObj = (RectangleMapObject)obj;
@@ -265,6 +305,7 @@ public class FullMap extends ScreenAdapter{
                         }
 
                         botList.add(bot);
+                        rectList.add(bot.getBoxPlayer());
 
                         //assegno al layer che mi da la poszione un layer che ha il nome del layer della collisione
                         break;
@@ -272,7 +313,24 @@ public class FullMap extends ScreenAdapter{
                     case "TeenagerF":
                         TeenagerF bot1 = new TeenagerF();
                         bot1.setPosition(rect.getX(),rect.getY());
+
+                        for (MapObject obj : rettangoliBlocca.getObjects()) {
+                            if (obj instanceof RectangleMapObject) {
+                                RectangleMapObject rectObj = (RectangleMapObject)obj;
+                
+                                String layerName = (String)rectObj.getProperties().get("check");
+                
+                                if (layerName.equals((String)rectObject.getProperties().get("check"))) {
+                                    bot1.setBoxBlocca(rectObj.getRectangle());
+                                }
+                                
+                            }
+                        }
+
                         botList.add(bot1);
+                        rectList.add(bot1.getBoxPlayer());
+
+
                         break;
                 
                     default:
