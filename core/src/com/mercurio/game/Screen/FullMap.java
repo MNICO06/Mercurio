@@ -125,6 +125,7 @@ public class FullMap extends ScreenAdapter{
         for (Bot bot : botList) {
             game.renderPersonaggiSecondari(bot.getCurrentAnimation(),bot.getPosition().x, bot.getPosition().y, bot.getWidth(), bot.getHeight());
         }
+        if (game.getPlayer().getBoxPlayer().overlaps(botList.get(0).getBoxBlocca()));
         
 
         game.renderPlayer();
@@ -237,6 +238,7 @@ public class FullMap extends ScreenAdapter{
     }
 
     public void setPositionBot() {
+        MapLayer rettangoliBlocca = mappa.getLayers().get("p1_bot_linea");
         MapLayer posizione = mappa.getLayers().get("p1_bot");
         for (MapObject object : posizione.getObjects()) {
             if (object instanceof RectangleMapObject) {
@@ -247,7 +249,23 @@ public class FullMap extends ScreenAdapter{
                     case "TeenagerM":
                         TeenagerM bot = new TeenagerM();
                         bot.setPosition(rect.getX(),rect.getY());
+                        
+
+                        for (MapObject obj : rettangoliBlocca.getObjects()) {
+                            if (obj instanceof RectangleMapObject) {
+                                RectangleMapObject rectObj = (RectangleMapObject)obj;
+                
+                                String layerName = (String)rectObj.getProperties().get("check");
+                
+                                if (layerName.equals((String)rectObject.getProperties().get("check"))) {
+                                    bot.setBoxBlocca(rectObj.getRectangle());
+                                }
+                                
+                            }
+                        }
+
                         botList.add(bot);
+
                         //assegno al layer che mi da la poszione un layer che ha il nome del layer della collisione
                         break;
                     
