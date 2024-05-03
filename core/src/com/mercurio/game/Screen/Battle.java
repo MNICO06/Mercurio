@@ -2,6 +2,9 @@ package com.mercurio.game.Screen;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.utils.JsonWriter;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.ai.btree.utils.DistributionAdapters.IntegerAdapter;
@@ -15,8 +18,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -26,15 +32,27 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.JsonWriter;
 import com.badlogic.gdx.utils.Timer;
+
+
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
 
 public class Battle extends ScreenAdapter {
 
+    private Label labelNomePokemonBot;
+    private Label labelLVBot;
+    private float delaySecondText=0;
+    private int checkInt;
+    private Image pokemonImage;
+    private Image pokemonImageBot;
     private Borsa borsa;
     private Squadra squadra;
     private Sprite[] spriteArrayBallsSquadra;
@@ -89,6 +107,10 @@ public class Battle extends ScreenAdapter {
     private LabelDiscorsi labelDiscorsi7;
     private LabelDiscorsi labelDiscorsi8;
     private LabelDiscorsi labelDiscorsi9;
+    private LabelDiscorsi labelDiscorsi10;
+    private LabelDiscorsi labelDiscorsi11;
+    private LabelDiscorsi labelDiscorsi12;
+    private LabelDiscorsi labelDiscorsi13;
     private Label label1;
     private Label label2;
     private Label label3;
@@ -98,6 +120,10 @@ public class Battle extends ScreenAdapter {
     private Label label7;
     private Label label8;
     private Label label9;
+    private Label label10;
+    private Label label11;
+    private Label label12;
+    private Label label13;
     private String nomePoke;
     private String nomePokeSquad;
     private String currentPokeHP;
@@ -127,18 +153,21 @@ public class Battle extends ScreenAdapter {
     private boolean checkLabel5 = true;
     private boolean checkLabel6 = true;
     private MenuLabel chiamante;
+    private int numeroIndexPokeBot;
+    private int numeroIndexPoke=1;
 
     public Battle(MenuLabel chiamante) {
-
+        checkInt=0;
+        numeroIndexPokeBot=1;
         this.chiamante = chiamante;
         batch = new SpriteBatch();
         stage = new Stage();
         font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
         Gdx.input.setInputProcessor(stage);
         dimMax=200;
-        leggiPoke(1);
+        leggiPoke(numeroIndexPoke);
         leggiBot(1);
-        leggiPokeBot(1,1);
+        leggiPokeBot(1,numeroIndexPokeBot);
         ballTexture = new Texture("battle/"+nomeBall+"Player.png");
 
         String discorso1= "Parte la sfida di "+nomeBot+" ("+tipoBot+")"+"!";
@@ -164,13 +193,21 @@ public class Battle extends ScreenAdapter {
 
         String discorso9= "Brutto colpo!";
         labelDiscorsi9 = new LabelDiscorsi(discorso9,dimMax,0,true);
+
+        String discorso10= "Non puoi sottrarti alla lotta!";
+        labelDiscorsi10 = new LabelDiscorsi(discorso10,dimMax,0,true);
+
+        String discorso11= "Scampato pericolo!";
+        labelDiscorsi11 = new LabelDiscorsi(discorso11,dimMax,0,true);
+
+        
         
         show();
     }
 
     @Override
     public void show() {
-        
+        checkInt=0;
         float screenWidth = Gdx.graphics.getWidth();
         float screenHeight = Gdx.graphics.getHeight();
 
@@ -244,13 +281,33 @@ public class Battle extends ScreenAdapter {
         @Override
         public void dispose() {
             if (!isBotFight){
-            batch.dispose();
-            font.dispose();
-            stage.dispose();
-            textureLancio.dispose();
-            ballTexture.dispose();
-            Gdx.input.setInputProcessor(null);
-            chiamante.closeBattle();
+                label11=labelDiscorsi11.getLabel();
+                    stage.addActor(label11);
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            label11.remove();
+                            batch.dispose();
+                            font.dispose();
+                            stage.dispose();
+                            textureLancio.dispose();
+                            ballTexture.dispose();
+                            Gdx.input.setInputProcessor(null);
+                            chiamante.closeBattle();
+                        }
+                    }, 2f);
+            }
+            else {
+                label10=labelDiscorsi10.getLabel();
+                    stage.addActor(label10);
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            labelDiscorsi10.reset();
+                            label10.remove();
+                            label10=null;
+                        }
+                    }, 2f);
             }
     
         }
@@ -349,6 +406,15 @@ public class Battle extends ScreenAdapter {
             if (label9!=null){
                 labelDiscorsi9.renderDisc();
             }
+            if (label10!=null){
+                labelDiscorsi10.renderDisc();
+            }
+            if (label11!=null){
+                labelDiscorsi11.renderDisc();
+            }
+            if (label12!=null){
+                labelDiscorsi12.renderDisc();
+            }
         }
 
         float deltaTime = Gdx.graphics.getDeltaTime();
@@ -360,6 +426,7 @@ public class Battle extends ScreenAdapter {
     
     
     private void showBall(Texture textureBall) {
+        lanciato++;
         int regionWidth = textureBall.getWidth() / 3;
         int regionHeight = textureBall.getHeight();
     
@@ -368,36 +435,21 @@ public class Battle extends ScreenAdapter {
         for (int i = 0; i < 3; i++) {
             ball[i] = new TextureRegion(textureBall, i * regionWidth, 0, regionWidth, regionHeight);
         }
-
-        ballBot = new TextureRegion[3];
-        for (int i = 0; i < 3; i++) {
-            ballBot[i] = new TextureRegion(ballTextureBot, i * regionWidth, 0, regionWidth, regionHeight);
-        }
     
+        muoviBall = new Animation<>(0.5f, ball);
+
         // Crea e aggiungi l'immagine della ball allo stage
-        imageBallBot = new Image(ballBot[0]);
-        imageBallBot.setSize(16*4, 25*4);
-
-        muoviBallBot = new Animation<>(0.5f, ballBot);
-
         imageBall = new Image(ball[0]);
         imageBall.setSize(16*4, 25*4);
-
-        muoviBall = new Animation<>(0.5f, ball);
     
         // Posizione iniziale della ball (NON CAMBIATELE)
         float startX = 1;
         float startY = 220;
-
-        float startXBot = stage.getHeight();
-        float startYBot = 800;
-        
+    
         imageBall.setPosition(0, startY);
-        imageBallBot.setPosition(01000, 1000);
-
+    
         stage.addActor(imageBall);
-        stage.addActor(imageBallBot);
-
+    
         // Durata del movimento della ball (secondi)
         float duration = 2.5f;
     
@@ -409,14 +461,12 @@ public class Battle extends ScreenAdapter {
             public void run() {
                 if (elapsed <= duration) {
                     // Calcola la posizione sulla traiettoria curva
-                    float percent = elapsed / duration;;
+                    float percent = elapsed / duration;
                     imageBall.setPosition((startX * percent * 175)+35, startY - (startY - 110)* percent * percent); 
-                    imageBallBot.setPosition(startXBot - (startXBot * percent) + 800, startYBot - (startYBot - 330) * percent * percent * percent); // Utilizza una curva quadratica
                     elapsed += 0.1f;
                 } else {
                     // Avvia l'animazione dei frame della ball
                     activateAnimation(imageBall, muoviBall);
-                    activateAnimation(imageBallBot, muoviBallBot);
                     label1.remove();
 
                     label2=labelDiscorsi2.getLabel();
@@ -428,14 +478,61 @@ public class Battle extends ScreenAdapter {
                             createFightLabels();
                         }
                     }, 2f);
-                    
                     this.cancel(); // Interrompi il Timer.Task
-
+                    
                 }
             }
         }, 0, Gdx.graphics.getDeltaTime());
 
+        showBallBot();
+    }
+    
 
+
+    private void showBallBot() {
+        int regionWidth = ballTextureBot.getWidth() / 3;
+        int regionHeight = ballTextureBot.getHeight();
+        // Inizializza l'array delle TextureRegion della ball del bot
+        ballBot = new TextureRegion[3];
+        for (int i = 0; i < 3; i++) {
+            ballBot[i] = new TextureRegion(ballTextureBot, i * regionWidth, 0, regionWidth, regionHeight);
+        }
+
+        muoviBallBot = new Animation<>(0.5f, ballBot);
+    
+        // Crea e aggiungi l'immagine della ball del bot allo stage
+        imageBallBot = new Image(ballBot[0]);
+        imageBallBot.setSize(16*4, 25*4);
+    
+        // Posizione iniziale della ball del bot (NON CAMBIATELE)
+        float startXBot = stage.getHeight();
+        float startYBot = 800;
+        
+        imageBallBot.setPosition(01000, 1000);
+    
+        stage.addActor(imageBallBot);
+    
+        // Durata del movimento della ball del bot (secondi)
+        float duration = 2.5f;
+    
+        // Animazione di spostamento lungo una traiettoria curva
+        Timer.schedule(new Timer.Task() {
+            float elapsed = 0;
+    
+            @Override
+            public void run() {
+                if (elapsed <= duration) {
+                    // Calcola la posizione sulla traiettoria curva
+                    float percent = elapsed / duration;
+                    imageBallBot.setPosition(startXBot - (startXBot * percent) + 800, startYBot - (startYBot - 330) * percent * percent * percent); // Utilizza una curva quadratica
+                    elapsed += 0.1f;
+                } else {
+                    // Avvia l'animazione dei frame della ball del bot
+                    activateAnimation(imageBallBot, muoviBallBot);
+                    this.cancel(); // Interrompi il Timer.Task
+                }
+            }
+        }, 0, Gdx.graphics.getDeltaTime());
     }
 
     
@@ -592,17 +689,6 @@ public class Battle extends ScreenAdapter {
         labelNomePokemon.addAction(moveActionNomePoke);
 
 
-        Label labelNomePokemonBot = new Label(nomePokeBot, new Label.LabelStyle(font, null));
-        labelNomePokemonBot.setPosition(-300,botHPBar.getY()+27); // Posiziona la label accanto all'immagine della mossa
-        labelNomePokemonBot.setFontScale(1f);
-        stage.addActor(labelNomePokemonBot);
-        labelNomeHPBars.add(labelNomePokemonBot);
-
-        Action moveActionNomePokeBot = Actions.moveTo(25, botHPBar.getY()+27, 0.5f);
-        // Applica l'azione all'immagine
-        labelNomePokemonBot.addAction(moveActionNomePokeBot);
-
-
         Label labelLV = new Label(LVPoke, new Label.LabelStyle(font, null));
         labelLV.setPosition(labelNomePokemon.getX(),labelNomePokemon.getY()); // Posiziona la label accanto all'immagine della mossa
         labelLV.setFontScale(1f);
@@ -613,16 +699,6 @@ public class Battle extends ScreenAdapter {
         // Applica l'azione all'immagine
         labelLV.addAction(moveActionLV);
 
-
-        Label labelLVBot = new Label(LVPokeBot, new Label.LabelStyle(font, null));
-        labelLVBot.setPosition(labelNomePokemonBot.getX(),labelNomePokemonBot.getY()); // Posiziona la label accanto all'immagine della mossa
-        labelLVBot.setFontScale(1f);
-        stage.addActor(labelLVBot);
-        labelNomeHPBars.add(labelLVBot);
-
-        Action moveActionLVBot = Actions.moveTo(170,labelNomePokemonBot.getY(), 0.5f);
-        // Applica l'azione all'immagine
-        labelLVBot.addAction(moveActionLVBot);
 
         Label labelHP= new Label(currentPokeHP, new Label.LabelStyle(font, null));
         labelHP.setPosition(1024,149); // Posiziona la label accanto all'immagine della mossa
@@ -644,6 +720,32 @@ public class Battle extends ScreenAdapter {
         Action moveActionHPTot= Actions.moveTo(1024-55,149, 0.5f);
         // Applica l'azione all'immagine
         labelHPTot.addAction(moveActionHPTot);
+
+
+        piazzaLabelLottaPerBot();
+    }
+
+    private void piazzaLabelLottaPerBot(){
+        labelNomePokemonBot = new Label(nomePokeBot, new Label.LabelStyle(font, null));
+        labelNomePokemonBot.setPosition(-300,botHPBar.getY()+27); // Posiziona la label accanto all'immagine della mossa
+        labelNomePokemonBot.setFontScale(1f);
+        stage.addActor(labelNomePokemonBot);
+        labelNomeHPBars.add(labelNomePokemonBot);
+
+        Action moveActionNomePokeBot = Actions.moveTo(25, botHPBar.getY()+27, 0.5f);
+        // Applica l'azione all'immagine
+        labelNomePokemonBot.addAction(moveActionNomePokeBot);
+
+
+        labelLVBot = new Label(LVPokeBot, new Label.LabelStyle(font, null));
+        labelLVBot.setPosition(labelNomePokemonBot.getX(),labelNomePokemonBot.getY()); // Posiziona la label accanto all'immagine della mossa
+        labelLVBot.setFontScale(1f);
+        stage.addActor(labelLVBot);
+        labelNomeHPBars.add(labelLVBot);
+
+        Action moveActionLVBot = Actions.moveTo(170,labelNomePokemonBot.getY(), 0.5f);
+        // Applica l'azione all'immagine
+        labelLVBot.addAction(moveActionLVBot);
 
     }
 
@@ -724,18 +826,20 @@ public class Battle extends ScreenAdapter {
 
                 currentPokeHPBot= Integer.toString((Integer.parseInt(currentPokeHPBot))-danno);
 
-                if(Integer.parseInt(currentPokeHPBot)<0){
+
+                if(Integer.parseInt(currentPokeHPBot)<=0){
                     currentPokeHPBot= Integer.toString(0);
                 }
 
 
                 if (danno!=0){
-                Timer.schedule(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        updateHpBarWidth(HPbot, currentPokeHPBot, maxPokeHPBot);
-                    }
-                }, 1.5f);
+                    modificaHPPokeBot(numeroIndexPokeBot, 1, currentPokeHPBot);
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            updateHpBarWidth(HPbot, currentPokeHPBot, maxPokeHPBot, pokemonImageBot, nomePokeBot);
+                        }
+                    }, 1.5f);
                 }
 
                 Timer.schedule(new Timer.Task() {
@@ -750,6 +854,7 @@ public class Battle extends ScreenAdapter {
                         }
                         labelMosseArray.clear();
                         labelNomeMosseArray.clear();
+
                     }
                 }, 2.5f);
             }
@@ -769,6 +874,16 @@ public class Battle extends ScreenAdapter {
     
 
     private void activateAnimation(Image image, Animation<TextureRegion> animation) {
+        boolean check;
+        if (image==imageBall){
+            check=true;
+            checkInt++;
+        }
+        else{
+            check=false;
+            checkInt++;
+        }
+        System.out.println(checkInt);
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
@@ -781,10 +896,15 @@ public class Battle extends ScreenAdapter {
                         @Override
                         public void run() {
                             image.remove();
-                            showPokemon(labelBaseD, nomePoke);
-                            if (isBotFight){
-                                showPokemon(labelBaseU, nomePokeBot);        
-                            }                   
+                            if (check && checkInt<3){
+                                System.out.println("a");
+                                showPokemon(labelBaseD, nomePoke);
+                            }
+                            else if (isBotFight && !check && checkInt<3){
+                                showPokemon(labelBaseU, nomePokeBot);    
+                                System.out.println("b");    
+                            }         
+        
                         }
                     }, 0.5f);
                     this.cancel();
@@ -794,13 +914,14 @@ public class Battle extends ScreenAdapter {
     }
 
     private void showPokemon(Image baseImage, String nome) {
+        System.out.println("sfdjibfvhsb");
         Texture pokemonTexture = new Texture("pokemon/"+nome+".png");
         int frameWidth = pokemonTexture.getWidth() / 4;
         int frameHeight = pokemonTexture.getHeight();
     
         TextureRegion[] pokemonFrames;
         Animation<TextureRegion> pokemonAnimation;
-        Image pokemonImage;
+        
     
         if (baseImage == labelBaseD) {
             pokemonFrames = new TextureRegion[2];
@@ -813,22 +934,30 @@ public class Battle extends ScreenAdapter {
             pokemonImage = new Image(pokemonFrames[0]);
             pokemonImage.setSize(frameWidth * 3, frameHeight * 3);
             pokemonImage.setPosition(labelBaseD.getX()+270, labelBaseD.getY());
-        } else if (baseImage == labelBaseU) {
+            pokemonImage.setName("pokemon player");
+            stage.addActor(pokemonImage);
+            animation(pokemonImage, pokemonAnimation);
+        } 
+        
+        else if (baseImage == labelBaseU) {
             pokemonFrames = new TextureRegion[2];
             for (int i = 0; i < 2; i++) {
                 pokemonFrames[i] = new TextureRegion(pokemonTexture, i * frameWidth, 0, frameWidth, frameHeight);
             }
             pokemonAnimation = new Animation<>(0.4f, pokemonFrames);
     
-            pokemonImage = new Image(pokemonFrames[0]);
-            pokemonImage.setSize(frameWidth * 3, frameHeight * 3);
-            pokemonImage.setPosition(labelBaseU.getX()+60, labelBaseU.getY()+20);
+            pokemonImageBot = new Image(pokemonFrames[0]);
+            pokemonImageBot.setSize(frameWidth * 3, frameHeight * 3);
+            pokemonImageBot.setPosition(labelBaseU.getX()+60, labelBaseU.getY()+20);
+            pokemonImageBot.setName("pokemon bot");
+            stage.addActor(pokemonImageBot);
+            animation(pokemonImageBot, pokemonAnimation);
         } else {
-            // Gestisci altri casi se necessario
             return; // Esci dalla funzione in caso di baseImage non gestito
         }
-    
-        stage.addActor(pokemonImage);
+    }
+
+    private void animation(Image pokeImage, Animation<TextureRegion> pokemonAnimation){   
 
         final Animation<TextureRegion> finalPokemonAnimation = pokemonAnimation; // Copia final dell'animazione
     
@@ -837,27 +966,28 @@ public class Battle extends ScreenAdapter {
             public void run() {
                 float stateTime = 0f;
                 TextureRegion frame = finalPokemonAnimation.getKeyFrame(stateTime, false);
-                pokemonImage.setDrawable(new TextureRegionDrawable(frame));
+                pokeImage.setDrawable(new TextureRegionDrawable(frame));
     
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
                         float stateTime = 1f;
                         TextureRegion frame = finalPokemonAnimation.getKeyFrame(stateTime, false);
-                        pokemonImage.setDrawable(new TextureRegionDrawable(frame));
-    
+                        pokeImage.setDrawable(new TextureRegionDrawable(frame));
+
                         Timer.schedule(new Timer.Task() {
                             @Override
                             public void run() {
                                 float stateTime = 0f;
                                 TextureRegion frame = finalPokemonAnimation.getKeyFrame(stateTime, false);
-                                pokemonImage.setDrawable(new TextureRegionDrawable(frame));
+                                pokeImage.setDrawable(new TextureRegionDrawable(frame));
                             }
                         }, 0.7f); // Mostra il secondo frame per 1 secondo
                     }
                 }, 0.3f); // Aspetta 1 secondo prima di mostrare il secondo frame
             }
         }, 0f); // Inizia subito l'animazione
+
     }
     
 
@@ -918,23 +1048,25 @@ public class Battle extends ScreenAdapter {
         playerArrow.setSize(250, 26);
         stage.addActor(playerArrow);
 
+        if (isBotFight){
         Texture arrowBot = new Texture("battle/botArrow.png");
         botArrow = new Image(arrowBot);
         //botArrow.setPosition(0,650);
         botArrow.setPosition(-250,650); //inizialmente fuori dallo schermo
         botArrow.setSize(250, 26);
         stage.addActor(botArrow);
+        Action botArrowAction = Actions.moveTo(0, 650, 0.5f);
+        botArrow.addAction(botArrowAction);
+        piazzaSquadBot();
+        }
 
         // Creazione delle azioni per lo spostamento delle frecce
         Action playerArrowAction = Actions.moveTo(1024-250, 270, 0.5f); // duration è la durata dell'animazione in secondi
-        Action botArrowAction = Actions.moveTo(0, 650, 0.5f);
 
         // Applicazione delle azioni alle frecce
         playerArrow.addAction(playerArrowAction);
-        botArrow.addAction(botArrowAction);
 
         piazzaSquad();
-        piazzaSquadBot();
     }
 
 
@@ -1145,7 +1277,7 @@ public class Battle extends ScreenAdapter {
 
 
     // Metodo per aggiornare la larghezza della barra degli HP con un'animazione
-    private void updateHpBarWidth(Image hpBar, String currentHP, String maxHP) {
+    private void updateHpBarWidth(Image hpBar, String currentHP, String maxHP, Image pokeImage, String nomePokem) {
 
         float percentualeHP = Float.parseFloat(currentHP)  / Float.parseFloat(maxHP);
         float lunghezzaHPBar = 96 * percentualeHP;
@@ -1163,9 +1295,28 @@ public class Battle extends ScreenAdapter {
 
         // Aggiungi un'azione per cambiare il colore della barra
         hpBar.addAction(Actions.color(coloreHPBar, 1f));
+        
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+               if (Integer.parseInt(currentHP)==0){
+                    piazzaLabel12(nomePokem);
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            faintPokemon(pokeImage);
+                        }
+                    }, 1.5f+delaySecondText);
+                    
+               }
+            }
+        }, 1f+delaySecondText);
+        delaySecondText=0;
+
     }
 
     public void piazzaLabel5(){
+        delaySecondText=0.7f;
         if (checkLabel5){
             checkLabel5=false;
             Timer.schedule(new Timer.Task() {
@@ -1189,6 +1340,7 @@ public class Battle extends ScreenAdapter {
     }
 
     public void piazzaLabel6(){
+        delaySecondText=0.7f;
         if (checkLabel6){
             checkLabel6=false;
             Timer.schedule(new Timer.Task() {
@@ -1213,6 +1365,7 @@ public class Battle extends ScreenAdapter {
 
 
     public void piazzaLabel7(){
+        delaySecondText=0.7f;
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
@@ -1240,7 +1393,7 @@ public class Battle extends ScreenAdapter {
         }
 
         final float delay=d;
-
+        delaySecondText=0.7f+delay;
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
@@ -1258,5 +1411,154 @@ public class Battle extends ScreenAdapter {
         }
     }, 2f+delay);
     }
+
+
+
+    public void faintPokemon(final Image pokeImage) { 
+
+        Rectangle scissors = new Rectangle(pokeImage.getX(), pokeImage.getY(), pokeImage.getWidth(), pokeImage.getHeight());
     
-}
+        float initialY = pokeImage.getY();
+    
+        // Calcola la nuova posizione Y, che sarà sotto lo schermo
+        float newY = -initialY;
+    
+        // Crea un'azione di spostamento dell'immagine verso la nuova posizione Y
+        Action moveAction = Actions.moveBy(0, newY, 0.6f); // Durata: 0.6 secondi
+    
+        // Applica l'azione di spostamento all'immagine
+        pokeImage.addAction(moveAction);
+    
+        // Ritaglia l'area dell'immagine mentre diminuisci la sua altezza
+        ScissorStack.calculateScissors(stage.getCamera(), batch.getTransformMatrix(), new Rectangle(pokeImage.getX(), pokeImage.getY(), pokeImage.getWidth(), pokeImage.getHeight()), scissors);
+        ScissorStack.pushScissors(scissors);
+    
+
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                // Ferma il ritaglio
+                ScissorStack.popScissors();
+                pokeImage.remove();
+
+                if (numeroIndexPokeBot<6 && Integer.parseInt(currentPokeHPBot)==0){
+                    numeroIndexPokeBot++;
+                    rimuoviPokeDaBattagliaBot();
+                    leggiPokeBot(1,numeroIndexPokeBot);
+                    piazzaLabelLottaPerBot();
+                    checkInt--;
+                    showBallBot();
+                }
+                else if (numeroIndexPokeBot==6 && Integer.parseInt(currentPokeHPBot)==0){
+                    fineBattaglia();
+                }
+            }
+        }, 0.6f);
+        
+    }
+
+
+
+    public void piazzaLabel12(String nomePokem){
+        String discorso12= nomePokem+ " non ha piu' energie!";
+        labelDiscorsi12 = new LabelDiscorsi(discorso12,dimMax,0,true);
+        labelDiscorsi12.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
+        label12=labelDiscorsi12.getLabel();
+        stage.addActor(label12);
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                labelDiscorsi12.reset();
+                label12.remove();
+                label12=null;
+                updatePokeSquadBot();
+            }
+        }, 2f);
+    }
+
+    public void modificaHPPokeBot(int numero, int numBot, String currentHP) {
+        // Carica il file JSON
+        FileHandle file = Gdx.files.local("bots/bots.json");
+        String jsonString = file.readString();
+        
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+        JsonValue json = new JsonReader().parse(jsonString);
+    
+        // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
+        JsonValue pokeJson = json.get("bot" + numBot).get("poke" + numero);
+    
+        // Ottieni l'oggetto "statistiche" all'interno del Pokémon
+        JsonValue statistiche = pokeJson.get("statistiche");
+    
+        // Rimuovi il campo "hp" corrente
+        statistiche.remove("hp");
+        // Aggiungi il nuovo campo "hp" con il valore aggiornato
+        statistiche.addChild("hp", new JsonValue(Integer.parseInt(currentHP)));
+        // Scrivi il JSON aggiornato nel file mantenendo la formattazione
+        file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
+        
+    }
+    
+
+    public void updatePokeSquadBot(){
+        Texture texture = new Texture("battle/ballsForNumber.png");
+        TextureRegion[][] textureRegions = TextureRegion.split(texture, texture.getWidth() / 8, texture.getHeight() / 3);
+        // Inizializza l'array di sprite
+        spriteArrayBallsSquadra = new Sprite[8];
+        int colonna=-1;
+
+        for (int i=0; i<6; i++){
+            leggiPokeSecondarioBot(i+1,1);
+            if (nomePokeSquadBot.isEmpty()){
+                colonna=2;
+            }
+            else {
+                if (currentPokeHPBotSquad.equals("0")){
+                    colonna=1;
+                }
+                else{
+                    colonna=0;
+                }
+            }
+
+            // Riempie l'array di sprite
+            int indice = 0;
+            for (int riga = 0; riga < 3; riga++) {
+                    spriteArrayBallsSquadra[indice++] = new Sprite(textureRegions[riga][colonna]);
+            }
+
+            final int index = i;
+            final int col =colonna;
+
+            TextureRegion region = textureRegions[col][0];
+                    Image image = new Image(region); // Crea un'istanza di Image con la texture region corrispondente
+
+                    // Imposta l'origine dell'immagine al centro per rendere la rotazione attorno al suo asse centrale
+                    image.setOrigin(Align.center);
+                    image.setPosition(botArrow.getX() + (30 * index + 10 * index), botArrow.getY()); // Posiziona l'immagine fuori dallo schermo
+                    image.setSize(32, 30);
+                    stage.addActor(image); // Aggiungi l'immagine allo stage
+
+        }
+    }
+
+
+    public void rimuoviPokeDaBattagliaBot(){
+        System.out.println("aa");
+        HPbot.remove();
+        // Rimuovi labelNomePokemonBot
+        labelNomeHPBars.remove(labelNomePokemonBot);
+        labelNomePokemonBot.remove();
+
+        // Rimuovi labelLVBot
+        labelNomeHPBars.remove(labelLVBot);
+        labelLVBot.remove();
+    }
+
+
+
+    public void fineBattaglia(){
+        System.out.println("aaa");
+    }
+
+} //Fine battaglia :)

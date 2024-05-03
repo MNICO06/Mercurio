@@ -364,6 +364,7 @@ class Mossa {
             // Genera un numero casuale compreso tra 1 e 24
             int randomNumber = random.nextInt(24) + 1; // Genera un numero tra 1 e 24 inclusi
             // Verifica se il numero generato è uguale a 1 (probabilità 1/24)
+            //randomNumber=16; //mi serve per fare dei controlli sui brutti colpi :)
             if (randomNumber == 16) {
                 modifier *= 2f; // Modifica il modifier di conseguenza
                 chiamante.piazzaLabel9();
