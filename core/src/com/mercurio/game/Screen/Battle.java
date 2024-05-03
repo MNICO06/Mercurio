@@ -638,8 +638,6 @@ public class Battle extends ScreenAdapter {
                 }, 0.3f);
             }
         });
-        
-
 
         //e ora piazza le hp Bar
         Texture imageHPPlayer = new Texture("battle/playerHPBar.png");

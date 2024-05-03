@@ -17,6 +17,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mercurio.game.personaggi.Bot;
@@ -41,6 +43,8 @@ public class FullMap extends ScreenAdapter{
 
     private Image puntoEsclamativoImage;
     private Stage stage;
+
+    private boolean checkExMark=true;
 
     public FullMap(MercurioMain game, TiledMap mappa) {
         this.game = game;
@@ -77,14 +81,17 @@ public class FullMap extends ScreenAdapter{
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         lineeLayer = game.getLineeLayer();
         cambiaProfondita(lineeLayer);
         teleport();
         checkLuogo();
         game.setRectangleList(rectList);
         checkInteractionBot();
+
+        float deltaTime = Gdx.graphics.getDeltaTime();
+        stage.act(deltaTime); // Aggiorna lo stage con il deltaTime
+        // Disegna la UI della borsa
+        stage.draw(); // Disegna lo stage sullo SpriteBatch
     }
 
     private void cambiaProfondita(MapLayer lineeLayer) {
@@ -168,9 +175,9 @@ public class FullMap extends ScreenAdapter{
     public void checkInteractionBot() {
         for (Bot bot : botList) {
             if (checkOverlaps(bot)) {
-
                 giraPlayer(bot);
                 triggerBot(bot);
+                
                 
             }
         }
@@ -178,12 +185,23 @@ public class FullMap extends ScreenAdapter{
 
     //metodo che fa muovere il bot verso il player e per disegnare il punto esclamativo
     private void triggerBot(Bot bot) {
+
+        if (puntoEsclamativoImage!=null){
+            puntoEsclamativoImage.remove();
+        }
         Texture puntoEsclamativo = new Texture("bots/ExlMark.png");
         puntoEsclamativoImage = new Image(puntoEsclamativo);
-        puntoEsclamativoImage.setSize(100,100);
-        puntoEsclamativoImage.setPosition(bot.getPosition().x, bot.getPosition().y+50);
+        puntoEsclamativoImage.setSize(48,48);
+        Vector3 botPosition = new Vector3(bot.getPosition().x, bot.getPosition().y, 0);
+        Vector3 screenCoords = camera.project(botPosition);
+
+        // Imposta la posizione di puntoEsclamativoImage sulla schermata
+        puntoEsclamativoImage.setPosition(screenCoords.x+35, screenCoords.y+60);
+        puntoEsclamativoImage.toFront();
+        puntoEsclamativoImage.setName("puntoEsclamativoImage"); 
         stage.addActor(puntoEsclamativoImage);
-    }
+        
+        }   
 
     //metodo che gira il player verso il bot
     private void giraPlayer(Bot bot) {
