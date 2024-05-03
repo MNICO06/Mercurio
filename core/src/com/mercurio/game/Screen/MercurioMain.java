@@ -52,7 +52,6 @@ public class MercurioMain extends Game{
 
     private MenuLabel menuLabel;
 
-    private Stage stage;
     private TiledMap mappa;
 
     private String teleport;

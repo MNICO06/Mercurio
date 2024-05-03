@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.MapGroupLayer;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -16,6 +17,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mercurio.game.personaggi.Bot;
 import com.mercurio.game.personaggi.TeenagerF;
 import com.mercurio.game.personaggi.TeenagerM;
@@ -36,6 +39,9 @@ public class FullMap extends ScreenAdapter{
     private ArrayList<Bot> botListBack;
     private ArrayList<Bot> botListFore;
 
+    private Image puntoEsclamativoImage;
+    private Stage stage;
+
     public FullMap(MercurioMain game, TiledMap mappa) {
         this.game = game;
         this.mappa = mappa;
@@ -43,6 +49,7 @@ public class FullMap extends ScreenAdapter{
         botList = new ArrayList<Bot>();
         botListBack = new ArrayList<Bot>();
         botListFore = new ArrayList<Bot>();
+        stage = new Stage();
     }
 
     
@@ -160,11 +167,41 @@ public class FullMap extends ScreenAdapter{
     //metodo per fermare l'utente se passa di fronte al bot
     public void checkInteractionBot() {
         for (Bot bot : botList) {
-            if(checkOverlaps(bot)) {
-                game.getPlayer().setMovement(false);
+            if (checkOverlaps(bot)) {
+
+                giraPlayer(bot);
+                triggerBot(bot);
+                
             }
         }
     }
+
+    //metodo che fa muovere il bot verso il player e per disegnare il punto esclamativo
+    private void triggerBot(Bot bot) {
+        Texture puntoEsclamativo = new Texture("bots/ExlMark.png");
+        puntoEsclamativoImage = new Image(puntoEsclamativo);
+        puntoEsclamativoImage.setSize(100,100);
+        puntoEsclamativoImage.setPosition(bot.getPosition().x, bot.getPosition().y+50);
+        stage.addActor(puntoEsclamativoImage);
+    }
+
+    //metodo che gira il player verso il bot
+    private void giraPlayer(Bot bot) {
+        String direzione = bot.getDirezione();
+        if (direzione.equals("-y")) {
+            game.getPlayer().setFermoAvanti();
+        }
+        else if (direzione.equals("y")) {
+            game.getPlayer().setFermoIndietro();
+        }
+        else if (direzione.equals("-x")) {
+            game.getPlayer().setFermoDestra();
+        }
+        else if (direzione.equals("x")) {
+            game.getPlayer().setFermoSinistra();
+        }
+    }
+
 
     public boolean checkOverlaps(Bot bot) {
         if (game.getPlayer().getBoxPlayer().overlaps(bot.getBoxBlocca())) {
@@ -296,6 +333,7 @@ public class FullMap extends ScreenAdapter{
                                 RectangleMapObject rectObj = (RectangleMapObject)obj;
                 
                                 String layerName = (String)rectObj.getProperties().get("check");
+                                bot.setDirezione((String)rectObj.getProperties().get("direzione"));
                 
                                 if (layerName.equals((String)rectObject.getProperties().get("check"))) {
                                     bot.setBoxBlocca(rectObj.getRectangle());
@@ -319,6 +357,7 @@ public class FullMap extends ScreenAdapter{
                                 RectangleMapObject rectObj = (RectangleMapObject)obj;
                 
                                 String layerName = (String)rectObj.getProperties().get("check");
+                                bot1.setDirezione((String)rectObj.getProperties().get("direzione"));
                 
                                 if (layerName.equals((String)rectObject.getProperties().get("check"))) {
                                     bot1.setBoxBlocca(rectObj.getRectangle());

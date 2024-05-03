@@ -31,6 +31,14 @@ public abstract class Bot {
     protected float camminataFrame_speed;
     protected float stateTime;
 
+    /* -y = il personaggio si trova sotto
+     * y = il personaggio si trova sopra
+     * 
+     * -x = il personaggio si trova a sinstra
+     * x = il personaggio si trova a destra
+    */
+    protected String direzione;
+
     public Bot(float width, float height, String texturePath) {
         player_width = width;
         player_height = height;
@@ -158,4 +166,11 @@ public abstract class Bot {
         currentAnimation = camminaIndietro.getKeyFrame(stateTime);
     }
 
+    public void setDirezione(String direzione) {
+        this.direzione = direzione;
+    }
+
+    public String getDirezione() {
+        return direzione;
+    }
 }

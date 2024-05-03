@@ -41,8 +41,8 @@ public class Ash {
     private int player_width;
     private int player_height;
 
-    private float speed_Camminata_orizontale = 50;
-    private float speed_Camminata_verticale = 40;
+    private float speed_Camminata_orizontale = 300;
+    private float speed_Camminata_verticale = 300;
     private float muovi_X = 0;
     private float muovi_Y = 0;
 
@@ -277,6 +277,38 @@ public class Ash {
 
     public void setMovement(boolean canMove) {
         this.canMove = canMove;
+    }
+
+    public void setFermoSinistra() {
+        currentAnimation = fermoSinistra.getKeyFrame(stateTime);
+    }
+
+    public void setFermoDestra() {
+        currentAnimation = fermoDestra.getKeyFrame(stateTime);
+    }
+
+    public void setFermoAvanti() {
+        currentAnimation = fermoAvanti.getKeyFrame(stateTime);
+    }
+
+    public void setFermoIndietro() {
+        currentAnimation = fermoIndietro.getKeyFrame(stateTime);
+    }
+
+    public void setCamminaSinistra() {
+        currentAnimation = camminaSinistra.getKeyFrame(stateTime);
+    }
+
+    public void setCamminaDestra() {
+        currentAnimation = camminaDestra.getKeyFrame(stateTime);
+    }
+
+    public void setCamminaAvanti() {
+        currentAnimation = camminaAvanti.getKeyFrame(stateTime);
+    }
+
+    public void setCamminaIndietro() {
+        currentAnimation = camminaIndietro.getKeyFrame(stateTime);
     }
 
     public void dispose() {
