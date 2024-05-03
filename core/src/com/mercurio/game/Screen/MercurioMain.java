@@ -52,7 +52,6 @@ public class MercurioMain extends Game{
 
     private MenuLabel menuLabel;
 
-    private Stage stage;
     private TiledMap mappa;
 
     private String teleport;
@@ -112,7 +111,6 @@ public class MercurioMain extends Game{
             if (map != null) {
                 erba.controllaPokemon(map);
             }
-
         }
     }
 
