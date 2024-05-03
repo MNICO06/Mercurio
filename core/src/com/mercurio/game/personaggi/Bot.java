@@ -30,6 +30,8 @@ public abstract class Bot {
     protected Vector2 characterPosition;
     protected float camminataFrame_speed;
     protected float stateTime;
+    protected float xPunto;
+    protected float yPunto;
 
     /* -y = il personaggio si trova sotto
      * y = il personaggio si trova sopra
@@ -39,7 +41,9 @@ public abstract class Bot {
     */
     protected String direzione;
 
-    public Bot(float width, float height, String texturePath) {
+    public Bot(float width, float height, String texturePath, float xPunto, float yPunto) {
+        this.xPunto = xPunto;
+        this.yPunto = yPunto;
         player_width = width;
         player_height = height;
 
@@ -172,5 +176,21 @@ public abstract class Bot {
 
     public String getDirezione() {
         return direzione;
+    }
+
+    public float getPuntoX() {
+        return xPunto;
+    }
+
+    public float getPuntoY() {
+        return yPunto;
+    }
+
+    public void setX(float x) {
+        characterPosition.x = x;
+    }
+
+    public void setY(float y) {
+        characterPosition.y = y;
     }
 }

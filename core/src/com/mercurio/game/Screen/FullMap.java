@@ -1,10 +1,11 @@
 package com.mercurio.game.Screen;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.MapGroupLayer;
@@ -18,7 +19,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mercurio.game.personaggi.Bot;
@@ -44,7 +44,34 @@ public class FullMap extends ScreenAdapter{
     private Image puntoEsclamativoImage;
     private Stage stage;
 
-    private boolean checkExMark=true;
+    private Timer timer;
+
+    //quando entra la mette a true e fino a quando non termina la battaglia rimane a true, quando termina la battaglia viene rimessa
+    //a false e viene salvato il dato sul json e anche sul bot. (momentaneamente poi non funziona più)
+    private boolean inEsecuzione = false;
+
+    private boolean faiMuovereBot = false;
+    
+
+
+    //---------------------------CLASSE DENTRO CLASSE PER LA TASK-------------------------------------------------
+    private class MyTimerTask extends TimerTask {
+        private Bot bot;
+
+        // Costruttore che accetta i parametri
+        public MyTimerTask(Bot bot) {
+            this.bot = bot;
+        }
+
+        @Override
+        public void run() {
+            puntoEsclamativoImage.remove();
+            game.getPlayer().setMovement(true);
+            faiMuovereBot = true;
+            cancel();
+        }
+    }
+    //----------------------------------------------------------------------------
 
     public FullMap(MercurioMain game, TiledMap mappa) {
         this.game = game;
@@ -54,6 +81,7 @@ public class FullMap extends ScreenAdapter{
         botListBack = new ArrayList<Bot>();
         botListFore = new ArrayList<Bot>();
         stage = new Stage();
+        timer = new Timer();
     }
 
     
@@ -73,9 +101,6 @@ public class FullMap extends ScreenAdapter{
         setPositionPlayer();
         setPositionBot();
 
-        //esempio poi da fare con il ciclo per prendere tutte
-        //rectList.add(botList.get(0).getBoxBlocca());
-
         game.setMap(mappa, tileRenderer, camera, map_size.x, map_size.y);
     }
 
@@ -86,7 +111,18 @@ public class FullMap extends ScreenAdapter{
         teleport();
         checkLuogo();
         game.setRectangleList(rectList);
-        checkInteractionBot();
+
+        //System.out.println(inEsecuzione);
+        //controlla presenza bot solo se è nei percorsi
+        if (inEsecuzione == false) {
+            if (game.getLuogo().equals("percorso1") || game.getLuogo().equals("bosco") || game.getLuogo().equals("percorso2") ||
+                game.getLuogo().equals("percorso3") || game.getLuogo().equals("perocroso4")) {
+
+                checkInteractionBot();
+            }
+        }
+        
+        
 
         float deltaTime = Gdx.graphics.getDeltaTime();
         stage.act(deltaTime); // Aggiorna lo stage con il deltaTime
@@ -134,10 +170,11 @@ public class FullMap extends ScreenAdapter{
             }
         }
 
+
         //stessa cosa che faccio con i layer ma con la lista dei bot
         for (Bot bot : botList) {
             if (game.getPlayer().getPlayerPosition().y < bot.getPosition().y) {
-                botListFore.add(bot);
+                botListBack.add(bot);
             }
             else {
                 botListFore.add(bot);
@@ -171,65 +208,8 @@ public class FullMap extends ScreenAdapter{
 
     }
 
-    //metodo per fermare l'utente se passa di fronte al bot
-    public void checkInteractionBot() {
-        for (Bot bot : botList) {
-            if (checkOverlaps(bot)) {
-                giraPlayer(bot);
-                triggerBot(bot);
-                
-                
-            }
-        }
-    }
 
-    //metodo che fa muovere il bot verso il player e per disegnare il punto esclamativo
-    private void triggerBot(Bot bot) {
-
-        if (puntoEsclamativoImage!=null){
-            puntoEsclamativoImage.remove();
-        }
-        Texture puntoEsclamativo = new Texture("bots/ExlMark.png");
-        puntoEsclamativoImage = new Image(puntoEsclamativo);
-        puntoEsclamativoImage.setSize(48,48);
-        Vector3 botPosition = new Vector3(bot.getPosition().x, bot.getPosition().y, 0);
-        Vector3 screenCoords = camera.project(botPosition);
-
-        // Imposta la posizione di puntoEsclamativoImage sulla schermata
-        puntoEsclamativoImage.setPosition(screenCoords.x+35, screenCoords.y+60);
-        puntoEsclamativoImage.toFront();
-        puntoEsclamativoImage.setName("puntoEsclamativoImage"); 
-        stage.addActor(puntoEsclamativoImage);
-        
-        }   
-
-    //metodo che gira il player verso il bot
-    private void giraPlayer(Bot bot) {
-        String direzione = bot.getDirezione();
-        if (direzione.equals("-y")) {
-            game.getPlayer().setFermoAvanti();
-        }
-        else if (direzione.equals("y")) {
-            game.getPlayer().setFermoIndietro();
-        }
-        else if (direzione.equals("-x")) {
-            game.getPlayer().setFermoDestra();
-        }
-        else if (direzione.equals("x")) {
-            game.getPlayer().setFermoSinistra();
-        }
-    }
-
-
-    public boolean checkOverlaps(Bot bot) {
-        if (game.getPlayer().getBoxPlayer().overlaps(bot.getBoxBlocca())) {
-            return true;
-        }
-        return false;
-    }
-
-    
-
+    //-----------------------RENDERING E RICERCA LAYER------------------------------------------------------
     private void renderLayer(String layerName) {
         MapLayer layer;
         String nomeFolder = findGroupByLayerName(mappa, layerName);
@@ -277,6 +257,109 @@ public class FullMap extends ScreenAdapter{
         return null;
     }
 
+    //---------------------------------------CONTROLLO NPC------------------------------------------------------------------
+    //metodo per fermare l'utente se passa di fronte al bot
+    public void checkInteractionBot() {
+        for (Bot bot : botList) {
+            if (checkOverlaps(bot)) {
+                giraPlayer(bot);
+                triggerBot(bot);
+                game.getPlayer().setMovement(false);
+                MyTimerTask myTimerTask = new MyTimerTask(bot);
+                timer.schedule(myTimerTask, 2000);
+                if (faiMuovereBot == true) {
+                    muoviBot(bot);
+                }
+            }
+        }
+    }
+
+    //metodo che fa muovere il bot verso il player e per disegnare il punto esclamativo
+    private void triggerBot(Bot bot) {
+
+        if (puntoEsclamativoImage!=null){
+            puntoEsclamativoImage.remove();
+        }
+        Texture puntoEsclamativo = new Texture("bots/ExlMark.png");
+        puntoEsclamativoImage = new Image(puntoEsclamativo);
+        puntoEsclamativoImage.setSize(48,48);
+        Vector3 botPosition = new Vector3(bot.getPosition().x, bot.getPosition().y,0);
+        Vector3 screenCoords = camera.project(botPosition);
+
+        // Imposta la posizione di puntoEsclamativoImage sulla schermata
+        puntoEsclamativoImage.setPosition(screenCoords.x+bot.getPuntoX(), screenCoords.y+bot.getPuntoY());
+        puntoEsclamativoImage.toFront();
+        puntoEsclamativoImage.setName("puntoEsclamativoImage"); 
+        stage.addActor(puntoEsclamativoImage);
+    }
+
+    //metodo che gira il player verso il bot
+    private void giraPlayer(Bot bot) {
+        String direzione = bot.getDirezione();
+        if (direzione.equals("-y")) {
+            game.getPlayer().setFermoAvanti();
+        }
+        else if (direzione.equals("y")) {
+            game.getPlayer().setFermoIndietro();
+        }
+        else if (direzione.equals("-x")) {
+            game.getPlayer().setFermoDestra();
+        }
+        else if (direzione.equals("x")) {
+            game.getPlayer().setFermoSinistra();
+        }
+    }
+
+
+    public boolean checkOverlaps(Bot bot) {
+        Rectangle playerBox = game.getPlayer().getBoxPlayer();
+        Rectangle botBox = bot.getBoxBlocca();
+        
+        // Controlla se il rettangolo del personaggio è completamente contenuto nel rettangolo del bot
+        if (playerBox.x >= botBox.x && playerBox.y >= botBox.y &&
+            playerBox.x + playerBox.width <= botBox.x + botBox.width &&
+            playerBox.y + playerBox.height <= botBox.y + botBox.height) {
+            return true;
+        }
+        
+        return false;
+    }
+
+    public void muoviBot(Bot bot) {
+        float tot;
+        switch (bot.getDirezione()) {
+            case "-y":
+                bot.setCamminaIndietro();
+                tot = bot.getPosition().y - game.getPlayer().getPlayerPosition().y;
+                if (tot > 15) {
+                    bot.setY(bot.getPosition().y - 40f * Gdx.graphics.getDeltaTime());
+                }
+                else {
+                    faiMuovereBot = false;
+                    inEsecuzione = true;
+                }
+                break;
+            
+            case "y":
+            
+                break;
+
+            case "-x":
+            
+                break;
+
+            case "x":
+            
+                break;
+        
+            default:
+                break;
+        }
+    }
+    
+    
+
+    //-------------------------SETTAGGO POSIZIONI E CONTROLLO LUOGO---------------------------------------
     public void checkLuogo() {
         MapObjects objects = mappa.getLayers().get("controlloLuogo").getObjects();
         for (MapObject object : objects) {
