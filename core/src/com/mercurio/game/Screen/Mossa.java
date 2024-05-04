@@ -242,7 +242,9 @@ class Mossa {
         this.tipo = tipo;
         this.maxPP = maxPP;
         this.attPP = attPP;
-        this.chiamante = battle;
+        if (battle!=null){
+            this.chiamante = battle;
+        }
     }
 
     public String getNome() {

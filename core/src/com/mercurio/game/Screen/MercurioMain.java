@@ -150,15 +150,28 @@ public class MercurioMain extends Game{
 
     @Override
     public void dispose() {
-        if (batch != null) {
-            batch.dispose();
+        System.out.println("Spegnimento in corso...");
+    
+        // Termina tutti i thread attivi
+        ThreadGroup rootGroup = Thread.currentThread().getThreadGroup();
+        ThreadGroup parentGroup;
+        while ((parentGroup = rootGroup.getParent()) != null) {
+            rootGroup = parentGroup;
         }
-        if (ash != null) {
-            ash.dispose();
+        Thread[] threads = new Thread[rootGroup.activeCount()];
+        rootGroup.enumerate(threads);
+        for (Thread thread : threads) {
+            if (thread != null && thread.isAlive()) {
+                thread.interrupt();
+            }
         }
-        currentScreen.dispose();
-        map.dispose();
-        mappa.dispose();
+    
+        // Chiudi il batch
+        batch.dispose();
+        // Chiudi l'applicazione
+        Gdx.app.exit();
+        // Chiudi l'applicazione
+        System.exit(0);
     }
 
     //avvia un altra scheda
