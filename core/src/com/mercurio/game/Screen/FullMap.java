@@ -384,6 +384,7 @@ public class FullMap extends ScreenAdapter{
 
                 if (game.getPlayer().getBoxPlayer().overlaps(rectangleObject.getRectangle())) {
                     change(rectangleObject);
+                    game.setLuogo(rectangleObject.getName());
                 }
             } 
         }

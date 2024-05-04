@@ -65,9 +65,50 @@ public class Musica {
                 }
                 break;
 
+            case "percorso2":
+                if (current != "percorso2") {
+                    playMusic("musica/percorso2.mp3");
+                    current = "percorso2";
+                }
+                break;
+            
+            case "percorso3":
+                if (current != "percorso3") {
+                    playMusic("musica/percorsoAcqua.mp3");
+                    current = "percorso3";
+                }
+                break;
+
+            case "cittaMare":
+                if (current != "cittaMare") {
+                    playMusic("musica/cittaMare.mp3");
+                    current = "cittaMare";
+                }
+                break;
+
+            case "perocroso4":
+                if (current != "perocroso4") {
+                    playMusic("musica/percorsoAlto.mp3");
+                    current = "perocroso4";
+                }
+                break;
+
+            case "cittaN":
+                if (current != "cittaN") {
+                    playMusic("musica/cittaAlta.mp3");
+                    current = "cittaN";
+                }
+                break;
+
+            case "casaSpawn":
+                if (current != "casaSpawn") {
+                    playMusic("musica/casa.mp3");
+                    current = "casaSpawn";
+                }
+                break;
+
             default:
                 break;
         }
     }
-
 }
