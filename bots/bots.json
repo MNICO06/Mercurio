@@ -140,7 +140,7 @@
 			"special_attack": 50,
 			"special_defense": 50,
 			"speed": 90,
-			"hp": 35
+			"hp": 0
 		},
 		"mosse": [
 			{

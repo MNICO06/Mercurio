@@ -47,6 +47,7 @@ import javafx.animation.TranslateTransition;
 
 public class Battle extends ScreenAdapter {
 
+    private boolean isBattleEnded=false;
     private Label labelNomePokemonBot;
     private Label labelLVBot;
     private float delaySecondText=0;
@@ -176,7 +177,7 @@ public class Battle extends ScreenAdapter {
         String discorso2= "Vai "+ nomePoke + "!";
         labelDiscorsi2 = new LabelDiscorsi(discorso2,dimMax,0,true);
 
-        String discorso3= "Hai sconfitto "+ nomeBot+"!";
+        String discorso3= "Hai sconfitto "+ nomeBot+" ("+tipoBot+")"+"!";
         labelDiscorsi3 = new LabelDiscorsi(discorso3,dimMax,0,true);
 
         String discorso5= "E' superefficace!";
@@ -199,8 +200,6 @@ public class Battle extends ScreenAdapter {
 
         String discorso11= "Scampato pericolo!";
         labelDiscorsi11 = new LabelDiscorsi(discorso11,dimMax,0,true);
-
-        
         
         show();
     }
@@ -297,6 +296,15 @@ public class Battle extends ScreenAdapter {
                         }
                     }, 2f);
             }
+            else if(isBattleEnded){
+                batch.dispose();
+                font.dispose();
+                stage.dispose();
+                textureLancio.dispose();
+                ballTexture.dispose();
+                Gdx.input.setInputProcessor(null);
+                chiamante.closeBattle();
+            }
             else {
                 label10=labelDiscorsi10.getLabel();
                     stage.addActor(label10);
@@ -391,6 +399,9 @@ public class Battle extends ScreenAdapter {
             if (label2!=null){
                 labelDiscorsi2.renderDisc();
             }
+            if (label3!=null){
+                labelDiscorsi3.renderDisc();
+            }
             if (label4!=null){
                 labelDiscorsi4.renderDisc();
             }
@@ -403,6 +414,9 @@ public class Battle extends ScreenAdapter {
             if (label7!=null){
                 labelDiscorsi7.renderDisc();
             }
+            if (label8!=null){
+                labelDiscorsi8.renderDisc();
+            }
             if (label9!=null){
                 labelDiscorsi9.renderDisc();
             }
@@ -414,6 +428,9 @@ public class Battle extends ScreenAdapter {
             }
             if (label12!=null){
                 labelDiscorsi12.renderDisc();
+            }
+            if (label13!=null){
+                labelDiscorsi13.renderDisc();
             }
         }
 
@@ -872,47 +889,50 @@ public class Battle extends ScreenAdapter {
     
 
     private void activateAnimation(Image image, Animation<TextureRegion> animation) {
-        boolean check;
-        if (image==imageBall){
-            check=true;
-            checkInt++;
-        }
-        else{
-            check=false;
-            checkInt++;
-        }
-        System.out.println(checkInt);
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
-                stateTime = 2f;
-                frame = animation.getKeyFrame(stateTime, false);
-                image.setDrawable(new TextureRegionDrawable(frame));
-
-                if (animation.isAnimationFinished(stateTime)) {
-                    Timer.schedule(new Timer.Task() {
-                        @Override
-                        public void run() {
-                            image.remove();
-                            if (check && checkInt<3){
-                                System.out.println("a");
-                                showPokemon(labelBaseD, nomePoke);
-                            }
-                            else if (isBotFight && !check && checkInt<3){
-                                showPokemon(labelBaseU, nomePokeBot);    
-                                System.out.println("b");    
-                            }         
+                boolean check;
         
-                        }
-                    }, 0.5f);
-                    this.cancel();
+                if (image==imageBall){
+                    check=true;
+                    checkInt++;
                 }
+                else{
+                    check=false;
+                    checkInt++;
+                }
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        stateTime = 2f;
+                        frame = animation.getKeyFrame(stateTime, false);
+                        image.setDrawable(new TextureRegionDrawable(frame));
+
+                        if (animation.isAnimationFinished(stateTime)) {
+                            Timer.schedule(new Timer.Task() {
+                                @Override
+                                public void run() {
+                                    image.remove();
+                                    //nel caso dovesse esplodere un giorno tutto questo, di fianco ad entrambi i check aggiungere && checkInt<3; da problemi ma se qualcosa esplode lo si riaggiunge
+                                    if (check ){
+                                        showPokemon(labelBaseD, nomePoke);
+                                    }
+                                    else if (isBotFight && !check){
+                                        showPokemon(labelBaseU, nomePokeBot);    
+                                    }         
+                
+                                }
+                            }, 0.5f);
+                            this.cancel();
+                        }
+                    }
+                }, 0.1f);
             }
         }, 0.3f);
     }
 
     private void showPokemon(Image baseImage, String nome) {
-        System.out.println("sfdjibfvhsb");
         Texture pokemonTexture = new Texture("pokemon/"+nome+".png");
         int frameWidth = pokemonTexture.getWidth() / 4;
         int frameHeight = pokemonTexture.getHeight();
@@ -1230,6 +1250,16 @@ public class Battle extends ScreenAdapter {
                 listaMosseBot.add(mossa);
             }
 
+            if (currentPokeHPBot.equals("0") || nomePokeBot.equals("")){
+                if (numeroIndexPokeBot<6){
+                    numeroIndexPokeBot++;
+                    leggiPokeBot(1,numeroIndexPokeBot);
+                }
+                else if(numeroIndexPokeBot==6){
+                    fineBattaglia();
+                }
+            }
+
     }
 
     public void leggiPokeSecondarioBot(int numero, int numBot) {
@@ -1443,11 +1473,14 @@ public class Battle extends ScreenAdapter {
                     numeroIndexPokeBot++;
                     rimuoviPokeDaBattagliaBot();
                     leggiPokeBot(1,numeroIndexPokeBot);
+                    if (!isBattleEnded){
                     piazzaLabelLottaPerBot();
                     checkInt--;
                     showBallBot();
+                    HPbot=placeHpBar(botHPBar,100,16,currentPokeHPBot,maxPokeHPBot);
+                    } 
                 }
-                else if (numeroIndexPokeBot==6 && Integer.parseInt(currentPokeHPBot)==0){
+                else if (numeroIndexPokeBot==6 && Integer.parseInt(currentPokeHPBot)==0 && !isBattleEnded){
                     fineBattaglia();
                 }
             }
@@ -1529,20 +1562,19 @@ public class Battle extends ScreenAdapter {
             final int col =colonna;
 
             TextureRegion region = textureRegions[col][0];
-                    Image image = new Image(region); // Crea un'istanza di Image con la texture region corrispondente
+            Image image = new Image(region); // Crea un'istanza di Image con la texture region corrispondente
 
-                    // Imposta l'origine dell'immagine al centro per rendere la rotazione attorno al suo asse centrale
-                    image.setOrigin(Align.center);
-                    image.setPosition(botArrow.getX() + (30 * index + 10 * index), botArrow.getY()); // Posiziona l'immagine fuori dallo schermo
-                    image.setSize(32, 30);
-                    stage.addActor(image); // Aggiungi l'immagine allo stage
+            // Imposta l'origine dell'immagine al centro per rendere la rotazione attorno al suo asse centrale
+            image.setOrigin(Align.center);
+            image.setPosition(botArrow.getX() + (30 * index + 10 * index), botArrow.getY()); // Posiziona l'immagine fuori dallo schermo
+            image.setSize(32, 30);
+            stage.addActor(image); // Aggiungi l'immagine allo stage
 
         }
     }
 
 
     public void rimuoviPokeDaBattagliaBot(){
-        System.out.println("aa");
         HPbot.remove();
         // Rimuovi labelNomePokemonBot
         labelNomeHPBars.remove(labelNomePokemonBot);
@@ -1555,8 +1587,33 @@ public class Battle extends ScreenAdapter {
 
 
 
-    public void fineBattaglia(){
-        System.out.println("aaa");
+    private void fineBattaglia(){
+        System.out.println("a");
+        isBattleEnded= true;
+
+        label3=labelDiscorsi3.getLabel();
+        stage.addActor(label3);
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                labelDiscorsi3.reset();
+                label3.remove();
+                label3=null;
+
+                label8=labelDiscorsi8.getLabel();
+                stage.addActor(label8);
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        labelDiscorsi8.reset();
+                        label8.remove();
+                        label8=null;
+                        dispose();
+                    }
+                }, 2f);
+            }
+        }, 2f);
+
     }
 
 } //Fine battaglia :)
