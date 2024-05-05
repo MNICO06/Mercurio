@@ -174,7 +174,7 @@ class Mossa {
     ArrayList<String> listaNEColeottero = new ArrayList<>();
     ArrayList<String> listaNEDrago = new ArrayList<>();
     ArrayList<String> listaNESpettro = new ArrayList<>(
-        Arrays.asList("Normale")
+        Arrays.asList("Normale","Lotta")
     );
 
 

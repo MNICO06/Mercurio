@@ -145,7 +145,7 @@ public class MenuLabel {
     }
     
 	private void apriPokemon() {
-        squadra = new Squadra(getStage(),false);
+        squadra = new Squadra(getStage(),false,null);
 	}
 	    
 	private void apriBorsa() {
@@ -293,7 +293,7 @@ public class MenuLabel {
                 // Se il menu è aperto, chiudi il menu
                 chiudiMenu();
             }*/
-            battle = new Battle(this);
+            battle = new Battle(this, "bot1");
         }
 
         // Rendering dello stage

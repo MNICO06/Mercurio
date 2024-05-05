@@ -1,5 +1,7 @@
 package com.mercurio.game.Screen;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
@@ -35,13 +37,18 @@ public class Squadra {
     private String LVPoke;
     private boolean battaglia;
     boolean isCursorInside = false;
+    private ArrayList<Boolean> booleanList = new ArrayList<>(6);
+    private ArrayList<Integer> hpList = new ArrayList<>();
+    private Battle chiamante;
+
 
     Array<Texture> animationTextures = new Array<>();
     Array<Image> animationImages = new Array<>();
     Array<Boolean> animazionePartita = new Array<>();
     Array<Boolean> controllo = new Array<>();
 
-    public Squadra(Stage stage, boolean battaglia){
+    public Squadra(Stage stage, boolean battaglia, Battle chiamante){
+        this.chiamante = chiamante;
         this.battaglia=battaglia;
         this.batch = (SpriteBatch) stage.getBatch();
         this.font = new BitmapFont(Gdx.files.internal("font/small_letters_font.fnt"));
@@ -85,6 +92,7 @@ public class Squadra {
         for (int i = 0; i < 6; i++) {
             leggiPokeSecondario(i+1);
             if (!nomePokeSquad.isEmpty()) {
+                booleanList.add(false);
 
                 // Calcola l'indice di colonna e di riga
                 int column = i % 2; // Due colonne
@@ -158,35 +166,16 @@ public class Squadra {
                 InputListener imageListener = new InputListener() {
                     @Override
                     public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                        image.setDrawable(selectedDrawable);
-                        image.setSize(126*3, 49*3);
-                        isCursorInside = true;
-                        controllo.set(index,true);
-                        hpBar.setPosition(image.getX()+63*3-1, image.getY()+19*3);
-                        labelLV.setY(labelLV.getY()+3);
-                        labelHP.setY(labelHP.getY()+3);
-                        labelHPTot.setY(labelHPTot.getY()+3);
+                        if (booleanList.get(index)==false){
+                            changeIntoSelected(image, selectedDrawable, index, hpBar, labelLV, labelHP, labelHPTot);
+                        }
                     }
     
                     @Override
                     public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                        // Se è il primo elemento, reimposta la texture normale
-                        if (index == 0) {
-                            image.setDrawable(fisrtDrawable);
-                        } else {
-                            image.setDrawable(normalDrawable);
+                        if (booleanList.get(index)==false){
+                            changeIntoNOTSelected(image, index, hpBar, labelLV, labelHP, labelHPTot, animationImage, animationTexture, fisrtDrawable, normalDrawable);
                         }
-                        image.setSize(126*3, 45*3);
-                        isCursorInside = false;
-                        controllo.set(index,false);
-                        //ferma animazione
-                        TextureRegion newRegion = new TextureRegion(animationTexture, 0, 0, animationTexture.getWidth() / 2, animationTexture.getHeight());
-                        animationImage.setDrawable(new TextureRegionDrawable(newRegion));
-                        hpBar.setPosition(image.getX()+63*3, image.getY()+18*3);
-                        labelLV.setY(labelLV.getY()-3);
-                        labelHP.setY(labelHP.getY()-3);
-                        labelHPTot.setY(labelHPTot.getY()-3);
-
                     }
                 };
                 
@@ -239,6 +228,10 @@ public class Squadra {
         image.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                for (int i = 0; i < booleanList.size(); i++) {
+                    booleanList.set(i, i == index); //mette tutto a false tranne alla posizione index (infatti i==index resistuisce true solo quando sono uguali)
+                }
+
                 // Crea e posiziona l'immagine "squadra/info.png"
                 Texture infoTexture = new Texture("squadra/info.png");
                 Image infoImage = new Image(infoTexture);
@@ -254,24 +247,54 @@ public class Squadra {
                     }
                 });
         
-                // Crea e posiziona l'immagine "squadra/sposta.png"
+                // Crea e posiziona l'immagine "squadra/sposta.png" o di "squadra/cambia.png"
                 Texture spostaTexture = new Texture("squadra/sposta.png");
                 Image spostaImage = new Image(spostaTexture);
-                spostaImage.setSize(56*3, 24*3);
-                spostaImage.setPosition( 650+56*3+20,10); // Posizionamento personalizzato
-                stage.addActor(spostaImage); // Aggiungi allo stage
-                squadActors.add(spostaImage); // Aggiungi all'array degli attori della squadra
-        
+                Texture cambiaTexture = new Texture("squadra/cambia.png");
+                Image cambiaImage = new Image(cambiaTexture);
+                if (!battaglia){
+                    spostaImage.setSize(56*3, 24*3);
+                    spostaImage.setPosition( 650+56*3+20,10); // Posizionamento personalizzato
+                    stage.addActor(spostaImage); // Aggiungi allo stage
+                    squadActors.add(spostaImage); // Aggiungi all'array degli attori della squadra
+                    spostaImage.addListener(new ClickListener() {
+                        @Override
+                        public void clicked(InputEvent event, float x, float y) {
+                            spostaPoke(indexNumPoke);
+                        }
+                    });
+                } 
+                else if (!hpList.get(indexNumPoke-1).equals(0)){
+                    cambiaImage.setSize(56*3, 24*3);
+                    cambiaImage.setPosition( 650+56*3+20,10); // Posizionamento personalizzato
+                    stage.addActor(cambiaImage); // Aggiungi allo stage
+                    squadActors.add(cambiaImage); // Aggiungi all'array degli attori della squadra
+                    cambiaImage.addListener(new ClickListener() {
+                        @Override
+                        public void clicked(InputEvent event, float x, float y) {
+                            chiamante.cambiaPokemon(index);
+                            clearInventoryItems();
+                        }
+                    });
+                }
+
                 // Aggiungi un listener all'intero stage per rilevare clic in punti diversi dall'immagine
                 stage.addListener(new InputListener() {
                     @Override
                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                         // Rimuovi le immagini "info" e "sposta" quando si clicca in un punto diverso dall'immagine
+                        booleanList.set(index, false);
+                        changeIntoNOTSelected(image, index, hpBar, labelLV, labelHP, labelHPTot, animationImage, animationTexture, fisrtDrawable, normalDrawable);
                         Timer.schedule(new Timer.Task() {
                             @Override
                             public void run() {
                                 infoImage.remove();
-                                spostaImage.remove();
+                                if(!battaglia){
+                                    spostaImage.remove();
+                                }
+                                else {
+                                    cambiaImage.remove();
+                                }
                             }
                         }, 0.3f);
                         // Rimuovi il listener dall'intero stage dopo l'uso
@@ -333,6 +356,7 @@ public class Squadra {
         JsonValue json = new JsonReader().parse(jsonString);
         JsonValue pokeJson = json.get("poke"+numero);
         currentPokeHPforSquad = pokeJson.get("Statistiche").getString("hp");
+        hpList.add(Integer.parseInt(currentPokeHPforSquad));
         maxPokeHPforSquad = pokeJson.get("Statistiche").getString("hpTot");
         nomePokeSquad = pokeJson.getString("nomePokemon");
         LVPoke = pokeJson.getString("livello");
@@ -399,5 +423,36 @@ public class Squadra {
         return hpBar;
     }
 
+
+    public void changeIntoSelected(Image image, TextureRegionDrawable selectedDrawable, int index, Image hpBar, Label labelLV, Label labelHP, Label labelHPTot){
+        image.setDrawable(selectedDrawable);
+        image.setSize(126*3, 49*3);
+        isCursorInside = true;
+        controllo.set(index,true);
+        hpBar.setPosition(image.getX()+63*3-1, image.getY()+19*3);
+        
+    }
+
+
+    public void changeIntoNOTSelected(Image image, int index, Image hpBar, Label labelLV, Label labelHP, Label labelHPTot, Image animationImage, Texture animationTexture, TextureRegionDrawable fisrtDrawable, TextureRegionDrawable normalDrawable){
+        // Se è il primo elemento, reimposta la texture normale
+        if (index == 0) {
+            image.setDrawable(fisrtDrawable);
+        } else {
+            image.setDrawable(normalDrawable);
+        }
+        image.setSize(126*3, 45*3);
+        isCursorInside = false;
+        controllo.set(index,false);
+        //ferma animazione
+        TextureRegion newRegion = new TextureRegion(animationTexture, 0, 0, animationTexture.getWidth() / 2, animationTexture.getHeight());
+        animationImage.setDrawable(new TextureRegionDrawable(newRegion));
+        hpBar.setPosition(image.getX()+63*3, image.getY()+18*3);
+    }
+
+
+    public void spostaPoke(int index1){
+        
+    }
 
 }

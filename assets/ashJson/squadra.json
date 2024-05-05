@@ -5,7 +5,7 @@
       "statistiche": {
         "hp": 400,
         "hpTot": 400,
-        "attack": 55,
+        "attack": 300,
         "defense": 40,
         "special_attack": 50,
         "special_defense": 50,
@@ -34,8 +34,7 @@
         "mosse": [
           {"nome": "Tuonopugno", "tipo": "Elettro","ppTot": 5,"ppAtt": 5},
           {"nome": "Fulmine", "tipo": "Elettro","ppTot": 5,"ppAtt": 5},
-          {"nome": "Scintilla", "tipo": "Elettro","ppTot": 5,"ppAtt": 5},
-          {"nome": "Tuononda", "tipo": "Elettro","ppTot": 5,"ppAtt": 5}
+          {"nome": "Scintilla", "tipo": "Elettro","ppTot": 5,"ppAtt": 5}
         ],
         "tipoBall": "pokeBall"
       },
@@ -55,7 +54,7 @@
           {"nome": "Tuonopugno", "tipo": "Elettro","ppTot": 5,"ppAtt": 5},
           {"nome": "Fulmine", "tipo": "Elettro","ppTot": 5,"ppAtt": 5},
           {"nome": "Scintilla", "tipo": "Elettro","ppTot": 5,"ppAtt": 5},
-          {"nome": "Tuononda", "tipo": "Elettro","ppTot": 5,"ppAtt": 5}
+          {"nome": "Surf", "tipo": "Acqua","ppTot": 5,"ppAtt": 5}
         ],
         "tipoBall": "pokeBall"
       },
@@ -73,9 +72,7 @@
         },
         "mosse": [
           {"nome": "Tuonopugno", "tipo": "Elettro","ppTot": 5,"ppAtt": 5},
-          {"nome": "Fulmine", "tipo": "Elettro","ppTot": 5,"ppAtt": 5},
-          {"nome": "Scintilla", "tipo": "Elettro","ppTot": 5,"ppAtt": 5},
-          {"nome": "Tuononda", "tipo": "Elettro","ppTot": 5,"ppAtt": 5}
+          {"nome": "Gigaimpatto", "tipo": "Normale","ppTot": 5,"ppAtt": 5}
         ],
         "tipoBall": "pokeBall"
       },
@@ -95,7 +92,7 @@
           {"nome": "Tuonopugno", "tipo": "Elettro","ppTot": 5,"ppAtt": 5},
           {"nome": "Fulmine", "tipo": "Elettro","ppTot": 5,"ppAtt": 5},
           {"nome": "Scintilla", "tipo": "Elettro","ppTot": 5,"ppAtt": 5},
-          {"nome": "Tuononda", "tipo": "Elettro","ppTot": 5,"ppAtt": 5}
+          {"nome": "Lanciafiamme", "tipo": "Fuoco","ppTot": 5,"ppAtt": 5}
         ],
         "tipoBall": "pokeBall"
       },

@@ -32,7 +32,7 @@
     },
     "Comete": {
       "potenza": 60,
-      "precisione": 110,
+      "precisione": 100,
       "pp": 20,
       "attacco": "speciale"
     },
@@ -62,7 +62,7 @@
     },
     "Idropulsar": {
       "potenza": 60,
-      "precisione": 110,
+      "precisione": 100,
       "pp": 15,
       "attacco": "speciale"
     },
@@ -110,7 +110,7 @@
     },
     "Fogliamagica": {
       "potenza": 60,
-      "precisione": 110,
+      "precisione": 100,
       "pp": 20,
       "attacco": "speciale"
     },
@@ -429,7 +429,7 @@
     },
     "Sottilcorno": {
       "potenza": 70,
-      "precisione": 110,
+      "precisione": 100,
       "pp": 10,
       "attacco": "fisico"
     },
@@ -537,7 +537,7 @@
     },
     "Aereoassalto": {
       "potenza": 60,
-      "precisione": 110,
+      "precisione": 100,
       "pp": 15,
       "attacco": "fisico"
     },
@@ -626,8 +626,8 @@
       "attacco": "speciale"
     },
     "Oscurotuffo": {
-      "potenza": 150,
-      "precisione": 110,
+      "potenza": 160,
+      "precisione": 100,
       "pp": 5,
       "attacco": "fisico"
     },
@@ -663,7 +663,7 @@
     },
     "Pugno d'ombra": {
       "potenza": 60,
-      "precisione": 110,
+      "precisione": 100,
       "pp": 15,
       "attacco": "fisico"
     },
@@ -687,7 +687,7 @@
     },
     "Forzasfera": {
       "potenza": 80,
-      "precisione": 110,
+      "precisione": 100,
       "pp": 20,
       "attacco": "speciale"
     },
