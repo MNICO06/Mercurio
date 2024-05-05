@@ -34,6 +34,9 @@ public class FullMap extends ScreenAdapter{
     private OrthographicCamera camera;
     private Vector2 map_size;
     private MapLayer lineeLayer;
+    private MapLayer alberiBack;
+    private MapLayer alberiFore;
+    private MapLayer divAlberi;
 
     //rettangolo con la lista delle persone che collidono
     private ArrayList<Rectangle> rectList = null;
@@ -108,6 +111,9 @@ public class FullMap extends ScreenAdapter{
     @Override
     public void render(float delta) {
         lineeLayer = game.getLineeLayer();
+        alberiBack = game.getAlberiBack();
+        alberiFore = game.getAlberiFore();
+        divAlberi = game.getDivAlberi();
         cambiaProfondita(lineeLayer);
         teleport();
         checkLuogo();
@@ -151,11 +157,11 @@ public class FullMap extends ScreenAdapter{
         background.add("Livello tile deco");
         background.add("Livello tile piantine");
 
-        background.add("AlberiCima");
-        background.add("FixingLayer1");
-        background.add("AlberiFondo");
-        background.add("FixingLayer2");
-        background.add("AlberiMezzo");
+        foreground.add("AlberiCima");
+        foreground.add("FixingLayer1");
+        foreground.add("AlberiFondo");
+        foreground.add("FixingLayer2");
+        foreground.add("AlberiMezzo");
         
         //background.add("");
 
@@ -171,12 +177,11 @@ public class FullMap extends ScreenAdapter{
                     background.add(layerName);
                 }
 
-                else if (y<0 && y > -250 && x > -500 && x < 500) {
+                else if (y < 0 && y > -250 && x > -500 && x < 500) {
                     foreground.add(layerName);
                 }
             }
         }
-
 
         //stessa cosa che faccio con i layer ma con la lista dei bot
         for (Bot bot : botList) {
@@ -187,6 +192,53 @@ public class FullMap extends ScreenAdapter{
                 botListFore.add(bot);
             }
             
+        }
+
+        //metodi controllo alberi
+        for (MapObject obj : alberiBack.getObjects()){
+            if (obj instanceof RectangleMapObject){
+                RectangleMapObject lineObj = (RectangleMapObject)obj;
+
+                y = lineObj.getRectangle().getY() - game.getPlayer().getPlayerPosition().y;
+                x = lineObj.getRectangle().getX() - game.getPlayer().getPlayerPosition().x;
+
+                if (y < 0 && y > -250 && x > -500 && x < 500) {
+                    foreground.remove("AlberiCima");
+                    foreground.remove("FixingLayer1");
+                    foreground.remove("AlberiFondo");
+                    foreground.remove("FixingLayer2");
+                    foreground.remove("AlberiMezzo");
+                    
+                    background.add("AlberiCima");
+                    background.add("FixingLayer1");
+                    background.add("AlberiFondo");
+                    background.add("FixingLayer2");
+                    background.add("AlberiMezzo");
+                }
+            }
+        }
+
+        for (MapObject obj : alberiFore.getObjects()){
+            if (obj instanceof RectangleMapObject){
+                RectangleMapObject lineObj = (RectangleMapObject)obj;
+
+                y = lineObj.getRectangle().getY() - game.getPlayer().getPlayerPosition().y;
+                x = lineObj.getRectangle().getX() - game.getPlayer().getPlayerPosition().x;
+
+                if (y < 0 && y > -250 && x > -500 && x < 500) {
+                    background.remove("AlberiCima");
+                    background.remove("FixingLayer1");
+                    background.remove("AlberiFondo");
+                    background.remove("FixingLayer2");
+                    background.remove("AlberiMezzo");
+                    
+                    foreground.add("AlberiCima");
+                    foreground.add("FixingLayer1");
+                    foreground.add("AlberiFondo");
+                    foreground.add("FixingLayer2");
+                    foreground.add("AlberiMezzo");
+                }
+            }
         }
 
         //background
@@ -212,7 +264,6 @@ public class FullMap extends ScreenAdapter{
         for (Bot bot : botListFore) {
             game.renderPersonaggiSecondari(bot.getCurrentAnimation(),bot.getPosition().x, bot.getPosition().y, bot.getWidth(), bot.getHeight());
         }
-
     }
 
 
