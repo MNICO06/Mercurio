@@ -68,6 +68,7 @@ public class CasaSpawn extends ScreenAdapter {
     public void show() {
 
         game.setLuogo("casaSpawn");
+        game.getMusica().startMusic("casaSpawn");
 
         //timer da usare dopo per far girare la mamma sui fornelli
         timer = new Timer();

@@ -111,6 +111,8 @@ public class MercurioMain extends Game{
             if (map != null) {
                 erba.controllaPokemon(map);
             }
+
+            musica.startMusic(luogo);
         }
     }
 
@@ -172,6 +174,7 @@ public class MercurioMain extends Game{
 
             case Constant.CASA_ASH_SCREEN:
                 newScreen = new CasaSpawn(this);
+                luogo = "casaSpawn";
                 screen_id = 1;
                 break;
 
