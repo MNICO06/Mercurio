@@ -34,6 +34,9 @@ public class FullMap extends ScreenAdapter{
     private OrthographicCamera camera;
     private Vector2 map_size;
     private MapLayer lineeLayer;
+    private MapLayer alberiBack;
+    private MapLayer alberiFore;
+    private MapLayer divAlberi;
 
     //rettangolo con la lista delle persone che collidono
     private ArrayList<Rectangle> rectList = null;
@@ -45,14 +48,15 @@ public class FullMap extends ScreenAdapter{
     private Stage stage;
 
     private Timer timer;
+    private float stateTime;
 
     //quando entra la mette a true e fino a quando non termina la battaglia rimane a true, quando termina la battaglia viene rimessa
     //a false e viene salvato il dato sul json e anche sul bot. (momentaneamente poi non funziona più)
     private boolean inEsecuzione = false;
 
     private boolean faiMuovereBot = false;
-    
 
+    private boolean isChanging = false;
 
     //---------------------------CLASSE DENTRO CLASSE PER LA TASK-------------------------------------------------
     private class MyTimerTask extends TimerTask {
@@ -102,15 +106,28 @@ public class FullMap extends ScreenAdapter{
         setPositionBot();
 
         game.setMap(mappa, tileRenderer, camera, map_size.x, map_size.y);
+
+        stateTime = 0f;
     }
 
     @Override
     public void render(float delta) {
         lineeLayer = game.getLineeLayer();
+        alberiBack = game.getAlberiBack();
+        alberiFore = game.getAlberiFore();
+        divAlberi = game.getDivAlberi();
         cambiaProfondita(lineeLayer);
-        teleport();
+
         checkLuogo();
+        teleport();
+        
         game.setRectangleList(rectList);
+        
+        /*
+        for (Bot bot : botList) {
+            bot.updateStateTime(stateTime);
+        }
+        */
 
         //System.out.println(inEsecuzione);
         //controlla presenza bot solo se è nei percorsi
@@ -144,11 +161,11 @@ public class FullMap extends ScreenAdapter{
         background.add("Livello tile deco");
         background.add("Livello tile piantine");
 
-        background.add("AlberiCima");
-        background.add("FixingLayer1");
-        background.add("AlberiFondo");
-        background.add("FixingLayer2");
-        background.add("AlberiMezzo");
+        foreground.add("AlberiCima");
+        foreground.add("FixingLayer1");
+        foreground.add("AlberiFondo");
+        foreground.add("FixingLayer2");
+        foreground.add("AlberiMezzo");
         
         //background.add("");
 
@@ -164,12 +181,11 @@ public class FullMap extends ScreenAdapter{
                     background.add(layerName);
                 }
 
-                else if (y<0 && y > -250 && x > -500 && x < 500) {
+                else if (y < 0 && y > -250 && x > -500 && x < 500) {
                     foreground.add(layerName);
                 }
             }
         }
-
 
         //stessa cosa che faccio con i layer ma con la lista dei bot
         for (Bot bot : botList) {
@@ -180,6 +196,53 @@ public class FullMap extends ScreenAdapter{
                 botListFore.add(bot);
             }
             
+        }
+
+        //metodi controllo alberi
+        for (MapObject obj : alberiBack.getObjects()){
+            if (obj instanceof RectangleMapObject){
+                RectangleMapObject lineObj = (RectangleMapObject)obj;
+
+                y = lineObj.getRectangle().getY() - game.getPlayer().getPlayerPosition().y;
+                x = lineObj.getRectangle().getX() - game.getPlayer().getPlayerPosition().x;
+
+                if (y < 0 && y > -250 && x > -500 && x < 500) {
+                    foreground.remove("AlberiCima");
+                    foreground.remove("FixingLayer1");
+                    foreground.remove("AlberiFondo");
+                    foreground.remove("FixingLayer2");
+                    foreground.remove("AlberiMezzo");
+                    
+                    background.add("AlberiCima");
+                    background.add("FixingLayer1");
+                    background.add("AlberiFondo");
+                    background.add("FixingLayer2");
+                    background.add("AlberiMezzo");
+                }
+            }
+        }
+
+        for (MapObject obj : alberiFore.getObjects()){
+            if (obj instanceof RectangleMapObject){
+                RectangleMapObject lineObj = (RectangleMapObject)obj;
+
+                y = lineObj.getRectangle().getY() - game.getPlayer().getPlayerPosition().y;
+                x = lineObj.getRectangle().getX() - game.getPlayer().getPlayerPosition().x;
+
+                if (y < 0 && y > -250 && x > -500 && x < 500) {
+                    background.remove("AlberiCima");
+                    background.remove("FixingLayer1");
+                    background.remove("AlberiFondo");
+                    background.remove("FixingLayer2");
+                    background.remove("AlberiMezzo");
+                    
+                    foreground.add("AlberiCima");
+                    foreground.add("FixingLayer1");
+                    foreground.add("AlberiFondo");
+                    foreground.add("FixingLayer2");
+                    foreground.add("AlberiMezzo");
+                }
+            }
         }
 
         //background
@@ -205,7 +268,6 @@ public class FullMap extends ScreenAdapter{
         for (Bot bot : botListFore) {
             game.renderPersonaggiSecondari(bot.getCurrentAnimation(),bot.getPosition().x, bot.getPosition().y, bot.getWidth(), bot.getHeight());
         }
-
     }
 
 
@@ -264,6 +326,10 @@ public class FullMap extends ScreenAdapter{
             if (checkOverlaps(bot)) {
                 giraPlayer(bot);
                 triggerBot(bot);
+
+                stateTime += Gdx.graphics.getDeltaTime();
+                bot.updateStateTime(stateTime);
+
                 game.getPlayer().setMovement(false);
                 MyTimerTask myTimerTask = new MyTimerTask(bot);
                 timer.schedule(myTimerTask, 2000);
@@ -277,20 +343,24 @@ public class FullMap extends ScreenAdapter{
     //metodo che fa muovere il bot verso il player e per disegnare il punto esclamativo
     private void triggerBot(Bot bot) {
 
-        if (puntoEsclamativoImage!=null){
+        if (puntoEsclamativoImage != null) {
             puntoEsclamativoImage.remove();
         }
-        Texture puntoEsclamativo = new Texture("bots/ExlMark.png");
-        puntoEsclamativoImage = new Image(puntoEsclamativo);
-        puntoEsclamativoImage.setSize(48,48);
-        Vector3 botPosition = new Vector3(bot.getPosition().x, bot.getPosition().y,0);
-        Vector3 screenCoords = camera.project(botPosition);
 
-        // Imposta la posizione di puntoEsclamativoImage sulla schermata
-        puntoEsclamativoImage.setPosition(screenCoords.x+bot.getPuntoX(), screenCoords.y+bot.getPuntoY());
-        puntoEsclamativoImage.toFront();
-        puntoEsclamativoImage.setName("puntoEsclamativoImage"); 
-        stage.addActor(puntoEsclamativoImage);
+        if (faiMuovereBot == false) {
+            Texture puntoEsclamativo = new Texture("bots/ExlMark.png");
+            puntoEsclamativoImage = new Image(puntoEsclamativo);
+            puntoEsclamativoImage.setSize(48,48);
+            Vector3 botPosition = new Vector3(bot.getPosition().x, bot.getPosition().y,0);
+            Vector3 screenCoords = camera.project(botPosition);
+
+            // Imposta la posizione di puntoEsclamativoImage sulla schermata
+            puntoEsclamativoImage.setPosition(screenCoords.x+bot.getPuntoX(), screenCoords.y+bot.getPuntoY());
+            puntoEsclamativoImage.toFront();
+            puntoEsclamativoImage.setName("puntoEsclamativoImage"); 
+            stage.addActor(puntoEsclamativoImage);
+        }
+        
     }
 
     //metodo che gira il player verso il bot
@@ -329,21 +399,28 @@ public class FullMap extends ScreenAdapter{
         float tot;
         switch (bot.getDirezione()) {
             case "-y":
+                
                 bot.setCamminaIndietro();
+
                 tot = bot.getPosition().y - game.getPlayer().getPlayerPosition().y;
                 if (tot > 15) {
                     bot.setY(bot.getPosition().y - 40f * Gdx.graphics.getDeltaTime());
                 }
                 else {
                     faiMuovereBot = false;
+
+                    //da mettere a false alla fine della battaglia
                     inEsecuzione = true;
+
+                    bot.setFermoIndietro();
+                    bot.setPosition(bot.getXbase(), bot.getYbase());
                 }
                 break;
-            
+                
             case "y":
-            
+                
                 break;
-
+                
             case "-x":
             
                 break;
@@ -427,6 +504,8 @@ public class FullMap extends ScreenAdapter{
                         //se il rettangolo di posizione si chiama così allora mi salvo come bot di tipo TeenagerM nella lista
                         TeenagerM bot = new TeenagerM();
                         bot.setPosition(rect.getX(),rect.getY());
+                        bot.setXbase(rect.getX());
+                        bot.setYbase(rect.getY());
 
                         //ciclo per andare a controllare se la proprietà stringa check è uguale a quella del rettangolo per fermare il bot
                         //se si faccio un set di quel rettangolo
@@ -453,6 +532,8 @@ public class FullMap extends ScreenAdapter{
                     case "TeenagerF":
                         TeenagerF bot1 = new TeenagerF();
                         bot1.setPosition(rect.getX(),rect.getY());
+                        bot1.setXbase(rect.getX());
+                        bot1.setYbase(rect.getY());
 
                         for (MapObject obj : rettangoliBlocca.getObjects()) {
                             if (obj instanceof RectangleMapObject) {

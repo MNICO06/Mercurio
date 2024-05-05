@@ -43,6 +43,9 @@ public class MercurioMain extends Game{
 
     private MapLayer collisionLayer;
     private MapLayer lineeLayer;
+    private MapLayer alberiBack;
+    private MapLayer alberiFore;
+    private MapLayer divAlberi;
 
     private float elapsedTime = 0;
 
@@ -111,6 +114,7 @@ public class MercurioMain extends Game{
             if (map != null) {
                 erba.controllaPokemon(map);
             }
+
         }
     }
 
@@ -185,6 +189,7 @@ public class MercurioMain extends Game{
 
             case Constant.CASA_ASH_SCREEN:
                 newScreen = new CasaSpawn(this);
+                luogo = "casaSpawn";
                 screen_id = 1;
                 break;
 
@@ -235,6 +240,8 @@ public class MercurioMain extends Game{
         try {
             collisionLayer = map.getLayers().get("collisioni");
             lineeLayer = map.getLayers().get("linee");
+            alberiBack = map.getLayers().get("alberiBack");
+            alberiFore = map.getLayers().get("alberiFore");
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -250,6 +257,27 @@ public class MercurioMain extends Game{
     public Ash getPlayer() {
         if (ash != null) {
             return ash;
+        }
+        return null;
+    }
+
+    public MapLayer getAlberiBack() {
+        if (alberiBack != null) {
+            return alberiBack;
+        }
+        return null;
+    }
+
+    public MapLayer getAlberiFore() {
+        if (alberiFore != null) {
+            return alberiFore;
+        }
+        return null;
+    }
+
+    public MapLayer getDivAlberi() {
+        if (divAlberi != null){
+            return divAlberi;
         }
         return null;
     }

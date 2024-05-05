@@ -28,10 +28,13 @@ public abstract class Bot {
     protected Rectangle boxPlayer;
     protected Rectangle boxBlocca;
     protected Vector2 characterPosition;
-    protected float camminataFrame_speed;
+    protected float camminataFrame_speed = 10f;
     protected float stateTime;
     protected float xPunto;
     protected float yPunto;
+
+    protected float xBase;
+    protected float yBase;
 
     /* -y = il personaggio si trova sotto
      * y = il personaggio si trova sopra
@@ -101,7 +104,7 @@ public abstract class Bot {
         camminaIndietro = new Animation<>(camminataFrame_speed, indietro);
         
         stateTime = 0f;
-        currentAnimation = fermoIndietro.getKeyFrame(0);
+        currentAnimation = camminaIndietro.getKeyFrame(0);
         characterPosition = new Vector2();
     }
 
@@ -139,35 +142,36 @@ public abstract class Bot {
     }
 
     public void setFermoSinistra() {
-        currentAnimation = fermoSinistra.getKeyFrame(stateTime);
+        currentAnimation = fermoSinistra.getKeyFrame(stateTime, true);
     }
 
     public void setFermoDestra() {
-        currentAnimation = fermoDestra.getKeyFrame(stateTime);
+        currentAnimation = fermoDestra.getKeyFrame(stateTime, true);
     }
 
     public void setFermoAvanti() {
-        currentAnimation = fermoAvanti.getKeyFrame(stateTime);
+        currentAnimation = fermoAvanti.getKeyFrame(stateTime, true);
     }
 
     public void setFermoIndietro() {
-        currentAnimation = fermoIndietro.getKeyFrame(stateTime);
+        currentAnimation = fermoIndietro.getKeyFrame(stateTime, true);
     }
 
     public void setCamminaSinistra() {
-        currentAnimation = camminaSinistra.getKeyFrame(stateTime);
+        currentAnimation = camminaSinistra.getKeyFrame(stateTime, true);
     }
 
     public void setCamminaDestra() {
-        currentAnimation = camminaDestra.getKeyFrame(stateTime);
+        currentAnimation = camminaDestra.getKeyFrame(stateTime, true);
     }
 
     public void setCamminaAvanti() {
-        currentAnimation = camminaAvanti.getKeyFrame(stateTime);
+        currentAnimation = camminaAvanti.getKeyFrame(stateTime, true);
     }
 
     public void setCamminaIndietro() {
-        currentAnimation = camminaIndietro.getKeyFrame(stateTime);
+        
+        currentAnimation = camminaIndietro.getKeyFrame(stateTime, true);
     }
 
     public void setDirezione(String direzione) {
@@ -192,5 +196,29 @@ public abstract class Bot {
 
     public void setY(float y) {
         characterPosition.y = y;
+    }
+
+    public void setXbase(float x) {
+        this.xBase = x;
+    }
+
+    public void setYbase(float y) {
+        this.yBase = y;
+    }
+
+    public float getXbase() {
+        return xBase;
+    }
+
+    public float getYbase() {
+        return yBase;
+    }
+
+    public void updateStateTime(float delta) {
+        stateTime += delta;
+    }
+
+    public float getStateTime() {
+        return stateTime;
     }
 }
