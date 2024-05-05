@@ -64,6 +64,8 @@ public class MercurioMain extends Game{
     private String luogo;
 
     private boolean isInMovement = false;
+
+    private String ingressoPokeCenter;
     
     @Override
     public void create() {
@@ -193,17 +195,19 @@ public class MercurioMain extends Game{
                 screen_id = 1;
                 break;
 
-                case Constant.CENTRO_POKEMON_SCREEN:
+            case Constant.CENTRO_POKEMON_CAPITALE_SCREEN:
                 newScreen = new PokeCenter(this);
                 screen_id = 2;
+                luogo = "pokeCenter";
+                ingressoPokeCenter = "uscitaPokeCenterC";
                 break;
 
-                case Constant.MAPPA_SCREEN:
+            case Constant.MAPPA_SCREEN:
                 newScreen = new FullMap(this, mappa);
                 screen_id = 3;
                 break;
 
-                case Constant.SCHERMATA_LOGO:
+            case Constant.SCHERMATA_LOGO:
                 newScreen = new SchermataLogo(this);
                 setPage(Constant.MENU_SCREEN);
                 break;
@@ -310,5 +314,13 @@ public class MercurioMain extends Game{
 
     public Musica getMusica () {
         return musica;
+    }
+
+    public String getIngressoPokeCenter() {
+        return ingressoPokeCenter;
+    }
+
+    public void setIngressoPokeCenter(String ingressoPokeCenter) {
+        this.ingressoPokeCenter = ingressoPokeCenter;
     }
 }

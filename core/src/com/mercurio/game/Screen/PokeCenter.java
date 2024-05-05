@@ -51,7 +51,7 @@ public class PokeCenter extends ScreenAdapter {
 
         game.setMap(pokeCenterMap, tileRenderer, camera, map_size.x, map_size.y);
 
-        game.setLuogo("pokeCenter");
+        setPosition();
     }
 
     @Override
@@ -60,6 +60,7 @@ public class PokeCenter extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         lineeLayer = game.getLineeLayer();
         cambiaProfondita(lineeLayer);
+        esci();
     }
 
     private void cambiaProfondita(MapLayer lineeLayer) {
@@ -113,17 +114,27 @@ public class PokeCenter extends ScreenAdapter {
         tileRenderer.getBatch().end();
     }
 
-    //controlla la collisione con la porta per uscire dalla casa
-    private void controllaCollisionePorta() {
-
+    public void setPosition() {
+        MapLayer layerTeleport = pokeCenterMap.getLayers().get("teleport");
+        MapObject obj = layerTeleport.getObjects().get("entra");
+        if (obj instanceof RectangleMapObject) {
+            RectangleMapObject rectObject = (RectangleMapObject) obj;
+            Rectangle rect = rectObject.getRectangle();
+            game.getPlayer().setPosition(rect.getX(), rect.getY());
+        }
     }
 
-    private void controllaInterazioneCura() {
-
-    }
-
-    private void controllaInterazioneBox() {
-
+    public void esci() {
+        MapLayer layerTeleport = pokeCenterMap.getLayers().get("exit");
+        MapObject obj = layerTeleport.getObjects().get("uscita");
+        if (obj instanceof RectangleMapObject) {
+            RectangleMapObject rectObject = (RectangleMapObject) obj;
+            Rectangle rect = rectObject.getRectangle();
+            if (game.getPlayer().getBoxPlayer().overlaps(rect)) {
+                game.setTeleport(game.getIngressoPokeCenter());
+                game.setPage(Constant.MAPPA_SCREEN);
+            }
+        }
     }
 
     @Override
