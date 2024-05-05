@@ -156,8 +156,16 @@ public class Battle extends ScreenAdapter {
     private MenuLabel chiamante;
     private int numeroIndexPokeBot;
     private int numeroIndexPoke=1;
+    private String nameBot;
+    private Battle battle=this;
+    private Label labelNomePokemon;
+    private Label labelLV;
+    private Label labelHP;
+    private Label labelHPTot;
+    private boolean switched=false;
 
-    public Battle(MenuLabel chiamante) {
+    public Battle(MenuLabel chiamante, String nameBot) {
+        this.nameBot=nameBot;
         checkInt=0;
         numeroIndexPokeBot=1;
         this.chiamante = chiamante;
@@ -167,8 +175,8 @@ public class Battle extends ScreenAdapter {
         Gdx.input.setInputProcessor(stage);
         dimMax=200;
         leggiPoke(numeroIndexPoke);
-        leggiBot(1);
-        leggiPokeBot(1,numeroIndexPokeBot);
+        leggiBot(nameBot);
+        leggiPokeBot(nameBot,numeroIndexPokeBot);
         ballTexture = new Texture("battle/"+nomeBall+"Player.png");
 
         String discorso1= "Parte la sfida di "+nomeBot+" ("+tipoBot+")"+"!";
@@ -395,6 +403,7 @@ public class Battle extends ScreenAdapter {
             }
             if (lanciato==1){
                 showBall(ballTexture);
+                showBallBot();
             }
             if (label2!=null){
                 labelDiscorsi2.renderDisc();
@@ -492,7 +501,9 @@ public class Battle extends ScreenAdapter {
                         @Override
                         public void run() {
                             label2.remove();
-                            createFightLabels();
+                            if (!switched){
+                                createFightLabels();
+                            }
                         }
                     }, 2f);
                     this.cancel(); // Interrompi il Timer.Task
@@ -501,7 +512,6 @@ public class Battle extends ScreenAdapter {
             }
         }, 0, Gdx.graphics.getDeltaTime());
 
-        showBallBot();
     }
     
 
@@ -609,7 +619,7 @@ public class Battle extends ScreenAdapter {
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
-                        squadra = new Squadra(stage,true);
+                        squadra = new Squadra(stage,true, battle);
                     }
                 }, 0.3f);
             }
@@ -656,6 +666,14 @@ public class Battle extends ScreenAdapter {
             }
         });
 
+        
+
+        piazzaLabelLottaPlayer();
+        piazzaLabelLottaPerBot();
+    }
+
+    private void piazzaLabelLottaPlayer(){
+
         //e ora piazza le hp Bar
         Texture imageHPPlayer = new Texture("battle/playerHPBar.png");
         playerHPBar = new Image(imageHPPlayer);
@@ -674,6 +692,52 @@ public class Battle extends ScreenAdapter {
             }
         }, 0.51f);
 
+        labelNomePokemon = new Label(nomePoke, new Label.LabelStyle(font, null));
+        labelNomePokemon.setPosition(playerHPBar.getX()+55,playerHPBar.getY()+50); // Posiziona la label accanto all'immagine della mossa
+        labelNomePokemon.setFontScale(1f);
+        stage.addActor(labelNomePokemon);
+        labelNomeHPBars.add(labelNomePokemon);
+
+        Action moveActionNomePoke = Actions.moveTo(1024-256+55, playerHPBar.getY()+50, 0.5f);
+        // Applica l'azione all'immagine
+        labelNomePokemon.addAction(moveActionNomePoke);
+
+
+        labelLV = new Label(LVPoke, new Label.LabelStyle(font, null));
+        labelLV.setPosition(labelNomePokemon.getX(),labelNomePokemon.getY()); // Posiziona la label accanto all'immagine della mossa
+        labelLV.setFontScale(1f);
+        stage.addActor(labelLV);
+        labelNomeHPBars.add(labelLV);
+
+        Action moveActionLV= Actions.moveTo(1024-256+210, labelNomePokemon.getY(), 0.5f);
+        // Applica l'azione all'immagine
+        labelLV.addAction(moveActionLV);
+
+
+        labelHP= new Label(currentPokeHP, new Label.LabelStyle(font, null));
+        labelHP.setPosition(1024,149); // Posiziona la label accanto all'immagine della mossa
+        labelHP.setFontScale(0.8f);
+        stage.addActor(labelHP);
+        labelNomeHPBars.add(labelHP);
+
+        Action moveActionHP= Actions.moveTo(1024-110,149, 0.5f);
+        // Applica l'azione all'immagine
+        labelHP.addAction(moveActionHP);
+
+
+        labelHPTot= new Label(maxPokeHP, new Label.LabelStyle(font, null));
+        labelHPTot.setPosition(1024,149); // Posiziona la label accanto all'immagine della mossa
+        labelHPTot.setFontScale(0.8f);
+        stage.addActor(labelHPTot);
+        labelNomeHPBars.add(labelHPTot);
+
+        Action moveActionHPTot= Actions.moveTo(1024-55,149, 0.5f);
+        // Applica l'azione all'immagine
+        labelHPTot.addAction(moveActionHPTot);
+    }
+
+    private void piazzaLabelLottaPerBot(){
+        
         //e ora piazza le hp Bar
         Texture imageHPBot = new Texture("battle/botHPBar.png");
         botHPBar = new Image(imageHPBot);
@@ -691,56 +755,8 @@ public class Battle extends ScreenAdapter {
                 HPbot=placeHpBar(botHPBar,100,16,currentPokeHPBot,maxPokeHPBot); 
             }
         }, 0.51f);
+        
 
-
-        Label labelNomePokemon = new Label(nomePoke, new Label.LabelStyle(font, null));
-        labelNomePokemon.setPosition(playerHPBar.getX()+55,playerHPBar.getY()+50); // Posiziona la label accanto all'immagine della mossa
-        labelNomePokemon.setFontScale(1f);
-        stage.addActor(labelNomePokemon);
-        labelNomeHPBars.add(labelNomePokemon);
-
-        Action moveActionNomePoke = Actions.moveTo(1024-256+55, playerHPBar.getY()+50, 0.5f);
-        // Applica l'azione all'immagine
-        labelNomePokemon.addAction(moveActionNomePoke);
-
-
-        Label labelLV = new Label(LVPoke, new Label.LabelStyle(font, null));
-        labelLV.setPosition(labelNomePokemon.getX(),labelNomePokemon.getY()); // Posiziona la label accanto all'immagine della mossa
-        labelLV.setFontScale(1f);
-        stage.addActor(labelLV);
-        labelNomeHPBars.add(labelLV);
-
-        Action moveActionLV= Actions.moveTo(1024-256+210, labelNomePokemon.getY(), 0.5f);
-        // Applica l'azione all'immagine
-        labelLV.addAction(moveActionLV);
-
-
-        Label labelHP= new Label(currentPokeHP, new Label.LabelStyle(font, null));
-        labelHP.setPosition(1024,149); // Posiziona la label accanto all'immagine della mossa
-        labelHP.setFontScale(0.8f);
-        stage.addActor(labelHP);
-        labelNomeHPBars.add(labelHP);
-
-        Action moveActionHP= Actions.moveTo(1024-110,149, 0.5f);
-        // Applica l'azione all'immagine
-        labelHP.addAction(moveActionHP);
-
-
-        Label labelHPTot= new Label(maxPokeHP, new Label.LabelStyle(font, null));
-        labelHPTot.setPosition(1024,149); // Posiziona la label accanto all'immagine della mossa
-        labelHPTot.setFontScale(0.8f);
-        stage.addActor(labelHPTot);
-        labelNomeHPBars.add(labelHPTot);
-
-        Action moveActionHPTot= Actions.moveTo(1024-55,149, 0.5f);
-        // Applica l'azione all'immagine
-        labelHPTot.addAction(moveActionHPTot);
-
-
-        piazzaLabelLottaPerBot();
-    }
-
-    private void piazzaLabelLottaPerBot(){
         labelNomePokemonBot = new Label(nomePokeBot, new Label.LabelStyle(font, null));
         labelNomePokemonBot.setPosition(-300,botHPBar.getY()+27); // Posiziona la label accanto all'immagine della mossa
         labelNomePokemonBot.setFontScale(1f);
@@ -1210,19 +1226,19 @@ public class Battle extends ScreenAdapter {
 
 
 
-    private void leggiBot(int numero){
+    private void leggiBot(String nameBot){
         FileHandle file = Gdx.files.internal("bots/bots.json");
         String jsonString = file.readString();
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
-        JsonValue pokeJson = json.get("bot"+numero);
+        JsonValue pokeJson = json.get(nameBot);
         nomeBot = pokeJson.getString("nome");
         tipoBot = pokeJson.getString("tipo");
         soldiPresi = pokeJson.getString("soldi");
 
     }
 
-    private void leggiPokeBot(int numero, int numeroPoke) {
+    private void leggiPokeBot(String nBot, int numeroPoke) {
         // Carica il file JSON
         FileHandle file = Gdx.files.internal("bots/bots.json");
         String jsonString = file.readString();
@@ -1230,7 +1246,7 @@ public class Battle extends ScreenAdapter {
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
 
-            JsonValue pokeJson = json.get("bot"+numero).get("poke"+numeroPoke);
+            JsonValue pokeJson = json.get(nBot).get("poke"+numeroPoke);
             nomePokeBot = pokeJson.getString("nomePokemon");
             LVPokeBot = pokeJson.getString("livello");
 
@@ -1253,7 +1269,7 @@ public class Battle extends ScreenAdapter {
             if (currentPokeHPBot.equals("0") || nomePokeBot.equals("")){
                 if (numeroIndexPokeBot<6){
                     numeroIndexPokeBot++;
-                    leggiPokeBot(1,numeroIndexPokeBot);
+                    leggiPokeBot(nBot,numeroIndexPokeBot);
                 }
                 else if(numeroIndexPokeBot==6){
                     fineBattaglia();
@@ -1472,7 +1488,7 @@ public class Battle extends ScreenAdapter {
                 if (numeroIndexPokeBot<6 && Integer.parseInt(currentPokeHPBot)==0){
                     numeroIndexPokeBot++;
                     rimuoviPokeDaBattagliaBot();
-                    leggiPokeBot(1,numeroIndexPokeBot);
+                    leggiPokeBot(nameBot,numeroIndexPokeBot);
                     if (!isBattleEnded){
                     piazzaLabelLottaPerBot();
                     checkInt--;
@@ -1575,6 +1591,7 @@ public class Battle extends ScreenAdapter {
 
 
     public void rimuoviPokeDaBattagliaBot(){
+        botHPBar.remove();
         HPbot.remove();
         // Rimuovi labelNomePokemonBot
         labelNomeHPBars.remove(labelNomePokemonBot);
@@ -1585,10 +1602,26 @@ public class Battle extends ScreenAdapter {
         labelLVBot.remove();
     }
 
+    public void rimuoviPokeDaBattaglia(){
+        playerHPBar.remove();
+        HPplayer.remove();
+
+        labelNomeHPBars.remove(labelNomePokemon);
+        labelNomePokemon.remove();
+
+        labelNomeHPBars.remove(labelLV);
+        labelLV.remove();
+
+        labelNomeHPBars.remove(labelHP);
+        labelHP.remove();
+
+        labelNomeHPBars.remove(labelHPTot);
+        labelHPTot.remove();
+    }
+
 
 
     private void fineBattaglia(){
-        System.out.println("a");
         isBattleEnded= true;
 
         label3=labelDiscorsi3.getLabel();
@@ -1615,5 +1648,20 @@ public class Battle extends ScreenAdapter {
         }, 2f);
 
     }
+
+
+    public void cambiaPokemon(int newIndex){
+        switched=true;
+        rimuoviPokeDaBattaglia();
+        listaMosse.clear();
+        leggiPoke(newIndex+1);
+        ballTexture = new Texture("battle/"+nomeBall+"Player.png");
+        String discorso2= "Vai "+ nomePoke + "!";
+        labelDiscorsi2 = new LabelDiscorsi(discorso2,dimMax,0,true);
+        pokemonImage.remove();
+        showBall(ballTexture);
+        piazzaLabelLottaPlayer();
+    }
+
 
 } //Fine battaglia :)

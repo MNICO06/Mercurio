@@ -6,11 +6,13 @@ import java.util.HashMap;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -18,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
@@ -25,19 +28,26 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class infoPoke {
 
+    HashMap<String, Integer> indiciStatistiche = new HashMap<>();
     private String nomePoke;
     private String LVPoke;
     private String maxPokeHP;
     private String currentPokeHP;
     private String nomeBall;
     private ArrayList<Mossa> listaMosse = new ArrayList<>();
-     private ArrayList<Integer> statsPlayer = new ArrayList<>();
+     private ArrayList<String> statsPlayer = new ArrayList<>();
     private SpriteBatch batch;
     private BitmapFont font;
     private BitmapFont font2;
     private Stage stage;
     private Array<Actor> infoActors;
     private HashMap<String, Integer> tipoToIndex;
+    private int indexAtt;
+    private int indexDef;
+    private int indexAttSP;
+    private int indexDefSP;
+    private int indexVel;
+
 
     public infoPoke(Stage stage, int numDelPoke) {
         this.stage = stage;
@@ -133,9 +143,12 @@ public class infoPoke {
             nomePoke = pokeJson.getString("nomePokemon");
             LVPoke = pokeJson.getString("livello");
 
+            int indice=0;
             JsonValue statistiche = pokeJson.get("statistiche"); 
             for (JsonValue stat : statistiche) {
-                statsPlayer.add(stat.asInt());
+                statsPlayer.add(stat.asString());
+                indiciStatistiche.put(stat.name, indice);
+                indice++;
             }
 
             maxPokeHP = statistiche.getString("hpTot");
@@ -236,13 +249,6 @@ public class infoPoke {
         }
 
 
-        //HP Tot
-        Label hpTot = new Label(maxPokeHP, new Label.LabelStyle(font2, null));
-        hpTot.setPosition(904,375); 
-        hpTot.setFontScale(2f);
-        stage.addActor(hpTot);
-        infoActors.add(hpTot);
-
 
         //HP Attuali
         int diff=0;
@@ -252,13 +258,139 @@ public class infoPoke {
         else if(Integer.parseInt(currentPokeHP)<=9){
             diff=40;
         }
-        Label hpAtt = new Label(currentPokeHP, new Label.LabelStyle(font2, null));
+        Label hpAtt = new Label(currentPokeHP+"/"+maxPokeHP, new Label.LabelStyle(font2, null));
         hpAtt.setPosition(790+diff,375); 
         hpAtt.setFontScale(2f);
         stage.addActor(hpAtt);
         infoActors.add(hpAtt);
 
 
+        //attacco
+        Label attacco = new Label(statsPlayer.get(indiciStatistiche.get("attack")), new Label.LabelStyle(font2, null));
+        attacco.setPosition(900,285); 
+        attacco.setFontScale(2f);
+        stage.addActor(attacco);
+        infoActors.add(attacco);
+
+
+        //difesa
+        Label difesa = new Label(statsPlayer.get(indiciStatistiche.get("defense")), new Label.LabelStyle(font2, null));
+        difesa.setPosition(900,225); 
+        difesa.setFontScale(2f);
+        stage.addActor(difesa);
+        infoActors.add(difesa);
+
+
+        //attacco speciale
+        Label attaccoSp = new Label(statsPlayer.get(indiciStatistiche.get("special_attack")), new Label.LabelStyle(font2, null));
+        attaccoSp.setPosition(900,165); 
+        attaccoSp.setFontScale(2f);
+        stage.addActor(attaccoSp);
+        infoActors.add(attaccoSp);
+
+
+        //difesa speciale
+        Label difesaSp = new Label(statsPlayer.get(indiciStatistiche.get("special_defense")), new Label.LabelStyle(font2, null));
+        difesaSp.setPosition(900,105); 
+        difesaSp.setFontScale(2f);
+        stage.addActor(difesaSp);
+        infoActors.add(difesaSp);
+
+
+        //velocità
+        Label velocita = new Label(statsPlayer.get(indiciStatistiche.get("speed")), new Label.LabelStyle(font2, null));
+        velocita.setPosition(900,45); 
+        velocita.setFontScale(2f);
+        stage.addActor(velocita);
+        infoActors.add(velocita);
+
+
+        //hpBar
+        placeHpBar(currentPokeHP, maxPokeHP);
+
+        //mosse
+        for(int i=0; i<listaMosse.size(); i++){
+            //tipo mossa
+            String nomeTipo=listaMosse.get(i).getTipo();
+            Integer indexMove = tipoToIndex.get(nomeTipo);
+            Image imageTypeMove = new Image(types[indexMove]);
+            imageTypeMove.setPosition(47, 331-86*i);
+            imageTypeMove.setSize(32*2f, 15*2f);
+            stage.addActor(imageTypeMove);
+            infoActors.add(imageTypeMove);
+
+            //nome mossa
+            Label nomeMossa = new Label(listaMosse.get(i).getNome(), new Label.LabelStyle(font, null));
+            nomeMossa.setPosition(150,343-86*i); 
+            nomeMossa.setFontScale(3.4f);
+            stage.addActor(nomeMossa);
+            infoActors.add(nomeMossa);
+
+
+            FileHandle mosseFile = Gdx.files.internal("pokemon/mosse.json");
+            String mosseJsonString = mosseFile.readString();
+            // Utilizza la classe JsonReader di LibGDX per leggere il file JSON delle mosse
+            JsonValue mosseJson = new JsonReader().parse(mosseJsonString);
+            JsonValue tipoJson = mosseJson.get(listaMosse.get(i).getNome());
+            String tipologiaMossa = tipoJson.getString("attacco");
+
+            //categoria mossa
+            Texture textureCateg = new Texture("squadra/"+tipologiaMossa+".png");
+            Image imageCatMove = new Image(textureCateg);
+            imageCatMove.setPosition(35, 299-86*i);
+            imageCatMove.setSize(32*1.6f, 15*1.6f);
+            stage.addActor(imageCatMove);
+            infoActors.add(imageCatMove);
+
+            //potenza
+            Label potenzaMossa = new Label(tipoJson.getString("potenza"), new Label.LabelStyle(font2, null));
+            potenzaMossa.setPosition(185,297-86*i); 
+            potenzaMossa.setFontScale(1.3f);
+            stage.addActor(potenzaMossa);
+            infoActors.add(potenzaMossa);
+
+            //precizione
+            Label precisioneMossa = new Label(tipoJson.getString("precisione"), new Label.LabelStyle(font2, null));
+            precisioneMossa.setPosition(330,297-86*i); 
+            precisioneMossa.setFontScale(1.3f);
+            stage.addActor(precisioneMossa);
+            infoActors.add(precisioneMossa);
+
+            //pp
+            Label ppMossa = new Label(listaMosse.get(i).getattPP()+"/"+listaMosse.get(i).getmaxPP(), new Label.LabelStyle(font2, null));
+            ppMossa.setPosition(460,297-86*i); 
+            ppMossa.setFontScale(1.3f);
+            stage.addActor(ppMossa);
+            infoActors.add(ppMossa);
+        }
     }
+
+
+    private void placeHpBar(String currentHP, String maxHP){
+        // Calcola la percentuale degli HP attuali rispetto agli HP totali
+        float percentualeHP = Float.parseFloat(currentHP)  / Float.parseFloat(maxHP);
+        float lunghezzaHPBar = 192 * percentualeHP;
+         // Crea e posiziona la hpBar sopra imageHPPlayer con l'offset specificato
+         Image hpBar = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("battle/white_pixel.png"))));
+         hpBar.setSize((int)lunghezzaHPBar, 7);
+         hpBar.setPosition(800, 345);
+         //hpBar.setPosition(400, 400);
+        // Determina il colore della hpBar in base alla percentuale calcolata
+        Color coloreHPBar;
+        if (percentualeHP >= 0.5f) {
+            coloreHPBar = Color.GREEN; // Verde se sopra il 50%
+        } else if (percentualeHP > 0.15f && percentualeHP < 0.5f) {
+            coloreHPBar = Color.YELLOW; // Giallo se tra il 15% e il 50%
+        } else {
+            coloreHPBar = Color.RED; // Rosso se sotto il 15%
+        }
+
+        hpBar.setColor(coloreHPBar);
+        // Aggiungi hpBar allo stage
+        stage.addActor(hpBar);
+        infoActors.add(hpBar);
+    }
+
+
 
 }
