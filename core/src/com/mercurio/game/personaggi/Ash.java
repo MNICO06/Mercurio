@@ -21,6 +21,11 @@ public class Ash {
     private TextureRegion[] sinistra;
     private TextureRegion[] destra;
     private TextureRegion[] avanti;
+    private TextureRegion[] indietroSurf;
+    private TextureRegion[] sinistraSurf;
+    private TextureRegion[] destraSurf;
+    private TextureRegion[] avantiSurf;
+
     private Animation<TextureRegion> characterAnimation;
 
     private TextureRegion currentAnimation;
@@ -32,6 +37,11 @@ public class Ash {
     private Texture textureAvanti;
     private Texture textureDestra;
     private Texture textureSinistra;
+
+    private Texture textureIndietroSurf;
+    private Texture textureAvantiSurf;
+    private Texture textureDestraSurf;
+    private Texture textureSinistraSurf;
 
     private boolean movingLeft = false;
     private boolean movingRight = false;
@@ -46,11 +56,14 @@ public class Ash {
     private float muovi_X = 0;
     private float muovi_Y = 0;
 
+    private boolean inAcqua = false;
+
 
     private MercurioMain game;
 
     private float camminataFrame_speed = 0.14f;
 
+    //camminata
     private Animation<TextureRegion> camminaSinistra;
     private Animation<TextureRegion> camminaDestra;
     private Animation<TextureRegion> camminaAvanti;
@@ -59,6 +72,17 @@ public class Ash {
     private Animation<TextureRegion> fermoDestra;
     private Animation<TextureRegion> fermoAvanti;
     private Animation<TextureRegion> fermoIndietro;
+
+    //surf normale
+    private Animation<TextureRegion> surfSinistra;
+    private Animation<TextureRegion> surfDestra;
+    private Animation<TextureRegion> surfAvanti;
+    private Animation<TextureRegion> surfIndietro;
+    private Animation<TextureRegion> surfSinistraFermo;
+    private Animation<TextureRegion> surfDestraFermo;
+    private Animation<TextureRegion> surfAvantiFermo;
+    private Animation<TextureRegion> surfIndietroFermo;
+
     
 
     private Rectangle boxPlayer;
@@ -104,6 +128,40 @@ public class Ash {
         fermoAvanti = new Animation<>(camminataFrame_speed, avanti[0]);
         fermoIndietro = new Animation<>(camminataFrame_speed, indietro[0]);
 
+
+        //-------------------TEXTURE SURF-------------------------------------------------------
+        sinistraSurf = new TextureRegion[4];
+        destraSurf = new TextureRegion[4];
+        avantiSurf = new TextureRegion[4];
+        indietroSurf = new TextureRegion[4];
+        
+        textureSinistraSurf = new Texture(Gdx.files.internal("player/surf sinistra.png"));
+        textureDestraSurf = new Texture(Gdx.files.internal("player/surf destra.png"));
+        textureAvantiSurf = new Texture(Gdx.files.internal("player/surf avanti.png"));
+        textureIndietroSurf = new Texture(Gdx.files.internal("player/surf indietro.png"));
+        
+        regionWidthInd = textureIndietro.getWidth() / 4;
+        regionHeightInd = textureIndietro.getHeight();
+        regionWidthAv = textureIndietro.getWidth() / 4;
+        regionHeightAv = textureIndietro.getHeight();
+        regionWidthDx = textureDestra.getWidth() / 4;
+        regionHeightDx = textureDestra.getHeight();
+        regionWidthSx = textureSinistra.getWidth() / 4;
+        regionHeightSx = textureSinistra.getHeight();
+
+        for (int i = 0; i < 4; i++) {
+            sinistraSurf[i] = new TextureRegion(textureSinistraSurf, i * regionWidthInd, 0, regionWidthInd, regionHeightInd);
+            destraSurf[i] = new TextureRegion(textureDestra, i * regionWidthDx, 0, regionWidthDx, regionHeightDx);
+            avantiSurf[i] = new TextureRegion(textureAvantiSurf, i * regionWidthSx, 0, regionWidthSx, regionHeightSx);
+            indietroSurf[i] = new TextureRegion(textureIndietroSurf, i * regionWidthAv, 0, regionWidthAv, regionHeightAv);
+        }
+
+        surfSinistra = new Animation<>(camminataFrame_speed, sinistraSurf);
+        surfDestra = new Animation<>(camminataFrame_speed, destraSurf);
+        surfAvanti = new Animation<>(camminataFrame_speed, avantiSurf);
+        surfIndietro = new Animation<>(camminataFrame_speed, indietroSurf);
+
+
         //segnere la posizione del personaggio (poi mettere quella salvata)
         characterPosition= new Vector2(170, 90);
 
@@ -132,7 +190,13 @@ public class Ash {
             movingDown = false;
         
             if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-                currentAnimation = camminaDestra.getKeyFrame(stateTime, true);
+                if (inAcqua == false) {
+                    currentAnimation = camminaDestra.getKeyFrame(stateTime, true);
+                }
+                else {
+                    currentAnimation = surfDestra.getKeyFrame(stateTime, true);
+                }
+                
                 muovi_X = speed_Camminata_orizontale;
                 //characterPosition.x += speed_Camminata_orizontale * Gdx.graphics.getDeltaTime();
                 keyPressed = true;
@@ -140,7 +204,13 @@ public class Ash {
                 movingRight = true;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-                currentAnimation = camminaSinistra.getKeyFrame(stateTime, true);
+                if (inAcqua == false) {
+                    currentAnimation = camminaSinistra.getKeyFrame(stateTime, true);
+                }
+                else {
+                    currentAnimation = surfSinistra.getKeyFrame(stateTime, true);
+                }
+                
                 muovi_X = speed_Camminata_orizontale * -1;
                 //characterPosition.x -= speed_Camminata_orizontale * Gdx.graphics.getDeltaTime();
                 keyPressed = true;
@@ -148,7 +218,13 @@ public class Ash {
                 movingLeft = true;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-                currentAnimation = camminaIndietro.getKeyFrame(stateTime, true);
+                if (inAcqua == false) {
+                    currentAnimation = camminaIndietro.getKeyFrame(stateTime, true);
+                }
+                else {
+                    currentAnimation = surfIndietro.getKeyFrame(stateTime, true);
+                }
+                
                 muovi_Y = speed_Camminata_verticale * -1;
                 //characterPosition.y -= speed_Camminata_verticale * Gdx.graphics.getDeltaTime();
                 keyPressed = true;
@@ -156,7 +232,13 @@ public class Ash {
                 movingDown = true;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-                currentAnimation = camminaAvanti.getKeyFrame(stateTime, true);
+                if (inAcqua == false) {
+                    currentAnimation = camminaAvanti.getKeyFrame(stateTime, true);
+                }
+                else {
+                    currentAnimation = surfAvanti.getKeyFrame(stateTime, true);
+                }
+                
                 muovi_Y = speed_Camminata_verticale;
                 //characterPosition.y += speed_Camminata_verticale * Gdx.graphics.getDeltaTime();
                 keyPressed = true;
@@ -167,15 +249,29 @@ public class Ash {
         
             // Se nessun tasto è premuto, imposta l'animazione fermo solo se l'animazione corrente è in uno stato fermo
             if (!keyPressed) {
-                if (currentAnimation == camminaSinistra.getKeyFrame(stateTime, true)) {
-                    currentAnimation = fermoSinistra.getKeyFrame(0); // Imposta il frame fermo a 0
-                } else if (currentAnimation == camminaDestra.getKeyFrame(stateTime, true)) {
-                    currentAnimation = fermoDestra.getKeyFrame(0);
-                } else if (currentAnimation == camminaAvanti.getKeyFrame(stateTime, true)) {
-                    currentAnimation = fermoAvanti.getKeyFrame(0);
-                } else if (currentAnimation == camminaIndietro.getKeyFrame(stateTime, true)) {
-                    currentAnimation = fermoIndietro.getKeyFrame(0);
+                if (inAcqua == false) {
+                    if (currentAnimation == camminaSinistra.getKeyFrame(stateTime, true)) {
+                        currentAnimation = fermoSinistra.getKeyFrame(0); // Imposta il frame fermo a 0
+                    } else if (currentAnimation == camminaDestra.getKeyFrame(stateTime, true)) {
+                        currentAnimation = fermoDestra.getKeyFrame(0);
+                    } else if (currentAnimation == camminaAvanti.getKeyFrame(stateTime, true)) {
+                        currentAnimation = fermoAvanti.getKeyFrame(0);
+                    } else if (currentAnimation == camminaIndietro.getKeyFrame(stateTime, true)) {
+                        currentAnimation = fermoIndietro.getKeyFrame(0);
+                    }
                 }
+                else {
+                    if (currentAnimation == surfSinistra.getKeyFrame(stateTime, true)) {
+                        currentAnimation = surfSinistraFermo.getKeyFrame(0); // Imposta il frame fermo a 0
+                    } else if (currentAnimation == surfDestra.getKeyFrame(stateTime, true)) {
+                        currentAnimation = surfDestraFermo.getKeyFrame(0);
+                    } else if (currentAnimation == surfAvanti.getKeyFrame(stateTime, true)) {
+                        currentAnimation = surfAvantiFermo.getKeyFrame(0);
+                    } else if (currentAnimation == surfIndietro.getKeyFrame(stateTime, true)) {
+                        currentAnimation = surfIndietroFermo.getKeyFrame(0);
+                    }
+                }
+                
                 game.setisInMovement(false);
             }
             else {
@@ -309,6 +405,42 @@ public class Ash {
 
     public void setCamminaIndietro() {
         currentAnimation = camminaIndietro.getKeyFrame(stateTime);
+    }
+
+    public void setSurfSinistra() {
+        currentAnimation = surfSinistra.getKeyFrame(stateTime);
+    }
+
+    public void setSurfDestra() {
+        currentAnimation = surfDestra.getKeyFrame(stateTime);
+    }
+    
+    public void setSurfAvanti() {
+        currentAnimation = surfAvanti.getKeyFrame(stateTime);
+    }
+
+    public void setSurfIndietro() {
+        currentAnimation = surfIndietro.getKeyFrame(stateTime);
+    }
+
+    public void setSurfSinistraFermo() {
+        currentAnimation = surfSinistraFermo.getKeyFrame(stateTime);
+    }
+
+    public void setSurfDestraFermo() {
+        currentAnimation = surfDestraFermo.getKeyFrame(stateTime);
+    }
+
+    public void setSurfAvantiFermo() {
+        currentAnimation = surfAvantiFermo.getKeyFrame(stateTime);
+    }
+
+    public void setSurfIndietroFermo() {
+        currentAnimation = surfIndietroFermo.getKeyFrame(stateTime);
+    }
+
+    public void setInAcqua(boolean inAcqua) {
+        this.inAcqua = inAcqua;
     }
 
     public void dispose() {

@@ -202,6 +202,20 @@ public class MercurioMain extends Game{
                 ingressoPokeCenter = "uscitaPokeCenterC";
                 break;
 
+            case Constant.CENTRO_POKEMON_NORD_SCREEN:
+                newScreen = new PokeCenter(this);
+                screen_id = 2;
+                luogo = "pokeCenter";
+                ingressoPokeCenter = "uscitaPokeCenterN";
+                break;
+
+            case Constant.CENTRO_POKEMON_MARE_SCREEN:
+                newScreen = new PokeCenter(this);
+                screen_id = 2;
+                luogo = "pokeCenter";
+                ingressoPokeCenter = "uscitaPokeCenterMontagna";
+                break;
+
             case Constant.MAPPA_SCREEN:
                 newScreen = new FullMap(this, mappa);
                 screen_id = 3;
@@ -211,6 +225,8 @@ public class MercurioMain extends Game{
                 newScreen = new SchermataLogo(this);
                 setPage(Constant.MENU_SCREEN);
                 break;
+
+            
 
             default:
                 break;

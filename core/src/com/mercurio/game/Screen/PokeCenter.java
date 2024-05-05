@@ -114,6 +114,18 @@ public class PokeCenter extends ScreenAdapter {
         tileRenderer.getBatch().end();
     }
 
+    public void checkCure() {
+        MapLayer layerTeleport = pokeCenterMap.getLayers().get("cura");
+        MapObject obj = layerTeleport.getObjects().get("curaPokemon");
+        if (obj instanceof RectangleMapObject) {
+            RectangleMapObject rectObject = (RectangleMapObject) obj;
+            Rectangle rect = rectObject.getRectangle();
+            if (game.getPlayer().getBoxPlayer().overlaps(rect)) {
+                //controllo se preme il tasto per far curare il pokemon e se lo preme chiama un altro metodo
+            }
+        }
+    }
+
     public void setPosition() {
         MapLayer layerTeleport = pokeCenterMap.getLayers().get("teleport");
         MapObject obj = layerTeleport.getObjects().get("entra");
