@@ -199,29 +199,6 @@ public class FullMap extends ScreenAdapter{
         }
 
         //metodi controllo alberi
-        for (MapObject obj : alberiBack.getObjects()){
-            if (obj instanceof RectangleMapObject){
-                RectangleMapObject lineObj = (RectangleMapObject)obj;
-
-                y = lineObj.getRectangle().getY() - game.getPlayer().getPlayerPosition().y;
-                x = lineObj.getRectangle().getX() - game.getPlayer().getPlayerPosition().x;
-
-                if (y < 0 && y > -250 && x > -500 && x < 500) {
-                    foreground.remove("AlberiCima");
-                    foreground.remove("FixingLayer1");
-                    foreground.remove("AlberiFondo");
-                    foreground.remove("FixingLayer2");
-                    foreground.remove("AlberiMezzo");
-                    
-                    background.add("AlberiCima");
-                    background.add("FixingLayer1");
-                    background.add("AlberiFondo");
-                    background.add("FixingLayer2");
-                    background.add("AlberiMezzo");
-                }
-            }
-        }
-
         for (MapObject obj : alberiFore.getObjects()){
             if (obj instanceof RectangleMapObject){
                 RectangleMapObject lineObj = (RectangleMapObject)obj;
@@ -241,6 +218,29 @@ public class FullMap extends ScreenAdapter{
                     foreground.add("AlberiFondo");
                     foreground.add("FixingLayer2");
                     foreground.add("AlberiMezzo");
+                }
+            }
+        }
+
+        for (MapObject obj : alberiBack.getObjects()){
+            if (obj instanceof RectangleMapObject){
+                RectangleMapObject lineObj = (RectangleMapObject)obj;
+
+                y = lineObj.getRectangle().getY() - game.getPlayer().getPlayerPosition().y;
+                x = lineObj.getRectangle().getX() - game.getPlayer().getPlayerPosition().x;
+
+                if (y < 0 && y > -250 && x > -500 && x < 500) {
+                    foreground.remove("AlberiCima");
+                    foreground.remove("FixingLayer1");
+                    foreground.remove("AlberiFondo");
+                    foreground.remove("FixingLayer2");
+                    foreground.remove("AlberiMezzo");
+                    
+                    background.add("AlberiCima");
+                    background.add("FixingLayer1");
+                    background.add("AlberiFondo");
+                    background.add("FixingLayer2");
+                    background.add("AlberiMezzo");
                 }
             }
         }
