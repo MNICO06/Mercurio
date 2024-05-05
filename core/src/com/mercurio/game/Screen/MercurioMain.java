@@ -112,7 +112,6 @@ public class MercurioMain extends Game{
                 erba.controllaPokemon(map);
             }
 
-            musica.startMusic(luogo);
         }
     }
 

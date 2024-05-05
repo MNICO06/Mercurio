@@ -39,7 +39,7 @@ public class Musica {
         switch (luogo) {
             case "start":
                 if (current != "start") {
-                    playMusic("musica/start.mp3");
+                    playMusic("musica/spawnFinale.mp3");
                     current = "start";
                 }
                 break;

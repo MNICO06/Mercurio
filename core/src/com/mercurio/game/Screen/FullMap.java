@@ -53,6 +53,8 @@ public class FullMap extends ScreenAdapter{
 
     private boolean faiMuovereBot = false;
 
+    private boolean isChanging = false;
+
     //---------------------------CLASSE DENTRO CLASSE PER LA TASK-------------------------------------------------
     private class MyTimerTask extends TimerTask {
         private Bot bot;
@@ -109,8 +111,10 @@ public class FullMap extends ScreenAdapter{
     public void render(float delta) {
         lineeLayer = game.getLineeLayer();
         cambiaProfondita(lineeLayer);
-        teleport();
+
         checkLuogo();
+        teleport();
+        
         game.setRectangleList(rectList);
         
         /*
@@ -477,6 +481,8 @@ public class FullMap extends ScreenAdapter{
                     case "TeenagerF":
                         TeenagerF bot1 = new TeenagerF();
                         bot1.setPosition(rect.getX(),rect.getY());
+                        bot1.setXbase(rect.getX());
+                        bot1.setYbase(rect.getY());
 
                         for (MapObject obj : rettangoliBlocca.getObjects()) {
                             if (obj instanceof RectangleMapObject) {
