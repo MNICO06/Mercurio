@@ -24,7 +24,7 @@ import com.badlogic.gdx.utils.Timer;
 
 public class Squadra {
 
-
+    private infoPoke infoPoke;
     private SpriteBatch batch;
     private BitmapFont font;
     private Stage stage;
@@ -216,9 +216,9 @@ public class Squadra {
                 animationImage.addListener(imageListener);
                 stage.addActor(animationImage);
                 squadActors.add(animationImage);
+
                 
-            }
-        }
+        
     
         // Label "Cancel"
         Texture cancelTexture = new Texture("squadra/cancel.png");
@@ -231,9 +231,61 @@ public class Squadra {
                 clearInventoryItems();
             }
         });
+
         stage.addActor(cancelImage);
         squadActors.add(cancelImage);
+
+        final int indexNumPoke=i+1;
+        image.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                // Crea e posiziona l'immagine "squadra/info.png"
+                Texture infoTexture = new Texture("squadra/info.png");
+                Image infoImage = new Image(infoTexture);
+                infoImage.setPosition(650, 10); // Posizionamento personalizzato
+                infoImage.setSize(56*3, 24*3);
+                stage.addActor(infoImage); // Aggiungi allo stage
+                squadActors.add(infoImage); // Aggiungi all'array degli attori della squadra
+
+                infoImage.addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        infoPoke = new infoPoke(stage, indexNumPoke);
+                    }
+                });
+        
+                // Crea e posiziona l'immagine "squadra/sposta.png"
+                Texture spostaTexture = new Texture("squadra/sposta.png");
+                Image spostaImage = new Image(spostaTexture);
+                spostaImage.setSize(56*3, 24*3);
+                spostaImage.setPosition( 650+56*3+20,10); // Posizionamento personalizzato
+                stage.addActor(spostaImage); // Aggiungi allo stage
+                squadActors.add(spostaImage); // Aggiungi all'array degli attori della squadra
+        
+                // Aggiungi un listener all'intero stage per rilevare clic in punti diversi dall'immagine
+                stage.addListener(new InputListener() {
+                    @Override
+                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                        // Rimuovi le immagini "info" e "sposta" quando si clicca in un punto diverso dall'immagine
+                        Timer.schedule(new Timer.Task() {
+                            @Override
+                            public void run() {
+                                infoImage.remove();
+                                spostaImage.remove();
+                            }
+                        }, 0.3f);
+                        // Rimuovi il listener dall'intero stage dopo l'uso
+                        stage.removeListener(this);
+                        return true;
+                    }
+                });
+            }
+        });
+
+        }
     }
+    }
+
     
     
 
@@ -248,6 +300,9 @@ public class Squadra {
             } else {
                 stopAnimation(i);
             }
+        }
+        if  (infoPoke!=null){
+            infoPoke.render();
         }
 
         // Disegna la UI della squadra
@@ -343,5 +398,6 @@ public class Squadra {
 
         return hpBar;
     }
+
 
 }

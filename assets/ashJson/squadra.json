@@ -37,7 +37,7 @@
           {"nome": "Scintilla", "tipo": "Elettro","ppTot": 5,"ppAtt": 5},
           {"nome": "Tuononda", "tipo": "Elettro","ppTot": 5,"ppAtt": 5}
         ],
-        "tipoBall": "Poke Ball"
+        "tipoBall": "pokeBall"
       },
       "poke3": {
         "nomePokemon": "Bidoof",
@@ -57,7 +57,7 @@
           {"nome": "Scintilla", "tipo": "Elettro","ppTot": 5,"ppAtt": 5},
           {"nome": "Tuononda", "tipo": "Elettro","ppTot": 5,"ppAtt": 5}
         ],
-        "tipoBall": "Poke Ball"
+        "tipoBall": "pokeBall"
       },
       "poke4": {
         "nomePokemon": "Bidoof",
@@ -77,7 +77,7 @@
           {"nome": "Scintilla", "tipo": "Elettro","ppTot": 5,"ppAtt": 5},
           {"nome": "Tuononda", "tipo": "Elettro","ppTot": 5,"ppAtt": 5}
         ],
-        "tipoBall": "Poke Ball"
+        "tipoBall": "pokeBall"
       },
       "poke5": {
         "nomePokemon": "Bidoof",
@@ -97,7 +97,7 @@
           {"nome": "Scintilla", "tipo": "Elettro","ppTot": 5,"ppAtt": 5},
           {"nome": "Tuononda", "tipo": "Elettro","ppTot": 5,"ppAtt": 5}
         ],
-        "tipoBall": "Poke Ball"
+        "tipoBall": "pokeBall"
       },
       "poke6": {
         "nomePokemon": "",
