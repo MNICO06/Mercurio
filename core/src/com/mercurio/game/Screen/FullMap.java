@@ -58,6 +58,8 @@ public class FullMap extends ScreenAdapter{
 
     private boolean isChanging = false;
 
+    private boolean giaInAcqua = false;
+
     //---------------------------CLASSE DENTRO CLASSE PER LA TASK-------------------------------------------------
     private class MyTimerTask extends TimerTask {
         private Bot bot;
@@ -120,6 +122,10 @@ public class FullMap extends ScreenAdapter{
 
         checkLuogo();
         teleport();
+        if (game.getLuogo().equals("percorso3") || game.getLuogo().equals("cittaMare") ) {
+            checkInAcqua();
+        }
+    
         
         game.setRectangleList(rectList);
         
@@ -437,6 +443,31 @@ public class FullMap extends ScreenAdapter{
     
 
     //-------------------------SETTAGGO POSIZIONI E CONTROLLO LUOGO---------------------------------------
+    public void checkInAcqua() {
+        boolean inAcqua = false;
+        MapObjects objects = mappa.getLayers().get("acquaPercoso3").getObjects();
+        for (MapObject object : objects) {
+            if (object instanceof RectangleMapObject) {
+                // Se l'oggetto è un rettangolo
+                RectangleMapObject rectangleObject = (RectangleMapObject) object;
+
+                if (game.getPlayer().getBoxPlayer().overlaps(rectangleObject.getRectangle())) {
+                    inAcqua = true;
+                    break;
+                }
+            }
+        }
+        if (inAcqua) {
+            game.getPlayer().setDimensionSurf();
+        }
+        else {
+            game.getPlayer().setDimensionCammina();
+        }
+
+    }
+
+
+
     public void checkLuogo() {
         MapObjects objects = mappa.getLayers().get("controlloLuogo").getObjects();
         for (MapObject object : objects) {

@@ -50,6 +50,10 @@ public class Ash {
 
     private int player_width;
     private int player_height;
+    private int player_width_surf;
+    private int player_height_surf;
+    private int player_width_current;
+    private int player_height_current;
 
     private float speed_Camminata_orizontale = 300;
     private float speed_Camminata_verticale = 300;
@@ -57,7 +61,6 @@ public class Ash {
     private float muovi_Y = 0;
 
     private boolean inAcqua = false;
-
 
     private MercurioMain game;
 
@@ -86,6 +89,8 @@ public class Ash {
     
 
     private Rectangle boxPlayer;
+    private Rectangle boxPlayer_cammina;
+    private Rectangle boxPlayer_surf;
 
     public Ash(MercurioMain game) {
         this.game = game;
@@ -140,18 +145,18 @@ public class Ash {
         textureAvantiSurf = new Texture(Gdx.files.internal("player/surf avanti.png"));
         textureIndietroSurf = new Texture(Gdx.files.internal("player/surf indietro.png"));
         
-        regionWidthInd = textureIndietro.getWidth() / 4;
-        regionHeightInd = textureIndietro.getHeight();
-        regionWidthAv = textureIndietro.getWidth() / 4;
-        regionHeightAv = textureIndietro.getHeight();
-        regionWidthDx = textureDestra.getWidth() / 4;
-        regionHeightDx = textureDestra.getHeight();
-        regionWidthSx = textureSinistra.getWidth() / 4;
-        regionHeightSx = textureSinistra.getHeight();
+        regionWidthInd = textureIndietroSurf.getWidth() / 4;
+        regionHeightInd = textureIndietroSurf.getHeight();
+        regionWidthAv = textureAvantiSurf.getWidth() / 4;
+        regionHeightAv = textureAvantiSurf.getHeight();
+        regionWidthDx = textureDestraSurf.getWidth() / 4;
+        regionHeightDx = textureDestraSurf.getHeight();
+        regionWidthSx = textureSinistraSurf.getWidth() / 4;
+        regionHeightSx = textureSinistraSurf.getHeight();
 
         for (int i = 0; i < 4; i++) {
             sinistraSurf[i] = new TextureRegion(textureSinistraSurf, i * regionWidthInd, 0, regionWidthInd, regionHeightInd);
-            destraSurf[i] = new TextureRegion(textureDestra, i * regionWidthDx, 0, regionWidthDx, regionHeightDx);
+            destraSurf[i] = new TextureRegion(textureDestraSurf, i * regionWidthDx, 0, regionWidthDx, regionHeightDx);
             avantiSurf[i] = new TextureRegion(textureAvantiSurf, i * regionWidthSx, 0, regionWidthSx, regionHeightSx);
             indietroSurf[i] = new TextureRegion(textureIndietroSurf, i * regionWidthAv, 0, regionWidthAv, regionHeightAv);
         }
@@ -160,16 +165,27 @@ public class Ash {
         surfDestra = new Animation<>(camminataFrame_speed, destraSurf);
         surfAvanti = new Animation<>(camminataFrame_speed, avantiSurf);
         surfIndietro = new Animation<>(camminataFrame_speed, indietroSurf);
+        surfSinistraFermo = new Animation<>(camminataFrame_speed, sinistraSurf[0]);
+        surfDestraFermo = new Animation<>(camminataFrame_speed, destraSurf[0]);
+        surfAvantiFermo = new Animation<>(camminataFrame_speed, avantiSurf[0]);
+        surfIndietroFermo = new Animation<>(camminataFrame_speed, indietroSurf[0]);
 
 
         //segnere la posizione del personaggio (poi mettere quella salvata)
         characterPosition= new Vector2(170, 90);
 
-        player_width = 18; // Larghezza del personaggio
-        player_height = 24; // Altezza del personaggio
+        player_width = 18;
+        player_height = 24;
+        player_width_surf = 54;
+        player_height_surf = 72;
+
+        player_width_current = 18;
+        player_height_current = 24;
 
         //box player con i piedi per le collisioni
         boxPlayer = new Rectangle(characterPosition.x+player_width/4, characterPosition.y+2, player_width/2, player_height/6);
+        boxPlayer_cammina = new Rectangle(characterPosition.x+player_width/4, characterPosition.y+2, player_width/2, player_height/6);
+        boxPlayer_surf = new Rectangle(characterPosition.x+player_width_surf/4, characterPosition.y+2, player_width_surf/2, player_height_surf/6);
 
         //animazione attuale che viene renderizzata(da cambiare per cambiarre l'animazione del personaggio)
         currentAnimation = fermoIndietro.getKeyFrame(0);
@@ -441,6 +457,28 @@ public class Ash {
 
     public void setInAcqua(boolean inAcqua) {
         this.inAcqua = inAcqua;
+    }
+
+    public void setDimensionSurf() {
+        player_height_current = player_height_surf;
+        player_width_current = player_width_surf;
+        boxPlayer = boxPlayer_surf;
+        inAcqua = true;
+    }
+
+    public void setDimensionCammina() {
+        player_height_current = player_height;
+        player_width_current = player_width;
+        boxPlayer = boxPlayer_cammina;
+        inAcqua = false;
+    }
+
+    public float getCurrentWidht() {
+        return player_width_current;
+    }
+
+    public float getCurrentHeght() {
+        return player_height_current;
     }
 
     public void dispose() {

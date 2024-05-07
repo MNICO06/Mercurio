@@ -129,7 +129,7 @@ public class MercurioMain extends Game{
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
-        batch.draw(ash.getAnimazione(), ash.getPlayerPosition().x, ash.getPlayerPosition().y);
+        batch.draw(ash.getAnimazione(), ash.getPlayerPosition().x, ash.getPlayerPosition().y, ash.getCurrentWidht(), ash.getCurrentHeght());
 
         batch.end();
     }
