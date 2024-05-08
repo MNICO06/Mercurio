@@ -178,11 +178,40 @@ public class FullMap extends ScreenAdapter{
                 y = rectObj.getRectangle().getY() - game.getPlayer().getPlayerPosition().y;
                 x = rectObj.getRectangle().getX() - game.getPlayer().getPlayerPosition().x;
                 if (y > 0 && y < 250 && x > -500 && x < 500) {
-                    background.add(layerName);
+                    if(layerName.equals("alberi1N") == true){
+                        background.add("alberi4N");
+                        background.add("alberi3N");
+                        background.add("alberi2N");
+                        background.add(layerName);
+                    }else if(layerName.equals("alberi5N") == true){
+                        background.add("alberi10N");
+                        background.add("alberi9N");
+                        background.add("alberi8N");
+                        background.add("alberi7N");
+                        background.add("alberi6N");
+                        background.add(layerName);
+                    }{
+                        background.add(layerName);
+                    }
                 }
 
                 else if (y < 0 && y > -250 && x > -500 && x < 500) {
-                    foreground.add(layerName);
+                    if(layerName.equals("alberi1N") == true){
+                        foreground.add(layerName);
+                        foreground.add("alberi2N");
+                        foreground.add("alberi3N");
+                        foreground.add("alberi4N");
+                    }else if(layerName.equals("alberi5N") == true){
+                        foreground.add(layerName);
+                        foreground.add("alberi6N");
+                        foreground.add("alberi7N");
+                        foreground.add("alberi8N");
+                        foreground.add("alberi9N");
+                        foreground.add("alberi10N");
+                    }
+                    else{
+                        foreground.add(layerName);
+                    }
                 }
             }
         }
