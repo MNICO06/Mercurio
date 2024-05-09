@@ -3,6 +3,7 @@ package com.mercurio.game.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -16,6 +17,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.JsonWriter;
 import com.badlogic.gdx.utils.Timer;
 
 public class MenuLabel {
@@ -29,11 +33,12 @@ public class MenuLabel {
     private boolean menuOpened;
     private boolean xKeyPressed;
     private Borsa borsa;
+    private MercurioMain game;
     
-    public MenuLabel() {
+    public MenuLabel(MercurioMain game) {
         batch = new SpriteBatch();
         font = new BitmapFont(Gdx.files.internal("font/small_letters_font.fnt"));
-
+        this.game=game;
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
@@ -157,6 +162,7 @@ public class MenuLabel {
 	}
 	
 	private void salvataggio() {
+        salva();
 		System.out.println("Salvato");
 	}
 	
@@ -187,6 +193,34 @@ public class MenuLabel {
         System.exit(0);
     }
     
+    private void salva(){
+        // Carica il file JSON
+        FileHandle file = Gdx.files.local("ashJson/datiPosizione.json");
+        String jsonString = file.readString();
+        
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+        JsonValue json = new JsonReader().parse(jsonString);
+    
+
+        json.remove("x");
+        json.addChild("x", new JsonValue((game.getPlayer().getPlayerPosition().x)));
+
+        json.remove("y");
+        json.addChild("y", new JsonValue((game.getPlayer().getPlayerPosition().y)));
+
+        json.remove("luogo");
+        json.addChild("luogo", new JsonValue(game.getLuogo()));
+
+        json.remove("screen");
+        json.addChild("screen", new JsonValue(game.getScreenString()));
+        // Scrivi il JSON aggiornato nel file mantenendo la formattazione
+        file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
+
+        System.out.println(game.getPlayer().getPlayerPosition().x);
+        System.out.println(game.getPlayer().getPlayerPosition().y);
+        System.out.println(game.getLuogo());
+        System.out.println(game.getScreenString());
+    }
 
 	public Stage getStage() {
 	    return stage;

@@ -799,7 +799,7 @@ public class Battle extends ScreenAdapter {
 
 
     private void piazzaMosse(){
-        for (int i=0;i<4;i++){
+        for (int i=0;i<listaMosse.size();i++){
         Image labelMosse = new Image(listaMosse.get(i).getLabelTipo(listaMosse.get(i).getTipo()));
         labelMosse.setPosition(i*256, 0);
         labelMosse.setSize(256,125);

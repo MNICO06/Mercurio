@@ -6,6 +6,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -18,6 +19,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Timer;
 import com.mercurio.game.personaggi.Ash;
 
@@ -66,6 +69,8 @@ public class MercurioMain extends Game{
     private boolean isInMovement = false;
 
     private String ingressoPokeCenter;
+
+    private String screenString;
     
     @Override
     public void create() {
@@ -73,7 +78,7 @@ public class MercurioMain extends Game{
         erba = new Erba (this);
         musica = new Musica (this, assetManager);
         batch = new SpriteBatch();
-        menuLabel = new MenuLabel();
+        menuLabel = new MenuLabel(this);
         setPage(Constant.SCHERMATA_LOGO);
         
 
@@ -193,6 +198,7 @@ public class MercurioMain extends Game{
                 newScreen = new CasaSpawn(this);
                 luogo = "casaSpawn";
                 screen_id = 1;
+                screenString=screen;
                 break;
 
             case Constant.CENTRO_POKEMON_CAPITALE_SCREEN:
@@ -200,6 +206,7 @@ public class MercurioMain extends Game{
                 screen_id = 2;
                 luogo = "pokeCenter";
                 ingressoPokeCenter = "uscitaPokeCenterC";
+                screenString=screen;
                 break;
 
             case Constant.CENTRO_POKEMON_NORD_SCREEN:
@@ -207,6 +214,7 @@ public class MercurioMain extends Game{
                 screen_id = 2;
                 luogo = "pokeCenter";
                 ingressoPokeCenter = "uscitaPokeCenterN";
+                screenString=screen;
                 break;
 
             case Constant.CENTRO_POKEMON_MARE_SCREEN:
@@ -214,11 +222,13 @@ public class MercurioMain extends Game{
                 screen_id = 2;
                 luogo = "pokeCenter";
                 ingressoPokeCenter = "uscitaPokeCenterMontagna";
+                screenString=screen;
                 break;
 
             case Constant.MAPPA_SCREEN:
                 newScreen = new FullMap(this, mappa);
                 screen_id = 3;
+                screenString=screen;
                 break;
 
             case Constant.SCHERMATA_LOGO:
@@ -245,7 +255,22 @@ public class MercurioMain extends Game{
     }
 
     //carica gioco con i vecchi dati
-    public void loadGame(String path) {
+    public void loadGame() {
+        // Carica il file JSON
+        FileHandle file = Gdx.files.internal("ashJson/datiPosizione.json");
+        String jsonString = file.readString();
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+        JsonValue json = new JsonReader().parse(jsonString);
+
+        getPlayer().setPosition(Float.parseFloat(json.getString("x")), Float.parseFloat(json.getString("y")));
+        setLuogo(json.getString("luogo"));
+        setPage(json.getString("screen"));
+        musica.startMusic(luogo);
+
+        System.out.println(getPlayer().getPlayerPosition().x);
+        System.out.println(getPlayer().getPlayerPosition().y);
+        System.out.println(getLuogo());
+        System.out.println(getScreenString());
 
     }
 
@@ -338,5 +363,9 @@ public class MercurioMain extends Game{
 
     public void setIngressoPokeCenter(String ingressoPokeCenter) {
         this.ingressoPokeCenter = ingressoPokeCenter;
+    }
+
+    public String getScreenString(){
+        return screenString;
     }
 }

@@ -176,8 +176,8 @@ public class Ash {
 
         player_width = 18;
         player_height = 24;
-        player_width_surf = 54;
-        player_height_surf = 72;
+        player_width_surf = 45;
+        player_height_surf = 60;
 
         player_width_current = 18;
         player_height_current = 24;

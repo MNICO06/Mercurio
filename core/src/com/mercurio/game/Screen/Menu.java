@@ -145,7 +145,7 @@ public class Menu extends ScreenAdapter{
 
     private void controlloTasti() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)) {
-            game.setPage(Constant.CASA_ASH_SCREEN);
+            game.loadGame();
         }
     }
 }

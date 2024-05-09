@@ -533,8 +533,8 @@ public class FullMap extends ScreenAdapter{
 
     public void setPositionPlayer() {
         String luogo = game.getTeleport();
-        float x = 100;
-        float y = 3000;
+        float x;
+        float y;
         MapLayer uscita = mappa.getLayers().get("uscita");
         for (MapObject object : uscita.getObjects()) {
             if (object instanceof RectangleMapObject) {
@@ -544,10 +544,11 @@ public class FullMap extends ScreenAdapter{
                 if (object.getName().equals(luogo)) {
                     x = rect.getX();
                     y = rect.getY();
+                    game.getPlayer().setPosition(x, y);
                 }
             }
         }
-        game.getPlayer().setPosition(x, y);
+        
     }
 
     //metodo che va a posizionare i bot
