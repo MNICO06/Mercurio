@@ -185,18 +185,18 @@ public class FullMap extends ScreenAdapter{
                 x = rectObj.getRectangle().getX() - game.getPlayer().getPlayerPosition().x;
                 if (y > 0 && y < 250 && x > -500 && x < 500) {
                     if(layerName.equals("alberi1N") == true){
-                        background.add("alberi4N");
-                        background.add("alberi3N");
+                        background.add(layerName);
                         background.add("alberi2N");
-                        background.add(layerName);
+                        background.add("alberi3N");
+                        background.add("alberi4N");
                     }else if(layerName.equals("alberi5N") == true){
-                        background.add("alberi10N");
-                        background.add("alberi9N");
-                        background.add("alberi8N");
-                        background.add("alberi7N");
-                        background.add("alberi6N");
                         background.add(layerName);
-                    }{
+                        background.add("alberi6N");
+                        background.add("alberi7N");
+                        background.add("alberi8N");
+                        background.add("alberi9N");
+                        background.add("alberi10N");
+                    }else{
                         background.add(layerName);
                     }
                 }
@@ -242,12 +242,6 @@ public class FullMap extends ScreenAdapter{
                 x = lineObj.getRectangle().getX() - game.getPlayer().getPlayerPosition().x;
 
                 if (y < 0 && y > -250 && x > -500 && x < 500) {
-                    background.remove("AlberiCima");
-                    background.remove("FixingLayer1");
-                    background.remove("AlberiFondo");
-                    background.remove("FixingLayer2");
-                    background.remove("AlberiMezzo");
-                    
                     foreground.add("AlberiCima");
                     foreground.add("FixingLayer1");
                     foreground.add("AlberiFondo");
