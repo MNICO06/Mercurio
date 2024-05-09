@@ -58,6 +58,8 @@ public class FullMap extends ScreenAdapter{
 
     private boolean isChanging = false;
 
+    private boolean giaInAcqua = false;
+
     //---------------------------CLASSE DENTRO CLASSE PER LA TASK-------------------------------------------------
     private class MyTimerTask extends TimerTask {
         private Bot bot;
@@ -120,6 +122,10 @@ public class FullMap extends ScreenAdapter{
 
         checkLuogo();
         teleport();
+        if (game.getLuogo().equals("percorso3") || game.getLuogo().equals("cittaMare") ) {
+            checkInAcqua();
+        }
+    
         
         game.setRectangleList(rectList);
         
@@ -178,11 +184,40 @@ public class FullMap extends ScreenAdapter{
                 y = rectObj.getRectangle().getY() - game.getPlayer().getPlayerPosition().y;
                 x = rectObj.getRectangle().getX() - game.getPlayer().getPlayerPosition().x;
                 if (y > 0 && y < 250 && x > -500 && x < 500) {
-                    background.add(layerName);
+                    if(layerName.equals("alberi1N") == true){
+                        background.add("alberi4N");
+                        background.add("alberi3N");
+                        background.add("alberi2N");
+                        background.add(layerName);
+                    }else if(layerName.equals("alberi5N") == true){
+                        background.add("alberi10N");
+                        background.add("alberi9N");
+                        background.add("alberi8N");
+                        background.add("alberi7N");
+                        background.add("alberi6N");
+                        background.add(layerName);
+                    }{
+                        background.add(layerName);
+                    }
                 }
 
                 else if (y < 0 && y > -250 && x > -500 && x < 500) {
-                    foreground.add(layerName);
+                    if(layerName.equals("alberi1N") == true){
+                        foreground.add(layerName);
+                        foreground.add("alberi2N");
+                        foreground.add("alberi3N");
+                        foreground.add("alberi4N");
+                    }else if(layerName.equals("alberi5N") == true){
+                        foreground.add(layerName);
+                        foreground.add("alberi6N");
+                        foreground.add("alberi7N");
+                        foreground.add("alberi8N");
+                        foreground.add("alberi9N");
+                        foreground.add("alberi10N");
+                    }
+                    else{
+                        foreground.add(layerName);
+                    }
                 }
             }
         }
@@ -199,29 +234,6 @@ public class FullMap extends ScreenAdapter{
         }
 
         //metodi controllo alberi
-        for (MapObject obj : alberiBack.getObjects()){
-            if (obj instanceof RectangleMapObject){
-                RectangleMapObject lineObj = (RectangleMapObject)obj;
-
-                y = lineObj.getRectangle().getY() - game.getPlayer().getPlayerPosition().y;
-                x = lineObj.getRectangle().getX() - game.getPlayer().getPlayerPosition().x;
-
-                if (y < 0 && y > -250 && x > -500 && x < 500) {
-                    foreground.remove("AlberiCima");
-                    foreground.remove("FixingLayer1");
-                    foreground.remove("AlberiFondo");
-                    foreground.remove("FixingLayer2");
-                    foreground.remove("AlberiMezzo");
-                    
-                    background.add("AlberiCima");
-                    background.add("FixingLayer1");
-                    background.add("AlberiFondo");
-                    background.add("FixingLayer2");
-                    background.add("AlberiMezzo");
-                }
-            }
-        }
-
         for (MapObject obj : alberiFore.getObjects()){
             if (obj instanceof RectangleMapObject){
                 RectangleMapObject lineObj = (RectangleMapObject)obj;
@@ -241,6 +253,29 @@ public class FullMap extends ScreenAdapter{
                     foreground.add("AlberiFondo");
                     foreground.add("FixingLayer2");
                     foreground.add("AlberiMezzo");
+                }
+            }
+        }
+
+        for (MapObject obj : alberiBack.getObjects()){
+            if (obj instanceof RectangleMapObject){
+                RectangleMapObject lineObj = (RectangleMapObject)obj;
+
+                y = lineObj.getRectangle().getY() - game.getPlayer().getPlayerPosition().y;
+                x = lineObj.getRectangle().getX() - game.getPlayer().getPlayerPosition().x;
+
+                if (y < 0 && y > -250 && x > -500 && x < 500) {
+                    foreground.remove("AlberiCima");
+                    foreground.remove("FixingLayer1");
+                    foreground.remove("AlberiFondo");
+                    foreground.remove("FixingLayer2");
+                    foreground.remove("AlberiMezzo");
+                    
+                    background.add("AlberiCima");
+                    background.add("FixingLayer1");
+                    background.add("AlberiFondo");
+                    background.add("FixingLayer2");
+                    background.add("AlberiMezzo");
                 }
             }
         }
@@ -437,6 +472,31 @@ public class FullMap extends ScreenAdapter{
     
 
     //-------------------------SETTAGGO POSIZIONI E CONTROLLO LUOGO---------------------------------------
+    public void checkInAcqua() {
+        boolean inAcqua = false;
+        MapObjects objects = mappa.getLayers().get("acquaPercoso3").getObjects();
+        for (MapObject object : objects) {
+            if (object instanceof RectangleMapObject) {
+                // Se l'oggetto è un rettangolo
+                RectangleMapObject rectangleObject = (RectangleMapObject) object;
+
+                if (game.getPlayer().getBoxPlayer().overlaps(rectangleObject.getRectangle())) {
+                    inAcqua = true;
+                    break;
+                }
+            }
+        }
+        if (inAcqua) {
+            game.getPlayer().setDimensionSurf();
+        }
+        else {
+            game.getPlayer().setDimensionCammina();
+        }
+
+    }
+
+
+
     public void checkLuogo() {
         MapObjects objects = mappa.getLayers().get("controlloLuogo").getObjects();
         for (MapObject object : objects) {
