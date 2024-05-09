@@ -1,0 +1,224 @@
+{
+"poke1": {
+	"nomePokemon": "Giratina",
+	"livello": "100",
+	"statistiche": {
+		"hp": 400,
+		"hpTot": 400,
+		"attack": 300,
+		"defense": 40,
+		"special_attack": 50,
+		"special_defense": 50,
+		"speed": 90
+	},
+	"mosse": [
+		{
+			"nome": "Oscurotuffo",
+			"tipo": "Spettro",
+			"ppTot": 5,
+			"ppAtt": 5
+		},
+		{
+			"nome": "Fulmine",
+			"tipo": "Elettro",
+			"ppTot": 15,
+			"ppAtt": 7
+		},
+		{
+			"nome": "Dragartigli",
+			"tipo": "Drago",
+			"ppTot": 15,
+			"ppAtt": 13
+		},
+		{
+			"nome": "Forzasfera",
+			"tipo": "Lotta",
+			"ppTot": 20,
+			"ppAtt": 5
+		}
+	],
+	"tipoBall": "masterBall"
+},
+"poke2": {
+	"nomePokemon": "Bidoof",
+	"livello": "15",
+	"statistiche": {
+		"hp": 20,
+		"hpTot": 35,
+		"attack": 55,
+		"defense": 40,
+		"special_attack": 50,
+		"special_defense": 50,
+		"speed": 90
+	},
+	"mosse": [
+		{
+			"nome": "Tuonopugno",
+			"tipo": "Elettro",
+			"ppTot": 5,
+			"ppAtt": 5
+		},
+		{
+			"nome": "Fulmine",
+			"tipo": "Elettro",
+			"ppTot": 5,
+			"ppAtt": 5
+		},
+		{
+			"nome": "Scintilla",
+			"tipo": "Elettro",
+			"ppTot": 5,
+			"ppAtt": 5
+		}
+	],
+	"tipoBall": "pokeBall"
+},
+"poke3": {
+	"nomePokemon": "Bidoof",
+	"livello": "15",
+	"statistiche": {
+		"hp": 13,
+		"hpTot": 35,
+		"attack": 55,
+		"defense": 40,
+		"special_attack": 50,
+		"special_defense": 50,
+		"speed": 90
+	},
+	"mosse": [
+		{
+			"nome": "Tuonopugno",
+			"tipo": "Elettro",
+			"ppTot": 5,
+			"ppAtt": 5
+		},
+		{
+			"nome": "Fulmine",
+			"tipo": "Elettro",
+			"ppTot": 5,
+			"ppAtt": 5
+		},
+		{
+			"nome": "Scintilla",
+			"tipo": "Elettro",
+			"ppTot": 5,
+			"ppAtt": 5
+		},
+		{
+			"nome": "Surf",
+			"tipo": "Acqua",
+			"ppTot": 5,
+			"ppAtt": 5
+		}
+	],
+	"tipoBall": "pokeBall"
+},
+"poke4": {
+	"nomePokemon": "Bidoof",
+	"livello": "15",
+	"statistiche": {
+		"hp": 0,
+		"hpTot": 35,
+		"attack": 55,
+		"defense": 40,
+		"special_attack": 50,
+		"special_defense": 50,
+		"speed": 90
+	},
+	"mosse": [
+		{
+			"nome": "Tuonopugno",
+			"tipo": "Elettro",
+			"ppTot": 5,
+			"ppAtt": 5
+		},
+		{
+			"nome": "Gigaimpatto",
+			"tipo": "Normale",
+			"ppTot": 5,
+			"ppAtt": 5
+		}
+	],
+	"tipoBall": "pokeBall"
+},
+"poke5": {
+	"nomePokemon": "Bidoof",
+	"livello": "15",
+	"statistiche": {
+		"hp": 5,
+		"hpTot": 35,
+		"attack": 55,
+		"defense": 40,
+		"special_attack": 50,
+		"special_defense": 50,
+		"speed": 90
+	},
+	"mosse": [
+		{
+			"nome": "Tuonopugno",
+			"tipo": "Elettro",
+			"ppTot": 5,
+			"ppAtt": 5
+		},
+		{
+			"nome": "Fulmine",
+			"tipo": "Elettro",
+			"ppTot": 5,
+			"ppAtt": 5
+		},
+		{
+			"nome": "Scintilla",
+			"tipo": "Elettro",
+			"ppTot": 5,
+			"ppAtt": 5
+		},
+		{
+			"nome": "Lanciafiamme",
+			"tipo": "Fuoco",
+			"ppTot": 5,
+			"ppAtt": 5
+		}
+	],
+	"tipoBall": "pokeBall"
+},
+"poke6": {
+	"nomePokemon": "",
+	"livello": "",
+	"statistiche": {
+		"hp": 0,
+		"hpTot": 0,
+		"attack": 0,
+		"defense": 0,
+		"special_attack": 0,
+		"special_defense": 0,
+		"speed": 0
+	},
+	"mosse": [
+		{
+			"nome": "",
+			"tipo": "",
+			"ppTot": 0,
+			"ppAtt": 0
+		},
+		{
+			"nome": "",
+			"tipo": "",
+			"ppTot": 0,
+			"ppAtt": 0
+		},
+		{
+			"nome": "",
+			"tipo": "",
+			"ppTot": 0,
+			"ppAtt": 0
+		},
+		{
+			"nome": "",
+			"tipo": "",
+			"ppTot": 0,
+			"ppAtt": 0
+		}
+	],
+	"tipoBall": ""
+}
+}

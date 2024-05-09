@@ -3,6 +3,7 @@ package com.mercurio.game.Screen;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -22,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.JsonWriter;
 import com.badlogic.gdx.utils.Timer;
 
 public class Squadra {
@@ -40,6 +42,13 @@ public class Squadra {
     private ArrayList<Boolean> booleanList = new ArrayList<>(6);
     private ArrayList<Integer> hpList = new ArrayList<>();
     private Battle chiamante;
+    private Image infoImage;
+    private Image spostaImage;
+    private Image cambiaImage;
+    private Image cancelImage;
+    private boolean checkPerSwitch=false;
+    private int indexDaSwitch=0;
+    private Image background;
 
 
     Array<Texture> animationTextures = new Array<>();
@@ -55,8 +64,6 @@ public class Squadra {
         this.stage = stage;
         this.squadActors = new Array<>(); // Inizializza l'array degli attori della borsa
         Gdx.input.setInputProcessor(stage);
-
-
         showSquad();
     }
 
@@ -81,11 +88,13 @@ public class Squadra {
     
         float screenWidth = Gdx.graphics.getWidth();
         float screenHeight = Gdx.graphics.getHeight();
+        if (!checkPerSwitch){
         // Add background 
         Texture backgroundTexture = new Texture("sfondo/sfondo.png");
-        Image background = new Image(backgroundTexture);
+        background = new Image(backgroundTexture);
         background.setSize(screenWidth, screenHeight);
         stage.addActor(background);
+        }
         squadActors.add(background);
     
         // Creazione delle label della squadra
@@ -207,22 +216,6 @@ public class Squadra {
                 squadActors.add(animationImage);
 
                 
-        
-    
-        // Label "Cancel"
-        Texture cancelTexture = new Texture("squadra/cancel.png");
-        Image cancelImage = new Image(cancelTexture);
-        cancelImage.setPosition(70, 10);
-        cancelImage.setSize(56*3, 24*3);
-        cancelImage.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                clearInventoryItems();
-            }
-        });
-
-        stage.addActor(cancelImage);
-        squadActors.add(cancelImage);
 
         final int indexNumPoke=i+1;
         image.addListener(new ClickListener() {
@@ -232,9 +225,13 @@ public class Squadra {
                     booleanList.set(i, i == index); //mette tutto a false tranne alla posizione index (infatti i==index resistuisce true solo quando sono uguali)
                 }
 
+                if (checkPerSwitch){
+                    indexDaSwitch=indexNumPoke;
+                }
+
                 // Crea e posiziona l'immagine "squadra/info.png"
                 Texture infoTexture = new Texture("squadra/info.png");
-                Image infoImage = new Image(infoTexture);
+                infoImage = new Image(infoTexture);
                 infoImage.setPosition(650, 10); // Posizionamento personalizzato
                 infoImage.setSize(56*3, 24*3);
                 stage.addActor(infoImage); // Aggiungi allo stage
@@ -249,9 +246,9 @@ public class Squadra {
         
                 // Crea e posiziona l'immagine "squadra/sposta.png" o di "squadra/cambia.png"
                 Texture spostaTexture = new Texture("squadra/sposta.png");
-                Image spostaImage = new Image(spostaTexture);
+                spostaImage = new Image(spostaTexture);
                 Texture cambiaTexture = new Texture("squadra/cambia.png");
-                Image cambiaImage = new Image(cambiaTexture);
+                cambiaImage = new Image(cambiaTexture);
                 if (!battaglia){
                     spostaImage.setSize(56*3, 24*3);
                     spostaImage.setPosition( 650+56*3+20,10); // Posizionamento personalizzato
@@ -306,7 +303,22 @@ public class Squadra {
         });
 
         }
-    }
+        }
+        // Label "Cancel"
+        Texture cancelTexture = new Texture("squadra/cancel.png");
+        cancelImage = new Image(cancelTexture);
+        cancelImage.setName("image cancel");
+        cancelImage.setPosition(70, 10);
+        cancelImage.setSize(56*3, 24*3);
+        cancelImage.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                clearInventoryItems();
+            }
+        });
+
+        stage.addActor(cancelImage);
+        squadActors.add(cancelImage);
     }
 
     
@@ -343,6 +355,15 @@ public class Squadra {
         // Rimuovi gli attori dell'inventario aggiunti durante la visualizzazione precedente
         for (Actor actor : squadActors) {
             actor.remove(); // Rimuovi l'attore dalla stage
+        }
+        squadActors.clear(); // Pulisci l'array degli attori dell'inventario
+    }
+
+    private void clearInventoryItemsSecondary() {
+        // Rimuovi gli attori dell'inventario aggiunti durante la visualizzazione precedente
+        for (Actor actor : squadActors) {
+            if (actor!=background)
+                actor.remove(); // Rimuovi l'attore dalla stage
         }
         squadActors.clear(); // Pulisci l'array degli attori dell'inventario
     }
@@ -452,7 +473,45 @@ public class Squadra {
 
 
     public void spostaPoke(int index1){
-        
+        //toglie le label dei comandi 
+        infoImage.remove();
+        cancelImage.remove();
+    
+        if(!battaglia){
+            spostaImage.remove();
+        }
+        else {
+            cambiaImage.remove();
+        }
+        checkPerSwitch=true;
+         // Aggiungi un ClickListener allo stage
+        stage.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                // Codice da eseguire quando viene rilevato un clic sullo schermo
+
+                if (indexDaSwitch!=0 && index1!=indexDaSwitch){
+                    System.out.println("a");
+                    FileHandle file = Gdx.files.local("ashJson/squadra.json");
+                    String jsonString = file.readString();
+                    // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+                    JsonValue json = new JsonReader().parse(jsonString);
+                    
+                    json.get("poke"+index1).setName("poke"+indexDaSwitch);
+                    json.get("poke"+indexDaSwitch).setName("poke"+index1);
+                    file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
+
+                }
+
+                clearInventoryItemsSecondary();
+                showSquad();
+
+                indexDaSwitch=0;
+                checkPerSwitch=false;
+                // Rimuovi il listener dallo stage
+                stage.removeListener(this);
+            }
+        });
     }
 
 }

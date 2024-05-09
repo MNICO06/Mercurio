@@ -864,7 +864,7 @@ public class Battle extends ScreenAdapter {
 
 
                 if (danno!=0){
-                    modificaHPPokeBot(numeroIndexPokeBot, 1, currentPokeHPBot);
+                    modificaHPPokeBot(numeroIndexPokeBot, currentPokeHPBot);
                     Timer.schedule(new Timer.Task() {
                         @Override
                         public void run() {
@@ -1523,7 +1523,7 @@ public class Battle extends ScreenAdapter {
         }, 2f);
     }
 
-    public void modificaHPPokeBot(int numero, int numBot, String currentHP) {
+    public void modificaHPPokeBot(int numero, String currentHP) {
         // Carica il file JSON
         FileHandle file = Gdx.files.local("bots/bots.json");
         String jsonString = file.readString();
@@ -1532,7 +1532,7 @@ public class Battle extends ScreenAdapter {
         JsonValue json = new JsonReader().parse(jsonString);
     
         // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
-        JsonValue pokeJson = json.get("bot" + numBot).get("poke" + numero);
+        JsonValue pokeJson = json.get(nameBot).get("poke" + numero);
     
         // Ottieni l'oggetto "statistiche" all'interno del Pokémon
         JsonValue statistiche = pokeJson.get("statistiche");
