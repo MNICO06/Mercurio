@@ -106,6 +106,13 @@ public class Musica {
                     current = "casaSpawn";
                 }
                 break;
+                
+            case "pokeCenter":
+                if (current != "pokeCenter") {
+                    playMusic("musica/pokemonCenter.mp3");
+                    current = "pokeCenter";
+                }
+                break;
 
             default:
                 break;

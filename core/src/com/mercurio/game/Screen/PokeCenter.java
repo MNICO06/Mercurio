@@ -51,6 +51,8 @@ public class PokeCenter extends ScreenAdapter {
 
         game.setMap(pokeCenterMap, tileRenderer, camera, map_size.x, map_size.y);
 
+        game.getMusica().startMusic(game.getLuogo());
+
         setPosition();
     }
 

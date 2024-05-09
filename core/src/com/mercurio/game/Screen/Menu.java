@@ -56,7 +56,6 @@ public class Menu extends ScreenAdapter{
         labelStyle.font = fontTitolo; 
         labelNome = new Label(testoNome, labelStyle);
         labelNome.setPosition(300, 400);
-    
     }
 
     @Override
@@ -71,6 +70,7 @@ public class Menu extends ScreenAdapter{
         background.setSize(1024,600);
         background.setPosition(0,x);
 
+        //da cambiare con quello nuovo
         Texture titoloPokemon = new Texture(Gdx.files.internal("menuImage/logoPokemon.png"));
         pokemon = new Image(titoloPokemon);
         pokemon.setSize(700,400);

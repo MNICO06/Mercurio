@@ -13,6 +13,7 @@ public class DesktopLauncher {
 		config.setWindowedMode(1024, 720);
 		config.setResizable(false);
 		config.setTitle("PokemonMercurio");
+		config.setWindowIcon("menuImage/logo.png");
 		new Lwjgl3Application(new MercurioMain(), config);
 	}
 }

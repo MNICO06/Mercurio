@@ -27,7 +27,7 @@ public class SchermataLogo extends ScreenAdapter{
 
         spriteBatch = new SpriteBatch();
 
-        Texture background_texture = new Texture(Gdx.files.internal("menuImage/logoStart.jpg"));
+        Texture background_texture = new Texture(Gdx.files.internal("menuImage/logoCaricamento.jpg"));
         
         background = new Image(background_texture);
         background.setSize(1024,720);
