@@ -1,10 +1,13 @@
 package com.mercurio.game.Screen;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Random;
 
 import com.badlogic.gdx.utils.JsonWriter;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.physics.bullet.collision.btBvhTree;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.ai.btree.utils.DistributionAdapters.IntegerAdapter;
@@ -112,6 +115,7 @@ public class Battle extends ScreenAdapter {
     private LabelDiscorsi labelDiscorsi11;
     private LabelDiscorsi labelDiscorsi12;
     private LabelDiscorsi labelDiscorsi13;
+    private LabelDiscorsi labelDiscorsi14;
     private Label label1;
     private Label label2;
     private Label label3;
@@ -125,6 +129,7 @@ public class Battle extends ScreenAdapter {
     private Label label11;
     private Label label12;
     private Label label13;
+    private Label label14;
     private String nomePoke;
     private String nomePokeSquad;
     private String currentPokeHP;
@@ -135,6 +140,7 @@ public class Battle extends ScreenAdapter {
     private String currentPokeHPBot;
     private String currentPokeHPBotSquad;
     private String nomeMossa;
+    private String nomeMossaBot;
     private String soldiPresi;
     private int dimMax;
     private String nomeBot;
@@ -440,6 +446,9 @@ public class Battle extends ScreenAdapter {
             }
             if (label13!=null){
                 labelDiscorsi13.renderDisc();
+            }
+            if (label14!=null){
+                labelDiscorsi14.renderDisc();
             }
         }
 
@@ -800,107 +809,197 @@ public class Battle extends ScreenAdapter {
 
     private void piazzaMosse(){
         for (int i=0;i<listaMosse.size();i++){
-        Image labelMosse = new Image(listaMosse.get(i).getLabelTipo(listaMosse.get(i).getTipo()));
-        labelMosse.setPosition(i*256, 0);
-        labelMosse.setSize(256,125);
-        stage.addActor(labelMosse);
-        labelMosseArray.add(labelMosse);
+            Image labelMosse = new Image(listaMosse.get(i).getLabelTipo(listaMosse.get(i).getTipo()));
+            labelMosse.setPosition(i*256, 0);
+            labelMosse.setSize(256,125);
+            stage.addActor(labelMosse);
+            labelMosseArray.add(labelMosse);
 
-        Label labelNomeMossa = new Label(listaMosse.get(i).getNome(), new Label.LabelStyle(font, null));
-        labelNomeMossa.setPosition(labelMosse.getX() + 20, labelMosse.getY() + 68); // Posiziona la label accanto all'immagine della mossa
-        labelNomeMossa.setFontScale(1.5f);
-        stage.addActor(labelNomeMossa);
-        labelNomeMosseArray.add(labelNomeMossa);
+            Label labelNomeMossa = new Label(listaMosse.get(i).getNome(), new Label.LabelStyle(font, null));
+            labelNomeMossa.setPosition(labelMosse.getX() + 20, labelMosse.getY() + 68); // Posiziona la label accanto all'immagine della mossa
+            labelNomeMossa.setFontScale(1.5f);
+            stage.addActor(labelNomeMossa);
+            labelNomeMosseArray.add(labelNomeMossa);
 
-        Label labelPPTot = new Label(listaMosse.get(i).getmaxPP(), new Label.LabelStyle(font, null));
-        labelPPTot.setPosition(labelMosse.getX() + 195, labelMosse.getY() + 30); 
-        labelPPTot.setFontScale(1.3f);
-        stage.addActor(labelPPTot);
-        labelNomeMosseArray.add(labelPPTot);
+            Label labelPPTot = new Label(listaMosse.get(i).getmaxPP(), new Label.LabelStyle(font, null));
+            labelPPTot.setPosition(labelMosse.getX() + 195, labelMosse.getY() + 30); 
+            labelPPTot.setFontScale(1.3f);
+            stage.addActor(labelPPTot);
+            labelNomeMosseArray.add(labelPPTot);
 
 
-        Label labelPPatt = new Label(listaMosse.get(i).getattPP(), new Label.LabelStyle(font, null));
-        if(Integer.parseInt(listaMosse.get(i).getattPP())>9){
-            labelPPatt.setPosition(labelMosse.getX() + 145, labelMosse.getY() + 30); 
+            Label labelPPatt = new Label(listaMosse.get(i).getattPP(), new Label.LabelStyle(font, null));
+            if(Integer.parseInt(listaMosse.get(i).getattPP())>9){
+                labelPPatt.setPosition(labelMosse.getX() + 145, labelMosse.getY() + 30); 
+            }
+            else{
+                labelPPatt.setPosition(labelMosse.getX() + 158, labelMosse.getY() + 30);
+            }
+            labelPPatt.setFontScale(1.3f);
+            stage.addActor(labelPPatt);
+            labelNomeMosseArray.add(labelPPatt);
+
+            ClickListener listener = new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    System.out.println();
+                    if (statsPlayer.get(4)>=statsBot.get(4)){
+                        utilizzoMossa(labelMosse);
+                        if (Integer.parseInt(currentPokeHPBot)>0){
+                            utilizzoMossaBot();
+                        }
+                    }
+                    else{
+                        utilizzoMossaBot();
+                        if (Integer.parseInt(currentPokeHP)>0){
+                            utilizzoMossa(labelMosse);
+                        }
+                    }
+                }
+            };
+            labelMosse.addListener(listener);
+            labelNomeMossa.addListener(listener);
+            labelPPTot.addListener(listener);
+            labelPPatt.addListener(listener);
+            }
+        
+            for (int j=0; j<4-listaMosse.size(); j++){
+                Texture noMoveTexture = new Texture("battle/noMove.png");
+                Image labelMosse = new Image(noMoveTexture);
+                labelMosse.setPosition((j+listaMosse.size())*256, 0);
+                labelMosse.setSize(256,125);
+                stage.addActor(labelMosse);
+                labelMosseArray.add(labelMosse);
+            }
+    
+    }
+
+    private void utilizzoMossa(Image labelMosse){
+        float trovaX= (labelMosse.getX())/256;
+        int X = (int) trovaX;
+        nomeMossa=listaMosse.get(X).getNome();
+        sistemaLabel4(nomeMossa);
+        labelDiscorsi4.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
+        label4=labelDiscorsi4.getLabel(); 
+        stage.addActor(label4);
+
+        FileHandle mosseFile = Gdx.files.internal("pokemon/mosse.json");
+        String mosseJsonString = mosseFile.readString();
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON delle mosse
+        JsonValue mosseJson = new JsonReader().parse(mosseJsonString);
+        JsonValue tipoJson = mosseJson.get(nomeMossa);
+        String tipologiaMossa = tipoJson.getString("attacco");
+        int danno;
+        if (tipologiaMossa.equals("fisico")){
+            danno=listaMosse.get(X).calcolaDanno(statsPlayer.get(0),statsBot.get(1),Integer.parseInt(LVPoke),nomePoke,nomePokeBot);
         }
         else{
-            labelPPatt.setPosition(labelMosse.getX() + 158, labelMosse.getY() + 30);
-        }
-        labelPPatt.setFontScale(1.3f);
-        stage.addActor(labelPPatt);
-        labelNomeMosseArray.add(labelPPatt);
+            danno=listaMosse.get(X).calcolaDanno(statsPlayer.get(2),statsBot.get(3),Integer.parseInt(LVPoke),nomePoke,nomePokeBot);
+        }   
 
-        ClickListener listener = new ClickListener() {
+        currentPokeHPBot= Integer.toString((Integer.parseInt(currentPokeHPBot))-danno);
+
+
+        if(Integer.parseInt(currentPokeHPBot)<=0){
+            currentPokeHPBot= Integer.toString(0);
+        }
+
+
+        if (danno!=0){
+            modificaHPPokeBot(numeroIndexPokeBot, currentPokeHPBot);
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    updateHpBarWidth(HPbot, currentPokeHPBot, maxPokeHPBot, pokemonImageBot, nomePokeBot);
+                }
+            }, 1.5f);
+        }
+
+        Timer.schedule(new Timer.Task() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
-                float trovaX= (labelMosse.getX())/256;
-                int X = (int) trovaX;
-                nomeMossa=listaMosse.get(X).getNome();
-                sistemaLabel4(nomeMossa);
-                labelDiscorsi4.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
-                label4=labelDiscorsi4.getLabel(); 
-                stage.addActor(label4);
-
-                FileHandle mosseFile = Gdx.files.internal("pokemon/mosse.json");
-                String mosseJsonString = mosseFile.readString();
-                // Utilizza la classe JsonReader di LibGDX per leggere il file JSON delle mosse
-                JsonValue mosseJson = new JsonReader().parse(mosseJsonString);
-                JsonValue tipoJson = mosseJson.get(nomeMossa);
-                String tipologiaMossa = tipoJson.getString("attacco");
-                int danno;
-                if (tipologiaMossa.equals("fisico")){
-                    danno=listaMosse.get(X).calcolaDanno(statsPlayer.get(2),statsBot.get(3),Integer.parseInt(LVPoke),nomePoke,nomePokeBot);
+            public void run() {
+                label4.remove();
+                for (Image label : labelMosseArray) {
+                    label.remove();
                 }
-                else{
-                    danno=listaMosse.get(X).calcolaDanno(statsPlayer.get(4),statsBot.get(5),Integer.parseInt(LVPoke),nomePoke,nomePokeBot);
-                }   
-
-                currentPokeHPBot= Integer.toString((Integer.parseInt(currentPokeHPBot))-danno);
-
-
-                if(Integer.parseInt(currentPokeHPBot)<=0){
-                    currentPokeHPBot= Integer.toString(0);
+                for (Label label : labelNomeMosseArray) {
+                    label.remove();
                 }
+                labelMosseArray.clear();
+                labelNomeMosseArray.clear();
 
-
-                if (danno!=0){
-                    modificaHPPokeBot(numeroIndexPokeBot, currentPokeHPBot);
-                    Timer.schedule(new Timer.Task() {
-                        @Override
-                        public void run() {
-                            updateHpBarWidth(HPbot, currentPokeHPBot, maxPokeHPBot, pokemonImageBot, nomePokeBot);
-                        }
-                    }, 1.5f);
-                }
-
-                Timer.schedule(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        label4.remove();
-                        for (Image label : labelMosseArray) {
-                            label.remove();
-                        }
-                        for (Label label : labelNomeMosseArray) {
-                            label.remove();
-                        }
-                        labelMosseArray.clear();
-                        labelNomeMosseArray.clear();
-
-                    }
-                }, 2.5f);
             }
-        };
-        labelMosse.addListener(listener);
-        labelNomeMossa.addListener(listener);
-        labelPPTot.addListener(listener);
-        labelPPatt.addListener(listener);
+        }, 2.5f);
+    }
+
+    private void utilizzoMossaBot(){
+        Random random = new Random();
+        int X = random.nextInt(listaMosseBot.size());
+        nomeMossaBot=listaMosseBot.get(X).getNome();
+        sistemaLabel14(nomeMossaBot);
+        labelDiscorsi14.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
+        label14=labelDiscorsi14.getLabel(); 
+        stage.addActor(label14);
+
+        FileHandle mosseFile = Gdx.files.internal("pokemon/mosse.json");
+        String mosseJsonString = mosseFile.readString();
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON delle mosse
+        JsonValue mosseJson = new JsonReader().parse(mosseJsonString);
+        JsonValue tipoJson = mosseJson.get(nomeMossaBot);
+        String tipologiaMossa = tipoJson.getString("attacco");
+        int danno;
+        if (tipologiaMossa.equals("fisico")){
+            danno=listaMosseBot.get(X).calcolaDanno(statsBot.get(0),statsPlayer.get(1),Integer.parseInt(LVPokeBot),nomePokeBot,nomePoke);
         }
+        else{
+            danno=listaMosseBot.get(X).calcolaDanno(statsBot.get(2),statsPlayer.get(3),Integer.parseInt(LVPokeBot),nomePokeBot,nomePoke);
+        }   
+
+        currentPokeHP= Integer.toString((Integer.parseInt(currentPokeHP))-danno);
+
+
+        if(Integer.parseInt(currentPokeHP)<=0){
+            currentPokeHP= Integer.toString(0);
+        }
+
+
+        if (danno!=0){
+            modificaHPPoke(numeroIndexPoke, currentPokeHP);
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    updateHpBarWidth(HPplayer, currentPokeHP, maxPokeHP, pokemonImage, nomePoke);
+                }
+            }, 1.5f);
+        }
+
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                label14.remove();
+                for (Image label : labelMosseArray) {
+                    label.remove();
+                }
+                for (Label label : labelNomeMosseArray) {
+                    label.remove();
+                }
+                labelMosseArray.clear();
+                labelNomeMosseArray.clear();
+
+            }
+        }, 2.5f);
     }
 
     private void sistemaLabel4(String nome){
         this.nomeMossa=nome;
         String discorso4= nomePoke + " utilizza " + nomeMossa+"!";
         labelDiscorsi4 = new LabelDiscorsi(discorso4,dimMax,0,true);
+    }
+
+    private void sistemaLabel14(String nome){
+        this.nomeMossa=nome;
+        String discorso14= nomePokeBot + " utilizza " + nomeMossa+"!";
+        labelDiscorsi14 = new LabelDiscorsi(discorso14,dimMax,0,true);
     }
     
 
@@ -1039,11 +1138,14 @@ public class Battle extends ScreenAdapter {
 
             JsonValue statistiche = pokeJson.get("statistiche"); 
             for (JsonValue stat : statistiche) {
-                statsPlayer.add(stat.asInt());
+                if (!stat.name.equals("hp") && !stat.name.equals("hpTot")){
+                    statsPlayer.add(stat.asInt());
+                }
             }
 
             maxPokeHP = statistiche.getString("hpTot");
             currentPokeHP = statistiche.getString("hp");
+            System.out.println(currentPokeHP);
             JsonValue mosse = pokeJson.get("mosse");
             nomeBall = pokeJson.getString("tipoBall");
             for (JsonValue mossaJson : mosse) {
@@ -1252,7 +1354,9 @@ public class Battle extends ScreenAdapter {
 
             JsonValue statistiche = pokeJson.get("statistiche"); 
             for (JsonValue stat : statistiche) {
-                statsBot.add(stat.asInt());
+                if (!stat.name.equals("hp") && !stat.name.equals("hpTot")){
+                    statsBot.add(stat.asInt());
+                }
             }
             maxPokeHPBot = statistiche.getString("hpTot");
             currentPokeHPBot = pokeJson.get("statistiche").getString("HP");
@@ -1262,7 +1366,7 @@ public class Battle extends ScreenAdapter {
                 String nomeMossa = mossaJson.getString("nome");
                 String tipoMossa = mossaJson.getString("tipo");
                 // Aggiungi la mossa alla lista
-                MossaBot mossa=new MossaBot(nomeMossa, tipoMossa);
+                MossaBot mossa=new MossaBot(nomeMossa, tipoMossa, this);
                 listaMosseBot.add(mossa);
             }
 
@@ -1533,6 +1637,29 @@ public class Battle extends ScreenAdapter {
     
         // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
         JsonValue pokeJson = json.get(nameBot).get("poke" + numero);
+    
+        // Ottieni l'oggetto "statistiche" all'interno del Pokémon
+        JsonValue statistiche = pokeJson.get("statistiche");
+    
+        // Rimuovi il campo "hp" corrente
+        statistiche.remove("hp");
+        // Aggiungi il nuovo campo "hp" con il valore aggiornato
+        statistiche.addChild("hp", new JsonValue(Integer.parseInt(currentHP)));
+        // Scrivi il JSON aggiornato nel file mantenendo la formattazione
+        file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
+        
+    }
+
+    public void modificaHPPoke(int numero, String currentHP) {
+        // Carica il file JSON
+        FileHandle file = Gdx.files.local("ashJson/squadra.json");
+        String jsonString = file.readString();
+        
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+        JsonValue json = new JsonReader().parse(jsonString);
+    
+        // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
+        JsonValue pokeJson = json.get("poke" + numero);
     
         // Ottieni l'oggetto "statistiche" all'interno del Pokémon
         JsonValue statistiche = pokeJson.get("statistiche");

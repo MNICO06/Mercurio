@@ -598,5 +598,5 @@ class Mossa {
             return dannoIntero;
         }
         
-    }
+    } 
 }

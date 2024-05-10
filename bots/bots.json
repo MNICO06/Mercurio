@@ -12,20 +12,20 @@
 		"statistiche": {
 			"hpTot": 35,
 			"attack": 55,
-			"defense": 40,
+			"defense": 4000000,
 			"special_attack": 50,
-			"special_defense": 50,
-			"speed": 90,
+			"special_defense": 500000,
+			"speed": 900,
 			"hp": 35
 		},
 		"mosse": [
 			{
-				"nome": "Oscurotuffo",
-				"tipo": "Spettro"
+				"nome": "Azione",
+				"tipo": "Normale"
 			},
 			{
-				"nome": "Fulmine",
-				"tipo": "Elettro"
+				"nome": "Forza Lunare",
+				"tipo": "Folletto"
 			},
 			{
 				"nome": "Dragartigli",

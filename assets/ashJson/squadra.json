@@ -6,10 +6,10 @@
         "hp": 400,
         "hpTot": 400,
         "attack": 300,
-        "defense": 40,
-        "special_attack": 50,
-        "special_defense": 50,
-        "speed": 90
+        "defense": 400,
+        "special_attack": 500,
+        "special_defense": 500,
+        "speed": 90 
       },
       "mosse": [
         {"nome": "Oscurotuffo", "tipo": "Spettro","ppTot": 5,"ppAtt": 5},
