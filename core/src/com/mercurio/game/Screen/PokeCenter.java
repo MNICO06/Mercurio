@@ -15,6 +15,8 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.ArrayMap;
+import com.mercurio.game.personaggi.Dottoressa;
 
 public class PokeCenter extends ScreenAdapter {
     private final MercurioMain game;
@@ -25,12 +27,17 @@ public class PokeCenter extends ScreenAdapter {
     private OrthographicCamera camera;
     private Vector2 map_size;
     private MapLayer lineeLayer;
+    private float xPosition;
+    private float yPosition;
+
+    private Dottoressa dottoressa;
 
     //rettangolo con la lista delle persone che collidono
     private ArrayList<Rectangle> rectList = null;
 
     public PokeCenter(MercurioMain game) {
         this.game = game;
+        dottoressa = new Dottoressa();
     }
 
     @Override
@@ -51,9 +58,13 @@ public class PokeCenter extends ScreenAdapter {
 
         game.setMap(pokeCenterMap, tileRenderer, camera, map_size.x, map_size.y);
 
+        getPostionDoctor();
+
         game.getMusica().startMusic(game.getLuogo());
 
         setPosition();
+
+        
     }
 
     @Override
@@ -65,16 +76,29 @@ public class PokeCenter extends ScreenAdapter {
         esci();
     }
 
+    public void getPostionDoctor() {
+        MapLayer layerTeleport = pokeCenterMap.getLayers().get("posDottoressa");
+        MapObject obj = layerTeleport.getObjects().get("posizioneDott");
+        if (obj instanceof RectangleMapObject) {
+            RectangleMapObject rectObject = (RectangleMapObject) obj;
+            Rectangle rect = rectObject.getRectangle();
+            dottoressa.setPosition(rect.getX(), rect.getY());
+        }
+    }
+
     private void cambiaProfondita(MapLayer lineeLayer) {
         ArrayList<String> background = new ArrayList<String>();
         ArrayList<String> foreground = new ArrayList<String>();
+        ArrayList<String> backbackground = new ArrayList<String>();
 
-        background.add("floor");
+        backbackground.add("floor");
+
         background.add("WallAlwaysBack");
         background.add("AlwaysBack_1");
         background.add("bancone");
         background.add("computer");
         background.add("deco bancone");
+        
 
         for (MapObject object : lineeLayer.getObjects()) {
             if (object instanceof RectangleMapObject) {
@@ -90,6 +114,14 @@ public class PokeCenter extends ScreenAdapter {
                 }
             }
         }
+
+        
+        //pavimento
+        for (String LayerName : backbackground) {
+            renderLayer(LayerName);
+        }
+
+        game.renderPersonaggiSecondari(dottoressa.getTexture(), dottoressa.getPosition().x, dottoressa.getPosition().y, dottoressa.getWidth(), dottoressa.getHeight());
 
         //background
         for (String layerName : background) {
@@ -154,6 +186,22 @@ public class PokeCenter extends ScreenAdapter {
     @Override
     public void dispose() {
         pokeCenterMap.dispose();
+    }
+
+    public float getXPosition() {
+        return xPosition;
+    }
+
+    public float getYPosition() {
+        return yPosition;
+    }
+
+    public void setXPosition(float xPosition) {
+        this.xPosition = xPosition;
+    }
+
+    public void setYPosition(float yPosition) {
+        this.yPosition = yPosition;
     }
 
 }

@@ -43,15 +43,15 @@ public class Dottoressa {
     private Rectangle boxPlayer;
 
     public Dottoressa() {
-        texture = new Texture (Gdx.files.internal("player/mammaAsh.png"));
+        texture = new Texture (Gdx.files.internal("player/dottoressa.png"));
         TextureRegion[][] tmp = TextureRegion.split(texture, texture.getWidth() / 3, texture.getHeight() / 4);
         indietro = new TextureRegion[3];
         sinistra = new TextureRegion[3];
         destra = new TextureRegion[3];
         avanti = new TextureRegion[3];
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j< 4; j++) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j< 3; j++) {
                 if (i == 0) {
                     avanti[j] = tmp [i][j];
                 }
@@ -79,7 +79,7 @@ public class Dottoressa {
         player_width = 24; // Larghezza del personaggio
         player_height = 22; // Altezza del personaggio
 
-        currentAnimation = fermoAvanti.getKeyFrame(0);
+        currentAnimation = fermoIndietro.getKeyFrame(0);
         stateTime = 0f;
     }
 
@@ -118,6 +118,10 @@ public class Dottoressa {
 
     public void dispose() {
         texture.dispose();
+    }
+
+    public void setPosition(float x, float y) {
+        characterPosition.set(x, y);
     }
     
 

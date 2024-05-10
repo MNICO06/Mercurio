@@ -411,6 +411,6 @@
   <object id="25" name="curaPokemon" x="143.875" y="108.907" width="16.375" height="13.9574"/>
  </objectgroup>
  <objectgroup color="#ff00ff" id="21" name="posDottoressa">
-  <object id="36" name="posDottoressa" x="144" y="83.125" width="15.875" height="10.375"/>
+  <object id="36" name="posizioneDott" x="144" y="83.125" width="15.875" height="10.375"/>
  </objectgroup>
 </map>
