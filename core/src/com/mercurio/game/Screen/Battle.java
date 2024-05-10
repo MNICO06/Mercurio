@@ -846,13 +846,25 @@ public class Battle extends ScreenAdapter {
                     if (statsPlayer.get(4)>=statsBot.get(4)){
                         utilizzoMossa(labelMosse);
                         if (Integer.parseInt(currentPokeHPBot)>0){
-                            utilizzoMossaBot();
+                            Timer.schedule(new Timer.Task() {
+                                @Override
+                                public void run() {
+                                    utilizzoMossaBot();
+                                }
+                            }, 3.51f);
+                            
                         }
                     }
                     else{
                         utilizzoMossaBot();
                         if (Integer.parseInt(currentPokeHP)>0){
-                            utilizzoMossa(labelMosse);
+                            Timer.schedule(new Timer.Task() {
+                                @Override
+                                public void run() {
+                                    utilizzoMossa(labelMosse);
+                                }
+                            }, 3.51f);
+                            
                         }
                     }
                 }
@@ -899,11 +911,9 @@ public class Battle extends ScreenAdapter {
 
         currentPokeHPBot= Integer.toString((Integer.parseInt(currentPokeHPBot))-danno);
 
-
         if(Integer.parseInt(currentPokeHPBot)<=0){
             currentPokeHPBot= Integer.toString(0);
         }
-
 
         if (danno!=0){
             modificaHPPokeBot(numeroIndexPokeBot, currentPokeHPBot);
@@ -1137,14 +1147,16 @@ public class Battle extends ScreenAdapter {
             LVPoke = pokeJson.getString("livello");
 
             JsonValue statistiche = pokeJson.get("statistiche"); 
+
+            currentPokeHP = pokeJson.get("statistiche").getString("hp");
+            maxPokeHP = pokeJson.get("statistiche").getString("hpTot");
+
             for (JsonValue stat : statistiche) {
                 if (!stat.name.equals("hp") && !stat.name.equals("hpTot")){
                     statsPlayer.add(stat.asInt());
                 }
             }
-
-            maxPokeHP = statistiche.getString("hpTot");
-            currentPokeHP = statistiche.getString("hp");
+            
             System.out.println(currentPokeHP);
             JsonValue mosse = pokeJson.get("mosse");
             nomeBall = pokeJson.getString("tipoBall");
@@ -1629,7 +1641,7 @@ public class Battle extends ScreenAdapter {
 
     public void modificaHPPokeBot(int numero, String currentHP) {
         // Carica il file JSON
-        FileHandle file = Gdx.files.local("bots/bots.json");
+        FileHandle file = Gdx.files.local("assets/bots/bots.json");
         String jsonString = file.readString();
         
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
@@ -1652,7 +1664,7 @@ public class Battle extends ScreenAdapter {
 
     public void modificaHPPoke(int numero, String currentHP) {
         // Carica il file JSON
-        FileHandle file = Gdx.files.local("ashJson/squadra.json");
+        FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
         String jsonString = file.readString();
         
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON

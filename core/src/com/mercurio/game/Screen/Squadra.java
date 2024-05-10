@@ -492,7 +492,7 @@ public class Squadra {
 
                 if (indexDaSwitch!=0 && index1!=indexDaSwitch){
                     System.out.println("a");
-                    FileHandle file = Gdx.files.local("ashJson/squadra.json");
+                    FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
                     String jsonString = file.readString();
                     // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
                     JsonValue json = new JsonReader().parse(jsonString);
