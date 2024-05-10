@@ -195,7 +195,7 @@ public class MenuLabel {
     
     private void salva(){
         // Carica il file JSON
-        FileHandle file = Gdx.files.local("ashJson/datiPosizione.json");
+        FileHandle file = Gdx.files.local("assets/ashJson/datiPosizione.json");
         String jsonString = file.readString();
         
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
