@@ -3,6 +3,7 @@ package com.mercurio.game.Screen;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -18,6 +19,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ArrayMap;
 import com.mercurio.game.personaggi.Dottoressa;
 
+import com.badlogic.gdx.utils.Timer;
+
 public class PokeCenter extends ScreenAdapter {
     private final MercurioMain game;
 
@@ -31,6 +34,10 @@ public class PokeCenter extends ScreenAdapter {
     private float yPosition;
 
     private Dottoressa dottoressa;
+    private LabelDiscorsi discorso;
+
+    private boolean renderTesto;
+    private boolean fPressed = false;
 
     //rettangolo con la lista delle persone che collidono
     private ArrayList<Rectangle> rectList = null;
@@ -38,6 +45,7 @@ public class PokeCenter extends ScreenAdapter {
     public PokeCenter(MercurioMain game) {
         this.game = game;
         dottoressa = new Dottoressa();
+        discorso = new LabelDiscorsi("Benvenuto! Questo e' un centro pokemon! riportero' i tuoi pokemon in perfetta forma in un batter d'occhio! Vuoi che mi prenda cura dei tuoi pokemon??", 30, 0, false);
     }
 
     @Override
@@ -74,6 +82,10 @@ public class PokeCenter extends ScreenAdapter {
         lineeLayer = game.getLineeLayer();
         cambiaProfondita(lineeLayer);
         esci();
+        checkCure();
+        checkTesto();
+
+
     }
 
     public void getPostionDoctor() {
@@ -134,6 +146,7 @@ public class PokeCenter extends ScreenAdapter {
         for (String layerName : foreground) {
             renderLayer(layerName);
         }
+
     }
 
     // Metodo per renderizzare un singolo layer
@@ -154,9 +167,36 @@ public class PokeCenter extends ScreenAdapter {
         if (obj instanceof RectangleMapObject) {
             RectangleMapObject rectObject = (RectangleMapObject) obj;
             Rectangle rect = rectObject.getRectangle();
-            if (game.getPlayer().getBoxPlayer().overlaps(rect)) {
-                //controllo se preme il tasto per far curare il pokemon e se lo preme chiama un altro metodo
+            if (game.getPlayer().getBoxPlayer().overlaps(rect) && !fPressed) {
+                if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
+                    fPressed = true;
+                    renderTesto = true;
+                    game.getPlayer().setMovement(false);
+                }
             }
+            else if (fPressed) {
+                if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
+                    renderTesto = false;
+                }
+            }
+        }
+
+        //TODO: metodo di cura da fare quando premi si 
+    }
+
+    private void checkTesto() {
+        if (renderTesto) {
+            discorso.renderDisc();
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+                //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
+                discorso.advanceText();
+            }
+        }
+        else {
+            renderTesto = false;
+            fPressed = false;
+            game.getPlayer().setMovement(true);
+            discorso.reset();
         }
     }
 

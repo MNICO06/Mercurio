@@ -41,7 +41,6 @@ public class CasaSpawn extends ScreenAdapter {
 
     private Timer timer;
     private TimerTask mammaTimerTask;
-    private TimerTask textTimerTask;
 
     private boolean isInBox = false;
     
@@ -284,9 +283,6 @@ public class CasaSpawn extends ScreenAdapter {
             tieniApertoDiscorso = false;
             fPressed = false;
             game.getPlayer().setMovement(true);
-            if (textTimerTask!=null) {
-                textTimerTask.cancel();
-            }
             labelDiscorsi.reset();
         }
     }

@@ -76,8 +76,8 @@ public class Dottoressa {
 
         characterPosition = new Vector2(188, 110);
 
-        player_width = 24; // Larghezza del personaggio
-        player_height = 22; // Altezza del personaggio
+        player_width = 19; // Larghezza del personaggio
+        player_height = 20; // Altezza del personaggio
 
         currentAnimation = fermoIndietro.getKeyFrame(0);
         stateTime = 0f;
@@ -125,7 +125,7 @@ public class Dottoressa {
     }
     
 
-    private void cura(){
+    public void cura(){
         // Carica il file JSON
         FileHandle file = Gdx.files.internal("ashJson/squadra.json");
         String jsonString = file.readString();

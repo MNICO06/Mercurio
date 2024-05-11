@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="19" height="19" tilewidth="16" tileheight="16" infinite="0" nextlayerid="22" nextobjectid="37">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="19" height="19" tilewidth="16" tileheight="16" infinite="0" nextlayerid="22" nextobjectid="38">
  <tileset firstgid="1" name="hal1" tilewidth="16" tileheight="16" tilecount="8284" columns="76">
   <image source="Room_Builder_16x16.png" width="1216" height="1744"/>
  </tileset>
@@ -408,9 +408,9 @@
   <object id="23" x="240.091" y="46.0909" width="15.8182" height="17"/>
  </objectgroup>
  <objectgroup color="#00ff00" id="16" name="cura">
-  <object id="25" name="curaPokemon" x="143.875" y="108.907" width="16.375" height="13.9574"/>
+  <object id="25" name="curaPokemon" x="138.75" y="108.907" width="24.5" height="20.5824"/>
  </objectgroup>
  <objectgroup color="#ff00ff" id="21" name="posDottoressa">
-  <object id="36" name="posizioneDott" x="144" y="83.125" width="15.875" height="10.375"/>
+  <object id="36" name="posizioneDott" x="142.182" y="83.3068" width="15.875" height="10.375"/>
  </objectgroup>
 </map>
