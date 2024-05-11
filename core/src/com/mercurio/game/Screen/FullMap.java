@@ -1,8 +1,7 @@
 package com.mercurio.game.Screen;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
+
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -24,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mercurio.game.personaggi.Bot;
 import com.mercurio.game.personaggi.TeenagerF;
 import com.mercurio.game.personaggi.TeenagerM;
+import com.badlogic.gdx.utils.Timer;
 
 
 public class FullMap extends ScreenAdapter{
@@ -60,25 +60,10 @@ public class FullMap extends ScreenAdapter{
 
     private boolean giaInAcqua = false;
 
-    //---------------------------CLASSE DENTRO CLASSE PER LA TASK-------------------------------------------------
-    private class MyTimerTask extends TimerTask {
-        private Bot bot;
+    private float y;
+    private float x;
 
-        // Costruttore che accetta i parametri
-        public MyTimerTask(Bot bot) {
-            this.bot = bot;
-        }
-
-        @Override
-        public void run() {
-            puntoEsclamativoImage.remove();
-            game.getPlayer().setMovement(true);
-            faiMuovereBot = true;
-            cancel();
-        }
-    }
     //----------------------------------------------------------------------------
-
     public FullMap(MercurioMain game, TiledMap mappa) {
         this.game = game;
         this.mappa = mappa;
@@ -156,8 +141,6 @@ public class FullMap extends ScreenAdapter{
     private void cambiaProfondita(MapLayer lineeLayer) {
         ArrayList<String> background = new ArrayList<String>();
         ArrayList<String> foreground = new ArrayList<String>();
-        float y;
-        float x;
 
         background.add("Livello tile ground");
         background.add("Livello tile path");
@@ -258,7 +241,7 @@ public class FullMap extends ScreenAdapter{
                 y = lineObj.getRectangle().getY() - game.getPlayer().getPlayerPosition().y;
                 x = lineObj.getRectangle().getX() - game.getPlayer().getPlayerPosition().x;
 
-                if (y < 0 && y > -250 && x > -500 && x < 500) {
+                if (y < 0 && y > -125 && x > -165 && x < 165) {
                     foreground.remove("AlberiCima");
                     foreground.remove("FixingLayer1");
                     foreground.remove("AlberiFondo");
@@ -360,8 +343,15 @@ public class FullMap extends ScreenAdapter{
                 bot.updateStateTime(stateTime);
 
                 game.getPlayer().setMovement(false);
-                MyTimerTask myTimerTask = new MyTimerTask(bot);
-                timer.schedule(myTimerTask, 2000);
+                Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            puntoEsclamativoImage.remove();
+                            game.getPlayer().setMovement(true);
+                            faiMuovereBot = true;
+                            cancel();
+                        }
+                    }, 2f);
                 if (faiMuovereBot == true) {
                     muoviBot(bot);
                 }
