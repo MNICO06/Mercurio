@@ -4,12 +4,12 @@
 	"livello": "100",
 	"statistiche": {
 		"hpTot": 400,
-		"attack": 300,
+		"attack": 400,
 		"defense": 40,
-		"special_attack": 50,
+		"special_attack": 500,
 		"special_defense": 50,
 		"speed": 90,
-		"hp": 400
+		"hp": 250
 	},
 	"mosse": [
 		{
@@ -37,7 +37,8 @@
 			"ppAtt": 5
 		}
 	],
-	"tipoBall": "masterBall"
+	"tipoBall": "masterBall",
+	"x": 1.3
 },
 "poke2": {
 	"nomePokemon": "Bidoof",
@@ -71,7 +72,8 @@
 			"ppAtt": 5
 		}
 	],
-	"tipoBall": "pokeBall"
+	"tipoBall": "pokeBall",
+	"x": 1.3
 },
 "poke3": {
 	"nomePokemon": "Bidoof",
@@ -111,7 +113,8 @@
 			"ppAtt": 5
 		}
 	],
-	"tipoBall": "pokeBall"
+	"tipoBall": "pokeBall",
+	"x": 1.3
 },
 "poke4": {
 	"nomePokemon": "Bidoof",
@@ -179,7 +182,8 @@
 			"ppAtt": 5
 		}
 	],
-	"tipoBall": "pokeBall"
+	"tipoBall": "pokeBall",
+	"x": 1.3
 },
 "poke6": {
 	"nomePokemon": "",
@@ -219,6 +223,7 @@
 			"ppAtt": 0
 		}
 	],
-	"tipoBall": ""
+	"tipoBall": "",
+	"x": 0
 }
 }
