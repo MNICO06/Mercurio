@@ -1,6 +1,7 @@
 package com.mercurio.game.Screen;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
@@ -362,7 +363,7 @@ public class Squadra {
     private void clearInventoryItemsSecondary() {
         // Rimuovi gli attori dell'inventario aggiunti durante la visualizzazione precedente
         for (Actor actor : squadActors) {
-            if (actor!=background)
+            if (!actor.equals(background))
                 actor.remove(); // Rimuovi l'attore dalla stage
         }
         squadActors.clear(); // Pulisci l'array degli attori dell'inventario
@@ -371,7 +372,7 @@ public class Squadra {
 
     public void leggiPokeSecondario(int numero) {
         // Carica il file JSON
-        FileHandle file = Gdx.files.internal("ashJson/squadra.json");
+        FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
         String jsonString = file.readString();
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
@@ -496,20 +497,39 @@ public class Squadra {
                     String jsonString = file.readString();
                     // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
                     JsonValue json = new JsonReader().parse(jsonString);
-                    
-                    json.get("poke"+index1).setName("poke"+indexDaSwitch);
-                    json.get("poke"+indexDaSwitch).setName("poke"+index1);
+
+                   // Ottieni i nomi dei due Pokémon da scambiare
+                   String poke1Name = "poke" + index1;
+                   String poke2Name = "poke" + indexDaSwitch;
+
+                   // Conserva i valori dei Pokémon da scambiare
+                   JsonValue poke1Data = json.get(poke1Name);
+                   JsonValue poke2Data = json.get(poke2Name);
+
+                   // Rimuovi i Pokémon dalle posizioni correnti
+                   json.remove(poke1Name);
+                   json.remove(poke2Name);
+
+                   // Assegna un nuovo nome generico a tutti i campi di ciascun Pokémon
+                   poke1Data.setName(poke2Name);
+                   poke2Data.setName(poke1Name);
+
+                   // Aggiungi i Pokémon scambiati nelle posizioni corrispondenti
+                   json.addChild(poke1Data);
+                   json.addChild(poke2Data);
+
+                    // Sovrascrivi il file JSON con i dati modificati
                     file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
 
                 }
-
                 clearInventoryItemsSecondary();
                 showSquad();
 
                 indexDaSwitch=0;
                 checkPerSwitch=false;
-                // Rimuovi il listener dallo stage
+
                 stage.removeListener(this);
+                
             }
         });
     }
