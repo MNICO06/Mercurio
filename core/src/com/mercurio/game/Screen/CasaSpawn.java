@@ -273,7 +273,7 @@ public class CasaSpawn extends ScreenAdapter {
     public void controlloTesto() {
         if (tieniApertoDiscorso) {
             labelDiscorsi.renderDisc();
-            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
                 //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
                 labelDiscorsi.advanceText();
             }

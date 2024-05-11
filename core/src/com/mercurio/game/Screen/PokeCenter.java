@@ -37,7 +37,7 @@ public class PokeCenter extends ScreenAdapter {
     private LabelDiscorsi discorso;
 
     private boolean renderTesto;
-    private boolean fPressed = false;
+    private boolean continuaTesto = true;
 
     //rettangolo con la lista delle persone che collidono
     private ArrayList<Rectangle> rectList = null;
@@ -84,8 +84,6 @@ public class PokeCenter extends ScreenAdapter {
         esci();
         checkCure();
         checkTesto();
-
-
     }
 
     public void getPostionDoctor() {
@@ -167,34 +165,29 @@ public class PokeCenter extends ScreenAdapter {
         if (obj instanceof RectangleMapObject) {
             RectangleMapObject rectObject = (RectangleMapObject) obj;
             Rectangle rect = rectObject.getRectangle();
-            if (game.getPlayer().getBoxPlayer().overlaps(rect) && !fPressed) {
+            if (game.getPlayer().getBoxPlayer().overlaps(rect)) {
                 if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
-                    fPressed = true;
                     renderTesto = true;
                     game.getPlayer().setMovement(false);
                 }
             }
-            else if (fPressed) {
-                if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
-                    renderTesto = false;
-                }
-            }
         }
-
-        //TODO: metodo di cura da fare quando premi si 
     }
 
+        //TODO: metodo di cura da fare quando premi si 
+    
+
     private void checkTesto() {
-        if (renderTesto) {
+        if (renderTesto && continuaTesto) {
             discorso.renderDisc();
-            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
                 //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
-                discorso.advanceText();
+                continuaTesto = discorso.advanceText();
             }
         }
         else {
             renderTesto = false;
-            fPressed = false;
+            continuaTesto = true;
             game.getPlayer().setMovement(true);
             discorso.reset();
         }

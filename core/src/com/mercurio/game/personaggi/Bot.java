@@ -32,9 +32,13 @@ public abstract class Bot {
     protected float stateTime;
     protected float xPunto;
     protected float yPunto;
+    protected final String pathBot = "bots/bots.json";
+    protected String nomeJson;
 
     protected float xBase;
     protected float yBase;
+
+    protected boolean affrontato = false;
 
     /* -y = il personaggio si trova sotto
      * y = il personaggio si trova sopra
@@ -220,5 +224,25 @@ public abstract class Bot {
 
     public float getStateTime() {
         return stateTime;
+    }
+
+    public String getPathBot() {
+        return pathBot;
+    }
+
+    public void setnomeJson(String json) {
+        this.nomeJson = json;
+    }
+
+    public String getNomeJson() {
+        return nomeJson;
+    }
+
+    public boolean getAffrontato() {
+        return affrontato;
+    }
+
+    public void setAffrontato(boolean affrontato) {
+        this.affrontato = affrontato;
     }
 }
