@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.MapGroupLayer;
@@ -23,6 +25,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mercurio.game.personaggi.Bot;
 import com.mercurio.game.personaggi.TeenagerF;
 import com.mercurio.game.personaggi.TeenagerM;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Timer;
 
 
@@ -63,19 +67,24 @@ public class FullMap extends ScreenAdapter{
     private float y;
     private float x;
 
+    private LabelDiscorsi discorso;
+    private boolean continuaTesto = true;
+    private boolean renderDiscorso = false;
+
+    //quando il personaggio passa di fronte al bot mette il testo di inzio del bot e true il boolean, poi legge e rimette a false e aspetta di nuovo
+    private boolean leggiTesto = false;
+
     //----------------------------------------------------------------------------
     public FullMap(MercurioMain game, TiledMap mappa) {
         this.game = game;
         this.mappa = mappa;
         rectList = new ArrayList<Rectangle>();
         botList = new ArrayList<Bot>();
-        botListBack = new ArrayList<Bot>();
-        botListFore = new ArrayList<Bot>();
+        
         stage = new Stage();
         timer = new Timer();
     }
 
-    
     @Override
     public void show() {
         tileRenderer = new OrthogonalTiledMapRenderer(mappa);
@@ -104,6 +113,9 @@ public class FullMap extends ScreenAdapter{
         alberiFore = game.getAlberiFore();
         divAlberi = game.getDivAlberi();
         cambiaProfondita(lineeLayer);
+        if (leggiTesto) {
+            renderizzaDiscorso();
+        }
 
         checkLuogo();
         teleport();
@@ -141,6 +153,8 @@ public class FullMap extends ScreenAdapter{
     private void cambiaProfondita(MapLayer lineeLayer) {
         ArrayList<String> background = new ArrayList<String>();
         ArrayList<String> foreground = new ArrayList<String>();
+        botListBack = new ArrayList<Bot>();
+        botListFore = new ArrayList<Bot>();
 
         background.add("Livello tile ground");
         background.add("Livello tile path");
@@ -210,10 +224,9 @@ public class FullMap extends ScreenAdapter{
             if (game.getPlayer().getPlayerPosition().y < bot.getPosition().y) {
                 botListBack.add(bot);
             }
-            else {
+            else if (game.getPlayer().getPlayerPosition().y > bot.getPosition().y){
                 botListFore.add(bot);
             }
-            
         }
 
         //metodi controllo alberi
@@ -335,7 +348,7 @@ public class FullMap extends ScreenAdapter{
     //metodo per fermare l'utente se passa di fronte al bot
     public void checkInteractionBot() {
         for (Bot bot : botList) {
-            if (checkOverlaps(bot)) {
+            if (checkOverlaps(bot) && bot.getAffrontato() != true) {
                 giraPlayer(bot);
                 triggerBot(bot);
 
@@ -347,7 +360,7 @@ public class FullMap extends ScreenAdapter{
                         @Override
                         public void run() {
                             puntoEsclamativoImage.remove();
-                            game.getPlayer().setMovement(true);
+                            //game.getPlayer().setMovement(true);
                             faiMuovereBot = true;
                             cancel();
                         }
@@ -416,6 +429,15 @@ public class FullMap extends ScreenAdapter{
 
     public void muoviBot(Bot bot) {
         float tot;
+        if (bot.getPathBot() != null) {
+            FileHandle file = Gdx.files.internal(bot.getPathBot());
+            String jsonString = file.readString();
+            JsonValue json = new JsonReader().parse(jsonString);
+            JsonValue botTutto = json.get(bot.getNomeJson());
+            discorso = new LabelDiscorsi(botTutto.getString("testo1"), 30, 0, false);
+            leggiTesto = true;
+        }
+        
         switch (bot.getDirezione()) {
             case "-y":
                 
@@ -428,11 +450,15 @@ public class FullMap extends ScreenAdapter{
                 else {
                     faiMuovereBot = false;
 
+                    bot.setFermoIndietro();
+                    game.getPlayer().setMovement(false);
+
+                    renderDiscorso = true;
+
                     //da mettere a false alla fine della battaglia
                     inEsecuzione = true;
 
-                    bot.setFermoIndietro();
-                    bot.setPosition(bot.getXbase(), bot.getYbase());
+                    //bot.setPosition(bot.getXbase(), bot.getYbase());
                 }
                 break;
                 
@@ -450,6 +476,30 @@ public class FullMap extends ScreenAdapter{
         
             default:
                 break;
+        }
+    }
+
+    private void renderizzaDiscorso() {
+        
+        if (renderDiscorso && continuaTesto) {
+            discorso.renderDisc();
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+                //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
+                continuaTesto = discorso.advanceText();
+            }
+        }
+        else {
+            if (!continuaTesto) {
+                //si esegue solo una volta
+                //TODO: far partire un timer e far partire la battaglia
+                
+
+            }
+            
+            renderDiscorso = false;
+            continuaTesto = true;
+            game.getPlayer().setMovement(true);
+            discorso.reset();
         }
     }
     
@@ -478,8 +528,6 @@ public class FullMap extends ScreenAdapter{
         }
 
     }
-
-
 
     public void checkLuogo() {
         MapObjects objects = mappa.getLayers().get("controlloLuogo").getObjects();
@@ -551,6 +599,23 @@ public class FullMap extends ScreenAdapter{
                         bot.setPosition(rect.getX(),rect.getY());
                         bot.setXbase(rect.getX());
                         bot.setYbase(rect.getY());
+
+                        //TODO: ricordarsi poi di farlo anche per l'altro (serve per salvare il nome del bot sul json)
+                        if ((String)object.getProperties().get("nomeJson") != null) {
+                            bot.setnomeJson((String)object.getProperties().get("nomeJson"));
+                            if (bot.getPathBot() != null) {
+                                FileHandle file = Gdx.files.internal(bot.getPathBot());
+                                String jsonString = file.readString();
+                                JsonValue json = new JsonReader().parse(jsonString);
+                                JsonValue botTutto = json.get(bot.getNomeJson());
+                                if (botTutto.getInt("affrontato") == 1) {
+                                    bot.setAffrontato(true);
+                                }
+                                else {
+                                    bot.setAffrontato(false);
+                                }
+                            }
+                        }
 
                         //ciclo per andare a controllare se la proprietà stringa check è uguale a quella del rettangolo per fermare il bot
                         //se si faccio un set di quel rettangolo

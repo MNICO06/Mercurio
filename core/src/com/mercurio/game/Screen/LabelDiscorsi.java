@@ -177,11 +177,20 @@ public class LabelDiscorsi {
         return righe;
     }
 
-    public void advanceText() {
+    public boolean advanceText() {
+        
         if (isPrimaRigaStampata && rigaCorrente < righeDiscorso.size() - 2) {
             rigaCorrente++;
             updateTwoLines();
-        } 
+            return true;
+        }
+        else {
+            return false;
+
+            //qui parte quando l'utente continua a premere spazio o invio ma il testo è già stato tutto renderizzato
+
+            //TODO: mettere qua il si o no e far terminare dopo il discorso, oppure mettere qualcosa per farlo di la
+        }
     }
 
     private void updateTwoLines() {
