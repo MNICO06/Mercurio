@@ -215,11 +215,6 @@ public class MenuLabel {
         json.addChild("screen", new JsonValue(game.getScreenString()));
         // Scrivi il JSON aggiornato nel file mantenendo la formattazione
         file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
-
-        System.out.println(game.getPlayer().getPlayerPosition().x);
-        System.out.println(game.getPlayer().getPlayerPosition().y);
-        System.out.println(game.getLuogo());
-        System.out.println(game.getScreenString());
     }
 
 	public Stage getStage() {
@@ -327,7 +322,7 @@ public class MenuLabel {
                 // Se il menu è aperto, chiudi il menu
                 chiudiMenu();
             }*/
-            battle = new Battle(this, "bot1");
+            battle = new Battle(this, "Bidoof", false, "percorso1");
         }
 
         // Rendering dello stage

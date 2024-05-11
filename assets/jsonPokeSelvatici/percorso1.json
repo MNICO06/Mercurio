@@ -1,0 +1,26 @@
+{
+    "Bidoof": {
+	"nomePokemon": "Bidoof",
+	"livello": "15",
+	"mosse": [
+		{
+			"nome": "Tuonopugno",
+			"tipo": "Elettro",
+			"ppTot": 5,
+			"ppAtt": 5
+		},
+		{
+			"nome": "Fulmine",
+			"tipo": "Elettro",
+			"ppTot": 5,
+			"ppAtt": 5
+		},
+		{
+			"nome": "Scintilla",
+			"tipo": "Elettro",
+			"ppTot": 5,
+			"ppAtt": 5
+		}
+	]
+}
+}

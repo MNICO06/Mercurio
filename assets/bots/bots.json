@@ -10,19 +10,15 @@
 		"nomePokemon": "Bidoof",
 		"livello": "15",
 		"statistiche": {
-			"hpTot": 35,
+			"hpTot": 400,
 			"attack": 55,
-			"defense": 4000000,
+			"defense": 400,
 			"special_attack": 50,
-			"special_defense": 500000,
-			"speed": 900,
-			"hp": 35
+			"special_defense": 500,
+			"speed": 9,
+			"hp": 21
 		},
 		"mosse": [
-			{
-				"nome": "Azione",
-				"tipo": "Normale"
-			},
 			{
 				"nome": "Forza Lunare",
 				"tipo": "Folletto"
@@ -30,10 +26,6 @@
 			{
 				"nome": "Dragartigli",
 				"tipo": "Drago"
-			},
-			{
-				"nome": "Forzasfera",
-				"tipo": "Lotta"
 			}
 		]
 	},
