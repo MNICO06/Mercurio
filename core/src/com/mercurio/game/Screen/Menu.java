@@ -24,7 +24,6 @@ public class Menu extends ScreenAdapter{
     private Image pokemon;
     Label labelContinua;
     String testoContinua = "Premi un qualsiasi tasto per continuare";
-    String testoNome = "MERCURIO";
     Label labelNome;
 
     // Schermata
@@ -50,12 +49,6 @@ public class Menu extends ScreenAdapter{
         labelContinua = new Label(testoContinua, labelStyle);
         labelContinua.setPosition(220, 20);
 
-        //creazione e scrittura del del titolo con il nome del gioco
-        BitmapFont fontTitolo = new BitmapFont(Gdx.files.internal("font/small_letters_font.fnt"));
-        fontTitolo.getData().setScale(10.0f);
-        labelStyle.font = fontTitolo; 
-        labelNome = new Label(testoNome, labelStyle);
-        labelNome.setPosition(300, 400);
     }
 
     @Override
@@ -71,7 +64,7 @@ public class Menu extends ScreenAdapter{
         background.setPosition(0,x);
 
         //da cambiare con quello nuovo
-        Texture titoloPokemon = new Texture(Gdx.files.internal("menuImage/logoPokemon.png"));
+        Texture titoloPokemon = new Texture(Gdx.files.internal("menuImage/logoMercurio.png"));
         pokemon = new Image(titoloPokemon);
         pokemon.setSize(700,400);
         pokemon.setPosition(150, 400);
@@ -112,7 +105,6 @@ public class Menu extends ScreenAdapter{
         labelContinua.addAction(Actions.forever(lampeggia));
 
         stage.addActor(labelContinua);
-        stage.addActor(labelNome);
 
     }
 

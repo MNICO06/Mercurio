@@ -86,7 +86,7 @@ public class Musica {
                 }
                 break;
 
-            case "perocroso4":
+            case "percorso4":
                 if (current != "perocroso4") {
                     playMusic("musica/percorsoAlto.mp3");
                     current = "perocroso4";

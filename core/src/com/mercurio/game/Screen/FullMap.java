@@ -67,9 +67,13 @@ public class FullMap extends ScreenAdapter{
     private float y;
     private float x;
 
-    private LabelDiscorsi discorso;
+    private LabelDiscorsi discorsoIniziale;
+    private LabelDiscorsi discorsoFinale;
     private boolean continuaTesto = true;
     private boolean renderDiscorso = false;
+    //TODO: da settare a true quando finisce la battaglia per far partire il discorso
+    private boolean battagliaIsFinished = false;
+    private boolean torna = false;
 
     //quando il personaggio passa di fronte al bot mette il testo di inzio del bot e true il boolean, poi legge e rimette a false e aspetta di nuovo
     private boolean leggiTesto = false;
@@ -114,7 +118,10 @@ public class FullMap extends ScreenAdapter{
         divAlberi = game.getDivAlberi();
         cambiaProfondita(lineeLayer);
         if (leggiTesto) {
-            renderizzaDiscorso();
+            renderizzaDiscorsoInizio();
+        }
+        if (battagliaIsFinished) {
+            fineBattaglia();
         }
 
         checkLuogo();
@@ -352,6 +359,17 @@ public class FullMap extends ScreenAdapter{
                 giraPlayer(bot);
                 triggerBot(bot);
 
+                //apertura del Json e lettura per il testo
+                if (bot.getPathBot() != null) {
+                    FileHandle file = Gdx.files.internal(bot.getPathBot());
+                    String jsonString = file.readString();
+                    JsonValue json = new JsonReader().parse(jsonString);
+                    JsonValue botTutto = json.get(bot.getNomeJson());
+                    discorsoIniziale = new LabelDiscorsi(botTutto.getString("testo1"), 30, 0, false);
+                    discorsoFinale = new LabelDiscorsi(botTutto.getString("testo2"), 30, 0, false);
+                    leggiTesto = true;
+                }
+
                 stateTime += Gdx.graphics.getDeltaTime();
                 bot.updateStateTime(stateTime);
 
@@ -360,7 +378,6 @@ public class FullMap extends ScreenAdapter{
                         @Override
                         public void run() {
                             puntoEsclamativoImage.remove();
-                            //game.getPlayer().setMovement(true);
                             faiMuovereBot = true;
                             cancel();
                         }
@@ -429,18 +446,33 @@ public class FullMap extends ScreenAdapter{
 
     public void muoviBot(Bot bot) {
         float tot;
-        if (bot.getPathBot() != null) {
-            FileHandle file = Gdx.files.internal(bot.getPathBot());
-            String jsonString = file.readString();
-            JsonValue json = new JsonReader().parse(jsonString);
-            JsonValue botTutto = json.get(bot.getNomeJson());
-            discorso = new LabelDiscorsi(botTutto.getString("testo1"), 30, 0, false);
-            leggiTesto = true;
-        }
         
         switch (bot.getDirezione()) {
             case "-y":
-                
+
+            if (torna) {
+                bot.setCamminaAvanti();
+
+                if ((float)(int)bot.getPosition().y != (float)(int)bot.getYbase()) {
+                    bot.setY(bot.getPosition().y + 40f * Gdx.graphics.getDeltaTime());
+                }
+                else {
+                    faiMuovereBot = false;
+
+                    bot.setFermoIndietro();
+                    bot.setAffrontato(true);
+                    game.getPlayer().setMovement(true);
+
+                    renderDiscorso = false;
+
+                    //da mettere a false alla fine della battaglia (considerare di bloccare quel bot se finisce la battaglia prima)
+                    inEsecuzione = false;
+
+                    
+                    torna = false;
+                }
+            }
+            else {
                 bot.setCamminaIndietro();
 
                 tot = bot.getPosition().y - game.getPlayer().getPlayerPosition().y;
@@ -449,17 +481,17 @@ public class FullMap extends ScreenAdapter{
                 }
                 else {
                     faiMuovereBot = false;
+                    inEsecuzione = true;
 
                     bot.setFermoIndietro();
                     game.getPlayer().setMovement(false);
 
                     renderDiscorso = true;
 
-                    //da mettere a false alla fine della battaglia
-                    inEsecuzione = true;
-
-                    //bot.setPosition(bot.getXbase(), bot.getYbase());
                 }
+            }
+                
+                
                 break;
                 
             case "y":
@@ -479,27 +511,55 @@ public class FullMap extends ScreenAdapter{
         }
     }
 
-    private void renderizzaDiscorso() {
+    private void renderizzaDiscorsoInizio() {
         
         if (renderDiscorso && continuaTesto) {
-            discorso.renderDisc();
+            discorsoIniziale.renderDisc();
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
                 //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
-                continuaTesto = discorso.advanceText();
+                continuaTesto = discorsoIniziale.advanceText();
             }
         }
         else {
             if (!continuaTesto) {
-                //si esegue solo una volta
-                //TODO: far partire un timer e far partire la battaglia
+                //si esegue solo una volta a fine discorso quando l'utente preme di nuovo ENTER o SPACE
+                //TODO: far partire la battaglia
                 
+                battagliaIsFinished = true;
+                renderDiscorso = true;
 
+            }
+            
+            
+            continuaTesto = true;
+            //game.getPlayer().setMovement(true);
+            discorsoIniziale.reset();
+        }
+
+    }
+
+    //metodo da chiamare dopo la battaglia per dire della vittoria
+    public void fineBattaglia() {
+            if (renderDiscorso && continuaTesto) {
+                
+                discorsoFinale.renderDisc();
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+                //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
+                continuaTesto = discorsoFinale.advanceText();
+            }
+        }
+        else {
+            if (!continuaTesto) {
+                //va a mettere torna a true e quindi a far partire l'animazione del ritorno del bot
+
+                torna = true;
+                inEsecuzione = false;
+                
             }
             
             renderDiscorso = false;
             continuaTesto = true;
-            game.getPlayer().setMovement(true);
-            discorso.reset();
+            discorsoFinale.reset();
         }
     }
     
@@ -644,6 +704,22 @@ public class FullMap extends ScreenAdapter{
                         bot1.setPosition(rect.getX(),rect.getY());
                         bot1.setXbase(rect.getX());
                         bot1.setYbase(rect.getY());
+
+                        if ((String)object.getProperties().get("nomeJson") != null) {
+                            bot1.setnomeJson((String)object.getProperties().get("nomeJson"));
+                            if (bot1.getPathBot() != null) {
+                                FileHandle file = Gdx.files.internal(bot1.getPathBot());
+                                String jsonString = file.readString();
+                                JsonValue json = new JsonReader().parse(jsonString);
+                                JsonValue botTutto = json.get(bot1.getNomeJson());
+                                if (botTutto.getInt("affrontato") == 1) {
+                                    bot1.setAffrontato(true);
+                                }
+                                else {
+                                    bot1.setAffrontato(false);
+                                }
+                            }
+                        }
 
                         for (MapObject obj : rettangoliBlocca.getObjects()) {
                             if (obj instanceof RectangleMapObject) {
