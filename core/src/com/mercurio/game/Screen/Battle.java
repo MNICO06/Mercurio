@@ -689,7 +689,7 @@ public class Battle extends ScreenAdapter {
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
-                        squadra = new Squadra(stage,true, battle);
+                        squadra = new Squadra(stage,true, battle, null);
                     }
                 }, 0.3f);
             }
@@ -1230,6 +1230,13 @@ public class Battle extends ScreenAdapter {
                 // Aggiungi la mossa alla lista
                 Mossa mossa=new Mossa(nomeMossa, tipoMossa, maxPP, attPP, this); //gli passo Battle stesso con "this" per poter chiamare anche i metodi di Battle da Mossa
                 listaMosse.add(mossa);
+            }
+
+            if (currentPokeHP.equals("0") || nomePoke.equals("")){
+                if (numeroIndexPoke<6){
+                    numeroIndexPoke++;
+                    leggiPoke(numeroIndexPoke);
+                }
             }
 
     }
@@ -1933,6 +1940,11 @@ public class Battle extends ScreenAdapter {
         pokemonImage.remove();
         showBall(ballTexture);
         piazzaLabelLottaPlayer();
+    }
+
+    public void closeSquadra() {
+        Gdx.input.setInputProcessor(stage);
+        squadra = null;
     }
 
 
