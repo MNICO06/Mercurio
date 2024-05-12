@@ -150,7 +150,7 @@ public class MenuLabel {
     }
     
 	private void apriPokemon() {
-        squadra = new Squadra(getStage(),false,null);
+        squadra = new Squadra(getStage(),false,null,this);
 	}
 	    
 	private void apriBorsa() {
@@ -360,5 +360,10 @@ public class MenuLabel {
     public void closeBattle() {
         Gdx.input.setInputProcessor(stage);
         battle = null;
+    }
+
+    public void closeSquadra() {
+        Gdx.input.setInputProcessor(stage);
+        squadra = null;
     }
 }
