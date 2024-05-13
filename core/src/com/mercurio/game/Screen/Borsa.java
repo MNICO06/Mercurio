@@ -457,4 +457,6 @@ public class Borsa {
         }
         inventoryItemActors.clear(); // Pulisci l'array degli attori dell'inventario
     }
+
+    
 }

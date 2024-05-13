@@ -191,35 +191,27 @@
 	"testo2": "Cavolo sei proprio forte, adrai lontano con i tuoi compagni.",
 	"affrontato": 0,
 	"soldi": 16,
-	"tipo": "Teenager M",
+	"tipo": "teenagerM",
 	"poke1": {
-		"nomePokemon": "weedle",
+		"nomePokemon": "Bidoof",
 		"livello": "5",
 		"statistiche": {
-			"hp": 48.6,
-			"hpTot": 48.6,
-			"attack": 37.2,
-			"defense": 32.4,
-			"special_attack": 22.8,
-			"special_defense": 22.8,
-			"speed": 51.6
+			"hpTot": 48,
+			"attack": 37,
+			"defense": 32,
+			"special_attack": 22,
+			"special_defense": 22,
+			"speed": 51,
+			"hp": 0
 		},
 		"mosse": [
 			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Forza Lunare",
+				"tipo": "Folletto"
 			},
 			{
-				"nome": "",
-				"tipo": ""
-			},
-			{
-				"nome": "",
-				"tipo": ""
-			},
-			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Dragartigli",
+				"tipo": "Drago"
 			}
 		]
 	},
