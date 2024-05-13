@@ -22,7 +22,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.badlogic.gdx.utils.Timer;
 
-public class MenuLabel {
+public class MenuLabel implements InterfacciaComune{
 
     private Battle battle;
     private Squadra squadra;
@@ -357,6 +357,7 @@ public class MenuLabel {
         stage.dispose();
     }
 
+    @Override
     public void closeBattle() {
         Gdx.input.setInputProcessor(stage);
         battle = null;

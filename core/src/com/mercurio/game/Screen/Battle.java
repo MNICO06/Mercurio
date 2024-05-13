@@ -164,7 +164,7 @@ public class Battle extends ScreenAdapter {
     private Image HPbot;
     private boolean checkLabel5 = true;
     private boolean checkLabel6 = true;
-    private MenuLabel chiamante;
+    private InterfacciaComune chiamante;
     private int numeroIndexPokeBot;
     private int numeroIndexPoke=1;
     private String nameBot;
@@ -176,7 +176,7 @@ public class Battle extends ScreenAdapter {
     private boolean switched=false;
     private String zona;
 
-    public Battle(MenuLabel chiamante, String nameBot, boolean isBotFight, String zona) {
+    public Battle(InterfacciaComune chiamante, String nameBot, boolean isBotFight, String zona) {
         this.nameBot=nameBot;
         this.isBotFight=isBotFight;
         this.zona=zona;

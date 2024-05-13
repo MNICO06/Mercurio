@@ -30,7 +30,8 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Timer;
 
 
-public class FullMap extends ScreenAdapter{
+
+public class FullMap extends ScreenAdapter implements InterfacciaComune {
     private final MercurioMain game;
     
     private TiledMap mappa;
@@ -74,6 +75,9 @@ public class FullMap extends ScreenAdapter{
     //TODO: da settare a true quando finisce la battaglia per far partire il discorso
     private boolean battagliaIsFinished = false;
     private boolean torna = false;
+    private String nomeJson;
+
+    private Battle battle;
 
     //quando il personaggio passa di fronte al bot mette il testo di inzio del bot e true il boolean, poi legge e rimette a false e aspetta di nuovo
     private boolean leggiTesto = false;
@@ -122,6 +126,10 @@ public class FullMap extends ScreenAdapter{
         }
         if (battagliaIsFinished) {
             fineBattaglia();
+        }
+
+        if (battle != null){
+            battle.render();
         }
 
         checkLuogo();
@@ -368,6 +376,7 @@ public class FullMap extends ScreenAdapter{
                     discorsoIniziale = new LabelDiscorsi(botTutto.getString("testo1"), 30, 0, false);
                     discorsoFinale = new LabelDiscorsi(botTutto.getString("testo2"), 30, 0, false);
                     leggiTesto = true;
+                    nomeJson = bot.getNomeJson();
                 }
 
                 stateTime += Gdx.graphics.getDeltaTime();
@@ -524,8 +533,11 @@ public class FullMap extends ScreenAdapter{
             if (!continuaTesto) {
                 //si esegue solo una volta a fine discorso quando l'utente preme di nuovo ENTER o SPACE
                 //TODO: far partire la battaglia
+
+                battle = new Battle(this, nomeJson, true, null);
+
                 
-                battagliaIsFinished = true;
+                
                 renderDiscorso = true;
 
             }
@@ -751,6 +763,13 @@ public class FullMap extends ScreenAdapter{
     @Override
     public void dispose() {
         //mappa.dispose();
+    }
+
+    @Override
+    public void closeBattle() {
+        Gdx.input.setInputProcessor(stage);
+        battle = null;
+        battagliaIsFinished = true;
     }
 
 }
