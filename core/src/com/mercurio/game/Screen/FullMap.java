@@ -406,6 +406,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
         }
 
         if (faiMuovereBot == false) {
+            System.out.println("no");
             Texture puntoEsclamativo = new Texture("bots/ExlMark.png");
             puntoEsclamativoImage = new Image(puntoEsclamativo);
             puntoEsclamativoImage.setSize(48,48);
@@ -418,7 +419,6 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
             puntoEsclamativoImage.setName("puntoEsclamativoImage"); 
             stage.addActor(puntoEsclamativoImage);
         }
-        
     }
 
     //metodo che gira il player verso il bot
