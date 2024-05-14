@@ -767,7 +767,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
 
     @Override
     public void closeBattle() {
-        Gdx.input.setInputProcessor(stage);
+        Gdx.input.setInputProcessor(MenuLabel.getStage());
         battle = null;
         battagliaIsFinished = true;
     }

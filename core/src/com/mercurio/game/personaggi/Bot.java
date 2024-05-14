@@ -46,6 +46,14 @@ public abstract class Bot {
      * -x = il personaggio si trova a sinstra
      * x = il personaggio si trova a destra
     */
+
+
+    /*
+     * STANDARD PER SALVARE I BOT
+     * -prima lettera minuscola
+     * -no spazi
+     * -Lettera maiuscola alla nuova parola
+     */
     protected String direzione;
 
     public Bot(float width, float height, String texturePath, float xPunto, float yPunto) {

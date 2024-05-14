@@ -29,7 +29,7 @@ public class MenuLabel implements InterfacciaComune{
 	private SpriteBatch batch;
     private BitmapFont font;
     private Label openMenuLabel;
-    private Stage stage;
+    private static Stage stage;
     private boolean menuOpened;
     private boolean xKeyPressed;
     private Borsa borsa;
@@ -217,7 +217,7 @@ public class MenuLabel implements InterfacciaComune{
         file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
     }
 
-	public Stage getStage() {
+	public static Stage getStage() {
 	    return stage;
 	}
     
