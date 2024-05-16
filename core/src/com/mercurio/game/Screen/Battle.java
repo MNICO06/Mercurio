@@ -1923,8 +1923,8 @@ public class Battle extends ScreenAdapter {
         isBattleEnded= true;
 
         if (isBotFight){
-            /*label3=labelDiscorsi3.getLabel();
-            stage.addActor(label3);*/
+            label3=labelDiscorsi3.getLabel();
+            stage.addActor(label3);
         
         Timer.schedule(new Timer.Task() {
             @Override

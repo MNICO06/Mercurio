@@ -1924,12 +1924,12 @@
 	}
 },
 "p2_bot1": {
-	"nome": "",
-	"testo1": "",
-	"testo2": "",
+	"nome": "Eugenio",
+	"testo1": "ciao figliulo non andarci troppo pesante con me",
+	"testo2": "bravo mi hai sconfitto, ora continua così, FORZAA GIOVANEE!!!",
 	"affrontato": 0,
 	"soldi": 109,
-	"tipo": "",
+	"tipo": "anziano",
 	"poke1": {
 		"nomePokemon": "weedle",
 		"livello": "7",
@@ -2118,12 +2118,12 @@
 	}
 },
 "p2_bot2": {
-	"nome": "",
-	"testo1": "",
-	"testo2": "",
+	"nome": "Ermenegilda",
+	"testo1": "hai mangiato abbastanza a pranzo?? tieni mangia ancora",
+	"testo2": "bravo ti meriti una mancia per come ti sei comportato, mi raccomando vai a prendere il gelato",
 	"affrontato": 0,
 	"soldi": 109,
-	"tipo": "",
+	"tipo": "nonnia",
 	"poke1": {
 		"nomePokemon": "weedle",
 		"livello": "7",
@@ -3863,12 +3863,12 @@
 	}
 },
 "mare_bot1": {
-	"nome": "",
-	"testo1": "",
-	"testo2": "",
+	"nome": "Michael",
+	"testo1": "mi sto allenando per vincere piu' ori possibili alle prossime olimiadi",
+	"testo2": "augurami buona fortuna, nel caso in cui dovessi vincere ti dedicherò una medaglia",
 	"affrontato": 0,
 	"soldi": 109,
-	"tipo": "",
+	"tipo": "nuotatoreM",
 	"poke1": {
 		"nomePokemon": "weedle",
 		"livello": "7",
@@ -4057,12 +4057,12 @@
 	}
 },
 "mare_bot2": {
-	"nome": "",
-	"testo1": "",
-	"testo2": "",
+	"nome": "Rodriguez",
+	"testo1": "che bello che e' il mare oggi, e' la giornata perfetta' per farsi una bella nuotata",
+	"testo2": "era meglio restare a casa a guardarmi una puntata di mare fuori",
 	"affrontato": 0,
 	"soldi": 109,
-	"tipo": "",
+	"tipo": "nuotatoreM",
 	"poke1": {
 		"nomePokemon": "weedle",
 		"livello": "7",
@@ -4251,12 +4251,12 @@
 	}
 },
 "mare_bot3": {
-	"nome": "",
-	"testo1": "",
-	"testo2": "",
+	"nome": "federica",
+	"testo1": "e' sempre bello fare un giro di tutta la costa",
+	"testo2": "penso che tornero' alla mia routin di nuoto",
 	"affrontato": 0,
 	"soldi": 109,
-	"tipo": "",
+	"tipo": "nuotatoreF",
 	"poke1": {
 		"nomePokemon": "weedle",
 		"livello": "7",
@@ -4445,12 +4445,12 @@
 	}
 },
 "mare_bot4": {
-	"nome": "",
-	"testo1": "",
-	"testo2": "",
+	"nome": "Alice",
+	"testo1": "Ho mangiato un ora fa, ho paura di stare male",
+	"testo2": "Cavolo, mi sa che avrei dovuto aspettare qualche ora in piu'",
 	"affrontato": 0,
 	"soldi": 109,
-	"tipo": "",
+	"tipo": "nuotatoreF",
 	"poke1": {
 		"nomePokemon": "weedle",
 		"livello": "7",
@@ -4644,7 +4644,7 @@
 	"testo2": "",
 	"affrontato": 0,
 	"soldi": 109,
-	"tipo": "",
+	"tipo": "nuotatoreM",
 	"poke1": {
 		"nomePokemon": "weedle",
 		"livello": "7",
