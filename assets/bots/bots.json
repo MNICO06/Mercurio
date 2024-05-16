@@ -4639,9 +4639,9 @@
 	}
 },
 "mare_bot5": {
-	"nome": "",
-	"testo1": "",
-	"testo2": "",
+	"nome": "Marco",
+	"testo1": "Ci sono tanti bei pokemon, mi e' sembrato di vedere anche un lugia",
+	"testo2": "Stato scherzando mi sono confuso io, in realta' era un magikarp",
 	"affrontato": 0,
 	"soldi": 109,
 	"tipo": "nuotatoreM",
@@ -4833,12 +4833,12 @@
 	}
 },
 "mare_bot6": {
-	"nome": "",
-	"testo1": "",
-	"testo2": "",
+	"nome": "Magikarp",
+	"testo1": "Magikarp!",
+	"testo2": "Magikarp...",
 	"affrontato": 0,
 	"soldi": 109,
-	"tipo": "",
+	"tipo": "pescatore",
 	"poke1": {
 		"nomePokemon": "weedle",
 		"livello": "7",
@@ -5027,12 +5027,12 @@
 	}
 },
 "mare_bot7": {
-	"nome": "",
-	"testo1": "",
-	"testo2": "",
+	"nome": "Ettore",
+	"testo1": "Quanto e' divertente andare al mare? A te piace?",
+	"testo2": "sei cattivo! penso che tornero' a fare un castello di sabbia",
 	"affrontato": 0,
 	"soldi": 109,
-	"tipo": "",
+	"tipo": "bambinoNuota",
 	"poke1": {
 		"nomePokemon": "weedle",
 		"livello": "7",
@@ -5221,12 +5221,12 @@
 	}
 },
 "mare_bot8": {
-	"nome": "",
-	"testo1": "",
-	"testo2": "",
+	"nome": "Martina",
+	"testo1": "I nonni mi hanno portato qua, anche se io non volevo",
+	"testo2": "In realtà io volevo andare al supermercato a fare compere",
 	"affrontato": 0,
 	"soldi": 109,
-	"tipo": "",
+	"tipo": "bambinaNuota",
 	"poke1": {
 		"nomePokemon": "weedle",
 		"livello": "7",
@@ -5415,12 +5415,12 @@
 	}
 },
 "p4_bot1": {
-	"nome": "",
-	"testo1": "",
-	"testo2": "",
+	"nome": "Jenny",
+	"testo1": "Stavamo facendo una sfida tra i boyscout ma mi sono persa, tu per caso sai dove devo andare?",
+	"testo2": "Va bene ho capito tu non sai dove sono i miei compagni, vorrà dire che li cerchere' da sola",
 	"affrontato": 0,
 	"soldi": 109,
-	"tipo": "",
+	"tipo": "girlScout",
 	"poke1": {
 		"nomePokemon": "weedle",
 		"livello": "7",
@@ -5609,12 +5609,12 @@
 	}
 },
 "p4_bot2": {
-	"nome": "",
-	"testo1": "",
-	"testo2": "",
+	"nome": "Hal",
+	"testo1": "Non penso che riuscirai a sfonfiggermi, sono uno dei piu' forti qua",
+	"testo2": "Va bene mi hai scoperto, non ho ancora ottenuto la terza medaglia",
 	"affrontato": 0,
 	"soldi": 109,
-	"tipo": "",
+	"tipo": "fantaAllenatore",
 	"poke1": {
 		"nomePokemon": "weedle",
 		"livello": "7",
@@ -5803,12 +5803,12 @@
 	}
 },
 "p4_bot3": {
-	"nome": "",
-	"testo1": "",
-	"testo2": "",
+	"nome": "Mara",
+	"testo1": "Se sei arrivato fin qua vuol dire che sei abbastanza forte, ma lo sarai abbastanza per sconfiggermi??",
+	"testo2": "si', sei decisamente forte, sicuramente andrai lontano",
 	"affrontato": 0,
 	"soldi": 109,
-	"tipo": "",
+	"tipo": "fantaAllenatrice",
 	"poke1": {
 		"nomePokemon": "weedle",
 		"livello": "7",
