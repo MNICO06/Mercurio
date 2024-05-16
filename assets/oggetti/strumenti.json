@@ -1,0 +1,47 @@
+{
+    "cure":{
+        "pozione":{
+            "curaPs" : 20
+        },
+        "superPozione":{
+            "curaPs" : 60
+        },
+        "iperPozione":{
+            "curaPs" : 120
+        },
+        "revitalizzante":{
+            "rivitalizzazione":50
+        },
+        "revitalizzanteMAX":{
+            "rivitalizzazione":100
+        },
+        "ricaricaTot":{
+            "curaPs" : 0
+        }
+
+    },
+
+    "pokeballs":{
+        "pokeball":{
+            "cattura": 20
+        },
+        "megaball":{
+            "cattura": 50
+        },
+        "ultraball":{
+            "cattura": 70
+        },
+        "masterball":{
+            "cattura": 100
+        }
+    },
+
+    "mt":{
+
+    },
+
+    "strumentiChiave":{
+
+    }
+
+}
