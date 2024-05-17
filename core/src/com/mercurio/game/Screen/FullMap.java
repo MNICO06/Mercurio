@@ -459,59 +459,180 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
         switch (bot.getDirezione()) {
             case "-y":
 
-            if (torna) {
-                bot.setCamminaAvanti();
+                if (torna) {
+                    bot.setCamminaAvanti();
 
-                if ((float)(int)bot.getPosition().y != (float)(int)bot.getYbase()) {
-                    bot.setY(bot.getPosition().y + 40f * Gdx.graphics.getDeltaTime());
+                    if ((float)(int)bot.getPosition().y != (float)(int)bot.getYbase()) {
+                        bot.setY(bot.getPosition().y + 40f * Gdx.graphics.getDeltaTime());
+                    }
+                    else {
+                        faiMuovereBot = false;
+
+                        bot.setFermoIndietro();
+                        bot.setAffrontato(true);
+                        game.getPlayer().setMovement(true);
+
+                        renderDiscorso = false;
+
+                        //da mettere a false alla fine della battaglia (considerare di bloccare quel bot se finisce la battaglia prima)
+                        inEsecuzione = false;
+
+                        
+                        torna = false;
+                    }
                 }
                 else {
-                    faiMuovereBot = false;
+                    bot.setCamminaIndietro();
 
-                    bot.setFermoIndietro();
-                    bot.setAffrontato(true);
-                    game.getPlayer().setMovement(true);
+                    tot = bot.getPosition().y - game.getPlayer().getPlayerPosition().y;
+                    if (tot > 15) {
+                        bot.setY(bot.getPosition().y - 40f * Gdx.graphics.getDeltaTime());
+                    }
+                    else {
+                        faiMuovereBot = false;
+                        inEsecuzione = true;
 
-                    renderDiscorso = false;
+                        bot.setFermoIndietro();
+                        game.getPlayer().setMovement(false);
 
-                    //da mettere a false alla fine della battaglia (considerare di bloccare quel bot se finisce la battaglia prima)
-                    inEsecuzione = false;
+                        renderDiscorso = true;
 
-                    
-                    torna = false;
+                    }
                 }
-            }
-            else {
-                bot.setCamminaIndietro();
-
-                tot = bot.getPosition().y - game.getPlayer().getPlayerPosition().y;
-                if (tot > 15) {
-                    bot.setY(bot.getPosition().y - 40f * Gdx.graphics.getDeltaTime());
-                }
-                else {
-                    faiMuovereBot = false;
-                    inEsecuzione = true;
-
-                    bot.setFermoIndietro();
-                    game.getPlayer().setMovement(false);
-
-                    renderDiscorso = true;
-
-                }
-            }
-                
-                
                 break;
                 
             case "y":
+
+                if (torna) {
+                    bot.setCamminaIndietro();
+
+                    if ((float)(int)bot.getPosition().y != (float)(int)bot.getYbase()) {
+                        bot.setY(bot.getPosition().y - 40f * Gdx.graphics.getDeltaTime());
+                    }
+                    else {
+                        faiMuovereBot = false;
+
+                        bot.setFermoIndietro();
+                        bot.setAffrontato(true);
+                        game.getPlayer().setMovement(true);
+
+                        renderDiscorso = false;
+
+                        //da mettere a false alla fine della battaglia (considerare di bloccare quel bot se finisce la battaglia prima)
+                        inEsecuzione = false;
+
+                        
+                        torna = false;
+                    }
+                }
+                else {
+                    bot.setCamminaAvanti();
+
+                    tot = bot.getPosition().y - game.getPlayer().getPlayerPosition().y;
+                    if (tot > 15) {
+                        bot.setY(bot.getPosition().y + 40f * Gdx.graphics.getDeltaTime());
+                    }
+                    else {
+                        faiMuovereBot = false;
+                        inEsecuzione = true;
+
+                        bot.setFermoAvanti();
+                        game.getPlayer().setMovement(false);
+
+                        renderDiscorso = true;
+
+                    }
+                }
                 
                 break;
                 
             case "-x":
+
+                if (torna) {
+                    bot.setCamminaDestra();
+
+                    if ((float)(int)bot.getPosition().x != (float)(int)bot.getXbase()) {
+                        bot.setX(bot.getPosition().x + 40f * Gdx.graphics.getDeltaTime());
+                    }
+                    else {
+                        faiMuovereBot = false;
+
+                        bot.setFermoSinistra();
+                        bot.setAffrontato(true);
+                        game.getPlayer().setMovement(true);
+
+                        renderDiscorso = false;
+
+                        //da mettere a false alla fine della battaglia (considerare di bloccare quel bot se finisce la battaglia prima)
+                        inEsecuzione = false;
+
+                        
+                        torna = false;
+                    }
+                }
+                else {
+                    bot.setCamminaSinistra();
+
+                    tot = bot.getPosition().x - game.getPlayer().getPlayerPosition().x;
+                    if (tot > 15) {
+                        bot.setX(bot.getPosition().x - 40f * Gdx.graphics.getDeltaTime());
+                    }
+                    else {
+                        faiMuovereBot = false;
+                        inEsecuzione = true;
+
+                        bot.setFermoSinistra();
+                        game.getPlayer().setMovement(false);
+
+                        renderDiscorso = true;
+
+                    }
+                }
             
                 break;
 
             case "x":
+
+                if (torna) {
+                    bot.setCamminaSinistra();
+
+                    if ((float)(int)bot.getPosition().x != (float)(int)bot.getXbase()) {
+                        bot.setX(bot.getPosition().x - 40f * Gdx.graphics.getDeltaTime());
+                    }
+                    else {
+                        faiMuovereBot = false;
+
+                        bot.setFermoDestra();
+                        bot.setAffrontato(true);
+                        game.getPlayer().setMovement(true);
+
+                        renderDiscorso = false;
+
+                        //da mettere a false alla fine della battaglia (considerare di bloccare quel bot se finisce la battaglia prima)
+                        inEsecuzione = false;
+
+                        
+                        torna = false;
+                    }
+                }
+                else {
+                    bot.setCamminaDestra();
+
+                    tot = bot.getPosition().x + game.getPlayer().getPlayerPosition().x;
+                    if (tot > 15) {
+                        bot.setX(bot.getPosition().x - 40f * Gdx.graphics.getDeltaTime());
+                    }
+                    else {
+                        faiMuovereBot = false;
+                        inEsecuzione = true;
+
+                        bot.setFermoDestra();
+                        game.getPlayer().setMovement(false);
+
+                        renderDiscorso = true;
+
+                    }
+                }
             
                 break;
         
