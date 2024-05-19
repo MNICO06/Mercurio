@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public abstract class Bot {
+public class Bot {
     protected float player_width;
     protected float player_height;
     protected TextureRegion[] indietro;

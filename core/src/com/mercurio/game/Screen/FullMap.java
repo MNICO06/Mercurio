@@ -23,8 +23,6 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mercurio.game.personaggi.Bot;
-import com.mercurio.game.personaggi.TeenagerF;
-import com.mercurio.game.personaggi.TeenagerM;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Timer;
@@ -147,7 +145,6 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
         }
         */
 
-        //System.out.println(inEsecuzione);
         //controlla presenza bot solo se è nei percorsi
         if (inEsecuzione == false) {
             if (game.getLuogo().equals("percorso1") || game.getLuogo().equals("bosco") || game.getLuogo().equals("percorso2") ||
@@ -361,7 +358,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
 
     //---------------------------------------CONTROLLO NPC------------------------------------------------------------------
     //metodo per fermare l'utente se passa di fronte al bot
-    public void checkInteractionBot() {
+    private void checkInteractionBot() {
         for (Bot bot : botList) {
             if (checkOverlaps(bot) && bot.getAffrontato() != true) {
                 giraPlayer(bot);
@@ -406,7 +403,6 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
         }
 
         if (faiMuovereBot == false) {
-            System.out.println("no");
             Texture puntoEsclamativo = new Texture("bots/ExlMark.png");
             puntoEsclamativoImage = new Image(puntoEsclamativo);
             puntoEsclamativoImage.setSize(48,48);
@@ -423,7 +419,9 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
 
     //metodo che gira il player verso il bot
     private void giraPlayer(Bot bot) {
+        
         String direzione = bot.getDirezione();
+        System.out.println(direzione);
         if (direzione.equals("-y")) {
             game.getPlayer().setFermoAvanti();
         }
@@ -439,7 +437,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
     }
 
 
-    public boolean checkOverlaps(Bot bot) {
+    private boolean checkOverlaps(Bot bot) {
         Rectangle playerBox = game.getPlayer().getBoxPlayer();
         Rectangle botBox = bot.getBoxBlocca();
         
@@ -453,7 +451,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
         return false;
     }
 
-    public void muoviBot(Bot bot) {
+    private void muoviBot(Bot bot) {
         float tot;
         
         switch (bot.getDirezione()) {
@@ -672,7 +670,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
     }
 
     //metodo da chiamare dopo la battaglia per dire della vittoria
-    public void fineBattaglia() {
+    private void fineBattaglia() {
             if (renderDiscorso && continuaTesto) {
                 
                 discorsoFinale.renderDisc();
@@ -776,8 +774,10 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
         
     }
 
+    //------------------------------SETTAGGIO BOT---------------------------------------
+
     //metodo che va a posizionare i bot
-    public void setPositionBot() {
+    private void setPositionBot() {
         MapLayer rettangoliBlocca = mappa.getLayers().get("p1_bot_linea");
         MapLayer posizione = mappa.getLayers().get("p1_bot");
         for (MapObject object : posizione.getObjects()) {
@@ -785,99 +785,81 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                 RectangleMapObject rectObject = (RectangleMapObject) object;
                 Rectangle rect = rectObject.getRectangle();
 
-                switch (object.getName()) {
-                    case "TeenagerM":
-                        //se il rettangolo di posizione si chiama così allora mi salvo come bot di tipo TeenagerM nella lista
-                        TeenagerM bot = new TeenagerM();
-                        bot.setPosition(rect.getX(),rect.getY());
-                        bot.setXbase(rect.getX());
-                        bot.setYbase(rect.getY());
+                if (object.getProperties().get("path") != null) {
+                    //creo un nuovo bot andando a prendere la path dello spritesheet dalla sua proprietà
+                    Bot bot = new Bot(24, 24, (String)object.getProperties().get("path"),35,60);
+                    bot.setPosition(rect.getX(),rect.getY());
+                    bot.setXbase(rect.getX());
+                    bot.setYbase(rect.getY());
 
-                        //TODO: ricordarsi poi di farlo anche per l'altro (serve per salvare il nome del bot sul json)
-                        if ((String)object.getProperties().get("nomeJson") != null) {
-                            bot.setnomeJson((String)object.getProperties().get("nomeJson"));
-                            if (bot.getPathBot() != null) {
-                                FileHandle file = Gdx.files.internal(bot.getPathBot());
-                                String jsonString = file.readString();
-                                JsonValue json = new JsonReader().parse(jsonString);
-                                JsonValue botTutto = json.get(bot.getNomeJson());
-                                if (botTutto.getInt("affrontato") == 1) {
-                                    bot.setAffrontato(true);
-                                }
-                                else {
-                                    bot.setAffrontato(false);
-                                }
-                            }
-                        }
+                    //metodo per salvare Json e settarlo affrontato o no
+                    salvaBotJson(object, bot);
 
-                        //ciclo per andare a controllare se la proprietà stringa check è uguale a quella del rettangolo per fermare il bot
-                        //se si faccio un set di quel rettangolo
-                        for (MapObject obj : rettangoliBlocca.getObjects()) {
-                            if (obj instanceof RectangleMapObject) {
-                                RectangleMapObject rectObj = (RectangleMapObject)obj;
-                
-                                String layerName = (String)rectObj.getProperties().get("check");
-                                bot.setDirezione((String)rectObj.getProperties().get("direzione"));
-                
-                                if (layerName.equals((String)rectObject.getProperties().get("check"))) {
-                                    bot.setBoxBlocca(rectObj.getRectangle());
-                                }
-                                
-                            }
-                        }
+                    //metodo che va a collegare il rettangolo blocca al bot
+                    setBlocca(rettangoliBlocca, bot, rectObject);
 
-                        botList.add(bot);
-                        rectList.add(bot.getBoxPlayer());
+                    //lista dei bot
+                    botList.add(bot);
 
-                        //assegno al layer che mi da la poszione un layer che ha il nome del layer della collisione
-                        break;
-                    
-                    case "TeenagerF":
-                        TeenagerF bot1 = new TeenagerF();
-                        bot1.setPosition(rect.getX(),rect.getY());
-                        bot1.setXbase(rect.getX());
-                        bot1.setYbase(rect.getY());
-
-                        if ((String)object.getProperties().get("nomeJson") != null) {
-                            bot1.setnomeJson((String)object.getProperties().get("nomeJson"));
-                            if (bot1.getPathBot() != null) {
-                                FileHandle file = Gdx.files.internal(bot1.getPathBot());
-                                String jsonString = file.readString();
-                                JsonValue json = new JsonReader().parse(jsonString);
-                                JsonValue botTutto = json.get(bot1.getNomeJson());
-                                if (botTutto.getInt("affrontato") == 1) {
-                                    bot1.setAffrontato(true);
-                                }
-                                else {
-                                    bot1.setAffrontato(false);
-                                }
-                            }
-                        }
-
-                        for (MapObject obj : rettangoliBlocca.getObjects()) {
-                            if (obj instanceof RectangleMapObject) {
-                                RectangleMapObject rectObj = (RectangleMapObject)obj;
-                
-                                String layerName = (String)rectObj.getProperties().get("check");
-                                bot1.setDirezione((String)rectObj.getProperties().get("direzione"));
-                
-                                if (layerName.equals((String)rectObject.getProperties().get("check"))) {
-                                    bot1.setBoxBlocca(rectObj.getRectangle());
-                                }
-                                
-                            }
-                        }
-
-                        botList.add(bot1);
-                        rectList.add(bot1.getBoxPlayer());
-
-
-                        break;
-                
-                    default:
-                        break;
+                    //lista per le collisioni del bot
+                    rectList.add(bot.getBoxPlayer());
                 }
             }
+        }
+    }
+
+    //metodo che salva il nomeJson su bot e lo setta come affrontato o no
+    private void salvaBotJson(MapObject object, Bot bot) {
+        if ((String)object.getProperties().get("nomeJson") != null) {
+            bot.setnomeJson((String)object.getProperties().get("nomeJson"));
+            if (bot.getPathBot() != null) {
+                FileHandle file = Gdx.files.internal(bot.getPathBot());
+                String jsonString = file.readString();
+                JsonValue json = new JsonReader().parse(jsonString);
+                JsonValue botTutto = json.get(bot.getNomeJson());
+                if (botTutto.getInt("affrontato") == 1) {
+                    bot.setAffrontato(true);
+                }
+                else {
+                    bot.setAffrontato(false);
+                }
+            }
+        }
+    }
+
+    //metodo che va a collegare il rettangolo blocca al bot giusto
+    private void setBlocca(MapLayer rettangoliBlocca, Bot bot, RectangleMapObject rectObject) {
+        for (MapObject obj : rettangoliBlocca.getObjects()) {
+            if (obj instanceof RectangleMapObject) {
+                RectangleMapObject rectObj = (RectangleMapObject)obj;
+
+                String layerName = (String)rectObj.getProperties().get("check");
+                
+                if (layerName.equals((String)rectObject.getProperties().get("check"))) {
+                    bot.setBoxBlocca(rectObj.getRectangle());
+                    bot.setDirezione((String)rectObj.getProperties().get("direzione"));
+                    gira(bot, (String)rectObj.getProperties().get("direzione"));
+                }
+            }
+        }
+    }
+
+    private void gira(Bot bot, String direzione) {
+        switch (direzione) {
+            case "-y":
+                bot.setFermoIndietro();
+                break;
+            case "y":
+                bot.setFermoAvanti();
+                break;
+            case "-x":
+                bot.setFermoSinistra();
+                break;
+            case "x":
+                bot.setFermoDestra();
+                break;
+            default:
+                break;
         }
     }
 
