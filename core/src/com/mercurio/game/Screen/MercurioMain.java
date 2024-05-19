@@ -19,6 +19,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Timer;
@@ -80,7 +81,11 @@ public class MercurioMain extends Game{
         batch = new SpriteBatch();
         menuLabel = new MenuLabel(this);
         setPage(Constant.SCHERMATA_LOGO);
-        
+
+        copiaJson("jsonSalvati/borsaSalvato.json", "assets/ashJson/borsa.json");
+        copiaJson("jsonSalvati/squadraSalvato.json", "assets/ashJson/squadra.json");
+        copiaJson("jsonSalvati/botsSalvato.json", "assets/bots/bots.json");
+
 
         Timer.schedule(new Timer.Task() {
             @Override
@@ -92,6 +97,21 @@ public class MercurioMain extends Game{
                 setPage(Constant.MENU_SCREEN);
             }
         }, 1); // Ritarda di 2 secondi (puoi modificare questo valore)
+    }
+
+    public static void copiaJson(String pathSorgente, String pathDestinazione) {
+        try {
+            // Leggi il contenuto del file JSON sorgente
+            FileHandle sourceFile = Gdx.files.internal(pathSorgente);
+            String jsonString = sourceFile.readString();
+
+            // Scrivi il contenuto nel file JSON di destinazione
+            FileHandle destinationFile = Gdx.files.local(pathDestinazione);
+            destinationFile.writeString(jsonString, false);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

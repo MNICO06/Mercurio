@@ -1,0 +1,47 @@
+{
+    "inventoryBall": [
+        {
+            "quantity": 10,
+            "name": "Pokeball"
+        },
+        {
+            "quantity": 5,
+            "name": "Ultraball"
+        }
+    ],
+    "inventoryKey": [{
+        "quantity": 1,
+        "name": "Surf"
+    }],
+    "inventoryMT": [
+        {
+            "quantity": 3,
+            "name": "MT Oscurotuffo"
+        },
+        {
+        "quantity": 2,
+        "name": "MT Lanciafiamme"
+    }],
+    "inventoryCure": [
+        {
+            "quantity": 3,
+            "name": "Pozione"
+        },
+        {
+            "quantity": 7,
+            "name": "CaramellaRara"
+        },
+        {
+            "quantity": 1,
+            "name": "Superpozione"
+        },
+        {
+            "quantity": 2,
+            "name": "Revitalizzante"
+        },
+        {
+            "quantity": 2,
+            "name": "iperPozione"
+        }
+    ]
+}
