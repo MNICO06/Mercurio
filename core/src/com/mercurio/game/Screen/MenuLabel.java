@@ -215,6 +215,10 @@ public class MenuLabel implements InterfacciaComune{
         json.addChild("screen", new JsonValue(game.getScreenString()));
         // Scrivi il JSON aggiornato nel file mantenendo la formattazione
         file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
+
+        game.copiaJson("ashJson/borsa.json","assets/jsonSalvati/borsaSalvato.json");
+        game.copiaJson("ashJson/squadra.json","assets/jsonSalvati/squadraSalvato.json");
+        game.copiaJson("bots/bots.json","assets/jsonSalvati/botsSalvato.json");
     }
 
 	public static Stage getStage() {

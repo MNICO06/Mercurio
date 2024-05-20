@@ -18,8 +18,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Timer;
@@ -99,7 +97,7 @@ public class MercurioMain extends Game{
         }, 1); // Ritarda di 2 secondi (puoi modificare questo valore)
     }
 
-    public static void copiaJson(String pathSorgente, String pathDestinazione) {
+    public void copiaJson(String pathSorgente, String pathDestinazione) {
         try {
             // Leggi il contenuto del file JSON sorgente
             FileHandle sourceFile = Gdx.files.internal(pathSorgente);
@@ -291,7 +289,6 @@ public class MercurioMain extends Game{
         System.out.println(getPlayer().getPlayerPosition().y);
         System.out.println(getLuogo());
         System.out.println(getScreenString());
-
     }
 
     public void setMap(TiledMap map, OrthogonalTiledMapRenderer render, OrthographicCamera camera, float larghezza, float altezza) {
