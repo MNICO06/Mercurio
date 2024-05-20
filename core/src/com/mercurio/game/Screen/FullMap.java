@@ -44,6 +44,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
     //rettangolo con la lista delle persone che collidono
     private ArrayList<Rectangle> rectList = null;
     private ArrayList<Bot> botList;
+    private ArrayList<Bot> nuotatoriList;
     private ArrayList<Bot> botListBack;
     private ArrayList<Bot> botListFore;
 
@@ -86,6 +87,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
         this.mappa = mappa;
         rectList = new ArrayList<Rectangle>();
         botList = new ArrayList<Bot>();
+        nuotatoriList = new ArrayList<Bot>();
         
         stage = new Stage();
         timer = new Timer();
@@ -231,6 +233,15 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
 
         //stessa cosa che faccio con i layer ma con la lista dei bot
         for (Bot bot : botList) {
+            if (game.getPlayer().getPlayerPosition().y < bot.getPosition().y) {
+                botListBack.add(bot);
+            }
+            else if (game.getPlayer().getPlayerPosition().y > bot.getPosition().y){
+                botListFore.add(bot);
+            }
+        }
+
+        for (Bot bot : nuotatoriList) {
             if (game.getPlayer().getPlayerPosition().y < bot.getPosition().y) {
                 botListBack.add(bot);
             }
@@ -780,8 +791,6 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
 
     //------------------------------SETTAGGIO BOT---------------------------------------
 
-    //TODO: faccio una cosa con alcuni metodo separati per i bot nell'acqua (mettere in un altra lista e non botList)
-
     //metodo che va a posizionare i bot
     private void setPositionBot() {
         MapLayer rettangoliBlocca = mappa.getLayers().get("p1_bot_linea");
@@ -820,6 +829,29 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                         bot.setPosition(rect.getX(),rect.getY());
                         bot.setXbase(rect.getX());
                         bot.setYbase(rect.getY());
+                        bot.setInAcqua(true);
+                        
+
+                        //metodo che va a collegare il rettangolo blocca al bot
+                        setBlocca(rettangoliBlocca, bot, rectObject);
+                        
+                        String direzione;
+                        if (convertStringToFloat((String)object.getProperties().get("nuota")) < 0) {
+                            direzione = "-y";
+                        }
+                        else {
+                            direzione = "y";
+                        }
+                        giraNuotatore(bot, direzione);
+
+                        //metodo per salvare Json e settarlo affrontato o no
+                        salvaBotJson(object, bot);
+
+                        nuotatoriList.add(bot);
+
+                        //lista per le collisioni del bot
+                        rectList.add(bot.getBoxPlayer());
+
                     }
                 }
             }
@@ -872,6 +904,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                     else {
                         //da fare per quelli che nuotano
                         bot.setYfinale(rectObj.getRectangle().getY());
+
                     }
                 }
             }
@@ -888,6 +921,25 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                 break;
             case "-x":
                 bot.setFermoSinistra();
+                break;
+            case "x":
+                bot.setFermoDestra();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void giraNuotatore(Bot bot, String direzione) {
+        switch (direzione) {
+            case "-y":
+                bot.setCamminaIndietro();
+                break;
+            case "y":
+                bot.setCamminaAvanti();
+                break;
+            case "-x":
+                bot.setCamminaSinistra();
                 break;
             case "x":
                 bot.setFermoDestra();
