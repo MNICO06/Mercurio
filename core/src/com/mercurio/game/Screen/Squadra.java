@@ -52,6 +52,7 @@ public class Squadra {
     private boolean checkPerSwitch=false;
     private int indexDaSwitch=0;
     private Image background;
+    private boolean cambioObbligatorio;
 
 
     Array<Texture> animationTextures = new Array<>();
@@ -59,9 +60,10 @@ public class Squadra {
     Array<Boolean> animazionePartita = new Array<>();
     Array<Boolean> controllo = new Array<>();
 
-    public Squadra(Stage stage, boolean battaglia, Battle chiamanteB, MenuLabel chiamanteM){
+    public Squadra(Stage stage, boolean battaglia, Battle chiamanteB, MenuLabel chiamanteM, boolean cambioObbligatorio){
         this.chiamanteB = chiamanteB;
         this.chiamanteM = chiamanteM;
+        this.cambioObbligatorio=cambioObbligatorio;
         this.battaglia=battaglia;
         this.batch = (SpriteBatch) stage.getBatch();
         this.font = new BitmapFont(Gdx.files.internal("font/small_letters_font.fnt"));
@@ -362,8 +364,10 @@ public class Squadra {
             }
         });
 
-        stage.addActor(cancelImage);
-        squadActors.add(cancelImage);
+        if (!cambioObbligatorio){ //se non è un cambio obbligatorio da la possibilità di tornare indietro senza cambiare pokemon
+            stage.addActor(cancelImage);
+            squadActors.add(cancelImage);
+        }
     }
 
 
