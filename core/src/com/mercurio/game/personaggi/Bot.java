@@ -8,37 +8,47 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Bot {
-    protected float player_width;
-    protected float player_height;
-    protected TextureRegion[] indietro;
-    protected TextureRegion[] sinistra;
-    protected TextureRegion[] destra;
-    protected TextureRegion[] avanti;
-    protected TextureRegion[][] tmp;
-    protected Animation<TextureRegion> camminaSinistra;
-    protected Animation<TextureRegion> camminaDestra;
-    protected Animation<TextureRegion> camminaAvanti;
-    protected Animation<TextureRegion> camminaIndietro;
-    protected Animation<TextureRegion> fermoSinistra;
-    protected Animation<TextureRegion> fermoDestra;
-    protected Animation<TextureRegion> fermoAvanti;
-    protected Animation<TextureRegion> fermoIndietro;
-    protected Animation<TextureRegion> characterAnimation;
-    protected TextureRegion currentAnimation;
-    protected Rectangle boxPlayer;
-    protected Rectangle boxBlocca;
-    protected Vector2 characterPosition;
-    protected float camminataFrame_speed = 10f;
-    protected float stateTime;
-    protected float xPunto;
-    protected float yPunto;
-    protected final String pathBot = "bots/bots.json";
-    protected String nomeJson;
+    private float player_width;
+    private float player_height;
+    private TextureRegion[] indietro;
+    private TextureRegion[] sinistra;
+    private TextureRegion[] destra;
+    private TextureRegion[] avanti;
+    private TextureRegion[][] tmp;
+    private Animation<TextureRegion> camminaSinistra;
+    private Animation<TextureRegion> camminaDestra;
+    private Animation<TextureRegion> camminaAvanti;
+    private Animation<TextureRegion> camminaIndietro;
+    private Animation<TextureRegion> fermoSinistra;
+    private Animation<TextureRegion> fermoDestra;
+    private Animation<TextureRegion> fermoAvanti;
+    private Animation<TextureRegion> fermoIndietro;
+    private Animation<TextureRegion> characterAnimation;
+    private TextureRegion currentAnimation;
+    private Rectangle boxPlayer;
+    private Rectangle boxBlocca;
+    private Vector2 characterPosition;
+    private float camminataFrame_speed = 0.14f;
+    private float stateTime;
+    private float xPunto;
+    private float yPunto;
+    private final String pathBot = "bots/bots.json";
+    private String nomeJson;
+    private boolean inAcqua = false;
 
-    protected float xBase;
-    protected float yBase;
+    private float xBase;
+    private float yBase;
 
-    protected boolean affrontato = false;
+    private float yFinale;
+
+    private boolean affrontato = false;
+
+    //TODO: rettangolo uno che viene osservato quando va in una direzione, poi quando cambia non guarda più quello ma l'altro
+    //rectangle.set(playerX, playerY, 1, 20); per aggiornare la posizione
+    private Rectangle boxFerma;
+    private final float variabileGira = -1;
+    private float direzioneRettangolo;
+    private boolean muovi;
 
     /* -y = il personaggio si trova sotto
      * y = il personaggio si trova sopra
@@ -54,7 +64,7 @@ public class Bot {
      * -no spazi
      * -Lettera maiuscola alla nuova parola
      */
-    protected String direzione;
+    private String direzione;
 
     public Bot(float width, float height, String texturePath, float xPunto, float yPunto) {
         this.xPunto = xPunto;
@@ -62,6 +72,26 @@ public class Bot {
         player_width = width;
         player_height = height;
 
+        settaTutto(width, height, texturePath, xPunto, yPunto);
+    }
+
+    public Bot(float width, float height, String texturePath, float xPunto, float yPunto, float inizio, float x, float y) {
+        //inizio lo prendo da codice e serve per capire in base a dove parte (settato come proprietà rettangolo)
+        this.xPunto = xPunto;
+        this.yPunto = yPunto;
+        player_width = width;
+        player_height = height;
+
+        this.direzioneRettangolo = inizio;
+
+        settaTutto(width, height, texturePath, xPunto, yPunto);
+
+        setPosition(x,y);
+
+        boxFerma = new Rectangle(xPunto, yPunto, 1, direzioneRettangolo);
+    }
+
+    private void settaTutto(float width, float height, String texturePath, float xPunto, float yPunto) {
         Texture texture = new Texture(Gdx.files.internal(texturePath));
         tmp = TextureRegion.split(texture, texture.getWidth() / 3, texture.getHeight() / 4);
         indietro = new TextureRegion[3];
@@ -118,6 +148,43 @@ public class Bot {
         stateTime = 0f;
         currentAnimation = camminaIndietro.getKeyFrame(0);
         characterPosition = new Vector2();
+    }
+
+    public void muovilBot() {
+        stateTime += Gdx.graphics.getDeltaTime();
+
+        if (muovi) {
+            switch (direzione) {
+                case "-y":
+
+                    currentAnimation = camminaIndietro.getKeyFrame(stateTime, true);
+                    characterPosition.y -= 40f * Gdx.graphics.getDeltaTime();
+                    break;
+
+                case "y":
+
+                    currentAnimation = camminaAvanti.getKeyFrame(stateTime, true);
+                    characterPosition.y += 40f * Gdx.graphics.getDeltaTime();
+                    break;
+
+                case "-x":
+
+                    currentAnimation = camminaSinistra.getKeyFrame(stateTime, true);
+                    characterPosition.x -= 40f * Gdx.graphics.getDeltaTime();
+                    break;
+
+                case "x":
+
+                    currentAnimation = camminaDestra.getKeyFrame(stateTime, true);
+                    characterPosition.x += 40f * Gdx.graphics.getDeltaTime();
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        
+        
     }
 
     public float getHeight() {
@@ -226,8 +293,8 @@ public class Bot {
         return yBase;
     }
 
-    public void updateStateTime(float delta) {
-        stateTime += delta;
+    public void updateStateTime() {
+        stateTime += Gdx.graphics.getDeltaTime();
     }
 
     public float getStateTime() {
@@ -252,5 +319,34 @@ public class Bot {
 
     public void setAffrontato(boolean affrontato) {
         this.affrontato = affrontato;
+    }
+
+    public void setInAcqua(boolean inAcqua) {
+        this.inAcqua = inAcqua;
+    }
+
+    public boolean getInAcqua() {
+        return inAcqua;
+    }
+
+    public void setYfinale(float y) {
+        this.yFinale = y;
+    }
+
+    public float getYfinale() {
+        return yFinale;
+    }
+
+    public void giraRettangolo(float x, float y) {
+        direzioneRettangolo = direzioneRettangolo * variabileGira;
+        boxFerma = new Rectangle(x, y, 1, direzioneRettangolo);
+    }
+
+    public Rectangle getRettangolo() {
+        return boxFerma;
+    }
+
+    public void setMuovi(boolean muovi) {
+        this.muovi = muovi;
     }
 }

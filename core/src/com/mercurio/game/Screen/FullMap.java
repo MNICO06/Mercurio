@@ -44,6 +44,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
     //rettangolo con la lista delle persone che collidono
     private ArrayList<Rectangle> rectList = null;
     private ArrayList<Bot> botList;
+    private ArrayList<Bot> nuotatoriList;
     private ArrayList<Bot> botListBack;
     private ArrayList<Bot> botListFore;
 
@@ -86,6 +87,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
         this.mappa = mappa;
         rectList = new ArrayList<Rectangle>();
         botList = new ArrayList<Bot>();
+        nuotatoriList = new ArrayList<Bot>();
         
         stage = new Stage();
         timer = new Timer();
@@ -135,15 +137,15 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
         if (game.getLuogo().equals("percorso3") || game.getLuogo().equals("cittaMare") ) {
             checkInAcqua();
         }
-    
+
         
         game.setRectangleList(rectList);
         
-        /*
+        
         for (Bot bot : botList) {
-            bot.updateStateTime(stateTime);
+            bot.muovilBot();
         }
-        */
+        
 
         //controlla presenza bot solo se è nei percorsi
         if (inEsecuzione == false) {
@@ -153,8 +155,6 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                 checkInteractionBot();
             }
         }
-        
-        
 
         float deltaTime = Gdx.graphics.getDeltaTime();
         stage.act(deltaTime); // Aggiorna lo stage con il deltaTime
@@ -233,6 +233,15 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
 
         //stessa cosa che faccio con i layer ma con la lista dei bot
         for (Bot bot : botList) {
+            if (game.getPlayer().getPlayerPosition().y < bot.getPosition().y) {
+                botListBack.add(bot);
+            }
+            else if (game.getPlayer().getPlayerPosition().y > bot.getPosition().y){
+                botListFore.add(bot);
+            }
+        }
+
+        for (Bot bot : nuotatoriList) {
             if (game.getPlayer().getPlayerPosition().y < bot.getPosition().y) {
                 botListBack.add(bot);
             }
@@ -376,9 +385,6 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                     nomeJson = bot.getNomeJson();
                 }
 
-                stateTime += Gdx.graphics.getDeltaTime();
-                bot.updateStateTime(stateTime);
-
                 game.getPlayer().setMovement(false);
                 Timer.schedule(new Timer.Task() {
                         @Override
@@ -421,7 +427,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
     private void giraPlayer(Bot bot) {
         
         String direzione = bot.getDirezione();
-        System.out.println(direzione);
+
         if (direzione.equals("-y")) {
             game.getPlayer().setFermoAvanti();
         }
@@ -458,35 +464,40 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
             case "-y":
 
                 if (torna) {
-                    bot.setCamminaAvanti();
 
-                    if ((float)(int)bot.getPosition().y != (float)(int)bot.getYbase()) {
-                        bot.setY(bot.getPosition().y + 40f * Gdx.graphics.getDeltaTime());
+                    float positionY = (float)(int)bot.getPosition().y;
+                    float yBase = (float)(int)bot.getYbase();
+
+                    if (positionY < yBase) {
+                        bot.setDirezione("y");
+                        bot.setMuovi(true);
                     }
                     else {
+                        
                         faiMuovereBot = false;
+                        bot.setMuovi(false);
 
                         bot.setFermoIndietro();
                         bot.setAffrontato(true);
                         game.getPlayer().setMovement(true);
+                        bot.setDirezione("-y");
 
                         renderDiscorso = false;
 
                         //da mettere a false alla fine della battaglia (considerare di bloccare quel bot se finisce la battaglia prima)
                         inEsecuzione = false;
 
-                        
                         torna = false;
                     }
                 }
                 else {
-                    bot.setCamminaIndietro();
 
                     tot = bot.getPosition().y - game.getPlayer().getPlayerPosition().y;
                     if (tot > 15) {
-                        bot.setY(bot.getPosition().y - 40f * Gdx.graphics.getDeltaTime());
+                        bot.setMuovi(true);
                     }
                     else {
+                        bot.setMuovi(false);
                         faiMuovereBot = false;
                         inEsecuzione = true;
 
@@ -502,12 +513,16 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
             case "y":
 
                 if (torna) {
-                    bot.setCamminaIndietro();
+                    float positionY = (float)(int)bot.getPosition().y;
+                    float yBase = (float)(int)bot.getYbase();
 
-                    if ((float)(int)bot.getPosition().y != (float)(int)bot.getYbase()) {
-                        bot.setY(bot.getPosition().y - 40f * Gdx.graphics.getDeltaTime());
+                    if (positionY > yBase) {
+                        bot.setDirezione("-y");
+                        bot.setMuovi(true);
                     }
                     else {
+                        bot.setDirezione("y");
+                        bot.setMuovi(false);
                         faiMuovereBot = false;
 
                         bot.setFermoIndietro();
@@ -519,18 +534,17 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                         //da mettere a false alla fine della battaglia (considerare di bloccare quel bot se finisce la battaglia prima)
                         inEsecuzione = false;
 
-                        
                         torna = false;
                     }
                 }
                 else {
-                    bot.setCamminaAvanti();
 
                     tot = bot.getPosition().y - game.getPlayer().getPlayerPosition().y;
                     if (tot > 15) {
-                        bot.setY(bot.getPosition().y + 40f * Gdx.graphics.getDeltaTime());
+                        bot.setMuovi(true);
                     }
                     else {
+                        bot.setMuovi(false);
                         faiMuovereBot = false;
                         inEsecuzione = true;
 
@@ -547,12 +561,16 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
             case "-x":
 
                 if (torna) {
-                    bot.setCamminaDestra();
+                    float positionX = (float)(int)bot.getPosition().x;
+                    float xBase = (float)(int)bot.getXbase();
 
-                    if ((float)(int)bot.getPosition().x != (float)(int)bot.getXbase()) {
-                        bot.setX(bot.getPosition().x + 40f * Gdx.graphics.getDeltaTime());
+                    if (positionX < xBase) {
+                        bot.setDirezione("x");
+                        bot.setMuovi(true);
                     }
                     else {
+                        bot.setDirezione("-x");
+                        bot.setMuovi(false);
                         faiMuovereBot = false;
 
                         bot.setFermoSinistra();
@@ -569,13 +587,13 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                     }
                 }
                 else {
-                    bot.setCamminaSinistra();
 
                     tot = bot.getPosition().x - game.getPlayer().getPlayerPosition().x;
                     if (tot > 15) {
-                        bot.setX(bot.getPosition().x - 40f * Gdx.graphics.getDeltaTime());
+                        bot.setMuovi(true);
                     }
                     else {
+                        bot.setMuovi(false);
                         faiMuovereBot = false;
                         inEsecuzione = true;
 
@@ -592,12 +610,16 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
             case "x":
 
                 if (torna) {
-                    bot.setCamminaSinistra();
+                    float positionX = (float)(int)bot.getPosition().x;
+                    float xBase = (float)(int)bot.getXbase();
 
-                    if ((float)(int)bot.getPosition().x != (float)(int)bot.getXbase()) {
-                        bot.setX(bot.getPosition().x - 40f * Gdx.graphics.getDeltaTime());
+                    if (positionX > xBase) {
+                        bot.setDirezione("-x");
+                        bot.setMuovi(true);
                     }
                     else {
+                        bot.setDirezione("x");
+                        bot.setMuovi(false);
                         faiMuovereBot = false;
 
                         bot.setFermoDestra();
@@ -614,13 +636,13 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                     }
                 }
                 else {
-                    bot.setCamminaDestra();
 
                     tot = bot.getPosition().x + game.getPlayer().getPlayerPosition().x;
                     if (tot > 15) {
-                        bot.setX(bot.getPosition().x - 40f * Gdx.graphics.getDeltaTime());
+                        bot.setMuovi(true);
                     }
                     else {
+                        bot.setMuovi(false);
                         faiMuovereBot = false;
                         inEsecuzione = true;
 
@@ -650,23 +672,16 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
         }
         else {
             if (!continuaTesto) {
-                //si esegue solo una volta a fine discorso quando l'utente preme di nuovo ENTER o SPACE
-                //TODO: far partire la battaglia
 
                 battle = new Battle(this, nomeJson, true, null);
-
-                
                 
                 renderDiscorso = true;
 
             }
-            
-            
             continuaTesto = true;
             //game.getPlayer().setMovement(true);
             discorsoIniziale.reset();
         }
-
     }
 
     //metodo da chiamare dopo la battaglia per dire della vittoria
@@ -786,25 +801,68 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                 Rectangle rect = rectObject.getRectangle();
 
                 if (object.getProperties().get("path") != null) {
-                    //creo un nuovo bot andando a prendere la path dello spritesheet dalla sua proprietà
-                    Bot bot = new Bot(24, 24, (String)object.getProperties().get("path"),35,60);
-                    bot.setPosition(rect.getX(),rect.getY());
-                    bot.setXbase(rect.getX());
-                    bot.setYbase(rect.getY());
+                    //nel caso in cui ci sono i bot che non sono in acqua
+                    if (object.getProperties().get("nuota") == null) {
 
-                    //metodo per salvare Json e settarlo affrontato o no
-                    salvaBotJson(object, bot);
+                        //creo un nuovo bot andando a prendere la path dello spritesheet dalla sua proprietà
+                        Bot bot = new Bot(24, 24, (String)object.getProperties().get("path"),35,60);
+                        bot.setPosition(rect.getX(),rect.getY());
+                        bot.setXbase(rect.getX());
+                        bot.setYbase(rect.getY());
 
-                    //metodo che va a collegare il rettangolo blocca al bot
-                    setBlocca(rettangoliBlocca, bot, rectObject);
+                        //metodo per salvare Json e settarlo affrontato o no
+                        salvaBotJson(object, bot);
 
-                    //lista dei bot
-                    botList.add(bot);
+                        //metodo che va a collegare il rettangolo blocca al bot
+                        setBlocca(rettangoliBlocca, bot, rectObject);
 
-                    //lista per le collisioni del bot
-                    rectList.add(bot.getBoxPlayer());
+                        //lista dei bot
+                        botList.add(bot);
+
+                        //lista per le collisioni del bot
+                        rectList.add(bot.getBoxPlayer());
+                    }
+                    //bot in acqua
+                    else {
+                        Bot bot = new Bot(24, 24, (String)object.getProperties().get("path"),35,60, 
+                        convertStringToFloat((String)object.getProperties().get("nuota")), rect.getX(), rect.getY());
+                        bot.setPosition(rect.getX(),rect.getY());
+                        bot.setXbase(rect.getX());
+                        bot.setYbase(rect.getY());
+                        bot.setInAcqua(true);
+                        
+
+                        //metodo che va a collegare il rettangolo blocca al bot
+                        setBlocca(rettangoliBlocca, bot, rectObject);
+                        
+                        String direzione;
+                        if (convertStringToFloat((String)object.getProperties().get("nuota")) < 0) {
+                            direzione = "-y";
+                        }
+                        else {
+                            direzione = "y";
+                        }
+                        giraNuotatore(bot, direzione);
+
+                        //metodo per salvare Json e settarlo affrontato o no
+                        salvaBotJson(object, bot);
+
+                        nuotatoriList.add(bot);
+
+                        //lista per le collisioni del bot
+                        rectList.add(bot.getBoxPlayer());
+
+                    }
                 }
             }
+        }
+    }
+
+    public float convertStringToFloat(String str) {
+        try {
+            return Float.parseFloat(str);
+        } catch (NumberFormatException e) {
+            return Float.NaN;
         }
     }
 
@@ -834,11 +892,20 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                 RectangleMapObject rectObj = (RectangleMapObject)obj;
 
                 String layerName = (String)rectObj.getProperties().get("check");
+
                 
                 if (layerName.equals((String)rectObject.getProperties().get("check"))) {
-                    bot.setBoxBlocca(rectObj.getRectangle());
-                    bot.setDirezione((String)rectObj.getProperties().get("direzione"));
-                    gira(bot, (String)rectObj.getProperties().get("direzione"));
+
+                    if (rectObject.getProperties().get("nuota") == null) {
+                        bot.setBoxBlocca(rectObj.getRectangle());
+                        bot.setDirezione((String)rectObj.getProperties().get("direzione"));
+                        gira(bot, (String)rectObj.getProperties().get("direzione"));
+                    }
+                    else {
+                        //da fare per quelli che nuotano
+                        bot.setYfinale(rectObj.getRectangle().getY());
+
+                    }
                 }
             }
         }
@@ -854,6 +921,25 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                 break;
             case "-x":
                 bot.setFermoSinistra();
+                break;
+            case "x":
+                bot.setFermoDestra();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void giraNuotatore(Bot bot, String direzione) {
+        switch (direzione) {
+            case "-y":
+                bot.setCamminaIndietro();
+                break;
+            case "y":
+                bot.setCamminaAvanti();
+                break;
+            case "-x":
+                bot.setCamminaSinistra();
                 break;
             case "x":
                 bot.setFermoDestra();
