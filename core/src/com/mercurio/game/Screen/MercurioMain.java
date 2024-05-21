@@ -140,19 +140,25 @@ public class MercurioMain extends Game implements InterfacciaComune{
             tileRenderer.setView(camera);
 
             if (map != null) {
-
-                if (battle != null){
-                    battle.render();
-                }
-
                 erba.controllaPokemon(map);
+            }
+
+            if (battle != null){
+                battle.render();
             }
 
         }
     }
 
     public void creaBattaglia(String nomeJson, String nomePokemon) {
-        battle = new Battle(this, nomePokemon, false, nomeJson);
+        FileHandle file = Gdx.files.internal("jsonPokeSelvatici/"+ nomeJson +".json");
+        String jsonString = file.readString();
+        JsonValue json = new JsonReader().parse(jsonString);
+        String pokeName = json.get(nomePokemon).getString("nomePokemon");
+
+        System.out.println(pokeName);
+
+        battle = new Battle(this, pokeName, false, nomeJson);
     }
 
     public void setRectangleList(ArrayList<Rectangle> rectList) {

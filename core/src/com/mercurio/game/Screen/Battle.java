@@ -1542,8 +1542,6 @@ public class Battle extends ScreenAdapter {
 
         float x = (float) (Math.random() * (1.3 - 0.4)) + 0.4f;
 
-
-
         FileHandle filePoke = Gdx.files.internal("pokemon/Pokemon.json");
         String jsonStringPoke = filePoke.readString();
         JsonValue jsonPoke = new JsonReader().parse(jsonStringPoke);

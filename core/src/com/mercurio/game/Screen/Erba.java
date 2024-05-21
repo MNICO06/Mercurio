@@ -2,20 +2,16 @@ package com.mercurio.game.Screen;
 
 import java.util.Random;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
 
 public class Erba {
     private MercurioMain game;
     Random random;
 
-    private final int numeroPokemonP1 = 19;
+    private final int numeroPokemonP1 = 20;
     private final String nomeJsonP1 = "percorso1";
 
     public Erba(MercurioMain game) {
@@ -30,9 +26,10 @@ public class Erba {
                 if (check(map, "erbaAltaPercorso1") && game.getIsInMovement()) {
                     //è dentro nell'erba quindi fa un calcolo randomico
 
-                    int num = random.nextInt(200);
+                    int num = random.nextInt(50);
                     if (num == 4) {
                         estraiPokemonP1();
+                        System.out.println("no");
                     }
                 }
                 break;

@@ -281,7 +281,7 @@
 		}
 	]
 },
-	"Pidgey": {
+	"15": {
 	"nomePokemon": "Pidgey",
 	"livello": "10",
 	"mosse": [
@@ -305,7 +305,7 @@
 		}
 	]
 },
-	"15": {
+	"16": {
 	"nomePokemon": "Weedle",
 	"livello": "5",
 	"mosse": [
@@ -317,7 +317,7 @@
 		}
 	]
 },
-	"16": {
+	"17": {
 	"nomePokemon": "Weedle",
 	"livello": "5",
 	"mosse": [
@@ -329,7 +329,7 @@
 		}
 	]
 },
-	"17": {
+	"18": {
 	"nomePokemon": "Weedle",
 	"livello": "6",
 	"mosse": [
@@ -347,7 +347,7 @@
 		}
 	]
 },
-	"18": {
+	"19": {
 	"nomePokemon": "Weedle",
 	"livello": "8",
 	"mosse": [
@@ -365,7 +365,7 @@
 		}
 	]
 },
-	"19": {
+	"20": {
 	"nomePokemon": "Kakuna",
 	"livello": "8",
 	"mosse": [
