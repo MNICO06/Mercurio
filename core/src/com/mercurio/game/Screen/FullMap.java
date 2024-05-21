@@ -691,11 +691,11 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
         else {
             if (!continuaTesto) {
 
-                try {
+                
                     battle = new Battle(this, nomeJson, true, null);
-                } catch (Exception e) {
-                    battagliaIsFinished = true;
-                }
+                
+                    //battagliaIsFinished = true;
+                
                 
                 renderDiscorso = true;
             }

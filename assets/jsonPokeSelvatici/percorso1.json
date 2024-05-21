@@ -1,5 +1,5 @@
 {
-    "Bidoof": {
+    "1": {
 	"nomePokemon": "Bidoof",
 	"livello": "15",
 	"mosse": [
@@ -22,5 +22,360 @@
 			"ppAtt": 5
 		}
 	]
+},
+	"2": {
+	"nomePokemon": "Bidoof",
+	"livello": "6",
+	"mosse": [
+		{
+			"nome": "Pistolacqua",
+			"tipo": "Acqua",
+			"ppTot": 30,
+			"ppAtt": 30
+		},
+		{
+			"nome": "Azione",
+			"tipo": "Normale",
+			"ppTot": 35,
+			"ppAtt": 35
+		}
+	]
+},
+	"3": {
+	"nomePokemon": "Bidoof",
+	"livello": "6",
+	"mosse": [
+		{
+			"nome": "Attacco rapido",
+			"tipo": "Normale",
+			"ppTot": 30,
+			"ppAtt": 30
+		},
+		{
+			"nome": "Azione",
+			"tipo": "Normale",
+			"ppTot": 35,
+			"ppAtt": 35
+		}
+	]
+},
+	"4": {
+	"nomePokemon": "Bidoof",
+	"livello": "8",
+	"mosse": [
+		{
+			"nome": "Attacco rapido",
+			"tipo": "Normale",
+			"ppTot": 30,
+			"ppAtt": 30
+		},
+		{
+			"nome": "Azione",
+			"tipo": "Normale",
+			"ppTot": 35,
+			"ppAtt": 35
+		},
+		{
+			"nome": "Morso",
+			"tipo": "Buio",
+			"ppTot": 20,
+			"ppAtt": 20
+		}
+	]
+},
+	"5": {
+	"nomePokemon": "Bidoof",
+	"livello": "8",
+	"mosse": [
+		{
+			"nome": "Leccata",
+			"tipo": "Spettro",
+			"ppTot": 35,
+			"ppAtt": 35
+		},
+		{
+			"nome": "Morso",
+			"tipo": "Buio",
+			"ppTot": 20,
+			"ppAtt": 20
+		}
+	]
+},
+	"6": {
+	"nomePokemon": "Pikachu",
+	"livello": "6",
+	"mosse": [
+		{
+			"nome": "Tuonopugno",
+			"tipo": "Elettro",
+			"ppTot": 5,
+			"ppAtt": 5
+		},
+		{
+			"nome": "Fulmine",
+			"tipo": "Elettro",
+			"ppTot": 5,
+			"ppAtt": 5
+		}
+	]
+},
+	"7": {
+	"nomePokemon": "Pikachu",
+	"livello": "6",
+	"mosse": [
+		{
+			"nome": "Fulmine",
+			"tipo": "Elettro",
+			"ppTot": 5,
+			"ppAtt": 5
+		},
+		{
+			"nome": "Scintilla",
+			"tipo": "Elettro",
+			"ppTot": 5,
+			"ppAtt": 5
+		}
+	]
+},
+	"8": {
+	"nomePokemon": "Pikachu",
+	"livello": "7",
+	"mosse": [
+		{
+			"nome": "Tuonopugno",
+			"tipo": "Elettro",
+			"ppTot": 5,
+			"ppAtt": 5
+		},
+		{
+			"nome": "Fulmine",
+			"tipo": "Elettro",
+			"ppTot": 5,
+			"ppAtt": 5
+		},
+		{
+			"nome": "Scintilla",
+			"tipo": "Elettro",
+			"ppTot": 5,
+			"ppAtt": 5
+		}
+	]
+},
+	"9": {
+	"nomePokemon": "Pikachu",
+	"livello": "7",
+	"mosse": [
+		{
+			"nome": "Attacco rapido",
+			"tipo": "Normale",
+			"ppTot": 30,
+			"ppAtt": 30
+		},
+		{
+			"nome": "Fulmine",
+			"tipo": "Elettro",
+			"ppTot": 5,
+			"ppAtt": 5
+		},
+		{
+			"nome": "Codacciaio",
+			"tipo": "Acciaio",
+			"ppTot": 10,
+			"ppAtt": 10
+		}
+	]
+},
+	"10": {
+	"nomePokemon": "Pikachu",
+	"livello": "8",
+	"mosse": [
+		{
+			"nome": "Tuono",
+			"tipo": "Elettro",
+			"ppTot": 5,
+			"ppAtt": 5
+		},
+		{
+			"nome": "Codacciaio",
+			"tipo": "Acciaio",
+			"ppTot": 10,
+			"ppAtt": 10
+		}
+	]
+},
+	"11": {
+	"nomePokemon": "Pidgey",
+	"livello": "6",
+	"mosse": [
+		{
+			"nome": "Azione",
+			"tipo": "Normale",
+			"ppTot": 35,
+			"ppAtt": 35
+		},
+		{
+			"nome": "Attacco d'ala",
+			"tipo": "Volante",
+			"ppTot": 25,
+			"ppAtt": 25
+		}
+	]
+},
+	"12": {
+	"nomePokemon": "Pidgey",
+	"livello": "6",
+	"mosse": [
+		{
+			"nome": "Azione",
+			"tipo": "Normale",
+			"ppTot": 35,
+			"ppAtt": 35
+		},
+		{
+			"nome": "Attacco d'ala",
+			"tipo": "Volante",
+			"ppTot": 25,
+			"ppAtt": 25
+		},
+		{
+			"nome": "Attacco rapido",
+			"tipo": "Volante",
+			"ppTot": 30,
+			"ppAtt": 30
+		}
+	]
+},
+	"13": {
+	"nomePokemon": "Pidgey",
+	"livello": "7",
+	"mosse": [
+		{
+			"nome": "Attacco d'ala",
+			"tipo": "Volante",
+			"ppTot": 25,
+			"ppAtt": 25
+		},
+		{
+			"nome": "Attacco rapido",
+			"tipo": "Volante",
+			"ppTot": 30,
+			"ppAtt": 30
+		}
+	]
+},
+	"14": {
+	"nomePokemon": "Pidgey",
+	"livello": "9",
+	"mosse": [
+		{
+			"nome": "Attacco d'ala",
+			"tipo": "Volante",
+			"ppTot": 25,
+			"ppAtt": 25
+		},
+		{
+			"nome": "Attacco rapido",
+			"tipo": "Volante",
+			"ppTot": 30,
+			"ppAtt": 30
+		}
+	]
+},
+	"Pidgey": {
+	"nomePokemon": "Pidgey",
+	"livello": "10",
+	"mosse": [
+		{
+			"nome": "Attacco d'ala",
+			"tipo": "Volante",
+			"ppTot": 25,
+			"ppAtt": 25
+		},
+		{
+			"nome": "Attacco rapido",
+			"tipo": "Volante",
+			"ppTot": 30,
+			"ppAtt": 30
+		},
+		{
+			"nome": "Attacco rapido",
+			"tipo": "Volante",
+			"ppTot": 30,
+			"ppAtt": 30
+		}
+	]
+},
+	"15": {
+	"nomePokemon": "Weedle",
+	"livello": "5",
+	"mosse": [
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": 30,
+			"ppAtt": 30
+		}
+	]
+},
+	"16": {
+	"nomePokemon": "Weedle",
+	"livello": "5",
+	"mosse": [
+		{
+			"nome": "Missispillo",
+			"tipo": "Coleottero",
+			"ppTot": 35,
+			"ppAtt": 35
+		}
+	]
+},
+	"17": {
+	"nomePokemon": "Weedle",
+	"livello": "6",
+	"mosse": [
+		{
+			"nome": "Missispillo",
+			"tipo": "Coleottero",
+			"ppTot": 35,
+			"ppAtt": 35
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": 30,
+			"ppAtt": 30
+		}
+	]
+},
+	"18": {
+	"nomePokemon": "Weedle",
+	"livello": "8",
+	"mosse": [
+		{
+			"nome": "Missispillo",
+			"tipo": "Coleottero",
+			"ppTot": 35,
+			"ppAtt": 35
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": 30,
+			"ppAtt": 30
+		}
+	]
+},
+	"19": {
+	"nomePokemon": "Kakuna",
+	"livello": "8",
+	"mosse": [
+		{
+			"nome": "Azione",
+			"tipo": "Normale",
+			"ppTot": 35,
+			"ppAtt": 35
+		}
+	]
 }
 }
+

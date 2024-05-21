@@ -2,20 +2,28 @@ package com.mercurio.game.Screen;
 
 import java.util.Random;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
 
 public class Erba {
     private MercurioMain game;
+    Random random;
+
+    private final int numeroPokemonP1 = 19;
+    private final String nomeJsonP1 = "percorso1";
 
     public Erba(MercurioMain game) {
         this.game = game;
+        random = new Random();
     }
 
     public void controllaPokemon(TiledMap map) {
-        Random random = new Random();
         
         switch (game.getLuogo()) {
             case "percorso1":
@@ -24,7 +32,7 @@ public class Erba {
 
                     int num = random.nextInt(200);
                     if (num == 4) {
-                        
+                        estraiPokemonP1();
                     }
                 }
                 break;
@@ -33,7 +41,7 @@ public class Erba {
                 if (check(map, "erbaAltaBosco") && game.getIsInMovement()) {
                     int num = random.nextInt(200);
                     if (num == 5) {
-                    
+                        
                     }
                 }
                 break;
@@ -67,6 +75,12 @@ public class Erba {
             default:
                 break;
         }
+    }
+
+    private void estraiPokemonP1() {
+        int num = random.nextInt(numeroPokemonP1);
+        game.creaBattaglia(nomeJsonP1, String.valueOf(num));
+
     }
 
     private boolean check(TiledMap map, String nome) {

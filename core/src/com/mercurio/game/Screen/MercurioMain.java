@@ -24,7 +24,7 @@ import com.badlogic.gdx.utils.Timer;
 import com.mercurio.game.personaggi.Ash;
 
 
-public class MercurioMain extends Game{
+public class MercurioMain extends Game implements InterfacciaComune{
 
     private ShapeRenderer shapeRenderer;
 
@@ -35,6 +35,8 @@ public class MercurioMain extends Game{
     private Vector2 map_size;
 
     private OrthogonalTiledMapRenderer tileRenderer;
+
+    private Battle battle;
 
     Ash ash;
     Erba erba;
@@ -83,6 +85,7 @@ public class MercurioMain extends Game{
         copiaJson("jsonSalvati/borsaSalvato.json", "assets/ashJson/borsa.json");
         copiaJson("jsonSalvati/squadraSalvato.json", "assets/ashJson/squadra.json");
         copiaJson("jsonSalvati/botsSalvato.json", "assets/bots/bots.json");
+        copiaJson("jsonSalvati/datiGeneraliSalvato.json", "assets/ashJson/datiGenerali.json");
 
 
         Timer.schedule(new Timer.Task() {
@@ -137,12 +140,20 @@ public class MercurioMain extends Game{
             tileRenderer.setView(camera);
 
             if (map != null) {
+
+                if (battle != null){
+                    battle.render();
+                }
+
                 erba.controllaPokemon(map);
             }
 
         }
     }
 
+    public void creaBattaglia(String nomeJson, String nomePokemon) {
+        battle = new Battle(this, nomePokemon, false, nomeJson);
+    }
 
     public void setRectangleList(ArrayList<Rectangle> rectList) {
         this.rectList = rectList;
@@ -385,4 +396,11 @@ public class MercurioMain extends Game{
     public String getScreenString(){
         return screenString;
     }
+
+    @Override
+    public void closeBattle() {
+        Gdx.input.setInputProcessor(MenuLabel.getStage());
+        battle = null;
+    }
+
 }
