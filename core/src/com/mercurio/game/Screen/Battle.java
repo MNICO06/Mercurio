@@ -188,6 +188,7 @@ public class Battle extends ScreenAdapter {
     private String levelLastPokeBot;
     private Semaphore semaphore;
     private String pokeHPbeforeFight;
+    private float tassoCattura;
 
     public Battle(InterfacciaComune chiamante, String nameBot, boolean isBotFight, String zona) {
         semaphore = new Semaphore(1); // Semaforo binario
@@ -472,23 +473,22 @@ public class Battle extends ScreenAdapter {
                     botImage.setPosition(newXBot, botImage.getY());    
                 
             }
-            if (lanciato==1){
-                try { //semaforo per evitare che piazzi tutto due volte (non si sa perchè lo faccia ma si sistema tutto con un semaforo)
-                    semaphore.acquire();
-                    showBall(ballTexture);
-                    lanciato++;
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    semaphore.release();
+            try { //semaforo per evitare che piazzi tutto due volte (non si sa perchè lo faccia ma si sistema tutto con un semaforo)
+                semaphore.acquire();
+                if (lanciato==1){
+                        showBall(ballTexture);
+                        lanciato++;
+                    if (isBotFight){
+                        showBallBot();
+                    }
+                    else{
+                        showPokemon(labelBaseU, nameBot);
+                    }
                 }
-                
-                if (isBotFight){
-                    showBallBot();
-                }
-                else{
-                    showPokemon(labelBaseU, nameBot);
-                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                semaphore.release();
             }
             if (label2!=null){
                 labelDiscorsi2.renderDisc();
@@ -1270,6 +1270,7 @@ public class Battle extends ScreenAdapter {
             
             JsonValue mosse = pokeJson.get("mosse");
             nomeBall = pokeJson.getString("tipoBall");
+            listaMosse.clear();
             for (JsonValue mossaJson : mosse) {
                 String nomeMossa = mossaJson.getString("nome");
                 String tipoMossa = mossaJson.getString("tipo");
@@ -1501,6 +1502,7 @@ public class Battle extends ScreenAdapter {
             currentPokeHPBot = pokeJson.get("statistiche").getString("HP");
 
             JsonValue mosse = pokeJson.get("mosse");
+            listaMosseBot.clear(); 
             for (JsonValue mossaJson : mosse) {
                 String nomeMossa = mossaJson.getString("nome");
                 String tipoMossa = mossaJson.getString("tipo");
@@ -1565,6 +1567,7 @@ public class Battle extends ScreenAdapter {
             listaMosseBot.add(mossa);
         }
 
+        calcoloTassoCattura("pokeball");
     }
 
     public void leggiPokeSecondarioBot(int numero, int numBot) {
@@ -2171,9 +2174,65 @@ public class Battle extends ScreenAdapter {
     public void calcolaDenaroVintoDaNPC(){
         soldiPresi=Integer.parseInt(levelLastPokeBot)*150;
 
-        String discorso8= "Hai guadagnato "+ soldiPresi+".";
+        String discorso8= "Hai guadagnato "+ soldiPresi+" Pokédollari.";
         labelDiscorsi8 = new LabelDiscorsi(discorso8,dimMax,0,true);
     }
 
+
+    public void calcoloTassoCattura(String nomeBall){
+        int tasso;
+        float bonusBall;
+
+        // Carica il file JSON
+        FileHandle file = Gdx.files.internal("assets/oggetti/strumenti.json");
+        String jsonString = file.readString();
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+        JsonValue json = new JsonReader().parse(jsonString);
+        bonusBall = json.get("pokeballs").get(nomeBall).getFloat("cattura");
+
+        // Carica il file JSON
+        FileHandle file2 = Gdx.files.internal("assets/pokemon/Pokemon.json");
+        String jsonString2 = file2.readString();
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+        JsonValue json2 = new JsonReader().parse(jsonString2);
+        // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
+        JsonValue pokeJson = json2.get(nameBot);
+        tasso = pokeJson.getInt("tassoCattura");
+
+        tassoCattura=((((3*Integer.parseInt(maxPokeHPBot)) - (2*Integer.parseInt(currentPokeHPBot)))*tasso*bonusBall))/(3*Integer.parseInt(maxPokeHPBot));
+
+        System.out.println(tassoCattura);
+
+        calcoloVibrazioni();
+    }
+
+    public void calcoloVibrazioni(){
+        int nVibrazioni=0;
+
+        if(tassoCattura<255){
+            int vibrazione = (int)(1048560/Math.sqrt(Math.sqrt(16711680/(int)tassoCattura)));
+
+            for (int i=0; i<4; i++){
+                int randomNumber = MathUtils.random(65535);
+                if (randomNumber<vibrazione){
+                    nVibrazioni++;
+                }
+            }
+
+            if (nVibrazioni==4){
+                System.out.println("catturato");
+            }
+            else{
+                System.out.println("uscito, numero vibrazioni "+ nVibrazioni);
+            }
+
+        }
+        else{
+            System.out.println("catturato");
+        }
+
+
+
+    }
 
 } //Fine battaglia :)
