@@ -3,6 +3,7 @@ package com.mercurio.game.Screen;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Random;
+import java.util.concurrent.Semaphore;
 
 import com.badlogic.gdx.utils.JsonWriter;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -119,6 +120,9 @@ public class Battle extends ScreenAdapter {
     private LabelDiscorsi labelDiscorsi13;
     private LabelDiscorsi labelDiscorsi14;
     private LabelDiscorsi labelDiscorsi15;
+    private LabelDiscorsi labelDiscorsi16;
+    private LabelDiscorsi labelDiscorsi17;
+    private LabelDiscorsi labelDiscorsi18;
     private Label label1;
     private Label label2;
     private Label label3;
@@ -134,6 +138,9 @@ public class Battle extends ScreenAdapter {
     private Label label13;
     private Label label14;
     private Label label15;
+    private Label label16;
+    private Label label17;
+    private Label label18;
     private String nomePoke;
     private String nomePokeSquad;
     private String currentPokeHP;
@@ -145,7 +152,7 @@ public class Battle extends ScreenAdapter {
     private String currentPokeHPBotSquad;
     private String nomeMossa;
     private String nomeMossaBot;
-    private String soldiPresi;
+    private int soldiPresi;
     private int dimMax;
     private String nomeBot;
     private ArrayList<Mossa> listaMosse = new ArrayList<>();
@@ -173,9 +180,17 @@ public class Battle extends ScreenAdapter {
     private Label labelHP;
     private Label labelHPTot;
     private boolean switched=false;
+    private boolean switchForzato=false;
+    private boolean sconfitta=false;
     private String zona;
+    private int denaroPerso;
+    private int levelMax=0;
+    private String levelLastPokeBot;
+    private Semaphore semaphore;
+    private String pokeHPbeforeFight;
 
     public Battle(InterfacciaComune chiamante, String nameBot, boolean isBotFight, String zona) {
+        semaphore = new Semaphore(1); // Semaforo binario
         this.nameBot=nameBot;
         this.isBotFight=isBotFight;
         this.zona=zona;
@@ -206,14 +221,11 @@ public class Battle extends ScreenAdapter {
         String discorso5= "E' superefficace!";
         labelDiscorsi5 = new LabelDiscorsi(discorso5,dimMax,0,true);
 
-        String discorso6= "Non e' molto efficace...!";
+        String discorso6= "Non e' molto efficace...";
         labelDiscorsi6 = new LabelDiscorsi(discorso6,dimMax,0,true);
 
         String discorso7= "Non ha effetto!";
         labelDiscorsi7 = new LabelDiscorsi(discorso7,dimMax,0,true);
-
-        String discorso8= "Hai guadagnato "+ soldiPresi+".";
-        labelDiscorsi8 = new LabelDiscorsi(discorso8,dimMax,0,true);
 
         String discorso9= "Brutto colpo!";
         labelDiscorsi9 = new LabelDiscorsi(discorso9,dimMax,0,true);
@@ -226,6 +238,13 @@ public class Battle extends ScreenAdapter {
 
         String discorso15= "E' apparso un "+ nameBot +" selvatico!";
         labelDiscorsi15 = new LabelDiscorsi(discorso15,dimMax,0,true);
+
+        String discorso16= "Non hai piu' Pokemon disponibili...";
+        labelDiscorsi16 = new LabelDiscorsi(discorso16,dimMax,0,true);
+
+        String discorso18= "Sei stato portato d'urgenza al Centro Pokémon!";
+        labelDiscorsi18 = new LabelDiscorsi(discorso18,dimMax,0,true);
+        
         
         show();
     }
@@ -454,7 +473,16 @@ public class Battle extends ScreenAdapter {
                 
             }
             if (lanciato==1){
-                showBall(ballTexture);
+                try { //semaforo per evitare che piazzi tutto due volte (non si sa perchè lo faccia ma si sistema tutto con un semaforo)
+                    semaphore.acquire();
+                    showBall(ballTexture);
+                    lanciato++;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    semaphore.release();
+                }
+                
                 if (isBotFight){
                     showBallBot();
                 }
@@ -504,6 +532,15 @@ public class Battle extends ScreenAdapter {
             if (label15!=null){
                 labelDiscorsi15.renderDisc();
             }
+            if (label16!=null){
+                labelDiscorsi16.renderDisc();
+            }
+            if (label17!=null){
+                labelDiscorsi17.renderDisc();
+            }
+            if (label18!=null){
+                labelDiscorsi18.renderDisc();
+            }
         }
 
         float deltaTime = Gdx.graphics.getDeltaTime();
@@ -515,7 +552,6 @@ public class Battle extends ScreenAdapter {
     
     
     private void showBall(Texture textureBall) {
-        lanciato++;
         int regionWidth = textureBall.getWidth() / 3;
         int regionHeight = textureBall.getHeight();
     
@@ -688,7 +724,8 @@ public class Battle extends ScreenAdapter {
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
-                        squadra = new Squadra(stage,true, battle, null);
+                        squadra = new Squadra(stage,true, battle, null, false);
+                        switchForzato=false;
                     }
                 }, 0.3f);
             }
@@ -803,7 +840,7 @@ public class Battle extends ScreenAdapter {
         Action moveActionHPTot= Actions.moveTo(1024-55,149, 0.5f);
         // Applica l'azione all'immagine
         labelHPTot.addAction(moveActionHPTot);
-        if (switched){
+        if (switched && !switchForzato){
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
@@ -1033,6 +1070,8 @@ public class Battle extends ScreenAdapter {
             dannoBot=listaMosseBot.get(X).calcolaDanno(statsBot.get(2),statsPlayer.get(3),Integer.parseInt(LVPokeBot),nomePokeBot,nomePoke);
         }   
 
+        pokeHPbeforeFight=currentPokeHP;
+
         currentPokeHP= Integer.toString((Integer.parseInt(currentPokeHP))-dannoBot);
 
 
@@ -1260,6 +1299,11 @@ public class Battle extends ScreenAdapter {
         JsonValue pokeJson = json.get("poke"+numero);
         currentPokeHPforSquad = pokeJson.get("Statistiche").getString("hp");
         nomePokeSquad = pokeJson.getString("nomePokemon");
+        if (!pokeJson.getString("livello").equals("")){
+            if (pokeJson.getInt("livello")>levelMax){
+                levelMax=pokeJson.getInt("livello");
+            }
+        }
 
     }
 
@@ -1426,7 +1470,7 @@ public class Battle extends ScreenAdapter {
         JsonValue pokeJson = json.get(nameBot);
         nomeBot = pokeJson.getString("nome");
         tipoBot = pokeJson.getString("tipo");
-        soldiPresi = pokeJson.getString("soldi");
+
 
     }
 
@@ -1441,6 +1485,10 @@ public class Battle extends ScreenAdapter {
             JsonValue pokeJson = json.get(nBot).get("poke"+numeroPoke);
             nomePokeBot = pokeJson.getString("nomePokemon");
             LVPokeBot = pokeJson.getString("livello");
+
+            if (!LVPokeBot.equals("")){
+                levelLastPokeBot=LVPokeBot;
+            }
 
             JsonValue statistiche = pokeJson.get("statistiche"); 
             statsBot.clear();
@@ -1468,6 +1516,8 @@ public class Battle extends ScreenAdapter {
                         leggiPokeBot(nBot,numeroIndexPokeBot);
                     }
                     else if(numeroIndexPokeBot==6){
+                        calcolaDenaroVintoDaNPC();
+                        modifcicaDenaro(soldiPresi);
                         fineBattaglia();
                     }
                 }
@@ -1580,8 +1630,15 @@ public class Battle extends ScreenAdapter {
             hpBar.addAction(Actions.color(coloreHPBar, 1f));
 
             if (hpBar == HPplayer) {
+                int passi;
                 // Calcola il numero di passi necessari per raggiungere currentHP
-                int passi = dannoBot;
+                if (dannoBot>Integer.parseInt(pokeHPbeforeFight)){
+                    passi = Integer.parseInt(pokeHPbeforeFight);
+                }
+                else{
+                    passi = dannoBot;
+                }
+                
                 // Calcola il ritardo tra ogni passo
                 float ritardoTraPassi = 1f / passi;
 
@@ -1593,8 +1650,8 @@ public class Battle extends ScreenAdapter {
 
                 // Aggiungi un'azione per l'animazione del cambiamento del valore di labelHP
                 for (int i = 0; i < passi; i++) {
+                    int nuovoValore = Integer.parseInt(pokeHPbeforeFight) - (i+1);
                     
-                    int nuovoValore = Integer.parseInt(currentPokeHP) + dannoBot - (i+1);
                     Timer.schedule(new Timer.Task() {
                         @Override
                         public void run() {
@@ -1623,6 +1680,7 @@ public class Battle extends ScreenAdapter {
                 }
             }, 1f + delaySecondText);
             delaySecondText = 0;
+
         } // Fine del blocco sincronizzato
     }
 
@@ -1753,7 +1811,7 @@ public class Battle extends ScreenAdapter {
                 ScissorStack.popScissors();
                 pokeImage.remove();
 
-                if (isBotFight){
+                if (isBotFight && pokeImage!=pokemonImage){
                     if (numeroIndexPokeBot<6 && Integer.parseInt(currentPokeHPBot)==0){
                         numeroIndexPokeBot++;
                         rimuoviPokeDaBattagliaBot();
@@ -1766,6 +1824,27 @@ public class Battle extends ScreenAdapter {
                         } 
                     }
                     else if (numeroIndexPokeBot==6 && Integer.parseInt(currentPokeHPBot)==0 && !isBattleEnded){
+                        calcolaDenaroVintoDaNPC();
+                        modifcicaDenaro(soldiPresi);
+                        fineBattaglia();
+                    }
+                }
+                else if(pokeImage==pokemonImage){
+                    int counter=0;
+                    for (int i=0; i<6; i++){
+                        leggiPokeSecondario(i+1);
+                        if (Integer.parseInt(currentPokeHPforSquad)>0){
+                            counter++;
+                        }
+                    }
+                    if (counter!=0){
+                        squadra = new Squadra(stage,true, battle, null, true);
+                        switchForzato=true;
+                    }
+                    else{
+                        sconfitta=true;
+                        calcolaDenaroPerso();
+                        modifcicaDenaro(denaroPerso);
                         fineBattaglia();
                     }
                 }
@@ -1794,6 +1873,7 @@ public class Battle extends ScreenAdapter {
                 if (isBotFight){
                     updatePokeSquadBot();
                 }
+                updatePokeSquad();
             }
         }, 2f);
     }
@@ -1880,7 +1960,49 @@ public class Battle extends ScreenAdapter {
 
             // Imposta l'origine dell'immagine al centro per rendere la rotazione attorno al suo asse centrale
             image.setOrigin(Align.center);
-            image.setPosition(botArrow.getX() + (30 * index + 10 * index), botArrow.getY()); // Posiziona l'immagine fuori dallo schermo
+            image.setPosition(botArrow.getX() + (30 * index + 10 * index), botArrow.getY()); 
+            image.setSize(32, 30);
+            stage.addActor(image); // Aggiungi l'immagine allo stage
+
+        }
+    }
+
+    public void updatePokeSquad(){
+        Texture texture = new Texture("battle/ballsForNumber.png");
+        TextureRegion[][] textureRegions = TextureRegion.split(texture, texture.getWidth() / 8, texture.getHeight() / 3);
+        // Inizializza l'array di sprite
+        spriteArrayBallsSquadra = new Sprite[8];
+        int colonna=-1;
+
+        for (int i=0; i<6; i++){
+            leggiPokeSecondario(i+1);
+            if (nomePokeSquad.isEmpty()){
+                colonna=2;
+            }
+            else {
+                if (currentPokeHPforSquad.equals("0")){
+                    colonna=1;
+                }
+                else{
+                    colonna=0;
+                }
+            }
+
+            // Riempie l'array di sprite
+            int indice = 0;
+            for (int riga = 0; riga < 3; riga++) {
+                    spriteArrayBallsSquadra[indice++] = new Sprite(textureRegions[riga][colonna]);
+            }
+
+            final int index = i;
+            final int col =colonna;
+
+            TextureRegion region = textureRegions[col][0];
+            Image image = new Image(region); // Crea un'istanza di Image con la texture region corrispondente
+
+            // Imposta l'origine dell'immagine al centro per rendere la rotazione attorno al suo asse centrale
+            image.setOrigin(Align.center);
+            image.setPosition(playerArrow.getX() + (30 * (6-index) + 10 * (6-index) - 20), playerArrow.getY()); 
             image.setSize(32, 30);
             stage.addActor(image); // Aggiungi l'immagine allo stage
 
@@ -1922,7 +2044,8 @@ public class Battle extends ScreenAdapter {
     private void fineBattaglia(){
         isBattleEnded= true;
 
-        if (isBotFight){
+        if (isBotFight && !sconfitta){
+            
             label3=labelDiscorsi3.getLabel();
             stage.addActor(label3);
         
@@ -1949,8 +2072,42 @@ public class Battle extends ScreenAdapter {
             }
         }, 2f);
         }
+        else if (sconfitta){
+            label16=labelDiscorsi16.getLabel();
+            stage.addActor(label16);
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    labelDiscorsi16.reset();
+                    label16.remove();
+                    label16=null;
+
+                    label17=labelDiscorsi17.getLabel();
+                    stage.addActor(label17);
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            labelDiscorsi17.reset();
+                            label17.remove();
+                            label17=null;
+
+                            label18=labelDiscorsi18.getLabel();
+                            stage.addActor(label18);
+                            Timer.schedule(new Timer.Task() {
+                                @Override
+                                public void run() {
+                                    labelDiscorsi18.reset();
+                                    label18.remove();
+                                    label18=null;
+                                    dispose();
+                                }
+                            }, 3.5f);
+                        }
+                    }, 2.5f);
+                }
+            }, 2f);
+        }
         else{
-            isBattleEnded=true;
             dispose();
         }
 
@@ -1974,6 +2131,48 @@ public class Battle extends ScreenAdapter {
     public void closeSquadra() {
         Gdx.input.setInputProcessor(stage);
         squadra = null;
+    }
+
+    public void modifcicaDenaro(int soldiModifica){
+        // Carica il file JSON
+        FileHandle file = Gdx.files.local("assets/ashJson/datiGenerali.json");
+        String jsonString = file.readString();
+        
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+        JsonValue json = new JsonReader().parse(jsonString);
+
+        int soldi= json.getInt("denaro");
+
+        json.remove("denaro");
+
+        json.addChild("denaro", new JsonValue(soldi+soldiModifica));
+        file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
+        
+    }
+
+    public void calcolaDenaroPerso(){
+        // Carica il file JSON
+        FileHandle file = Gdx.files.internal("assets/ashJson/datiGenerali.json");
+        String jsonString = file.readString();
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+        JsonValue json = new JsonReader().parse(jsonString);
+        int nMedaglie = json.getInt("numero_medaglie");
+        denaroPerso=levelMax*(nMedaglie*33 +1);
+        if (json.getInt("denaro")<denaroPerso){
+            denaroPerso=json.getInt("denaro");
+        }
+
+        String discorso17= "Hai perso " + denaroPerso + " Pokédollari nella fuga.";
+        labelDiscorsi17 = new LabelDiscorsi(discorso17,dimMax,0,true);
+
+        denaroPerso*=-1;
+    }
+
+    public void calcolaDenaroVintoDaNPC(){
+        soldiPresi=Integer.parseInt(levelLastPokeBot)*150;
+
+        String discorso8= "Hai guadagnato "+ soldiPresi+".";
+        labelDiscorsi8 = new LabelDiscorsi(discorso8,dimMax,0,true);
     }
 
 

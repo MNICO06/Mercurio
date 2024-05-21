@@ -150,7 +150,7 @@ public class MenuLabel implements InterfacciaComune{
     }
     
 	private void apriPokemon() {
-        squadra = new Squadra(getStage(),false,null,this);
+        squadra = new Squadra(getStage(),false,null,this, false);
 	}
 	    
 	private void apriBorsa() {
