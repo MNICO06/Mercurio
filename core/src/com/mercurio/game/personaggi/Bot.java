@@ -45,7 +45,6 @@ public class Bot {
 
     private boolean affrontato = false;
 
-    //TODO: rettangolo uno che viene osservato quando va in una direzione, poi quando cambia non guarda più quello ma l'altro
     //rectangle.set(playerX, playerY, 1, 20); per aggiornare la posizione
     private Rectangle boxFerma;
     private final float variabileGira = -1;
@@ -98,7 +97,7 @@ public class Bot {
 
         setPosition(x,y);
 
-        boxFerma = new Rectangle(x, y, 20, direzioneRettangolo);
+        boxFerma = new Rectangle(x, y, 1, direzioneRettangolo);
     }
 
     private void settaTutto(float width, float height, String texturePath, float xPunto, float yPunto) {
@@ -248,7 +247,6 @@ public class Bot {
             }
 
             //salvo le vecchie posizioni
-            float old_x = characterPosition.x;
             float old_y = characterPosition.y;
 
             //metodi controllo collisione in orizzontale (sia oggetti che npc)
@@ -257,6 +255,14 @@ public class Bot {
                 boxPlayer.setPosition(characterPosition.x+player_width/4, characterPosition.y+2);
                 if (boxPlayer.overlaps(ash.getBoxPlayer())) {
                     characterPosition.y = old_y;
+                }
+                else {
+                    if (muovi_Y > 0) {
+                        boxFerma.set(characterPosition.x, characterPosition.y, 20, direzioneRettangolo);
+                    }
+                    else {
+                        boxFerma.set(characterPosition.x, characterPosition.y - direzioneRettangolo, 20, direzioneRettangolo);
+                    }
                 }
             }
 

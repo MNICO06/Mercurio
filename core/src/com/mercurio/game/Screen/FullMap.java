@@ -694,11 +694,10 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                 try {
                     battle = new Battle(this, nomeJson, true, null);
                 } catch (Exception e) {
-
+                    battagliaIsFinished = true;
                 }
                 
                 renderDiscorso = true;
-
             }
             continuaTesto = true;
             //game.getPlayer().setMovement(true);
