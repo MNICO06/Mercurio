@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -40,6 +41,7 @@ public class Bot {
     private float yBase;
 
     private float yFinale;
+    private float yIniziale;
 
     private boolean affrontato = false;
 
@@ -49,6 +51,8 @@ public class Bot {
     private final float variabileGira = -1;
     private float direzioneRettangolo;
     private boolean muovi;
+    private float muovi_Y = 0;
+    private float velMovimento = 40f;
 
     /* -y = il personaggio si trova sotto
      * y = il personaggio si trova sopra
@@ -65,6 +69,7 @@ public class Bot {
      * -Lettera maiuscola alla nuova parola
      */
     private String direzione;
+    private String direzioneFissa;
 
     public Bot(float width, float height, String texturePath, float xPunto, float yPunto) {
         this.xPunto = xPunto;
@@ -82,13 +87,18 @@ public class Bot {
         player_width = width;
         player_height = height;
 
+        if (inizio < 0) {
+            inizio = inizio * -1;
+        }
+
         this.direzioneRettangolo = inizio;
+
 
         settaTutto(width, height, texturePath, xPunto, yPunto);
 
         setPosition(x,y);
 
-        boxFerma = new Rectangle(xPunto, yPunto, 1, direzioneRettangolo);
+        boxFerma = new Rectangle(x, y, 20, direzioneRettangolo);
     }
 
     private void settaTutto(float width, float height, String texturePath, float xPunto, float yPunto) {
@@ -183,8 +193,93 @@ public class Bot {
                     break;
             }
         }
-        
-        
+    }
+
+    public void faiNuotareBot(Ash ash) {
+
+        stateTime += Gdx.graphics.getDeltaTime();
+
+        if (muovi) {
+            
+            switch (direzione) {
+                case "-y":
+                    //se il bot parte dall'alto e va verso il basso
+                    if (yIniziale > yFinale) {
+                        if (characterPosition.y <= yFinale) {
+                            direzione = "y";
+                        }
+                    }
+                    //se il bot barte dal basso e va verso l'alto
+                    else {
+                        if (characterPosition.y <= yIniziale) {
+                            direzione = "y";
+                        }
+                    }
+
+                    
+                    currentAnimation = camminaIndietro.getKeyFrame(stateTime, true);
+                    muovi_Y = velMovimento * -1;
+                    //characterPosition.y -= 40f * Gdx.graphics.getDeltaTime();
+                    //boxFerma.set(characterPosition.x, characterPosition.y - direzioneRettangolo, 20, direzioneRettangolo);
+                    break;
+
+                case "y":
+                    //se il bot parte dall'alto e va verso il basso
+                    if (yIniziale > yFinale) {
+                        if (characterPosition.y >= yIniziale) {
+                            direzione = "-y";
+                        }
+                    }
+                    //se il bot barte dal basso e va verso l'alto
+                    else {
+                        if (characterPosition.y >= yFinale) {
+                            direzione = "-y";
+                        }
+                    }
+
+                    currentAnimation = camminaAvanti.getKeyFrame(stateTime, true);
+                    muovi_Y = velMovimento;
+                    //characterPosition.y += 40f * Gdx.graphics.getDeltaTime();
+                    //boxFerma.set(characterPosition.x, characterPosition.y, 20, direzioneRettangolo);
+                    break;
+
+                default:
+                    break;
+            }
+
+            //salvo le vecchie posizioni
+            float old_x = characterPosition.x;
+            float old_y = characterPosition.y;
+
+            //metodi controllo collisione in orizzontale (sia oggetti che npc)
+            if (muovi_Y != 0) {
+                characterPosition.y += muovi_Y * Gdx.graphics.getDeltaTime();
+                boxPlayer.setPosition(characterPosition.x+player_width/4, characterPosition.y+2);
+                if (boxPlayer.overlaps(ash.getBoxPlayer())) {
+                    characterPosition.y = old_y;
+                }
+            }
+
+            muovi_Y = 0;
+
+        }
+        boxPlayer.set(characterPosition.x + player_width / 4 - 2, characterPosition.y - 2, player_width / 2 + 2, player_height / 6 + 6);
+    }
+
+    public void avvicinaNuotatore() {
+        switch (direzione) {
+            case "-y":
+                currentAnimation = camminaIndietro.getKeyFrame(stateTime, true);
+                characterPosition.y -= 40f * Gdx.graphics.getDeltaTime();
+                boxFerma.set(characterPosition.x, characterPosition.y - direzioneRettangolo, 20, direzioneRettangolo);
+                break;
+
+            case "y":
+                currentAnimation = camminaAvanti.getKeyFrame(stateTime, true);
+                characterPosition.y += 40f * Gdx.graphics.getDeltaTime();
+                boxFerma.set(characterPosition.x, characterPosition.y, 20, direzioneRettangolo);
+                break;
+        }
     }
 
     public float getHeight() {
@@ -249,12 +344,19 @@ public class Bot {
     }
 
     public void setCamminaIndietro() {
-        
         currentAnimation = camminaIndietro.getKeyFrame(stateTime, true);
     }
 
     public void setDirezione(String direzione) {
         this.direzione = direzione;
+    }
+
+    public void setDirezioneFissa(String direzioneFissa) {
+        this.direzioneFissa = direzioneFissa;
+    }
+
+    public String getDirezioneFissa() {
+        return direzioneFissa;
     }
 
     public String getDirezione() {
@@ -283,6 +385,7 @@ public class Bot {
 
     public void setYbase(float y) {
         this.yBase = y;
+        this.yIniziale = y;
     }
 
     public float getXbase() {
@@ -348,5 +451,13 @@ public class Bot {
 
     public void setMuovi(boolean muovi) {
         this.muovi = muovi;
+    }
+
+    public void setCamminataFrameSpeed(float camminataFrameSpeed) {
+        this.camminataFrame_speed = camminataFrameSpeed;
+    }
+
+    public Rectangle getBoxNuotatore() {
+        return boxFerma;
     }
 }

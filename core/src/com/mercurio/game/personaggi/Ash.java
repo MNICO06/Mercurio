@@ -298,7 +298,7 @@ public class Ash {
             float old_x = characterPosition.x;
             float old_y = characterPosition.y;
 
-            //metodi controllo collisione in altezza (sia oggetti che npc)
+            //metodi controllo collisione in orizzontale (sia oggetti che npc)
             if (muovi_X != 0) {
                 characterPosition.x += muovi_X * Gdx.graphics.getDeltaTime();
                 boxPlayer.setPosition(characterPosition.x+player_width/4, characterPosition.y+2);
@@ -312,7 +312,7 @@ public class Ash {
 
 
 
-            //metodi controllo collisione in orizzontale (sia oggetti che npc)
+            //metodi controllo collisione in verticale (sia oggetti che npc)
             if (muovi_Y != 0) {
                 characterPosition.y += muovi_Y * Gdx.graphics.getDeltaTime();
                 boxPlayer.setPosition(characterPosition.x+player_width/4, characterPosition.y+2);
