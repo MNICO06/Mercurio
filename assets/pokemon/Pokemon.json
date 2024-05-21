@@ -3,6 +3,7 @@
     "Rowlet":{
       "nome": "Rowlet",
       "lv": "1",
+      "tassoCattura": 45,
       "tipo1": "Erba",
       "tipo2": "Volante",
       "stat": {
@@ -70,6 +71,7 @@
     "Datrix":{
       "nome": "Datrix",
       "lv": "17",
+      "tassoCattura": 45,
       "tipo1": "Erba",
       "tipo2": "Volante",
       "stat": {
@@ -137,6 +139,7 @@
     "Decidueye":{
       "nome": "Decidueye",
       "lv": "34",
+      "tassoCattura": 45,
       "tipo1": "Erba",
       "tipo2": "Spettro",
       "stat": {
@@ -204,6 +207,7 @@
     "Popplio":{
       "nome": "Popplio",
       "lv": "1",
+      "tassoCattura": 45,
       "tipo1": "Acqua",
       "tipo2": "/",
       "stat": {
@@ -271,6 +275,7 @@
     "Brionne":{
       "nome": "Brionne",
       "lv": "17",
+      "tassoCattura": 45,
       "tipo1": "Acqua",
       "tipo2": "/",
       "stat": {
@@ -338,6 +343,7 @@
     "Primarina":{
       "nome": "Primarina",
       "lv": "34",
+      "tassoCattura": 45,
       "tipo1": "Acqua",
       "tipo2": "Folletto",
       "stat": {
@@ -405,6 +411,7 @@
     "Litten":{
       "nome": "Litten",
       "lv": "1",
+      "tassoCattura": 45,
       "tipo1": "Fuoco",
       "tipo2": "/",
       "stat": {
@@ -472,6 +479,7 @@
     "Torracat":{
       "nome": "Torracat",
       "lv": "17",
+      "tassoCattura": 45,
       "tipo1": "Fuoco",
       "tipo2": "/",
       "stat": {
@@ -539,6 +547,7 @@
     "Incineroar":{
       "nome": "Incineroar",
       "lv": "34",
+      "tassoCattura": 45,
       "tipo1": "Fuoco",
       "tipo2": "Buio",
       "stat": {
@@ -606,6 +615,7 @@
     "Pikachu":{
       "nome": "Pikachu",
       "lv": "1",
+      "tassoCattura": 190,
       "tipo1": "Elettro",
       "tipo2": "/",
       "stat": {
@@ -673,6 +683,7 @@
     "Raichu":{
       "nome": "Raichu",
       "lv": "35",
+      "tassoCattura": 75,
       "tipo1": "Elettro",
       "tipo2": "/",
       "stat": {
@@ -740,6 +751,7 @@
     "Pidgey":{
       "nome": "Pidgey",
       "lv": "1",
+      "tassoCattura": 225,
       "tipo1": "Normale",
       "tipo2": "Volante",
       "stat": {
@@ -807,6 +819,7 @@
     "Pidgeotto":{
       "nome": "Pidgeotto",
       "lv": "18",
+      "tassoCattura": 120,
       "tipo1": "Normale",
       "tipo2": "Volante",
       "stat": {
@@ -874,6 +887,7 @@
     "Pidgeot":{
       "nome": "Pidgeot",
       "lv": "36",
+      "tassoCattura": 45,
       "tipo1": "Normale",
       "tipo2": "Volante",
       "stat": {
@@ -941,6 +955,7 @@
     "Weedle":{
       "nome": "Weedle",
       "lv": "1",
+      "tassoCattura": 255,
       "tipo1": "Coleot",
       "tipo2": "Veleno",
       "stat": {
@@ -1008,6 +1023,7 @@
     "Kakuna":{
       "nome": "Kakuna",
       "lv": "7",
+      "tassoCattura": 120,
       "tipo1": "Coleot",
       "tipo2": "Veleno",
       "stat": {
@@ -1075,6 +1091,7 @@
     "Beedrill":{
       "nome": "Beedrill",
       "lv": "10",
+      "tassoCattura": 45,
       "tipo1": "Coleot",
       "tipo2": "Veleno",
       "stat": {
@@ -1142,6 +1159,7 @@
     "Nidoran":{
       "nome": "Nidoran",
       "lv": "1",
+      "tassoCattura": 235,
       "tipo1": "Veleno",
       "tipo2": "/",
       "stat": {
@@ -1209,6 +1227,7 @@
     "Nidorino":{
       "nome": "Nidorino",
       "lv": "16",
+      "tassoCattura": 120,
       "tipo1": "Veleno",
       "tipo2": "/",
       "stat": {
@@ -1277,6 +1296,7 @@
       "nome": "Nidoking",
       "lv": "35",
       "tipo1": "Veleno",
+      "tassoCattura": 45,
       "tipo2": "Terra",
       "stat": {
           "PS": "81",
@@ -1343,6 +1363,7 @@
     "Bidoof":{
       "nome": "Bidoof",
       "lv": "1",
+      "tassoCattura": 255,
       "tipo1": "Normale",
       "tipo2": "/",
       "stat": {
@@ -1411,6 +1432,7 @@
       "nome": "Bibarel",
       "lv": "15",
       "tipo1": "Normale",
+      "tassoCattura": 127,
       "tipo2": "Acqua",
       "stat": {
           "PS": "79",
@@ -1477,6 +1499,7 @@
     "Onix":{
       "nome": "Onix",
       "lv": "1",
+      "tassoCattura": 45,
       "tipo1": "Roccia",
       "tipo2": "Terra",
       "stat": {
@@ -1543,6 +1566,7 @@
     },
     "Steelix":{
       "nome": "Steelix",
+      "tassoCattura": 25,
       "lv": "40",
       "tipo1": "Acciaio",
       "tipo2": "Terra",
@@ -1611,6 +1635,7 @@
     "Geodude":{
       "nome": "Geodude",
       "lv": "1",
+      "tassoCattura": 255,
       "tipo1": "Roccia",
       "tipo2": "Terra",
       "stat": {
@@ -1678,6 +1703,7 @@
     "Graveler":{
       "nome": "Graveler",
       "lv": "25",
+      "tassoCattura": 120,
       "tipo1": "Roccia",
       "tipo2": "Terra",
       "stat": {
@@ -1745,6 +1771,7 @@
     "Golem":{
       "nome": "Golem",
       "lv": "40",
+      "tassoCattura": 45,
       "tipo1": "Roccia",
       "tipo2": "Terra",
       "stat": {
@@ -1812,6 +1839,7 @@
     "Machop":{
       "nome": "Machop",
       "lv": "1",
+      "tassoCattura": 180,
       "tipo1": "Lotta",
       "tipo2": "/",
       "stat": {
@@ -1878,6 +1906,7 @@
     },
     "Machoke":{
       "nome": "Machoke",
+      "tassoCattura": 90,
       "lv": "28",
       "tipo1": "Lotta",
       "tipo2": "/",
@@ -1946,6 +1975,7 @@
     "Machamp":{
       "nome": "Machamp",
       "lv": "55",
+      "tassoCattura": 45,
       "tipo1": "Lotta",
       "tipo2": "/",
       "stat": {
@@ -2014,6 +2044,7 @@
       "nome": "Gastly",
       "lv": "1",
       "tipo1": "Spettro",
+      "tassoCattura": 180,
       "tipo2": "Veleno",
       "stat": {
           "PS": "30",
@@ -2080,6 +2111,7 @@
     "Haunter":{
       "nome": "Haunter",
       "lv": "25",
+      "tassoCattura": 90,
       "tipo1": "Spettro",
       "tipo2": "Veleno",
       "stat": {
@@ -2147,6 +2179,7 @@
     "Gengar":{
       "nome": "Gengar",
       "lv": "45",
+      "tassoCattura": 45,
       "tipo1": "Spettro",
       "tipo2": "Veleno",
       "stat": {
@@ -2214,6 +2247,7 @@
     "Diglett":{
       "nome": "Diglett",
       "lv": "1",
+      "tassoCattura": 255,
       "tipo1": "Terra",
       "tipo2": "/",
       "stat": {
@@ -2281,6 +2315,7 @@
     "Dugtrio":{
       "nome": "Dugtrio",
       "lv": "26",
+      "tassoCattura": 50,
       "tipo1": "Terra",
       "tipo2": "/",
       "stat": {
@@ -2348,6 +2383,7 @@
     "Riolu":{
       "nome": "Riolu",
       "lv": "1",
+      "tassoCattura": 75,
       "tipo1": "Lotta",
       "tipo2": "/",
       "stat": {
@@ -2414,6 +2450,7 @@
     },
     "Lucario":{
       "nome": "Lucario",
+      "tassoCattura": 45,
       "lv": "35",
       "tipo1": "Lotta",
       "tipo2": "Acciaio",
@@ -2482,6 +2519,7 @@
     "Magikarp":{
       "nome": "Magikarp",
       "lv": "1",
+      "tassoCattura": 255,
       "tipo1": "Acqua",
       "tipo2": "/",
       "stat": {
@@ -2548,6 +2586,7 @@
     },
     "Gyarados":{
       "nome": "Gyarados",
+      "tassoCattura": 45,
       "lv": "20",
       "tipo1": "Acqua",
       "tipo2": "Volante",
@@ -2616,6 +2655,7 @@
     "Lapras":{
       "nome": "Lapras",
       "lv": "1",
+      "tassoCattura": 45,
       "tipo1": "Acqua",
       "tipo2": "Ghiaccio",
       "stat": {
@@ -2683,6 +2723,7 @@
     "Horsea":{
       "nome": "Horsea",
       "lv": "1",
+      "tassoCattura": 225,
       "tipo1": "Acqua",
       "tipo2": "/",
       "stat": {
@@ -2750,6 +2791,7 @@
     "Seadra":{
       "nome": "Seadra",
       "lv": "32",
+      "tassoCattura": 75,
       "tipo1": "Acqua",
       "tipo2": "/",
       "stat": {
@@ -2817,6 +2859,7 @@
     "Kingdra":{
       "nome": "Kingdra",
       "lv": "48",
+      "tassoCattura": 45,
       "tipo1": "Acqua",
       "tipo2": "Drago",
       "stat": {
@@ -2884,6 +2927,7 @@
     "Corphish":{
       "nome": "Corphish",
       "lv": "1",
+      "tassoCattura": 205,
       "tipo1": "Acqua",
       "tipo2": "/",
       "stat": {
@@ -2951,6 +2995,7 @@
     "Crawdaunt": {
       "nome": "Crawdaunt",
       "lv": "30",
+      "tassoCattura": 155,
       "tipo1": "Acqua",
       "tipo2": "Buio",
       "stat": {
@@ -3015,9 +3060,10 @@
           "M50": ""
         }
     },
-    "RowSpheallet":  {
+    "Spheal":  {
       "nome": "Spheal",
       "lv": "1",
+      "tassoCattura": 255,
       "tipo1": "Ghiaccio",
       "tipo2": "Acqua",
       "stat": {
@@ -3085,6 +3131,7 @@
     "Sealeo":  {
       "nome": "Sealeo",
       "lv": "32",
+      "tassoCattura": 120,
       "tipo1": "Ghiaccio",
       "tipo2": "Acqua",
       "stat": {
@@ -3152,6 +3199,7 @@
     "Walrein":  {
       "nome": "Walrein",
       "lv": "44",
+      "tassoCattura": 45,
       "tipo1": "Ghiaccio",
       "tipo2": "Acqua",
       "stat": {
@@ -3219,6 +3267,7 @@
     "Snorlax":  {
       "nome": "Snorlax",
       "lv": "1",
+      "tassoCattura": 25,
       "tipo1": "Normale",
       "tipo2": "/",
       "stat": {
@@ -3286,6 +3335,7 @@
     "Ralts":   {
       "nome": "Ralts",
       "lv": "1",
+      "tassoCattura": 235,
       "tipo1": "Psico",
       "tipo2": "Folletto",
       "stat": {
@@ -3353,6 +3403,7 @@
     "Kirlia":  {
       "nome": "Kirlia",
       "lv": "20",
+      "tassoCattura": 120,
       "tipo1": "Psico",
       "tipo2": "Folletto",
       "stat": {
@@ -3420,6 +3471,7 @@
     "Gardevoir":  {
       "nome": "Gardevoir",
       "lv": "30",
+      "tassoCattura": 45,
       "tipo1": "Psico",
       "tipo2": "Folletto",
       "stat": {
@@ -3487,6 +3539,7 @@
     "Dratini":  {
       "nome": "Dratini",
       "lv": "1",
+      "tassoCattura": 45,
       "tipo1": "Drago",
       "tipo2": "/",
       "stat": {
@@ -3554,6 +3607,7 @@
     "Dragonair": {
       "nome": "Dragonair",
       "lv": "30",
+      "tassoCattura": 45,
       "tipo1": "Drago",
       "tipo2": "/",
       "stat": {
@@ -3621,6 +3675,7 @@
     "Dragonite": {
       "nome": "Dragonite",
       "lv": "55",
+      "tassoCattura": 45,
       "tipo1": "Drago",
       "tipo2": "Volante",
       "stat": {
@@ -3688,6 +3743,7 @@
     "Swablu":{
       "nome": "Swablu",
       "lv": "1",
+      "tassoCattura": 255,
       "tipo1": "Normale",
       "tipo2": "Volante",
       "stat": {
@@ -3755,6 +3811,7 @@
     "Altaria":{
       "nome": "Altaria",
       "lv": "35",
+      "tassoCattura": 45,
       "tipo1": "Drago",
       "tipo2": "Volante",
       "stat": {
@@ -3822,6 +3879,7 @@
     "Rhyhorn": {
       "nome": "Rhyhorn",
       "lv": "1",
+      "tassoCattura": 120,
       "tipo1": "Terra",
       "tipo2": "Roccia",
       "stat": {
@@ -3889,6 +3947,7 @@
     "Rhydon": {
       "nome": "Rhydon",
       "lv": "32",
+      "tassoCattura": 60,
       "tipo1": "Terra",
       "tipo2": "Roccia",
       "stat": {
@@ -3956,6 +4015,7 @@
     "Rhyperior": {
       "nome": "Rhyperior",
       "lv": "48",
+      "tassoCattura": 30,
       "tipo1": "Terra",
       "tipo2": "Roccia",
       "stat": {
@@ -4023,6 +4083,7 @@
     "Mawile": {
       "nome": "Mawile",
       "lv": "1",
+      "tassoCattura": 45,
       "tipo1": "Acciaio",
       "tipo2": "Folletto",
       "stat": {
@@ -4090,6 +4151,7 @@
     "Absol":  {
       "nome": "Absol",
       "lv": "1",
+      "tassoCattura": 30,
       "tipo1": "Buio",
       "tipo2": "/",
       "stat": {
@@ -4156,6 +4218,7 @@
     },
     "Trapinch":  {
       "nome": "Trapinch",
+      "tassoCattura": 255,
       "lv": "1",
       "tipo1": "Terra",
       "tipo2": "/",
@@ -4223,6 +4286,7 @@
     },
     "Vibrava":  {
       "nome": "Vibrava",
+      "tassoCattura": 120,
       "lv": "35",
       "tipo1": "Terra",
       "tipo2": "Drago",
@@ -4291,6 +4355,7 @@
     "Flygon":  {
       "nome": "Flygon",
       "lv": "45",
+      "tassoCattura": 45,
       "tipo1": "Terra",
       "tipo2": "Drago",
       "stat": {
@@ -4358,6 +4423,7 @@
     "Celebi":    {
       "nome": "Celebi",
       "lv": "1",
+      "tassoCattura": 45,
       "tipo1": "Psico",
       "tipo2": "Erba",
       "stat": {
@@ -4425,6 +4491,7 @@
     "Mew":    {
       "nome": "Mew",
       "lv": "1",
+      "tassoCattura": 45,
       "tipo1": "Psico",
       "tipo2": "/",
       "stat": {
@@ -4491,6 +4558,7 @@
     },
     "Giratina":{
       "nome": "Giratina",
+      "tassoCattura": 3,
       "lv": "1",
       "tipo1": "Spettro",
       "tipo2": "Drago",
@@ -4558,6 +4626,7 @@
     },
     "Darkrai": {
       "nome": "Darkrai",
+      "tassoCattura": 3,
       "lv": "1",
       "tipo1": "Buio",
       "tipo2": "/",
@@ -4626,6 +4695,7 @@
     "Shaymin": {
       "nome": "Shaymin",
       "lv": "1",
+      "tassoCattura": 45,
       "tipo1": "Erba",
       "tipo2": "/",
       "stat": {

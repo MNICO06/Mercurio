@@ -23,16 +23,16 @@
 
     "pokeballs":{
         "pokeball":{
-            "cattura": 20
+            "cattura": 1
         },
         "megaball":{
-            "cattura": 50
+            "cattura": 1.5
         },
         "ultraball":{
-            "cattura": 70
+            "cattura": 2
         },
         "masterball":{
-            "cattura": 100
+            "cattura": 255
         }
     },
 
