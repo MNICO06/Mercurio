@@ -392,8 +392,8 @@
 		},
 		"mosse": [
 			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Azione",
+				"tipo": "Normale"
 			},
 			{
 				"nome": "",
@@ -3874,18 +3874,18 @@
 		"nomePokemon": "weedle",
 		"livello": "7",
 		"statistiche": {
-			"hp": 84.6,
-			"hpTot": 84.6,
-			"attack": 58.8,
-			"defense": 51.6,
-			"special_attack": 37.2,
-			"special_defense": 37.2,
-			"speed": 80.4
+			"hp": 84,
+			"hpTot": 84,
+			"attack": 58,
+			"defense": 51,
+			"special_attack": 37,
+			"special_defense": 37,
+			"speed": 80
 		},
 		"mosse": [
 			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Azione",
+				"tipo": "Normale"
 			},
 			{
 				"nome": "",
@@ -3905,18 +3905,18 @@
 		"nomePokemon": "bidoof",
 		"livello": "8",
 		"statistiche": {
-			"hp": 99.4,
-			"hpTot": 99.4,
-			"attack": 63.6,
-			"defense": 57.6,
-			"special_attack": 51.6,
-			"special_defense": 57.6,
-			"speed": 46.8
+			"hp": 0,
+			"hpTot": 99,
+			"attack": 63,
+			"defense": 57,
+			"special_attack": 51,
+			"special_defense": 57,
+			"speed": 46
 		},
 		"mosse": [
 			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Azione",
+				"tipo": "Normale"
 			},
 			{
 				"nome": "",
@@ -4068,18 +4068,18 @@
 		"nomePokemon": "weedle",
 		"livello": "7",
 		"statistiche": {
-			"hp": 84.6,
-			"hpTot": 84.6,
-			"attack": 58.8,
-			"defense": 51.6,
-			"special_attack": 37.2,
-			"special_defense": 37.2,
-			"speed": 80.4
+			"hp": 84,
+			"hpTot": 84,
+			"attack": 58,
+			"defense": 51,
+			"special_attack": 37,
+			"special_defense": 37,
+			"speed": 80
 		},
 		"mosse": [
 			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Azione",
+				"tipo": "Normale"
 			},
 			{
 				"nome": "",
@@ -4099,18 +4099,18 @@
 		"nomePokemon": "bidoof",
 		"livello": "8",
 		"statistiche": {
-			"hp": 99.4,
-			"hpTot": 99.4,
-			"attack": 63.6,
-			"defense": 57.6,
-			"special_attack": 51.6,
-			"special_defense": 57.6,
-			"speed": 46.8
+			"hp": 99,
+			"hpTot": 99,
+			"attack": 63,
+			"defense": 57,
+			"special_attack": 51,
+			"special_defense": 57,
+			"speed": 46
 		},
 		"mosse": [
 			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Azione",
+				"tipo": "Normale"
 			},
 			{
 				"nome": "",
