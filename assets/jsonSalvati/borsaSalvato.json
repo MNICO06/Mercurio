@@ -7,6 +7,10 @@
         {
             "quantity": 5,
             "name": "Ultraball"
+        },
+        {
+            "quantity": 309,
+            "name": "Masterball"
         }
     ],
     "inventoryKey": [{

@@ -83,6 +83,7 @@ public class Battle extends ScreenAdapter {
     private Texture textureLancio;
     private TextureRegion[] player;
     private TextureRegion[] ball;
+    private TextureRegion[] ballLanciata;
     private TextureRegion[] ballBot;
     private TextureRegion ball2;
     private SpriteBatch batch;
@@ -92,10 +93,12 @@ public class Battle extends ScreenAdapter {
     private TextureRegion frame;
     private Image imagePlayer;
     private Image imageBall;
+    private Image imageBallLanciata;
     private Image imageBallBot;
     private Image imageBall2;
     private Animation<TextureRegion> muoviPlayer;
     private Animation<TextureRegion> muoviBall;
+    private Animation<TextureRegion> muoviBallLanciata;
     private Animation<TextureRegion> muoviBallBot;
     private TextureRegion newTextureRegionFight;
     private float cambioFrame_speed = 0.7f;
@@ -123,6 +126,9 @@ public class Battle extends ScreenAdapter {
     private LabelDiscorsi labelDiscorsi16;
     private LabelDiscorsi labelDiscorsi17;
     private LabelDiscorsi labelDiscorsi18;
+    private LabelDiscorsi labelDiscorsi19;
+    private LabelDiscorsi labelDiscorsi20;
+    private LabelDiscorsi labelDiscorsi21;
     private Label label1;
     private Label label2;
     private Label label3;
@@ -141,6 +147,9 @@ public class Battle extends ScreenAdapter {
     private Label label16;
     private Label label17;
     private Label label18;
+    private Label label19;
+    private Label label20;
+    private Label label21;
     private String nomePoke;
     private String nomePokeSquad;
     private String currentPokeHP;
@@ -190,6 +199,7 @@ public class Battle extends ScreenAdapter {
     private String pokeHPbeforeFight;
     private float tassoCattura;
     private String nomeSelvatico;
+    private boolean cattura=false;
 
     public Battle(InterfacciaComune chiamante, String nameBot, boolean isBotFight, String zona, String nomeSelvatico) {
         semaphore = new Semaphore(1); // Semaforo binario
@@ -542,6 +552,15 @@ public class Battle extends ScreenAdapter {
             }
             if (label18!=null){
                 labelDiscorsi18.renderDisc();
+            }
+            if (label19!=null){
+                labelDiscorsi19.renderDisc();
+            }
+            if (label20!=null){
+                labelDiscorsi20.renderDisc();
+            }
+            if (label21!=null){
+                labelDiscorsi21.renderDisc();
             }
         }
 
@@ -2206,11 +2225,25 @@ public class Battle extends ScreenAdapter {
 
         System.out.println(tassoCattura);
 
-        calcoloVibrazioni();
+        String discorso19= "Hai lanciato una "+ nomeBall + "!";
+        labelDiscorsi19 = new LabelDiscorsi(discorso19,dimMax,0,true);
+
+        label19=labelDiscorsi19.getLabel();
+        stage.addActor(label19);
+
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                calcoloVibrazioni(nomeBall);
+            }
+        }, 1.5f);
+        
+        
     }
 
-    public void calcoloVibrazioni(){
+    public void calcoloVibrazioni(String ballName){
         int nVibrazioni=0;
+        Texture lanciaBallTexture = new Texture("battle/"+ballName+"Cattura.png");
 
         if(tassoCattura<255){
             int vibrazione = (int)(1048560/Math.sqrt(Math.sqrt(16711680/(int)tassoCattura)));
@@ -2222,6 +2255,17 @@ public class Battle extends ScreenAdapter {
                 }
             }
 
+            lanciaCatturaBall(lanciaBallTexture, nVibrazioni);
+
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    labelDiscorsi19.reset();
+                    label19.remove();
+                    label19=null;
+                }
+            }, (1.5f+1.5f*nVibrazioni));
+
             if (nVibrazioni==4){
                 System.out.println("catturato");
             }
@@ -2231,13 +2275,402 @@ public class Battle extends ScreenAdapter {
 
         }
         else{
-            System.out.println("catturato");
+            lanciaCatturaBall(lanciaBallTexture, 4);
         }
 
     }
 
-    private void lanciaCatturaBall(){
+    private void lanciaCatturaBall(Texture textureBall, int nVibrazioni){
         
+
+        int regionWidth = textureBall.getWidth() / 12;
+        int regionHeight = textureBall.getHeight();
+    
+        // Inizializza l'array delle TextureRegion della ball
+        ballLanciata = new TextureRegion[12];
+        for (int i = 0; i < 12; i++) {
+            ballLanciata[i] = new TextureRegion(textureBall, i * regionWidth, 0, regionWidth, regionHeight);
+        }
+    
+        muoviBallLanciata = new Animation<>(0.5f, ballLanciata);
+
+        // Crea e aggiungi l'immagine della ball allo stage
+        imageBallLanciata = new Image(ballLanciata[1]);
+        imageBallLanciata.setSize(16*4, 25*4);
+    
+        // Posizione iniziale della ball (NON CAMBIATELE)
+        float startX = 1;
+        float startY = 100;
+    
+        imageBallLanciata.setPosition(startX, startY);
+    
+        stage.addActor(imageBallLanciata);
+    
+        // Durata del movimento della ball (secondi)
+        float duration = 2f;
+    
+        // Animazione di spostamento lungo una traiettoria curva
+        Timer.schedule(new Timer.Task() {
+            float elapsed = 0;
+    
+            @Override
+            public void run() {
+                if (elapsed <= duration) {
+                    // Calcola la posizione sulla traiettoria curva
+                    float percent = elapsed / duration;
+                    imageBallLanciata.setPosition((815) * percent*percent, startY +(290)* percent); 
+                    elapsed += 0.05f;
+                } 
+                else {
+                    // Cambia l'immagine della ball a [0]
+                    imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[0]));
+    
+                    // Nasconde l'immagine del Pokémon
+                    pokemonImageBot.setVisible(false);
+    
+                    float bounceHeight = 30f; // Altezza del rimbalzo
+                    float bounceDuration = 0.25f; // Durata di ogni rimbalzo
+                    // Esegue l'animazione di rimbalzo dopo un breve ritardo
+                    imageBallLanciata.addAction(Actions.sequence(
+                        Actions.delay(0.5f),
+                        Actions.run(new Runnable() {
+                            @Override
+                            public void run() {
+                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[1]));
+                            }
+                        }),
+                        Actions.sequence(
+                            Actions.moveBy(0, bounceHeight, bounceDuration), // Primo rimbalzo
+                            Actions.moveBy(0, -bounceHeight, bounceDuration),
+                            Actions.moveBy(0, bounceHeight / 2, bounceDuration/2), // Secondo rimbalzo
+                            Actions.moveBy(0, -bounceHeight / 2, bounceDuration/2),
+                            Actions.moveBy(0, bounceHeight / 4, bounceDuration/4), // Terzo rimbalzo
+                            Actions.moveBy(0, -bounceHeight / 4, bounceDuration/4),
+                            Actions.delay(0.5f) // Attende 0.5 secondi
+                        ),
+                        // Controllo del numero di vibrazioni
+                        Actions.run(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (nVibrazioni == 0) {
+                                    Actions.delay(0.5f);
+                                    // Se nVibrazioni è 0, esegue l'animazione come richiesto
+                                    imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[0]));
+                                    // Solita animazione
+                                    Actions.delay(0.5f);
+                                    Actions.removeActor();
+                                    String discorso20= "Oh No! Il pokemon selvatico si e' liberato!";
+                                    labelDiscorsi20 = new LabelDiscorsi(discorso20,dimMax,0,true);
+                                    label20=labelDiscorsi20.getLabel();
+                                    stage.addActor(label20);
+
+                                    Timer.schedule(new Timer.Task() {
+                                        @Override
+                                        public void run() {
+                                            labelDiscorsi20.reset();
+                                            label20.remove();
+                                            label20=null;
+                                            utilizzoMossaBot();
+                                        }
+                                    }, 2.5f);
+
+                                } else if (nVibrazioni == 1) {
+                                    // Se nVibrazioni è 1, passa sui frame 7 e 8 e torna a 0 dopo 0.5 secondi
+                                    imageBallLanciata.addAction(Actions.sequence(
+                                        Actions.run(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[7]));
+                                            }
+                                        }),
+                                        Actions.delay(0.25f),
+                                        Actions.run(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[8]));
+                                            }
+                                        }),
+                                        Actions.delay(0.25f),
+                                        Actions.run(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[0]));
+                                                pokemonImageBot.setVisible(true);
+                                                String discorso20= "Oh No! Il pokemon selvatico si e' liberato!";
+                                                labelDiscorsi20 = new LabelDiscorsi(discorso20,dimMax,0,true);
+                                                label20=labelDiscorsi20.getLabel();
+                                                stage.addActor(label20);
+
+                                                Timer.schedule(new Timer.Task() {
+                                                    @Override
+                                                    public void run() {
+                                                        labelDiscorsi20.reset();
+                                                        label20.remove();
+                                                        label20=null;
+                                                        utilizzoMossaBot();
+                                                    }
+                                                }, 2.5f);
+                                            }
+                                        }),
+                                        // Solita animazione
+                                        Actions.delay(0.5f),
+                                        Actions.removeActor()
+
+                                    ));
+                                }
+
+                                else if (nVibrazioni == 2) {
+                                    // Se nVibrazioni è 2, esegue l'animazione specifica
+                                    imageBallLanciata.addAction(Actions.sequence(
+                                        // Passa su 7 e 8
+                                        Actions.run(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[7]));
+                                            }
+                                        }),
+                                        Actions.delay(0.25f),
+                                        Actions.run(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[8]));
+                                            }
+                                        }),
+                                
+                                        Actions.delay(0.5f),
+                                        // Passa su 9 e 8
+                                        Actions.delay(0.25f),
+                                        Actions.run(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[9]));
+                                            }
+                                        }),
+                                        Actions.delay(0.25f),
+                                        Actions.run(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[8]));
+                                            }
+                                        }),
+                                
+                                        // Ritorna all'animazione normale
+                                        Actions.delay(0.25f),
+                                        Actions.run(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[0]));
+                                                pokemonImageBot.setVisible(true);
+                                                String discorso20= "Oh No! Il pokemon selvatico si e' liberato!";
+                                                labelDiscorsi20 = new LabelDiscorsi(discorso20,dimMax,0,true);
+                                                label20=labelDiscorsi20.getLabel();
+                                                stage.addActor(label20);
+
+                                                Timer.schedule(new Timer.Task() {
+                                                    @Override
+                                                    public void run() {
+                                                        labelDiscorsi20.reset();
+                                                        label20.remove();
+                                                        label20=null; 
+                                                        utilizzoMossaBot();
+                                                    }
+                                                }, 2.5f);
+                                            }
+                                        }),
+                                        // Solita animazione
+                                        Actions.delay(0.5f),
+                                        Actions.removeActor()
+
+                                    ));
+                                }
+
+                                else if (nVibrazioni == 3) {
+                                    // Se nVibrazioni è 3, esegue l'animazione specifica
+                                    imageBallLanciata.addAction(Actions.sequence(
+                                        // Passa su 7 e 8
+                                        Actions.run(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[7]));
+                                            }
+                                        }),
+                                        Actions.delay(0.25f),
+                                        Actions.run(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[8]));
+                                            }
+                                        }),
+                                
+                                        Actions.delay(0.5f),
+                                        // Passa su 9 e 8
+                                        Actions.delay(0.25f),
+                                        Actions.run(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[9]));
+                                            }
+                                        }),
+                                        Actions.delay(0.25f),
+                                        Actions.run(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[8]));
+                                            }
+                                        }),
+                                
+                                        Actions.delay(0.5f),
+                                        // Passa su 7 e 8 di nuovo
+                                        Actions.delay(0.25f),
+                                        Actions.run(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[7]));
+                                            }
+                                        }),
+                                        Actions.delay(0.25f),
+                                        Actions.run(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[8]));
+                                            }
+                                        }),
+                                
+                                        // Torna a 0 dopo 0.5 secondi
+                                        Actions.delay(0.25f),
+                                        Actions.run(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[0]));
+                                                pokemonImageBot.setVisible(true);
+                                                String discorso20= "Oh No! Il pokemon selvatico si e' liberato!";
+                                                labelDiscorsi20 = new LabelDiscorsi(discorso20,dimMax,0,true);
+                                                label20=labelDiscorsi20.getLabel();
+                                                stage.addActor(label20);
+
+                                                Timer.schedule(new Timer.Task() {
+                                                    @Override
+                                                    public void run() {
+                                                        labelDiscorsi20.reset();
+                                                        label20.remove();
+                                                        label20=null;
+                                                        utilizzoMossaBot();
+                                                    }
+                                                }, 2.5f);
+                                            }
+                                        }),
+                                
+                                        // Solita animazione
+                                        Actions.delay(0.5f),
+                                        Actions.removeActor()
+                                    ));
+                                }
+
+                                else if (nVibrazioni == 4) {
+                                    // Se nVibrazioni è 4, esegue l'animazione specifica
+                                    imageBallLanciata.addAction(Actions.sequence(
+                                        // Passa su 7 e 8
+                                        Actions.run(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[7]));
+                                            }
+                                        }),
+                                        Actions.delay(0.25f),
+                                        Actions.run(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[8]));
+                                            }
+                                        }),
+                                
+                                        Actions.delay(0.5f),
+
+                                        // Passa su 9 e 8
+                                        Actions.delay(0.25f),
+                                        Actions.run(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[9]));
+                                            }
+                                        }),
+                                        Actions.delay(0.25f),
+                                        Actions.run(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[8]));
+                                            }
+                                        }),
+
+                                        Actions.delay(0.5f),
+                                        // Passa su 7 e 8
+                                        Actions.run(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[7]));
+                                            }
+                                        }),
+                                        Actions.delay(0.25f),
+                                        Actions.run(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[8]));
+                                            }
+                                        }),
+                                
+                                        Actions.delay(0.5f),
+                                        
+                                        Actions.sequence(
+                                            Actions.delay(0.25f),
+                                            Actions.run(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[10]));
+                                                }
+                                            }),
+                                            Actions.delay(0.25f),
+                                            Actions.run(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[11]));
+                                                    String discorso21= "Hai catturato "+ nameBot+"!";
+                                                    labelDiscorsi21 = new LabelDiscorsi(discorso21,dimMax,0,true);
+                                                    label21=labelDiscorsi21.getLabel();
+                                                    stage.addActor(label21);
+                                                    salvaPokemonNelBox();
+
+                                                    Timer.schedule(new Timer.Task() {
+                                                        @Override
+                                                        public void run() {
+                                                            labelDiscorsi21.reset();
+                                                            label21.remove();
+                                                            label21=null;
+                                                            isBattleEnded=true;
+                                                            dispose();
+                                                            Erba.estratto=0;
+                                                        }
+                                                    }, 2.5f);
+                                                }
+                                            })
+                                        )
+                                        
+                                    ));
+                                }
+                            }
+                        })
+
+                    ));
+                    
+    
+                    cancel(); // Termina il timer
+                }
+            }
+        }, 0, Gdx.graphics.getDeltaTime());
+
+    }
+
+    private void salvaPokemonNelBox(){
+
     }
 
 } //Fine battaglia :)

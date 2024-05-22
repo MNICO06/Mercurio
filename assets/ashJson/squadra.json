@@ -44,7 +44,7 @@
 	"nomePokemon": "Bidoof",
 	"livello": "15",
 	"statistiche": {
-		"hp": 0,
+		"hp": 20,
 		"hpTot": 35,
 		"attack": 55,
 		"defense": 40,
@@ -78,7 +78,7 @@
 		"special_attack": 50,
 		"special_defense": 50,
 		"speed": 90,
-		"hp": 0
+		"hp": 5
 	},
 	"mosse": [
 		{
@@ -148,7 +148,7 @@
 	"nomePokemon": "Bidoof",
 	"livello": "15",
 	"statistiche": {
-		"hp": 0,
+		"hp": 13,
 		"hpTot": 35,
 		"attack": 55,
 		"defense": 40,
@@ -195,7 +195,7 @@
 		"special_attack": 500,
 		"special_defense": 50,
 		"speed": 90,
-		"hp": 4
+		"hp": 400
 	},
 	"mosse": [
 		{

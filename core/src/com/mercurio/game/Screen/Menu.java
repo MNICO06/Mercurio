@@ -57,7 +57,7 @@ public class Menu extends ScreenAdapter{
 
         spriteBatch = new SpriteBatch();
 
-        Texture background_texture = new Texture(Gdx.files.internal("menuImage/introImage.jpg"));
+        Texture background_texture = new Texture(Gdx.files.internal("menuImage/sfondoImmagine.png"));
         
         background = new Image(background_texture);
         background.setSize(1024,600);
@@ -67,7 +67,7 @@ public class Menu extends ScreenAdapter{
         Texture titoloPokemon = new Texture(Gdx.files.internal("menuImage/logoMercurio.png"));
         pokemon = new Image(titoloPokemon);
         pokemon.setSize(700,400);
-        pokemon.setPosition(150, 400);
+        pokemon.setPosition(180, 400);
 
         MoveToAction moveUpAction = new MoveToAction();
         moveUpAction.setPosition(x, 126); // Imposta la posizione in alto
