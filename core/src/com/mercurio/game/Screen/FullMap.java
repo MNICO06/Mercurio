@@ -134,6 +134,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
             fineBattagliaNuotatore();
         }
 
+
         if (battle != null){
             battle.render();
         }
@@ -403,7 +404,9 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                 }
 
                 game.getPlayer().setMovement(false);
-                Timer.schedule(new Timer.Task() {
+
+                if (faiMuovereBot == false) {
+                    Timer.schedule(new Timer.Task() {
                         @Override
                         public void run() {
                             puntoEsclamativoImage.remove();
@@ -411,6 +414,10 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                             cancel();
                         }
                     }, 2f);
+                }
+                
+
+                
                 if (faiMuovereBot == true) {
                     muoviBot(bot);
                 }
@@ -489,16 +496,17 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                         
                         bot.setDirezione("y");
                         bot.setMuovi(true);
+                        faiMuovereBot = true;
                     }
                     else {
                         
-                        faiMuovereBot = false;
                         bot.setMuovi(false);
 
                         bot.setFermoIndietro();
-                        bot.setAffrontato(true);
                         game.getPlayer().setMovement(true);
                         bot.setDirezione("-y");
+                        faiMuovereBot = false;
+                        bot.setAffrontato(true);
 
                         renderDiscorso = false;
 
@@ -506,6 +514,8 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                         inEsecuzione = false;
 
                         torna = false;
+                        
+                        
                     }
                 }
                 else {
@@ -523,7 +533,6 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                         game.getPlayer().setMovement(false);
 
                         renderDiscorso = true;
-
                     }
                 }
                 break;
@@ -537,14 +546,14 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                     if (positionY > yBase) {
                         bot.setDirezione("-y");
                         bot.setMuovi(true);
+                        
                     }
                     else {
                         bot.setDirezione("y");
                         bot.setMuovi(false);
-                        faiMuovereBot = false;
-
-                        bot.setFermoIndietro();
+                        
                         bot.setAffrontato(true);
+                        bot.setFermoIndietro();
                         game.getPlayer().setMovement(true);
 
                         renderDiscorso = false;
@@ -553,6 +562,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                         inEsecuzione = false;
 
                         torna = false;
+                        faiMuovereBot = false;
                     }
                 }
                 else {
@@ -585,17 +595,18 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                     if (positionX < xBase) {
                         bot.setDirezione("x");
                         bot.setMuovi(true);
+                        
                     }
                     else {
                         bot.setDirezione("-x");
                         bot.setMuovi(false);
-                        faiMuovereBot = false;
-
-                        bot.setFermoSinistra();
+                        
                         bot.setAffrontato(true);
+                        bot.setFermoSinistra();
                         game.getPlayer().setMovement(true);
 
                         renderDiscorso = false;
+                        faiMuovereBot = false;
 
                         //da mettere a false alla fine della battaglia (considerare di bloccare quel bot se finisce la battaglia prima)
                         inEsecuzione = false;
@@ -634,20 +645,23 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                     if (positionX > xBase) {
                         bot.setDirezione("-x");
                         bot.setMuovi(true);
+                        
                     }
                     else {
                         bot.setDirezione("x");
                         bot.setMuovi(false);
-                        faiMuovereBot = false;
-
-                        bot.setFermoDestra();
+                        
                         bot.setAffrontato(true);
+                        bot.setFermoDestra();
                         game.getPlayer().setMovement(true);
 
                         renderDiscorso = false;
 
                         //da mettere a false alla fine della battaglia (considerare di bloccare quel bot se finisce la battaglia prima)
                         inEsecuzione = false;
+
+                        faiMuovereBot = false;
+                        battagliaIsFinished = false;
 
                         
                         torna = false;
@@ -691,11 +705,10 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
         else {
             if (!continuaTesto) {
 
+                leggiTesto = false;
+                battle = new Battle(this, nomeJson, true, null);
                 
-                    battle = new Battle(this, nomeJson, true, null);
-                
-                    //battagliaIsFinished = true;
-                
+                //battagliaIsFinished = true;
                 
                 renderDiscorso = true;
             }
@@ -721,6 +734,8 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
 
                 torna = true;
                 inEsecuzione = false;
+                battagliaIsFinished = false;
+                leggiTesto = true;
                 
             }
             
@@ -732,29 +747,31 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
 
     private void fineBattagliaNuotatore() {
         if (renderDiscorso && continuaTesto) {
-            
             discorsoFinale.renderDisc();
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-            //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
-            continuaTesto = discorsoFinale.advanceText();
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+                //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
+                continuaTesto = discorsoFinale.advanceText();
+            }
         }
-    }
-    else {
-        if (!continuaTesto) {
+        else {
+            if (!continuaTesto) {
             //va a mettere torna a true e quindi a far partire l'animazione del ritorno del bot
 
-            bot.setMuovi(true);
-            inEsecuzione = false;
+                bot.setMuovi(true);
+                inEsecuzione = false;
+                bot.setAffrontato(true);
+                game.getPlayer().setMovement(true);
+                battagliaIsFinished = false;
+                faiAvvicinare = false;
             
-        }
+            }
         
-        renderDiscorso = false;
-        continuaTesto = true;
-        discorsoFinale.reset();
-    }
+            renderDiscorso = false;
+            continuaTesto = true;
+            discorsoFinale.reset();
+        }
 }
 
-    //TODO: blocca player e bot
     public void checkFerma() {
         for (Bot bot : nuotatoriList) {
             if (game.getPlayer().getBoxPlayer().overlaps(bot.getBoxNuotatore()) && bot.getAffrontato() != true) {
@@ -821,7 +838,6 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                     bot.avvicinaNuotatore();
                 }
                 break;
-        
         }
     }
     
