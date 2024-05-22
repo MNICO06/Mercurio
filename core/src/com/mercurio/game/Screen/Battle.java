@@ -189,10 +189,12 @@ public class Battle extends ScreenAdapter {
     private Semaphore semaphore;
     private String pokeHPbeforeFight;
     private float tassoCattura;
+    private String nomeSelvatico;
 
-    public Battle(InterfacciaComune chiamante, String nameBot, boolean isBotFight, String zona) {
+    public Battle(InterfacciaComune chiamante, String nameBot, boolean isBotFight, String zona, String nomeSelvatico) {
         semaphore = new Semaphore(1); // Semaforo binario
         this.nameBot=nameBot;
+        this.nomeSelvatico=nomeSelvatico;
         this.isBotFight=isBotFight;
         this.zona=zona;
         checkInt=0;
@@ -745,7 +747,7 @@ public class Battle extends ScreenAdapter {
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
-                        borsa = new Borsa(stage,true);
+                        borsa = new Borsa(stage,true, battle);
                     }
                 }, 0.3f);
                 
@@ -1536,7 +1538,7 @@ public class Battle extends ScreenAdapter {
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
 
-        JsonValue pokeJson = json.get(nBot);
+        JsonValue pokeJson = json.get(nomeSelvatico);
         nomePokeBot = pokeJson.getString("nomePokemon");
         LVPokeBot = pokeJson.getString("livello");
 
@@ -1565,7 +1567,6 @@ public class Battle extends ScreenAdapter {
             listaMosseBot.add(mossa);
         }
 
-        calcoloTassoCattura("pokeball");
     }
 
     public void leggiPokeSecondarioBot(int numero, int numBot) {

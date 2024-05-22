@@ -158,7 +158,7 @@ public class MercurioMain extends Game implements InterfacciaComune{
 
         System.out.println(pokeName);
 
-        battle = new Battle(this, pokeName, false, nomeJson);
+        battle = new Battle(this, pokeName, false, nomeJson, nomePokemon);
     }
 
     public void setRectangleList(ArrayList<Rectangle> rectList) {

@@ -58,6 +58,7 @@ public class Borsa {
     private Texture textureKey;
     private Texture textureMT;
     private boolean battle;
+    private Image usaImage;
     
     private float cambioFrame_speed = 0.14f;
     
@@ -76,9 +77,12 @@ public class Borsa {
     private Image labelKey;
 
     private float stateTime;
+
+    private Battle battaglia;
     
-    public Borsa(Stage stage, boolean battle) {
+    public Borsa(Stage stage, boolean battle, Battle battaglia) {
         this.batch = (SpriteBatch) stage.getBatch();
+        this.battaglia=battaglia;
         this.font = new BitmapFont(Gdx.files.internal("font/small_letters_font.fnt"));
         this.stage = stage;
         this.battle=battle;
@@ -368,7 +372,7 @@ public class Borsa {
             inventoryItemActors.add(background2);
             
 
-            background2.addListener(new InputListener() {
+            InputListener listener=new InputListener() {
                 @Override
                 public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                     // Imposta l'immagine di sfondo con la nuova texture
@@ -381,7 +385,31 @@ public class Borsa {
 
                     background2.setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("sfondo/sfondo1.png")))));
                 }
-            });
+            };
+
+            ClickListener clickListener= new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y){
+                    System.out.println(battle);
+                    if (battle && inventoryItems==inventoryBall){
+                        System.out.println("a");
+                        Texture usaTexture = new Texture("sfondo/usa.png");
+                        usaImage = new Image(usaTexture);
+                        usaImage.setPosition(70, 10);
+                        usaImage.setSize(56*3, 24*3);
+                        stage.addActor(usaImage);
+                        inventoryItemActors.add(usaImage);
+                        usaImage.addListener(new ClickListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
+                                close();
+                                battaglia.calcoloTassoCattura(itemName);
+                            }
+                        });
+                    }
+                }
+            };
+
 
 
             // Carica l'immagine dell'oggetto
@@ -411,6 +439,16 @@ public class Borsa {
             itemQuantityLabel.setFontScale(4);
             stage.addActor(itemQuantityLabel);
             inventoryItemActors.add(itemQuantityLabel);
+
+            background2.addListener(listener);
+            itemImage.addListener(listener);
+            itemNameLabel.addListener(listener);
+            itemQuantityLabel.addListener(listener);
+
+            background2.addListener(clickListener);
+            itemImage.addListener(clickListener);
+            itemNameLabel.addListener(clickListener);
+            itemQuantityLabel.addListener(clickListener);
         }
     
         float btnX = 100;

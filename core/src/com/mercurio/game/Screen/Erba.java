@@ -26,7 +26,7 @@ public class Erba {
                 if (check(map, "erbaAltaPercorso1") && game.getIsInMovement()) {
                     //è dentro nell'erba quindi fa un calcolo randomico
 
-                    int num = random.nextInt(50);
+                    int num = random.nextInt(200);
                     if (num == 4) {
                         estraiPokemonP1();
                         System.out.println("no");

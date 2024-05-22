@@ -22,9 +22,8 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.badlogic.gdx.utils.Timer;
 
-public class MenuLabel implements InterfacciaComune{
+public class MenuLabel{
 
-    private Battle battle;
     private Squadra squadra;
 	private SpriteBatch batch;
     private BitmapFont font;
@@ -154,7 +153,7 @@ public class MenuLabel implements InterfacciaComune{
 	}
 	    
 	private void apriBorsa() {
-	    borsa = new Borsa(getStage(),false);
+	    borsa = new Borsa(getStage(),false,null);
 	}
 	
 	private void apriMedaglie() {
@@ -320,14 +319,13 @@ public class MenuLabel implements InterfacciaComune{
     public void render() {
         // Controlla se il tasto X è premuto per aprire o chiudere il menu
         if (Gdx.input.isKeyJustPressed(Input.Keys.X)) {
-            /*if (!menuOpened && xKeyPressed) {
+            if (!menuOpened && xKeyPressed) {
                 // Se il menu non è aperto e il tasto X è abilitato, apri il menu
                 apriMenu();
             } else if (menuOpened) {
                 // Se il menu è aperto, chiudi il menu
                 chiudiMenu();
-            }*/
-            battle = new Battle(this, "Bidoof", false, "percorso1");
+            }
         }
 
         // Rendering dello stage
@@ -346,11 +344,6 @@ public class MenuLabel implements InterfacciaComune{
         }
 
 
-        //VA TOLTO DOPO
-        if (battle != null){
-            battle.render();
-        }
-
         batch.begin();
         stage.draw();
         batch.end();
@@ -362,11 +355,6 @@ public class MenuLabel implements InterfacciaComune{
         stage.dispose();
     }
 
-    @Override
-    public void closeBattle() {
-        Gdx.input.setInputProcessor(stage);
-        battle = null;
-    }
 
     public void closeSquadra() {
         Gdx.input.setInputProcessor(stage);
