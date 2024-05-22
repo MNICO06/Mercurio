@@ -1,190 +1,4 @@
 {
-"bot1": {
-	"nome": "Magni",
-	"testo1": "bho",
-	"testo2": "bho 2",
-	"affrontato": 0,
-	"soldi": 309,
-	"tipo": "Montanaro",
-	"poke1": {
-		"nomePokemon": "Bidoof",
-		"livello": "15",
-		"statistiche": {
-			"hpTot": 400,
-			"attack": 55,
-			"defense": 400,
-			"special_attack": 50,
-			"special_defense": 500,
-			"speed": 9,
-			"hp": 21
-		},
-		"mosse": [
-			{
-				"nome": "Forza Lunare",
-				"tipo": "Folletto"
-			},
-			{
-				"nome": "Dragartigli",
-				"tipo": "Drago"
-			}
-		]
-	},
-	"poke2": {
-		"nomePokemon": "Giratina",
-		"livello": "15",
-		"statistiche": {
-			"hpTot": 35,
-			"attack": 55,
-			"defense": 40,
-			"special_attack": 50,
-			"special_defense": 50,
-			"speed": 90,
-			"hp": 35
-		},
-		"mosse": [
-			{
-				"nome": "Tuonopugno",
-				"tipo": "Elettro"
-			},
-			{
-				"nome": "Fulmine",
-				"tipo": "Elettro"
-			},
-			{
-				"nome": "Scintilla",
-				"tipo": "Elettro"
-			},
-			{
-				"nome": "Tuononda",
-				"tipo": "Elettro"
-			}
-		]
-	},
-	"poke3": {
-		"nomePokemon": "Bidoof",
-		"livello": "15",
-		"statistiche": {
-			"hpTot": 35,
-			"attack": 55,
-			"defense": 40,
-			"special_attack": 50,
-			"special_defense": 50,
-			"speed": 90,
-			"hp": 35
-		},
-		"mosse": [
-			{
-				"nome": "Tuonopugno",
-				"tipo": "Elettro"
-			},
-			{
-				"nome": "Fulmine",
-				"tipo": "Elettro"
-			},
-			{
-				"nome": "Scintilla",
-				"tipo": "Elettro"
-			},
-			{
-				"nome": "Tuononda",
-				"tipo": "Elettro"
-			}
-		]
-	},
-	"poke4": {
-		"nomePokemon": "Bidoof",
-		"livello": "15",
-		"statistiche": {
-			"hpTot": 35,
-			"attack": 55,
-			"defense": 40,
-			"special_attack": 50,
-			"special_defense": 50,
-			"speed": 90,
-			"hp": 0
-		},
-		"mosse": [
-			{
-				"nome": "Tuonopugno",
-				"tipo": "Elettro"
-			},
-			{
-				"nome": "Fulmine",
-				"tipo": "Elettro"
-			},
-			{
-				"nome": "Scintilla",
-				"tipo": "Elettro"
-			},
-			{
-				"nome": "Tuononda",
-				"tipo": "Elettro"
-			}
-		]
-	},
-	"poke5": {
-		"nomePokemon": "Bidoof",
-		"livello": "15",
-		"statistiche": {
-			"hpTot": 35,
-			"attack": 55,
-			"defense": 40,
-			"special_attack": 50,
-			"special_defense": 50,
-			"speed": 90,
-			"hp": 0
-		},
-		"mosse": [
-			{
-				"nome": "Tuonopugno",
-				"tipo": "Elettro"
-			},
-			{
-				"nome": "Fulmine",
-				"tipo": "Elettro"
-			},
-			{
-				"nome": "Scintilla",
-				"tipo": "Elettro"
-			},
-			{
-				"nome": "Tuononda",
-				"tipo": "Elettro"
-			}
-		]
-	},
-	"poke6": {
-		"nomePokemon": "",
-		"livello": "",
-		"statistiche": {
-			"hp": 0,
-			"hpTot": 0,
-			"attack": 0,
-			"defense": 0,
-			"special_attack": 0,
-			"special_defense": 0,
-			"speed": 0
-		},
-		"mosse": [
-			{
-				"nome": "",
-				"tipo": ""
-			},
-			{
-				"nome": "",
-				"tipo": ""
-			},
-			{
-				"nome": "",
-				"tipo": ""
-			},
-			{
-				"nome": "",
-				"tipo": ""
-			}
-		]
-	}
-},
 "p1_bot1": {
 	"nome": "Alfonso",
 	"testo1": "Vedo che sei un allenatore alle prime armi, vediamo come te la cavi.",
@@ -202,16 +16,16 @@
 			"special_attack": 22,
 			"special_defense": 22,
 			"speed": 51,
-			"hp": 0
+			"hp": 48
 		},
 		"mosse": [
 			{
-				"nome": "Forza Lunare",
-				"tipo": "Folletto"
+				"nome": "Azione",
+				"tipo": "Normale"
 			},
 			{
-				"nome": "Dragartigli",
-				"tipo": "Drago"
+				"nome": "Pistolacqua",
+				"tipo": "Acqua"
 			}
 		]
 	},
@@ -382,13 +196,13 @@
 		"nomePokemon": "pidgey",
 		"livello": "5",
 		"statistiche": {
+			"hp": 37,
 			"hpTot": 37,
 			"attack": 38,
 			"defense": 34,
 			"special_attack": 31,
 			"special_defense": 31,
-			"speed": 46,
-			"hp": 0
+			"speed": 46
 		},
 		"mosse": [
 			{
@@ -396,16 +210,8 @@
 				"tipo": "Normale"
 			},
 			{
-				"nome": "",
-				"tipo": ""
-			},
-			{
-				"nome": "",
-				"tipo": ""
-			},
-			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Beccata",
+				"tipo": "Volante"
 			}
 		]
 	},
@@ -576,30 +382,26 @@
 		"nomePokemon": "bidoof",
 		"livello": "5",
 		"statistiche": {
+			"hp": 94,
 			"hpTot": 94,
 			"attack": 60,
 			"defense": 54,
 			"special_attack": 48,
 			"special_defense": 54,
-			"speed": 43.2,
-			"hp": 0
+			"speed": 43.2
 		},
 		"mosse": [
 			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Attacco rapido",
+				"tipo": "Normale"
 			},
 			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Azione",
+				"tipo": "Normale"
 			},
 			{
-				"nome": "",
-				"tipo": ""
-			},
-			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Pistolacqua",
+				"tipo": "Acqua"
 			}
 		]
 	},
@@ -780,20 +582,16 @@
 		},
 		"mosse": [
 			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Attacco rapido",
+				"tipo": "Normale"
 			},
 			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Azione",
+				"tipo": "Normale"
 			},
 			{
-				"nome": "",
-				"tipo": ""
-			},
-			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Scintilla",
+				"tipo": "Elettro"
 			}
 		]
 	},
@@ -974,20 +772,12 @@
 		},
 		"mosse": [
 			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Velenospina",
+				"tipo": "Veleno"
 			},
 			{
-				"nome": "",
-				"tipo": ""
-			},
-			{
-				"nome": "",
-				"tipo": ""
-			},
-			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Azione",
+				"tipo": "Normale"
 			}
 		]
 	},
@@ -1168,20 +958,16 @@
 		},
 		"mosse": [
 			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Azione",
+				"tipo": "Normale"
 			},
 			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Velenospina",
+				"tipo": "Veleno"
 			},
 			{
-				"nome": "",
-				"tipo": ""
-			},
-			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Taglio",
+				"tipo": "Normale"
 			}
 		]
 	},
@@ -1354,28 +1140,24 @@
 		"statistiche": {
 			"hp": 63,
 			"hpTot": 63,
-			"attack": 94.8,
-			"defense": 116.4,
-			"special_attack": 40.8,
-			"special_defense": 40.8,
+			"attack": 94,
+			"defense": 116,
+			"special_attack": 40,
+			"special_defense": 40,
 			"speed": 30
 		},
 		"mosse": [
 			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Colpo di fango",
+				"tipo": "Terra"
 			},
 			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Sassata",
+				"tipo": "Roccia"
 			},
 			{
-				"nome": "",
-				"tipo": ""
-			},
-			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Cadutamassi",
+				"tipo": "Roccia"
 			}
 		]
 	},
@@ -1541,35 +1323,31 @@
 	"testo2": "ricorda, quando sei in difficolta' fermati ad ascoltare il bosco",
 	"affrontato": 0,
 	"soldi": 49,
-	"tipo": "particellina",
+	"tipo": "gemelle",
 	"poke1": {
 		"nomePokemon": "nidoranM",
 		"livello": "6",
 		"statistiche": {
-			"hp": 68.8,
-			"hpTot": 68.8,
-			"attack": 68.8,
-			"defense": 50.4,
-			"special_attack": 50.4,
-			"special_defense": 50.4,
-			"speed": 61.2
+			"hp": 68,
+			"hpTot": 68,
+			"attack": 68,
+			"defense": 50,
+			"special_attack": 50,
+			"special_defense": 50,
+			"speed": 61
 		},
 		"mosse": [
 			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Taglio",
+				"tipo": "Normale"
 			},
 			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Pungiglione",
+				"tipo": "Coleottero"
 			},
 			{
-				"nome": "",
-				"tipo": ""
-			},
-			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Attacco rapido",
+				"tipo": "Normale"
 			}
 		]
 	},
@@ -1577,30 +1355,22 @@
 		"nomePokemon": "bidoof",
 		"livello": "5",
 		"statistiche": {
-			"hp": 72.7,
-			"hpTot": 72.7,
-			"attack": 49.2,
-			"defense": 44.4,
-			"special_attack": 39.6,
-			"special_defense": 44.4,
-			"speed": 35.76
+			"hp": 72,
+			"hpTot": 72,
+			"attack": 49,
+			"defense": 44,
+			"special_attack": 39,
+			"special_defense": 44,
+			"speed": 35
 		},
 		"mosse": [
 			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Pistolacqua",
+				"tipo": "Acqua"
 			},
 			{
-				"nome": "",
-				"tipo": ""
-			},
-			{
-				"nome": "",
-				"tipo": ""
-			},
-			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Azione",
+				"tipo": "Normale"
 			}
 		]
 	},
@@ -1740,30 +1510,18 @@
 		"nomePokemon": "kakuna",
 		"livello": "7",
 		"statistiche": {
-			"hp": 93.6,
-			"hpTot": 93.6,
-			"attack": 44.4,
-			"defense": 84.4,
-			"special_attack": 44.4,
-			"special_defense": 44.4,
-			"speed": 58.8
+			"hp": 93,
+			"hpTot": 93,
+			"attack": 44,
+			"defense": 84,
+			"special_attack": 44,
+			"special_defense": 44,
+			"speed": 58
 		},
 		"mosse": [
 			{
-				"nome": "",
-				"tipo": ""
-			},
-			{
-				"nome": "",
-				"tipo": ""
-			},
-			{
-				"nome": "",
-				"tipo": ""
-			},
-			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Missispillo",
+				"tipo": "Coleottero"
 			}
 		]
 	},
@@ -1773,28 +1531,20 @@
 		"statistiche": {
 			"hp": 63,
 			"hpTot": 63,
-			"attack": 94.8,
-			"defense": 116.4,
-			"special_attack": 40.8,
-			"special_defense": 40.8,
+			"attack": 94,
+			"defense": 116,
+			"special_attack": 40,
+			"special_defense": 40,
 			"speed": 30
 		},
 		"mosse": [
 			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Cadutamassi",
+				"tipo": "Roccia"
 			},
 			{
-				"nome": "",
-				"tipo": ""
-			},
-			{
-				"nome": "",
-				"tipo": ""
-			},
-			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Sassata",
+				"tipo": "Roccia"
 			}
 		]
 	},
@@ -1812,20 +1562,12 @@
 		},
 		"mosse": [
 			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Missispillo",
+				"tipo": "Coleottero"
 			},
 			{
-				"nome": "",
-				"tipo": ""
-			},
-			{
-				"nome": "",
-				"tipo": ""
-			},
-			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Azione",
+				"tipo": "Normale"
 			}
 		]
 	},
@@ -1934,18 +1676,18 @@
 		"nomePokemon": "weedle",
 		"livello": "7",
 		"statistiche": {
-			"hp": 84.6,
-			"hpTot": 84.6,
-			"attack": 58.8,
-			"defense": 51.6,
-			"special_attack": 37.2,
-			"special_defense": 37.2,
+			"hp": 84,
+			"hpTot": 84,
+			"attack": 58,
+			"defense": 51,
+			"special_attack": 37,
+			"special_defense": 37,
 			"speed": 80.4
 		},
 		"mosse": [
 			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Azione",
+				"tipo": "Normale"
 			},
 			{
 				"nome": "",
@@ -1965,18 +1707,18 @@
 		"nomePokemon": "bidoof",
 		"livello": "8",
 		"statistiche": {
-			"hp": 99.4,
-			"hpTot": 99.4,
-			"attack": 63.6,
-			"defense": 57.6,
-			"special_attack": 51.6,
-			"special_defense": 57.6,
-			"speed": 46.8
+			"hp": 99,
+			"hpTot": 99,
+			"attack": 63,
+			"defense": 57,
+			"special_attack": 51,
+			"special_defense": 57,
+			"speed": 46
 		},
 		"mosse": [
 			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Azione",
+				"tipo": "Normale"
 			},
 			{
 				"nome": "",
@@ -2128,18 +1870,18 @@
 		"nomePokemon": "weedle",
 		"livello": "7",
 		"statistiche": {
-			"hp": 84.6,
-			"hpTot": 84.6,
-			"attack": 58.8,
-			"defense": 51.6,
-			"special_attack": 37.2,
-			"special_defense": 37.2,
-			"speed": 80.4
+			"hp": 84,
+			"hpTot": 84,
+			"attack": 58,
+			"defense": 51,
+			"special_attack": 37,
+			"special_defense": 37,
+			"speed": 80
 		},
 		"mosse": [
 			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Azione",
+				"tipo": "Normale"
 			},
 			{
 				"nome": "",
@@ -2159,18 +1901,18 @@
 		"nomePokemon": "bidoof",
 		"livello": "8",
 		"statistiche": {
-			"hp": 99.4,
-			"hpTot": 99.4,
-			"attack": 63.6,
-			"defense": 57.6,
-			"special_attack": 51.6,
-			"special_defense": 57.6,
-			"speed": 46.8
+			"hp": 99,
+			"hpTot": 99,
+			"attack": 63,
+			"defense": 57,
+			"special_attack": 51,
+			"special_defense": 57,
+			"speed": 46
 		},
 		"mosse": [
 			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Azione",
+				"tipo": "Normale"
 			},
 			{
 				"nome": "",
@@ -2322,18 +2064,18 @@
 		"nomePokemon": "weedle",
 		"livello": "7",
 		"statistiche": {
-			"hp": 84.6,
-			"hpTot": 84.6,
-			"attack": 58.8,
-			"defense": 51.6,
-			"special_attack": 37.2,
-			"special_defense": 37.2,
-			"speed": 80.4
+			"hp": 84,
+			"hpTot": 84,
+			"attack": 58,
+			"defense": 51,
+			"special_attack": 37,
+			"special_defense": 37,
+			"speed": 80
 		},
 		"mosse": [
 			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Azione",
+				"tipo": "Normale"
 			},
 			{
 				"nome": "",
@@ -2353,18 +2095,18 @@
 		"nomePokemon": "bidoof",
 		"livello": "8",
 		"statistiche": {
-			"hp": 99.4,
-			"hpTot": 99.4,
-			"attack": 63.6,
-			"defense": 57.6,
-			"special_attack": 51.6,
-			"special_defense": 57.6,
-			"speed": 46.8
+			"hp": 99,
+			"hpTot": 99,
+			"attack": 63,
+			"defense": 57,
+			"special_attack": 51,
+			"special_defense": 57,
+			"speed": 46
 		},
 		"mosse": [
 			{
-				"nome": "",
-				"tipo": ""
+				"nome": "Azione",
+				"tipo": "Normale"
 			},
 			{
 				"nome": "",

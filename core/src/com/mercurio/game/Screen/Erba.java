@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 public class Erba {
     private MercurioMain game;
     Random random;
+    public static int estratto=0;
 
     private final int numeroPokemonP1 = 20;
     private final String nomeJsonP1 = "percorso1";
@@ -27,9 +28,11 @@ public class Erba {
                     //è dentro nell'erba quindi fa un calcolo randomico
 
                     int num = random.nextInt(200);
-                    if (num == 4) {
-                        estraiPokemonP1();
-                        System.out.println("no");
+                    if (estratto==0){
+                        if (num == 4) {
+                            estraiPokemonP1();
+                            System.out.println("no");
+                        }
                     }
                 }
                 break;
@@ -75,9 +78,9 @@ public class Erba {
     }
 
     private void estraiPokemonP1() {
-        int num = random.nextInt(numeroPokemonP1);
+        int num = 1 + random.nextInt(numeroPokemonP1);
         game.creaBattaglia(nomeJsonP1, String.valueOf(num));
-
+        estratto=1;
     }
 
     private boolean check(TiledMap map, String nome) {
@@ -93,6 +96,10 @@ public class Erba {
             }
         }
         return false;
+    }
+
+    private void setEstraibile(){
+        estratto=0;
     }
 
 }

@@ -768,6 +768,7 @@ public class Battle extends ScreenAdapter {
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
+                        Erba.estratto=0;
                         dispose();
                     }
                 }, 0.3f);
@@ -2067,6 +2068,7 @@ public class Battle extends ScreenAdapter {
                         labelDiscorsi8.reset();
                         label8.remove();
                         label8=null;
+                        Erba.estratto=0;
                         dispose();
                     }
                 }, 2f);
@@ -2101,6 +2103,7 @@ public class Battle extends ScreenAdapter {
                                     labelDiscorsi18.reset();
                                     label18.remove();
                                     label18=null;
+                                    Erba.estratto=0;
                                     dispose();
                                 }
                             }, 3.5f);
@@ -2110,6 +2113,7 @@ public class Battle extends ScreenAdapter {
             }, 2f);
         }
         else{
+            Erba.estratto=0;
             dispose();
         }
 
@@ -2230,8 +2234,10 @@ public class Battle extends ScreenAdapter {
             System.out.println("catturato");
         }
 
+    }
 
-
+    private void lanciaCatturaBall(){
+        
     }
 
 } //Fine battaglia :)

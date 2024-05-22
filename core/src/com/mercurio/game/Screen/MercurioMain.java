@@ -158,6 +158,7 @@ public class MercurioMain extends Game implements InterfacciaComune{
 
         System.out.println(pokeName);
 
+        getPlayer().setMovement(false);
         battle = new Battle(this, pokeName, false, nomeJson, nomePokemon);
     }
 
@@ -405,6 +406,7 @@ public class MercurioMain extends Game implements InterfacciaComune{
 
     @Override
     public void closeBattle() {
+        getPlayer().setMovement(true);
         Gdx.input.setInputProcessor(MenuLabel.getStage());
         battle = null;
     }

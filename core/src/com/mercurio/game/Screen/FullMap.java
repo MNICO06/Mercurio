@@ -706,7 +706,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
             if (!continuaTesto) {
 
                 leggiTesto = false;
-                battle = new Battle(this, nomeJson, true, null);
+                battle = new Battle(this, nomeJson, true, null, null);
                 
                 //battagliaIsFinished = true;
                 
@@ -1095,6 +1095,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
 
     @Override
     public void closeBattle() {
+        game.getPlayer().setMovement(true);
         Gdx.input.setInputProcessor(MenuLabel.getStage());
         battle = null;
         battagliaIsFinished = true;
