@@ -13,7 +13,9 @@ public class Erba {
     public static int estratto=0;
 
     private final int numeroPokemonP1 = 20;
+    private final int numeroPokemonBosco = 2;
     private final String nomeJsonP1 = "percorso1";
+    private final String nomeJsonBosco = "bosco";
 
     public Erba(MercurioMain game) {
         this.game = game;
@@ -41,7 +43,7 @@ public class Erba {
                 if (check(map, "erbaAltaBosco") && game.getIsInMovement()) {
                     int num = random.nextInt(200);
                     if (num == 5) {
-                        
+                        estraiPokemonBosco();
                     }
                 }
                 break;
@@ -80,6 +82,12 @@ public class Erba {
     private void estraiPokemonP1() {
         int num = 1 + random.nextInt(numeroPokemonP1);
         game.creaBattaglia(nomeJsonP1, String.valueOf(num));
+        estratto=1;
+    }
+
+    private void estraiPokemonBosco() {
+        int num = 1 + random.nextInt(numeroPokemonBosco);
+        game.creaBattaglia(nomeJsonBosco, String.valueOf(num));
         estratto=1;
     }
 

@@ -1,0 +1,50 @@
+{
+"1": {
+    "nomePokemon": "Geodude",
+    "livello": "9",
+    "mosse": [
+        {
+            "nome": "Colpo di fango",
+            "tipo": "Terra",
+            "ppTot": 35,
+            "ppAtt": 35
+        },
+        {
+            "nome": "Sassata",
+            "tipo": "Roccia",
+            "ppTot": 25,
+            "ppAtt": 25
+        },
+        {
+            "nome": "Azione",
+            "tipo": "Normale",
+            "ppTot": 35,
+            "ppAtt": 35
+        }
+    ]
+},
+"2": {
+    "nomePokemon": "NidoranM",
+    "livello": "9",
+    "mosse": [
+        {
+            "nome": "Pungiglione",
+            "tipo": "Coleottero",
+            "ppTot": 30,
+            "ppAtt": 30
+        },
+        {
+            "nome": "Velenospina",
+            "tipo": "Veleno",
+            "ppTot": 30,
+            "ppAtt": 30
+        },
+        {
+            "nome": "Azione",
+            "tipo": "Normale",
+            "ppTot": 35,
+            "ppAtt": 35
+        }
+    ]
+}
+}

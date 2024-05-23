@@ -1156,8 +1156,8 @@
           "M50": ""
         }
     },
-    "Nidoran":{
-      "nome": "Nidoran",
+    "NidoranM":{
+      "nome": "NidoranM",
       "lv": "1",
       "tassoCattura": 235,
       "tipo1": "Veleno",

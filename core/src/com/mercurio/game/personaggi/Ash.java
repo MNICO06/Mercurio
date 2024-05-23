@@ -55,8 +55,10 @@ public class Ash {
     private int player_width_current;
     private int player_height_current;
 
-    private float speed_Camminata_orizontale = 300;
-    private float speed_Camminata_verticale = 300;
+    private float speed_Camminata_orizontale = 50;
+    private float speed_Camminata_verticale = 40;
+    private float speed_Camminata_orizontale_surf = 100;
+    private float speed_Camminata_verticale_surf = 100;
     private float muovi_X = 0;
     private float muovi_Y = 0;
 
@@ -208,13 +210,13 @@ public class Ash {
             if (Gdx.input.isKeyPressed(Input.Keys.D)) {
                 if (inAcqua == false) {
                     currentAnimation = camminaDestra.getKeyFrame(stateTime, true);
+                    muovi_X = speed_Camminata_orizontale;
                 }
                 else {
                     currentAnimation = surfDestra.getKeyFrame(stateTime, true);
+                    muovi_X = speed_Camminata_orizontale_surf;
                 }
                 
-                muovi_X = speed_Camminata_orizontale;
-                //characterPosition.x += speed_Camminata_orizontale * Gdx.graphics.getDeltaTime();
                 keyPressed = true;
 
                 movingRight = true;
@@ -222,13 +224,13 @@ public class Ash {
             if (Gdx.input.isKeyPressed(Input.Keys.A)) {
                 if (inAcqua == false) {
                     currentAnimation = camminaSinistra.getKeyFrame(stateTime, true);
+                    muovi_X = speed_Camminata_orizontale * -1;
                 }
                 else {
                     currentAnimation = surfSinistra.getKeyFrame(stateTime, true);
+                    muovi_X = speed_Camminata_orizontale_surf * -1;
                 }
                 
-                muovi_X = speed_Camminata_orizontale * -1;
-                //characterPosition.x -= speed_Camminata_orizontale * Gdx.graphics.getDeltaTime();
                 keyPressed = true;
 
                 movingLeft = true;
@@ -236,13 +238,13 @@ public class Ash {
             if (Gdx.input.isKeyPressed(Input.Keys.S)) {
                 if (inAcqua == false) {
                     currentAnimation = camminaIndietro.getKeyFrame(stateTime, true);
+                    muovi_Y = speed_Camminata_verticale * -1;
                 }
                 else {
                     currentAnimation = surfIndietro.getKeyFrame(stateTime, true);
+                    muovi_Y = speed_Camminata_verticale_surf * -1;
                 }
                 
-                muovi_Y = speed_Camminata_verticale * -1;
-                //characterPosition.y -= speed_Camminata_verticale * Gdx.graphics.getDeltaTime();
                 keyPressed = true;
 
                 movingDown = true;
@@ -250,13 +252,13 @@ public class Ash {
             if (Gdx.input.isKeyPressed(Input.Keys.W)) {
                 if (inAcqua == false) {
                     currentAnimation = camminaAvanti.getKeyFrame(stateTime, true);
+                    muovi_Y = speed_Camminata_verticale;
                 }
                 else {
                     currentAnimation = surfAvanti.getKeyFrame(stateTime, true);
+                    muovi_Y = speed_Camminata_verticale_surf;
                 }
                 
-                muovi_Y = speed_Camminata_verticale;
-                //characterPosition.y += speed_Camminata_verticale * Gdx.graphics.getDeltaTime();
                 keyPressed = true;
 
                 movingUp = true;
