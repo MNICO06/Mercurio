@@ -1,4 +1,4 @@
-package com.mercurio.game.Screen;
+package com.mercurio.game.effects;
 
 import java.util.ArrayList;
 import java.util.Timer;

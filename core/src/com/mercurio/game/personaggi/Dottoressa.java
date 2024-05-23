@@ -139,9 +139,9 @@ public class Dottoressa {
         for (int i=0; i<6; i++){
             int index =i+1;
             JsonValue pokeJson = json.get("poke"+index);
-            System.out.println(index);
+            //System.out.println(index);
             String nomePoke = pokeJson.getString("nomePokemon");
-            System.out.println(index);
+            //System.out.println(index);
 
             if (!nomePoke.equals("")){
             JsonValue statistiche = pokeJson.get("statistiche"); 

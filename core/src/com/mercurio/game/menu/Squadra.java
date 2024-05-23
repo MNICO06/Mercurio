@@ -1,4 +1,4 @@
-package com.mercurio.game.Screen;
+package com.mercurio.game.menu;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,6 +26,8 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.badlogic.gdx.utils.Timer;
+import com.mercurio.game.pokemon.Battle;
+import com.mercurio.game.pokemon.infoPoke;
 
 public class Squadra {
 

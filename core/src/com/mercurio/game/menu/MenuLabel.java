@@ -1,4 +1,4 @@
-package com.mercurio.game.Screen;
+package com.mercurio.game.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -21,13 +21,14 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.badlogic.gdx.utils.Timer;
+import com.mercurio.game.Screen.MercurioMain;
 
 public class MenuLabel{
 
     private Squadra squadra;
 	private SpriteBatch batch;
     private BitmapFont font;
-    private Label openMenuLabel;
+    public static Label openMenuLabel;
     private static Stage stage;
     private boolean menuOpened;
     private boolean xKeyPressed;
@@ -319,7 +320,7 @@ public class MenuLabel{
 
     public void render() {
         // Controlla se il tasto X è premuto per aprire o chiudere il menu
-        if (Gdx.input.isKeyJustPressed(Input.Keys.X)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.X) && !game.getIsInMovement()) {
             if (!menuOpened && xKeyPressed) {
                 // Se il menu non è aperto e il tasto X è abilitato, apri il menu
                 apriMenu();
@@ -337,11 +338,6 @@ public class MenuLabel{
         // Rendering dello stage
         if (squadra != null) {
             squadra.render();
-        }
-
-        // Rendering dello stage
-        if (borsa != null) {
-            borsa.render();
         }
 
 

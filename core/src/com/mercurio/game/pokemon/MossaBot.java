@@ -1,4 +1,4 @@
-package com.mercurio.game.Screen;
+package com.mercurio.game.pokemon;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -556,6 +556,16 @@ class MossaBot {
         return listaControllo;
     }
     
+
+    public String getmaxPP() {
+        FileHandle file = Gdx.files.internal("pokemon/mosse.json");
+        String jsonString = file.readString();
+        
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+        JsonValue json = new JsonReader().parse(jsonString);
+        maxPP=json.get(nome).getString("pp");
+        return maxPP;
+    }
 
 
     public int calcolaDanno(int attacco, int difesa, int livello, String pokePlay, String pokeEnemy){

@@ -1,4 +1,4 @@
-package com.mercurio.game.Screen;
+package com.mercurio.game.pokemon;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -271,8 +271,8 @@ class Mossa {
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
 
-            JsonValue pokeJson = json.get(nome);
-            potenza = Integer.parseInt(pokeJson.getString("potenza"));
+        JsonValue pokeJson = json.get(nome);
+        potenza = Integer.parseInt(pokeJson.getString("potenza"));
     }
 
 

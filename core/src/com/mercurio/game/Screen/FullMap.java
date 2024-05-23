@@ -22,7 +22,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.mercurio.game.effects.LabelDiscorsi;
+import com.mercurio.game.menu.MenuLabel;
 import com.mercurio.game.personaggi.Bot;
+import com.mercurio.game.pokemon.Battle;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Timer;
@@ -713,7 +716,6 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                 renderDiscorso = true;
             }
             continuaTesto = true;
-            //game.getPlayer().setMovement(true);
             discorsoIniziale.reset();
         }
     }
@@ -1095,7 +1097,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
 
     @Override
     public void closeBattle() {
-        game.getPlayer().setMovement(true);
+        //game.getPlayer().setMovement(true);
         Gdx.input.setInputProcessor(MenuLabel.getStage());
         battle = null;
         battagliaIsFinished = true;

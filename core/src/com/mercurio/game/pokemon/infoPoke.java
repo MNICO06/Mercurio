@@ -1,4 +1,4 @@
-package com.mercurio.game.Screen;
+package com.mercurio.game.pokemon;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package com.mercurio.game.Screen;
+package com.mercurio.game.menu;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -168,12 +168,12 @@ public class BorsaModifier {
 
     // Metodo di esempio per stampare l'inventario di oggetti di cura
     public void printInventoryCure() {
-        System.out.println("Inventario di oggetti di cura:");
+        //System.out.println("Inventario di oggetti di cura:");
         for (int i = 0; i < inventoryCure.length(); i++) {
             JSONObject item = inventoryCure.getJSONObject(i);
             String itemName = item.getString("name");
             int quantity = item.getInt("quantity");
-            System.out.println(itemName + ": " + quantity);
+            //System.out.println(itemName + ": " + quantity);
         }
     }
 

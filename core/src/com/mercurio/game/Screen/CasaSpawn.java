@@ -18,6 +18,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.mercurio.game.effects.LabelDiscorsi;
 import com.mercurio.game.personaggi.Ash;
 import com.mercurio.game.personaggi.MammaAsh;
 import java.util.Timer;

@@ -21,7 +21,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Timer;
+import com.mercurio.game.effects.Musica;
+import com.mercurio.game.menu.MenuLabel;
 import com.mercurio.game.personaggi.Ash;
+import com.mercurio.game.pokemon.Battle;
 
 
 public class MercurioMain extends Game implements InterfacciaComune{
@@ -157,7 +160,7 @@ public class MercurioMain extends Game implements InterfacciaComune{
         JsonValue json = new JsonReader().parse(jsonString);
         String pokeName = json.get(nomePokemon).getString("nomePokemon");
 
-        System.out.println(pokeName);
+        //System.out.println(pokeName);
 
         getPlayer().setMovement(false);
         battle = new Battle(this, pokeName, false, nomeJson, nomePokemon);
@@ -198,7 +201,7 @@ public class MercurioMain extends Game implements InterfacciaComune{
 
     @Override
     public void dispose() {
-        System.out.println("Spegnimento in corso...");
+        //System.out.println("Spegnimento in corso...");
     
         // Termina tutti i thread attivi
         ThreadGroup rootGroup = Thread.currentThread().getThreadGroup();
@@ -304,10 +307,10 @@ public class MercurioMain extends Game implements InterfacciaComune{
         setPage(json.getString("screen"));
         musica.startMusic(luogo);
 
-        System.out.println(getPlayer().getPlayerPosition().x);
-        System.out.println(getPlayer().getPlayerPosition().y);
-        System.out.println(getLuogo());
-        System.out.println(getScreenString());
+        //System.out.println(getPlayer().getPlayerPosition().x);
+        //System.out.println(getPlayer().getPlayerPosition().y);
+        //System.out.println(getLuogo());
+        //System.out.println(getScreenString());
     }
 
     public void setMap(TiledMap map, OrthogonalTiledMapRenderer render, OrthographicCamera camera, float larghezza, float altezza) {

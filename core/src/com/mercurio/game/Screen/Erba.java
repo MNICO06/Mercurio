@@ -31,7 +31,7 @@ public class Erba {
                     if (estratto==0){
                         if (num == 4) {
                             estraiPokemonP1();
-                            System.out.println("no");
+                            //System.out.println("no");
                         }
                     }
                 }

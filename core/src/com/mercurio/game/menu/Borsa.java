@@ -1,4 +1,4 @@
-package com.mercurio.game.Screen;
+package com.mercurio.game.menu;
 
 import org.json.JSONArray;
 
@@ -26,6 +26,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
+import com.mercurio.game.pokemon.Battle;
+
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import java.io.FileReader;
@@ -390,9 +392,9 @@ public class Borsa {
             ClickListener clickListener= new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y){
-                    System.out.println(battle);
+                    //System.out.println(battle);
                     if (battle && inventoryItems==inventoryBall){
-                        System.out.println("a");
+                        //System.out.println("a");
                         Texture usaTexture = new Texture("sfondo/usa.png");
                         usaImage = new Image(usaTexture);
                         usaImage.setPosition(70, 10);
