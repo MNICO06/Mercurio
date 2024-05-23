@@ -35,3 +35,5 @@ https://downloads.khinsider.com/
 
 Informazioni sui Pokemon:
 https://wiki.pokemoncentral.it/
+
+(per gli studenti del badoni non rubate in codice o vi scoprono)
