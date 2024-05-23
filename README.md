@@ -7,3 +7,31 @@ Link per la mappa:
 https://drive.google.com/drive/folders/1wazYr9UrbrAN5mJJ5NBLJ8sM5n2wTOTY?usp=sharing
 
 Accettiamo ogni tipo di consiglio o richiesta per aggiornamenti e saremmo grati se ci venissero presentati eventuali problemi.
+
+CREDITI
+
+Sviluppatori:
+Nicolò Molteni
+Lorenzo Molteni
+Lorenzo Nava
+
+Designer loghi:
+Gaia Molteni
+
+Designer:
+Lorenzo Nava
+
+Mappe:
+Lorenzo Molteni
+Lorenzo Nava
+Nicolò Molteni
+
+Sprite pokemon e oggetti:
+https://www.spriters-resource.com/
+https://www.deviantart.com/
+
+Musiche e effetti sonori:
+https://downloads.khinsider.com/
+
+Informazioni sui Pokemon:
+https://wiki.pokemoncentral.it/
