@@ -33,7 +33,7 @@ Il confronto con il Campione fu il culmine del viaggio di Ash. La battaglia fu i
 
 Per giocare a questo gioco, è necessario possedere un'IDE di programmazione Java e una versione adatta di Java. Se non hai già installato Java 17, puoi scaricarlo dal sito ufficiale:
 
-- [Java 17](https://www.oracle.com/java/technologies/javase-jdk17-downloads.html)
+- [Java 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
 
 
 ### Istruzioni per giocarci
@@ -111,7 +111,7 @@ The showdown with the Champion was the culmination of Ash's journey. The battle 
 ### System Requirements
 To play this game, you need a Java programming IDE and a suitable version of Java. If you haven't already installed Java 17, you can download it from the official website:
 
-- [Java 17](https://www.oracle.com/java/technologies/javase-jdk17-downloads.html)
+- [Java 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
 
 ## Getting Started
 
