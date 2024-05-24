@@ -1,5 +1,7 @@
 # Poekmon MERCURIO
 
+![Logo del Programma](https://github.com/MNICO06/Mercurio/blob/master/assets/menuImage/logo.png)
+
 ## Scegli la tua lingua / Choose your language
 
 - [Italiano](#italiano)
@@ -7,12 +9,6 @@
 
 
 ## Italiano
-
-Questo progetto è stato realizzato dal gruppo LMN ![Logo Gruppo](https://github.com/MNICO06/Mercurio/blob/master/assets/menuImage/LogoGruppo.jpg)
-
-![Logo del Programma](https://github.com/MNICO06/Mercurio/blob/master/assets/menuImage/logo.png)
-
-![Schermata del Programma](https://github.com/MNICO06/Mercurio/blob/master/assets/menuImage/logoCaricamento.jpg)
 
 ### Introduzione
 
@@ -80,12 +76,6 @@ Ora sei pronto per eseguire il codice, quindi ti basterà eseguire la classe "De
 
 
 ## English
-
-This project is created by LMN group ![Group Logo](https://github.com/MNICO06/Mercurio/blob/master/assets/menuImage/LogoGruppo.jpg)
-
-![Program Logo](https://github.com/MNICO06/Mercurio/blob/master/assets/menuImage/logo.png)
-
-![Program Screenshot](https://github.com/MNICO06/Mercurio/blob/master/assets/menuImage/logoCaricamento.jpg)
 
 ### Introduction
 The Pokémon Mercurio project is a reproduction of any Pokémon game like Soul Silver or Heart Gold. The game is set on a completely new map designed from scratch, and the story features elements taken from various game versions as well as new ideas. For example, the legendary Pokémon central to the main story is Giratina. However, we have also decided to include other legendary and semi-legendary Pokémon...
