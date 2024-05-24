@@ -49,9 +49,9 @@ Ora sei pronto per eseguire il codice, quindi ti basterà eseguire la classe "De
 ## Crediti
 
 - Sviluppatori:
- - Nicolò Molteni
- - Lorenzo Molteni
- - Lorenzo Nava
+  - Nicolò Molteni
+  - Lorenzo Molteni
+  - Lorenzo Nava
 
 - Designer loghi:
   - Gaia Molteni
@@ -60,9 +60,9 @@ Ora sei pronto per eseguire il codice, quindi ti basterà eseguire la classe "De
   - Lorenzo Nava
 
 - Mappe:
- - Lorenzo Molteni
- - Lorenzo Nava
- - Nicolò Molteni
+  - Lorenzo Molteni
+  - Lorenzo Nava
+  - Nicolò Molteni
 
 - Sprite pokemon e oggetti:
   - [**Sprite Resources**](https://www.spriters-resource.com/)
@@ -129,9 +129,9 @@ Now you are ready to run the code, so you just need to execute the "DesktopLaunc
 ## Credits
 
 - Developers:
- - Nicolò Molteni
- - Lorenzo Molteni
- - Lorenzo Nava
+  - Nicolò Molteni
+  - Lorenzo Molteni
+  - Lorenzo Nava
 
 - Logo Designers:
   - Gaia Molteni
@@ -140,13 +140,13 @@ Now you are ready to run the code, so you just need to execute the "DesktopLaunc
   - Lorenzo Nava
 
 - Maps:
-- Lorenzo Molteni
-- Lorenzo Nava
-- Nicolò Molteni
+  - Lorenzo Molteni
+  - Lorenzo Nava
+  - Nicolò Molteni
 
 - Pokémon and Items Sprites:
   - [**Sprite Resources**](https://www.spriters-resource.com/)
- - [**Deviant**](https://www.deviantart.com/)
+  - [**Deviant**](https://www.deviantart.com/)
 
 - Music and Sound Effects:
   - [**khinsider**](https://downloads.khinsider.com/)
