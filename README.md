@@ -49,30 +49,30 @@ Ora sei pronto per eseguire il codice, quindi ti basterà eseguire la classe "De
 ## Crediti
 
 - Sviluppatori:
- -- Nicolò Molteni
- -- Lorenzo Molteni
- -- Lorenzo Nava
+ - Nicolò Molteni
+ - Lorenzo Molteni
+ - Lorenzo Nava
 
 - Designer loghi:
- -- Gaia Molteni
+  - Gaia Molteni
 
 - Designer:
- -- Lorenzo Nava
+  - Lorenzo Nava
 
 - Mappe:
--- Lorenzo Molteni
--- Lorenzo Nava
--- Nicolò Molteni
+ - Lorenzo Molteni
+ - Lorenzo Nava
+ - Nicolò Molteni
 
 - Sprite pokemon e oggetti:
- -- [**Sprite Resources**](https://www.spriters-resource.com/)
- -- [**Deviant**](https://www.deviantart.com/)
+  - [**Sprite Resources**](https://www.spriters-resource.com/)
+  - [**Deviant**](https://www.deviantart.com/)
 
 - Musiche e effetti sonori:
- -- [**khinsider**](https://downloads.khinsider.com/)
+  - [**khinsider**](https://downloads.khinsider.com/)
 
 - Informazioni sui Pokemon:
- -- [**Pokemon Central**](https://wiki.pokemoncentral.it/)
+  - [**Pokemon Central**](https://wiki.pokemoncentral.it/)
 
 
 ## English
@@ -129,27 +129,27 @@ Now you are ready to run the code, so you just need to execute the "DesktopLaunc
 ## Credits
 
 - Developers:
- -- Nicolò Molteni
- -- Lorenzo Molteni
- -- Lorenzo Nava
+ - Nicolò Molteni
+ - Lorenzo Molteni
+ - Lorenzo Nava
 
 - Logo Designers:
- -- Gaia Molteni
+  - Gaia Molteni
 
 - Designer:
- -- Lorenzo Nava
+  - Lorenzo Nava
 
 - Maps:
--- Lorenzo Molteni
--- Lorenzo Nava
--- Nicolò Molteni
+- Lorenzo Molteni
+- Lorenzo Nava
+- Nicolò Molteni
 
 - Pokémon and Items Sprites:
- -- [**Sprite Resources**](https://www.spriters-resource.com/)
- -- [**Deviant**](https://www.deviantart.com/)
+  - [**Sprite Resources**](https://www.spriters-resource.com/)
+ - [**Deviant**](https://www.deviantart.com/)
 
 - Music and Sound Effects:
- -- [**khinsider**](https://downloads.khinsider.com/)
+  - [**khinsider**](https://downloads.khinsider.com/)
 
 - Pokémon Information:
- -- [**Pokemon Central**](https://wiki.pokemoncentral.it/)
+  - [**Pokemon Central**](https://wiki.pokemoncentral.it/)
