@@ -42,7 +42,7 @@ Per iniziare con questo progetto, puoi clonare il repository utilizzando il segu
 ```bash
 git clone https://github.com/your-username/your-repository.git
 ```
-Dopo averlo scaricato, è necessario aprirlo nell'IDE. Successivamente, scarica la [**mappa**]((https://drive.google.com/drive/folders/1wazYr9UrbrAN5mJJ5NBLJ8sM5n2wTOTY?usp=sharing)) e inseriscila nella cartella 'mappa' presente nella cartella 'assets' del progetto Java.
+Dopo averlo scaricato, è necessario aprirlo nell'IDE. Successivamente, scarica la [**mappa**](https://drive.google.com/drive/folders/1wazYr9UrbrAN5mJJ5NBLJ8sM5n2wTOTY?usp=sharing) e inseriscila nella cartella 'mappa' presente nella cartella 'assets' del progetto Java.
 
 Ora sei pronto per eseguire il codice, quindi ti basterà eseguire la classe "DesktopLauncher" presente nella cartella "core".
 
