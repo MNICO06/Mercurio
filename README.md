@@ -121,7 +121,7 @@ To get started with this project, you can clone the repository using the followi
 git clone https://github.com/your-username/your-repository.git
 ```
 
-After downloading it, you need to open it in the IDE. Then, download the [**map**]((https://drive.google.com/drive/folders/1wazYr9UrbrAN5mJJ5NBLJ8sM5n2wTOTY?usp=sharing)) and place it in the 'map' folder located within the 'assets' folder of the Java project.
+After downloading it, you need to open it in the IDE. Then, download the [**map**](https://drive.google.com/drive/folders/1wazYr9UrbrAN5mJJ5NBLJ8sM5n2wTOTY?usp=sharing) and place it in the 'map' folder located within the 'assets' folder of the Java project.
 
 Now you are ready to run the code, so you just need to execute the "DesktopLauncher" class located in the "core" folder."
 
