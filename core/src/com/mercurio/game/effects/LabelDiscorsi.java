@@ -10,8 +10,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 //import javafx.stage.Stage;
@@ -19,6 +21,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 public class LabelDiscorsi {
     // Dichiarazioni delle texture
     private Label label;
+    private Label labelScelta;
+    private Label labelSi;
+    private Label labelNo;
+    Table table;
+
+    Stage stage;
     private BitmapFont font;
     private SpriteBatch batch;
     private ArrayList<String> righeDiscorso;
@@ -67,9 +75,11 @@ public class LabelDiscorsi {
         this.discorso=disc;
         this.textBoxTextures = loadTextBoxTextures();
         righeDiscorso = splitTestoInRighe(discorso, dimMax);
+        stage = new Stage();
         batch = new SpriteBatch();
         font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
         createLabel(index);
+        createSelect(index);
 
         
         rigaCorrente = 0;
@@ -135,6 +145,55 @@ public class LabelDiscorsi {
         }
     }
 
+    private void createSelect(int index) {
+
+        Skin skin1 = new Skin();
+        skin1.add("custom-font", font);
+
+        TextureRegion backgroundTexture1 = textBoxTextures[index];
+        NinePatchDrawable backgroundDrawable1 = new NinePatchDrawable(new NinePatch(backgroundTexture1, 10, 10, 10, 10));
+        Label.LabelStyle style1 = new Label.LabelStyle();
+        style1.font = skin1.getFont("custom-font");
+        style1.background = backgroundDrawable1;
+
+        labelScelta = new Label("", style1);
+
+        labelScelta.setPosition(680, 20); // Posizione della label
+
+        labelScelta.setWidth(100);
+        labelScelta.setHeight(75); // Altezza sufficiente per due righe
+        labelScelta.setWrap(true);
+    
+        Label.LabelStyle style2 = new Label.LabelStyle();
+        style2.font = skin1.getFont("custom-font");
+
+
+        
+        labelSi = new Label("SI", style2);
+        labelNo = new Label("NO", style2);
+
+        labelSi.setPosition(715, 20); // Posizione della label
+        labelSi.setWidth(100);
+        labelSi.setHeight(37.5f); // Altezza sufficiente per due righe
+        labelSi.setWrap(true);
+
+        labelNo.setPosition(715, 57.5f); // Posizione della label
+        labelNo.setWidth(100);
+        labelNo.setHeight(37.5f); // Altezza sufficiente per due righe
+        labelNo.setWrap(true);
+
+       
+    }
+
+    public void renderLabelScelta() {
+        batch.begin();
+        labelScelta.draw(batch, 1);
+        labelSi.draw(batch, 1);
+        labelNo.draw(batch, 1);
+        batch.end();
+
+    }
+
 
     public void renderDisc() {
     	
@@ -186,10 +245,15 @@ public class LabelDiscorsi {
         }
         else {
             return false;
+        }
+    }
 
-            //qui parte quando l'utente continua a premere spazio o invio ma il testo è già stato tutto renderizzato
-
-            //TODO: mettere qua il si o no e far terminare dopo il discorso, oppure mettere qualcosa per farlo di la
+    public boolean isEnding() {
+        if (isPrimaRigaStampata && rigaCorrente < righeDiscorso.size() - 2) {
+            return false;
+        }
+        else {
+            return true;
         }
     }
 

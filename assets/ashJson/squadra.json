@@ -44,26 +44,26 @@
 	"nomePokemon": "Bidoof",
 	"livello": "15",
 	"statistiche": {
-		"hp": 20,
 		"hpTot": 35,
 		"attack": 55,
 		"defense": 40,
 		"special_attack": 50,
 		"special_defense": 50,
-		"speed": 90
+		"speed": 90,
+		"hp": "35"
 	},
 	"mosse": [
 		{
 			"nome": "Tuonopugno",
 			"tipo": "Elettro",
 			"ppTot": 5,
-			"ppAtt": 5
+			"ppAtt": "5"
 		},
 		{
 			"nome": "Gigaimpatto",
 			"tipo": "Normale",
 			"ppTot": 5,
-			"ppAtt": 5
+			"ppAtt": "5"
 		}
 	],
 	"tipoBall": "pokeBall"
@@ -78,26 +78,26 @@
 		"special_attack": 50,
 		"special_defense": 50,
 		"speed": 90,
-		"hp": 5
+		"hp": "35"
 	},
 	"mosse": [
 		{
 			"nome": "Tuonopugno",
 			"tipo": "Elettro",
 			"ppTot": 5,
-			"ppAtt": 5
+			"ppAtt": "5"
 		},
 		{
 			"nome": "Fulmine",
 			"tipo": "Elettro",
 			"ppTot": 5,
-			"ppAtt": 5
+			"ppAtt": "5"
 		},
 		{
 			"nome": "Scintilla",
 			"tipo": "Elettro",
 			"ppTot": 5,
-			"ppAtt": 5
+			"ppAtt": "5"
 		}
 	],
 	"tipoBall": "pokeBall",
@@ -113,32 +113,32 @@
 		"special_attack": 50,
 		"special_defense": 50,
 		"speed": 90,
-		"hp": 0
+		"hp": "35"
 	},
 	"mosse": [
 		{
 			"nome": "Tuonopugno",
 			"tipo": "Elettro",
 			"ppTot": 5,
-			"ppAtt": 5
+			"ppAtt": "5"
 		},
 		{
 			"nome": "Fulmine",
 			"tipo": "Elettro",
 			"ppTot": 5,
-			"ppAtt": 5
+			"ppAtt": "5"
 		},
 		{
 			"nome": "Scintilla",
 			"tipo": "Elettro",
 			"ppTot": 5,
-			"ppAtt": 5
+			"ppAtt": "5"
 		},
 		{
 			"nome": "Surf",
 			"tipo": "Acqua",
 			"ppTot": 5,
-			"ppAtt": 5
+			"ppAtt": "5"
 		}
 	],
 	"tipoBall": "pokeBall",
@@ -148,38 +148,38 @@
 	"nomePokemon": "Bidoof",
 	"livello": "15",
 	"statistiche": {
-		"hp": 13,
 		"hpTot": 35,
 		"attack": 55,
 		"defense": 40,
 		"special_attack": 50,
 		"special_defense": 50,
-		"speed": 90
+		"speed": 90,
+		"hp": "35"
 	},
 	"mosse": [
 		{
 			"nome": "Tuonopugno",
 			"tipo": "Elettro",
 			"ppTot": 5,
-			"ppAtt": 5
+			"ppAtt": "5"
 		},
 		{
 			"nome": "Fulmine",
 			"tipo": "Elettro",
 			"ppTot": 5,
-			"ppAtt": 5
+			"ppAtt": "5"
 		},
 		{
 			"nome": "Scintilla",
 			"tipo": "Elettro",
 			"ppTot": 5,
-			"ppAtt": 5
+			"ppAtt": "5"
 		},
 		{
 			"nome": "Lanciafiamme",
 			"tipo": "Fuoco",
 			"ppTot": 5,
-			"ppAtt": 5
+			"ppAtt": "5"
 		}
 	],
 	"tipoBall": "pokeBall",
@@ -195,32 +195,32 @@
 		"special_attack": 500,
 		"special_defense": 50,
 		"speed": 90,
-		"hp": 400
+		"hp": "400"
 	},
 	"mosse": [
 		{
 			"nome": "Oscurotuffo",
 			"tipo": "Spettro",
 			"ppTot": 5,
-			"ppAtt": 5
+			"ppAtt": "5"
 		},
 		{
 			"nome": "Fulmine",
 			"tipo": "Elettro",
 			"ppTot": 15,
-			"ppAtt": 7
+			"ppAtt": "15"
 		},
 		{
 			"nome": "Dragartigli",
 			"tipo": "Drago",
 			"ppTot": 15,
-			"ppAtt": 13
+			"ppAtt": "15"
 		},
 		{
 			"nome": "Forzasfera",
 			"tipo": "Lotta",
 			"ppTot": 20,
-			"ppAtt": 5
+			"ppAtt": "20"
 		}
 	],
 	"tipoBall": "masterBall",

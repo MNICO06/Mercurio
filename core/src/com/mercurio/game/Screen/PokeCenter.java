@@ -40,6 +40,8 @@ public class PokeCenter extends ScreenAdapter {
     private boolean renderTesto;
     private boolean continuaTesto = true;
 
+    private boolean discorsoFine = false;
+
     //rettangolo con la lista delle persone che collidono
     private ArrayList<Rectangle> rectList = null;
 
@@ -85,6 +87,9 @@ public class PokeCenter extends ScreenAdapter {
         esci();
         checkCure();
         checkTesto();
+        if (discorsoFine) {
+            renderLabelScelta();
+        }
     }
 
     public void getPostionDoctor() {
@@ -176,6 +181,10 @@ public class PokeCenter extends ScreenAdapter {
     }
 
         //TODO: metodo di cura da fare quando premi si 
+
+    public void renderLabelScelta() {
+        discorso.renderLabelScelta();
+    }
     
 
     private void checkTesto() {
@@ -184,7 +193,17 @@ public class PokeCenter extends ScreenAdapter {
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
                 //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
                 continuaTesto = discorso.advanceText();
-                dottoressa.cura();
+
+                if (discorso.isEnding()) {
+                    //far spawnare la label con si o no
+                    discorsoFine = true;
+                }
+
+                if (!continuaTesto) {
+                    //far renderizzare qua dentro il se o no
+                    dottoressa.cura();
+                }
+                
             }
         }
         else {
