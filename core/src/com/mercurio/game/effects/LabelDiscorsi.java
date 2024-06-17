@@ -10,11 +10,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 //import javafx.stage.Stage;
 
@@ -24,7 +26,8 @@ public class LabelDiscorsi {
     private Label labelScelta;
     private Label labelSi;
     private Label labelNo;
-    Table table;
+    private String scelta = null;
+
 
     Stage stage;
     private BitmapFont font;
@@ -76,6 +79,7 @@ public class LabelDiscorsi {
         this.textBoxTextures = loadTextBoxTextures();
         righeDiscorso = splitTestoInRighe(discorso, dimMax);
         stage = new Stage();
+        Gdx.input.setInputProcessor(stage);
         batch = new SpriteBatch();
         font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
         createLabel(index);
@@ -182,15 +186,35 @@ public class LabelDiscorsi {
         labelNo.setHeight(37.5f); // Altezza sufficiente per due righe
         labelNo.setWrap(true);
 
+
+        // Aggiunta dei listener per le label Sì e No
+        labelSi.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                scelta = "si";
+            }
+        });
+
+        labelNo.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                scelta = "no";
+            }
+        });
+
+        // Aggiunta delle label allo stage
+        stage.addActor(labelSi);
+        stage.addActor(labelNo);
        
     }
 
     public void renderLabelScelta() {
         batch.begin();
         labelScelta.draw(batch, 1);
-        labelSi.draw(batch, 1);
-        labelNo.draw(batch, 1);
         batch.end();
+
+        stage.act(Gdx.graphics.getDeltaTime());
+        stage.draw();
 
     }
 
@@ -363,5 +387,13 @@ public class LabelDiscorsi {
         if (righeDiscorso.size() > 1) {
             startLetterAnimation(righeDiscorso.get(1)); // Avvia l'animazione per la seconda riga se presente
         }
+    }
+
+    public String getScelta() {
+        return scelta;
+    }
+
+    public void setScelta(String scelta) {
+        this.scelta = scelta;
     }
 }

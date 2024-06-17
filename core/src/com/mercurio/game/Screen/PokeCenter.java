@@ -41,6 +41,7 @@ public class PokeCenter extends ScreenAdapter {
     private boolean continuaTesto = true;
 
     private boolean discorsoFine = false;
+    private boolean testoTerminato = false;
 
     //rettangolo con la lista delle persone che collidono
     private ArrayList<Rectangle> rectList = null;
@@ -89,6 +90,7 @@ public class PokeCenter extends ScreenAdapter {
         checkTesto();
         if (discorsoFine) {
             renderLabelScelta();
+            controllaScelta();
         }
     }
 
@@ -180,12 +182,38 @@ public class PokeCenter extends ScreenAdapter {
         }
     }
 
-        //TODO: metodo di cura da fare quando premi si 
-
     public void renderLabelScelta() {
         discorso.renderLabelScelta();
     }
     
+    private void controllaScelta() {
+        if (discorso.getScelta() == "si") {
+            if (testoTerminato) {
+                dottoressa.cura();
+                discorsoFine = false;
+                testoTerminato = false;
+                discorso.setScelta(null);
+
+                renderTesto = false;
+                continuaTesto = true;
+                game.getPlayer().setMovement(true);
+                discorso.reset();
+            }
+        }
+        else if (discorso.getScelta() == "no") {
+            if (testoTerminato) {
+                System.out.println("no");
+                discorsoFine = false;
+                testoTerminato = false;
+                discorso.setScelta(null);
+
+                renderTesto = false;
+                continuaTesto = true;
+                game.getPlayer().setMovement(true);
+                discorso.reset();
+            }
+        }
+    }
 
     private void checkTesto() {
         if (renderTesto && continuaTesto) {
@@ -200,17 +228,11 @@ public class PokeCenter extends ScreenAdapter {
                 }
 
                 if (!continuaTesto) {
-                    //far renderizzare qua dentro il se o no
-                    dottoressa.cura();
+                    //far renderizzare qua dentro il si o no
+                    testoTerminato = true;
                 }
                 
             }
-        }
-        else {
-            renderTesto = false;
-            continuaTesto = true;
-            game.getPlayer().setMovement(true);
-            discorso.reset();
         }
     }
 
