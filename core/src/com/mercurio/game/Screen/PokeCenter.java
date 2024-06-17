@@ -42,6 +42,7 @@ public class PokeCenter extends ScreenAdapter {
 
     private boolean discorsoFine = false;
     private boolean testoTerminato = false;
+    private int controllo = 0;
 
     //rettangolo con la lista delle persone che collidono
     private ArrayList<Rectangle> rectList = null;
@@ -89,7 +90,9 @@ public class PokeCenter extends ScreenAdapter {
         checkCure();
         checkTesto();
         if (discorsoFine) {
-            renderLabelScelta();
+            if (controllo > 0) {
+                renderLabelScelta();
+            }
             controllaScelta();
         }
     }
@@ -187,6 +190,11 @@ public class PokeCenter extends ScreenAdapter {
     }
     
     private void controllaScelta() {
+        if (controllo == 0) {
+            controllo ++;
+            discorso.createSelect(0);
+        }
+
         if (discorso.getScelta() == "si") {
             if (testoTerminato) {
                 dottoressa.cura();
@@ -198,6 +206,9 @@ public class PokeCenter extends ScreenAdapter {
                 continuaTesto = true;
                 game.getPlayer().setMovement(true);
                 discorso.reset();
+                discorso.distruggiStage();
+
+                controllo = 0;
             }
         }
         else if (discorso.getScelta() == "no") {
@@ -211,6 +222,9 @@ public class PokeCenter extends ScreenAdapter {
                 continuaTesto = true;
                 game.getPlayer().setMovement(true);
                 discorso.reset();
+                discorso.distruggiStage();
+
+                controllo = 0;
             }
         }
     }

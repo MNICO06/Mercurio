@@ -78,12 +78,10 @@ public class LabelDiscorsi {
         this.discorso=disc;
         this.textBoxTextures = loadTextBoxTextures();
         righeDiscorso = splitTestoInRighe(discorso, dimMax);
-        stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
+        
         batch = new SpriteBatch();
         font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
         createLabel(index);
-        createSelect(index);
 
         
         rigaCorrente = 0;
@@ -149,7 +147,10 @@ public class LabelDiscorsi {
         }
     }
 
-    private void createSelect(int index) {
+    public void createSelect(int index) {
+
+        stage = new Stage();
+        Gdx.input.setInputProcessor(stage);
 
         Skin skin1 = new Skin();
         skin1.add("custom-font", font);
@@ -206,6 +207,10 @@ public class LabelDiscorsi {
         stage.addActor(labelSi);
         stage.addActor(labelNo);
        
+    }
+
+    public void distruggiStage() {
+        stage.dispose();
     }
 
     public void renderLabelScelta() {
