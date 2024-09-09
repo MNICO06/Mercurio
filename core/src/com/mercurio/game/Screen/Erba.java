@@ -42,8 +42,11 @@ public class Erba {
             case "bosco":
                 if (check(map, "erbaAltaBosco") && game.getIsInMovement()) {
                     int num = random.nextInt(200);
-                    if (num == 5) {
-                        estraiPokemonBosco();
+                    if (estratto==0){
+                        if (num == 5) {
+                            estraiPokemonBosco();
+                            
+                        }
                     }
                 }
                 break;

@@ -2313,7 +2313,7 @@ public class Battle extends ScreenAdapter {
 
         // Crea e aggiungi l'immagine della ball allo stage
         imageBallLanciata = new Image(ballLanciata[1]);
-        imageBallLanciata.setSize(16*4, 25*4);
+        imageBallLanciata.setSize(8*4, 12*4);
     
         // Posizione iniziale della ball (NON CAMBIATELE)
         float startX = 1;
