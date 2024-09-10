@@ -48,6 +48,7 @@ import com.mercurio.game.Screen.Erba;
 import com.mercurio.game.Screen.InterfacciaComune;
 import com.mercurio.game.effects.LabelDiscorsi;
 import com.mercurio.game.menu.Borsa;
+import com.mercurio.game.menu.BorsaModifier;
 import com.mercurio.game.menu.MenuLabel;
 import com.mercurio.game.menu.Squadra;
 
@@ -56,6 +57,7 @@ import javafx.animation.TranslateTransition;
 
 public class Battle extends ScreenAdapter {
 
+    private BorsaModifier borsaModifier = new BorsaModifier();
     private String nameUsedBall;
     private int danno;
     private int dannoBot;
@@ -2219,6 +2221,8 @@ public class Battle extends ScreenAdapter {
         int tasso;
         float bonusBall;
 
+        borsaModifier.removeInventoryBall(nameUsedBall);
+
         // Carica il file JSON
         FileHandle file = Gdx.files.internal("assets/oggetti/strumenti.json");
         String jsonString = file.readString();
@@ -2313,18 +2317,18 @@ public class Battle extends ScreenAdapter {
 
         // Crea e aggiungi l'immagine della ball allo stage
         imageBallLanciata = new Image(ballLanciata[1]);
-        imageBallLanciata.setSize(8*4, 12*4);
+        imageBallLanciata.setSize(8*4, 12.5f*4);
     
-        // Posizione iniziale della ball (NON CAMBIATELE)
-        float startX = 1;
+        // Posizione iniziale della ball (NON CAMBIATELE) *alla fine le ho cambiate io
+        float startX = 300;
         float startY = 100;
     
         imageBallLanciata.setPosition(startX, startY);
     
         stage.addActor(imageBallLanciata);
     
-        // Durata del movimento della ball (secondi)
-        float duration = 2f;
+        // Durata del movimento della ball
+        float duration = 1.5f;
     
         // Animazione di spostamento lungo una traiettoria curva
         Timer.schedule(new Timer.Task() {
@@ -2335,7 +2339,7 @@ public class Battle extends ScreenAdapter {
                 if (elapsed <= duration) {
                     // Calcola la posizione sulla traiettoria curva
                     float percent = elapsed / duration;
-                    imageBallLanciata.setPosition((800) * percent*percent, startY +(290)* percent); 
+                    imageBallLanciata.setPosition((820) * percent, startY +(330)* percent); 
                     elapsed += 0.05f;
                 } 
                 else {
@@ -2347,6 +2351,8 @@ public class Battle extends ScreenAdapter {
     
                     float bounceHeight = 30f; // Altezza del rimbalzo
                     float bounceDuration = 0.25f; // Durata di ogni rimbalzo
+
+                    
                     // Esegue l'animazione di rimbalzo dopo un breve ritardo
                     imageBallLanciata.addAction(Actions.sequence(
                         Actions.delay(0.5f),
@@ -2356,7 +2362,9 @@ public class Battle extends ScreenAdapter {
                                 imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[1]));
                             }
                         }),
+                        
                         Actions.sequence(
+                            Actions.moveBy(0, -bounceHeight - 5f, bounceDuration), // cade a terra
                             Actions.moveBy(0, bounceHeight, bounceDuration), // Primo rimbalzo
                             Actions.moveBy(0, -bounceHeight, bounceDuration),
                             Actions.moveBy(0, bounceHeight / 2, bounceDuration/2), // Secondo rimbalzo
@@ -2645,7 +2653,7 @@ public class Battle extends ScreenAdapter {
                                                     imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[10]));
                                                 }
                                             }),
-                                            Actions.delay(0.25f),
+                                            Actions.delay(0.03f),
                                             Actions.run(new Runnable() {
                                                 @Override
                                                 public void run() {
