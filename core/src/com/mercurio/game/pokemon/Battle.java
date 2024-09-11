@@ -57,6 +57,7 @@ import javafx.animation.TranslateTransition;
 
 public class Battle extends ScreenAdapter {
 
+    Image backImage;
     private BorsaModifier borsaModifier = new BorsaModifier();
     private String nameUsedBall;
     private int danno;
@@ -1025,10 +1026,30 @@ public class Battle extends ScreenAdapter {
                 stage.addActor(labelMosse);
                 labelMosseArray.add(labelMosse);
             }
-    
+        Texture backButton = new Texture("battle/b.png");
+        backImage = new Image(backButton);
+        backImage.setPosition(0,130);
+        backImage.setSize(60, 60);
+        stage.addActor(backImage);
+        labelMosseArray.add(backImage);
+        ClickListener listener = new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                for (Image label : labelMosseArray) {
+                    label.remove();
+                }
+                for (Label label : labelNomeMosseArray) {
+                    label.remove();
+                }
+                labelMosseArray.clear();
+                labelNomeMosseArray.clear();
+            }
+        };
+        backImage.addListener(listener);
     }
 
     private void utilizzoMossa(Image labelMosse){
+        backImage.remove();
         float trovaX= (labelMosse.getX())/256;
         int X = (int) trovaX;
         nomeMossa=listaMosse.get(X).getNome();
@@ -1086,6 +1107,7 @@ public class Battle extends ScreenAdapter {
     }
 
     private void utilizzoMossaBot(){
+        backImage.remove();
         Random random = new Random();
         int X = random.nextInt(listaMosseBot.size());
         nomeMossaBot=listaMosseBot.get(X).getNome();
