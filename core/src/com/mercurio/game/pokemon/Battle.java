@@ -986,6 +986,7 @@ public class Battle extends ScreenAdapter {
             ClickListener listener = new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
+                    backImage.remove();
                     if (statsPlayer.get(4)>=statsBot.get(4)){
                         utilizzoMossa(labelMosse);
                         if (Integer.parseInt(currentPokeHPBot)>0){
@@ -1049,7 +1050,7 @@ public class Battle extends ScreenAdapter {
     }
 
     private void utilizzoMossa(Image labelMosse){
-        backImage.remove();
+       
         float trovaX= (labelMosse.getX())/256;
         int X = (int) trovaX;
         nomeMossa=listaMosse.get(X).getNome();
@@ -1107,7 +1108,6 @@ public class Battle extends ScreenAdapter {
     }
 
     private void utilizzoMossaBot(){
-        backImage.remove();
         Random random = new Random();
         int X = random.nextInt(listaMosseBot.size());
         nomeMossaBot=listaMosseBot.get(X).getNome();
@@ -2309,12 +2309,12 @@ public class Battle extends ScreenAdapter {
                 }
             }, (1.5f+1.5f*nVibrazioni));
 
-            if (nVibrazioni==4){
-                //System.out.println("catturato");
+            /*if (nVibrazioni==4){
+                System.out.println("catturato");
             }
             else{
-                //System.out.println("uscito, numero vibrazioni "+ nVibrazioni);
-            }
+                System.out.println("uscito, numero vibrazioni "+ nVibrazioni);
+            }*/
 
         }
         else{
