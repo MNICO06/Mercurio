@@ -239,7 +239,7 @@
 		},
 		{
 			"nome": "Attacco rapido",
-			"tipo": "Volante",
+			"tipo": "Normale",
 			"ppTot": 30,
 			"ppAtt": 30
 		}
@@ -257,7 +257,7 @@
 		},
 		{
 			"nome": "Attacco rapido",
-			"tipo": "Volante",
+			"tipo": "Normale",
 			"ppTot": 30,
 			"ppAtt": 30
 		}
@@ -275,7 +275,7 @@
 		},
 		{
 			"nome": "Attacco rapido",
-			"tipo": "Volante",
+			"tipo": "Normale",
 			"ppTot": 30,
 			"ppAtt": 30
 		}
@@ -293,13 +293,7 @@
 		},
 		{
 			"nome": "Attacco rapido",
-			"tipo": "Volante",
-			"ppTot": 30,
-			"ppAtt": 30
-		},
-		{
-			"nome": "Attacco rapido",
-			"tipo": "Volante",
+			"tipo": "Normale",
 			"ppTot": 30,
 			"ppAtt": 30
 		}

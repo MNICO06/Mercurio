@@ -58,6 +58,7 @@ import javafx.animation.TranslateTransition;
 public class Battle extends ScreenAdapter {
 
     Image backImage;
+    private float otherMoveDelay=0f;
     private BorsaModifier borsaModifier = new BorsaModifier();
     private String nameUsedBall;
     private int danno;
@@ -882,7 +883,7 @@ public class Battle extends ScreenAdapter {
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
-                    utilizzoMossaBot();
+                    utilizzoMossaBot(false,null);
                 }
             }, 2.5f);
             
@@ -988,8 +989,8 @@ public class Battle extends ScreenAdapter {
                 public void clicked(InputEvent event, float x, float y) {
                     backImage.remove();
                     if (statsPlayer.get(4)>=statsBot.get(4)){
-                        utilizzoMossa(labelMosse);
-                        if (Integer.parseInt(currentPokeHPBot)>0){
+                        utilizzoMossa(labelMosse, true);
+                        /*if (Integer.parseInt(currentPokeHPBot)>0){
                             Timer.schedule(new Timer.Task() {
                                 @Override
                                 public void run() {
@@ -997,19 +998,19 @@ public class Battle extends ScreenAdapter {
                                 }
                             }, 3.51f);
                             
-                        }
+                        }*/
                     }
                     else{
-                        utilizzoMossaBot();
-                        if (Integer.parseInt(currentPokeHP)>0){
+                        utilizzoMossaBot(true, labelMosse);
+                        /*if (Integer.parseInt(currentPokeHP)>0){
                             Timer.schedule(new Timer.Task() {
                                 @Override
                                 public void run() {
-                                    utilizzoMossa(labelMosse);
+                                    utilizzoMossa(labelMosse,false);
                                 }
                             }, 3.51f);
                             
-                        }
+                        }*/
                     }
                 }
             };
@@ -1049,8 +1050,8 @@ public class Battle extends ScreenAdapter {
         backImage.addListener(listener);
     }
 
-    private void utilizzoMossa(Image labelMosse){
-       
+    private void utilizzoMossa(Image labelMosse, boolean otherAttack){
+        otherMoveDelay=0f;
         float trovaX= (labelMosse.getX())/256;
         int X = (int) trovaX;
         nomeMossa=listaMosse.get(X).getNome();
@@ -1103,11 +1104,23 @@ public class Battle extends ScreenAdapter {
                 labelMosseArray.clear();
                 labelNomeMosseArray.clear();
 
+                if(otherAttack==true){
+                    if (Integer.parseInt(currentPokeHPBot)>0){
+                        Timer.schedule(new Timer.Task() {
+                            @Override
+                            public void run() {
+                                utilizzoMossaBot(false, null);
+                            }
+                        }, otherMoveDelay);
+                        
+                    }                
+                }
             }
         }, 2.5f);
     }
 
-    private void utilizzoMossaBot(){
+    private void utilizzoMossaBot(boolean otherAttack, Image labelMosse){
+        otherMoveDelay=0f;
         Random random = new Random();
         int X = random.nextInt(listaMosseBot.size());
         nomeMossaBot=listaMosseBot.get(X).getNome();
@@ -1161,6 +1174,18 @@ public class Battle extends ScreenAdapter {
                 }
                 labelMosseArray.clear();
                 labelNomeMosseArray.clear();
+
+                if(otherAttack==true){
+                    if (Integer.parseInt(currentPokeHP)>0){
+                        Timer.schedule(new Timer.Task() {
+                            @Override
+                            public void run() {
+                                utilizzoMossa(labelMosse,false);
+                            }
+                        }, otherMoveDelay);
+                        
+                    }                
+                }
 
             }
         }, 2.5f);
@@ -1745,6 +1770,7 @@ public class Battle extends ScreenAdapter {
 
 
     public void piazzaLabel5(){
+        otherMoveDelay+=0.7f;
         delaySecondText=0.7f;
         if (checkLabel5){
             checkLabel5=false;
@@ -1769,6 +1795,7 @@ public class Battle extends ScreenAdapter {
     }
 
     public void piazzaLabel6(){
+        otherMoveDelay+=0.7f;
         delaySecondText=0.7f;
         if (checkLabel6){
             checkLabel6=false;
@@ -1786,7 +1813,7 @@ public class Battle extends ScreenAdapter {
                         label6=null;
                         checkLabel6=true;
                     }
-                }, 1.5f);
+                }, 1.2f);
             }
         }, 2f);
     }
@@ -1794,6 +1821,7 @@ public class Battle extends ScreenAdapter {
 
 
     public void piazzaLabel7(){
+        otherMoveDelay+=0.7f;
         delaySecondText=0.7f;
         Timer.schedule(new Timer.Task() {
             @Override
@@ -1815,6 +1843,7 @@ public class Battle extends ScreenAdapter {
     }
 
     public void piazzaLabel9(){
+        otherMoveDelay+=0.7f;
         //delay se è attiva già un'altra animazione
         float d=0;
         if (!checkLabel5 || !checkLabel6){
@@ -2414,10 +2443,10 @@ public class Battle extends ScreenAdapter {
                                     Timer.schedule(new Timer.Task() {
                                         @Override
                                         public void run() {
+                                            utilizzoMossaBot(false,null);
                                             labelDiscorsi20.reset();
                                             label20.remove();
                                             label20=null;
-                                            utilizzoMossaBot();
                                         }
                                     }, 2.5f);
 
@@ -2454,7 +2483,7 @@ public class Battle extends ScreenAdapter {
                                                         labelDiscorsi20.reset();
                                                         label20.remove();
                                                         label20=null;
-                                                        utilizzoMossaBot();
+                                                        utilizzoMossaBot(false, null);
                                                     }
                                                 }, 2.5f);
                                             }
@@ -2519,7 +2548,7 @@ public class Battle extends ScreenAdapter {
                                                         labelDiscorsi20.reset();
                                                         label20.remove();
                                                         label20=null; 
-                                                        utilizzoMossaBot();
+                                                        utilizzoMossaBot(false, null);
                                                     }
                                                 }, 2.5f);
                                             }
@@ -2601,7 +2630,7 @@ public class Battle extends ScreenAdapter {
                                                         labelDiscorsi20.reset();
                                                         label20.remove();
                                                         label20=null;
-                                                        utilizzoMossaBot();
+                                                        utilizzoMossaBot(false, null);
                                                     }
                                                 }, 2.5f);
                                             }

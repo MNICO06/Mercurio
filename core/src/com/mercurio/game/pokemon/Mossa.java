@@ -27,6 +27,7 @@ class Mossa {
     private String tipo3;
     private String tipo4;
     private Battle chiamante;
+    private int modifierPerText=0;
 
     private Texture texture;
     private Sprite[] spriteArray;
@@ -300,7 +301,7 @@ class Mossa {
         while (indexPEControllo1 < listaPEControllo1.size()) {
             if (tipo.equals(listaPEControllo1.get(indexPEControllo1))) {
                 modifier *= 0.5f;
-                chiamante.piazzaLabel6();
+                modifierPerText-=1;
                 break;
             }
             indexPEControllo1++;
@@ -311,7 +312,7 @@ class Mossa {
         while (indexPEControllo2 < listaPEControllo2.size()) {
             if (!tipo2.equals("") && tipo.equals(listaPEControllo2.get(indexPEControllo2))) {
                 modifier *= 0.5f;
-                chiamante.piazzaLabel6();
+                modifierPerText-=1;
                 break;
             }
             indexPEControllo2++;
@@ -322,7 +323,7 @@ class Mossa {
         while (indexSEControllo1 < listaSEControllo1.size()) {
             if (tipo.equals(listaSEControllo1.get(indexSEControllo1))) {
                 modifier *= 2;
-                chiamante.piazzaLabel5();
+                modifierPerText+=1;
                 break;
             }
             indexSEControllo1++;
@@ -333,10 +334,17 @@ class Mossa {
         while (indexSEControllo2 < listaSEControllo2.size()) {
             if (!tipo2.equals("") && tipo.equals(listaSEControllo2.get(indexSEControllo2))) {
                 modifier *= 2;
-                chiamante.piazzaLabel5();
+                modifierPerText+=1;
                 break;
             }
             indexSEControllo2++;
+        }
+
+        if (modifierPerText>0){
+            chiamante.piazzaLabel5();
+        }
+        else if (modifierPerText<0){
+            chiamante.piazzaLabel6();
         }
 
         // Controllo se tipo1 è presente nell'ArrayList listaNEControllo1
