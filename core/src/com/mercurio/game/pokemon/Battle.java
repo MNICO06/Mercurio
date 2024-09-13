@@ -56,9 +56,11 @@ import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 
 public class Battle extends ScreenAdapter {
-
-    Image backImage;
-    private float otherMoveDelay=0f;
+    private Image nextMove;
+    private boolean globalOtherAttack;
+    private Image backImage;
+    private boolean nextMoveBot;
+    private int counterForNextMove=0;
     private BorsaModifier borsaModifier = new BorsaModifier();
     private String nameUsedBall;
     private int danno;
@@ -1051,7 +1053,10 @@ public class Battle extends ScreenAdapter {
     }
 
     private void utilizzoMossa(Image labelMosse, boolean otherAttack){
-        otherMoveDelay=0f;
+        nextMoveBot=true;
+        nextMove=labelMosse;
+        globalOtherAttack=otherAttack;
+        counterForNextMove=0;
         float trovaX= (labelMosse.getX())/256;
         int X = (int) trovaX;
         nomeMossa=listaMosse.get(X).getNome();
@@ -1105,22 +1110,21 @@ public class Battle extends ScreenAdapter {
                 labelNomeMosseArray.clear();
 
                 if(otherAttack==true){
-                    if (Integer.parseInt(currentPokeHPBot)>0){
-                        Timer.schedule(new Timer.Task() {
-                            @Override
-                            public void run() {
-                                utilizzoMossaBot(false, null);
-                            }
-                        }, otherMoveDelay);
-                        
-                    }                
+                    if (counterForNextMove == 0){
+                        if (Integer.parseInt(currentPokeHPBot)>0){
+                            utilizzoMossaBot(false, null);
+                        }                
+                    }
                 }
             }
         }, 2.5f);
     }
 
     private void utilizzoMossaBot(boolean otherAttack, Image labelMosse){
-        otherMoveDelay=0f;
+        nextMoveBot=false;
+        nextMove=labelMosse;
+        globalOtherAttack=otherAttack;
+        counterForNextMove=0;
         Random random = new Random();
         int X = random.nextInt(listaMosseBot.size());
         nomeMossaBot=listaMosseBot.get(X).getNome();
@@ -1176,17 +1180,12 @@ public class Battle extends ScreenAdapter {
                 labelNomeMosseArray.clear();
 
                 if(otherAttack==true){
-                    if (Integer.parseInt(currentPokeHP)>0){
-                        Timer.schedule(new Timer.Task() {
-                            @Override
-                            public void run() {
-                                utilizzoMossa(labelMosse,false);
-                            }
-                        }, otherMoveDelay);
-                        
-                    }                
+                    if (counterForNextMove==0){
+                        if (Integer.parseInt(currentPokeHP)>0){
+                            utilizzoMossa(labelMosse,false);
+                        }                
+                    }
                 }
-
             }
         }, 2.5f);
     }
@@ -1770,7 +1769,7 @@ public class Battle extends ScreenAdapter {
 
 
     public void piazzaLabel5(){
-        otherMoveDelay+=0.7f;
+        counterForNextMove++; 
         delaySecondText=0.7f;
         if (checkLabel5){
             checkLabel5=false;
@@ -1787,15 +1786,29 @@ public class Battle extends ScreenAdapter {
                         label5.remove();
                         label5=null;
                         checkLabel5=true;
+                        if(globalOtherAttack==true){
+                            if (counterForNextMove==1){
+                                    if (nextMoveBot){
+                                        if (Integer.parseInt(currentPokeHPBot)>0)
+                                            utilizzoMossaBot(false, null);
+                                    }
+                                    else{
+                                        if (Integer.parseInt(currentPokeHP)>0)
+                                            utilizzoMossa(nextMove,false);
+                                    }
+                                }
+                            }
                     }
                 }, 1.2f);
             }
         }, 2f);
     }
+
     }
+    
 
     public void piazzaLabel6(){
-        otherMoveDelay+=0.7f;
+        counterForNextMove++; 
         delaySecondText=0.7f;
         if (checkLabel6){
             checkLabel6=false;
@@ -1812,6 +1825,18 @@ public class Battle extends ScreenAdapter {
                         label6.remove();
                         label6=null;
                         checkLabel6=true;
+                        if(globalOtherAttack==true){
+                            if (counterForNextMove==1){
+                                    if (nextMoveBot){
+                                        if (Integer.parseInt(currentPokeHPBot)>0)
+                                            utilizzoMossaBot(false, null);
+                                    }
+                                    else{
+                                        if (Integer.parseInt(currentPokeHP)>0)
+                                            utilizzoMossa(nextMove,false); 
+                                    }
+                                }
+                            }
                     }
                 }, 1.2f);
             }
@@ -1821,7 +1846,7 @@ public class Battle extends ScreenAdapter {
 
 
     public void piazzaLabel7(){
-        otherMoveDelay+=0.7f;
+        counterForNextMove++; 
         delaySecondText=0.7f;
         Timer.schedule(new Timer.Task() {
             @Override
@@ -1835,15 +1860,25 @@ public class Battle extends ScreenAdapter {
                     labelDiscorsi7.reset();
                     label7.remove();
                     label7=null;
+                    if(globalOtherAttack==true){
+                        if (counterForNextMove==1){
+                                if (nextMoveBot){
+                                    if (Integer.parseInt(currentPokeHPBot)>0)
+                                        utilizzoMossaBot(false, null);
+                                }
+                                else{
+                                    if (Integer.parseInt(currentPokeHP)>0)
+                                        utilizzoMossa(nextMove,false); 
+                                }
+                            }
+                        }
                 }
             }, 1.2f);
         }
     }, 2f);
-
     }
 
     public void piazzaLabel9(){
-        otherMoveDelay+=0.7f;
         //delay se è attiva già un'altra animazione
         float d=0;
         if (!checkLabel5 || !checkLabel6){
@@ -1863,11 +1898,22 @@ public class Battle extends ScreenAdapter {
                 public void run() {
                     labelDiscorsi9.reset();
                     label9.remove();
-                    label9=null;
+                    label9=null; 
+                    if(globalOtherAttack==true){
+                            if (nextMoveBot){
+                                if (Integer.parseInt(currentPokeHPBot)>0)
+                                    utilizzoMossaBot(false, null);
+                            }
+                            else{
+                                if (Integer.parseInt(currentPokeHP)>0)
+                                    utilizzoMossa(nextMove,false); 
+                            }
+                        }
                 }
             }, 1.2f);
         }
     }, 2f+delay);
+
     }
 
 
@@ -2792,6 +2838,11 @@ public class Battle extends ScreenAdapter {
 
         file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
 
+    }
+
+
+    public void modificaContPerText(){
+        counterForNextMove=2;
     }
 
 } //Fine battaglia :)

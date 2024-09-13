@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 
 class Mossa {
+    private boolean crit=false;
     private String nome;
     private String tipo;
     private String maxPP;
@@ -340,12 +341,6 @@ class Mossa {
             indexSEControllo2++;
         }
 
-        if (modifierPerText>0){
-            chiamante.piazzaLabel5();
-        }
-        else if (modifierPerText<0){
-            chiamante.piazzaLabel6();
-        }
 
         // Controllo se tipo1 è presente nell'ArrayList listaNEControllo1
         int indexNEControllo1 = 0;
@@ -370,13 +365,25 @@ class Mossa {
         }
 
         if(modifier!=0){
+            crit=false;
             Random random = new Random();
             // Genera un numero casuale compreso tra 1 e 24
             int randomNumber = random.nextInt(24) + 1; // Genera un numero tra 1 e 24 inclusi
             // Verifica se il numero generato è uguale a 1 (probabilità 1/24)
-            //randomNumber=16; //mi serve per fare dei controlli sui brutti colpi :)
+            randomNumber=16; //mi serve per fare dei controlli sui brutti colpi :)
             if (randomNumber == 16) {
                 modifier *= 2f; // Modifica il modifier di conseguenza
+                crit=true;
+                chiamante.modificaContPerText();
+            }
+
+            if (modifierPerText>0){
+                chiamante.piazzaLabel5();
+            }
+            else if (modifierPerText<0){
+                chiamante.piazzaLabel6();
+            }
+            if (crit==true){
                 chiamante.piazzaLabel9();
             }
 
