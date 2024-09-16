@@ -1607,7 +1607,10 @@ public class Battle extends ScreenAdapter {
             for (JsonValue mossaJson : mosse) {
                 String nomeMossa = mossaJson.getString("nome");
                 String tipoMossa = mossaJson.getString("tipo");
-                String ppMossa = json2.get(nomeMossa).getString("pp");
+                String ppMossa = "0";
+                if(!nomeMossa.isEmpty()){
+                    ppMossa = json2.get(nomeMossa).getString("pp");
+                }
                 // Aggiungi la mossa alla lista
                 Mossa mossa=new Mossa(nomeMossa, tipoMossa, ppMossa, ppMossa, this);
                 listaMosseBot.add(mossa);
@@ -1666,7 +1669,10 @@ public class Battle extends ScreenAdapter {
         for (JsonValue mossaJson : mosse) {
             String nomeMossa = mossaJson.getString("nome");
             String tipoMossa = mossaJson.getString("tipo");
-            String ppMossa = json2.get(nomeMossa).getString("pp");
+            String ppMossa = "0";
+            if(!nomeMossa.isEmpty()){
+                ppMossa = json2.get(nomeMossa).getString("pp");
+            }
             // Aggiungi la mossa alla lista
             Mossa mossa=new Mossa(nomeMossa, tipoMossa, ppMossa, ppMossa, this);
             listaMosseBot.add(mossa);

@@ -1,4 +1,6 @@
-package com.mercurio.game.pokemon;
+/*INUTILIZZATA*/
+/*CLASSE PRESENTE SOLO PER RICORDO :) */
+/*package com.mercurio.game.pokemon;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -604,4 +606,4 @@ class MossaBot {
         }
         
     }
-}
+}*/
