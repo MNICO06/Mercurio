@@ -345,15 +345,8 @@ class MossaBot {
         }
 
         if(modifier!=0){
-            if (modifierPerText>0){
-                chiamante.piazzaLabel5();
-            }
-            else if (modifierPerText<0){
-                chiamante.piazzaLabel6();
-            }
-
-            Random random = new Random();
             crit=false;
+            Random random = new Random();
             // Genera un numero casuale compreso tra 1 e 24
             int randomNumber = random.nextInt(24) + 1; // Genera un numero tra 1 e 24 inclusi
             // Verifica se il numero generato è uguale a 1 (probabilità 1/24)

@@ -986,12 +986,15 @@ public class Battle extends ScreenAdapter {
             stage.addActor(labelPPatt);
             labelNomeMosseArray.add(labelPPatt);
 
+            final int indiceMossa=i;
             ClickListener listener = new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     backImage.remove();
                     if (statsPlayer.get(4)>=statsBot.get(4)){
+                        listaMosse.get(indiceMossa).setattPP();
                         utilizzoMossa(labelMosse, true);
+                        modificaPPMossePoke(numeroIndexPoke,listaMosse);
                         /*if (Integer.parseInt(currentPokeHPBot)>0){
                             Timer.schedule(new Timer.Task() {
                                 @Override
@@ -1004,6 +1007,10 @@ public class Battle extends ScreenAdapter {
                     }
                     else{
                         utilizzoMossaBot(true, labelMosse);
+                        if (Integer.parseInt(currentPokeHP)>0){
+                            listaMosse.get(indiceMossa).setattPP();
+                            modificaPPMossePoke(numeroIndexPoke,listaMosse);
+                        }
                         /*if (Integer.parseInt(currentPokeHP)>0){
                             Timer.schedule(new Timer.Task() {
                                 @Override
@@ -1016,10 +1023,12 @@ public class Battle extends ScreenAdapter {
                     }
                 }
             };
-            labelMosse.addListener(listener);
-            labelNomeMossa.addListener(listener);
-            labelPPTot.addListener(listener);
-            labelPPatt.addListener(listener);
+            if (Integer.parseInt(listaMosse.get(i).getattPP())>0){
+                labelMosse.addListener(listener);
+                labelNomeMossa.addListener(listener);
+                labelPPTot.addListener(listener);
+                labelPPatt.addListener(listener);
+            }
             }
         
             for (int j=0; j<4-listaMosse.size(); j++){
@@ -1920,6 +1929,8 @@ public class Battle extends ScreenAdapter {
 
     public void faintPokemon(final Image pokeImage) { 
 
+        modificaPPMossePoke(numeroIndexPoke,listaMosse); //Aggiorna i PP delle mosse del pokemon se viene sconfitto
+
         Rectangle scissors = new Rectangle(pokeImage.getX(), pokeImage.getY(), pokeImage.getWidth(), pokeImage.getHeight());
     
         float initialY = pokeImage.getY();
@@ -2177,6 +2188,7 @@ public class Battle extends ScreenAdapter {
 
     private void fineBattaglia(){
         isBattleEnded= true;
+        modificaPPMossePoke(numeroIndexPoke,listaMosse); //Aggiorna i PP delle mosse del pokemon se la battaglia finisce
 
         if (isBotFight && !sconfitta){
             
@@ -2252,7 +2264,8 @@ public class Battle extends ScreenAdapter {
 
 
     public void cambiaPokemon(int newIndex){
-        switched=true;
+        modificaPPMossePoke(numeroIndexPoke,listaMosse); //Aggiorna i PP delle mosse del pokemon se viene cambiato
+        switched=true; 
         rimuoviPokeDaBattaglia();
         listaMosse.clear();
         leggiPoke(newIndex+1);
@@ -2843,6 +2856,39 @@ public class Battle extends ScreenAdapter {
 
     public void modificaContPerText(){
         counterForNextMove=2;
+    }
+
+    public void modificaPPMossePoke(int numero, ArrayList<Mossa> listaMossePoke) {
+        // Carica il file JSON
+        FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+        String jsonString = file.readString();
+        
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+        JsonValue json = new JsonReader().parse(jsonString);
+    
+        // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
+        JsonValue pokeJson = json.get("poke" + numero);
+    
+        // Ottieni l'oggetto "statistiche" all'interno del Pokémon
+        JsonValue mosse = pokeJson.get("mosse");
+
+        for (Mossa mossa : listaMossePoke) {
+            // Ottieni il nome della mossa per cercarla nel JSON
+            String nomeMossa = mossa.getNome(); // Suppongo che tu abbia un metodo per ottenere il nome della mossa
+    
+            // Cerca l'oggetto JSON corrispondente alla mossa per aggiornare attPP
+            for (JsonValue mossaJson : mosse) {
+                if (mossaJson.getString("nome").equals(nomeMossa)) {
+                    mossaJson.remove("ppAtt"); // Ottieni e aggiorna attPP
+                    mossaJson.addChild("ppAtt", new JsonValue(mossa.getattPP())); // Aggiorna attPP con il nuovo valore
+                    break; // Esci dal ciclo una volta trovato e aggiornato l'attPP
+                }
+            }
+        }
+
+        // Scrivi il JSON aggiornato nel file mantenendo la formattazione
+        file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
+        
     }
 
 } //Fine battaglia :)
