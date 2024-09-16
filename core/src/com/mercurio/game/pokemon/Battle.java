@@ -178,7 +178,7 @@ public class Battle extends ScreenAdapter {
     private int dimMax;
     private String nomeBot;
     private ArrayList<Mossa> listaMosse = new ArrayList<>();
-    private ArrayList<MossaBot> listaMosseBot = new ArrayList<>();
+    private ArrayList<Mossa> listaMosseBot = new ArrayList<>();
     private String nomeBall;
     private String nomePokeBot;
     private String tipoBot;
@@ -1136,7 +1136,11 @@ public class Battle extends ScreenAdapter {
         counterForNextMove=0;
         Random random = new Random();
         int X = random.nextInt(listaMosseBot.size());
+        while (Integer.parseInt(listaMosseBot.get(X).getattPP())<=0){
+            X = random.nextInt(listaMosseBot.size());
+        }
         nomeMossaBot=listaMosseBot.get(X).getNome();
+        listaMosseBot.get(X).setattPP();
         sistemaLabel14(nomeMossaBot);
         labelDiscorsi14.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
         label14=labelDiscorsi14.getLabel(); 
@@ -1571,9 +1575,14 @@ public class Battle extends ScreenAdapter {
         // Carica il file JSON
         FileHandle file = Gdx.files.internal("bots/bots.json");
         String jsonString = file.readString();
+
+        FileHandle file2 = Gdx.files.internal("pokemon/mosse.json");
+        String jsonString2 = file2.readString();
         
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
+
+        JsonValue json2 = new JsonReader().parse(jsonString2);
 
             JsonValue pokeJson = json.get(nBot).get("poke"+numeroPoke);
             nomePokeBot = pokeJson.getString("nomePokemon");
@@ -1598,8 +1607,9 @@ public class Battle extends ScreenAdapter {
             for (JsonValue mossaJson : mosse) {
                 String nomeMossa = mossaJson.getString("nome");
                 String tipoMossa = mossaJson.getString("tipo");
+                String ppMossa = json2.get(nomeMossa).getString("pp");
                 // Aggiungi la mossa alla lista
-                MossaBot mossa=new MossaBot(nomeMossa, tipoMossa, this);
+                Mossa mossa=new Mossa(nomeMossa, tipoMossa, ppMossa, ppMossa, this);
                 listaMosseBot.add(mossa);
             }
 
@@ -1624,9 +1634,13 @@ public class Battle extends ScreenAdapter {
         // Carica il file JSON
         FileHandle file = Gdx.files.internal("jsonPokeSelvatici/"+ zona +".json");
         String jsonString = file.readString();
+        FileHandle file2 = Gdx.files.internal("pokemon/mosse.json");
+        String jsonString2 = file2.readString();
         
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
+
+        JsonValue json2 = new JsonReader().parse(jsonString2);
 
         JsonValue pokeJson = json.get(nomeSelvatico);
         nomePokeBot = pokeJson.getString("nomePokemon");
@@ -1652,8 +1666,9 @@ public class Battle extends ScreenAdapter {
         for (JsonValue mossaJson : mosse) {
             String nomeMossa = mossaJson.getString("nome");
             String tipoMossa = mossaJson.getString("tipo");
+            String ppMossa = json2.get(nomeMossa).getString("pp");
             // Aggiungi la mossa alla lista
-            MossaBot mossa=new MossaBot(nomeMossa, tipoMossa, this);
+            Mossa mossa=new Mossa(nomeMossa, tipoMossa, ppMossa, ppMossa, this);
             listaMosseBot.add(mossa);
         }
 
@@ -2778,7 +2793,8 @@ public class Battle extends ScreenAdapter {
                                                         @Override
                                                         public void run() {
                                                             labelDiscorsi21.reset();
-                                                            label21.remove();                                              
+                                                            if (label21!=null)
+                                                                label21.remove();                                              
                                                             label21=null;
                                                             isBattleEnded=true;
                                                             dispose();
@@ -2833,12 +2849,12 @@ public class Battle extends ScreenAdapter {
         
 
         JsonValue mosseJson = new JsonValue(JsonValue.ValueType.array);
-        for (MossaBot mossaBot : listaMosseBot) {
+        for (Mossa mossaBot : listaMosseBot) {
             JsonValue mossa = new JsonValue(JsonValue.ValueType.object);
             mossa.addChild("nome", new JsonValue(mossaBot.getNome()));
             mossa.addChild("tipo", new JsonValue(mossaBot.getTipo()));
             mossa.addChild("ppTot", new JsonValue(mossaBot.getmaxPP()));
-            mossa.addChild("ppAtt", new JsonValue(mossaBot.getmaxPP()));
+            mossa.addChild("ppAtt", new JsonValue(mossaBot.getattPP()));
             mosseJson.addChild(mossa);
         }
         newPokemon.addChild("mosse", mosseJson);

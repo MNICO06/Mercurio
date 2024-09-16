@@ -27,5 +27,34 @@
 	],
 	"tipoBall": "masterBall",
 	"x": 1.1929048299789429
+},
+"2": {
+	"nomePokemon": "Pidgey",
+	"livello": "9",
+	"statistiche": {
+		"hp": "40",
+		"hpTot": "40",
+		"attack": 22,
+		"defense": 20,
+		"special_attack": 17,
+		"special_defense": 17,
+		"speed": 28
+	},
+	"mosse": [
+		{
+			"nome": "Attacco d'ala",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Attacco rapido",
+			"tipo": "Normale",
+			"ppTot": "30",
+			"ppAtt": "29"
+		}
+	],
+	"tipoBall": "masterBall",
+	"x": 0.5096815824508667
 }
 }
