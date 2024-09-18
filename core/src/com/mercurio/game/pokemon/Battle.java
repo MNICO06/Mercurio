@@ -56,6 +56,9 @@ import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 
 public class Battle extends ScreenAdapter {
+
+    private int checkPerDoppioPoke = 0;
+    private int checkPerDoppiaBarra = 0;
     private Image nextMove;
     private boolean globalOtherAttack;
     private Image backImage;
@@ -502,8 +505,8 @@ public class Battle extends ScreenAdapter {
                     botImage.setPosition(newXBot, botImage.getY());    
                 
             }
-            try { //semaforo per evitare che piazzi tutto due volte (non si sa perchè lo faccia ma si sistema tutto con un semaforo)
-                synchronized (lock) {
+            try { //semaforo per evitare che piazzi tutto due volte (non si sa perchè lo faccia ma si sistema tutto con un semaforo) *non va tuttora*
+                synchronized (lock) { //TODO
                     semaphore.acquire();
                     if (lanciato==1){
                             showBall(ballTexture);
@@ -512,6 +515,7 @@ public class Battle extends ScreenAdapter {
                             showBallBot();
                         }
                         else{
+                            checkPerDoppioPoke++;
                             showPokemon(labelBaseU, nameBot);
                         }
                     }
@@ -908,6 +912,7 @@ public class Battle extends ScreenAdapter {
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
+                checkPerDoppiaBarra++;
                 HPbot=placeHpBar(botHPBar,100,16,currentPokeHPBot,maxPokeHPBot); 
             }
         }, 0.51f);
@@ -1247,9 +1252,17 @@ public class Battle extends ScreenAdapter {
                                         showPokemon(labelBaseD, nomePoke);
                                     }
                                     else if (isBotFight && !check){
-                                        showPokemon(labelBaseU, nomePokeBot);    
+                                        synchronized(lock){
+                                            try {
+                                                semaphore.acquire();
+                                                checkPerDoppioPoke++;
+                                                showPokemon(labelBaseU, nomePokeBot);
+                                            } catch (InterruptedException e) {
+                                                e.printStackTrace();
+                                            }
+                                            semaphore.release();
+                                        }
                                     }         
-                
                                 }
                             }, 0.5f);
                             this.cancel();
@@ -1261,6 +1274,9 @@ public class Battle extends ScreenAdapter {
     }
 
     private void showPokemon(Image baseImage, String nome) {
+        if (baseImage.equals(labelBaseU) && checkPerDoppioPoke>1){
+            return;
+        }
         Texture pokemonTexture = new Texture("pokemon/"+nome+".png");
         int frameWidth = pokemonTexture.getWidth() / 4;
         int frameHeight = pokemonTexture.getHeight();
@@ -1303,6 +1319,10 @@ public class Battle extends ScreenAdapter {
             animation(pokemonImageBot, pokemonAnimation);
         } else {
             return; // Esci dalla funzione in caso di baseImage non gestito
+        }
+
+        if (baseImage.equals(labelBaseU)){
+            checkPerDoppioPoke=0;
         }
     }
 
@@ -1696,6 +1716,9 @@ public class Battle extends ScreenAdapter {
 
 
     private Image placeHpBar(Image image, int diffX, int diffY, String currentHP, String maxHP){
+        if (image.equals(botHPBar) && checkPerDoppiaBarra>1){
+            return null; //ferma l'esecuzione se è già attiva (evita il problema della doppia barra)
+        }
         // Calcola la percentuale degli HP attuali rispetto agli HP totali
         float percentualeHP = Float.parseFloat(currentHP)  / Float.parseFloat(maxHP);
         float lunghezzaHPBar = 96 * percentualeHP;
@@ -1718,6 +1741,10 @@ public class Battle extends ScreenAdapter {
         // Aggiungi hpBar allo stage
         stage.addActor(hpBar);
 
+        if (image.equals(botHPBar)){
+            checkPerDoppiaBarra=0;
+        }
+        
         return hpBar;
     }
 
@@ -1986,6 +2013,7 @@ public class Battle extends ScreenAdapter {
                         piazzaLabelLottaPerBot();
                         checkInt--;
                         showBallBot();
+                        checkPerDoppiaBarra++;
                         HPbot=placeHpBar(botHPBar,100,16,currentPokeHPBot,maxPokeHPBot);
                         } 
                     }
