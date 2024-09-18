@@ -506,7 +506,7 @@ public class Battle extends ScreenAdapter {
                 
             }
             try { //semaforo per evitare che piazzi tutto due volte (non si sa perchè lo faccia ma si sistema tutto con un semaforo) *non va tuttora*
-                synchronized (lock) { //TODO
+                synchronized (lock) { 
                     semaphore.acquire();
                     if (lanciato==1){
                             showBall(ballTexture);

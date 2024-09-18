@@ -12,6 +12,7 @@ public class Erba {
     Random random;
     public static int estratto=0;
 
+    private int checkPerDoppioPoke=0;
     private final int numeroPokemonP1 = 20;
     private final int numeroPokemonBosco = 2;
     private final String nomeJsonP1 = "percorso1";
@@ -31,8 +32,13 @@ public class Erba {
 
                     int num = random.nextInt(200);
                     if (estratto==0){
-                        if (num == 4) {
+                        if (num == 39) {
+                            checkPerDoppioPoke++;
+                            if (checkPerDoppioPoke>1){
+                                return; //Se viene estratto un pokemon quando è già in corso una battaglia, viene bloccato il secondo (è un bug che succedeva e bloccava tutto il programma)
+                            }
                             estraiPokemonP1();
+                            checkPerDoppioPoke=0;
                             //System.out.println("no");
                         }
                     }
@@ -43,9 +49,13 @@ public class Erba {
                 if (check(map, "erbaAltaBosco") && game.getIsInMovement()) {
                     int num = random.nextInt(200);
                     if (estratto==0){
-                        if (num == 5) {
+                        if (num == 39) {
+                            checkPerDoppioPoke++;
+                            if (checkPerDoppioPoke>1){
+                                return;
+                            }
                             estraiPokemonBosco();
-                            
+                            checkPerDoppioPoke=0;
                         }
                     }
                 }
@@ -54,8 +64,12 @@ public class Erba {
             case "percorso2":
                 if (check(map, "erbaAltaPercorso2") && game.getIsInMovement()) {
                     int num = random.nextInt(200);
-                    if (num == 6) {
-                    
+                        if (num == 39) {
+                            checkPerDoppioPoke++;
+                            if (checkPerDoppioPoke>1){
+                                return;
+                            }
+                            checkPerDoppioPoke=0;
                     }
                 }
                 break;
@@ -63,8 +77,12 @@ public class Erba {
             case "percorso3":
                 if (check(map, "acquaPercoso3") && game.getIsInMovement()) {
                     int num = random.nextInt(200);
-                    if (num == 6) {
-                    
+                        if (num == 39) {
+                            checkPerDoppioPoke++;
+                            if (checkPerDoppioPoke>1){
+                                return;
+                            }
+                            checkPerDoppioPoke=0;
                     }
                 }
                 break;
@@ -72,8 +90,12 @@ public class Erba {
             case "percorso4":
                 if (check(map, "erbaAltaPercorso4") && game.getIsInMovement()) {
                     int num = random.nextInt(200);
-                    if (num == 6) {
-                    
+                        if (num == 39) {
+                            checkPerDoppioPoke++;
+                            if (checkPerDoppioPoke>1){
+                                return;
+                            }
+                            checkPerDoppioPoke=0;
                     }
                 }
                 break;
