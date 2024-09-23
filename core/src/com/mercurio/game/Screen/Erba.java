@@ -34,11 +34,7 @@ public class Erba {
                     if (estratto==0){
                         if (num == 39) {
                             checkPerDoppioPoke++;
-                            if (checkPerDoppioPoke>1){
-                                return; //Se viene estratto un pokemon quando è già in corso una battaglia, viene bloccato il secondo (è un bug che succedeva e bloccava tutto il programma)
-                            }
                             estraiPokemonP1();
-                            checkPerDoppioPoke=0;
                             //System.out.println("no");
                         }
                     }
@@ -51,11 +47,7 @@ public class Erba {
                     if (estratto==0){
                         if (num == 39) {
                             checkPerDoppioPoke++;
-                            if (checkPerDoppioPoke>1){
-                                return;
-                            }
                             estraiPokemonBosco();
-                            checkPerDoppioPoke=0;
                         }
                     }
                 }
@@ -66,10 +58,6 @@ public class Erba {
                     int num = random.nextInt(200);
                         if (num == 39) {
                             checkPerDoppioPoke++;
-                            if (checkPerDoppioPoke>1){
-                                return;
-                            }
-                            checkPerDoppioPoke=0;
                     }
                 }
                 break;
@@ -79,10 +67,6 @@ public class Erba {
                     int num = random.nextInt(200);
                         if (num == 39) {
                             checkPerDoppioPoke++;
-                            if (checkPerDoppioPoke>1){
-                                return;
-                            }
-                            checkPerDoppioPoke=0;
                     }
                 }
                 break;
@@ -92,10 +76,6 @@ public class Erba {
                     int num = random.nextInt(200);
                         if (num == 39) {
                             checkPerDoppioPoke++;
-                            if (checkPerDoppioPoke>1){
-                                return;
-                            }
-                            checkPerDoppioPoke=0;
                     }
                 }
                 break;
@@ -105,15 +85,23 @@ public class Erba {
     }
 
     private void estraiPokemonP1() {
+        if (checkPerDoppioPoke>1){
+            return; //Se viene estratto un pokemon quando è già in corso una battaglia, viene bloccato il secondo (è un bug che succedeva e bloccava tutto il programma)
+        }
         int num = 1 + random.nextInt(numeroPokemonP1);
         game.creaBattaglia(nomeJsonP1, String.valueOf(num));
         estratto=1;
+        checkPerDoppioPoke=0;
     }
 
     private void estraiPokemonBosco() {
+        if (checkPerDoppioPoke>1){
+            return; //Se viene estratto un pokemon quando è già in corso una battaglia, viene bloccato il secondo (è un bug che succedeva e bloccava tutto il programma)
+        }
         int num = 1 + random.nextInt(numeroPokemonBosco);
         game.creaBattaglia(nomeJsonBosco, String.valueOf(num));
         estratto=1;
+        checkPerDoppioPoke=0;
     }
 
     private boolean check(TiledMap map, String nome) {
