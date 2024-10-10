@@ -19,6 +19,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 public class LabelDiscorsi {
     // Dichiarazioni delle texture
     private Label label;
+    private Label labelSi;
+    private Label labelNo;
+    // Dimensioni e posizioni per le label
+    private float siX, siY, noX, noY;
+    private float siWidth = 60, siHeight = 36;
+    private float noWidth = 60, noHeight = 36;
+    
+    private boolean mostraDecisionLabels = false;
     private BitmapFont font;
     private SpriteBatch batch;
     private ArrayList<String> righeDiscorso;
@@ -71,7 +79,6 @@ public class LabelDiscorsi {
         font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
         createLabel(index);
 
-        
         rigaCorrente = 0;
         isPrimaRigaStampata = false;
     }
@@ -82,7 +89,7 @@ public class LabelDiscorsi {
 
 
     private TextureRegion[] loadTextBoxTextures() {
-        TextureRegion[] textures = new TextureRegion[20]; 
+        TextureRegion[] textures = new TextureRegion[20];
     
         // Carica l'immagine contenente tutte le label
         Texture textBoxesImage = new Texture("sfondo/boxText.png");
@@ -104,10 +111,6 @@ public class LabelDiscorsi {
     
         return textures;
     }
-    
-    
-    
-    
 
     private void createLabel(int index) {
         Skin skin = new Skin();
@@ -116,15 +119,36 @@ public class LabelDiscorsi {
         TextureRegion backgroundTexture = textBoxTextures[index];
         NinePatchDrawable backgroundDrawable = new NinePatchDrawable(new NinePatch(backgroundTexture, 10, 10, 10, 10));
         Label.LabelStyle style = new Label.LabelStyle();
+
         style.font = skin.getFont("custom-font");
         style.background = backgroundDrawable;
 
         label = new Label("", style);
+
+        // Crea le label per "Sì" e "No"
+        labelSi = new Label("Si'", style);
+        labelNo = new Label("No", style);
+
         if (!checkBattle){
             label.setPosition(280, 20); // Posizione della label
             label.setWidth(400);
             label.setHeight(75); // Altezza sufficiente per due righe
             label.setWrap(true);
+
+
+            labelSi.setWidth(siWidth);
+            labelNo.setWidth(noWidth);
+            labelSi.setHeight(siHeight);
+            labelNo.setHeight(noHeight);
+            // Imposta le posizioni delle label
+            siX = label.getX() + label.getWidth() + 2;
+            siY = label.getY() + labelSi.getHeight() + 3;
+            noX = label.getX() + label.getWidth() + 2;
+            noY = label.getY();
+
+            labelSi.setPosition(siX, siY);
+            labelNo.setPosition(noX, noY);
+
         }
         else {
             label.setPosition(0, 0); // Posizione della label
@@ -140,7 +164,19 @@ public class LabelDiscorsi {
     	
         batch.begin();
         label.draw(batch, 1);
+
+        // Disegna le label "Sì" e "No" solo se il flag è true
+        if (mostraDecisionLabels) {
+            labelSi.draw(batch, 1);
+            labelNo.draw(batch, 1);
+        }
+
         batch.end();
+
+        // Gestisci il click
+        if (Gdx.input.justTouched()) {
+            handleClick(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
+        }
 
         if (!isPrimaRigaStampata && label.getPrefHeight() > 0) {
         	isPrimaRigaStampata = true;
@@ -154,7 +190,41 @@ public class LabelDiscorsi {
         		 startLetterAnimationFirstLine(righeDiscorso.get(rigaCorrente)); 
         	 }
         }
+
+        if (rigaCorrente == righeDiscorso.size() -2) {
+
+            Timer timer = new Timer();
+            TimerTask task = new TimerTask() {
+                @Override
+                public void run() {
+                    Gdx.app.postRunnable(() -> {
+                        //TODO: da mettere qua il render del testo (almeno è già continuo)
+                        mostraDecisionLabels = true;
+                    });
+                }
+            };
+
+            timer.schedule(task, 1000);            
+
+        }
+
     }
+
+    private void handleClick(float mouseX, float mouseY) {
+        // Controlla se il click è sopra "Sì"
+        if (mouseX >= siX && mouseX <= siX + siWidth && mouseY >= siY && mouseY <= siY + siHeight) {
+            System.out.println("Hai scelto Sì!");
+            // Logica per "Sì"
+            mostraDecisionLabels = false;
+        }
+        // Controlla se il click è sopra "No"
+        else if (mouseX >= noX && mouseX <= noX + noWidth && mouseY >= noY && mouseY <= noY + noHeight) {
+            System.out.println("Hai scelto No!");
+            // Logica per "No"
+            mostraDecisionLabels = false;
+        }
+    }
+
 
     private ArrayList<String> splitTestoInRighe(String testo, int lunghezzaMassima) {
         ArrayList<String> righe = new ArrayList<>();
@@ -182,14 +252,11 @@ public class LabelDiscorsi {
         if (isPrimaRigaStampata && rigaCorrente < righeDiscorso.size() - 2) {
             rigaCorrente++;
             updateTwoLines();
+            System.out.println("prova true");
             return true;
         }
         else {
             return false;
-
-            //qui parte quando l'utente continua a premere spazio o invio ma il testo è già stato tutto renderizzato
-
-            //TODO: mettere qua il si o no e far terminare dopo il discorso, oppure mettere qualcosa per farlo di la
         }
     }
 
@@ -269,7 +336,7 @@ public class LabelDiscorsi {
         timer.scheduleAtFixedRate(letterTask, 0, (long) (intervalloLettera * 1000)); // Parte subito e si ripete ogni intervalloLettera secondi
     }
 
-    
+
     public void cancelTextAnimation() {
         if (letterTask != null) {
             letterTask.cancel();

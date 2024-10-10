@@ -280,7 +280,7 @@ public class CasaSpawn extends ScreenAdapter {
             }
         }
         else {
-            //quando deve terminare 
+            //quando deve terminare
             tieniApertoDiscorso = false;
             fPressed = false;
             game.getPlayer().setMovement(true);
