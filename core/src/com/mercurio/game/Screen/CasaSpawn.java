@@ -250,10 +250,6 @@ public class CasaSpawn extends ScreenAdapter {
                 fPressed = true;
                 game.getPlayer().setMovement(false);
             }
-        } else if (fPressed) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
-                tieniApertoDiscorso = false;
-            }
         }
 
         if (isInBox) {
@@ -272,8 +268,21 @@ public class CasaSpawn extends ScreenAdapter {
     }
 
     public void controlloTesto() {
+        //TODO: gestire cosa fare con true e false (da fare quando avremo la storia)
+        //TODO: fare in modo di controllare se servono i true e false
+        
         if (tieniApertoDiscorso) {
-            labelDiscorsi.renderDisc();
+            int risposta = labelDiscorsi.renderDisc();
+
+            //risposta: no
+            if (risposta == 0) {
+                tieniApertoDiscorso = false;
+            } //risposta true
+            else if (risposta == 1) {
+                tieniApertoDiscorso = false;
+            }
+
+
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
                 //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
                 labelDiscorsi.advanceText();

@@ -25,6 +25,7 @@ public class LabelDiscorsi {
     private float siX, siY, noX, noY;
     private float siWidth = 60, siHeight = 36;
     private float noWidth = 60, noHeight = 36;
+    private int sceltaUtente = -1;
     
     private boolean mostraDecisionLabels = false;
     private BitmapFont font;
@@ -160,7 +161,7 @@ public class LabelDiscorsi {
     }
 
 
-    public void renderDisc() {
+    public int renderDisc() {
     	
         batch.begin();
         label.draw(batch, 1);
@@ -198,7 +199,6 @@ public class LabelDiscorsi {
                 @Override
                 public void run() {
                     Gdx.app.postRunnable(() -> {
-                        //TODO: da mettere qua il render del testo (almeno è già continuo)
                         mostraDecisionLabels = true;
                     });
                 }
@@ -208,18 +208,20 @@ public class LabelDiscorsi {
 
         }
 
+        return sceltaUtente;
+
     }
 
     private void handleClick(float mouseX, float mouseY) {
         // Controlla se il click è sopra "Sì"
         if (mouseX >= siX && mouseX <= siX + siWidth && mouseY >= siY && mouseY <= siY + siHeight) {
-            System.out.println("Hai scelto Sì!");
+            sceltaUtente = 1;
             // Logica per "Sì"
             mostraDecisionLabels = false;
         }
         // Controlla se il click è sopra "No"
         else if (mouseX >= noX && mouseX <= noX + noWidth && mouseY >= noY && mouseY <= noY + noHeight) {
-            System.out.println("Hai scelto No!");
+            sceltaUtente = 0;
             // Logica per "No"
             mostraDecisionLabels = false;
         }
@@ -252,7 +254,6 @@ public class LabelDiscorsi {
         if (isPrimaRigaStampata && rigaCorrente < righeDiscorso.size() - 2) {
             rigaCorrente++;
             updateTwoLines();
-            System.out.println("prova true");
             return true;
         }
         else {
