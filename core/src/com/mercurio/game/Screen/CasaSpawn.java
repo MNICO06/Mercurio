@@ -58,7 +58,7 @@ public class CasaSpawn extends ScreenAdapter {
         /*variabili che andranno lette da file */
         String discorso= "Ciao figliuolo come stai, come mai stai uscendo e dove stai andando?";
         int dimMax=30;
-        labelDiscorsi = new LabelDiscorsi(discorso,30,10,false);
+        labelDiscorsi = new LabelDiscorsi(discorso,30,10,false, true);
         
         rectList = new ArrayList<Rectangle>();
     }
@@ -269,8 +269,7 @@ public class CasaSpawn extends ScreenAdapter {
 
     public void controlloTesto() {
         //TODO: gestire cosa fare con true e false (da fare quando avremo la storia)
-        //TODO: fare in modo di controllare se servono i true e false
-        
+
         if (tieniApertoDiscorso) {
             int risposta = labelDiscorsi.renderDisc();
 
@@ -292,6 +291,7 @@ public class CasaSpawn extends ScreenAdapter {
             //quando deve terminare
             tieniApertoDiscorso = false;
             fPressed = false;
+            labelDiscorsi.setSceltaUtente(-1);
             game.getPlayer().setMovement(true);
             labelDiscorsi.reset();
         }

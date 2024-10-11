@@ -241,40 +241,40 @@ public class Battle extends ScreenAdapter {
         ballTexture = new Texture("battle/"+nomeBall+"Player.png");
 
         String discorso1= "Parte la sfida di "+nomeBot+" ("+tipoBot+")"+"!";
-        labelDiscorsi1 = new LabelDiscorsi(discorso1,dimMax,0,true);
+        labelDiscorsi1 = new LabelDiscorsi(discorso1,dimMax,0,true, false);
         
         String discorso2= "Vai "+ nomePoke + "!";
-        labelDiscorsi2 = new LabelDiscorsi(discorso2,dimMax,0,true);
+        labelDiscorsi2 = new LabelDiscorsi(discorso2,dimMax,0,true, false);
 
         String discorso3= "Hai sconfitto "+ nomeBot+" ("+tipoBot+")"+"!";
-        labelDiscorsi3 = new LabelDiscorsi(discorso3,dimMax,0,true);
+        labelDiscorsi3 = new LabelDiscorsi(discorso3,dimMax,0,true, false);
 
         String discorso5= "E' superefficace!";
-        labelDiscorsi5 = new LabelDiscorsi(discorso5,dimMax,0,true);
+        labelDiscorsi5 = new LabelDiscorsi(discorso5,dimMax,0,true, false);
 
         String discorso6= "Non e' molto efficace...";
-        labelDiscorsi6 = new LabelDiscorsi(discorso6,dimMax,0,true);
+        labelDiscorsi6 = new LabelDiscorsi(discorso6,dimMax,0,true, false);
 
         String discorso7= "Non ha effetto!";
-        labelDiscorsi7 = new LabelDiscorsi(discorso7,dimMax,0,true);
+        labelDiscorsi7 = new LabelDiscorsi(discorso7,dimMax,0,true, false);
 
         String discorso9= "Brutto colpo!";
-        labelDiscorsi9 = new LabelDiscorsi(discorso9,dimMax,0,true);
+        labelDiscorsi9 = new LabelDiscorsi(discorso9,dimMax,0,true, false);
 
         String discorso10= "Non puoi sottrarti alla lotta!";
-        labelDiscorsi10 = new LabelDiscorsi(discorso10,dimMax,0,true);
+        labelDiscorsi10 = new LabelDiscorsi(discorso10,dimMax,0,true, false);
 
         String discorso11= "Scampato pericolo!";
-        labelDiscorsi11 = new LabelDiscorsi(discorso11,dimMax,0,true);
+        labelDiscorsi11 = new LabelDiscorsi(discorso11,dimMax,0,true, false);
 
         String discorso15= "E' apparso un "+ nameBot +" selvatico!";
-        labelDiscorsi15 = new LabelDiscorsi(discorso15,dimMax,0,true);
+        labelDiscorsi15 = new LabelDiscorsi(discorso15,dimMax,0,true, false);
 
         String discorso16= "Non hai piu' Pokemon disponibili...";
-        labelDiscorsi16 = new LabelDiscorsi(discorso16,dimMax,0,true);
+        labelDiscorsi16 = new LabelDiscorsi(discorso16,dimMax,0,true, false);
 
         String discorso18= "Sei stato portato d'urgenza al Centro Pokémon!";
-        labelDiscorsi18 = new LabelDiscorsi(discorso18,dimMax,0,true);
+        labelDiscorsi18 = new LabelDiscorsi(discorso18,dimMax,0,true, false);
         
         
         show();
@@ -1211,13 +1211,13 @@ public class Battle extends ScreenAdapter {
     private void sistemaLabel4(String nome){
         this.nomeMossa=nome;
         String discorso4= nomePoke + " utilizza " + nomeMossa+"!";
-        labelDiscorsi4 = new LabelDiscorsi(discorso4,dimMax,0,true);
+        labelDiscorsi4 = new LabelDiscorsi(discorso4,dimMax,0,true, false);
     }
 
     private void sistemaLabel14(String nome){
         this.nomeMossa=nome;
         String discorso14= nomePokeBot + " utilizza " + nomeMossa+"!";
-        labelDiscorsi14 = new LabelDiscorsi(discorso14,dimMax,0,true);
+        labelDiscorsi14 = new LabelDiscorsi(discorso14,dimMax,0,true, false);
     }
     
 
@@ -2054,7 +2054,7 @@ public class Battle extends ScreenAdapter {
 
     public void piazzaLabel12(String nomePokem){
         String discorso12= nomePokem+ " non ha piu' energie!";
-        labelDiscorsi12 = new LabelDiscorsi(discorso12,dimMax,0,true);
+        labelDiscorsi12 = new LabelDiscorsi(discorso12,dimMax,0,true, false);
         labelDiscorsi12.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
         label12=labelDiscorsi12.getLabel();
         stage.addActor(label12);
@@ -2320,7 +2320,7 @@ public class Battle extends ScreenAdapter {
         leggiPoke(newIndex+1);
         ballTexture = new Texture("battle/"+nomeBall+"Player.png");
         String discorso2= "Vai "+ nomePoke + "!";
-        labelDiscorsi2 = new LabelDiscorsi(discorso2,dimMax,0,true);
+        labelDiscorsi2 = new LabelDiscorsi(discorso2,dimMax,0,true, false);
         pokemonImage.remove();
         numeroIndexPoke=newIndex+1;
         showBall(ballTexture);
@@ -2362,7 +2362,7 @@ public class Battle extends ScreenAdapter {
         }
 
         String discorso17= "Hai perso " + denaroPerso + " Pokédollari nella fuga.";
-        labelDiscorsi17 = new LabelDiscorsi(discorso17,dimMax,0,true);
+        labelDiscorsi17 = new LabelDiscorsi(discorso17,dimMax,0,true, false);
 
         denaroPerso*=-1;
     }
@@ -2371,7 +2371,7 @@ public class Battle extends ScreenAdapter {
         soldiPresi=Integer.parseInt(levelLastPokeBot)*150;
 
         String discorso8= "Hai guadagnato "+ soldiPresi+" Pokédollari.";
-        labelDiscorsi8 = new LabelDiscorsi(discorso8,dimMax,0,true);
+        labelDiscorsi8 = new LabelDiscorsi(discorso8,dimMax,0,true, false);
     }
 
 
@@ -2403,7 +2403,7 @@ public class Battle extends ScreenAdapter {
         //System.out.println(tassoCattura);
 
         String discorso19= "Hai lanciato una "+ nameUsedBall + "!";
-        labelDiscorsi19 = new LabelDiscorsi(discorso19,dimMax,0,true);
+        labelDiscorsi19 = new LabelDiscorsi(discorso19,dimMax,0,true, false);
 
         label19=labelDiscorsi19.getLabel();
         stage.addActor(label19);
@@ -2544,7 +2544,7 @@ public class Battle extends ScreenAdapter {
                                     Actions.delay(0.5f);
                                     Actions.removeActor();
                                     String discorso20= "Oh No! Il pokemon selvatico si e' liberato!";
-                                    labelDiscorsi20 = new LabelDiscorsi(discorso20,dimMax,0,true);
+                                    labelDiscorsi20 = new LabelDiscorsi(discorso20,dimMax,0,true, false);
                                     label20=labelDiscorsi20.getLabel();
                                     stage.addActor(label20);
 
@@ -2581,7 +2581,7 @@ public class Battle extends ScreenAdapter {
                                                 imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[0]));
                                                 pokemonImageBot.setVisible(true);
                                                 String discorso20= "Oh No! Il pokemon selvatico si e' liberato!";
-                                                labelDiscorsi20 = new LabelDiscorsi(discorso20,dimMax,0,true);
+                                                labelDiscorsi20 = new LabelDiscorsi(discorso20,dimMax,0,true, false);
                                                 label20=labelDiscorsi20.getLabel();
                                                 stage.addActor(label20);
 
@@ -2646,7 +2646,7 @@ public class Battle extends ScreenAdapter {
                                                 imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[0]));
                                                 pokemonImageBot.setVisible(true);
                                                 String discorso20= "Oh No! Il pokemon selvatico si e' liberato!";
-                                                labelDiscorsi20 = new LabelDiscorsi(discorso20,dimMax,0,true);
+                                                labelDiscorsi20 = new LabelDiscorsi(discorso20,dimMax,0,true, false);
                                                 label20=labelDiscorsi20.getLabel();
                                                 stage.addActor(label20);
 
@@ -2728,7 +2728,7 @@ public class Battle extends ScreenAdapter {
                                                 imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[0]));
                                                 pokemonImageBot.setVisible(true);
                                                 String discorso20= "Oh No! Il pokemon selvatico si e' liberato!";
-                                                labelDiscorsi20 = new LabelDiscorsi(discorso20,dimMax,0,true);
+                                                labelDiscorsi20 = new LabelDiscorsi(discorso20,dimMax,0,true, false);
                                                 label20=labelDiscorsi20.getLabel();
                                                 stage.addActor(label20);
 
@@ -2818,7 +2818,7 @@ public class Battle extends ScreenAdapter {
                                                 public void run() {
                                                     imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[11]));
                                                     String discorso21= "Hai catturato "+ nameBot+"!";
-                                                    labelDiscorsi21 = new LabelDiscorsi(discorso21,dimMax,0,true);
+                                                    labelDiscorsi21 = new LabelDiscorsi(discorso21,dimMax,0,true, false);
                                                     label21=labelDiscorsi21.getLabel();
                                                     stage.addActor(label21);
                                                     salvaPokemonNelBox();

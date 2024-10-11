@@ -33,11 +33,12 @@ public class PokeCenter extends ScreenAdapter {
     private MapLayer lineeLayer;
     private float xPosition;
     private float yPosition;
+    private int risposta = -1;
 
     private Dottoressa dottoressa;
     private LabelDiscorsi discorso;
 
-    private boolean renderTesto;
+    private boolean renderTesto = false;
     private boolean continuaTesto = true;
 
     //rettangolo con la lista delle persone che collidono
@@ -46,7 +47,7 @@ public class PokeCenter extends ScreenAdapter {
     public PokeCenter(MercurioMain game) {
         this.game = game;
         dottoressa = new Dottoressa();
-        discorso = new LabelDiscorsi("Benvenuto! Questo e' un centro pokemon! riportero' i tuoi pokemon in perfetta forma in un batter d'occhio! Vuoi che mi prenda cura dei tuoi pokemon??", 30, 0, false);
+        discorso = new LabelDiscorsi("Benvenuto! Questo e' un centro pokemon! riportero' i tuoi pokemon in perfetta forma in un batter d'occhio! Vuoi che mi prenda cura dei tuoi pokemon??", 30, 0, false, true);
     }
 
     @Override
@@ -173,21 +174,33 @@ public class PokeCenter extends ScreenAdapter {
                 }
             }
         }
-    }
-
-        //TODO: metodo di cura da fare quando premi si 
-    
+    }    
 
     private void checkTesto() {
-        if (renderTesto && continuaTesto) {
-            discorso.renderDisc();
+
+        if (renderTesto) {
+
+            risposta = discorso.renderDisc();
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
                 //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
                 continuaTesto = discorso.advanceText();
-                dottoressa.cura();
             }
+
+            if (risposta != -1) {
+                if (risposta == 1) {
+                    dottoressa.cura();
+                    renderTesto = false;
+                    discorso.setSceltaUtente(-1);
+                }
+                else if (risposta == 0) {
+                    renderTesto = false;
+                    discorso.setSceltaUtente(-1);
+                }
+            }
+
         }
         else {
+
             renderTesto = false;
             continuaTesto = true;
             game.getPlayer().setMovement(true);

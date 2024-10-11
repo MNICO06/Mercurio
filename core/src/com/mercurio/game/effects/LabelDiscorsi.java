@@ -26,8 +26,9 @@ public class LabelDiscorsi {
     private float siWidth = 60, siHeight = 36;
     private float noWidth = 60, noHeight = 36;
     private int sceltaUtente = -1;
-    
+    private boolean deveScegliere = false;
     private boolean mostraDecisionLabels = false;
+
     private BitmapFont font;
     private SpriteBatch batch;
     private ArrayList<String> righeDiscorso;
@@ -71,10 +72,11 @@ public class LabelDiscorsi {
     private Texture erbettaTexture;
 
 
-    public LabelDiscorsi(String disc, int dimMax, int index, boolean battle) {
-        this.checkBattle=battle;
-        this.discorso=disc;
+    public LabelDiscorsi(String disc, int dimMax, int index, boolean battle, boolean scelta) {
+        this.checkBattle = battle;
+        this.discorso = disc;
         this.textBoxTextures = loadTextBoxTextures();
+        this.deveScegliere = scelta;
         righeDiscorso = splitTestoInRighe(discorso, dimMax);
         batch = new SpriteBatch();
         font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
@@ -126,9 +128,12 @@ public class LabelDiscorsi {
 
         label = new Label("", style);
 
-        // Crea le label per "Sì" e "No"
-        labelSi = new Label("Si'", style);
-        labelNo = new Label("No", style);
+        if (deveScegliere) {
+            // Crea le label per "Sì" e "No"
+            labelSi = new Label("Si'", style);
+            labelNo = new Label("No", style);
+        }
+        
 
         if (!checkBattle){
             label.setPosition(280, 20); // Posizione della label
@@ -136,20 +141,20 @@ public class LabelDiscorsi {
             label.setHeight(75); // Altezza sufficiente per due righe
             label.setWrap(true);
 
-
-            labelSi.setWidth(siWidth);
-            labelNo.setWidth(noWidth);
-            labelSi.setHeight(siHeight);
-            labelNo.setHeight(noHeight);
-            // Imposta le posizioni delle label
-            siX = label.getX() + label.getWidth() + 2;
-            siY = label.getY() + labelSi.getHeight() + 3;
-            noX = label.getX() + label.getWidth() + 2;
-            noY = label.getY();
-
-            labelSi.setPosition(siX, siY);
-            labelNo.setPosition(noX, noY);
-
+            if (deveScegliere) {
+                labelSi.setWidth(siWidth);
+                labelNo.setWidth(noWidth);
+                labelSi.setHeight(siHeight);
+                labelNo.setHeight(noHeight);
+                // Imposta le posizioni delle label
+                siX = label.getX() + label.getWidth() + 2;
+                siY = label.getY() + labelSi.getHeight() + 3;
+                noX = label.getX() + label.getWidth() + 2;
+                noY = label.getY();
+    
+                labelSi.setPosition(siX, siY);
+                labelNo.setPosition(noX, noY);
+            }
         }
         else {
             label.setPosition(0, 0); // Posizione della label
@@ -166,19 +171,23 @@ public class LabelDiscorsi {
         batch.begin();
         label.draw(batch, 1);
 
-        // Disegna le label "Sì" e "No" solo se il flag è true
-        if (mostraDecisionLabels) {
-            labelSi.draw(batch, 1);
-            labelNo.draw(batch, 1);
+        if (deveScegliere) {
+            // Disegna le label "Sì" e "No" solo se il flag è true
+            if (mostraDecisionLabels) {
+                labelSi.draw(batch, 1);
+                labelNo.draw(batch, 1);
+            }
         }
-
+        
         batch.end();
 
-        // Gestisci il click
-        if (Gdx.input.justTouched()) {
-            handleClick(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
+        if (deveScegliere) {
+            // Gestisci il click
+            if (Gdx.input.justTouched()) {
+                handleClick(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
+            }
         }
-
+        
         if (!isPrimaRigaStampata && label.getPrefHeight() > 0) {
         	isPrimaRigaStampata = true;
 
@@ -353,6 +362,9 @@ public class LabelDiscorsi {
         // Interrompi qualsiasi animazione in corso
         cancelTextAnimation();
 
+        // Non far renderizzare più il si e no
+        mostraDecisionLabels = false;
+
         // Reimposta le variabili di stato
         rigaCorrente = 0;
         isPrimaRigaStampata = false;
@@ -367,5 +379,9 @@ public class LabelDiscorsi {
         if (righeDiscorso.size() > 1) {
             startLetterAnimation(righeDiscorso.get(1)); // Avvia l'animazione per la seconda riga se presente
         }
+    }
+
+    public void setSceltaUtente(int sceltaUtente) {
+        this.sceltaUtente = sceltaUtente;
     }
 }
