@@ -14,7 +14,7 @@ public class Erba {
 
     private int checkPerDoppioPoke=0;
     private final int numeroPokemonP1 = 20;
-    private final int numeroPokemonBosco = 2;
+    private final int numeroPokemonBosco = 1;
     private final String nomeJsonP1 = "percorso1";
     private final String nomeJsonBosco = "bosco";
 
@@ -35,7 +35,6 @@ public class Erba {
                         if (num == 39) {
                             checkPerDoppioPoke++;
                             estraiPokemonP1();
-                            //System.out.println("no");
                         }
                     }
                 }

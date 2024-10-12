@@ -174,7 +174,7 @@ public class PokeCenter extends ScreenAdapter {
                 }
             }
         }
-    }    
+    }
 
     private void checkTesto() {
 

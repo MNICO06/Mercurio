@@ -1,7 +1,9 @@
 package com.mercurio.game.pokemon;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Semaphore;
 
@@ -188,6 +190,8 @@ public class Battle extends ScreenAdapter {
     private Image playerHPBar;
     private Image botHPBar;
     private String LVPokeBot;
+    private int SelvaticoLVPokeBotMin;
+    private int SelvaticoLVPokeBotMax;
     private String LVPoke;
     private ArrayList<Integer> statsPlayer = new ArrayList<>();
     private ArrayList<Integer> statsBot = new ArrayList<>();
@@ -1665,11 +1669,17 @@ public class Battle extends ScreenAdapter {
 
         JsonValue json2 = new JsonReader().parse(jsonString2);
 
+        
+
         JsonValue pokeJson = json.get(nomeSelvatico);
         nomePokeBot = pokeJson.getString("nomePokemon");
-        LVPokeBot = pokeJson.getString("livello");
+        SelvaticoLVPokeBotMin = pokeJson.getInt("livello-min");
+        SelvaticoLVPokeBotMax = pokeJson.getInt("livello-max");
 
         x = (float) (Math.random() * (1.3 - 0.4)) + 0.4f;
+        float randoLvl = (float) (Math.random() * (SelvaticoLVPokeBotMax - SelvaticoLVPokeBotMin + 1)) + SelvaticoLVPokeBotMin;
+        int randoLvlInt = (int) randoLvl;  // Converte il valore in intero
+        LVPokeBot = String.valueOf(randoLvlInt);
 
         FileHandle filePoke = Gdx.files.internal("pokemon/Pokemon.json");
         String jsonStringPoke = filePoke.readString();
@@ -1685,19 +1695,49 @@ public class Battle extends ScreenAdapter {
         maxPokeHPBot = statistiche.getString("PS");
         currentPokeHPBot = statistiche.getString("PS");
 
-        JsonValue mosse = pokeJson.get("mosse");
-        for (JsonValue mossaJson : mosse) {
-            String nomeMossa = mossaJson.getString("nome");
-            String tipoMossa = mossaJson.getString("tipo");
-            String ppMossa = "0";
-            if(!nomeMossa.isEmpty()){
-                ppMossa = json2.get(nomeMossa).getString("pp");
+
+        int numMosseImparabili = (int) (randoLvl / 2);
+
+        // Ottieni la lista delle mosse imparabili
+        JsonValue mosseImparabili = jsonPoke.get(nameBot).get("mosseImparabili"); 
+
+        // Seleziona le prime `n` mosse in base al numero calcolato
+        List<String> mossePossibili = new ArrayList<>();
+        for (int i = 1; i <= numMosseImparabili && i <= 50; i++) {  // Assumiamo che ci siano al massimo 50 mosse
+            String mossa = mosseImparabili.getString("M" + i);
+            if (!mossa.isEmpty()) {
+                mossePossibili.add(mossa);
             }
-            // Aggiungi la mossa alla lista
-            Mossa mossa=new Mossa(nomeMossa, tipoMossa, ppMossa, ppMossa, this);
-            listaMosseBot.add(mossa);
         }
 
+        System.out.println(LVPokeBot);
+
+        // Seleziona un numero casuale di mosse (da 1 a 4)
+        int numMosseDaSelezionare = (int) (Math.random() * 4) + 1;  // Genera un numero da 1 a 4
+
+        // Seleziona casualmente `numMosseDaSelezionare` mosse dalle mosse possibili
+        Collections.shuffle(mossePossibili);
+        List<String> mosseScelte = mossePossibili.subList(0, Math.min(numMosseDaSelezionare, mossePossibili.size()));
+
+
+        // Itera sulle mosse selezionate, recuperando i dettagli dal file `mosse.json`
+        for (String nomeMossa : mosseScelte) {
+            JsonValue mossaJson = json2.get(nomeMossa);  // Cerca la mossa in `mosse.json`
+
+            // Verifica che la mossa esista nel file delle mosse
+            if (mossaJson != null) {
+                String tipoMossa = mossaJson.getString("tipo", "");  // Ottieni il tipo della mossa
+                String ppMossa = mossaJson.getString("pp", "0");     // Ottieni i PP della mossa
+
+                // Crea e aggiungi la mossa alla lista `listaMosseBot`
+                System.out.println(nomeMossa);
+
+                Mossa mossa = new Mossa(nomeMossa, tipoMossa, ppMossa, ppMossa, this);
+                listaMosseBot.add(mossa);
+            } else {
+                System.out.println("Mossa non trovata: " + nomeMossa);
+            }
+        }
     }
 
     public void leggiPokeSecondarioBot(int numero, int numBot) {
