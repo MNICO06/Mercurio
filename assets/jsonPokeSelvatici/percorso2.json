@@ -10,19 +10,13 @@
 		"livello-max": 15
 	},
 	"3" : {
-		"nomePokemon" : "Weedle",
+		"nomePokemon" : "Bidoof",
 		"livello-min" : 9,
 		"livello-max": 15
 	},
 	"4" : {
-		"nomePokemon" : "Kakuna",
-		"livello-min" : 9,
-		"livello-max": 15
-	},
-	"5" : {
-		"nomePokemon" : "Bidoof",
+		"nomePokemon" : "Geodude",
 		"livello-min" : 9,
 		"livello-max": 15
 	}
 }
-	

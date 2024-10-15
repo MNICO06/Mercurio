@@ -1,0 +1,37 @@
+{
+    "1" : {
+        "nomePokemon" : "Magikarp",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "2" : {
+        "nomePokemon" : "Lapras",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "3" : {
+        "nomePokemon" : "Horsea",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "4" : {
+        "nomePokemon" : "Seadra",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "5" : {
+        "nomePokemon" : "Corphish",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "6" : {
+        "nomePokemon" : "Spheal",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "7" : {
+        "nomePokemon" : "Sealeo",
+        "livello-min" : 9,
+        "livello-max": 15
+    }
+}
