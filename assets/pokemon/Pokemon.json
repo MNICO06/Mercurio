@@ -6,6 +6,7 @@
       "tassoCattura": 45,
       "tipo1": "Erba",
       "tipo2": "Volante",
+      "espBase": 64,
       "stat": {
           "PS": "68",
           "Att": "55",
@@ -74,6 +75,7 @@
       "tassoCattura": 45,
       "tipo1": "Erba",
       "tipo2": "Volante",
+      "espBase": 147,
       "stat": {
           "PS": "78",
           "Att": "75",
@@ -142,6 +144,7 @@
       "tassoCattura": 45,
       "tipo1": "Erba",
       "tipo2": "Spettro",
+      "espBase": 265,
       "stat": {
           "PS": "78",
           "Att": "107",
@@ -210,6 +213,7 @@
       "tassoCattura": 45,
       "tipo1": "Acqua",
       "tipo2": "/",
+      "espBase": 64,
       "stat": {
           "PS": "50",
           "Att": "54",
@@ -278,6 +282,7 @@
       "tassoCattura": 45,
       "tipo1": "Acqua",
       "tipo2": "/",
+      "espBase": 147,
       "stat": {
           "PS": "60",
           "Att": "69",
@@ -346,6 +351,7 @@
       "tassoCattura": 45,
       "tipo1": "Acqua",
       "tipo2": "Folletto",
+      "espBase": 265,
       "stat": {
           "PS": "80",
           "Att": "74",
@@ -414,6 +420,7 @@
       "tassoCattura": 45,
       "tipo1": "Fuoco",
       "tipo2": "/",
+      "espBase": 64,
       "stat": {
           "PS": "45",
           "Att": "65",
@@ -482,6 +489,7 @@
       "tassoCattura": 45,
       "tipo1": "Fuoco",
       "tipo2": "/",
+      "espBase": 147,
       "stat": {
           "PS": "65",
           "Att": "85",
@@ -550,6 +558,7 @@
       "tassoCattura": 45,
       "tipo1": "Fuoco",
       "tipo2": "Buio",
+      "espBase": 265,
       "stat": {
           "PS": "95",
           "Att": "115",
@@ -618,6 +627,7 @@
       "tassoCattura": 190,
       "tipo1": "Elettro",
       "tipo2": "/",
+      "espBase": 112,
       "stat": {
           "PS": "35",
           "Att": "55",
@@ -686,6 +696,7 @@
       "tassoCattura": 75,
       "tipo1": "Elettro",
       "tipo2": "/",
+      "espBase": 243,
       "stat": {
           "PS": "60",
           "Att": "90",
@@ -754,6 +765,7 @@
       "tassoCattura": 225,
       "tipo1": "Normale",
       "tipo2": "Volante",
+      "espBase": 50,
       "stat": {
           "PS": "40",
           "Att": "45",
@@ -822,6 +834,7 @@
       "tassoCattura": 120,
       "tipo1": "Normale",
       "tipo2": "Volante",
+      "espBase": 122,
       "stat": {
           "PS": "63",
           "Att": "60",
@@ -890,6 +903,7 @@
       "tassoCattura": 45,
       "tipo1": "Normale",
       "tipo2": "Volante",
+      "espBase": 211,
       "stat": {
           "PS": "83",
           "Att": "80",
@@ -958,6 +972,7 @@
       "tassoCattura": 255,
       "tipo1": "Coleot",
       "tipo2": "Veleno",
+      "espBase": 39,
       "stat": {
           "PS": "40",
           "Att": "35",
@@ -1026,6 +1041,7 @@
       "tassoCattura": 120,
       "tipo1": "Coleot",
       "tipo2": "Veleno",
+      "espBase": 72,
       "stat": {
           "PS": "45",
           "Att": "25",
@@ -1094,6 +1110,7 @@
       "tassoCattura": 45,
       "tipo1": "Coleot",
       "tipo2": "Veleno",
+      "espBase": 173,
       "stat": {
           "PS": "65",
           "Att": "90",
@@ -1162,6 +1179,7 @@
       "tassoCattura": 235,
       "tipo1": "Veleno",
       "tipo2": "/",
+      "espBase": 55,
       "stat": {
           "PS": "46",
           "Att": "57",
@@ -1230,6 +1248,7 @@
       "tassoCattura": 120,
       "tipo1": "Veleno",
       "tipo2": "/",
+      "espBase": 128,
       "stat": {
           "PS": "61",
           "Att": "72",
@@ -1298,6 +1317,7 @@
       "tipo1": "Veleno",
       "tassoCattura": 45,
       "tipo2": "Terra",
+      "espBase": 223,
       "stat": {
           "PS": "81",
           "Att": "102",
@@ -1366,6 +1386,7 @@
       "tassoCattura": 255,
       "tipo1": "Normale",
       "tipo2": "/",
+      "espBase": 50,
       "stat": {
           "PS": "59",
           "Att": "45",
@@ -1434,6 +1455,7 @@
       "tipo1": "Normale",
       "tassoCattura": 127,
       "tipo2": "Acqua",
+      "espBase": 144,
       "stat": {
           "PS": "79",
           "Att": "85",
@@ -1502,6 +1524,7 @@
       "tassoCattura": 45,
       "tipo1": "Roccia",
       "tipo2": "Terra",
+      "espBase": 77,
       "stat": {
           "PS": "35",
           "Att": "45",
@@ -1570,6 +1593,7 @@
       "lv": "40",
       "tipo1": "Acciaio",
       "tipo2": "Terra",
+      "espBase": 179,
       "stat": {
           "PS": "75",
           "Att": "85",
@@ -1638,6 +1662,7 @@
       "tassoCattura": 255,
       "tipo1": "Roccia",
       "tipo2": "Terra",
+      "espBase": 60,
       "stat": {
           "PS": "40",
           "Att": "80",
@@ -1706,6 +1731,7 @@
       "tassoCattura": 120,
       "tipo1": "Roccia",
       "tipo2": "Terra",
+      "espBase": 137,
       "stat": {
           "PS": "55",
           "Att": "95",
@@ -1774,6 +1800,7 @@
       "tassoCattura": 45,
       "tipo1": "Roccia",
       "tipo2": "Terra",
+      "espBase": 218,
       "stat": {
           "PS": "80",
           "Att": "120",
@@ -1842,6 +1869,7 @@
       "tassoCattura": 180,
       "tipo1": "Lotta",
       "tipo2": "/",
+      "espBase": 61,
       "stat": {
           "PS": "70",
           "Att": "80",
@@ -1910,6 +1938,7 @@
       "lv": "28",
       "tipo1": "Lotta",
       "tipo2": "/",
+      "espBase": 142,
       "stat": {
           "PS": "80",
           "Att": "100",
@@ -1978,6 +2007,7 @@
       "tassoCattura": 45,
       "tipo1": "Lotta",
       "tipo2": "/",
+      "espBase": 253,
       "stat": {
           "PS": "90",
           "Att": "130",
@@ -2046,6 +2076,7 @@
       "tipo1": "Spettro",
       "tassoCattura": 180,
       "tipo2": "Veleno",
+      "espBase": 62,
       "stat": {
           "PS": "30",
           "Att": "35",
@@ -2114,6 +2145,7 @@
       "tassoCattura": 90,
       "tipo1": "Spettro",
       "tipo2": "Veleno",
+      "espBase": 142,
       "stat": {
           "PS": "45",
           "Att": "50",
@@ -2182,6 +2214,7 @@
       "tassoCattura": 45,
       "tipo1": "Spettro",
       "tipo2": "Veleno",
+      "espBase": 250,
       "stat": {
           "PS": "60",
           "Att": "65",
@@ -2250,6 +2283,7 @@
       "tassoCattura": 255,
       "tipo1": "Terra",
       "tipo2": "/",
+      "espBase": 53,
       "stat": {
           "PS": "10",
           "Att": "55",
@@ -2318,6 +2352,7 @@
       "tassoCattura": 50,
       "tipo1": "Terra",
       "tipo2": "/",
+      "espBase": 142,
       "stat": {
           "PS": "35",
           "Att": "100",
@@ -2386,6 +2421,7 @@
       "tassoCattura": 75,
       "tipo1": "Lotta",
       "tipo2": "/",
+      "espBase": 57,
       "stat": {
           "PS": "40",
           "Att": "70",
@@ -2454,6 +2490,7 @@
       "lv": "35",
       "tipo1": "Lotta",
       "tipo2": "Acciaio",
+      "espBase": 184,
       "stat": {
           "PS": "70",
           "Att": "110",
@@ -2522,6 +2559,7 @@
       "tassoCattura": 255,
       "tipo1": "Acqua",
       "tipo2": "/",
+      "espBase": 40,
       "stat": {
           "PS": "20",
           "Att": "10",
@@ -2590,6 +2628,7 @@
       "lv": "20",
       "tipo1": "Acqua",
       "tipo2": "Volante",
+      "espBase": 189,
       "stat": {
           "PS": "95",
           "Att": "125",
@@ -2658,6 +2697,7 @@
       "tassoCattura": 45,
       "tipo1": "Acqua",
       "tipo2": "Ghiaccio",
+      "espBase": 187,
       "stat": {
           "PS": "130",
           "Att": "85",
@@ -2726,6 +2766,7 @@
       "tassoCattura": 225,
       "tipo1": "Acqua",
       "tipo2": "/",
+      "espBase": 59,
       "stat": {
           "PS": "30",
           "Att": "40",
@@ -2794,6 +2835,7 @@
       "tassoCattura": 75,
       "tipo1": "Acqua",
       "tipo2": "/",
+      "espBase": 154,
       "stat": {
           "PS": "55",
           "Att": "65",
@@ -2862,6 +2904,7 @@
       "tassoCattura": 45,
       "tipo1": "Acqua",
       "tipo2": "Drago",
+      "espBase": 243,
       "stat": {
           "PS": "75",
           "Att": "95",
@@ -2930,6 +2973,7 @@
       "tassoCattura": 205,
       "tipo1": "Acqua",
       "tipo2": "/",
+      "espBase": 62,
       "stat": {
           "PS": "43",
           "Att": "80",
@@ -2998,6 +3042,7 @@
       "tassoCattura": 155,
       "tipo1": "Acqua",
       "tipo2": "Buio",
+      "espBase": 164,
       "stat": {
           "PS": "63",
           "Att": "120",
@@ -3066,6 +3111,7 @@
       "tassoCattura": 255,
       "tipo1": "Ghiaccio",
       "tipo2": "Acqua",
+      "espBase": 58,
       "stat": {
           "PS": "70",
           "Att": "40",
@@ -3134,6 +3180,7 @@
       "tassoCattura": 120,
       "tipo1": "Ghiaccio",
       "tipo2": "Acqua",
+      "espBase": 144,
       "stat": {
           "PS": "90",
           "Att": "60",
@@ -3202,6 +3249,7 @@
       "tassoCattura": 45,
       "tipo1": "Ghiaccio",
       "tipo2": "Acqua",
+      "espBase": 239,
       "stat": {
           "PS": "110",
           "Att": "80",
@@ -3270,6 +3318,7 @@
       "tassoCattura": 25,
       "tipo1": "Normale",
       "tipo2": "/",
+      "espBase": 189,
       "stat": {
           "PS": "160",
           "Att": "110",
@@ -3338,6 +3387,7 @@
       "tassoCattura": 235,
       "tipo1": "Psico",
       "tipo2": "Folletto",
+      "espBase": 40,
       "stat": {
           "PS": "28",
           "Att": "25",
@@ -3406,6 +3456,7 @@
       "tassoCattura": 120,
       "tipo1": "Psico",
       "tipo2": "Folletto",
+      "espBase": 97,
       "stat": {
           "PS": "38",
           "Att": "35",
@@ -3474,6 +3525,7 @@
       "tassoCattura": 45,
       "tipo1": "Psico",
       "tipo2": "Folletto",
+      "espBase": 259,
       "stat": {
           "PS": "68",
           "Att": "65",
@@ -3542,6 +3594,7 @@
       "tassoCattura": 45,
       "tipo1": "Drago",
       "tipo2": "/",
+      "espBase": 60,
       "stat": {
           "PS": "41",
           "Att": "64",
@@ -3610,6 +3663,7 @@
       "tassoCattura": 45,
       "tipo1": "Drago",
       "tipo2": "/",
+      "espBase": 147,
       "stat": {
           "PS": "61",
           "Att": "84",
@@ -3678,6 +3732,7 @@
       "tassoCattura": 45,
       "tipo1": "Drago",
       "tipo2": "Volante",
+      "espBase": 270,
       "stat": {
           "PS": "91",
           "Att": "134",
@@ -3746,6 +3801,7 @@
       "tassoCattura": 255,
       "tipo1": "Normale",
       "tipo2": "Volante",
+      "espBase": 62,
       "stat": {
           "PS": "45",
           "Att": "40",
@@ -3814,6 +3870,7 @@
       "tassoCattura": 45,
       "tipo1": "Drago",
       "tipo2": "Volante",
+      "espBase": 172,
       "stat": {
           "PS": "75",
           "Att": "70",
@@ -3882,6 +3939,7 @@
       "tassoCattura": 120,
       "tipo1": "Terra",
       "tipo2": "Roccia",
+      "espBase": 69,
       "stat": {
           "PS": "80",
           "Att": "85",
@@ -3950,6 +4008,7 @@
       "tassoCattura": 60,
       "tipo1": "Terra",
       "tipo2": "Roccia",
+      "espBase": 170,
       "stat": {
           "PS": "105",
           "Att": "130",
@@ -4018,6 +4077,7 @@
       "tassoCattura": 30,
       "tipo1": "Terra",
       "tipo2": "Roccia",
+      "espBase": 268,
       "stat": {
           "PS": "115",
           "Att": "140",
@@ -4086,6 +4146,7 @@
       "tassoCattura": 45,
       "tipo1": "Acciaio",
       "tipo2": "Folletto",
+      "espBase": 133,
       "stat": {
           "PS": "50",
           "Att": "85",
@@ -4154,6 +4215,7 @@
       "tassoCattura": 30,
       "tipo1": "Buio",
       "tipo2": "/",
+      "espBase": 163,
       "stat": {
           "PS": "65",
           "Att": "130",
@@ -4222,6 +4284,7 @@
       "lv": "1",
       "tipo1": "Terra",
       "tipo2": "/",
+      "espBase": 58,
       "stat": {
           "PS": "45",
           "Att": "100",
@@ -4290,6 +4353,7 @@
       "lv": "35",
       "tipo1": "Terra",
       "tipo2": "Drago",
+      "espBase": 119,
       "stat": {
           "PS": "50",
           "Att": "70",
@@ -4358,6 +4422,7 @@
       "tassoCattura": 45,
       "tipo1": "Terra",
       "tipo2": "Drago",
+      "espBase": 260,
       "stat": {
           "PS": "80",
           "Att": "100",
@@ -4426,6 +4491,7 @@
       "tassoCattura": 45,
       "tipo1": "Psico",
       "tipo2": "Erba",
+      "espBase": 300,
       "stat": {
           "PS": "100",
           "Att": "100",
@@ -4494,6 +4560,7 @@
       "tassoCattura": 45,
       "tipo1": "Psico",
       "tipo2": "/",
+      "espBase": 300,
       "stat": {
           "PS": "100",
           "Att": "100",
@@ -4562,6 +4629,7 @@
       "lv": "1",
       "tipo1": "Spettro",
       "tipo2": "Drago",
+      "espBase": 306,
       "stat": {
           "PS": "150",
           "Att": "100",
@@ -4630,6 +4698,7 @@
       "lv": "1",
       "tipo1": "Buio",
       "tipo2": "/",
+      "espBase": 270,
       "stat": {
           "PS": "70",
           "Att": "90",
@@ -4698,6 +4767,7 @@
       "tassoCattura": 45,
       "tipo1": "Erba",
       "tipo2": "/",
+      "espBase": 270,
       "stat": {
           "PS": "100",
           "Att": "100",
