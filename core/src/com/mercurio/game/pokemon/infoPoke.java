@@ -53,8 +53,8 @@ public class infoPoke {
         this.stage = stage;
         this.batch = (SpriteBatch) stage.getBatch();
         Gdx.input.setInputProcessor(stage);
-        font = new BitmapFont(Gdx.files.internal("font/small_letters_font.fnt"));
-        font2 = new BitmapFont(Gdx.files.internal("font/font.fnt"));
+        font = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
+        font2 = new BitmapFont(Gdx.files.local("assets/font/font.fnt"));
         this.infoActors = new Array<>(); // Inizializza l'array degli attori delle info
         
 
@@ -133,7 +133,7 @@ public class infoPoke {
     public void leggiPoke(int numero) {
 
         // Carica il file JSON
-        FileHandle file = Gdx.files.internal("ashJson/squadra.json");
+        FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
         String jsonString = file.readString();
         
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
@@ -219,7 +219,7 @@ public class infoPoke {
 
 
         //tipi del pokemon
-        FileHandle file = Gdx.files.internal("pokemon/Pokemon.json");
+        FileHandle file = Gdx.files.local("assets/pokemon/Pokemon.json");
         String jsonString = file.readString();
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
@@ -327,7 +327,7 @@ public class infoPoke {
             infoActors.add(nomeMossa);
 
 
-            FileHandle mosseFile = Gdx.files.internal("pokemon/mosse.json");
+            FileHandle mosseFile = Gdx.files.local("assets/pokemon/mosse.json");
             String mosseJsonString = mosseFile.readString();
             // Utilizza la classe JsonReader di LibGDX per leggere il file JSON delle mosse
             JsonValue mosseJson = new JsonReader().parse(mosseJsonString);

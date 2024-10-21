@@ -102,10 +102,10 @@ public class Ash {
         avanti = new TextureRegion[3];
         destra = new TextureRegion[3];
         sinistra = new TextureRegion[3];
-        textureIndietro = new Texture(Gdx.files.internal("player/personaggioIndietro.png"));
-        textureAvanti = new Texture(Gdx.files.internal("player/personaggioAvanti.png"));
-        textureDestra = new Texture(Gdx.files.internal("player/personaggioDestra.png"));
-        textureSinistra = new Texture(Gdx.files.internal("player/personaggioSinistra.png"));
+        textureIndietro = new Texture(Gdx.files.local("assets/player/personaggioIndietro.png"));
+        textureAvanti = new Texture(Gdx.files.local("assets/player/personaggioAvanti.png"));
+        textureDestra = new Texture(Gdx.files.local("assets/player/personaggioDestra.png"));
+        textureSinistra = new Texture(Gdx.files.local("assets/player/personaggioSinistra.png"));
 
 
         int regionWidthInd = textureIndietro.getWidth() / 3;
@@ -142,10 +142,10 @@ public class Ash {
         avantiSurf = new TextureRegion[4];
         indietroSurf = new TextureRegion[4];
         
-        textureSinistraSurf = new Texture(Gdx.files.internal("player/surf sinistra.png"));
-        textureDestraSurf = new Texture(Gdx.files.internal("player/surf destra.png"));
-        textureAvantiSurf = new Texture(Gdx.files.internal("player/surf avanti.png"));
-        textureIndietroSurf = new Texture(Gdx.files.internal("player/surf indietro.png"));
+        textureSinistraSurf = new Texture(Gdx.files.local("assets/player/surf sinistra.png"));
+        textureDestraSurf = new Texture(Gdx.files.local("assets/player/surf destra.png"));
+        textureAvantiSurf = new Texture(Gdx.files.local("assets/player/surf avanti.png"));
+        textureIndietroSurf = new Texture(Gdx.files.local("assets/player/surf indietro.png"));
         
         regionWidthInd = textureIndietroSurf.getWidth() / 4;
         regionHeightInd = textureIndietroSurf.getHeight();

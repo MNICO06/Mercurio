@@ -271,7 +271,7 @@ class Mossa {
 
     public void estraiPotenza(){
         // Carica il file JSON
-        FileHandle file = Gdx.files.internal("pokemon/mosse.json");
+        FileHandle file = Gdx.files.local("assets/pokemon/mosse.json");
         String jsonString = file.readString();
         
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
@@ -284,7 +284,7 @@ class Mossa {
 
     public void calcolaModifier(){
         // Carica il file JSON
-        FileHandle file = Gdx.files.internal("pokemon/Pokemon.json");
+        FileHandle file = Gdx.files.local("assets/pokemon/Pokemon.json");
         String jsonString = file.readString();
         
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
@@ -401,7 +401,7 @@ class Mossa {
         float stab=1;
 
         // Carica il file JSON
-        FileHandle file = Gdx.files.internal("pokemon/Pokemon.json");
+        FileHandle file = Gdx.files.local("assets/pokemon/Pokemon.json");
         String jsonString = file.readString();
         
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON

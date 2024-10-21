@@ -79,7 +79,7 @@ public class LabelDiscorsi {
         this.deveScegliere = scelta;
         righeDiscorso = splitTestoInRighe(discorso, dimMax);
         batch = new SpriteBatch();
-        font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
+        font = new BitmapFont(Gdx.files.local("assets/font/font.fnt"));
         createLabel(index);
 
         rigaCorrente = 0;

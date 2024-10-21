@@ -42,7 +42,7 @@ public class Menu extends ScreenAdapter{
 
     private void createMenu() {
         //tutti i comandi per andare a creare e scrivere il testo con il font giusto (per continuare)
-        BitmapFont fontBase = new BitmapFont(Gdx.files.internal("font/small_letters_font.fnt"));
+        BitmapFont fontBase = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
         fontBase.getData().setScale(3.0f);
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = fontBase; 
@@ -57,14 +57,14 @@ public class Menu extends ScreenAdapter{
 
         spriteBatch = new SpriteBatch();
 
-        Texture background_texture = new Texture(Gdx.files.internal("menuImage/sfondoImmagine.png"));
+        Texture background_texture = new Texture(Gdx.files.local("assets/menuImage/sfondoImmagine.png"));
         
         background = new Image(background_texture);
         background.setSize(1024,600);
         background.setPosition(0,x);
 
         //da cambiare con quello nuovo
-        Texture titoloPokemon = new Texture(Gdx.files.internal("menuImage/logoMercurio.png"));
+        Texture titoloPokemon = new Texture(Gdx.files.local("assets/menuImage/logoMercurio.png"));
         pokemon = new Image(titoloPokemon);
         pokemon.setSize(700,400);
         pokemon.setPosition(180, 400);

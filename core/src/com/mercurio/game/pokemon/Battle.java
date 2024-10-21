@@ -221,6 +221,7 @@ public class Battle extends ScreenAdapter {
     private String nomeSelvatico;
     private boolean cattura=false;
     private float x=0;
+    private ArrayList<Integer> pokeInBattaglia = new ArrayList<>(); 
 
     public Battle(InterfacciaComune chiamante, String nameBot, boolean isBotFight, String zona, String nomeSelvatico) {
         MenuLabel.openMenuLabel.setVisible(false);
@@ -238,6 +239,9 @@ public class Battle extends ScreenAdapter {
         Gdx.input.setInputProcessor(stage);
         dimMax=200;
         leggiPoke(numeroIndexPoke);
+        if (!pokeInBattaglia.contains(numeroIndexPoke)){
+            pokeInBattaglia.add(numeroIndexPoke);
+        }
         if (isBotFight){
             leggiBot(nameBot);
             leggiPokeBot(nameBot,numeroIndexPokeBot);
@@ -1366,7 +1370,7 @@ public class Battle extends ScreenAdapter {
 
     public void leggiPoke(int numero) {
         // Carica il file JSON
-        FileHandle file = Gdx.files.internal("ashJson/squadra.json");
+        FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
         String jsonString = file.readString();
         
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
@@ -1413,7 +1417,7 @@ public class Battle extends ScreenAdapter {
 
     public void leggiPokeSecondario(int numero) {
         // Carica il file JSON
-        FileHandle file = Gdx.files.internal("ashJson/squadra.json");
+        FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
         String jsonString = file.readString();
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
@@ -1814,6 +1818,12 @@ public class Battle extends ScreenAdapter {
                 // Calcola il numero di passi necessari per raggiungere currentHP
                 if (dannoBot>Integer.parseInt(pokeHPbeforeFight)){
                     passi = Integer.parseInt(pokeHPbeforeFight);
+                    for (int i = 0; i < pokeInBattaglia.size(); i++) {
+                        if (pokeInBattaglia.get(i).equals(numeroIndexPoke)){
+                            pokeInBattaglia.remove(i);
+                        }
+                    }
+
                 }
                 else{
                     passi = dannoBot;
@@ -2083,6 +2093,7 @@ public class Battle extends ScreenAdapter {
                     }
                 }
                 else{
+                    calcoloEsperienzaVinta();
                     fineBattaglia();
                 }
             }
@@ -2245,6 +2256,14 @@ public class Battle extends ScreenAdapter {
 
 
     public void rimuoviPokeDaBattagliaBot(){
+        for (int i = 0; i < pokeInBattaglia.size(); i++) {
+            System.out.println(pokeInBattaglia.get(i));
+        }
+        calcoloEsperienzaVinta();
+        pokeInBattaglia.clear();
+        if (!pokeInBattaglia.contains(numeroIndexPoke)){
+            pokeInBattaglia.add(numeroIndexPoke);
+        }
         botHPBar.remove();
         HPbot.remove();
         // Rimuovi labelNomePokemonBot
@@ -2280,33 +2299,32 @@ public class Battle extends ScreenAdapter {
         modificaPPMossePoke(numeroIndexPoke,listaMosse); //Aggiorna i PP delle mosse del pokemon se la battaglia finisce
 
         if (isBotFight && !sconfitta){
-            
             label3=labelDiscorsi3.getLabel();
             stage.addActor(label3);
         
-        Timer.schedule(new Timer.Task() {
-            @Override
-            public void run() {
-                labelDiscorsi3.reset();
-                label3.remove();
-                label3=null;
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    labelDiscorsi3.reset();
+                    label3.remove();
+                    label3=null;
 
-                label8=labelDiscorsi8.getLabel();
-                stage.addActor(label8);
+                    label8=labelDiscorsi8.getLabel();
+                    stage.addActor(label8);
 
-                Timer.schedule(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        labelDiscorsi8.reset();
-                        label8.remove();
-                        label8=null;
-                        Erba.estratto=0;
-                        dispose();
-                    }
-                }, 2f);
-                
-            }
-        }, 2f);
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            labelDiscorsi8.reset();
+                            label8.remove();
+                            label8=null;
+                            Erba.estratto=0;
+                            dispose();
+                        }
+                    }, 2f);
+                    
+                }
+            }, 2f);
         }
         else if (sconfitta){
             label16=labelDiscorsi16.getLabel();
@@ -2345,6 +2363,7 @@ public class Battle extends ScreenAdapter {
             }, 2f);
         }
         else{
+            calcoloEsperienzaVinta();
             Erba.estratto=0;
             dispose();
         }
@@ -2363,6 +2382,9 @@ public class Battle extends ScreenAdapter {
         labelDiscorsi2 = new LabelDiscorsi(discorso2,dimMax,0,true, false);
         pokemonImage.remove();
         numeroIndexPoke=newIndex+1;
+        if (!pokeInBattaglia.contains(numeroIndexPoke)){
+            pokeInBattaglia.add(numeroIndexPoke);
+        }
         showBall(ballTexture);
         piazzaLabelLottaPlayer();
     }
@@ -2870,6 +2892,7 @@ public class Battle extends ScreenAdapter {
                                                             if (label21!=null)
                                                                 label21.remove();                                              
                                                             label21=null;
+                                                            calcoloEsperienzaVinta();
                                                             isBattleEnded=true;
                                                             dispose();
                                                             Erba.estratto=0;
@@ -2979,6 +3002,32 @@ public class Battle extends ScreenAdapter {
         // Scrivi il JSON aggiornato nel file mantenendo la formattazione
         file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
         
+    }
+
+
+    private void calcoloEsperienzaVinta(){
+        Experience esperienza = new Experience();
+        float a=1f;
+        int b;
+        if (isBotFight){
+            a=1.5f;
+        }
+
+        // Carica il file JSON
+        FileHandle file = Gdx.files.local("assets/pokemon/Pokemon.json");
+        String jsonString = file.readString();
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+        JsonValue json = new JsonReader().parse(jsonString);
+        // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
+        JsonValue pokeJson = json.get(nomePokeBot);
+        
+        b = pokeJson.getInt("espBase");
+        int L = Integer.parseInt(LVPokeBot);
+        int s = pokeInBattaglia.size();
+
+        int esperienzaVinta = esperienza.calcoloEsperienzaGuadagnato(a,b,L,s);
+
+        System.out.println(esperienzaVinta);
     }
 
 } //Fine battaglia :)

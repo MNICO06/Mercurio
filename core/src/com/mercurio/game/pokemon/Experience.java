@@ -4,6 +4,10 @@ public class Experience {
 
     int esperienza=0;
 
+    Experience(){
+
+    }
+
     private int irregolare(int livello){
 
         if (livello<=50){
@@ -63,6 +67,13 @@ public class Experience {
         esperienza=livello*livello*livello;
 
         return esperienza;
+    }
+
+    public int calcoloEsperienzaGuadagnato(float a, int b, int L, int s){
+
+        int esperienzaGuadagnata=(int)(a*b*L)/(7*s);
+
+        return esperienzaGuadagnata;
     }
     
 }
