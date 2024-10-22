@@ -29,14 +29,14 @@ public class SchermataLogo extends ScreenAdapter{
 
         spriteBatch = new SpriteBatch();
 
-        Texture background_texture = new Texture(Gdx.files.internal("menuImage/scrittaMercurio.jpg"));
+        Texture background_texture = new Texture(Gdx.files.local("assets/menuImage/scrittaMercurio.jpg"));
         
         background = new Image(background_texture);
         background.setSize(1024,720);
         background.setPosition(0,0);
         stage.addActor(background);
 
-        Texture logoTexture = new Texture(Gdx.files.internal("menuImage/logoGruppo.png"));
+        Texture logoTexture = new Texture(Gdx.files.local("assets/menuImage/logoGruppo.png"));
         logo = new Image(logoTexture);
         logo.setSize(64,64);
         logo.setPosition(940,10);

@@ -399,8 +399,8 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                     String jsonString = file.readString();
                     JsonValue json = new JsonReader().parse(jsonString);
                     JsonValue botTutto = json.get(bot.getNomeJson());
-                    discorsoIniziale = new LabelDiscorsi(botTutto.getString("testo1"), 30, 0, false);
-                    discorsoFinale = new LabelDiscorsi(botTutto.getString("testo2"), 30, 0, false);
+                    discorsoIniziale = new LabelDiscorsi(botTutto.getString("testo1"), 30, 0, false, false);
+                    discorsoFinale = new LabelDiscorsi(botTutto.getString("testo2"), 30, 0, false, false);
                     leggiTesto = true;
                     nomeJson = bot.getNomeJson();
                 }
@@ -786,8 +786,8 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                     String jsonString = file.readString();
                     JsonValue json = new JsonReader().parse(jsonString);
                     JsonValue botTutto = json.get(bot.getNomeJson());
-                    discorsoIniziale = new LabelDiscorsi(botTutto.getString("testo1"), 30, 0, false);
-                    discorsoFinale = new LabelDiscorsi(botTutto.getString("testo2"), 30, 0, false);
+                    discorsoIniziale = new LabelDiscorsi(botTutto.getString("testo1"), 30, 0, false, false);
+                    discorsoFinale = new LabelDiscorsi(botTutto.getString("testo2"), 30, 0, false, false);
                     leggiTesto = true;
                     nomeJson = bot.getNomeJson();
                 }

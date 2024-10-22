@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 
 class Mossa {
+    private boolean crit=false;
     private String nome;
     private String tipo;
     private String maxPP;
@@ -27,6 +28,7 @@ class Mossa {
     private String tipo3;
     private String tipo4;
     private Battle chiamante;
+    private int modifierPerText=0;
 
     private Texture texture;
     private Sprite[] spriteArray;
@@ -263,9 +265,13 @@ class Mossa {
         return attPP;
     }
 
+    public void setattPP(){
+        attPP=Integer.toString(Integer.parseInt(attPP)-1);
+    }
+
     public void estraiPotenza(){
         // Carica il file JSON
-        FileHandle file = Gdx.files.internal("pokemon/mosse.json");
+        FileHandle file = Gdx.files.local("assets/pokemon/mosse.json");
         String jsonString = file.readString();
         
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
@@ -278,7 +284,7 @@ class Mossa {
 
     public void calcolaModifier(){
         // Carica il file JSON
-        FileHandle file = Gdx.files.internal("pokemon/Pokemon.json");
+        FileHandle file = Gdx.files.local("assets/pokemon/Pokemon.json");
         String jsonString = file.readString();
         
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
@@ -300,7 +306,7 @@ class Mossa {
         while (indexPEControllo1 < listaPEControllo1.size()) {
             if (tipo.equals(listaPEControllo1.get(indexPEControllo1))) {
                 modifier *= 0.5f;
-                chiamante.piazzaLabel6();
+                modifierPerText-=1;
                 break;
             }
             indexPEControllo1++;
@@ -311,7 +317,7 @@ class Mossa {
         while (indexPEControllo2 < listaPEControllo2.size()) {
             if (!tipo2.equals("") && tipo.equals(listaPEControllo2.get(indexPEControllo2))) {
                 modifier *= 0.5f;
-                chiamante.piazzaLabel6();
+                modifierPerText-=1;
                 break;
             }
             indexPEControllo2++;
@@ -322,7 +328,7 @@ class Mossa {
         while (indexSEControllo1 < listaSEControllo1.size()) {
             if (tipo.equals(listaSEControllo1.get(indexSEControllo1))) {
                 modifier *= 2;
-                chiamante.piazzaLabel5();
+                modifierPerText+=1;
                 break;
             }
             indexSEControllo1++;
@@ -333,11 +339,12 @@ class Mossa {
         while (indexSEControllo2 < listaSEControllo2.size()) {
             if (!tipo2.equals("") && tipo.equals(listaSEControllo2.get(indexSEControllo2))) {
                 modifier *= 2;
-                chiamante.piazzaLabel5();
+                modifierPerText+=1;
                 break;
             }
             indexSEControllo2++;
         }
+
 
         // Controllo se tipo1 è presente nell'ArrayList listaNEControllo1
         int indexNEControllo1 = 0;
@@ -362,6 +369,7 @@ class Mossa {
         }
 
         if(modifier!=0){
+            crit=false;
             Random random = new Random();
             // Genera un numero casuale compreso tra 1 e 24
             int randomNumber = random.nextInt(24) + 1; // Genera un numero tra 1 e 24 inclusi
@@ -369,6 +377,17 @@ class Mossa {
             //randomNumber=16; //mi serve per fare dei controlli sui brutti colpi :)
             if (randomNumber == 16) {
                 modifier *= 2f; // Modifica il modifier di conseguenza
+                crit=true;
+                chiamante.modificaContPerText();
+            }
+
+            if (modifierPerText>0){
+                chiamante.piazzaLabel5();
+            }
+            else if (modifierPerText<0){
+                chiamante.piazzaLabel6();
+            }
+            if (crit==true){
                 chiamante.piazzaLabel9();
             }
 
@@ -382,7 +401,7 @@ class Mossa {
         float stab=1;
 
         // Carica il file JSON
-        FileHandle file = Gdx.files.internal("pokemon/Pokemon.json");
+        FileHandle file = Gdx.files.local("assets/pokemon/Pokemon.json");
         String jsonString = file.readString();
         
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON

@@ -68,7 +68,7 @@ public class Squadra {
         this.cambioObbligatorio=cambioObbligatorio;
         this.battaglia=battaglia;
         this.batch = (SpriteBatch) stage.getBatch();
-        this.font = new BitmapFont(Gdx.files.internal("font/small_letters_font.fnt"));
+        this.font = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
         this.stage = stage;
         this.squadActors = new Array<>(); // Inizializza l'array degli attori della borsa
         Gdx.input.setInputProcessor(stage);

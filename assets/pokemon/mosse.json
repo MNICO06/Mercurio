@@ -864,6 +864,12 @@
       "precisione": 90,
       "pp": 30,
       "attacco": "speciale"
+    },
+    "Forza": {
+      "potenza": 80,
+      "precisione": 100,
+      "pp": 15,
+      "attacco": "fisico"
     }
   }
   

@@ -1,0 +1,57 @@
+{
+    "1" : {
+        "nomePokemon" : "Dragonair",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "2" : {
+        "nomePokemon" : "Golem",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "3" : {
+        "nomePokemon" : "Rhydon",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "4" : {
+        "nomePokemon" : "Mawile",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "5" : {
+        "nomePokemon" : "Snorlax",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "6" : {
+        "nomePokemon" : "Kirlia",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "7" : {
+        "nomePokemon" : "Nidoking",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "8" : {
+        "nomePokemon" : "Riolu",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "9" : {
+        "nomePokemon" : "Flygon",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "10" : {
+        "nomePokemon" : "Gengar",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "11" : {
+        "nomePokemon" : "Steelix",
+        "livello-min" : 9,
+        "livello-max": 15
+    }
+}

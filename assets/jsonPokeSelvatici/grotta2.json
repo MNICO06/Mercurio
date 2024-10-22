@@ -1,0 +1,47 @@
+{
+    "1" : {
+        "nomePokemon" : "Machoke",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "2" : {
+        "nomePokemon" : "Dugtrio",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "3" : {
+        "nomePokemon" : "Graveler",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "4" : {
+        "nomePokemon" : "Steelix",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "5" : {
+        "nomePokemon" : "Bibarel",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "6" : {
+        "nomePokemon" : "Haunter",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "7" : {
+        "nomePokemon" : "Trapinch",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "8" : {
+        "nomePokemon" : "Vibrava",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "9" : {
+        "nomePokemon" : "Rhydon",
+        "livello-min" : 9,
+        "livello-max": 15
+    }
+}

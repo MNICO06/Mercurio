@@ -33,11 +33,12 @@ public class PokeCenter extends ScreenAdapter {
     private MapLayer lineeLayer;
     private float xPosition;
     private float yPosition;
+    private int risposta = -1;
 
     private Dottoressa dottoressa;
     private LabelDiscorsi discorso;
 
-    private boolean renderTesto;
+    private boolean renderTesto = false;
     private boolean continuaTesto = true;
 
     private boolean discorsoFine = false;
@@ -50,7 +51,7 @@ public class PokeCenter extends ScreenAdapter {
     public PokeCenter(MercurioMain game) {
         this.game = game;
         dottoressa = new Dottoressa();
-        discorso = new LabelDiscorsi("Benvenuto! Questo e' un centro pokemon! riportero' i tuoi pokemon in perfetta forma in un batter d'occhio! Vuoi che mi prenda cura dei tuoi pokemon??", 30, 0, false);
+        discorso = new LabelDiscorsi("Benvenuto! Questo e' un centro pokemon! riportero' i tuoi pokemon in perfetta forma in un batter d'occhio! Vuoi che mi prenda cura dei tuoi pokemon??", 30, 0, false, true);
     }
 
     @Override
@@ -185,6 +186,7 @@ public class PokeCenter extends ScreenAdapter {
         }
     }
 
+<<<<<<< HEAD
     public void renderLabelScelta() {
         discorso.renderLabelScelta();
     }
@@ -229,12 +231,17 @@ public class PokeCenter extends ScreenAdapter {
         }
     }
 
+=======
+>>>>>>> 0d380d14c334c4fbaeb26e3a554966ae9b303c06
     private void checkTesto() {
-        if (renderTesto && continuaTesto) {
-            discorso.renderDisc();
+
+        if (renderTesto) {
+
+            risposta = discorso.renderDisc();
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
                 //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
                 continuaTesto = discorso.advanceText();
+<<<<<<< HEAD
 
                 if (discorso.isEnding()) {
                     //far spawnare la label con si o no
@@ -246,8 +253,33 @@ public class PokeCenter extends ScreenAdapter {
                     testoTerminato = true;
                 }
                 
+=======
+>>>>>>> 0d380d14c334c4fbaeb26e3a554966ae9b303c06
             }
+
+            if (risposta != -1) {
+                if (risposta == 1) {
+                    dottoressa.cura();
+                    renderTesto = false;
+                    discorso.setSceltaUtente(-1);
+                }
+                else if (risposta == 0) {
+                    renderTesto = false;
+                    discorso.setSceltaUtente(-1);
+                }
+            }
+
         }
+<<<<<<< HEAD
+=======
+        else {
+
+            renderTesto = false;
+            continuaTesto = true;
+            game.getPlayer().setMovement(true);
+            discorso.reset();
+        }
+>>>>>>> 0d380d14c334c4fbaeb26e3a554966ae9b303c06
     }
 
     public void setPosition() {

@@ -45,7 +45,7 @@ public class Dottoressa {
     private Rectangle boxPlayer;
 
     public Dottoressa() {
-        texture = new Texture (Gdx.files.internal("player/dottoressa.png"));
+        texture = new Texture (Gdx.files.local("assets/player/dottoressa.png"));
         TextureRegion[][] tmp = TextureRegion.split(texture, texture.getWidth() / 3, texture.getHeight() / 4);
         indietro = new TextureRegion[3];
         sinistra = new TextureRegion[3];

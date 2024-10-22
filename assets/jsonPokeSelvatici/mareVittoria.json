@@ -1,0 +1,17 @@
+{
+    "1" : {
+        "nomePokemon" : "Gyarados",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "2" : {
+        "nomePokemon" : "Walrein",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "3" : {
+        "nomePokemon" : "Kingdra",
+        "livello-min" : 9,
+        "livello-max": 15
+    }
+}

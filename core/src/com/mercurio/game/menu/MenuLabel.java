@@ -37,7 +37,7 @@ public class MenuLabel{
     
     public MenuLabel(MercurioMain game) {
         batch = new SpriteBatch();
-        font = new BitmapFont(Gdx.files.internal("font/small_letters_font.fnt"));
+        font = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
         this.game=game;
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -51,7 +51,7 @@ public class MenuLabel{
     
     private void createOpenMenuLabel() {
     	 // Carica il font personalizzato da file .fnt
-        font = new BitmapFont(Gdx.files.internal("font/small_letters_font.fnt"));
+        font = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
         Skin skin = new Skin();
         skin.add("custom-font", font);
 
@@ -247,7 +247,7 @@ public class MenuLabel{
         
         // Aggiungi testo sotto l'immagine come label
         Label.LabelStyle labelStyle = new Label.LabelStyle(); // Stile predefinito
-        labelStyle.font = new BitmapFont(Gdx.files.internal("font/small_letters_font.fnt"));
+        labelStyle.font = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
         Label label = new Label(labelText, labelStyle);
         labelStyle.font.getData().setScale(5f);
         label.setPosition(x + (width - label.getPrefWidth()) / 2, y - label.getPrefHeight() + 20); // Posizione testo sotto l'immagine

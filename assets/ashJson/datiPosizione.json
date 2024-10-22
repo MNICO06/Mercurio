@@ -1,6 +1,13 @@
 {
+<<<<<<< HEAD
 "x": 137.75799560546875,
 "y": 47.39494323730469,
 "luogo": "pokecenterC",
 "screen": "pokecenterC"
+=======
+"x": 3698.940673828125,
+"y": 953.666015625,
+"luogo": "percorso1",
+"screen": "mappa"
+>>>>>>> 0d380d14c334c4fbaeb26e3a554966ae9b303c06
 }

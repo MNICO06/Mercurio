@@ -42,7 +42,7 @@ public class MammaAsh {
 
     public MammaAsh() {
 
-        texture = new Texture (Gdx.files.internal("player/mammaAsh.png"));
+        texture = new Texture (Gdx.files.local("assets/player/mammaAsh.png"));
         TextureRegion[][] tmp = TextureRegion.split(texture, texture.getWidth() / 4, texture.getHeight() / 4);
         indietro = new TextureRegion[4];
         sinistra = new TextureRegion[4];

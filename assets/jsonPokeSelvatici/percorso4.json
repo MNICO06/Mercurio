@@ -1,0 +1,37 @@
+{
+    "1" : {
+        "nomePokemon" : "Riolu",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "2" : {
+        "nomePokemon" : "Dratini",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "3" : {
+        "nomePokemon" : "Swablu",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "4" : {
+        "nomePokemon" : "Mawile",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "5" : {
+        "nomePokemon" : "Ralts",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "6" : {
+        "nomePokemon" : "Kirlia",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "7" : {
+        "nomePokemon" : "Nidorino",
+        "livello-min" : 9,
+        "livello-max": 15
+    }
+}

@@ -12,10 +12,17 @@ public class Erba {
     Random random;
     public static int estratto=0;
 
-    private final int numeroPokemonP1 = 20;
-    private final int numeroPokemonBosco = 2;
+    private int checkPerDoppioPoke=0;
+    private final int numeroPokemonP1 = 5;
+    private final int numeroPokemonBosco = 6;
+    private final int numeroPokemonP2 = 4;
+    private final int numeroPokemonMare = 7;
+    private final int numeroPokemonP4 = 7;
     private final String nomeJsonP1 = "percorso1";
     private final String nomeJsonBosco = "bosco";
+    private final String nomeJsonP2 = "percorso2";
+    private final String nomeJsonMare = "percorsoMare";
+    private final String nomeJsonP4 = "percorso4";
 
     public Erba(MercurioMain game) {
         this.game = game;
@@ -31,9 +38,9 @@ public class Erba {
 
                     int num = random.nextInt(200);
                     if (estratto==0){
-                        if (num == 4) {
+                        if (num == 39) {
+                            checkPerDoppioPoke++;
                             estraiPokemonP1();
-                            //System.out.println("no");
                         }
                     }
                 }
@@ -42,8 +49,11 @@ public class Erba {
             case "bosco":
                 if (check(map, "erbaAltaBosco") && game.getIsInMovement()) {
                     int num = random.nextInt(200);
-                    if (num == 5) {
-                        estraiPokemonBosco();
+                    if (estratto==0){
+                        if (num == 39) {
+                            checkPerDoppioPoke++;
+                            estraiPokemonBosco();
+                        }
                     }
                 }
                 break;
@@ -51,8 +61,9 @@ public class Erba {
             case "percorso2":
                 if (check(map, "erbaAltaPercorso2") && game.getIsInMovement()) {
                     int num = random.nextInt(200);
-                    if (num == 6) {
-                    
+                        if (num == 39) {
+                            checkPerDoppioPoke++;
+                            estraiPokemonP2();
                     }
                 }
                 break;
@@ -60,8 +71,9 @@ public class Erba {
             case "percorso3":
                 if (check(map, "acquaPercoso3") && game.getIsInMovement()) {
                     int num = random.nextInt(200);
-                    if (num == 6) {
-                    
+                        if (num == 39) {
+                            checkPerDoppioPoke++;
+                            estraiPokemonMare();
                     }
                 }
                 break;
@@ -69,8 +81,9 @@ public class Erba {
             case "percorso4":
                 if (check(map, "erbaAltaPercorso4") && game.getIsInMovement()) {
                     int num = random.nextInt(200);
-                    if (num == 6) {
-                    
+                        if (num == 39) {
+                            checkPerDoppioPoke++;
+                            estraiPokemonP4();
                     }
                 }
                 break;
@@ -80,16 +93,55 @@ public class Erba {
     }
 
     private void estraiPokemonP1() {
+        if (checkPerDoppioPoke>1){
+            return; //Se viene estratto un pokemon quando è già in corso una battaglia, viene bloccato il secondo (è un bug che succedeva e bloccava tutto il programma)
+        }
         int num = 1 + random.nextInt(numeroPokemonP1);
         game.creaBattaglia(nomeJsonP1, String.valueOf(num));
         estratto=1;
+        checkPerDoppioPoke=0;
     }
 
     private void estraiPokemonBosco() {
+        if (checkPerDoppioPoke>1){
+            return; //Se viene estratto un pokemon quando è già in corso una battaglia, viene bloccato il secondo (è un bug che succedeva e bloccava tutto il programma)
+        }
         int num = 1 + random.nextInt(numeroPokemonBosco);
         game.creaBattaglia(nomeJsonBosco, String.valueOf(num));
         estratto=1;
+        checkPerDoppioPoke=0;
     }
+
+    private void estraiPokemonP2() {
+        if (checkPerDoppioPoke>1){
+            return; //Se viene estratto un pokemon quando è già in corso una battaglia, viene bloccato il secondo (è un bug che succedeva e bloccava tutto il programma)
+        }
+        int num = 1 + random.nextInt(numeroPokemonP2);
+        game.creaBattaglia(nomeJsonP2, String.valueOf(num));
+        estratto=1;
+        checkPerDoppioPoke=0;
+    }
+
+    private void estraiPokemonMare() {
+        if (checkPerDoppioPoke>1){
+            return; //Se viene estratto un pokemon quando è già in corso una battaglia, viene bloccato il secondo (è un bug che succedeva e bloccava tutto il programma)
+        }
+        int num = 1 + random.nextInt(numeroPokemonMare);
+        game.creaBattaglia(nomeJsonMare, String.valueOf(num));
+        estratto=1;
+        checkPerDoppioPoke=0;
+    }
+
+    private void estraiPokemonP4() {
+        if (checkPerDoppioPoke>1){
+            return; //Se viene estratto un pokemon quando è già in corso una battaglia, viene bloccato il secondo (è un bug che succedeva e bloccava tutto il programma)
+        }
+        int num = 1 + random.nextInt(numeroPokemonP4);
+        game.creaBattaglia(nomeJsonP4, String.valueOf(num));
+        estratto=1;
+        checkPerDoppioPoke=0;
+    }
+
 
     private boolean check(TiledMap map, String nome) {
         MapObjects objects = map.getLayers().get(nome).getObjects();

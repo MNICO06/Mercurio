@@ -1,0 +1,22 @@
+{
+	"1" : {
+		"nomePokemon" : "Pikachu",
+		"livello-min" : 9,
+		"livello-max": 15
+	},
+	"2" : {
+		"nomePokemon" : "Pidgey",
+		"livello-min" : 9,
+		"livello-max": 15
+	},
+	"3" : {
+		"nomePokemon" : "Bidoof",
+		"livello-min" : 9,
+		"livello-max": 15
+	},
+	"4" : {
+		"nomePokemon" : "Geodude",
+		"livello-min" : 9,
+		"livello-max": 15
+	}
+}

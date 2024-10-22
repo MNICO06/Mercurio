@@ -1,0 +1,22 @@
+{
+    "1" : {
+        "nomePokemon" : "Altaria",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "2" : {
+        "nomePokemon" : "Bibarel",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "3" : {
+        "nomePokemon" : "Pidgeot",
+        "livello-min" : 9,
+        "livello-max": 15
+    },
+    "4" : {
+        "nomePokemon" : "Raichu",
+        "livello-min" : 9,
+        "livello-max": 15
+    }
+}

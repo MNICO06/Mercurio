@@ -58,7 +58,7 @@ public class CasaSpawn extends ScreenAdapter {
         /*variabili che andranno lette da file */
         String discorso= "Ciao figliuolo come stai, come mai stai uscendo e dove stai andando?";
         int dimMax=30;
-        labelDiscorsi = new LabelDiscorsi(discorso,30,10,false);
+        labelDiscorsi = new LabelDiscorsi(discorso,30,10,false, true);
         
         rectList = new ArrayList<Rectangle>();
     }
@@ -250,10 +250,6 @@ public class CasaSpawn extends ScreenAdapter {
                 fPressed = true;
                 game.getPlayer().setMovement(false);
             }
-        } else if (fPressed) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
-                tieniApertoDiscorso = false;
-            }
         }
 
         if (isInBox) {
@@ -272,17 +268,30 @@ public class CasaSpawn extends ScreenAdapter {
     }
 
     public void controlloTesto() {
+        //TODO: gestire cosa fare con true e false (da fare quando avremo la storia)
+
         if (tieniApertoDiscorso) {
-            labelDiscorsi.renderDisc();
+            int risposta = labelDiscorsi.renderDisc();
+
+            //risposta: no
+            if (risposta == 0) {
+                tieniApertoDiscorso = false;
+            } //risposta true
+            else if (risposta == 1) {
+                tieniApertoDiscorso = false;
+            }
+
+
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
                 //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
                 labelDiscorsi.advanceText();
             }
         }
         else {
-            //quando deve terminare 
+            //quando deve terminare
             tieniApertoDiscorso = false;
             fPressed = false;
+            labelDiscorsi.setSceltaUtente(-1);
             game.getPlayer().setMovement(true);
             labelDiscorsi.reset();
         }

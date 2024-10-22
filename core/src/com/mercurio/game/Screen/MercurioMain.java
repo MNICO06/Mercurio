@@ -155,7 +155,8 @@ public class MercurioMain extends Game implements InterfacciaComune{
     }
 
     public void creaBattaglia(String nomeJson, String nomePokemon) {
-        FileHandle file = Gdx.files.internal("jsonPokeSelvatici/"+ nomeJson +".json");
+        System.out.println("prova battaglia selvatici");
+        FileHandle file = Gdx.files.local("assets/jsonPokeSelvatici/"+ nomeJson +".json");
         String jsonString = file.readString();
         JsonValue json = new JsonReader().parse(jsonString);
         String pokeName = json.get(nomePokemon).getString("nomePokemon");
@@ -297,7 +298,7 @@ public class MercurioMain extends Game implements InterfacciaComune{
     //carica gioco con i vecchi dati
     public void loadGame() {
         // Carica il file JSON
-        FileHandle file = Gdx.files.internal("ashJson/datiPosizione.json");
+        FileHandle file = Gdx.files.local("assets/ashJson/datiPosizione.json");
         String jsonString = file.readString();
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
