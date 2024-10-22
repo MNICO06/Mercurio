@@ -1,0 +1,15 @@
+{
+    "data": {
+        "image": "spriteMosse/forzantica.png",
+        "numeroColonne": 5,
+        "numeroRighe": 3,
+        "totaleSprite": 15,
+        "frame": [
+            {
+                "numeroSprite": 0,
+                "x": 10,
+                "y": 10
+            }
+        ]
+    }
+}

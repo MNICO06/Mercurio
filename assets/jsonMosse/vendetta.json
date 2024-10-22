@@ -1,0 +1,11 @@
+{
+    "data": {
+        "image": "spriteMosse/vendetta.png",
+        "numeroColonne": 5,
+        "numeroRighe": 3,
+        "totaleSprite": 15,
+        "frame": [
+            
+        ]
+    }
+}

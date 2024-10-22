@@ -1,0 +1,11 @@
+{
+    "data": {
+        "image": "spriteMosse/dragospiro.png",
+        "numeroColonne": 3,
+        "numeroRighe": 1,
+        "totaleSprite":3,
+        "frame": [
+            
+        ]
+    }
+}

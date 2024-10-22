@@ -1,0 +1,11 @@
+{
+    "data": {
+        "image": "spriteMosse/metaltestata.png",
+        "numeroColonne": 4,
+        "numeroRighe": 3,
+        "totaleSprite": 12,
+        "frame": [
+            
+        ]
+    }
+}

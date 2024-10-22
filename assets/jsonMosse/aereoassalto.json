@@ -1,0 +1,15 @@
+{
+    "data": {
+        "image": "spriteMosse/aereoassalto.png",
+        "numeroColonne": 4,
+        "numeroRighe": 2,
+        "totaleSprite": 8,
+        "frame": [
+            {
+                "numeroSprite": 0,
+                "x": 0,
+                "y": 0
+            }
+        ]
+    }
+}

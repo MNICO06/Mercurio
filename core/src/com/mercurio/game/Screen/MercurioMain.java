@@ -155,7 +155,6 @@ public class MercurioMain extends Game implements InterfacciaComune{
     }
 
     public void creaBattaglia(String nomeJson, String nomePokemon) {
-        System.out.println("prova battaglia selvatici");
         FileHandle file = Gdx.files.internal("jsonPokeSelvatici/"+ nomeJson +".json");
         String jsonString = file.readString();
         JsonValue json = new JsonReader().parse(jsonString);
