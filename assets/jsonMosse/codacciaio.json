@@ -4,8 +4,32 @@
         "numeroColonne": 2,
         "numeroRighe": 1,
         "totaleSprite": 2,
+        "opacity": 1,
+        "tipologia": "istantanea",
         "frame": [
-            
+            [
+                {
+                    "numeroSprite": 0,
+                    "x": 700,
+                    "y": 320,
+                    "altezza": 200,
+                    "larghezza": 200
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 710,
+                    "y": 330,
+                    "altezza": 200,
+                    "larghezza": 200
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 710,
+                    "y": 330,
+                    "altezza": 250,
+                    "larghezza": 250
+                }
+            ]
         ]
     }
 }

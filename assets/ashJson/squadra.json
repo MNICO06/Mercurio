@@ -200,8 +200,8 @@
 	},
 	"mosse": [
 		{
-			"nome": "Sabbiotomba",
-			"tipo": "Terra",
+			"nome": "Codacciaio",
+			"tipo": "Acciaio",
 			"ppTot": 5,
 			"ppAtt": "4"
 		},
