@@ -3,7 +3,6 @@
         "image": "spriteMosse/codacciaio.png",
         "numeroColonne": 2,
         "numeroRighe": 1,
-        "totaleSprite": 2,
         "opacity": 1,
         "tipologia": "istantanea",
         "frame": [

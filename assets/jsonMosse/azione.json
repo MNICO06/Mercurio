@@ -1,0 +1,75 @@
+{
+    "data": {
+        "image": "spriteMosse/strike.png",
+        "numeroColonne": 5,
+        "numeroRighe": 6,
+        "opacity": 1,
+        "tipologia": "istantanea",
+        "frame": [
+            [
+                {
+                    "numeroSprite": 0,
+                    "x": 700,
+                    "y": 320,
+                    "altezza": 200,
+                    "larghezza": 200
+                },
+                {
+                    "numeroSprite": 3,
+                    "x": 700,
+                    "y": 340,
+                    "altezza": 200,
+                    "larghezza": 200
+                }
+            ],
+            [
+                {
+                    "numeroSprite": 4,
+                    "x": 7000,
+                    "y": 0,
+                    "altezza": 200,
+                    "larghezza": 200
+                },
+                {
+                    "numeroSprite": 4,
+                    "x": 670,
+                    "y": 360,
+                    "altezza": 200,
+                    "larghezza": 200
+                }
+            ],
+            [
+                {
+                    "numeroSprite": 4,
+                    "x": 7000,
+                    "y": 0,
+                    "altezza": 200,
+                    "larghezza": 200
+                },
+                {
+                    "numeroSprite": 4,
+                    "x": 680,
+                    "y": 320,
+                    "altezza": 200,
+                    "larghezza": 200
+                }
+            ],
+            [
+                {
+                    "numeroSprite": 4,
+                    "x": 7000,
+                    "y": 0,
+                    "altezza": 200,
+                    "larghezza": 200
+                },
+                {
+                    "numeroSprite": 4,
+                    "x": 730,
+                    "y": 370,
+                    "altezza": 200,
+                    "larghezza": 200
+                }
+            ]
+        ]
+    }
+}
