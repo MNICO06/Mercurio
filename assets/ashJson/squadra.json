@@ -200,8 +200,8 @@
 	},
 	"mosse": [
 		{
-			"nome": "Codacciaio",
-			"tipo": "Acciaio",
+			"nome": "Azione",
+			"tipo": "Normale",
 			"ppTot": 5,
 			"ppAtt": "4"
 		},
