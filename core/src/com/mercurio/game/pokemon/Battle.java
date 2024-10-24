@@ -147,6 +147,7 @@ public class Battle extends ScreenAdapter {
     private LabelDiscorsi labelDiscorsi19;
     private LabelDiscorsi labelDiscorsi20;
     private LabelDiscorsi labelDiscorsi21;
+    private LabelDiscorsi labelDiscorsi22;
     private Label label1;
     private Label label2;
     private Label label3;
@@ -168,6 +169,7 @@ public class Battle extends ScreenAdapter {
     private Label label19;
     private Label label20;
     private Label label21;
+    private Label label22;
     private String nomePoke;
     private String nomePokeSquad;
     private String currentPokeHP;
@@ -592,6 +594,9 @@ public class Battle extends ScreenAdapter {
             }
             if (label21!=null){
                 labelDiscorsi21.renderDisc();
+            }
+            if (label22!=null){
+                labelDiscorsi22.renderDisc();
             }
         }
 
@@ -2093,8 +2098,7 @@ public class Battle extends ScreenAdapter {
                     }
                 }
                 else{
-                    calcoloEsperienzaVinta();
-                    fineBattaglia();
+                    calcoloEsperienzaVinta(0);
                 }
             }
         }, 0.6f);
@@ -2259,20 +2263,9 @@ public class Battle extends ScreenAdapter {
         for (int i = 0; i < pokeInBattaglia.size(); i++) {
             System.out.println(pokeInBattaglia.get(i));
         }
-        calcoloEsperienzaVinta();
-        pokeInBattaglia.clear();
-        if (!pokeInBattaglia.contains(numeroIndexPoke)){
-            pokeInBattaglia.add(numeroIndexPoke);
-        }
-        botHPBar.remove();
-        HPbot.remove();
-        // Rimuovi labelNomePokemonBot
-        labelNomeHPBars.remove(labelNomePokemonBot);
-        labelNomePokemonBot.remove();
+        calcoloEsperienzaVinta(1);
 
-        // Rimuovi labelLVBot
-        labelNomeHPBars.remove(labelLVBot);
-        labelLVBot.remove();
+
     }
 
     public void rimuoviPokeDaBattaglia(){
@@ -2363,7 +2356,6 @@ public class Battle extends ScreenAdapter {
             }, 2f);
         }
         else{
-            calcoloEsperienzaVinta();
             Erba.estratto=0;
             dispose();
         }
@@ -2892,10 +2884,8 @@ public class Battle extends ScreenAdapter {
                                                             if (label21!=null)
                                                                 label21.remove();                                              
                                                             label21=null;
-                                                            calcoloEsperienzaVinta();
-                                                            isBattleEnded=true;
-                                                            dispose();
-                                                            Erba.estratto=0;
+                                                            calcoloEsperienzaVinta(2);
+
                                                         }
                                                     }, 2.5f);
                                                 }
@@ -3005,7 +2995,7 @@ public class Battle extends ScreenAdapter {
     }
 
 
-    private void calcoloEsperienzaVinta(){
+    private void calcoloEsperienzaVinta(int nextFunction){
         Experience esperienza = new Experience();
         float a=1f;
         int b;
@@ -3027,7 +3017,71 @@ public class Battle extends ScreenAdapter {
 
         int esperienzaVinta = esperienza.calcoloEsperienzaGuadagnato(a,b,L,s);
 
-        System.out.println(esperienzaVinta);
-    }
+        for (int i=0; i<pokeInBattaglia.size();i++){
 
+            System.out.println(i);
+
+            FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
+            String jsonString2 = file2.readString();
+            JsonValue json2 = new JsonReader().parse(jsonString2);
+            String nomePokeEsp= json2.get("poke"+pokeInBattaglia.get(i)).getString("nomePokemon");
+            
+
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    String discorso22= nomePokeEsp + " ha guadagnato "+ esperienzaVinta + " punti esperienza.";
+                    labelDiscorsi22 = new LabelDiscorsi(discorso22,dimMax,0,true, false);
+                    System.out.println("a");
+                    labelDiscorsi22.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
+                    label22=labelDiscorsi22.getLabel();
+                    stage.addActor(label22);
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            System.out.println("b");
+                            labelDiscorsi22.reset();
+                            if (label22!=null){
+                                label22.remove();
+                            }
+                            label22=null;
+                            }
+                        }, 2.9f);
+                    }
+            }, 3f*i);
+        }
+
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                pokeInBattaglia.clear();
+                pokeInBattaglia.add(numeroIndexPoke);
+
+                if (nextFunction==0){
+                    fineBattaglia();
+                }
+                else if(nextFunction==1){
+                    botHPBar.remove();
+                    HPbot.remove();
+                    // Rimuovi labelNomePokemonBot
+                    labelNomeHPBars.remove(labelNomePokemonBot);
+                    labelNomePokemonBot.remove();
+            
+                    // Rimuovi labelLVBot
+                    labelNomeHPBars.remove(labelLVBot);
+                    labelLVBot.remove();
+
+                }
+                else if(nextFunction==2){
+                    isBattleEnded=true;
+                    dispose();
+                    Erba.estratto=0;
+                }
+            }
+        }, 3f*pokeInBattaglia.size());
+
+        System.out.println(esperienzaVinta);
+        
+    }
+    
 } //Fine battaglia :)
