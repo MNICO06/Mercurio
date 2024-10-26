@@ -15,7 +15,6 @@ public class mosse {
     private Texture texture;
     private ArrayList<FrameData[]> frameDataList;
     private final String nomeMossaMinuscolo;
-    private float opacity;
 
     /*
      * continua: animazione che continua per un certo periodo, per esempio sabbiotomba
@@ -34,14 +33,16 @@ public class mosse {
         private float x;           
         private float y;           
         private float altezza;
-        private float larghezza;           
+        private float larghezza;
+        private float opacity;   
 
-        public FrameData(int numeroSprite, float x, float y, float altezza, float larghezza) {
+        public FrameData(int numeroSprite, float x, float y, float altezza, float larghezza, float opacity) {
             this.numeroSprite = numeroSprite;
             this.x = x;
             this.y = y;
             this.altezza = altezza;
             this.larghezza = larghezza;
+            this.opacity = opacity;
         }
 
         // Getter per numeroSprite
@@ -66,6 +67,10 @@ public class mosse {
         public float getLarghezza() {
             return larghezza;
         }
+
+        public float getOpacity() {
+            return opacity;
+        }
     }
 
 
@@ -84,8 +89,8 @@ public class mosse {
         String imagePath = mossaJson.getString("image");
         int numeroColonne = mossaJson.getInt("numeroColonne");
         int numeroRighe = mossaJson.getInt("numeroRighe");
-        opacity = mossaJson.getFloat("opacity");
         tipologia = mossaJson.getString("tipologia");
+
 
         //prendo lo spriteshet
         texture = new Texture(Gdx.files.internal(imagePath));
@@ -121,7 +126,8 @@ public class mosse {
                 float y = frameJson.getFloat("y");
                 float altezza = frameJson.getFloat("altezza");
                 float larghezza = frameJson.getFloat("larghezza");
-                currentFrameDataList.add(new FrameData(numeroSprite, x, y, altezza, larghezza)); // Aggiungi i dati del frame alla lista
+                float opacity = frameJson.getFloat("opacity");
+                currentFrameDataList.add(new FrameData(numeroSprite, x, y, altezza, larghezza,opacity)); // Aggiungi i dati del frame alla lista
             }
             frameDataList.add(currentFrameDataList.toArray(new FrameData[0])); // Aggiungi l'array di FrameData a frameDataList
         }
@@ -154,9 +160,7 @@ public class mosse {
         return frames;  // Restituisce l'array unidimensionale di tutti i frame
     }
 
-    public float getOpacity() {
-        return opacity;
-    }
+
     public String getTipologia() {
         return tipologia;
     }

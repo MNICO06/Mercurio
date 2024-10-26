@@ -3,30 +3,32 @@
         "image": "spriteMosse/codacciaio.png",
         "numeroColonne": 2,
         "numeroRighe": 1,
-        "opacity": 1,
-        "tipologia": "istantanea",
+        "tipologia": "continua",
         "frame": [
             [
                 {
                     "numeroSprite": 0,
-                    "x": 700,
+                    "x": 670,
                     "y": 320,
-                    "altezza": 200,
-                    "larghezza": 200
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
                 },
                 {
                     "numeroSprite": 1,
-                    "x": 710,
+                    "x": 670,
                     "y": 330,
-                    "altezza": 200,
-                    "larghezza": 200
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
                 },
                 {
                     "numeroSprite": 1,
-                    "x": 710,
+                    "x": 670,
                     "y": 330,
-                    "altezza": 250,
-                    "larghezza": 250
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
                 }
             ]
         ]

@@ -2,33 +2,23 @@ package com.mercurio.game.pokemon;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Semaphore;
 
-import com.badlogic.gdx.utils.JsonWriter;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.physics.bullet.collision.btBvhTree;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.ai.btree.utils.DistributionAdapters.IntegerAdapter;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -41,7 +31,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
@@ -226,7 +215,6 @@ public class Battle extends ScreenAdapter {
     private mosse mosse;
     TextureRegion[] frames;
     ArrayList<FrameData[]> frameDataList;
-    private float opacity;
     private String tipologia;
 
     public Battle(InterfacciaComune chiamante, String nameBot, boolean isBotFight, String zona, String nomeSelvatico) {
@@ -1113,8 +1101,8 @@ public class Battle extends ScreenAdapter {
         mosse = new mosse(nomeMossa);
         frames = mosse.getSpriteMossa();
         frameDataList = mosse.getFrameDataList();
-        opacity = mosse.getOpacity();
         tipologia = mosse.getTipologia();
+
 
         // Crea un array di immagini della mossa
         Image[] imagesMossa = new Image[frameDataList.size()];
@@ -1128,7 +1116,6 @@ public class Battle extends ScreenAdapter {
                 imagesMossa[i] = new Image(frames[currentFrameDataSet[0].getNumeroSprite()]); // Usa il primo sprite del set per l'inizializzazione
                 imagesMossa[i].setSize(currentFrameDataSet[0].getAltezza(), currentFrameDataSet[0].getLarghezza()); // Imposta le dimensioni dell'immagine
                 imagesMossa[i].setPosition(currentFrameDataSet[0].getX(), currentFrameDataSet[0].getY()); // Posizione iniziale
-                imagesMossa[i].setColor(1, 1, 1, opacity);
                 stage.addActor(imagesMossa[i]); // Aggiungi l'immagine al palco
             }
 
@@ -1148,11 +1135,20 @@ public class Battle extends ScreenAdapter {
                         if (currentFrameIndex < currentFrameDataSet.length) {
                             allSetsFinished = false; // Almeno un set non è ancora terminato
 
-                            // Aggiorna la posizione, dimensione e drawable del frame corrente
                             Image imageMossa = imagesMossa[currentSetIndex]; // Ottieni l'immagine corrispondente
-                            imageMossa.setPosition(currentFrameDataSet[currentFrameIndex].getX(), currentFrameDataSet[currentFrameIndex].getY()); // Imposta la posizione
-                            imageMossa.setSize(currentFrameDataSet[currentFrameIndex].getAltezza(), currentFrameDataSet[currentFrameIndex].getLarghezza()); // Imposta la dimensione
-                            imageMossa.setDrawable(new TextureRegionDrawable(frames[currentFrameDataSet[currentFrameIndex].getNumeroSprite()])); // Imposta il nuovo sprite
+
+                            // Verifica se la posizione X è diversa da -1 prima di renderizzare
+                            if (currentFrameDataSet[currentFrameIndex].getX() != -1) {
+                                // Aggiorna la posizione, dimensione e drawable del frame corrente
+                                imageMossa.setVisible(true);
+                                imageMossa.setPosition(currentFrameDataSet[currentFrameIndex].getX(), currentFrameDataSet[currentFrameIndex].getY()); // Imposta la posizione
+                                imageMossa.setSize(currentFrameDataSet[currentFrameIndex].getAltezza(), currentFrameDataSet[currentFrameIndex].getLarghezza()); // Imposta la dimensione
+                                imageMossa.setDrawable(new TextureRegionDrawable(frames[currentFrameDataSet[currentFrameIndex].getNumeroSprite()])); // Imposta il nuovo sprite
+                                imageMossa.setColor(1, 1, 1, currentFrameDataSet[currentFrameIndex].getOpacity());
+                            } else {
+                                // Nascondi lo sprite se la posizione X è -1
+                                imagesMossa[currentSetIndex].setVisible(false);
+                            }
                         }
                     }
 
@@ -1227,7 +1223,7 @@ public class Battle extends ScreenAdapter {
                         imagesMossa[i] = new Image(frames[currentFrameDataSet[0].getNumeroSprite()]);
                         imagesMossa[i].setSize(currentFrameDataSet[0].getAltezza(), currentFrameDataSet[0].getLarghezza());
                         imagesMossa[i].setPosition(currentFrameDataSet[0].getX(), currentFrameDataSet[0].getY());
-                        imagesMossa[i].setColor(1, 1, 1, opacity);
+                        imagesMossa[i].setColor(1, 1, 1, currentFrameDataSet[0].getOpacity());
                         stage.addActor(imagesMossa[i]);
                     }
 
@@ -2693,7 +2689,7 @@ public class Battle extends ScreenAdapter {
                 if (elapsed <= duration) {
                     // Calcola la posizione sulla traiettoria curva
                     float percent = elapsed / duration;
-                    imageBallLanciata.setPosition((820) * percent, startY +(330)* percent); 
+                    imageBallLanciata.setPosition((820) * percent, startY +(330)* percent);
                     elapsed += 0.05f;
                 } 
                 else {

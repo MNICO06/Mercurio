@@ -200,8 +200,8 @@
 	},
 	"mosse": [
 		{
-			"nome": "Azione",
-			"tipo": "Normale",
+			"nome": "Fogliame",
+			"tipo": "Erba",
 			"ppTot": 5,
 			"ppAtt": "4"
 		},
