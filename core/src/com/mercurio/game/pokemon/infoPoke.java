@@ -47,10 +47,12 @@ public class infoPoke {
     private int indexAttSP;
     private int indexDefSP;
     private int indexVel;
+    private int numDelPoke;
 
 
     public infoPoke(Stage stage, int numDelPoke) {
         this.stage = stage;
+        this.numDelPoke = numDelPoke;
         this.batch = (SpriteBatch) stage.getBatch();
         Gdx.input.setInputProcessor(stage);
         font = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
@@ -305,8 +307,9 @@ public class infoPoke {
         infoActors.add(velocita);
 
 
-        //hpBar
+        //hpBar e expBar
         placeHpBar(currentPokeHP, maxPokeHP);
+        placeExpBar();
 
         //mosse
         for(int i=0; i<listaMosse.size(); i++){
@@ -391,6 +394,73 @@ public class infoPoke {
         infoActors.add(hpBar);
     }
 
+    private Image placeExpBar(){
 
+        FileHandle file = Gdx.files.local("assets/pokemon/Pokemon.json");
+        String jsonString = file.readString();
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+        JsonValue json = new JsonReader().parse(jsonString);
+        // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
+        JsonValue pokeJson = json.get(nomePoke);
+        FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
+        String jsonString2 = file2.readString();
+        JsonValue json2 = new JsonReader().parse(jsonString2);
+
+        int crescitaType = pokeJson.getInt("crescita");
+        int currentExp= json2.get("poke"+(numDelPoke)).getInt("esperienza");
+        int maxExp = calcoloEspMaxLivello(crescitaType,Integer.parseInt(LVPoke));
+        
+        float percentualeExp = (float) currentExp / maxExp;
+        float lunghezzaExpBar = 64*4 * percentualeExp;
+
+        System.out.println(currentExp);
+        System.out.println(maxExp);
+        System.out.println(lunghezzaExpBar);
+
+
+        Image expBar = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("battle/white_pixel.png"))));
+        expBar.setSize((int)lunghezzaExpBar, 12);
+        expBar.setPosition( 19*4, 115*4+1 );
+
+        Color coloreExpBar = new Color(72 / 255f, 168 / 255f, 208 / 255f, 1); //colore barra esperienza
+
+        expBar.setColor(coloreExpBar);
+        // Aggiungi expBar allo stage
+        stage.addActor(expBar);
+        infoActors.add(expBar);
+
+        return expBar;
+    }
+
+    private int calcoloEspMaxLivello(int crescitaType, int livello){
+
+        Experience esperienza = new Experience();
+
+        int espMaxLvl=0;
+
+        switch (crescitaType) {
+            case 0:
+                espMaxLvl = esperienza.irregolare(livello);
+                break;
+            case 1:
+                espMaxLvl = esperienza.medio_Lenta(livello);
+                break;
+            case 2:
+                espMaxLvl = esperienza.lenta(livello);
+                break;
+            case 3:
+                espMaxLvl = esperienza.fluttuante(livello);
+                break;
+            case 4:
+                espMaxLvl = esperienza.veloce(livello);
+                break;
+            case 5:
+                espMaxLvl = esperienza.medio_Veloce(livello);
+                break;
+        }
+
+        return espMaxLvl;
+
+    }
 
 }
