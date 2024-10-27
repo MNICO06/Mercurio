@@ -20,7 +20,7 @@
           "M2": "Beccata",
           "M3": "Fogliame",
           "M4": "",
-          "M5": "Attacco Rapido",
+          "M5": "AttaccoRapido",
           "M6": "",
           "M7": "Frustata",
           "M8": "",
@@ -428,7 +428,7 @@
           "M2": "Leccata",
           "M3": "Braciere",
           "M4": "",
-          "M5": "Attacco rapido",
+          "M5": "AttaccoRapido",
           "M6": "",
           "M7": "Rogodenti",
           "M8": "",
@@ -628,7 +628,7 @@
       },
       
       "mosseImparabili": {
-          "M1": "Attacco Rapido",
+          "M1": "AttaccoRapido",
           "M2": "Tuonoshock",
           "M3": "Azione",
           "M4": "",
@@ -696,7 +696,7 @@
       },
       
       "mosseImparabili": {
-          "M1": "Attacco Rapido",
+          "M1": "AttaccoRapido",
           "M2": "Tuonoshock",
           "M3": "Azione",
           "M4": "",
@@ -768,7 +768,7 @@
           "M2": "",
           "M3": "Beccata",
           "M4": "",
-          "M5": "Attacco Rapido",
+          "M5": "AttaccoRapido",
           "M6": "",
           "M7": "",
           "M8": "Comete",
@@ -836,7 +836,7 @@
           "M2": "",
           "M3": "Beccata",
           "M4": "",
-          "M5": "Attacco Rapido",
+          "M5": "AttaccoRapido",
           "M6": "",
           "M7": "",
           "M8": "Comete",
@@ -904,7 +904,7 @@
           "M2": "",
           "M3": "Beccata",
           "M4": "",
-          "M5": "Attacco Rapido",
+          "M5": "AttaccoRapido",
           "M6": "",
           "M7": "",
           "M8": "Comete",
@@ -1381,7 +1381,7 @@
           "M3": "",
           "M4": "Sassata",
           "M5": "",
-          "M6": "Attacco Rapido",
+          "M6": "AttaccoRapido",
           "M7": "Pestone",
           "M8": "",
           "M9": "",
@@ -1449,7 +1449,7 @@
           "M3": "",
           "M4": "Sassata",
           "M5": "",
-          "M6": "Attacco Rapido",
+          "M6": "AttaccoRapido",
           "M7": "Pestone",
           "M8": "Pistolacqua",
           "M9": "",
@@ -2396,7 +2396,7 @@
       },
       
       "mosseImparabili": {
-          "M1": "Attacco rapido",
+          "M1": "AttaccoRapido",
           "M2": "",
           "M3": "Azione",
           "M4": "Ferrartigli",
@@ -2464,7 +2464,7 @@
       },
       
       "mosseImparabili": {
-          "M1": "Attacco rapido",
+          "M1": "AttaccoRapido",
           "M2": "",
           "M3": "Azione",
           "M4": "Ferrartigli",

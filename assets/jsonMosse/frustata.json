@@ -1,0 +1,96 @@
+{
+    "data": {
+        "image": "spriteMosse/grass.png",
+        "numeroColonne": 5,
+        "numeroRighe": 10,
+        "tipologia": "continua",
+        "speed": 0.2,
+        "speculari": true,
+        "frame": [
+            [
+                {
+                    "numeroSprite": 23,
+                    "x": 600,
+                    "y": 295,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 24,
+                    "x": 600,
+                    "y": 295,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 25,
+                    "x": 600,
+                    "y": 295,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 26,
+                    "x": 600,
+                    "y": 295,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 27,
+                    "x": 600,
+                    "y": 295,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                }
+            ],
+            [
+                {
+                    "numeroSprite": 73,
+                    "x": 770,
+                    "y": 290,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 74,
+                    "x": 770,
+                    "y": 290,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 75,
+                    "x": 770,
+                    "y": 290,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 76,
+                    "x": 770,
+                    "y": 290,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 77,
+                    "x": 770,
+                    "y": 290,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                }
+            ]
+        ]
+    }
+}

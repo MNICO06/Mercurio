@@ -5,7 +5,7 @@
       "pp": 35,
       "attacco": "fisico"
     },
-    "Attacco rapido": {
+    "AttaccoRapido": {
       "potenza": 40,
       "precisione": 100,
       "priorita":1,

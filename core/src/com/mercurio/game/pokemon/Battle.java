@@ -1102,6 +1102,7 @@ public class Battle extends ScreenAdapter {
         frames = mosse.getSpriteMossa();
         frameDataList = mosse.getFrameDataList();
         tipologia = mosse.getTipologia();
+        float speedAnimationMoves = mosse.getSpeed();
 
 
         // Crea un array di immagini della mossa
@@ -1210,7 +1211,7 @@ public class Battle extends ScreenAdapter {
                         this.cancel(); // Ferma il timer
                     }
                 }
-            }, 0, 0.1f);
+            }, 0, speedAnimationMoves);
         } else if (tipologia.equals("istantanea")) {
 
             //con questo timer comincia prima a dire la mossa e poi va a farla renderizzare

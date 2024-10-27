@@ -15,6 +15,7 @@ public class mosse {
     private Texture texture;
     private ArrayList<FrameData[]> frameDataList;
     private final String nomeMossaMinuscolo;
+    private float speed;
 
     /*
      * continua: animazione che continua per un certo periodo, per esempio sabbiotomba
@@ -90,6 +91,8 @@ public class mosse {
         int numeroColonne = mossaJson.getInt("numeroColonne");
         int numeroRighe = mossaJson.getInt("numeroRighe");
         tipologia = mossaJson.getString("tipologia");
+        speed = mossaJson.has("speed") ? mossaJson.getFloat("speed") : 0.1f;
+        boolean speculari = mossaJson.has("speculari") ? mossaJson.getBoolean("speculari") : false;
 
 
         //prendo lo spriteshet
@@ -98,6 +101,11 @@ public class mosse {
         int totaleSprite = numeroColonne * numeroRighe;
 
         TextureRegion[] spriteMossa = creaFrames(texture, numeroColonne, numeroRighe, totaleSprite);
+
+        if(speculari) {
+            spriteMossa = aggiungiSpeculari(spriteMossa);
+        }
+        
 
         return spriteMossa;
     }
@@ -160,8 +168,28 @@ public class mosse {
         return frames;  // Restituisce l'array unidimensionale di tutti i frame
     }
 
+    private TextureRegion[] aggiungiSpeculari(TextureRegion[] framesOriginali) {
+        TextureRegion[] framesConSpeculari = new TextureRegion[framesOriginali.length * 2];
+    
+        // Aggiungi gli sprite originali
+        for (int i = 0; i < framesOriginali.length; i++) {
+            framesConSpeculari[i] = framesOriginali[i];
+        }
+    
+        // Aggiungi gli sprite speculari
+        for (int i = 0; i < framesOriginali.length; i++) {
+            framesConSpeculari[framesOriginali.length + i] = new TextureRegion(framesOriginali[i]);
+            framesConSpeculari[framesOriginali.length + i].flip(true, false); // Specchia orizzontalmente
+        }
+    
+        return framesConSpeculari;
+    }
+
 
     public String getTipologia() {
         return tipologia;
+    }
+    public float getSpeed() {
+        return speed;
     }
 }
