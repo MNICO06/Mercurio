@@ -149,6 +149,7 @@ public class Battle extends ScreenAdapter {
     private LabelDiscorsi labelDiscorsi20;
     private LabelDiscorsi labelDiscorsi21;
     private LabelDiscorsi labelDiscorsi22;
+    private LabelDiscorsi labelDiscorsi23;
     private Label label1;
     private Label label2;
     private Label label3;
@@ -171,6 +172,7 @@ public class Battle extends ScreenAdapter {
     private Label label20;
     private Label label21;
     private Label label22;
+    private Label label23;
     private String nomePoke;
     private String nomePokeSquad;
     private String currentPokeHP;
@@ -226,6 +228,8 @@ public class Battle extends ScreenAdapter {
     private boolean cattura=false;
     private float x=0;
     private ArrayList<Integer> pokeInBattaglia = new ArrayList<>(); 
+    private ArrayList<Integer> pokeInBattagliaLU = new ArrayList<>(); 
+    private int ritardoLvUp=0;
 
     public Battle(InterfacciaComune chiamante, String nameBot, boolean isBotFight, String zona, String nomeSelvatico) {
         MenuLabel.openMenuLabel.setVisible(false);
@@ -244,6 +248,10 @@ public class Battle extends ScreenAdapter {
         dimMax=200;
         leggiPoke(numeroIndexPoke);
         if (!pokeInBattaglia.contains(numeroIndexPoke)){
+            pokeInBattaglia.add(numeroIndexPoke);
+        }
+        else{
+            pokeInBattaglia.remove(Integer.valueOf(numeroIndexPoke));
             pokeInBattaglia.add(numeroIndexPoke);
         }
         if (isBotFight){
@@ -599,6 +607,9 @@ public class Battle extends ScreenAdapter {
             }
             if (label22!=null){
                 labelDiscorsi22.renderDisc();
+            }
+            if (label23!=null){
+                labelDiscorsi23.renderDisc();
             }
         }
 
@@ -3002,6 +3013,7 @@ public class Battle extends ScreenAdapter {
     private void calcoloEsperienzaVinta(int nextFunction){
 
         int skipExp=0;
+        int lvNumber=0;
 
         Experience esperienza = new Experience();
         float a=1f;
@@ -3038,6 +3050,12 @@ public class Battle extends ScreenAdapter {
                 int expMaxLvl = calcoloEspMaxLivello(crescitaType,Integer.parseInt(LVPoke));
                 int nuovaEsperienza = json2.get("poke"+pokeInBattaglia.get(i)).getInt("esperienza") + esperienzaVinta +500;
 
+                pokeInBattagliaLU.add(lvNumber);
+                if(nuovaEsperienza>=expMaxLvl ){
+                    ritardoLvUp++;
+                    lvNumber++;
+                }
+
                 final int index = i;
 
                 Timer.schedule(new Timer.Task() {
@@ -3050,12 +3068,23 @@ public class Battle extends ScreenAdapter {
                         label22=labelDiscorsi22.getLabel();
                         stage.addActor(label22);
                         if(nuovaEsperienza>=expMaxLvl){
-                            aumentoLivello();
                             // Aggiorna il valore di "esperienza" nel JSON
                             json2.get("poke"+pokeInBattaglia.get(index)).remove("esperienza");
                             json2.get("poke" + pokeInBattaglia.get(index)).addChild("esperienza", new JsonValue(nuovaEsperienza-expMaxLvl));
                     
                             file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
+                            
+                            if (pokeInBattaglia.get(index)==numeroIndexPoke){
+                                updateExpBar(true,index);
+                            }
+                            else{
+                                Timer.schedule(new Timer.Task() {
+                                    @Override
+                                    public void run() {
+                                        aumentoLivello(index);
+                                        }
+                                }, 2.8f);
+                            }
                         }
                         else{
                             // Aggiorna il valore di "esperienza" nel JSON
@@ -3064,7 +3093,9 @@ public class Battle extends ScreenAdapter {
                     
                             file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
 
-                            updateExpBar();
+                            if (pokeInBattaglia.get(index)==numeroIndexPoke){
+                                updateExpBar(false,index);
+                            }                        
                         }
                         Timer.schedule(new Timer.Task() {
                             @Override
@@ -3078,7 +3109,7 @@ public class Battle extends ScreenAdapter {
                                 }
                             }, 2.9f);
                         }
-                }, 3f*i);
+                }, 3f*i+2.9f*pokeInBattagliaLU.get(index));
             }
             else{
                 skipExp++;
@@ -3089,7 +3120,9 @@ public class Battle extends ScreenAdapter {
             @Override
             public void run() {
                 pokeInBattaglia.clear();
+                pokeInBattagliaLU.clear();
                 pokeInBattaglia.add(numeroIndexPoke);
+                ritardoLvUp=0;
 
                 if (nextFunction==0){
                     fineBattaglia();
@@ -3112,14 +3145,61 @@ public class Battle extends ScreenAdapter {
                     Erba.estratto=0;
                 }
             }
-        }, 3f*pokeInBattaglia.size() - 3f*skipExp);
+        }, 3f*pokeInBattaglia.size() - 3f*skipExp +2.9f*ritardoLvUp);
 
         System.out.println(esperienzaVinta);
         
     }
 
-    private void aumentoLivello(){
+    private void aumentoLivello(int i){
         System.out.println("Da fare ancora :)");
+       // Apre il file JSON
+        FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
+        String jsonString2 = file2.readString();
+        JsonValue json2 = new JsonReader().parse(jsonString2);
+
+        // Accedi all'oggetto JSON desiderato
+        JsonValue pokeObject = json2.get("poke" + pokeInBattaglia.get(i));
+
+        // Recupera il valore di livello corrente come stringa, convertilo in int
+        int livello = Integer.parseInt(pokeObject.getString("livello"));
+
+        // Incrementa il livello di 1 e aggiorna il JSON
+        pokeObject.remove("livello"); // Rimuove il campo "livello"
+        pokeObject.addChild("livello", new JsonValue(String.valueOf(livello + 1))); // Aggiunge il nuovo valore come stringa
+
+        /*System.out.println(index);
+        System.out.println(pokeInBattaglia.get(index));
+        System.out.println(numeroIndexPoke);*/
+        if (pokeInBattaglia.get(i)==numeroIndexPoke){
+            labelLV.setText(livello+1); // Aggiorna il testo della label
+        }
+
+        // Salva il file JSON con il livello aggiornato
+        file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
+
+        
+        String discorso23= pokeObject.getString("nomePokemon") + " e' salito al livello "+ (livello+1) +" !";
+        labelDiscorsi23 = new LabelDiscorsi(discorso23,dimMax,0,true, false);
+        labelDiscorsi22.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
+        label23=labelDiscorsi23.getLabel();
+        stage.addActor(label23);
+
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                //System.out.println("b");
+                labelDiscorsi23.reset();
+                if (label23!=null){
+                    label23.remove();
+                }
+                label23=null;
+                }
+            }, 2.9f);
+
+        if (pokeInBattaglia.get(i)==numeroIndexPoke){
+            updateExpBar(false,i);
+        }    
     }
 
     private int calcoloEspMaxLivello(int crescitaType, int livello){
@@ -3185,27 +3265,38 @@ public class Battle extends ScreenAdapter {
         return expBar;
     }
 
-    private void updateExpBar(){
+    private void updateExpBar(boolean lvChange, int indexLV) {
 
         FileHandle file = Gdx.files.local("assets/pokemon/Pokemon.json");
         String jsonString = file.readString();
-        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
+    
         // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
         JsonValue pokeJson = json.get(nomePoke);
         FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
         String jsonString2 = file2.readString();
         JsonValue json2 = new JsonReader().parse(jsonString2);
-
+    
         int crescitaType = pokeJson.getInt("crescita");
-        int currentExp= json2.get("poke"+(numeroIndexPoke)).getInt("esperienza");
-        int maxExp = calcoloEspMaxLivello(crescitaType,Integer.parseInt(LVPoke));
-
+        int currentExp = json2.get("poke" + (numeroIndexPoke)).getInt("esperienza");
+        int maxExp = calcoloEspMaxLivello(crescitaType, Integer.parseInt(LVPoke));
+    
+        // Calcola la percentuale dell'esperienza e la lunghezza della barra
         float percentualeExp = (float) currentExp / maxExp;
-        float lunghezzaExpBar = 96*2 * percentualeExp;
-
-        expPlayer.addAction(Actions.sizeTo(lunghezzaExpBar, expPlayer.getHeight(), 2f));
-
+        float lunghezzaExpBar = 96 * 2 * percentualeExp;
+    
+        if (lvChange) {
+            expPlayer.addAction(Actions.sequence(
+                Actions.sizeTo(96 * 2, expPlayer.getHeight(), 1.5f), // Anima fino alla lunghezza massima
+                Actions.sizeTo(0, expPlayer.getHeight(), 0f), // Salta immediatamente a 0
+                Actions.delay(1.4f), // Ritardo di 1.4 secondo
+                Actions.run(() -> aumentoLivello(indexLV)) // Chiamata al metodo aumentoLivello(index)
+            ));       
+        }
+        else {
+            // Anima normalmente la barra fino alla lunghezza calcolata
+            expPlayer.addAction(Actions.sizeTo(lunghezzaExpBar, expPlayer.getHeight(), 1.5f));
+        }
     }
     
 } //Fine battaglia :)

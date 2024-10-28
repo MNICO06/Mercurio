@@ -34,6 +34,7 @@ public class infoPoke {
     private String maxPokeHP;
     private String currentPokeHP;
     private String nomeBall;
+    private int exp;
     private ArrayList<Mossa> listaMosse = new ArrayList<>();
      private ArrayList<String> statsPlayer = new ArrayList<>();
     private SpriteBatch batch;
@@ -48,6 +49,8 @@ public class infoPoke {
     private int indexDefSP;
     private int indexVel;
     private int numDelPoke;
+    private int maxExp;
+    private int crescitaType;
 
 
     public infoPoke(Stage stage, int numDelPoke) {
@@ -144,6 +147,7 @@ public class infoPoke {
             JsonValue pokeJson = json.get("poke"+numero);
             nomePoke = pokeJson.getString("nomePokemon");
             LVPoke = pokeJson.getString("livello");
+            exp = pokeJson.getInt("esperienza");
 
             int indice=0;
             JsonValue statistiche = pokeJson.get("statistiche"); 
@@ -311,6 +315,19 @@ public class infoPoke {
         placeHpBar(currentPokeHP, maxPokeHP);
         placeExpBar();
 
+        //exp al livello successivo
+        Label expMancante;
+        if (Integer.parseInt(LVPoke)!=100){
+            expMancante = new Label(""+(maxExp-exp), new Label.LabelStyle(font2, null));
+        }
+        else{
+            expMancante = new Label("0", new Label.LabelStyle(font2, null));
+        }
+        expMancante.setPosition(49*4,102*4); 
+        expMancante.setFontScale(2f);
+        stage.addActor(expMancante);
+        infoActors.add(expMancante);
+
         //mosse
         for(int i=0; i<listaMosse.size(); i++){
             //tipo mossa
@@ -406,9 +423,9 @@ public class infoPoke {
         String jsonString2 = file2.readString();
         JsonValue json2 = new JsonReader().parse(jsonString2);
 
-        int crescitaType = pokeJson.getInt("crescita");
+        crescitaType = pokeJson.getInt("crescita");
         int currentExp= json2.get("poke"+(numDelPoke)).getInt("esperienza");
-        int maxExp = calcoloEspMaxLivello(crescitaType,Integer.parseInt(LVPoke));
+        maxExp = calcoloEspMaxLivello(crescitaType,Integer.parseInt(LVPoke));
         
         float percentualeExp = (float) currentExp / maxExp;
         float lunghezzaExpBar = 64*4 * percentualeExp;
