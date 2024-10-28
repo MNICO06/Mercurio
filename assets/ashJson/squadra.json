@@ -196,12 +196,12 @@
 		"special_attack": 500,
 		"special_defense": 50,
 		"speed": 90,
-		"hp": 100
+		"hp": 99
 	},
 	"mosse": [
 		{
-			"nome": "Frustata",
-			"tipo": "Erba",
+			"nome": "Leccata",
+			"tipo": "Spettro",
 			"ppTot": 5,
 			"ppAtt": "4"
 		},
