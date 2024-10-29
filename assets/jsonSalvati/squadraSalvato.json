@@ -200,8 +200,8 @@
 	},
 	"mosse": [
 		{
-			"nome": "Leccata",
-			"tipo": "Spettro",
+			"nome": "Pistolacqua",
+			"tipo": "Acqua",
 			"ppTot": 5,
 			"ppAtt": 5
 		},
