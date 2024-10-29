@@ -49,8 +49,13 @@ public class Box extends ScreenAdapter {
     private TextureRegion[] sfondi;
 
     public Box(){
+        batch = new SpriteBatch();
+        stage = new Stage();
+        font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
+        Gdx.input.setInputProcessor(stage);
 
         show();
+        caricaBorsa();
     }
 
     public void render() {
@@ -112,6 +117,21 @@ public class Box extends ScreenAdapter {
         stage.addActor(background);
 
         //background.setDrawable(new TextureRegionDrawable(sfondi[quello_che_vuoi]));
+    }
+    
+    public void caricaBorsa() {
+        // Carica il file JSON
+        FileHandle file = Gdx.files.local("assets/ashJson/box.json");
+        String jsonString = file.readString();
+        
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+        JsonValue json = new JsonReader().parse(jsonString);
+
+        // Crea un'etichetta per ogni oggetto nel file JSON
+        for (int i = 0; i < json.size; i++) {
+            leggiPoke(i);
+            disegnaPoke();
         }
+    }
     
 }
