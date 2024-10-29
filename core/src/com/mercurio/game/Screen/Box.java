@@ -93,12 +93,11 @@ public class Box extends ScreenAdapter {
     public void show() {
         
         // Add background 
-        Texture backgroundTexture = new Texture("battle/sfondoBattle.png");
+        Texture backgroundTexture = new Texture("battle/sfondoBox.png");
         Image background = new Image(backgroundTexture);
+        // Ritaglia l'immagine per adattarla alla dimensione dello schermo
         background.setSize(400, 400);
         stage.addActor(background);
-        
-
         }
     
 }
