@@ -92,8 +92,7 @@ public class MenuLabel{
                     //apriMenu();
                 } else {
                     // Se il menu è aperto, chiudi il menu
-                    game.closeBox();
-                    //chiudiMenu();
+                    chiudiMenu();
                 }
             }
         });
@@ -330,8 +329,7 @@ public class MenuLabel{
                 //apriMenu();
             } else if (menuOpened) {
                 // Se il menu è aperto, chiudi il menu
-                game.closeBox();
-                //chiudiMenu();
+                chiudiMenu();
             }
         }
 

@@ -423,9 +423,8 @@ public class MercurioMain extends Game implements InterfacciaComune{
     }
 
     public void creaBox() {
-
         getPlayer().setMovement(false);
-        box = new Box();
+        box = new Box(this);
     }
 
     public void closeBox() {

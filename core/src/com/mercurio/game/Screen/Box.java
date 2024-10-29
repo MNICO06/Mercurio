@@ -3,6 +3,7 @@ package com.mercurio.game.Screen;
 import org.json.JSONArray;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
@@ -47,8 +48,10 @@ public class Box extends ScreenAdapter {
     Array<Texture> animationTextures = new Array<>();
     private String nomePoke;
     private TextureRegion[] sfondi;
+    private MercurioMain game;
 
-    public Box(){
+    public Box(MercurioMain game){
+        this.game=game;
         batch = new SpriteBatch();
         stage = new Stage();
         font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
@@ -64,12 +67,17 @@ public class Box extends ScreenAdapter {
 
         // Disegna la UI della borsa
         stage.draw(); // Disegna lo stage sullo SpriteBatch
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.X)){
+            dispose();
+        }
     }
 
     public void dispose() {
         batch.dispose();
         font.dispose();
         stage.dispose();
+        game.closeBox();
     }
 
     public void leggiPoke(int numero) {
