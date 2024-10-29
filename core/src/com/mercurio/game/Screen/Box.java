@@ -3,6 +3,7 @@ package com.mercurio.game.Screen;
 import org.json.JSONArray;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -36,7 +37,7 @@ import org.json.JSONTokener;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class Box {
+public class Box extends ScreenAdapter {
 
     private Stage stage;
     private SpriteBatch batch;
@@ -48,6 +49,7 @@ public class Box {
 
     public Box(){
 
+        show();
     }
 
     public void render() {
@@ -86,5 +88,17 @@ public class Box {
         animationImage.setPosition(3,  45 * 3 - 55);
         stage.addActor(animationImage);
     }
+
+    @Override
+    public void show() {
+        
+        // Add background 
+        Texture backgroundTexture = new Texture("battle/sfondoBattle.png");
+        Image background = new Image(backgroundTexture);
+        background.setSize(400, 400);
+        stage.addActor(background);
+        
+
+        }
     
 }
