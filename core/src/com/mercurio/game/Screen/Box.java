@@ -46,6 +46,7 @@ public class Box extends ScreenAdapter {
     Array<Image> animationImages = new Array<>();
     Array<Texture> animationTextures = new Array<>();
     private String nomePoke;
+    private TextureRegion[] sfondi;
 
     public Box(){
 
@@ -91,13 +92,26 @@ public class Box extends ScreenAdapter {
 
     @Override
     public void show() {
+
+        Texture textureBack = new Texture("sfondo/sfondoBox.png");
+
+        int regionWidth = textureBack.getWidth() / 4;
+        int regionHeight = textureBack.getHeight() / 6;
+
+        sfondi = new TextureRegion[24];
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 6; j++) {
+                sfondi[i+j] = new TextureRegion(textureBack, i * regionWidth, j* regionHeight, regionWidth, regionHeight);
+            }
+        }
         
         // Add background 
-        Texture backgroundTexture = new Texture("battle/sfondoBox.png");
-        Image background = new Image(backgroundTexture);
+        Image background = new Image(sfondi[0]);
         // Ritaglia l'immagine per adattarla alla dimensione dello schermo
         background.setSize(400, 400);
         stage.addActor(background);
+
+        //background.setDrawable(new TextureRegionDrawable(sfondi[quello_che_vuoi]));
         }
     
 }
