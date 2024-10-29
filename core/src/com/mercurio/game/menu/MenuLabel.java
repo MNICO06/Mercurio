@@ -22,6 +22,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.badlogic.gdx.utils.Timer;
 import com.mercurio.game.Screen.MercurioMain;
+import com.mercurio.game.pokemon.Battle;
 
 public class MenuLabel{
 
@@ -87,10 +88,12 @@ public class MenuLabel{
             public void clicked(InputEvent event, float x, float y) {
                 if (!menuOpened) {
                     // Se il menu non è aperto, apri il menu
-                    apriMenu();
+                    game.creaBox();
+                    //apriMenu();
                 } else {
                     // Se il menu è aperto, chiudi il menu
-                    chiudiMenu();
+                    game.closeBox();
+                    //chiudiMenu();
                 }
             }
         });
@@ -323,10 +326,12 @@ public class MenuLabel{
         if (Gdx.input.isKeyJustPressed(Input.Keys.X) && !game.getIsInMovement()) {
             if (!menuOpened && xKeyPressed) {
                 // Se il menu non è aperto e il tasto X è abilitato, apri il menu
-                apriMenu();
+                game.creaBox();
+                //apriMenu();
             } else if (menuOpened) {
                 // Se il menu è aperto, chiudi il menu
-                chiudiMenu();
+                game.closeBox();
+                //chiudiMenu();
             }
         }
 
