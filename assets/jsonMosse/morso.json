@@ -1,10 +1,142 @@
 {
     "data": {
-        "image": "spriteMosse/morso.png",
+        "image": "spriteMosse/elemental.png",
         "numeroColonne": 5,
-        "numeroRighe": 3,
-        "totaleSprite": 15,
+        "numeroRighe": 5,
+        "tipologia": "continua",
         "frame": [
+            [
+                {
+                    "numeroSprite": 0,
+                    "x": 670,
+                    "y": 300,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 0,
+                    "x": 670,
+                    "y": 320,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 0,
+                    "x": 670,
+                    "y": 340,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 0,
+                    "x": 670,
+                    "y": 360,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 0,
+                    "x": 670,
+                    "y": 360,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 0,
+                    "x": 670,
+                    "y": 330,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 0,
+                    "x": 670,
+                    "y": 285,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 0,
+                    "x": 670,
+                    "y": 300,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                }
+            ],
+            [
+                {
+                    "numeroSprite": 24,
+                    "x": 670,
+                    "y": 270,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 24,
+                    "x": 670,
+                    "y": 250,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 24,
+                    "x": 670,
+                    "y": 230,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 24,
+                    "x": 670,
+                    "y": 210,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 24,
+                    "x": 670,
+                    "y": 210,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 24,
+                    "x": 670,
+                    "y": 240,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 24,
+                    "x": 670,
+                    "y": 280,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 24,
+                    "x": 670,
+                    "y": 270,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                }
+            ]
             
         ]
     }
