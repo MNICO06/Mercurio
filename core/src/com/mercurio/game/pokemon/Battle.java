@@ -46,8 +46,6 @@ import com.mercurio.game.menu.MenuLabel;
 import com.mercurio.game.menu.Squadra;
 
 
-
-
 public class Battle extends ScreenAdapter {
 
     private int checkPerDoppioPoke = 0;
