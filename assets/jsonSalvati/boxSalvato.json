@@ -3,13 +3,27 @@
 	"nomePokemon": "Bidoof",
 	"livello": "6",
 	"statistiche": {
-		"hp": "59",
-		"hpTot": "59",
+		"hp": 59,
+		"hpTot": 59,
 		"attack": 53,
 		"defense": 47,
 		"special_attack": 41,
 		"special_defense": 47,
 		"speed": 36
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 11,
+		"Att": 5,
+		"Dif": 14,
+		"Spec": 7,
+		"Vel": 9
 	},
 	"mosse": [
 		{
@@ -32,13 +46,27 @@
 	"nomePokemon": "Pidgey",
 	"livello": "9",
 	"statistiche": {
-		"hp": "40",
-		"hpTot": "40",
+		"hp": 40,
+		"hpTot": 40,
 		"attack": 22,
 		"defense": 20,
 		"special_attack": 17,
 		"special_defense": 17,
 		"speed": 28
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 11,
+		"Att": 5,
+		"Dif": 14,
+		"Spec": 7,
+		"Vel": 9
 	},
 	"mosse": [
 		{

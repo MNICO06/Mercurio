@@ -12,6 +12,20 @@
 		"special_defense": 0,
 		"speed": 0
 	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
 	"mosse": [
 		{
 			"nome": "",
@@ -54,6 +68,20 @@
 		"speed": 90,
 		"hp": 5
 	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 11,
+		"Att": 5,
+		"Dif": 14,
+		"Spec": 7,
+		"Vel": 9
+	},
 	"mosse": [
 		{
 			"nome": "Tuonopugno",
@@ -89,6 +117,20 @@
 		"special_defense": 50,
 		"speed": 90,
 		"hp": 0
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 11,
+		"Att": 5,
+		"Dif": 14,
+		"Spec": 7,
+		"Vel": 9
 	},
 	"mosse": [
 		{
@@ -131,6 +173,20 @@
 		"special_defense": 50,
 		"speed": 90,
 		"hp": 100
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 11,
+		"Att": 5,
+		"Dif": 14,
+		"Spec": 7,
+		"Vel": 9
 	},
 	"mosse": [
 		{
@@ -186,6 +242,20 @@
 			"ppAtt": "4"
 		}
 	],
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 11,
+		"Att": 5,
+		"Dif": 14,
+		"Spec": 7,
+		"Vel": 9
+	},
 	"tipoBall": "pokeBall",
 	"x": 1.1,
 	"esperienza": 1309,
@@ -193,22 +263,26 @@
 },
 "poke5": {
 	"nomePokemon": "Bidoof",
-	"livello": "15",
-	"statistiche": {
-		"hpTot": 35,
-		"attack": 505,
-		"defense": 40,
-		"special_attack": 50,
-		"special_defense": 50,
-		"speed": 90,
-		"hp": 29
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 11,
+		"Att": 5,
+		"Dif": 14,
+		"Spec": 7,
+		"Vel": 9
 	},
 	"mosse": [
 		{
-			"nome": "Tuonopugno",
-			"tipo": "Elettro",
+			"nome": "Terremoto",
+			"tipo": "Terra",
 			"ppTot": 5,
-			"ppAtt": "3"
+			"ppAtt": "2"
 		},
 		{
 			"nome": "Fulmine",
@@ -217,8 +291,8 @@
 			"ppAtt": "5"
 		},
 		{
-			"nome": "Scintilla",
-			"tipo": "Elettro",
+			"nome": "Focalcolpo",
+			"tipo": "Lotta",
 			"ppTot": 5,
 			"ppAtt": "5"
 		},
@@ -231,6 +305,16 @@
 	],
 	"tipoBall": "pokeBall",
 	"x": 1.3,
-	"esperienza": 3370
+	"esperienza": 4090,
+	"livello": "16",
+	"statistiche": {
+		"hpTot": 48,
+		"attack": 21,
+		"defense": 22,
+		"special_attack": 18,
+		"special_defense": 20,
+		"speed": 17,
+		"hp": 38
+	}
 }
 }

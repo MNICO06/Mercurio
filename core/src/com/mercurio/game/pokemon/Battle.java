@@ -1,5 +1,7 @@
 package com.mercurio.game.pokemon;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -43,6 +45,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
@@ -181,7 +184,7 @@ public class Battle extends ScreenAdapter {
     private String maxPokeHPBot;
     private String nomePokeSquadBot;
     private String currentPokeHPBot;
-    private String currentPokeHPBotSquad;
+    private int currentPokeHPBotSquad;
     private String nomeMossa;
     private String nomeMossaBot;
     private int soldiPresi;
@@ -230,6 +233,9 @@ public class Battle extends ScreenAdapter {
     private ArrayList<Integer> pokeInBattaglia = new ArrayList<>(); 
     private ArrayList<Integer> pokeInBattagliaLU = new ArrayList<>(); 
     private int ritardoLvUp=0;
+    private JsonValue pokeIvBot;
+    private ArrayList<Integer> hpBotSquad = new ArrayList<>(); 
+
 
     public Battle(InterfacciaComune chiamante, String nameBot, boolean isBotFight, String zona, String nomeSelvatico) {
         MenuLabel.openMenuLabel.setVisible(false);
@@ -1557,7 +1563,7 @@ public class Battle extends ScreenAdapter {
                 colonna=2;
             }
             else {
-                if (currentPokeHPBotSquad.equals("0")){
+                if (hpBotSquad.get(i).equals(0)){
                     colonna=1;
                 }
                 else{
@@ -1639,15 +1645,22 @@ public class Battle extends ScreenAdapter {
                 levelLastPokeBot=LVPokeBot;
             }
 
-            JsonValue statistiche = pokeJson.get("statistiche"); 
-            statsBot.clear();
+            IV iv = new IV();
+            JsonValue pokeIvBot2 = iv.creaIV();
+    
+            Stats stats = new Stats();
+
+            if (!nomePokeBot.equals("") && !LVPokeBot.equals("")){
+                JsonValue statistiche = stats.calcolaStatsBot(nomePokeBot ,Integer.parseInt(LVPokeBot), pokeIvBot2);           
+                statsBot.clear();
             for (JsonValue stat : statistiche) {
                 if (!stat.name.equals("hp") && !stat.name.equals("hpTot")){
                     statsBot.add(stat.asInt());
                 }
             }
-            maxPokeHPBot = statistiche.getString("hpTot");
-            currentPokeHPBot = pokeJson.get("statistiche").getString("HP");
+            maxPokeHPBot = statistiche.getString("hp");
+            currentPokeHPBot = statistiche.getString("hp"); 
+            }
 
             JsonValue mosse = pokeJson.get("mosse");
             listaMosseBot.clear(); 
@@ -1708,15 +1721,19 @@ public class Battle extends ScreenAdapter {
         String jsonStringPoke = filePoke.readString();
         JsonValue jsonPoke = new JsonReader().parse(jsonStringPoke);
 
-        JsonValue statistiche = jsonPoke.get(nameBot).get("stat"); 
+        IV iv= new IV();
+        pokeIvBot = iv.creaIV();
+
+        Stats stats = new Stats();
+        JsonValue statistiche = stats.calcolaStatsBot(nameBot,Integer.parseInt(LVPokeBot), pokeIvBot);
         statsBot.clear();
         for (JsonValue stat : statistiche) {
-            if (!stat.name.equals("PS")){
+            if (!stat.name.equals("hp")){
                 statsBot.add((int)(stat.asInt()*x));
             }
         }
-        maxPokeHPBot = statistiche.getString("PS");
-        currentPokeHPBot = statistiche.getString("PS");
+        maxPokeHPBot = statistiche.getString("hp");
+        currentPokeHPBot = statistiche.getString("hp");
 
 
         int numMosseImparabili = (int) (randoLvl / 2);
@@ -1773,7 +1790,21 @@ public class Battle extends ScreenAdapter {
 
         JsonValue pokeJson = json.get(nameBot).get("poke"+numero);
         nomePokeSquadBot = pokeJson.getString("nomePokemon");
-        currentPokeHPBotSquad = pokeJson.get("statistiche").getString("HP");
+        String LVPokeBotSQ = pokeJson.getString("livello");
+        IV iv= new IV();
+        pokeIvBot = iv.creaIV();
+
+        Stats stats = new Stats();
+
+        if (!nomePokeSquadBot.isEmpty()){
+            JsonValue statistiche = stats.calcolaStatsBot(nomePokeSquadBot,Integer.parseInt(LVPokeBotSQ), pokeIvBot);
+            currentPokeHPBotSquad = statistiche.getInt("hp");
+        }
+        else{
+            currentPokeHPBotSquad=-90310;
+        }
+
+        hpBotSquad.add(currentPokeHPBotSquad);
 
     }
 
@@ -2046,6 +2077,10 @@ public class Battle extends ScreenAdapter {
 
     public void faintPokemon(final Image pokeImage) { 
 
+        if (pokeImage!=pokemonImage){
+            updateEV();
+        }
+
         modificaPPMossePoke(numeroIndexPoke,listaMosse); //Aggiorna i PP delle mosse del pokemon se viene sconfitto
 
         Rectangle scissors = new Rectangle(pokeImage.getX(), pokeImage.getY(), pokeImage.getWidth(), pokeImage.getHeight());
@@ -2142,26 +2177,11 @@ public class Battle extends ScreenAdapter {
     }
 
     public void modificaHPPokeBot(int numero, String currentHP) {
-        // Carica il file JSON
-        FileHandle file = Gdx.files.local("assets/bots/bots.json");
-        String jsonString = file.readString();
-        
-        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
-        JsonValue json = new JsonReader().parse(jsonString);
-    
-        // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
-        JsonValue pokeJson = json.get(nameBot).get("poke" + numero);
-    
-        // Ottieni l'oggetto "statistiche" all'interno del Pokémon
-        JsonValue statistiche = pokeJson.get("statistiche");
-    
-        // Rimuovi il campo "hp" corrente
-        statistiche.remove("hp");
-        // Aggiungi il nuovo campo "hp" con il valore aggiornato
-        statistiche.addChild("hp", new JsonValue(Integer.parseInt(currentHP)));
-        // Scrivi il JSON aggiornato nel file mantenendo la formattazione
-        file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
-        
+        // Converti currentHP da String a int
+        int hpValue = Integer.parseInt(currentHP);
+
+        // Aggiorna l'elemento alla posizione corretta dell'ArrayList
+        hpBotSquad.set(numero - 1, hpValue);
     }
 
     public void modificaHPPoke(int numero, String currentHP) {
@@ -2201,11 +2221,13 @@ public class Battle extends ScreenAdapter {
                 colonna=2;
             }
             else {
-                if (currentPokeHPBotSquad.equals("0")){
+                if (hpBotSquad.get(i).equals(0)){
+                    System.out.println("a");
                     colonna=1;
                 }
                 else{
                     colonna=0;
+                    System.out.println("b");
                 }
             }
 
@@ -2940,16 +2962,27 @@ public class Battle extends ScreenAdapter {
         newPokemon.addChild("livello", new JsonValue(LVPokeBot));
 
         JsonValue statistiche = new JsonValue(JsonValue.ValueType.object);
-        statistiche.addChild("hp", new JsonValue(currentPokeHPBot));
-        statistiche.addChild("hpTot", new JsonValue(maxPokeHPBot));
+        statistiche.addChild("hp", new JsonValue(Integer.parseInt(currentPokeHPBot)));
+        statistiche.addChild("hpTot", new JsonValue(Integer.parseInt(maxPokeHPBot)));
         statistiche.addChild("attack", new JsonValue(statsBot.get(0)));
         statistiche.addChild("defense", new JsonValue(statsBot.get(1)));
         statistiche.addChild("special_attack", new JsonValue(statsBot.get(2)));
         statistiche.addChild("special_defense", new JsonValue(statsBot.get(3)));
         statistiche.addChild("speed", new JsonValue(statsBot.get(4)));
         newPokemon.addChild("statistiche", statistiche);
-        
 
+
+        JsonValue evStats = new JsonValue(JsonValue.ValueType.object);
+        evStats.addChild("Hp", new JsonValue(0));
+        evStats.addChild("Att", new JsonValue(0));
+        evStats.addChild("Dif", new JsonValue(0));
+        evStats.addChild("Spec", new JsonValue(0));
+        evStats.addChild("Vel", new JsonValue(0));
+
+        newPokemon.addChild("ev",evStats);
+
+        newPokemon.addChild("iv",pokeIvBot);
+        
         JsonValue mosseJson = new JsonValue(JsonValue.ValueType.array);
         for (Mossa mossaBot : listaMosseBot) {
             JsonValue mossa = new JsonValue(JsonValue.ValueType.object);
@@ -3171,13 +3204,28 @@ public class Battle extends ScreenAdapter {
         /*System.out.println(index);
         System.out.println(pokeInBattaglia.get(index));
         System.out.println(numeroIndexPoke);*/
-        if (pokeInBattaglia.get(i)==numeroIndexPoke){
-            labelLV.setText(livello+1); // Aggiorna il testo della label
-        }
-
-        // Salva il file JSON con il livello aggiornato
         file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
 
+        Stats statsM = new Stats();
+
+        statsM.aggiornaStatistichePokemon(pokeInBattaglia.get(i));
+
+        if (pokeInBattaglia.get(i)==numeroIndexPoke){
+            FileHandle file3 = Gdx.files.local("assets/ashJson/squadra.json");
+            String jsonString3 = file3.readString();
+            JsonValue json3 = new JsonReader().parse(jsonString3);
+            // Recupera il Pokémon da modificare
+            JsonValue poke = json3.get("poke"+pokeInBattaglia.get(i));
+            // Statistiche del Pokémon
+            JsonValue stats = poke.get("statistiche");
+            int hpTot = stats.getInt("hpTot");
+            int hp = stats.getInt("hp");
+
+            labelLV.setText(livello+1); // Aggiorna il testo della label
+            labelHP.setText(hp);
+            labelHPTot.setText(hpTot);
+        }        
+        // Salva il file JSON con il livello aggiornato
         
         String discorso23= pokeObject.getString("nomePokemon") + " e' salito al livello "+ (livello+1) +" !";
         labelDiscorsi23 = new LabelDiscorsi(discorso23,dimMax,0,true, false);
@@ -3299,4 +3347,36 @@ public class Battle extends ScreenAdapter {
         }
     }
     
+    private void updateEV(){
+
+        FileHandle file = Gdx.files.local("assets/pokemon/Pokemon.json");
+        String jsonString = file.readString();
+        JsonValue json = new JsonReader().parse(jsonString);
+        JsonValue pokeJson = json.get(nomePokeBot);
+    
+        // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
+        FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
+        String jsonString2 = file2.readString();
+        JsonValue json2 = new JsonReader().parse(jsonString2);
+        JsonValue poke = json2.get("poke" + (numeroIndexPoke));
+
+        int evHp = Math.min(poke.get("ev").getInt("Hp") + pokeJson.get("stat").getInt("PS"), 65536);
+        int evAtt = Math.min(poke.get("ev").getInt("Att") + pokeJson.get("stat").getInt("Att"), 65536);
+        int evDif = Math.min(poke.get("ev").getInt("Dif") + pokeJson.get("stat").getInt("Dif"), 65536);
+        int evSpec = Math.min(poke.get("ev").getInt("Spec") + ((pokeJson.get("stat").getInt("AttS")+pokeJson.get("stat").getInt("DifS"))/2), 65536);
+        int evVel = Math.min(poke.get("ev").getInt("Vel") + pokeJson.get("stat").getInt("Vel"), 65536);
+
+        JsonValue evStats = new JsonValue(JsonValue.ValueType.object);
+        evStats.addChild("Hp", new JsonValue(evHp));
+        evStats.addChild("Att", new JsonValue(evAtt));
+        evStats.addChild("Dif", new JsonValue(evDif));
+        evStats.addChild("Spec", new JsonValue(evSpec));
+        evStats.addChild("Vel", new JsonValue(evVel));
+
+        json2.get("poke" + (numeroIndexPoke)).remove("ev");
+        json2.get("poke" + (numeroIndexPoke)).addChild("ev",evStats);
+
+        file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
+    }
+
 } //Fine battaglia :)
