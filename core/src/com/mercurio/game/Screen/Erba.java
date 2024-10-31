@@ -61,19 +61,23 @@ public class Erba {
             case "percorso2":
                 if (check(map, "erbaAltaPercorso2") && game.getIsInMovement()) {
                     int num = random.nextInt(200);
+                    if (estratto==0){
                         if (num == 39) {
                             checkPerDoppioPoke++;
                             estraiPokemonP2();
-                    }
+                        }
+                    }   
                 }
                 break;
 
             case "percorso3":
                 if (check(map, "acquaPercoso3") && game.getIsInMovement()) {
                     int num = random.nextInt(200);
+                    if (estratto==0){
                         if (num == 39) {
                             checkPerDoppioPoke++;
                             estraiPokemonMare();
+                        }
                     }
                 }
                 break;
@@ -81,9 +85,11 @@ public class Erba {
             case "percorso4":
                 if (check(map, "erbaAltaPercorso4") && game.getIsInMovement()) {
                     int num = random.nextInt(200);
+                    if (estratto==0){
                         if (num == 39) {
                             checkPerDoppioPoke++;
                             estraiPokemonP4();
+                        }
                     }
                 }
                 break;

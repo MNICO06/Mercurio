@@ -231,10 +231,12 @@ public class Battle extends ScreenAdapter {
     private boolean cattura=false;
     private float x=0;
     private ArrayList<Integer> pokeInBattaglia = new ArrayList<>(); 
-    private ArrayList<Integer> pokeInBattagliaLU = new ArrayList<>(); 
+    private ArrayList<Integer> pokeInBattagliaLU = new ArrayList<>();
+    private ArrayList<Integer> pokeInBattagliaNLevelUp = new ArrayList<>();  
     private int ritardoLvUp=0;
     private JsonValue pokeIvBot;
     private ArrayList<Integer> hpBotSquad = new ArrayList<>(); 
+    private int nuovaEsperienza;
 
 
     public Battle(InterfacciaComune chiamante, String nameBot, boolean isBotFight, String zona, String nomeSelvatico) {
@@ -2112,14 +2114,7 @@ public class Battle extends ScreenAdapter {
                     if (numeroIndexPokeBot<6 && Integer.parseInt(currentPokeHPBot)==0){
                         numeroIndexPokeBot++;
                         rimuoviPokeDaBattagliaBot();
-                        leggiPokeBot(nameBot,numeroIndexPokeBot);
-                        if (!isBattleEnded){
-                        piazzaLabelLottaPerBot();
-                        checkInt--;
-                        showBallBot();
-                        checkPerDoppiaBarra++;
-                        HPbot=placeHpBar(botHPBar,100,16,currentPokeHPBot,maxPokeHPBot);
-                        } 
+                        
                     }
                     else if (numeroIndexPokeBot==6 && Integer.parseInt(currentPokeHPBot)==0 && !isBattleEnded){
                         calcolaDenaroVintoDaNPC();
@@ -2295,12 +2290,11 @@ public class Battle extends ScreenAdapter {
     }
 
 
-    public void rimuoviPokeDaBattagliaBot(){
+    public void rimuoviPokeDaBattagliaBot(){        
         for (int i = 0; i < pokeInBattaglia.size(); i++) {
             System.out.println(pokeInBattaglia.get(i));
         }
         calcoloEsperienzaVinta(1);
-
 
     }
 
@@ -3081,12 +3075,21 @@ public class Battle extends ScreenAdapter {
             if (json2.get("poke"+pokeInBattaglia.get(i)).getInt("livello")!=100){
                 
                 int expMaxLvl = calcoloEspMaxLivello(crescitaType,Integer.parseInt(LVPoke));
-                int nuovaEsperienza = json2.get("poke"+pokeInBattaglia.get(i)).getInt("esperienza") + esperienzaVinta +500;
+                nuovaEsperienza = json2.get("poke"+pokeInBattaglia.get(i)).getInt("esperienza") + esperienzaVinta +10000;
+                int nuovaEsperienzaCheck = nuovaEsperienza;
+                int expMaxLvlCheck = expMaxLvl;
+                int LVPokeCheck = Integer.parseInt(LVPoke);
 
                 pokeInBattagliaLU.add(lvNumber);
-                if(nuovaEsperienza>=expMaxLvl ){
+                pokeInBattagliaNLevelUp.add(0);
+
+                while (nuovaEsperienzaCheck >= expMaxLvlCheck) {
                     ritardoLvUp++;
+                    pokeInBattagliaNLevelUp.set(i,(pokeInBattagliaNLevelUp.get(i)+1));
                     lvNumber++;
+                    nuovaEsperienzaCheck -= expMaxLvlCheck; // Sottrae l'esperienza necessaria per il livello corrente
+                    LVPokeCheck++;
+                    expMaxLvlCheck = calcoloEspMaxLivello(crescitaType,LVPokeCheck);
                 }
 
                 final int index = i;
@@ -3103,7 +3106,10 @@ public class Battle extends ScreenAdapter {
                         if(nuovaEsperienza>=expMaxLvl){
                             // Aggiorna il valore di "esperienza" nel JSON
                             json2.get("poke"+pokeInBattaglia.get(index)).remove("esperienza");
-                            json2.get("poke" + pokeInBattaglia.get(index)).addChild("esperienza", new JsonValue(nuovaEsperienza-expMaxLvl));
+                            while (nuovaEsperienza>=expMaxLvl){
+                                nuovaEsperienza=nuovaEsperienza-expMaxLvl;
+                            }
+                            json2.get("poke" + pokeInBattaglia.get(index)).addChild("esperienza", new JsonValue(nuovaEsperienza));
                     
                             file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
                             
@@ -3166,11 +3172,17 @@ public class Battle extends ScreenAdapter {
                     // Rimuovi labelNomePokemonBot
                     labelNomeHPBars.remove(labelNomePokemonBot);
                     labelNomePokemonBot.remove();
-            
                     // Rimuovi labelLVBot
                     labelNomeHPBars.remove(labelLVBot);
                     labelLVBot.remove();
-
+                    leggiPokeBot(nameBot,numeroIndexPokeBot);
+                    if (!isBattleEnded){
+                        piazzaLabelLottaPerBot();
+                        checkInt--;
+                        showBallBot();
+                        checkPerDoppiaBarra++;
+                        HPbot=placeHpBar(botHPBar,100,16,currentPokeHPBot,maxPokeHPBot);
+                    } 
                 }
                 else if(nextFunction==2){
                     isBattleEnded=true;
@@ -3240,13 +3252,24 @@ public class Battle extends ScreenAdapter {
                 labelDiscorsi23.reset();
                 if (label23!=null){
                     label23.remove();
+                    label23=null;
                 }
-                label23=null;
+                if (label23!=null){
+                    labelDiscorsi23.reset();
+                    label23.remove();
+                    label23=null;
+                }
                 }
             }, 2.9f);
 
         if (pokeInBattaglia.get(i)==numeroIndexPoke){
-            updateExpBar(false,i);
+            if (pokeInBattagliaNLevelUp.get(i)>1){
+                pokeInBattagliaNLevelUp.set(i, (pokeInBattagliaNLevelUp.get(i)-1));
+                updateExpBar(true,i);
+            }
+            else{
+                updateExpBar(false,i);
+            }
         }    
     }
 
@@ -3329,11 +3352,9 @@ public class Battle extends ScreenAdapter {
         int currentExp = json2.get("poke" + (numeroIndexPoke)).getInt("esperienza");
         int maxExp = calcoloEspMaxLivello(crescitaType, Integer.parseInt(LVPoke));
     
-        // Calcola la percentuale dell'esperienza e la lunghezza della barra
-        float percentualeExp = (float) currentExp / maxExp;
-        float lunghezzaExpBar = 96 * 2 * percentualeExp;
     
         if (lvChange) {
+
             expPlayer.addAction(Actions.sequence(
                 Actions.sizeTo(96 * 2, expPlayer.getHeight(), 1.5f), // Anima fino alla lunghezza massima
                 Actions.sizeTo(0, expPlayer.getHeight(), 0f), // Salta immediatamente a 0
@@ -3342,6 +3363,9 @@ public class Battle extends ScreenAdapter {
             ));       
         }
         else {
+            // Calcola la percentuale dell'esperienza e la lunghezza della barra
+            float percentualeExp = (float) currentExp / maxExp;
+            float lunghezzaExpBar = 96 * 2 * percentualeExp;
             // Anima normalmente la barra fino alla lunghezza calcolata
             expPlayer.addAction(Actions.sizeTo(lunghezzaExpBar, expPlayer.getHeight(), 1.5f));
         }
