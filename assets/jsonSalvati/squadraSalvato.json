@@ -217,7 +217,7 @@
 	"tipoBall": "masterBall",
 	"x": 1.3
 },
-"poke1": {
+"poke5": {
 	"nomePokemon": "Bidoof",
 	"statistiche": {
 		"hp": 20,
@@ -261,7 +261,7 @@
 	"esperienza": 1309,
 	"livello": "15"
 },
-"poke5": {
+"poke1": {
 	"nomePokemon": "Bidoof",
 	"ev": {
 		"Hp": 0,
@@ -305,8 +305,8 @@
 	],
 	"tipoBall": "pokeBall",
 	"x": 1.3,
-	"esperienza": 4090,
-	"livello": "16",
+	"esperienza": 3000,
+	"livello": "15",
 	"statistiche": {
 		"hpTot": 48,
 		"attack": 21,

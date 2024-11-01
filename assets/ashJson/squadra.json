@@ -217,7 +217,7 @@
 	"tipoBall": "masterBall",
 	"x": 1.3
 },
-"poke1": {
+"poke5": {
 	"nomePokemon": "Bidoof",
 	"statistiche": {
 		"hp": 20,
@@ -233,7 +233,7 @@
 			"nome": "Tuonopugno",
 			"tipo": "Elettro",
 			"ppTot": 5,
-			"ppAtt": "3"
+			"ppAtt": "4"
 		},
 		{
 			"nome": "Gigaimpatto",
@@ -242,27 +242,6 @@
 			"ppAtt": "4"
 		}
 	],
-	"iv": {
-		"Hp": 11,
-		"Att": 5,
-		"Dif": 14,
-		"Spec": 7,
-		"Vel": 9
-	},
-	"tipoBall": "pokeBall",
-	"x": 1.1,
-	"livello": "15",
-	"ev": {
-		"Hp": 40,
-		"Att": 45,
-		"Dif": 40,
-		"Spec": 35,
-		"Vel": 56
-	},
-	"esperienza": 1909
-},
-"poke5": {
-	"nomePokemon": "Bidoof",
 	"ev": {
 		"Hp": 0,
 		"Att": 0,
@@ -277,12 +256,26 @@
 		"Spec": 7,
 		"Vel": 9
 	},
+	"tipoBall": "pokeBall",
+	"x": 1.1,
+	"esperienza": 1309,
+	"livello": "15"
+},
+"poke1": {
+	"nomePokemon": "Bidoof",
+	"iv": {
+		"Hp": 11,
+		"Att": 5,
+		"Dif": 14,
+		"Spec": 7,
+		"Vel": 9
+	},
 	"mosse": [
 		{
 			"nome": "Terremoto",
 			"tipo": "Terra",
 			"ppTot": 5,
-			"ppAtt": "2"
+			"ppAtt": "1"
 		},
 		{
 			"nome": "Fulmine",
@@ -300,21 +293,28 @@
 			"nome": "Lanciafiamme",
 			"tipo": "Fuoco",
 			"ppTot": 5,
-			"ppAtt": "5"
+			"ppAtt": "4"
 		}
 	],
 	"tipoBall": "pokeBall",
 	"x": 1.3,
-	"esperienza": 4090,
-	"livello": "16",
+	"ev": {
+		"Hp": 40,
+		"Att": 35,
+		"Dif": 30,
+		"Spec": 20,
+		"Vel": 50
+	},
+	"esperienza": 2958,
+	"livello": "17",
 	"statistiche": {
-		"hpTot": 48,
-		"attack": 21,
-		"defense": 22,
-		"special_attack": 18,
-		"special_defense": 20,
-		"speed": 17,
-		"hp": 38
+		"hpTot": 51,
+		"attack": 22,
+		"defense": 23,
+		"special_attack": 19,
+		"special_defense": 21,
+		"speed": 18,
+		"hp": 26
 	}
 }
 }

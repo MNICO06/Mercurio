@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.bullet.collision.btBvhTree;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.ai.btree.Task;
 import com.badlogic.gdx.ai.btree.utils.DistributionAdapters.IntegerAdapter;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
@@ -237,6 +238,10 @@ public class Battle extends ScreenAdapter {
     private JsonValue pokeIvBot;
     private ArrayList<Integer> hpBotSquad = new ArrayList<>(); 
     private int nuovaEsperienza;
+    ApprendimentoMosse apprendimentoMosse;
+    private ArrayList<Integer> timerCreated = new ArrayList<>();
+    private ArrayList<Float> timerCreatedDelay = new ArrayList<>();
+    private ArrayList<timerData> timerCreatedData = new ArrayList<>();
 
 
     public Battle(InterfacciaComune chiamante, String nameBot, boolean isBotFight, String zona, String nomeSelvatico) {
@@ -424,6 +429,7 @@ public class Battle extends ScreenAdapter {
                             Gdx.input.setInputProcessor(null);
                             chiamante.closeBattle();
                             MenuLabel.openMenuLabel.setVisible(true);
+                            Erba.estratto=0;
                         }
                     }, 2f);
             }
@@ -436,6 +442,7 @@ public class Battle extends ScreenAdapter {
                 Gdx.input.setInputProcessor(null);
                 chiamante.closeBattle();
                 MenuLabel.openMenuLabel.setVisible(true);
+                Erba.estratto=0;
             }
             else {
                 label10=labelDiscorsi10.getLabel();
@@ -618,6 +625,9 @@ public class Battle extends ScreenAdapter {
             }
             if (label23!=null){
                 labelDiscorsi23.renderDisc();
+            }
+            if (apprendimentoMosse!=null){
+                apprendimentoMosse.render();
             }
         }
 
@@ -844,7 +854,6 @@ public class Battle extends ScreenAdapter {
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
-                        Erba.estratto=0;
                         dispose();
                     }
                 }, 0.3f);
@@ -2342,7 +2351,6 @@ public class Battle extends ScreenAdapter {
                             labelDiscorsi8.reset();
                             label8.remove();
                             label8=null;
-                            Erba.estratto=0;
                             dispose();
                         }
                     }, 2f);
@@ -2377,7 +2385,6 @@ public class Battle extends ScreenAdapter {
                                     labelDiscorsi18.reset();
                                     label18.remove();
                                     label18=null;
-                                    Erba.estratto=0;
                                     dispose();
                                 }
                             }, 3.5f);
@@ -2387,7 +2394,6 @@ public class Battle extends ScreenAdapter {
             }, 2f);
         }
         else{
-            Erba.estratto=0;
             dispose();
         }
 
@@ -3094,111 +3100,25 @@ public class Battle extends ScreenAdapter {
 
                 final int index = i;
 
-                Timer.schedule(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        String discorso22= nomePokeEsp + " ha guadagnato "+ esperienzaVinta + " punti esperienza.";
-                        labelDiscorsi22 = new LabelDiscorsi(discorso22,dimMax,0,true, false);
-                        //System.out.println("a");
-                        labelDiscorsi22.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
-                        label22=labelDiscorsi22.getLabel();
-                        stage.addActor(label22);
-                        if(nuovaEsperienza>=expMaxLvl){
-                            // Aggiorna il valore di "esperienza" nel JSON
-                            json2.get("poke"+pokeInBattaglia.get(index)).remove("esperienza");
-                            while (nuovaEsperienza>=expMaxLvl){
-                                nuovaEsperienza=nuovaEsperienza-expMaxLvl;
-                            }
-                            json2.get("poke" + pokeInBattaglia.get(index)).addChild("esperienza", new JsonValue(nuovaEsperienza));
-                    
-                            file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
-                            
-                            if (pokeInBattaglia.get(index)==numeroIndexPoke){
-                                updateExpBar(true,index);
-                            }
-                            else{
-                                Timer.schedule(new Timer.Task() {
-                                    @Override
-                                    public void run() {
-                                        aumentoLivello(index);
-                                        }
-                                }, 2.8f);
-                            }
-                        }
-                        else{
-                            // Aggiorna il valore di "esperienza" nel JSON
-                            json2.get("poke"+pokeInBattaglia.get(index)).remove("esperienza");
-                            json2.get("poke" + pokeInBattaglia.get(index)).addChild("esperienza", new JsonValue(nuovaEsperienza));
-                    
-                            file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
-
-                            if (pokeInBattaglia.get(index)==numeroIndexPoke){
-                                updateExpBar(false,index);
-                            }                        
-                        }
-                        Timer.schedule(new Timer.Task() {
-                            @Override
-                            public void run() {
-                                //System.out.println("b");
-                                labelDiscorsi22.reset();
-                                if (label22!=null){
-                                    label22.remove();
-                                }
-                                label22=null;
-                                }
-                            }, 2.9f);
-                        }
-                }, 3f*i+2.9f*pokeInBattagliaLU.get(index));
+                float partialDelay = 3f*i+2.9f*pokeInBattagliaLU.get(index);
+                partialTimer1(partialDelay,esperienzaVinta,expMaxLvl,i);
+                
             }
             else{
                 skipExp++;
             }
         }
 
-        Timer.schedule(new Timer.Task() {
-            @Override
-            public void run() {
-                pokeInBattaglia.clear();
-                pokeInBattagliaLU.clear();
-                pokeInBattaglia.add(numeroIndexPoke);
-                ritardoLvUp=0;
-
-                if (nextFunction==0){
-                    fineBattaglia();
-                }
-                else if(nextFunction==1){
-                    botHPBar.remove();
-                    HPbot.remove();
-                    // Rimuovi labelNomePokemonBot
-                    labelNomeHPBars.remove(labelNomePokemonBot);
-                    labelNomePokemonBot.remove();
-                    // Rimuovi labelLVBot
-                    labelNomeHPBars.remove(labelLVBot);
-                    labelLVBot.remove();
-                    leggiPokeBot(nameBot,numeroIndexPokeBot);
-                    if (!isBattleEnded){
-                        piazzaLabelLottaPerBot();
-                        checkInt--;
-                        showBallBot();
-                        checkPerDoppiaBarra++;
-                        HPbot=placeHpBar(botHPBar,100,16,currentPokeHPBot,maxPokeHPBot);
-                    } 
-                }
-                else if(nextFunction==2){
-                    isBattleEnded=true;
-                    dispose();
-                    Erba.estratto=0;
-                }
-            }
-        }, 3f*pokeInBattaglia.size() - 3f*skipExp +2.9f*ritardoLvUp);
+        float delayTot = 3f*pokeInBattaglia.size() - 3f*skipExp +2.9f*ritardoLvUp;
+        timerTotal1(delayTot,nextFunction);
 
         System.out.println(esperienzaVinta);
         
     }
 
     private void aumentoLivello(int i){
-        System.out.println("Da fare ancora :)");
-       // Apre il file JSON
+        //System.out.println("Da fare ancora :)");
+        // Apre il file JSON
         FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
         String jsonString2 = file2.readString();
         JsonValue json2 = new JsonReader().parse(jsonString2);
@@ -3259,8 +3179,12 @@ public class Battle extends ScreenAdapter {
                     label23.remove();
                     label23=null;
                 }
+
+                if ((livello+1)%2==0){
+                    apprendimentoMosse = new ApprendimentoMosse(Battle.this,stage,pokeInBattaglia.get(i));
                 }
-            }, 2.9f);
+            }
+        }, 2.9f);
 
         if (pokeInBattaglia.get(i)==numeroIndexPoke){
             if (pokeInBattagliaNLevelUp.get(i)>1){
@@ -3403,4 +3327,158 @@ public class Battle extends ScreenAdapter {
         file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
     }
 
+
+    private void timerTotal1(float delay, int nextFunction){
+
+        timerCreated.add(0);
+        timerCreatedDelay.add(delay);
+        timerCreatedData.add(new timerData(nextFunction, -1, -1));
+
+
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                pokeInBattaglia.clear();
+                pokeInBattagliaLU.clear();
+                pokeInBattaglia.add(numeroIndexPoke);
+                ritardoLvUp=0;
+
+                if (nextFunction==0){
+                    fineBattaglia();
+                }
+                else if(nextFunction==1){
+                    botHPBar.remove();
+                    HPbot.remove();
+                    // Rimuovi labelNomePokemonBot
+                    labelNomeHPBars.remove(labelNomePokemonBot);
+                    labelNomePokemonBot.remove();
+                    // Rimuovi labelLVBot
+                    labelNomeHPBars.remove(labelLVBot);
+                    labelLVBot.remove();
+                    leggiPokeBot(nameBot,numeroIndexPokeBot);
+                    if (!isBattleEnded){
+                        piazzaLabelLottaPerBot();
+                        checkInt--;
+                        showBallBot();
+                        checkPerDoppiaBarra++;
+                        HPbot=placeHpBar(botHPBar,100,16,currentPokeHPBot,maxPokeHPBot);
+                    } 
+                }
+                else if(nextFunction==2){
+                    isBattleEnded=true;
+                    dispose();
+                }
+            }
+        }, delay);
+    }
+
+    private void partialTimer1(float partialDelay, int esperienzaVinta, int expMaxLvl, int i){
+
+        timerCreated.add(1);
+        timerCreatedDelay.add(partialDelay);
+        timerCreatedData.add(new timerData(esperienzaVinta, expMaxLvl, i));
+
+        FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
+        String jsonString2 = file2.readString();
+        JsonValue json2 = new JsonReader().parse(jsonString2);
+        String nomePokeEsp= json2.get("poke"+pokeInBattaglia.get(i)).getString("nomePokemon");
+
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                String discorso22= nomePokeEsp + " ha guadagnato "+ esperienzaVinta + " punti esperienza.";
+                labelDiscorsi22 = new LabelDiscorsi(discorso22,dimMax,0,true, false);
+                //System.out.println("a");
+                labelDiscorsi22.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
+                label22=labelDiscorsi22.getLabel();
+                stage.addActor(label22);
+                if(nuovaEsperienza>=expMaxLvl){
+                    // Aggiorna il valore di "esperienza" nel JSON
+                    json2.get("poke"+pokeInBattaglia.get(index)).remove("esperienza");
+                    while (nuovaEsperienza>=expMaxLvl){
+                        nuovaEsperienza=nuovaEsperienza-expMaxLvl;
+                    }
+                    json2.get("poke" + pokeInBattaglia.get(index)).addChild("esperienza", new JsonValue(nuovaEsperienza));
+            
+                    file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
+                    
+                    if (pokeInBattaglia.get(index)==numeroIndexPoke){
+                        updateExpBar(true,index);
+                    }
+                    else{
+                        Timer.schedule(new Timer.Task() {
+                            @Override
+                            public void run() {
+                                aumentoLivello(index);
+                                }
+                        }, 2.8f);
+                    }
+                }
+                else{
+                    // Aggiorna il valore di "esperienza" nel JSON
+                    json2.get("poke"+pokeInBattaglia.get(index)).remove("esperienza");
+                    json2.get("poke" + pokeInBattaglia.get(index)).addChild("esperienza", new JsonValue(nuovaEsperienza));
+            
+                    file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
+
+                    if (pokeInBattaglia.get(index)==numeroIndexPoke){
+                        updateExpBar(false,index);
+                    }                        
+                }
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        //System.out.println("b");
+                        labelDiscorsi22.reset();
+                        if (label22!=null){
+                            label22.remove();
+                        }
+                        label22=null;
+                        }
+                    }, 2.9f);
+                }
+        }, partialDelay);
+    }
+
+    public void cancelAP(){
+        apprendimentoMosse=null;
+        Gdx.input.setInputProcessor(stage);
+        reCreateTimers();
+    }
+
+    public void destroyTimers(){
+        Timer.instance().clear();
+    }
+
+    public void reCreateTimers(){
+
+        // Create temporary copies of the lists before clearing the originals
+        ArrayList<Integer> tempTimerCreated = new ArrayList<>(timerCreated);
+        ArrayList<timerData> tempTimerCreatedData = new ArrayList<>(timerCreatedData);
+        ArrayList<Float> tempTimerCreatedDelay = new ArrayList<>(timerCreatedDelay);
+
+        // Clear the original lists
+        timerCreated.clear();
+        timerCreatedData.clear();
+        timerCreatedDelay.clear();
+
+        // Iterate over the copied lists to perform operations
+        for (int i = 0; i < tempTimerCreated.size(); i++) {
+            if (tempTimerCreated.get(i) == 0) {
+                timerTotal1(tempTimerCreatedDelay.get(i), tempTimerCreatedData.get(i).getFirst());
+            } else {
+                partialTimer1(
+                    tempTimerCreatedDelay.get(i), 
+                    tempTimerCreatedData.get(i).getFirst(), 
+                    tempTimerCreatedData.get(i).getSecond(), 
+                    tempTimerCreatedData.get(i).getThird()
+                );
+            }
+        }
+        tempTimerCreated.clear();
+        tempTimerCreatedData.clear();
+        tempTimerCreatedDelay.clear();
+    }
+    //TODO
+    /*bisogna far si che ogni timer venga tolto dalla lista se viene eseguito prima della rimozione e aggiornato il timer delay man mano che passa il tempo */
 } //Fine battaglia :)
