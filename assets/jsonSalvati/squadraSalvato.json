@@ -200,8 +200,8 @@
 	},
 	"mosse": [
 		{
-			"nome": "Tuonoshok",
-			"tipo": "Elettro",
+			"nome": "Taglio",
+			"tipo": "Normale",
 			"ppTot": 5,
 			"ppAtt": 5
 		},
