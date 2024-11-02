@@ -200,8 +200,8 @@
 	},
 	"mosse": [
 		{
-			"nome": "Sassata",
-			"tipo": "Roccia",
+			"nome": "Pestone",
+			"tipo": "Normale",
 			"ppTot": 5,
 			"ppAtt": "4"
 		},
