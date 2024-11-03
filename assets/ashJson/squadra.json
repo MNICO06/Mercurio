@@ -200,8 +200,8 @@
 	},
 	"mosse": [
 		{
-			"nome": "Comete",
-			"tipo": "Normale",
+			"nome": "Scarica",
+			"tipo": "Elettro",
 			"ppTot": 5,
 			"ppAtt": "4"
 		},
