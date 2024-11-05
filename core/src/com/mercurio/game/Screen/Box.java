@@ -49,6 +49,8 @@ public class Box extends ScreenAdapter {
     private String nomePoke;
     private TextureRegion[] sfondi;
     private MercurioMain game;
+    private Image avantiImage;
+    private Image indietroImage;
 
     public Box(MercurioMain game){
         this.game=game;
@@ -84,7 +86,7 @@ public class Box extends ScreenAdapter {
         // Carica il file JSON
         FileHandle file = Gdx.files.local("assets/ashJson/box.json");
         String jsonString = file.readString();
-        
+
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
 
@@ -92,14 +94,15 @@ public class Box extends ScreenAdapter {
         nomePoke = pokeJson.getString("nomePokemon");
     }
 
-    public void disegnaPoke(){
+    public void disegnaPoke(int param){
         Texture animationTexture = new Texture("pokemon/" + nomePoke + "Label.png");
         animationTextures.add(animationTexture);
+        Image background = new Image(sfondi[0]);
         TextureRegion animationRegion = new TextureRegion(animationTexture, 0, 0, animationTexture.getWidth() / 2, animationTexture.getHeight());
         // Crea un'immagine utilizzando solo la prima metà dell'immagine
         Image animationImage = new Image(animationRegion);
-        animationImage.setSize(animationTexture.getWidth(), animationTexture.getHeight()*2);
-        animationImage.setPosition(3,  45 * 3 - 55);
+        animationImage.setSize(animationTexture.getWidth() +20, animationTexture.getHeight()*2 +20);
+        animationImage.setPosition(250 + param*100,  (Gdx.graphics.getHeight() + background.getHeight()) / 2);
         stage.addActor(animationImage);
     }
 
@@ -117,29 +120,68 @@ public class Box extends ScreenAdapter {
                 sfondi[i+j] = new TextureRegion(textureBack, i * regionWidth, j* regionHeight, regionWidth, regionHeight);
             }
         }
-        
-        // Add background 
+
+        // Add background
         Image background = new Image(sfondi[0]);
         // Ritaglia l'immagine per adattarla alla dimensione dello schermo
-        background.setSize(400, 400);
+        background.setSize(700, 600);
+        background.setPosition((Gdx.graphics.getWidth() - background.getWidth()) / 2, (Gdx.graphics.getHeight() - background.getHeight()) / 2);
         stage.addActor(background);
 
-        //background.setDrawable(new TextureRegionDrawable(sfondi[quello_che_vuoi]));
+        // Aggiungi le immagini "avanti" e "indietro" in alto
+        Texture avantiTexture = new Texture("assets/sfondo/avanti.png");
+        Texture indietroTexture = new Texture("assets/sfondo/indietro.png");
+
+        avantiImage = new Image(avantiTexture);
+        indietroImage = new Image(indietroTexture);
+
+        // Posiziona le immagini in alto a sinistra e destra
+        float marginTop = 70; // distanza dal bordo superiore dello schermo
+        // Calcola la posizione centrale per le immagini
+        float centerX = Gdx.graphics.getWidth() / 2;
+        float yPos = (Gdx.graphics.getHeight() + background.getHeight()) / 2 - avantiImage.getHeight() - marginTop;
+        float separator = 240;
+
+        indietroImage.setPosition(centerX - indietroImage.getWidth() - separator, yPos);
+        indietroImage.setSize(30, 50);
+
+        avantiImage.setPosition(centerX + separator, yPos);
+        avantiImage.setSize(30, 50);
+
+        stage.addActor(avantiImage);
+        stage.addActor(indietroImage);
+
+        // Carica il font personalizzato
+        font = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
+
+        // Crea uno stile per la Label con il font personalizzato
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = font;
+
+        // Imposta la scala del font
+        labelStyle.font.getData().setScale(5f); // Ingrandisce il font
+
+        // Crea la Label con il testo desiderato
+        Label label = new Label("BOX 1", labelStyle);
+
+        // Posiziona la label centrata tra le frecce
+        label.setPosition(centerX - label.getWidth() / 2, yPos);
+        stage.addActor(label);
     }
-    
+
     public void caricaBorsa() {
         // Carica il file JSON
         FileHandle file = Gdx.files.local("assets/ashJson/box.json");
         String jsonString = file.readString();
-        
+
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
 
         // Crea un'etichetta per ogni oggetto nel file JSON
         for (int i = 0; i < json.size; i++) {
             leggiPoke(i);
-            disegnaPoke();
+            disegnaPoke(i);
         }
     }
-    
+
 }
