@@ -190,8 +190,8 @@
 	},
 	"mosse": [
 		{
-			"nome": "Oscurotuffo",
-			"tipo": "Spettro",
+			"nome": "Velenospina",
+			"tipo": "Veleno",
 			"ppTot": 5,
 			"ppAtt": "5"
 		},
@@ -200,17 +200,20 @@
 			"tipo": "Elettro",
 			"ppTot": 15,
 			"ppAtt": "7"
+			"ppAtt": "7"
 		},
 		{
 			"nome": "Dragartigli",
 			"tipo": "Drago",
 			"ppTot": 15,
 			"ppAtt": "13"
+			"ppAtt": "13"
 		},
 		{
 			"nome": "Forzasfera",
 			"tipo": "Lotta",
 			"ppTot": 20,
+			"ppAtt": "5"
 			"ppAtt": "5"
 		}
 	],

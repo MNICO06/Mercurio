@@ -16,7 +16,7 @@
 			"special_attack": 22,
 			"special_defense": 22,
 			"speed": 51,
-			"hp": 48
+			"hp": 0
 		},
 		"mosse": [
 			{
@@ -392,7 +392,7 @@
 		},
 		"mosse": [
 			{
-				"nome": "Attacco rapido",
+				"nome": "AttaccoRapido",
 				"tipo": "Normale"
 			},
 			{
@@ -582,7 +582,7 @@
 		},
 		"mosse": [
 			{
-				"nome": "Attacco rapido",
+				"nome": "AttaccoRapido",
 				"tipo": "Normale"
 			},
 			{
@@ -1346,7 +1346,7 @@
 				"tipo": "Coleottero"
 			},
 			{
-				"nome": "Attacco rapido",
+				"nome": "AttaccoRapido",
 				"tipo": "Normale"
 			}
 		]

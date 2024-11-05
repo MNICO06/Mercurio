@@ -1,0 +1,96 @@
+{
+    "data": {
+        "image": "spriteMosse/strike.png",
+        "numeroColonne": 5,
+        "numeroRighe": 6,
+        "tipologia": "continua",
+        "frame": [
+            [
+                {
+                    "numeroSprite": 0,
+                    "x": 700,
+                    "y": 320,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 0,
+                    "x": 700,
+                    "y": 320,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 21,
+                    "x": -1,
+                    "y": 320,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.5
+                },
+                {
+                    "numeroSprite": 21,
+                    "x": 660,
+                    "y": 360,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.5
+                }
+            ],
+            [
+                {
+                    "numeroSprite": 4,
+                    "x": -1,
+                    "y": 0,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 4,
+                    "x": -1,
+                    "y": 0,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 21,
+                    "x": 660,
+                    "y": 360,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.5
+                }
+            ],
+            [
+                {
+                    "numeroSprite": 4,
+                    "x": -1,
+                    "y": 0,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 4,
+                    "x": -1,
+                    "y": 0,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 21,
+                    "x": 680,
+                    "y": 300,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.5
+                }
+            ]
+        ]
+    }
+}
