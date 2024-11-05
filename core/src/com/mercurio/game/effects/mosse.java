@@ -77,35 +77,42 @@ public class mosse {
 
     public TextureRegion[] getSpriteMossa() {
         String jsonPath = "jsonMosse/" + nomeMossaMinuscolo + ".json";
+        TextureRegion[] spriteMossa;
 
-        // Carica il file JSON
-        FileHandle file = Gdx.files.internal(jsonPath);
-        String jsonString = file.readString();
+        try {
+            // Carica il file JSON
+            FileHandle file = Gdx.files.internal(jsonPath);
+            String jsonString = file.readString();
 
-        // Parsea il JSON
-        JsonValue json = new JsonReader().parse(jsonString);
-        JsonValue mossaJson = json.get("data");
+            // Parsea il JSON
+            JsonValue json = new JsonReader().parse(jsonString);
+            JsonValue mossaJson = json.get("data");
 
-        // Estrai i valori dal JSON
-        String imagePath = mossaJson.getString("image");
-        int numeroColonne = mossaJson.getInt("numeroColonne");
-        int numeroRighe = mossaJson.getInt("numeroRighe");
-        tipologia = mossaJson.getString("tipologia");
-        speed = mossaJson.has("speed") ? mossaJson.getFloat("speed") : 0.1f;
-        boolean speculari = mossaJson.has("speculari") ? mossaJson.getBoolean("speculari") : false;
+            // Estrai i valori dal JSON
+            String imagePath = mossaJson.getString("image");
+            int numeroColonne = mossaJson.getInt("numeroColonne");
+            int numeroRighe = mossaJson.getInt("numeroRighe");
+            tipologia = mossaJson.getString("tipologia");
+            speed = mossaJson.has("speed") ? mossaJson.getFloat("speed") : 0.1f;
+            boolean speculari = mossaJson.has("speculari") ? mossaJson.getBoolean("speculari") : false;
 
 
-        //prendo lo spriteshet
-        texture = new Texture(Gdx.files.internal(imagePath));
+            //prendo lo spriteshet
+            texture = new Texture(Gdx.files.internal(imagePath));
 
-        int totaleSprite = numeroColonne * numeroRighe;
+            int totaleSprite = numeroColonne * numeroRighe;
 
-        TextureRegion[] spriteMossa = creaFrames(texture, numeroColonne, numeroRighe, totaleSprite);
+            spriteMossa = creaFrames(texture, numeroColonne, numeroRighe, totaleSprite);
 
-        if(speculari) {
-            spriteMossa = aggiungiSpeculari(spriteMossa);
-        }
+            if(speculari) {
+                spriteMossa = aggiungiSpeculari(spriteMossa);
+            }
         
+        } catch(Exception e) {
+            Gdx.app.error("Mossa", "File JSON non trovato: " + jsonPath, e);
+            // Genera uno sprite di default vuoto
+            spriteMossa = new TextureRegion[0];
+        }
 
         return spriteMossa;
     }
@@ -114,30 +121,36 @@ public class mosse {
     public ArrayList<FrameData[]> getFrameDataList() {
         String jsonPath = "jsonMosse/" + nomeMossaMinuscolo + ".json";
 
-        // Carica il file JSON
-        FileHandle file = Gdx.files.internal(jsonPath);
-        String jsonString = file.readString();
+        try {
 
-        // Parsea il JSON
-        JsonValue json = new JsonReader().parse(jsonString);
-        JsonValue mossaJson = json.get("data");
+            // Carica il file JSON
+            FileHandle file = Gdx.files.internal(jsonPath);
+            String jsonString = file.readString();
 
-        // Estrai i frame dal JSON
-        JsonValue framesJson = mossaJson.get("frame");
-        
+            // Parsea il JSON
+            JsonValue json = new JsonReader().parse(jsonString);
+            JsonValue mossaJson = json.get("data");
 
-        for (JsonValue frameSetJson : framesJson) {
-            ArrayList<FrameData> currentFrameDataList = new ArrayList<>();
-            for (JsonValue frameJson : frameSetJson) {
-                int numeroSprite = frameJson.getInt("numeroSprite");
-                float x = frameJson.getFloat("x");
-                float y = frameJson.getFloat("y");
-                float altezza = frameJson.getFloat("altezza");
-                float larghezza = frameJson.getFloat("larghezza");
-                float opacity = frameJson.getFloat("opacity");
-                currentFrameDataList.add(new FrameData(numeroSprite, x, y, altezza, larghezza,opacity)); // Aggiungi i dati del frame alla lista
+            // Estrai i frame dal JSON
+            JsonValue framesJson = mossaJson.get("frame");
+            
+
+            for (JsonValue frameSetJson : framesJson) {
+                ArrayList<FrameData> currentFrameDataList = new ArrayList<>();
+                for (JsonValue frameJson : frameSetJson) {
+                    int numeroSprite = frameJson.getInt("numeroSprite");
+                    float x = frameJson.getFloat("x");
+                    float y = frameJson.getFloat("y");
+                    float altezza = frameJson.getFloat("altezza");
+                    float larghezza = frameJson.getFloat("larghezza");
+                    float opacity = frameJson.getFloat("opacity");
+                    currentFrameDataList.add(new FrameData(numeroSprite, x, y, altezza, larghezza,opacity)); // Aggiungi i dati del frame alla lista
+                }
+                frameDataList.add(currentFrameDataList.toArray(new FrameData[0])); // Aggiungi l'array di FrameData a frameDataList
             }
-            frameDataList.add(currentFrameDataList.toArray(new FrameData[0])); // Aggiungi l'array di FrameData a frameDataList
+
+        } catch (Exception e) {
+            Gdx.app.error("Mossa", "File JSON non trovato: " + jsonPath, e);
         }
 
         return frameDataList;
