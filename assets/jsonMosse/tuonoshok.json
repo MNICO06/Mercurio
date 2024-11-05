@@ -1,0 +1,192 @@
+{
+    "data": {
+        "image": "spriteMosse/electric.png",
+        "numeroColonne": 5,
+        "numeroRighe": 13,
+        "tipologia": "continua",
+        "frame": [
+            [
+                {
+                    "numeroSprite": 20,
+                    "x": 670,
+                    "y": 520,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 20,
+                    "x": 670,
+                    "y": 420,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 20,
+                    "x": 670,
+                    "y": 320,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 20,
+                    "x": -1,
+                    "y": 320,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                }
+            ],
+            [
+                {
+                    "numeroSprite": 20,
+                    "x": -1,
+                    "y": 320,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 20,
+                    "x": -1,
+                    "y": 320,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 20,
+                    "x": -1,
+                    "y": 320,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 34,
+                    "x": 640,
+                    "y": 330,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 36,
+                    "x": 640,
+                    "y": 330,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 38,
+                    "x": 640,
+                    "y": 330,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 36,
+                    "x": 640,
+                    "y": 330,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 34,
+                    "x": 640,
+                    "y": 330,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 34,
+                    "x": -1,
+                    "y": 330,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                }
+            ],
+            [
+                {
+                    "numeroSprite": 20,
+                    "x": -1,
+                    "y": 320,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 20,
+                    "x": -1,
+                    "y": 320,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 20,
+                    "x": -1,
+                    "y": 320,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 34,
+                    "x": 740,
+                    "y": 290,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 36,
+                    "x": 740,
+                    "y": 290,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 38,
+                    "x": 740,
+                    "y": 290,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 36,
+                    "x": 740,
+                    "y": 290,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 34,
+                    "x": 740,
+                    "y": 290,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 34,
+                    "x": -1,
+                    "y": 330,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                }
+            ]
+        ]
+    }
+}

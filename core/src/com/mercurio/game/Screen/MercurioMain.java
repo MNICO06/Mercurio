@@ -75,6 +75,8 @@ public class MercurioMain extends Game implements InterfacciaComune{
     private String ingressoPokeCenter;
 
     private String screenString;
+
+    private Box box;
     
     @Override
     public void create() {
@@ -149,6 +151,10 @@ public class MercurioMain extends Game implements InterfacciaComune{
 
             if (battle != null){
                 battle.render();
+            }
+
+            if (box != null){
+                box.render();
             }
 
         }
@@ -414,6 +420,17 @@ public class MercurioMain extends Game implements InterfacciaComune{
         getPlayer().setMovement(true);
         Gdx.input.setInputProcessor(MenuLabel.getStage());
         battle = null;
+    }
+
+    public void creaBox() {
+        getPlayer().setMovement(false);
+        box = new Box(this);
+    }
+
+    public void closeBox() {
+        getPlayer().setMovement(true);
+        Gdx.input.setInputProcessor(MenuLabel.getStage());
+        box = null;
     }
 
 }

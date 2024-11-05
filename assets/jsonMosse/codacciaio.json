@@ -1,0 +1,36 @@
+{
+    "data": {
+        "image": "spriteMosse/codacciaio.png",
+        "numeroColonne": 2,
+        "numeroRighe": 1,
+        "tipologia": "continua",
+        "frame": [
+            [
+                {
+                    "numeroSprite": 0,
+                    "x": 670,
+                    "y": 320,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 670,
+                    "y": 330,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 670,
+                    "y": 330,
+                    "altezza": 300,
+                    "larghezza": 300,
+                    "opacity": 1
+                }
+            ]
+        ]
+    }
+}

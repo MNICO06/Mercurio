@@ -1,0 +1,11 @@
+{
+    "data": {
+        "image": "spriteMosse/grass.png",
+        "numeroColonne": 5,
+        "numeroRighe": 10,
+        "tipologia": "continua",
+        "frame": [
+            
+        ]
+    }
+}

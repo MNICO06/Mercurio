@@ -4,11 +4,11 @@ public class Experience {
 
     int esperienza=0;
 
-    Experience(){
+    public Experience(){
 
     }
 
-    private int irregolare(int livello){
+    public int irregolare(int livello){
 
         if (livello<=50){
             esperienza=(livello*livello*livello*(100-livello))/50;
@@ -26,21 +26,21 @@ public class Experience {
         return esperienza;
     }
 
-    private int medio_Lenta(int livello){
+    public int medio_Lenta(int livello){
 
         esperienza=((6*livello*livello*livello)/5) - (15*livello*livello) + (100*livello) - 140;
 
         return esperienza;
     }
 
-    private int lenta(int livello){
+    public int lenta(int livello){
 
         esperienza=(5*livello*livello*livello)/4;
 
         return esperienza;
     }
 
-    private int fluttuante(int livello){
+    public int fluttuante(int livello){
 
         if (livello<=15){
             esperienza=(livello*livello*livello*((24+((livello+1)/3))/50));
@@ -55,14 +55,14 @@ public class Experience {
         return esperienza;
     }
 
-    private int veloce(int livello){
+    public int veloce(int livello){
 
         esperienza=(4*livello*livello*livello)/5;
 
         return esperienza;
     }
 
-    private int medio_Veloce(int livello){
+    public int medio_Veloce(int livello){
 
         esperienza=livello*livello*livello;
 
