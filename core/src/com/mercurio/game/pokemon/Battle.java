@@ -233,7 +233,13 @@ public class Battle extends ScreenAdapter {
     private ArrayList<Integer> timerCreated = new ArrayList<>();
     private ArrayList<Float> timerCreatedDelay = new ArrayList<>();
     private ArrayList<timerData> timerCreatedData = new ArrayList<>();
-
+    private boolean checkNextLV;
+    private boolean continueLVOperations=true;
+    private int numberOfLVtoUp;
+    private mosse mosse;
+    TextureRegion[] frames;
+    ArrayList<FrameData[]> frameDataList;
+    private String tipologia;
 
     public Battle(InterfacciaComune chiamante, String nameBot, boolean isBotFight, String zona, String nomeSelvatico) {
         MenuLabel.openMenuLabel.setVisible(false);
@@ -3342,7 +3348,7 @@ public class Battle extends ScreenAdapter {
                 System.out.println("aaannn");
 
                 if ((livello+1)%2==0){
-                    apprendimentoMosse = new ApprendimentoMosse(Battle.this,stage,pokeInBattaglia.get(i));
+                    //apprendimentoMosse = new ApprendimentoMosse(Battle.this,stage,pokeInBattaglia.get(i));
                 }
 
                 System.out.println("aaasss");

@@ -186,7 +186,6 @@ public class PokeCenter extends ScreenAdapter {
         }
     }
 
-<<<<<<< HEAD
     public void renderLabelScelta() {
         discorso.renderLabelScelta();
     }
@@ -231,8 +230,6 @@ public class PokeCenter extends ScreenAdapter {
         }
     }
 
-=======
->>>>>>> 0d380d14c334c4fbaeb26e3a554966ae9b303c06
     private void checkTesto() {
 
         if (renderTesto) {
@@ -241,7 +238,6 @@ public class PokeCenter extends ScreenAdapter {
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
                 //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
                 continuaTesto = discorso.advanceText();
-<<<<<<< HEAD
 
                 if (discorso.isEnding()) {
                     //far spawnare la label con si o no
@@ -253,8 +249,6 @@ public class PokeCenter extends ScreenAdapter {
                     testoTerminato = true;
                 }
                 
-=======
->>>>>>> 0d380d14c334c4fbaeb26e3a554966ae9b303c06
             }
 
             if (risposta != -1) {
@@ -270,8 +264,6 @@ public class PokeCenter extends ScreenAdapter {
             }
 
         }
-<<<<<<< HEAD
-=======
         else {
 
             renderTesto = false;
@@ -279,7 +271,6 @@ public class PokeCenter extends ScreenAdapter {
             game.getPlayer().setMovement(true);
             discorso.reset();
         }
->>>>>>> 0d380d14c334c4fbaeb26e3a554966ae9b303c06
     }
 
     public void setPosition() {

@@ -23,15 +23,12 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 public class LabelDiscorsi {
     // Dichiarazioni delle texture
     private Label label;
-<<<<<<< HEAD
     private Label labelScelta;
-    private Label labelSi;
-    private Label labelNo;
+
     private String scelta = null;
 
 
     Stage stage;
-=======
     private Label labelSi;
     private Label labelNo;
     // Dimensioni e posizioni per le label
@@ -42,7 +39,6 @@ public class LabelDiscorsi {
     private boolean deveScegliere = false;
     private boolean mostraDecisionLabels = false;
 
->>>>>>> 0d380d14c334c4fbaeb26e3a554966ae9b303c06
     private BitmapFont font;
     private SpriteBatch batch;
     private ArrayList<String> righeDiscorso;
@@ -358,7 +354,6 @@ public class LabelDiscorsi {
         }
         else {
             return false;
-<<<<<<< HEAD
         }
     }
 
@@ -368,8 +363,6 @@ public class LabelDiscorsi {
         }
         else {
             return true;
-=======
->>>>>>> 0d380d14c334c4fbaeb26e3a554966ae9b303c06
         }
     }
 
@@ -484,16 +477,15 @@ public class LabelDiscorsi {
         }
     }
 
-<<<<<<< HEAD
     public String getScelta() {
         return scelta;
     }
 
     public void setScelta(String scelta) {
-        this.scelta = scelta;
-=======
-    public void setSceltaUtente(int sceltaUtente) {
+        this.scelta = scelta;}
+        
+        public void setSceltaUtente(int sceltaUtente) {
         this.sceltaUtente = sceltaUtente;
->>>>>>> 0d380d14c334c4fbaeb26e3a554966ae9b303c06
     }
+
 }
