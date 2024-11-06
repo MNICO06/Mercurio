@@ -29,6 +29,8 @@ class Mossa {
     private String tipo4;
     private Battle chiamante;
     private int modifierPerText=0;
+    private int precisione;
+    private String tipologia;
 
     private Texture texture;
     private Sprite[] spriteArray;
@@ -279,6 +281,45 @@ class Mossa {
 
         JsonValue pokeJson = json.get(nome);
         potenza = Integer.parseInt(pokeJson.getString("potenza"));
+    }
+
+    public int getPotenza(){
+        estraiPotenza();
+        return potenza;
+    }
+
+    public void estraiPrecisione(){
+        // Carica il file JSON
+        FileHandle file = Gdx.files.local("assets/pokemon/mosse.json");
+        String jsonString = file.readString();
+        
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+        JsonValue json = new JsonReader().parse(jsonString);
+
+        JsonValue pokeJson = json.get(nome);
+        precisione = Integer.parseInt(pokeJson.getString("precisione"));
+    }
+
+    public int getPrecisione(){
+        estraiPrecisione();
+        return precisione;
+    }
+
+    public void estraiTipologia(){
+        // Carica il file JSON
+        FileHandle file = Gdx.files.local("assets/pokemon/mosse.json");
+        String jsonString = file.readString();
+        
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+        JsonValue json = new JsonReader().parse(jsonString);
+
+        JsonValue pokeJson = json.get(nome);
+        tipologia = pokeJson.getString("attacco");
+    }
+
+    public String getTipologia(){
+        estraiTipologia();
+        return tipologia;
     }
 
 
