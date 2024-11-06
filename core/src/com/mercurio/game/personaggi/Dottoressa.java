@@ -1,6 +1,5 @@
 package com.mercurio.game.personaggi;
 
-import org.json.JSONObject;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;

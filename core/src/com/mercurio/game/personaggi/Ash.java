@@ -55,8 +55,13 @@ public class Ash {
     private int player_width_current;
     private int player_height_current;
 
+<<<<<<< HEAD
+    private float speed_Camminata_orizontale = 200;
+    private float speed_Camminata_verticale = 200;
+=======
     private float speed_Camminata_orizontale = 300;
     private float speed_Camminata_verticale = 300;
+>>>>>>> 0d380d14c334c4fbaeb26e3a554966ae9b303c06
     private float speed_Camminata_orizontale_surf = 100;
     private float speed_Camminata_verticale_surf = 100;
     private float muovi_X = 0;

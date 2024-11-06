@@ -74,7 +74,6 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
     private LabelDiscorsi discorsoFinale;
     private boolean continuaTesto = true;
     private boolean renderDiscorso = false;
-    //TODO: da settare a true quando finisce la battaglia per far partire il discorso
     private boolean battagliaIsFinished = false;
     private boolean torna = false;
     private String nomeJson;

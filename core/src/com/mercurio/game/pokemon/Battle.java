@@ -4,34 +4,25 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Semaphore;
 
-import com.badlogic.gdx.utils.JsonWriter;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.physics.bullet.collision.btBvhTree;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.ai.btree.Task;
 import com.badlogic.gdx.ai.btree.utils.DistributionAdapters.IntegerAdapter;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -54,13 +45,13 @@ import com.badlogic.gdx.utils.Timer;
 import com.mercurio.game.Screen.Erba;
 import com.mercurio.game.Screen.InterfacciaComune;
 import com.mercurio.game.effects.LabelDiscorsi;
+import com.mercurio.game.effects.mosse;
+import com.mercurio.game.effects.mosse.FrameData;
 import com.mercurio.game.menu.Borsa;
 import com.mercurio.game.menu.BorsaModifier;
 import com.mercurio.game.menu.MenuLabel;
 import com.mercurio.game.menu.Squadra;
 
-import javafx.animation.FadeTransition;
-import javafx.animation.TranslateTransition;
 
 public class Battle extends ScreenAdapter {
 
@@ -242,9 +233,7 @@ public class Battle extends ScreenAdapter {
     private ArrayList<Integer> timerCreated = new ArrayList<>();
     private ArrayList<Float> timerCreatedDelay = new ArrayList<>();
     private ArrayList<timerData> timerCreatedData = new ArrayList<>();
-    private boolean continueLVOperations = true;
-    private boolean checkNextLV=false;
-    private int numberOfLVtoUp;
+
 
     public Battle(InterfacciaComune chiamante, String nameBot, boolean isBotFight, String zona, String nomeSelvatico) {
         MenuLabel.openMenuLabel.setVisible(false);
@@ -462,7 +451,7 @@ public class Battle extends ScreenAdapter {
         }
 
     public void render() {
-        
+     
         animationTime += 0.045f;
         if (animationTime < animationDuration) {
             labelDiscorsi1.renderDisc();
@@ -543,7 +532,7 @@ public class Battle extends ScreenAdapter {
                 
             }
             try { //semaforo per evitare che piazzi tutto due volte (non si sa perchè lo faccia ma si sistema tutto con un semaforo) *non va tuttora*
-                synchronized (lock) { 
+                synchronized (lock) {
                     semaphore.acquire();
                     if (lanciato==1){
                             showBall(ballTexture);
@@ -1131,53 +1120,209 @@ public class Battle extends ScreenAdapter {
         JsonValue mosseJson = new JsonReader().parse(mosseJsonString);
         JsonValue tipoJson = mosseJson.get(nomeMossa);
         String tipologiaMossa = tipoJson.getString("attacco");
-        if (tipologiaMossa.equals("fisico")){
-            danno=listaMosse.get(X).calcolaDanno(statsPlayer.get(0),statsBot.get(1),Integer.parseInt(LVPoke),nomePoke,nomePokeBot);
-        }
-        else{
-            danno=listaMosse.get(X).calcolaDanno(statsPlayer.get(2),statsBot.get(3),Integer.parseInt(LVPoke),nomePoke,nomePokeBot);
-        }   
 
-        currentPokeHPBot= Integer.toString((Integer.parseInt(currentPokeHPBot))-danno);
-
-        if(Integer.parseInt(currentPokeHPBot)<=0){
-            currentPokeHPBot= Integer.toString(0);
+        if (tipologiaMossa.equals("fisico")) {
+            danno = listaMosse.get(X).calcolaDanno(statsPlayer.get(0), statsBot.get(1), Integer.parseInt(LVPoke), nomePoke, nomePokeBot);
+        } else {
+            danno = listaMosse.get(X).calcolaDanno(statsPlayer.get(2), statsBot.get(3), Integer.parseInt(LVPoke), nomePoke, nomePokeBot);
         }
 
-        if (danno!=0){
-            if (isBotFight){
-                modificaHPPokeBot(numeroIndexPokeBot, currentPokeHPBot);
+        currentPokeHPBot = Integer.toString((Integer.parseInt(currentPokeHPBot)) - danno);
+
+        if (Integer.parseInt(currentPokeHPBot) <= 0) {
+            currentPokeHPBot = Integer.toString(0);
+        }
+
+        //TODO: animazione (ferma quello sotto)
+        mosse = new mosse(nomeMossa);
+        frames = mosse.getSpriteMossa();
+        frameDataList = mosse.getFrameDataList();
+        tipologia = mosse.getTipologia();
+        float speedAnimationMoves = mosse.getSpeed();
+
+
+        // Crea un array di immagini della mossa
+        Image[] imagesMossa = new Image[frameDataList.size()];
+
+        //TODO: eventualmente capire anche il movimento del mio pokemon e di quello avversario
+        if (tipologia.equals("continua")) {
+
+            // Inizializza ogni immagine della mossa
+            for (int i = 0; i < frameDataList.size(); i++) {
+                FrameData[] currentFrameDataSet = frameDataList.get(i); // Ottieni il set di frame corrente
+                imagesMossa[i] = new Image(frames[currentFrameDataSet[0].getNumeroSprite()]); // Usa il primo sprite del set per l'inizializzazione
+                imagesMossa[i].setSize(currentFrameDataSet[0].getAltezza(), currentFrameDataSet[0].getLarghezza()); // Imposta le dimensioni dell'immagine
+                imagesMossa[i].setPosition(currentFrameDataSet[0].getX(), currentFrameDataSet[0].getY()); // Posizione iniziale
+                stage.addActor(imagesMossa[i]); // Aggiungi l'immagine al palco
             }
+
+            // Timer per animare i frame della mossa
+            Timer.schedule(new Timer.Task() {
+                int currentFrameIndex = 0; // Indice per tenere traccia del frame attuale
+
+                @Override
+                public void run() {
+                    boolean allSetsFinished = true; // Verifica se tutti i set di frame sono stati completati
+
+                    // Cicla attraverso tutti i set di frame contemporaneamente
+                    for (int currentSetIndex = 0; currentSetIndex < frameDataList.size(); currentSetIndex++) {
+                        FrameData[] currentFrameDataSet = frameDataList.get(currentSetIndex); // Ottieni il set di frame corrente
+
+                        // Se non abbiamo raggiunto la fine del set corrente
+                        if (currentFrameIndex < currentFrameDataSet.length) {
+                            allSetsFinished = false; // Almeno un set non è ancora terminato
+
+                            Image imageMossa = imagesMossa[currentSetIndex]; // Ottieni l'immagine corrispondente
+
+                            // Verifica se la posizione X è diversa da -1 prima di renderizzare
+                            if (currentFrameDataSet[currentFrameIndex].getX() != -1) {
+                                // Aggiorna la posizione, dimensione e drawable del frame corrente
+                                imageMossa.setVisible(true);
+                                imageMossa.setPosition(currentFrameDataSet[currentFrameIndex].getX(), currentFrameDataSet[currentFrameIndex].getY()); // Imposta la posizione
+                                imageMossa.setSize(currentFrameDataSet[currentFrameIndex].getAltezza(), currentFrameDataSet[currentFrameIndex].getLarghezza()); // Imposta la dimensione
+                                imageMossa.setDrawable(new TextureRegionDrawable(frames[currentFrameDataSet[currentFrameIndex].getNumeroSprite()])); // Imposta il nuovo sprite
+                                imageMossa.setColor(1, 1, 1, currentFrameDataSet[currentFrameIndex].getOpacity());
+                            } else {
+                                // Nascondi lo sprite se la posizione X è -1
+                                imagesMossa[currentSetIndex].setVisible(false);
+                            }
+                        }
+                    }
+
+                    // Passa al frame successivo
+                    currentFrameIndex++;
+
+                    // Se tutti i set di frame sono stati completati, esegui il codice finale
+                    if (allSetsFinished) {
+
+
+                        if (danno != 0) {
+                            if (isBotFight) {
+                                modificaHPPokeBot(numeroIndexPokeBot, currentPokeHPBot);
+                            }
+
+                            updateHpBarWidth(HPbot, currentPokeHPBot, maxPokeHPBot, pokemonImageBot, nomePokeBot);
+
+                        }
+
+                        Timer.schedule(new Timer.Task() {
+                            @Override
+                            public void run() {
+                                
+                                for (Image imageMossa : imagesMossa) {
+                                    imageMossa.remove(); // Rimuove l'immagine dalla scena
+                                }
+    
+                            }
+                        }, 0.5f);
+
+                        Timer.schedule(new Timer.Task() {
+                            @Override
+                            public void run() {
+                                label4.remove();
+                                for (Image label : labelMosseArray) {
+                                    label.remove();
+                                }
+                                for (Label label : labelNomeMosseArray) {
+                                    label.remove();
+                                }
+                                labelMosseArray.clear();
+                                labelNomeMosseArray.clear();
+
+                                // Rimuove tutte le immagini della mossa
+                                for (Image imageMossa : imagesMossa) {
+                                    imageMossa.remove(); // Rimuove l'immagine dalla scena
+                                }
+
+                                
+                                if (otherAttack == true) {
+                                    if (counterForNextMove == 0) {
+                                        if (Integer.parseInt(currentPokeHPBot) > 0) {
+                                            utilizzoMossaBot(false, null);
+                                        }
+                                    }
+                                }
+                            }
+                        }, 2.5f);
+                        this.cancel(); // Ferma il timer
+                    }
+                }
+            }, 0, speedAnimationMoves);
+        } else if (tipologia.equals("istantanea")) {
+
+            //con questo timer comincia prima a dire la mossa e poi va a farla renderizzare
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
-                    updateHpBarWidth(HPbot, currentPokeHPBot, maxPokeHPBot, pokemonImageBot, nomePokeBot);
+                    // Codice per l'animazione istantanea
+                    for (int i = 0; i < frameDataList.size(); i++) {
+                        FrameData[] currentFrameDataSet = frameDataList.get(i);
+                        imagesMossa[i] = new Image(frames[currentFrameDataSet[0].getNumeroSprite()]);
+                        imagesMossa[i].setSize(currentFrameDataSet[0].getAltezza(), currentFrameDataSet[0].getLarghezza());
+                        imagesMossa[i].setPosition(currentFrameDataSet[0].getX(), currentFrameDataSet[0].getY());
+                        imagesMossa[i].setColor(1, 1, 1, currentFrameDataSet[0].getOpacity());
+                        stage.addActor(imagesMossa[i]);
+                    }
+
+                    if (danno != 0) {
+                        if (isBotFight) {
+                            modificaHPPokeBot(numeroIndexPokeBot, currentPokeHPBot);
+                        }
+
+                        updateHpBarWidth(HPbot, currentPokeHPBot, maxPokeHPBot, pokemonImageBot, nomePokeBot);
+
+                    }
+
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            
+                            for (Image imageMossa : imagesMossa) {
+                                imageMossa.remove(); // Rimuove l'immagine dalla scena
+                            }
+
+                        }
+                    }, 0.5f);
+
                 }
-            }, 1.5f);
+            }, 1f);
+
+
+            // Timer per rimuovere l'animazione dopo un breve periodo
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            label4.remove();
+                            for (Image label : labelMosseArray) {
+                                label.remove();
+                            }
+                            for (Label label : labelNomeMosseArray) {
+                                label.remove();
+                            }
+                            labelMosseArray.clear();
+                            labelNomeMosseArray.clear();
+
+                            
+                            if (otherAttack == true) {
+                                if (counterForNextMove == 0) {
+                                    if (Integer.parseInt(currentPokeHPBot) > 0) {
+                                        utilizzoMossaBot(false, null);
+                                    }
+                                }
+                            }
+                        }
+                    }, 2.5f);
+                    this.cancel(); // Ferma il timer
+
+                }
+            }, 0.5f); // Animazione istantanea per mezzo secondo
+
         }
 
-        Timer.schedule(new Timer.Task() {
-            @Override
-            public void run() {
-                label4.remove();
-                for (Image label : labelMosseArray) {
-                    label.remove();
-                }
-                for (Label label : labelNomeMosseArray) {
-                    label.remove();
-                }
-                labelMosseArray.clear();
-                labelNomeMosseArray.clear();
-
-                if(otherAttack==true){
-                    if (counterForNextMove == 0){
-                        if (Integer.parseInt(currentPokeHPBot)>0){
-                            utilizzoMossaBot(false, null);
-                        }                
-                    }
-                }
-            }
-        }, 2.5f);
     }
 
     private void utilizzoMossaBot(boolean otherAttack, Image labelMosse){
@@ -1203,6 +1348,7 @@ public class Battle extends ScreenAdapter {
         JsonValue mosseJson = new JsonReader().parse(mosseJsonString);
         JsonValue tipoJson = mosseJson.get(nomeMossaBot);
         String tipologiaMossa = tipoJson.getString("attacco");
+        //TODO: animazione (blocca quell oche c'è dopo)
         if (tipologiaMossa.equals("fisico")){
             dannoBot=listaMosseBot.get(X).calcolaDanno(statsBot.get(0),statsPlayer.get(1),Integer.parseInt(LVPokeBot),nomePokeBot,nomePoke);
         }
@@ -2591,7 +2737,7 @@ public class Battle extends ScreenAdapter {
                 if (elapsed <= duration) {
                     // Calcola la posizione sulla traiettoria curva
                     float percent = elapsed / duration;
-                    imageBallLanciata.setPosition((820) * percent, startY +(330)* percent); 
+                    imageBallLanciata.setPosition((820) * percent, startY +(330)* percent);
                     elapsed += 0.05f;
                 } 
                 else {

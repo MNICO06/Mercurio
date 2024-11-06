@@ -1,0 +1,92 @@
+{
+    "data": {
+        "image": "spriteMosse/electric.png",
+        "numeroColonne": 5,
+        "numeroRighe": 13,
+        "tipologia": "continua",
+        "frame": [
+            [
+                {
+                    "numeroSprite": 0,
+                    "x": 640,
+                    "y": 250,
+                    "altezza": 400,
+                    "larghezza": 400,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 640,
+                    "y": 250,
+                    "altezza": 400,
+                    "larghezza": 400,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 2,
+                    "x": 640,
+                    "y": 250,
+                    "altezza": 400,
+                    "larghezza": 400,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 3,
+                    "x": 640,
+                    "y": 250,
+                    "altezza": 400,
+                    "larghezza": 400,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 4,
+                    "x": 640,
+                    "y": 250,
+                    "altezza": 400,
+                    "larghezza": 400,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 5,
+                    "x": 640,
+                    "y": 250,
+                    "altezza": 400,
+                    "larghezza": 400,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 6,
+                    "x": 640,
+                    "y": 250,
+                    "altezza": 400,
+                    "larghezza": 400,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 7,
+                    "x": 640,
+                    "y": 250,
+                    "altezza": 400,
+                    "larghezza": 400,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 8,
+                    "x": 640,
+                    "y": 250,
+                    "altezza": 400,
+                    "larghezza": 400,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 8,
+                    "x": -1,
+                    "y": 250,
+                    "altezza": 400,
+                    "larghezza": 400,
+                    "opacity": 1
+                }
+            ]
+        ]
+    }
+}

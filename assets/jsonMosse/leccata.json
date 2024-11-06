@@ -1,0 +1,376 @@
+{
+    "data": {
+        "image": "spriteMosse/leccata.png",
+        "numeroColonne": 3,
+        "numeroRighe": 1,
+        "tipologia": "continua",
+        "frame": [
+            [
+                {
+                    "numeroSprite": 1,
+                    "x": -1,
+                    "y": 310,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.4
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": -1,
+                    "y": 310,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.4
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": -1,
+                    "y": 310,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.4
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": -1,
+                    "y": 310,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.4
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 310,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.4
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 320,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.4
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 330,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.4
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 340,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.4
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 350,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.4
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 360,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.4
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 370,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.4
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 380,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.4
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 390,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.4
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 400,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.4
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 410,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.4
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 420,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.4
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 430,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.4
+                }
+            ],
+            [
+                {
+                    "numeroSprite": 1,
+                    "x": -1,
+                    "y": 310,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.6
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": -1,
+                    "y": 310,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.6
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 310,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.6
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 320,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.6
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 330,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.6
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 340,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.6
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 350,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.6
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 360,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.6
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 370,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.6
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 380,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.6
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 390,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.6
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 400,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.6
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 410,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.6
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 420,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.6
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 430,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 0.6
+                }
+            ],
+            [
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 310,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 320,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 330,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 340,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 350,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 360,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 370,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 380,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 390,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 400,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 410,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 420,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 720,
+                    "y": 430,
+                    "altezza": 200,
+                    "larghezza": 200,
+                    "opacity": 1
+                }
+            ]
+        ]
+    }
+}

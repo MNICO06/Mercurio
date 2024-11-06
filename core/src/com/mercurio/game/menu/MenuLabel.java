@@ -318,7 +318,7 @@ public class MenuLabel{
         }
     }
 
- 
+
 
     public void render() {
         // Controlla se il tasto X è premuto per aprire o chiudere il menu
