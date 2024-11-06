@@ -14,11 +14,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
+import com.badlogic.gdx.utils.Timer;
 
 public class ApprendimentoMosse extends ScreenAdapter {
 
@@ -82,9 +84,14 @@ public class ApprendimentoMosse extends ScreenAdapter {
         stage.addActor(backgroundNM);
         itemActors.add(backgroundNM);
 
-        clearItems();
+        /*clearItems();
         chiamanteB.cancelAP();
-        chiamanteB.reCreateTimers();
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+            chiamanteB.reCreateTimers();
+    }
+        }, 10f); */
     }
 
     private void newMoveOver4(){
@@ -114,7 +121,6 @@ public class ApprendimentoMosse extends ScreenAdapter {
 
         if (!mossa.isEmpty() && !mosseList.contains(mossa)) {
             chiamanteB.destroyTimers();
-
             show();
         }
         else{
@@ -161,7 +167,6 @@ public class ApprendimentoMosse extends ScreenAdapter {
 
             json2.get("poke" + (indexPoke)).get("mosse").addChild(newMossa);
             file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
-            chiamanteB.reCreateTimers();
         }
         else{
             return;

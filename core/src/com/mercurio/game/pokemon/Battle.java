@@ -3271,7 +3271,6 @@ public class Battle extends ScreenAdapter {
     }
 
     private void aumentoLivello(int i){
-        System.out.println("sss");
         if (continueLVOperations==false){
             numberOfLVtoUp=i;
             checkNextLV=true;
@@ -3328,7 +3327,6 @@ public class Battle extends ScreenAdapter {
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
-                System.out.println("iii");
                 labelDiscorsi23.reset();
                 if (label23!=null){
                     label23.remove();
@@ -3345,23 +3343,17 @@ public class Battle extends ScreenAdapter {
                         timerCreatedDelay.set(i, (timerCreatedDelay.get(i)-2.9f));
                     }
                 }
-                System.out.println("aaannn");
 
                 if ((livello+1)%2==0){
-                    //apprendimentoMosse = new ApprendimentoMosse(Battle.this,stage,pokeInBattaglia.get(i));
+                    continueLVOperations=false;
+                    apprendimentoMosse = new ApprendimentoMosse(Battle.this,stage,pokeInBattaglia.get(i));
                 }
-
-                System.out.println("aaasss");
             }
         }, 2.9f);
-
-        System.out.println("ttt");
-
+        
         if (pokeInBattaglia.get(i)==numeroIndexPoke){
-                System.out.println("aaannn");
             if (pokeInBattagliaNLevelUp.get(i)>1){
                 pokeInBattagliaNLevelUp.set(i, (pokeInBattagliaNLevelUp.get(i)-1));
-                System.out.println("aaattt");
                 updateExpBar(true,i);
             }
             else{
@@ -3434,6 +3426,11 @@ public class Battle extends ScreenAdapter {
     }
 
     private void updateExpBar(boolean lvChange, int indexLV) {
+        if (continueLVOperations==false){
+            numberOfLVtoUp=indexLV;
+            checkNextLV=true;
+            return;
+        }
         FileHandle file = Gdx.files.local("assets/pokemon/Pokemon.json");
         String jsonString = file.readString();
         JsonValue json = new JsonReader().parse(jsonString);
@@ -3450,20 +3447,32 @@ public class Battle extends ScreenAdapter {
     
     
         if (lvChange) {
-            System.out.println("aaa");
-            expPlayer.addAction(Actions.sequence(
-                Actions.sizeTo(96 * 2, expPlayer.getHeight(), 1.5f), // Animazione di estensione
-                Actions.run(() -> System.out.println("Animazione estesa")), // Log per debug
-                Actions.sizeTo(0, expPlayer.getHeight(), 0f), // Reset a 0 immediato
-                Actions.run(() -> System.out.println("Reset completato")), // Log per debug
-                Actions.delay(1.4f), // Ritardo
-                Actions.run(() -> System.out.println("Delay completato")), // Log per debug
+            Timer.schedule(new Timer.Task(){
+                @Override
+                public void run() {
+                    expPlayer.addAction(Actions.sizeTo(96 * 2, expPlayer.getHeight(), 1.5f));
+                    //System.out.println("Animazione estesa");
+                }
+            }, 0);
             
-                Actions.run(() -> aumentoLivello(indexLV)) // Chiamata al metodo aumentoLivello(index)
-            ));       
+            Timer.schedule(new Timer.Task(){
+                @Override
+                public void run() {
+                    expPlayer.addAction(Actions.sizeTo(0, expPlayer.getHeight(), 0f));
+                    //System.out.println("Reset completato");
+                }
+            }, 1.5f); // Dopo 1.5 secondi
+            
+            Timer.schedule(new Timer.Task(){
+                @Override
+                public void run() {
+                    //System.out.println("Delay completato");
+                    aumentoLivello(indexLV);
+                }
+            }, 2.9f); // Dopo 1.5f + 1.4f = 2.9 secondi
+            
         }
         else {
-            System.out.println("nnn");
             // Calcola la percentuale dell'esperienza e la lunghezza della barra
             float percentualeExp = (float) currentExp / maxExp;
             float lunghezzaExpBar = 96 * 2 * percentualeExp;
@@ -3646,6 +3655,13 @@ public class Battle extends ScreenAdapter {
         timerCreated.clear();
         timerCreatedData.clear();
         timerCreatedDelay.clear();
+
+        System.out.println(checkNextLV);
+        if (checkNextLV){
+            continueLVOperations=true;
+            aumentoLivello(numberOfLVtoUp);
+            checkNextLV=false;
+        }
         // Iterate over the copied lists to perform operations
         for (int i = 0; i < tempTimerCreated.size(); i++) {
             if(tempTimerCreatedDelay.get(i)>0f){
@@ -3661,11 +3677,7 @@ public class Battle extends ScreenAdapter {
                 }
             }
         }
-        if (checkNextLV){
-            continueLVOperations=true;
-            aumentoLivello(numberOfLVtoUp);
-            checkNextLV=false;
-        }
+        
         //continueLVOperations=true;
         tempTimerCreated.clear();
         tempTimerCreatedData.clear();
