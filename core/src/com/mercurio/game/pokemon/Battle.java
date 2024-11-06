@@ -242,7 +242,9 @@ public class Battle extends ScreenAdapter {
     private ArrayList<Integer> timerCreated = new ArrayList<>();
     private ArrayList<Float> timerCreatedDelay = new ArrayList<>();
     private ArrayList<timerData> timerCreatedData = new ArrayList<>();
-
+    private boolean continueLVOperations = true;
+    private boolean checkNextLV=false;
+    private int numberOfLVtoUp;
 
     public Battle(InterfacciaComune chiamante, String nameBot, boolean isBotFight, String zona, String nomeSelvatico) {
         MenuLabel.openMenuLabel.setVisible(false);
@@ -3117,6 +3119,12 @@ public class Battle extends ScreenAdapter {
     }
 
     private void aumentoLivello(int i){
+        System.out.println("sss");
+        if (continueLVOperations==false){
+            numberOfLVtoUp=i;
+            checkNextLV=true;
+            return;
+        }
         //System.out.println("Da fare ancora :)");
         // Apre il file JSON
         FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
@@ -3168,7 +3176,7 @@ public class Battle extends ScreenAdapter {
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
-                //System.out.println("b");
+                System.out.println("iii");
                 labelDiscorsi23.reset();
                 if (label23!=null){
                     label23.remove();
@@ -3180,21 +3188,34 @@ public class Battle extends ScreenAdapter {
                     label23=null;
                 }
 
+                for (int i=0; i<timerCreatedDelay.size();i++){
+                    if (timerCreated.get(i)!=2){
+                        timerCreatedDelay.set(i, (timerCreatedDelay.get(i)-2.9f));
+                    }
+                }
+                System.out.println("aaannn");
+
                 if ((livello+1)%2==0){
                     apprendimentoMosse = new ApprendimentoMosse(Battle.this,stage,pokeInBattaglia.get(i));
                 }
+
+                System.out.println("aaasss");
             }
         }, 2.9f);
 
+        System.out.println("ttt");
+
         if (pokeInBattaglia.get(i)==numeroIndexPoke){
+                System.out.println("aaannn");
             if (pokeInBattagliaNLevelUp.get(i)>1){
                 pokeInBattagliaNLevelUp.set(i, (pokeInBattagliaNLevelUp.get(i)-1));
+                System.out.println("aaattt");
                 updateExpBar(true,i);
             }
             else{
                 updateExpBar(false,i);
             }
-        }    
+        }
     }
 
     private int calcoloEspMaxLivello(int crescitaType, int livello){
@@ -3261,7 +3282,6 @@ public class Battle extends ScreenAdapter {
     }
 
     private void updateExpBar(boolean lvChange, int indexLV) {
-
         FileHandle file = Gdx.files.local("assets/pokemon/Pokemon.json");
         String jsonString = file.readString();
         JsonValue json = new JsonReader().parse(jsonString);
@@ -3278,15 +3298,20 @@ public class Battle extends ScreenAdapter {
     
     
         if (lvChange) {
-
+            System.out.println("aaa");
             expPlayer.addAction(Actions.sequence(
-                Actions.sizeTo(96 * 2, expPlayer.getHeight(), 1.5f), // Anima fino alla lunghezza massima
-                Actions.sizeTo(0, expPlayer.getHeight(), 0f), // Salta immediatamente a 0
-                Actions.delay(1.4f), // Ritardo di 1.4 secondo
+                Actions.sizeTo(96 * 2, expPlayer.getHeight(), 1.5f), // Animazione di estensione
+                Actions.run(() -> System.out.println("Animazione estesa")), // Log per debug
+                Actions.sizeTo(0, expPlayer.getHeight(), 0f), // Reset a 0 immediato
+                Actions.run(() -> System.out.println("Reset completato")), // Log per debug
+                Actions.delay(1.4f), // Ritardo
+                Actions.run(() -> System.out.println("Delay completato")), // Log per debug
+            
                 Actions.run(() -> aumentoLivello(indexLV)) // Chiamata al metodo aumentoLivello(index)
             ));       
         }
         else {
+            System.out.println("nnn");
             // Calcola la percentuale dell'esperienza e la lunghezza della barra
             float percentualeExp = (float) currentExp / maxExp;
             float lunghezzaExpBar = 96 * 2 * percentualeExp;
@@ -3329,7 +3354,6 @@ public class Battle extends ScreenAdapter {
 
 
     private void timerTotal1(float delay, int nextFunction){
-
         timerCreated.add(0);
         timerCreatedDelay.add(delay);
         timerCreatedData.add(new timerData(nextFunction, -1, -1));
@@ -3373,7 +3397,6 @@ public class Battle extends ScreenAdapter {
     }
 
     private void partialTimer1(float partialDelay, int esperienzaVinta, int expMaxLvl, int i){
-
         timerCreated.add(1);
         timerCreatedDelay.add(partialDelay);
         timerCreatedData.add(new timerData(esperienzaVinta, expMaxLvl, i));
@@ -3406,12 +3429,7 @@ public class Battle extends ScreenAdapter {
                         updateExpBar(true,index);
                     }
                     else{
-                        Timer.schedule(new Timer.Task() {
-                            @Override
-                            public void run() {
-                                aumentoLivello(index);
-                                }
-                        }, 2.8f);
+                        partialTimer2(index);
                     }
                 }
                 else{
@@ -3434,24 +3452,39 @@ public class Battle extends ScreenAdapter {
                             label22.remove();
                         }
                         label22=null;
+
+                        for (int i=0; i<timerCreatedDelay.size();i++){
+                            if (timerCreated.get(i)!=2){
+                                timerCreatedDelay.set(i, (timerCreatedDelay.get(i)-2.9f));
+                            }
                         }
-                    }, 2.9f);
-                }
+                    }
+                }, 2.9f);
+            }
         }, partialDelay);
+    }
+
+    public void partialTimer2(int index){
+
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                aumentoLivello(index);
+                }
+        }, 2.8f);
     }
 
     public void cancelAP(){
         apprendimentoMosse=null;
         Gdx.input.setInputProcessor(stage);
-        reCreateTimers();
     }
 
     public void destroyTimers(){
+        continueLVOperations=false;
         Timer.instance().clear();
     }
 
     public void reCreateTimers(){
-
         // Create temporary copies of the lists before clearing the originals
         ArrayList<Integer> tempTimerCreated = new ArrayList<>(timerCreated);
         ArrayList<timerData> tempTimerCreatedData = new ArrayList<>(timerCreatedData);
@@ -3461,20 +3494,27 @@ public class Battle extends ScreenAdapter {
         timerCreated.clear();
         timerCreatedData.clear();
         timerCreatedDelay.clear();
-
         // Iterate over the copied lists to perform operations
         for (int i = 0; i < tempTimerCreated.size(); i++) {
-            if (tempTimerCreated.get(i) == 0) {
-                timerTotal1(tempTimerCreatedDelay.get(i), tempTimerCreatedData.get(i).getFirst());
-            } else {
-                partialTimer1(
-                    tempTimerCreatedDelay.get(i), 
-                    tempTimerCreatedData.get(i).getFirst(), 
-                    tempTimerCreatedData.get(i).getSecond(), 
-                    tempTimerCreatedData.get(i).getThird()
-                );
+            if(tempTimerCreatedDelay.get(i)>0f){
+                if (tempTimerCreated.get(i) == 0) {
+                    timerTotal1(tempTimerCreatedDelay.get(i), tempTimerCreatedData.get(i).getFirst());
+                } else if (tempTimerCreated.get(i) == 1){
+                    partialTimer1(
+                        tempTimerCreatedDelay.get(i), 
+                        tempTimerCreatedData.get(i).getFirst(), 
+                        tempTimerCreatedData.get(i).getSecond(), 
+                        tempTimerCreatedData.get(i).getThird()
+                    );
+                }
             }
         }
+        if (checkNextLV){
+            continueLVOperations=true;
+            aumentoLivello(numberOfLVtoUp);
+            checkNextLV=false;
+        }
+        //continueLVOperations=true;
         tempTimerCreated.clear();
         tempTimerCreatedData.clear();
         tempTimerCreatedDelay.clear();

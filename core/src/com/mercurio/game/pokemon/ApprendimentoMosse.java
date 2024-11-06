@@ -31,7 +31,6 @@ public class ApprendimentoMosse extends ScreenAdapter {
 
 
     public ApprendimentoMosse(Battle chiamanteB, Stage stage, int indexPoke){
-        chiamanteB.destroyTimers();
         this.indexPoke = indexPoke;
         this.chiamanteB = chiamanteB;
         this.batch = (SpriteBatch) stage.getBatch();
@@ -85,6 +84,7 @@ public class ApprendimentoMosse extends ScreenAdapter {
 
         clearItems();
         chiamanteB.cancelAP();
+        chiamanteB.reCreateTimers();
     }
 
     private void newMoveOver4(){
@@ -113,6 +113,8 @@ public class ApprendimentoMosse extends ScreenAdapter {
         }
 
         if (!mossa.isEmpty() && !mosseList.contains(mossa)) {
+            chiamanteB.destroyTimers();
+
             show();
         }
         else{
@@ -147,7 +149,9 @@ public class ApprendimentoMosse extends ScreenAdapter {
             mosseList.add(mossaTest.getString("nome"));
         }
 
-        if (!mossa.isEmpty() && !mosseList.contains(mossa)) {            
+        if (!mossa.isEmpty() && !mosseList.contains(mossa)) {   
+            chiamanteB.destroyTimers();
+         
             JsonValue mossaJson = jsonPoke2.get(mossa);
             JsonValue newMossa = new JsonValue(JsonValue.ValueType.object);
             newMossa.addChild("nome",new JsonValue(mossa));
@@ -157,6 +161,7 @@ public class ApprendimentoMosse extends ScreenAdapter {
 
             json2.get("poke" + (indexPoke)).get("mosse").addChild(newMossa);
             file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
+            chiamanteB.reCreateTimers();
         }
         else{
             return;
