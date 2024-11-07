@@ -1,5 +1,6 @@
 package com.mercurio.game.personaggi;
 
+import org.json.JSONObject;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -45,7 +46,7 @@ public class Dottoressa {
     private Rectangle boxPlayer;
 
     public Dottoressa() {
-        texture = new Texture (Gdx.files.local("assets/player/dottoressa.png"));
+        texture = new Texture (Gdx.files.internal("player/dottoressa.png"));
         TextureRegion[][] tmp = TextureRegion.split(texture, texture.getWidth() / 3, texture.getHeight() / 4);
         indietro = new TextureRegion[3];
         sinistra = new TextureRegion[3];
@@ -143,22 +144,22 @@ public class Dottoressa {
             //System.out.println(index);
 
             if (!nomePoke.equals("")){
-            JsonValue statistiche = pokeJson.get("statistiche"); 
-            String maxPokeHP = statistiche.getString("hpTot");
-            //ripristina gli hp al massimo
-            statistiche.remove("hp");
-            statistiche.addChild("hp", new JsonValue(maxPokeHP));
-            JsonValue mosse = pokeJson.get("mosse");
-            for (JsonValue mossaJson : mosse) {
-                String maxPP = mossaJson.getString("ppTot");
-                // ripristina attPP al massimo per ogni mossa
-                mossaJson.remove("ppAtt");
-                mossaJson.addChild("ppAtt", new JsonValue(maxPP));
+                JsonValue statistiche = pokeJson.get("statistiche"); 
+                String maxPokeHP = statistiche.getString("hpTot");
+                //ripristina gli hp al massimo
+                statistiche.remove("hp");
+                statistiche.addChild("hp", new JsonValue(maxPokeHP));
+                JsonValue mosse = pokeJson.get("mosse");
+                for (JsonValue mossaJson : mosse) {
+                    String maxPP = mossaJson.getString("ppTot");
+                    // ripristina attPP al massimo per ogni mossa
+                    mossaJson.remove("ppAtt");
+                    mossaJson.addChild("ppAtt", new JsonValue(maxPP));
+                }
             }
-        }
         
-        file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
+            file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
+        }
     }
-}
-}
 
+}

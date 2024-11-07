@@ -41,10 +41,6 @@ public class PokeCenter extends ScreenAdapter {
     private boolean renderTesto = false;
     private boolean continuaTesto = true;
 
-    private boolean discorsoFine = false;
-    private boolean testoTerminato = false;
-    private int controllo = 0;
-
     //rettangolo con la lista delle persone che collidono
     private ArrayList<Rectangle> rectList = null;
 
@@ -90,12 +86,6 @@ public class PokeCenter extends ScreenAdapter {
         esci();
         checkCure();
         checkTesto();
-        if (discorsoFine) {
-            if (controllo > 0) {
-                renderLabelScelta();
-            }
-            controllaScelta();
-        }
     }
 
     public void getPostionDoctor() {
@@ -186,50 +176,6 @@ public class PokeCenter extends ScreenAdapter {
         }
     }
 
-    public void renderLabelScelta() {
-        discorso.renderLabelScelta();
-    }
-    
-    private void controllaScelta() {
-        if (controllo == 0) {
-            controllo ++;
-            discorso.createSelect(0);
-        }
-
-        if (discorso.getScelta() == "si") {
-            if (testoTerminato) {
-                dottoressa.cura();
-                discorsoFine = false;
-                testoTerminato = false;
-                discorso.setScelta(null);
-
-                renderTesto = false;
-                continuaTesto = true;
-                game.getPlayer().setMovement(true);
-                discorso.reset();
-                discorso.distruggiStage();
-
-                controllo = 0;
-            }
-        }
-        else if (discorso.getScelta() == "no") {
-            if (testoTerminato) {
-                System.out.println("no");
-                discorsoFine = false;
-                testoTerminato = false;
-                discorso.setScelta(null);
-
-                renderTesto = false;
-                continuaTesto = true;
-                game.getPlayer().setMovement(true);
-                discorso.reset();
-                discorso.distruggiStage();
-
-                controllo = 0;
-            }
-        }
-    }
-
     private void checkTesto() {
 
         if (renderTesto) {
@@ -238,17 +184,6 @@ public class PokeCenter extends ScreenAdapter {
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
                 //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
                 continuaTesto = discorso.advanceText();
-
-                if (discorso.isEnding()) {
-                    //far spawnare la label con si o no
-                    discorsoFine = true;
-                }
-
-                if (!continuaTesto) {
-                    //far renderizzare qua dentro il si o no
-                    testoTerminato = true;
-                }
-                
             }
 
             if (risposta != -1) {

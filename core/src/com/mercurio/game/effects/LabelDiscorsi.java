@@ -10,25 +10,15 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 //import javafx.stage.Stage;
 
 public class LabelDiscorsi {
     // Dichiarazioni delle texture
     private Label label;
-    private Label labelScelta;
-
-    private String scelta = null;
-
-
-    Stage stage;
     private Label labelSi;
     private Label labelNo;
     // Dimensioni e posizioni per le label
@@ -88,9 +78,8 @@ public class LabelDiscorsi {
         this.textBoxTextures = loadTextBoxTextures();
         this.deveScegliere = scelta;
         righeDiscorso = splitTestoInRighe(discorso, dimMax);
-        
         batch = new SpriteBatch();
-        font = new BitmapFont(Gdx.files.local("assets/font/font.fnt"));
+        font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
         createLabel(index);
 
         rigaCorrente = 0;
@@ -174,82 +163,6 @@ public class LabelDiscorsi {
             style.font.getData().setScale(1.5f);
             label.setWrap(true);
         }
-    }
-
-    public void createSelect(int index) {
-
-        stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
-
-        Skin skin1 = new Skin();
-        skin1.add("custom-font", font);
-
-        TextureRegion backgroundTexture1 = textBoxTextures[index];
-        NinePatchDrawable backgroundDrawable1 = new NinePatchDrawable(new NinePatch(backgroundTexture1, 10, 10, 10, 10));
-        Label.LabelStyle style1 = new Label.LabelStyle();
-        style1.font = skin1.getFont("custom-font");
-        style1.background = backgroundDrawable1;
-
-        labelScelta = new Label("", style1);
-
-        labelScelta.setPosition(680, 20); // Posizione della label
-
-        labelScelta.setWidth(100);
-        labelScelta.setHeight(75); // Altezza sufficiente per due righe
-        labelScelta.setWrap(true);
-    
-        Label.LabelStyle style2 = new Label.LabelStyle();
-        style2.font = skin1.getFont("custom-font");
-
-
-        
-        labelSi = new Label("SI", style2);
-        labelNo = new Label("NO", style2);
-
-        labelSi.setPosition(715, 20); // Posizione della label
-        labelSi.setWidth(100);
-        labelSi.setHeight(37.5f); // Altezza sufficiente per due righe
-        labelSi.setWrap(true);
-
-        labelNo.setPosition(715, 57.5f); // Posizione della label
-        labelNo.setWidth(100);
-        labelNo.setHeight(37.5f); // Altezza sufficiente per due righe
-        labelNo.setWrap(true);
-
-
-        // Aggiunta dei listener per le label Sì e No
-        labelSi.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                scelta = "si";
-            }
-        });
-
-        labelNo.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                scelta = "no";
-            }
-        });
-
-        // Aggiunta delle label allo stage
-        stage.addActor(labelSi);
-        stage.addActor(labelNo);
-       
-    }
-
-    public void distruggiStage() {
-        stage.dispose();
-    }
-
-    public void renderLabelScelta() {
-        batch.begin();
-        labelScelta.draw(batch, 1);
-        batch.end();
-
-        stage.act(Gdx.graphics.getDeltaTime());
-        stage.draw();
-
     }
 
 
@@ -354,15 +267,6 @@ public class LabelDiscorsi {
         }
         else {
             return false;
-        }
-    }
-
-    public boolean isEnding() {
-        if (isPrimaRigaStampata && rigaCorrente < righeDiscorso.size() - 2) {
-            return false;
-        }
-        else {
-            return true;
         }
     }
 
@@ -477,15 +381,7 @@ public class LabelDiscorsi {
         }
     }
 
-    public String getScelta() {
-        return scelta;
-    }
-
-    public void setScelta(String scelta) {
-        this.scelta = scelta;}
-        
-        public void setSceltaUtente(int sceltaUtente) {
+    public void setSceltaUtente(int sceltaUtente) {
         this.sceltaUtente = sceltaUtente;
     }
-
 }

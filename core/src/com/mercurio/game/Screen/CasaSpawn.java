@@ -6,6 +6,7 @@ import java.util.TimerTask;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapLayer;
@@ -18,6 +19,9 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.JsonWriter;
 import com.mercurio.game.effects.LabelDiscorsi;
 import com.mercurio.game.personaggi.Ash;
 import com.mercurio.game.personaggi.MammaAsh;
@@ -26,7 +30,8 @@ import java.util.Timer;
 public class CasaSpawn extends ScreenAdapter {
     private final MercurioMain game;
     private MammaAsh mammaAsh;
-    private LabelDiscorsi labelDiscorsi;
+    private LabelDiscorsi labelDiscorsiSenzaStarter;
+    private LabelDiscorsi labelDiscorsiConStarter;
 
     //dati per render della mappa
     private TiledMap casaAsh;
@@ -47,7 +52,8 @@ public class CasaSpawn extends ScreenAdapter {
     
     private boolean wasInBox = false;
 
-    private boolean tieniApertoDiscorso = false;
+    private boolean tieniApertoDiscorsoPrima = false;
+    private boolean tieniApertoDiscorsoDopo = false;
     private boolean fPressed = false;
 
 
@@ -56,9 +62,12 @@ public class CasaSpawn extends ScreenAdapter {
         mammaAsh = new MammaAsh();
 
         /*variabili che andranno lette da file */
-        String discorso= "Ciao figliuolo come stai, come mai stai uscendo e dove stai andando?";
+        String discorsoSenzaStarter = "C'era il professor Pokemon che ti cercava, vai al suo laboratorio per vedere cosa ti deve dire";
+        String discorsoConStarter = "Finalmente sei tornato, vedo che i tuoi pokemon sono un po' stanchi, lascia che te li curi";
+
         int dimMax=30;
-        labelDiscorsi = new LabelDiscorsi(discorso,30,10,false, true);
+        labelDiscorsiSenzaStarter = new LabelDiscorsi(discorsoSenzaStarter,30,10,false, false);
+        labelDiscorsiConStarter = new LabelDiscorsi(discorsoConStarter,30,10,false, false);
         
         rectList = new ArrayList<Rectangle>();
     }
@@ -129,6 +138,7 @@ public class CasaSpawn extends ScreenAdapter {
         cambiaProfondita(lineeLayer);
         giraMamma();
         controlloTesto();
+        controlloTestoIniziale();
         controllaUscita();
 
     }
@@ -246,7 +256,13 @@ public class CasaSpawn extends ScreenAdapter {
 
         if (isInBox  && !fPressed) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
-                tieniApertoDiscorso = true;
+                boolean presenzaStarter = controllaPresenzaStarter();
+                if (presenzaStarter) {
+                    tieniApertoDiscorsoDopo = true;
+                } else {
+                    tieniApertoDiscorsoPrima = true;
+                }
+                
                 fPressed = true;
                 game.getPlayer().setMovement(false);
             }
@@ -267,33 +283,102 @@ public class CasaSpawn extends ScreenAdapter {
         
     }
 
-    public void controlloTesto() {
-        //TODO: gestire cosa fare con true e false (da fare quando avremo la storia)
+    //ritorna false se non si ha ancora lo starter, se no ritorna true
+    private boolean controllaPresenzaStarter() {
+        try {
+            // Carica il file JSON
+            FileHandle file = Gdx.files.internal("assets/ashJson/squadra.json");
+            String jsonString = file.readString();
 
-        if (tieniApertoDiscorso) {
-            int risposta = labelDiscorsi.renderDisc();
+            JsonValue json = new JsonReader().parse(jsonString);
+            JsonValue poke1 = json.get("poke1");
 
-            //risposta: no
-            if (risposta == 0) {
-                tieniApertoDiscorso = false;
-            } //risposta true
-            else if (risposta == 1) {
-                tieniApertoDiscorso = false;
+            if (poke1 != null) {
+                String nomePokemon = poke1.getString("nomePokemon", "");
+
+                if (nomePokemon.isEmpty()) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                return false;
             }
 
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
+    //questa funzione serve per il testo base senza scelta
+    public void controlloTestoIniziale() {
+        if (tieniApertoDiscorsoPrima) {
+            labelDiscorsiSenzaStarter.renderDisc();
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
                 //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
-                labelDiscorsi.advanceText();
+                tieniApertoDiscorsoPrima = labelDiscorsiSenzaStarter.advanceText();
             }
         }
         else {
-            //quando deve terminare
-            tieniApertoDiscorso = false;
+            //quando deve terminare 
+            tieniApertoDiscorsoPrima = false;
             fPressed = false;
-            labelDiscorsi.setSceltaUtente(-1);
             game.getPlayer().setMovement(true);
-            labelDiscorsi.reset();
+            labelDiscorsiSenzaStarter.reset();
+        }
+    }
+
+    //questa funzione serve per il testo con la scelta
+    public void controlloTesto() {
+
+        if (tieniApertoDiscorsoDopo) {
+            labelDiscorsiConStarter.renderDisc();
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+                //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
+                tieniApertoDiscorsoDopo = labelDiscorsiConStarter.advanceText();
+            }
+        }
+        else {
+            //quando deve terminare 
+            tieniApertoDiscorsoDopo = false;
+            fPressed = false;
+            cura();
+            game.getPlayer().setMovement(true);
+            labelDiscorsiConStarter.reset();
+        }
+    }
+
+    public void cura(){
+        // Carica il file JSON
+        FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+        String jsonString = file.readString();
+        
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+        JsonValue json = new JsonReader().parse(jsonString);
+        
+        for (int i=0; i<6; i++){
+            int index =i+1;
+            JsonValue pokeJson = json.get("poke"+index);
+            //System.out.println(index);
+            String nomePoke = pokeJson.getString("nomePokemon");
+            //System.out.println(index);
+
+            if (!nomePoke.equals("")){
+                JsonValue statistiche = pokeJson.get("statistiche"); 
+                String maxPokeHP = statistiche.getString("hpTot");
+                //ripristina gli hp al massimo
+                statistiche.remove("hp");
+                statistiche.addChild("hp", new JsonValue(maxPokeHP));
+                JsonValue mosse = pokeJson.get("mosse");
+                for (JsonValue mossaJson : mosse) {
+                    String maxPP = mossaJson.getString("ppTot");
+                    // ripristina attPP al massimo per ogni mossa
+                    mossaJson.remove("ppAtt");
+                    mossaJson.addChild("ppAtt", new JsonValue(maxPP));
+                }
+            }
+        
+            file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
         }
     }
 
