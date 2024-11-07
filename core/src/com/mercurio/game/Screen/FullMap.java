@@ -115,6 +115,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
         setPositionBot();
 
         game.setMap(mappa, tileRenderer, camera, map_size.x, map_size.y);
+        controllaPresenzaStarter();
 
         stateTime = 0f;
     }
@@ -1101,13 +1102,17 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
 
             if (poke1 != null) {
                 String nomePokemon = poke1.getString("nomePokemon", "");
+                
                 if (nomePokemon.isEmpty()) {
+
                     MapLayer oggettiStoria = game.getOggettiStoria();
 
                     for (MapObject object : oggettiStoria.getObjects()) {
                         // Verifica se l'oggetto ha la proprietà "tipoBlocco" con valore "prendiStater"
-                        String tipoBlocco = object.getProperties().get("tipoBlocco", String.class);
-                        if ("prendiStater".equals(tipoBlocco)) {
+                        String tipoBlocco = (String)object.getProperties().get("tipoBlocco");
+
+                        if ("prendiStarter".equals(tipoBlocco)) {
+
                             // Imposta la proprietà "considerare" su true
                             object.getProperties().put("considerare", true);
                         }
@@ -1119,7 +1124,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                 for (MapObject object : oggettiStoria.getObjects()) {
                     // Verifica se l'oggetto ha la proprietà "tipoBlocco" con valore "prendiStater"
                     String tipoBlocco = object.getProperties().get("tipoBlocco", String.class);
-                    if ("prendiStater".equals(tipoBlocco)) {
+                    if ("prendiStarter".equals(tipoBlocco)) {
                         // Imposta la proprietà "considerare" su true
                         object.getProperties().put("considerare", true);
                     }
@@ -1127,7 +1132,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
             }
 
         } catch (Exception e) {
-            
+            System.out.println("errore sul prindiStarter: " + e);
         }
     }
 
