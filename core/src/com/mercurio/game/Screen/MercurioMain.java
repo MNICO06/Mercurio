@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
@@ -331,7 +332,14 @@ public class MercurioMain extends Game implements InterfacciaComune{
         //prendo il layer delle collisioni
         try {
             collisionLayer = map.getLayers().get("collisioni");
-            oggettiStoria = map.getLayers().get("oggettiStoria");
+
+            // Controlla se "oggettiStoria" esiste nel layer, altrimenti assegna un elemento vuoto
+            if (map.getLayers().get("oggettiStoria") != null) {
+                oggettiStoria = map.getLayers().get("oggettiStoria");
+            } else {
+                oggettiStoria = new TiledMapTileLayer(0, 0, 0, 0); // Crea un layer vuoto
+            }
+            
             lineeLayer = map.getLayers().get("linee");
             alberiBack = map.getLayers().get("alberiBack");
             alberiFore = map.getLayers().get("alberiFore");
