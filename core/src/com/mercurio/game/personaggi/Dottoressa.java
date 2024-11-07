@@ -144,21 +144,22 @@ public class Dottoressa {
             //System.out.println(index);
 
             if (!nomePoke.equals("")){
-            JsonValue statistiche = pokeJson.get("statistiche"); 
-            String maxPokeHP = statistiche.getString("hpTot");
-            //ripristina gli hp al massimo
-            statistiche.remove("hp");
-            statistiche.addChild("hp", new JsonValue(maxPokeHP));
-            JsonValue mosse = pokeJson.get("mosse");
-            for (JsonValue mossaJson : mosse) {
-                String maxPP = mossaJson.getString("ppTot");
-                // ripristina attPP al massimo per ogni mossa
-                mossaJson.remove("ppAtt");
-                mossaJson.addChild("ppAtt", new JsonValue(maxPP));
+                JsonValue statistiche = pokeJson.get("statistiche"); 
+                String maxPokeHP = statistiche.getString("hpTot");
+                //ripristina gli hp al massimo
+                statistiche.remove("hp");
+                statistiche.addChild("hp", new JsonValue(maxPokeHP));
+                JsonValue mosse = pokeJson.get("mosse");
+                for (JsonValue mossaJson : mosse) {
+                    String maxPP = mossaJson.getString("ppTot");
+                    // ripristina attPP al massimo per ogni mossa
+                    mossaJson.remove("ppAtt");
+                    mossaJson.addChild("ppAtt", new JsonValue(maxPP));
+                }
             }
-        }
         
-        file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
+            file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
+        }
     }
-}
+
 }
