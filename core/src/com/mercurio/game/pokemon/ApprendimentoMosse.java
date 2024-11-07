@@ -44,7 +44,6 @@ public class ApprendimentoMosse extends ScreenAdapter {
     private Mossa mossaL;
 
     public ApprendimentoMosse(Battle chiamanteB, Stage stage, int indexPoke){
-        //TODO bisogna giusto mettere i messaggi a schermo dell'apprendimento o meno delle mosse
         this.indexPoke = indexPoke;
         this.chiamanteB = chiamanteB;
         this.batch = (SpriteBatch) stage.getBatch();
@@ -124,6 +123,7 @@ public class ApprendimentoMosse extends ScreenAdapter {
                     String jsonString2 = file2.readString();
                     JsonValue json2 = new JsonReader().parse(jsonString2);
 
+                    String nomeMossaVecchia = json2.get("poke" + (indexPoke)).get("mosse").get(Integer.parseInt(currentlySelected.getName())).getString("nome");
                     json2.get("poke" + (indexPoke)).get("mosse").remove(Integer.parseInt(currentlySelected.getName()));
                     JsonValue newMossa = new JsonValue(JsonValue.ValueType.object);
                     newMossa.addChild("nome",new JsonValue(mossaL.getNome()));
@@ -135,8 +135,15 @@ public class ApprendimentoMosse extends ScreenAdapter {
                     file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
 
                     clearItems();
-                    chiamanteB.cancelAP();
-                    chiamanteB.reCreateTimers();
+                    chiamanteB.piazzaLabel25(pokeName, mossaL.getNome(), nomeMossaVecchia);
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            chiamanteB.cancelAP();
+                            chiamanteB.reCreateTimers();
+                        }
+                    }, 10f);
+                    
                 }
             }
         });
@@ -153,8 +160,14 @@ public class ApprendimentoMosse extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 clearItems();
-                chiamanteB.cancelAP();
-                chiamanteB.reCreateTimers();
+                chiamanteB.piazzaLabel26(pokeName, mossaL.getNome());
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            chiamanteB.cancelAP();
+                            chiamanteB.reCreateTimers();
+                        }
+                    }, 4f);
             }
         });
 
@@ -302,7 +315,13 @@ public class ApprendimentoMosse extends ScreenAdapter {
             chiamanteB.destroyTimers();
             mossaL=new Mossa(mossa, jsonPoke2.get(mossa).getString("tipo"), jsonPoke2.get(mossa).getString("pp"), jsonPoke2.get(mossa).getString("pp"), null); //gli passo Battle stesso con "this" per poter chiamare anche i metodi di Battle da Mossa
             listaMosse.add(mossaL);
-            show();
+            chiamanteB.piazzaLabel24(pokeName, mossa);
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    show();
+                }
+            }, 7f);
         }
         else{
             return;
@@ -348,6 +367,15 @@ public class ApprendimentoMosse extends ScreenAdapter {
 
             json2.get("poke" + (indexPoke)).get("mosse").addChild(newMossa);
             file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
+
+            chiamanteB.piazzaLabel27(pokeName, mossa);
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    chiamanteB.cancelAP();
+                    chiamanteB.reCreateTimers();
+                }
+            }, 3.5f);
         }
         else{
             return;

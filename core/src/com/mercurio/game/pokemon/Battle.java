@@ -145,6 +145,10 @@ public class Battle extends ScreenAdapter {
     private LabelDiscorsi labelDiscorsi21;
     private LabelDiscorsi labelDiscorsi22;
     private LabelDiscorsi labelDiscorsi23;
+    private LabelDiscorsi labelDiscorsi24;
+    private LabelDiscorsi labelDiscorsi25;
+    private LabelDiscorsi labelDiscorsi26;
+    private LabelDiscorsi labelDiscorsi27;
     private Label label1;
     private Label label2;
     private Label label3;
@@ -168,6 +172,10 @@ public class Battle extends ScreenAdapter {
     private Label label21;
     private Label label22;
     private Label label23;
+    private Label label24;
+    private Label label25;
+    private Label label26;
+    private Label label27;
     private String nomePoke;
     private String nomePokeSquad;
     private String currentPokeHP;
@@ -622,6 +630,18 @@ public class Battle extends ScreenAdapter {
             }
             if (label23!=null){
                 labelDiscorsi23.renderDisc();
+            }
+            if (label24!=null){
+                labelDiscorsi24.renderDisc();
+            }
+            if (label25!=null){
+                labelDiscorsi25.renderDisc();
+            }
+            if (label26!=null){
+                labelDiscorsi26.renderDisc();
+            }
+            if (label27!=null){
+                labelDiscorsi27.renderDisc();
             }
             if (apprendimentoMosse!=null){
                 apprendimentoMosse.render();
@@ -3683,6 +3703,69 @@ public class Battle extends ScreenAdapter {
         tempTimerCreatedData.clear();
         tempTimerCreatedDelay.clear();
     }
-    //TODO
-    /*bisogna far si che ogni timer venga tolto dalla lista se viene eseguito prima della rimozione e aggiornato il timer delay man mano che passa il tempo */
+
+    public void piazzaLabel24(String nomePoke, String nomeMossa){
+        String discorso24= nomePoke+" sta cercando di imparare "+ nomeMossa + ", ma "+nomePoke+" conosce gia' 4 mosse. Quale mossa deve sostituire?";
+        labelDiscorsi24 = new LabelDiscorsi(discorso24,dimMax,0,true, false);
+        labelDiscorsi24.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
+        label24=labelDiscorsi24.getLabel();
+        stage.addActor(label24);
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                labelDiscorsi24.reset();
+                label24.remove();
+                label24=null;
+            }
+        }, 7f);
+    }
+
+
+    public void piazzaLabel25(String nomePoke, String nomeMossa, String nomeMossaVecchia){
+        String discorso25= "Uno, due e... ...Ta-da! "+nomePoke+ " ha dimenticato "+ nomeMossaVecchia + "... Al suo posto ha imparato "+nomeMossa+"!";
+        labelDiscorsi25 = new LabelDiscorsi(discorso25,dimMax,0,true, false);
+        labelDiscorsi25.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
+        label25=labelDiscorsi25.getLabel();
+        stage.addActor(label25);
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                labelDiscorsi25.reset();
+                label25.remove();
+                label25=null;
+            }
+        }, 10f);
+    }
+
+    public void piazzaLabel26(String nomePoke, String nomeMossa){
+        String discorso24= nomePoke+" ha rinunciato ad imparare "+ nomeMossa+".";
+        labelDiscorsi24 = new LabelDiscorsi(discorso24,dimMax,0,true, false);
+        labelDiscorsi24.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
+        label24=labelDiscorsi24.getLabel();
+        stage.addActor(label24);
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                labelDiscorsi24.reset();
+                label24.remove();
+                label24=null;
+            }
+        }, 4f);
+    }
+
+    public void piazzaLabel27(String nomePoke, String nomeMossa){
+        String discorso27= nomePoke+" ha imparato "+ nomeMossa+"!";
+        labelDiscorsi27 = new LabelDiscorsi(discorso27,dimMax,0,true, false);
+        labelDiscorsi27.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
+        label27=labelDiscorsi27.getLabel();
+        stage.addActor(label27);
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                labelDiscorsi27.reset();
+                label27.remove();
+                label27=null;
+            }
+        }, 3.5f);
+    }
 } //Fine battaglia :)
