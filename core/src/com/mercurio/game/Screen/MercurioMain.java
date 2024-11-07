@@ -49,6 +49,7 @@ public class MercurioMain extends Game implements InterfacciaComune{
     private OrthographicCamera camera;
 
     private MapLayer collisionLayer;
+    private MapLayer oggettiStoria;
     private MapLayer lineeLayer;
     private MapLayer alberiBack;
     private MapLayer alberiFore;
@@ -134,7 +135,7 @@ public class MercurioMain extends Game implements InterfacciaComune{
             float cameraX = MathUtils.clamp(ash.getPlayerPosition().x + ash.getPlayerWidth() / 2, camera.viewportWidth / 2, map_size.x - camera.viewportWidth / 2);
             float cameraY = MathUtils.clamp(ash.getPlayerPosition().y + ash.getPlayerHeight() / 2, camera.viewportHeight / 2, map_size.y - camera.viewportHeight / 2);
 
-            ash.move(collisionLayer, rectList);
+            ash.move(oggettiStoria, collisionLayer, rectList);
 
             menuLabel.render();
             
@@ -330,6 +331,7 @@ public class MercurioMain extends Game implements InterfacciaComune{
         //prendo il layer delle collisioni
         try {
             collisionLayer = map.getLayers().get("collisioni");
+            oggettiStoria = map.getLayers().get("oggettiStoria");
             lineeLayer = map.getLayers().get("linee");
             alberiBack = map.getLayers().get("alberiBack");
             alberiFore = map.getLayers().get("alberiFore");
@@ -431,6 +433,10 @@ public class MercurioMain extends Game implements InterfacciaComune{
         getPlayer().setMovement(true);
         Gdx.input.setInputProcessor(MenuLabel.getStage());
         box = null;
+    }
+
+    public MapLayer getOggettiStoria() {
+        return oggettiStoria;
     }
 
 }

@@ -195,7 +195,7 @@ public class Ash {
     }
 
     //metodo del movimento che chiama anche il controllo collisione
-    public void move(MapLayer collisionLayer, ArrayList<Rectangle> rectList) {
+    public void move(MapLayer oggettiStoria, MapLayer collisionLayer, ArrayList<Rectangle> rectList) {
         if (canMove) {
 
             boolean keyPressed = false; // Controlla se un tasto è premuto
@@ -310,6 +310,9 @@ public class Ash {
                 if (checkCollisionsPlayer(rectList)) {
                     characterPosition.x = old_x;
                 }
+                if (checkCollisionsStory(oggettiStoria)) {
+                    characterPosition.x = old_x;
+                }
             }
 
 
@@ -322,6 +325,9 @@ public class Ash {
                     characterPosition.y = old_y;
                 }
                 if (checkCollisionsPlayer(rectList)) {
+                    characterPosition.y = old_y;
+                }
+                if (checkCollisionsStory(oggettiStoria)) {
                     characterPosition.y = old_y;
                 }
             }
@@ -362,6 +368,28 @@ public class Ash {
             }
         }
         //nessuna collisione rilevata
+        return false;
+    }
+
+    // Metodo per controllare le collisioni solo sugli oggetti con proprietà "considerare" = true
+    private boolean checkCollisionsStory(MapLayer oggettiStoria) {
+        // Itera sugli oggetti del livello di collisione
+        for (MapObject object : oggettiStoria.getObjects()) {
+            if (object instanceof RectangleMapObject) {
+                // Verifica se l'oggetto ha la proprietà "considerare" impostata su true
+                Boolean considerare = (Boolean) object.getProperties().get("considerare");
+                if (considerare != null && considerare) {
+                    Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+                    // Controlla la collisione con il rettangolo "rect"
+                    if (boxPlayer.overlaps(rect)) {
+                        // Collisione rilevata
+                        return true;
+                    }
+                }
+            }
+        }
+        // Nessuna collisione rilevata
         return false;
     }
 

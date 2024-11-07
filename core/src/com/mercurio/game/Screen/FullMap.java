@@ -1089,6 +1089,48 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
         }
     }
 
+    private void controllaPresenzaStarter() {
+        try {            
+            // Carica il file JSON
+            FileHandle file = Gdx.files.internal("assets/ashJson/squadra.json");
+            String jsonString = file.readString();
+
+            // Parsea il JSON
+            JsonValue json = new JsonReader().parse(jsonString);
+            JsonValue poke1 = json.get("poke1");
+
+            if (poke1 != null) {
+                String nomePokemon = poke1.getString("nomePokemon", "");
+                if (nomePokemon.isEmpty()) {
+                    MapLayer oggettiStoria = game.getOggettiStoria();
+
+                    for (MapObject object : oggettiStoria.getObjects()) {
+                        // Verifica se l'oggetto ha la proprietà "tipoBlocco" con valore "prendiStater"
+                        String tipoBlocco = object.getProperties().get("tipoBlocco", String.class);
+                        if ("prendiStater".equals(tipoBlocco)) {
+                            // Imposta la proprietà "considerare" su true
+                            object.getProperties().put("considerare", true);
+                        }
+                    }
+                }
+            } else {
+                MapLayer oggettiStoria = game.getOggettiStoria();
+
+                for (MapObject object : oggettiStoria.getObjects()) {
+                    // Verifica se l'oggetto ha la proprietà "tipoBlocco" con valore "prendiStater"
+                    String tipoBlocco = object.getProperties().get("tipoBlocco", String.class);
+                    if ("prendiStater".equals(tipoBlocco)) {
+                        // Imposta la proprietà "considerare" su true
+                        object.getProperties().put("considerare", true);
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            
+        }
+    }
+
     @Override
     public void dispose() {
         //mappa.dispose();
