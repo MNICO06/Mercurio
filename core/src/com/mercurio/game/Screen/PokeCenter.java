@@ -41,6 +41,8 @@ public class PokeCenter extends ScreenAdapter {
     private boolean renderTesto = false;
     private boolean continuaTesto = true;
 
+    private boolean nelBox = false;
+
     //rettangolo con la lista delle persone che collidono
     private ArrayList<Rectangle> rectList = null;
 
@@ -85,6 +87,7 @@ public class PokeCenter extends ScreenAdapter {
         cambiaProfondita(lineeLayer);
         esci();
         checkCure();
+        checkBox();
         checkTesto();
     }
 
@@ -176,6 +179,27 @@ public class PokeCenter extends ScreenAdapter {
         }
     }
 
+    public void checkBox() {
+        MapLayer layerTeleport = pokeCenterMap.getLayers().get("box");
+        MapObject obj = layerTeleport.getObjects().get("box");
+        if (obj instanceof RectangleMapObject) {
+            RectangleMapObject rectObject = (RectangleMapObject) obj;
+            Rectangle rect = rectObject.getRectangle();
+            if (game.getPlayer().getBoxPlayer().overlaps(rect)) {
+                if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
+                    if (!nelBox) {
+                        nelBox = true;
+                        game.creaBox();
+                    } else {
+                        game.closeBox();
+                        nelBox = false;
+                    }
+                   
+                }
+            }
+        }
+    }
+
     private void checkTesto() {
 
         if (renderTesto) {
@@ -200,11 +224,12 @@ public class PokeCenter extends ScreenAdapter {
 
         }
         else {
-
-            renderTesto = false;
-            continuaTesto = true;
-            game.getPlayer().setMovement(true);
-            discorso.reset();
+            if (!nelBox) {
+                renderTesto = false;
+                continuaTesto = true;
+                game.getPlayer().setMovement(true);
+                discorso.reset();
+            }
         }
     }
 
