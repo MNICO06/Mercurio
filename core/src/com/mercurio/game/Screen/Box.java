@@ -70,9 +70,7 @@ public class Box extends ScreenAdapter {
         // Disegna la UI della borsa
         stage.draw(); // Disegna lo stage sullo SpriteBatch
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.X)){
-            dispose();
-        }
+        
     }
 
     public void dispose() {
@@ -80,6 +78,7 @@ public class Box extends ScreenAdapter {
         font.dispose();
         stage.dispose();
         game.closeBox();
+        Gdx.input.setInputProcessor(stage);
     }
 
     public void leggiPoke(int numero) {

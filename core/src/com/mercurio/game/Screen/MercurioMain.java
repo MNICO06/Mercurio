@@ -79,6 +79,7 @@ public class MercurioMain extends Game implements InterfacciaComune{
     private String screenString;
 
     private Box box;
+    private SceltaStarterScreen sceltaStarterScreen;
     
     @Override
     public void create() {
@@ -157,6 +158,10 @@ public class MercurioMain extends Game implements InterfacciaComune{
 
             if (box != null){
                 box.render();
+            }
+
+            if (sceltaStarterScreen != null) {
+                sceltaStarterScreen.render();
             }
 
         }
@@ -441,6 +446,16 @@ public class MercurioMain extends Game implements InterfacciaComune{
         getPlayer().setMovement(true);
         Gdx.input.setInputProcessor(MenuLabel.getStage());
         box = null;
+    }
+
+    public void creaSceltaStarter() {
+        getPlayer().setMovement(false);
+        sceltaStarterScreen = new SceltaStarterScreen(this);
+    }
+    public void closeSceltaStarter() {
+        getPlayer().setMovement(true);
+        Gdx.input.setInputProcessor(MenuLabel.getStage());
+        sceltaStarterScreen = null;
     }
 
     public MapLayer getOggettiStoria() {
