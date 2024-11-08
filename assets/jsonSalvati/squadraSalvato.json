@@ -305,8 +305,8 @@
 	],
 	"tipoBall": "pokeBall",
 	"x": 1.3,
-	"esperienza": 3000,
-	"livello": "15",
+	"esperienza": 2000,
+	"livello": "14",
 	"statistiche": {
 		"hpTot": 48,
 		"attack": 21,
