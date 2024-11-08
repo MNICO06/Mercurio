@@ -262,14 +262,6 @@
 	"livello": "15"
 },
 "poke1": {
-	"nomePokemon": "Bidoof",
-	"ev": {
-		"Hp": 0,
-		"Att": 0,
-		"Dif": 0,
-		"Spec": 0,
-		"Vel": 0
-	},
 	"iv": {
 		"Hp": 11,
 		"Att": 5,
@@ -297,24 +289,32 @@
 			"ppAtt": "5"
 		},
 		{
-			"nome": "Lanciafiamme",
+			"nome": "Rogodenti",
 			"tipo": "Fuoco",
 			"ppTot": 5,
-			"ppAtt": "5"
+			"ppAtt": "4"
 		}
 	],
 	"tipoBall": "pokeBall",
 	"x": 1.3,
-	"esperienza": 3000,
-	"livello": "15",
+	"ev": {
+		"Hp": 59,
+		"Att": 45,
+		"Dif": 40,
+		"Spec": 37,
+		"Vel": 31
+	},
+	"esperienza": 1077,
+	"livello": "17",
+	"nomePokemon": "Bibarel",
 	"statistiche": {
-		"hpTot": 48,
-		"attack": 21,
-		"defense": 22,
-		"special_attack": 18,
-		"special_defense": 20,
-		"speed": 17,
-		"hp": 38
+		"hpTot": 57,
+		"attack": 35,
+		"defense": 30,
+		"special_attack": 26,
+		"special_defense": 28,
+		"speed": 32,
+		"hp": 47
 	}
 }
 }

@@ -149,6 +149,8 @@ public class Battle extends ScreenAdapter {
     private LabelDiscorsi labelDiscorsi25;
     private LabelDiscorsi labelDiscorsi26;
     private LabelDiscorsi labelDiscorsi27;
+    private LabelDiscorsi labelDiscorsi28;
+    private LabelDiscorsi labelDiscorsi29;
     private Label label1;
     private Label label2;
     private Label label3;
@@ -176,6 +178,8 @@ public class Battle extends ScreenAdapter {
     private Label label25;
     private Label label26;
     private Label label27;
+    private Label label28;
+    private Label label29;
     private String nomePoke;
     private String nomePokeSquad;
     private String currentPokeHP;
@@ -248,6 +252,9 @@ public class Battle extends ScreenAdapter {
     TextureRegion[] frames;
     ArrayList<FrameData[]> frameDataList;
     private String tipologia;
+    private boolean checkPerEvo = false;
+    private ArrayList<String> pokeEvo = new ArrayList<>();
+    private ArrayList<Integer> pokeEvoIndex = new ArrayList<>();
 
     public Battle(InterfacciaComune chiamante, String nameBot, boolean isBotFight, String zona, String nomeSelvatico) {
         MenuLabel.openMenuLabel.setVisible(false);
@@ -426,28 +433,52 @@ public class Battle extends ScreenAdapter {
                         @Override
                         public void run() {
                             label11.remove();
-                            batch.dispose();
-                            font.dispose();
-                            stage.dispose();
-                            textureLancio.dispose();
-                            ballTexture.dispose();
-                            Gdx.input.setInputProcessor(null);
-                            chiamante.closeBattle();
-                            MenuLabel.openMenuLabel.setVisible(true);
-                            Erba.estratto=0;
+                            float timerTime=0f;
+                            if (checkPerEvo){
+                                timerTime+=17f;
+                                for (int i=0; i<pokeEvo.size();i++){
+                                    evoluzione(i);
+                                }
+                            }
+                            Timer.schedule(new Timer.Task() {
+                                @Override
+                                public void run() {
+                                    batch.dispose();
+                                    font.dispose();
+                                    stage.dispose();
+                                    textureLancio.dispose();
+                                    ballTexture.dispose();
+                                    Gdx.input.setInputProcessor(null);
+                                    chiamante.closeBattle();
+                                    MenuLabel.openMenuLabel.setVisible(true);
+                                    Erba.estratto=0;
+                                }
+                            }, timerTime);
                         }
                     }, 2f);
             }
             else if(isBattleEnded){
-                batch.dispose();
-                font.dispose();
-                stage.dispose();
-                textureLancio.dispose();
-                ballTexture.dispose();
-                Gdx.input.setInputProcessor(null);
-                chiamante.closeBattle();
-                MenuLabel.openMenuLabel.setVisible(true);
-                Erba.estratto=0;
+                float timerTime=0f;
+                if (checkPerEvo){
+                    timerTime+=17f;
+                    for (int i=0; i<pokeEvo.size();i++){
+                        evoluzione(i);
+                    }
+                }
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        batch.dispose();
+                        font.dispose();
+                        stage.dispose();
+                        textureLancio.dispose();
+                        ballTexture.dispose();
+                        Gdx.input.setInputProcessor(null);
+                        chiamante.closeBattle();
+                        MenuLabel.openMenuLabel.setVisible(true);
+                        Erba.estratto=0;
+                    }
+                }, timerTime);
             }
             else {
                 label10=labelDiscorsi10.getLabel();
@@ -642,6 +673,12 @@ public class Battle extends ScreenAdapter {
             }
             if (label27!=null){
                 labelDiscorsi27.renderDisc();
+            }
+            if (label28!=null){
+                labelDiscorsi28.renderDisc();
+            }
+            if (label29!=null){
+                labelDiscorsi29.renderDisc();
             }
             if (apprendimentoMosse!=null){
                 apprendimentoMosse.render();
@@ -1935,7 +1972,7 @@ public class Battle extends ScreenAdapter {
             }
         }
 
-        System.out.println(LVPokeBot);
+        //System.out.println(LVPokeBot);
 
         // Seleziona un numero casuale di mosse (da 1 a 4)
         int numMosseDaSelezionare = (int) (Math.random() * 4) + 1;  // Genera un numero da 1 a 4
@@ -1955,12 +1992,12 @@ public class Battle extends ScreenAdapter {
                 String ppMossa = mossaJson.getString("pp", "0");     // Ottieni i PP della mossa
 
                 // Crea e aggiungi la mossa alla lista `listaMosseBot`
-                System.out.println(nomeMossa);
+                //System.out.println(nomeMossa);
 
                 Mossa mossa = new Mossa(nomeMossa, tipoMossa, ppMossa, ppMossa, this);
                 listaMosseBot.add(mossa);
             } else {
-                System.out.println("Mossa non trovata: " + nomeMossa);
+                //System.out.println("Mossa non trovata: " + nomeMossa);
             }
         }
     }
@@ -2400,12 +2437,12 @@ public class Battle extends ScreenAdapter {
             }
             else {
                 if (hpBotSquad.get(i).equals(0)){
-                    System.out.println("a");
+                    //System.out.println("a");
                     colonna=1;
                 }
                 else{
                     colonna=0;
-                    System.out.println("b");
+                    //System.out.println("b");
                 }
             }
 
@@ -2475,7 +2512,7 @@ public class Battle extends ScreenAdapter {
 
     public void rimuoviPokeDaBattagliaBot(){        
         for (int i = 0; i < pokeInBattaglia.size(); i++) {
-            System.out.println(pokeInBattaglia.get(i));
+            //System.out.println(pokeInBattaglia.get(i));
         }
         calcoloEsperienzaVinta(1);
 
@@ -2665,7 +2702,7 @@ public class Battle extends ScreenAdapter {
 
         tassoCattura=((((3*Integer.parseInt(maxPokeHPBot)) - (2*Integer.parseInt(currentPokeHPBot)))*tasso*bonusBall))/(3*Integer.parseInt(maxPokeHPBot));
 
-        //System.out.println(tassoCattura);
+        ////System.out.println(tassoCattura);
 
         String discorso19= "Hai lanciato una "+ nameUsedBall + "!";
         labelDiscorsi19 = new LabelDiscorsi(discorso19,dimMax,0,true, false);
@@ -2712,10 +2749,10 @@ public class Battle extends ScreenAdapter {
             }, (1.5f+1.5f*nVibrazioni));
 
             /*if (nVibrazioni==4){
-                System.out.println("catturato");
+                //System.out.println("catturato");
             }
             else{
-                System.out.println("uscito, numero vibrazioni "+ nVibrazioni);
+                //System.out.println("uscito, numero vibrazioni "+ nVibrazioni);
             }*/
 
         }
@@ -3255,7 +3292,7 @@ public class Battle extends ScreenAdapter {
             if (json2.get("poke"+pokeInBattaglia.get(i)).getInt("livello")!=100){
                 
                 int expMaxLvl = calcoloEspMaxLivello(crescitaType,Integer.parseInt(LVPoke));
-                nuovaEsperienza = json2.get("poke"+pokeInBattaglia.get(i)).getInt("esperienza") + esperienzaVinta +10000;
+                nuovaEsperienza = json2.get("poke"+pokeInBattaglia.get(i)).getInt("esperienza") + esperienzaVinta; //+10000 per i test
                 int nuovaEsperienzaCheck = nuovaEsperienza;
                 int expMaxLvlCheck = expMaxLvl;
                 int LVPokeCheck = Integer.parseInt(LVPoke);
@@ -3286,7 +3323,7 @@ public class Battle extends ScreenAdapter {
         float delayTot = 3f*pokeInBattaglia.size() - 3f*skipExp +2.9f*ritardoLvUp;
         timerTotal1(delayTot,nextFunction);
 
-        System.out.println(esperienzaVinta);
+        //System.out.println(esperienzaVinta);
         
     }
 
@@ -3296,7 +3333,7 @@ public class Battle extends ScreenAdapter {
             checkNextLV=true;
             return;
         }
-        //System.out.println("Da fare ancora :)");
+        ////System.out.println("Da fare ancora :)");
         // Apre il file JSON
         FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
         String jsonString2 = file2.readString();
@@ -3312,9 +3349,9 @@ public class Battle extends ScreenAdapter {
         pokeObject.remove("livello"); // Rimuove il campo "livello"
         pokeObject.addChild("livello", new JsonValue(String.valueOf(livello + 1))); // Aggiunge il nuovo valore come stringa
 
-        /*System.out.println(index);
-        System.out.println(pokeInBattaglia.get(index));
-        System.out.println(numeroIndexPoke);*/
+        /*//System.out.println(index);
+        //System.out.println(pokeInBattaglia.get(index));
+        //System.out.println(numeroIndexPoke);*/
         file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
 
         Stats statsM = new Stats();
@@ -3364,8 +3401,24 @@ public class Battle extends ScreenAdapter {
                     }
                 }
 
+                FileHandle file = Gdx.files.local("assets/pokemon/Pokemon.json");
+                String jsonString = file.readString();
+                // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+                JsonValue json = new JsonReader().parse(jsonString);
+                // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
+                JsonValue pokeJson2 = json.get(nomePoke);
+
+                float livelloIncrementato = (livello + 1) / 2.0f;
+                String chiave = "EVO" + livelloIncrementato;
+
+                if (pokeJson2.get("mosseImparabili").has(chiave)) {
+                    checkPerEvo=true;
+                    pokeEvo.add(pokeJson2.get("mosseImparabili").getString(chiave));
+                    pokeEvoIndex.add(pokeInBattaglia.get(i));
+                }
+
                 if ((livello+1)%2==0){
-                    continueLVOperations=false;
+                    //continueLVOperations=false; lo lacio perchè sto pezzente mi ha fatto perdere mezz'ora; mannaggia a me che metto codice a tentativi
                     apprendimentoMosse = new ApprendimentoMosse(Battle.this,stage,pokeInBattaglia.get(i));
                 }
             }
@@ -3377,6 +3430,7 @@ public class Battle extends ScreenAdapter {
                 updateExpBar(true,i);
             }
             else{
+                //System.out.println("sadh");
                 updateExpBar(false,i);
             }
         }
@@ -3471,7 +3525,7 @@ public class Battle extends ScreenAdapter {
                 @Override
                 public void run() {
                     expPlayer.addAction(Actions.sizeTo(96 * 2, expPlayer.getHeight(), 1.5f));
-                    //System.out.println("Animazione estesa");
+                    ////System.out.println("Animazione estesa");
                 }
             }, 0);
             
@@ -3479,20 +3533,21 @@ public class Battle extends ScreenAdapter {
                 @Override
                 public void run() {
                     expPlayer.addAction(Actions.sizeTo(0, expPlayer.getHeight(), 0f));
-                    //System.out.println("Reset completato");
+                    ////System.out.println("Reset completato");
                 }
             }, 1.5f); // Dopo 1.5 secondi
             
             Timer.schedule(new Timer.Task(){
                 @Override
                 public void run() {
-                    //System.out.println("Delay completato");
+                    ////System.out.println("Delay completato");
                     aumentoLivello(indexLV);
                 }
             }, 2.9f); // Dopo 1.5f + 1.4f = 2.9 secondi
             
         }
         else {
+            //System.out.println("fdf");
             // Calcola la percentuale dell'esperienza e la lunghezza della barra
             float percentualeExp = (float) currentExp / maxExp;
             float lunghezzaExpBar = 96 * 2 * percentualeExp;
@@ -3592,7 +3647,7 @@ public class Battle extends ScreenAdapter {
             public void run() {
                 String discorso22= nomePokeEsp + " ha guadagnato "+ esperienzaVinta + " punti esperienza.";
                 labelDiscorsi22 = new LabelDiscorsi(discorso22,dimMax,0,true, false);
-                //System.out.println("a");
+                ////System.out.println("a");
                 labelDiscorsi22.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
                 label22=labelDiscorsi22.getLabel();
                 stage.addActor(label22);
@@ -3627,7 +3682,7 @@ public class Battle extends ScreenAdapter {
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
-                        //System.out.println("b");
+                        ////System.out.println("b");
                         labelDiscorsi22.reset();
                         if (label22!=null){
                             label22.remove();
@@ -3676,7 +3731,7 @@ public class Battle extends ScreenAdapter {
         timerCreatedData.clear();
         timerCreatedDelay.clear();
 
-        System.out.println(checkNextLV);
+        //System.out.println(checkNextLV);
         if (checkNextLV){
             continueLVOperations=true;
             aumentoLivello(numberOfLVtoUp);
@@ -3738,17 +3793,17 @@ public class Battle extends ScreenAdapter {
     }
 
     public void piazzaLabel26(String nomePoke, String nomeMossa){
-        String discorso24= nomePoke+" ha rinunciato ad imparare "+ nomeMossa+".";
-        labelDiscorsi24 = new LabelDiscorsi(discorso24,dimMax,0,true, false);
-        labelDiscorsi24.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
-        label24=labelDiscorsi24.getLabel();
-        stage.addActor(label24);
+        String discorso26= nomePoke+" ha rinunciato ad imparare "+ nomeMossa+".";
+        labelDiscorsi26 = new LabelDiscorsi(discorso26,dimMax,0,true, false);
+        labelDiscorsi26.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
+        label26=labelDiscorsi26.getLabel();
+        stage.addActor(label26);
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
-                labelDiscorsi24.reset();
-                label24.remove();
-                label24=null;
+                labelDiscorsi26.reset();
+                label26.remove();
+                label26=null;
             }
         }, 4f);
     }
@@ -3767,5 +3822,130 @@ public class Battle extends ScreenAdapter {
                 label27=null;
             }
         }, 3.5f);
+    }
+
+    private void evoluzione(int evoIndex) {
+        // Caricamento dello stato attuale e della grafica di sfondo
+        FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
+        String jsonString2 = file2.readString();
+        JsonValue json2 = new JsonReader().parse(jsonString2);
+        
+        // Rimuove e aggiorna il nome del Pokémon
+        String pokeEvoluto = json2.get("poke"+pokeEvoIndex.get(evoIndex)).getString("nomePokemon");
+        json2.get("poke"+pokeEvoIndex.get(evoIndex)).remove("nomePokemon");
+        json2.get("poke"+pokeEvoIndex.get(evoIndex)).addChild("nomePokemon", new JsonValue(pokeEvo.get(evoIndex)));
+        file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
+    
+        // Aggiorna statistiche del Pokémon
+        Stats stats = new Stats();
+        stats.aggiornaStatistichePokemon(pokeEvoIndex.get(evoIndex));
+    
+        // Imposta lo sfondo dell'animazione
+        Texture backgroundTexture = new Texture("sfondo/evolutionBG.png");
+        Image background = new Image(backgroundTexture);
+        background.setZIndex(100);
+        background.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        stage.addActor(background);
+    
+        // Imposta il Pokémon attuale e l'immagine per l'animazione
+        Texture pokeTexture = new Texture("pokemon/"+pokeEvoluto+".png");
+        int widthQuarter = pokeTexture.getWidth() / 4;
+        TextureRegion pokeRegion = new TextureRegion(pokeTexture, 0, 0, widthQuarter, pokeTexture.getHeight());
+        // Crea un'immagine utilizzando il TextureRegion ritagliato
+        Image evolvingPoke = new Image(pokeRegion);
+        evolvingPoke.setOrigin(Align.center);
+        evolvingPoke.setSize(200, 200);
+        evolvingPoke.setPosition(Gdx.graphics.getWidth() / 2 - evolvingPoke.getWidth() / 2, 
+                                Gdx.graphics.getHeight() / 2 - evolvingPoke.getHeight() / 2);
+        stage.addActor(evolvingPoke);
+        
+        // Effetti di luce e pulsazione (cerchio di luce)
+        Texture lightCircleTexture = new Texture("pokemon/lightCircle.png");
+        Image lightCircle = new Image(lightCircleTexture);
+        lightCircle.setOrigin(Align.center);
+        lightCircle.setColor(new Color(1, 1, 1, 0));  // Trasparente all'inizio
+        lightCircle.setSize(400, 400);
+        lightCircle.setPosition(Gdx.graphics.getWidth() / 2 - lightCircle.getWidth() / 2, 
+                                Gdx.graphics.getHeight() / 2 - lightCircle.getHeight() / 2);
+        stage.addActor(lightCircle);
+    
+        // Testo dell'evoluzione
+        String discorso28 = pokeEvoluto + " si sta evolvendo!";
+        labelDiscorsi28 = new LabelDiscorsi(discorso28, 200, 0, true, false);
+        label28 = labelDiscorsi28.getLabel();
+        label28.setZIndex(100);
+        stage.addActor(label28);
+    
+        // Rimozione del testo e animazione finale
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() { 
+                labelDiscorsi28.reset();
+                label28.remove();
+                label28 = null;
+
+                evolvingPoke.addAction(Actions.sequence(
+                    Actions.parallel(
+                        Actions.repeat(5, Actions.sequence(
+                            Actions.scaleBy(0.2f, 0.2f, 1.5f),  
+                            Actions.scaleBy(-0.2f, -0.2f, 1.5f) 
+                        ))
+                    )
+                ));
+            
+                /*lightCircle.addAction(Actions.sequence(
+                    Actions.alpha(0.7f, 0.3f), // Rende il cerchio semi-trasparente
+                    Actions.parallel(
+                        Actions.repeat(5, Actions.sequence(
+                            Actions.scaleBy(0.4f, 0.4f, 1.5f),  // Ingrandisce la sfera di luce
+                            Actions.scaleBy(-0.4f, -0.4f, 1.5f) // Riduce la sfera di luce
+                        ))
+                    ),
+                    Actions.fadeOut(0.5f) // Sfumatura finale per far svanire la sfera
+                ));*/
+
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        // Cambia l'immagine del Pokémon all'immagine evoluta
+                        Texture evolvedTexture = new Texture("pokemon/" + pokeEvo.get(evoIndex) + ".png");
+                        // Crea un TextureRegion che prende solo il primo quarto della larghezza della texture evoluta
+                        int evolvedWidthQuarter = evolvedTexture.getWidth() / 4;
+                        TextureRegion evolvedRegion = new TextureRegion(evolvedTexture, 0, 0, evolvedWidthQuarter, evolvedTexture.getHeight());
+                        
+                        // Imposta il TextureRegionDrawable per mostrare solo il primo quarto della larghezza
+                        evolvingPoke.setDrawable(new TextureRegionDrawable(evolvedRegion));                
+                        // Effetti conclusivi (scintillio e ingrandimento finale)
+                        evolvingPoke.addAction(Actions.sequence(
+                            Actions.parallel(
+                                Actions.scaleTo(1.2f, 1.2f, 0.8f),
+                                Actions.alpha(1, 0.8f)
+                            ),
+                            Actions.parallel(
+                                Actions.scaleTo(1.0f, 1.0f, 0.5f)
+                            ),
+                            Actions.run(new Runnable() {
+                                @Override
+                                public void run() {
+                                    String discorso29 = "Congratulazioni! "+pokeEvoluto + " si e' evoluto in "+ pokeEvo.get(evoIndex)+"!";
+                                    labelDiscorsi29 = new LabelDiscorsi(discorso29, dimMax, 0, true, false);
+                                    label29 = labelDiscorsi29.getLabel();
+                                    label29.setZIndex(102);
+                                    stage.addActor(label29);        
+                                    Timer.schedule(new Timer.Task() {
+                                        @Override
+                                        public void run() {
+                                            labelDiscorsi29.reset();
+                                            label29.remove();
+                                            label29 = null;
+                                        }
+                                    }, 4.5f); // Durata dell'animazione principale
+                                }
+                            })
+                        ));
+                    }
+                }, 7.5f); // Durata
+            }
+        }, 3.5f); // Durata dell'animazione principale
     }
 } //Fine battaglia :)
