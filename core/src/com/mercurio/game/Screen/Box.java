@@ -125,7 +125,7 @@ public class Box extends ScreenAdapter {
         Image background = new Image(sfondi[0]);
         // Ritaglia l'immagine per adattarla alla dimensione dello schermo
         background.setSize(700, 600);
-        background.setPosition((Gdx.graphics.getWidth() - background.getWidth()) / 2, (Gdx.graphics.getHeight() - background.getHeight()) / 2);
+        background.setPosition(((Gdx.graphics.getWidth() - background.getWidth()) / 1.5f), (Gdx.graphics.getHeight() - background.getHeight()) / 2);
         stage.addActor(background);
 
         // Aggiungi le immagini "avanti" e "indietro" in alto
@@ -135,7 +135,7 @@ public class Box extends ScreenAdapter {
         avantiImage = new Image(avantiTexture);
         indietroImage = new Image(indietroTexture);
 
-        // Posiziona le immagini in alto a sinistra e destra
+        // Posiziona le immagini in alto a sinistra e destraå
         float marginTop = 70; // distanza dal bordo superiore dello schermo
         // Calcola la posizione centrale per le immagini
         float centerX = Gdx.graphics.getWidth() / 2;

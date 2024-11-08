@@ -88,8 +88,7 @@ public class MenuLabel{
             public void clicked(InputEvent event, float x, float y) {
                 if (!menuOpened) {
                     // Se il menu non è aperto, apri il menu
-                    game.creaBox();
-                    //apriMenu();
+                    apriMenu();
                 } else {
                     // Se il menu è aperto, chiudi il menu
                     chiudiMenu();
@@ -325,8 +324,7 @@ public class MenuLabel{
         if (Gdx.input.isKeyJustPressed(Input.Keys.X) && !game.getIsInMovement()) {
             if (!menuOpened && xKeyPressed) {
                 // Se il menu non è aperto e il tasto X è abilitato, apri il menu
-                game.creaBox();
-                //apriMenu();
+                apriMenu();
             } else if (menuOpened) {
                 // Se il menu è aperto, chiudi il menu
                 chiudiMenu();
