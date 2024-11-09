@@ -55,18 +55,18 @@
 	"tipoBall": "",
 	"x": 0
 },
-"poke2": {
-	"nomePokemon": "Bidoof",
-	"livello": "15",
-	"esperienza": "0",
+"poke5": {
+	"nomePokemon": "",
+	"livello": "",
+	"esperienza": "",
 	"statistiche": {
-		"hpTot": 35,
-		"attack": 55,
-		"defense": 40,
-		"special_attack": 50,
-		"special_defense": 50,
-		"speed": 90,
-		"hp": 5
+		"hp": 0,
+		"hpTot": 0,
+		"attack": 0,
+		"defense": 0,
+		"special_attack": 0,
+		"special_defense": 0,
+		"speed": 0
 	},
 	"ev": {
 		"Hp": 0,
@@ -76,103 +76,53 @@
 		"Vel": 0
 	},
 	"iv": {
-		"Hp": 11,
-		"Att": 5,
-		"Dif": 14,
-		"Spec": 7,
-		"Vel": 9
-	},
-	"mosse": [
-		{
-			"nome": "Tuonopugno",
-			"tipo": "Elettro",
-			"ppTot": 5,
-			"ppAtt": 5
-		},
-		{
-			"nome": "Fulmine",
-			"tipo": "Elettro",
-			"ppTot": 5,
-			"ppAtt": 5
-		},
-		{
-			"nome": "Scintilla",
-			"tipo": "Elettro",
-			"ppTot": 5,
-			"ppAtt": 5
-		}
-	],
-	"tipoBall": "pokeBall",
-	"x": 1.3
-},
-"poke3": {
-	"nomePokemon": "Bidoof",
-	"livello": "15",
-	"esperienza": "0",
-	"statistiche": {
-		"hpTot": 35,
-		"attack": 55,
-		"defense": 40,
-		"special_attack": 50,
-		"special_defense": 50,
-		"speed": 90,
-		"hp": 0
-	},
-	"ev": {
 		"Hp": 0,
 		"Att": 0,
 		"Dif": 0,
 		"Spec": 0,
 		"Vel": 0
 	},
-	"iv": {
-		"Hp": 11,
-		"Att": 5,
-		"Dif": 14,
-		"Spec": 7,
-		"Vel": 9
-	},
 	"mosse": [
 		{
-			"nome": "Tuonopugno",
-			"tipo": "Elettro",
-			"ppTot": 5,
-			"ppAtt": 5
+			"nome": "",
+			"tipo": "",
+			"ppTot": 0,
+			"ppAtt": 0
 		},
 		{
-			"nome": "Fulmine",
-			"tipo": "Elettro",
-			"ppTot": 5,
-			"ppAtt": 5
+			"nome": "",
+			"tipo": "",
+			"ppTot": 0,
+			"ppAtt": 0
 		},
 		{
-			"nome": "Scintilla",
-			"tipo": "Elettro",
-			"ppTot": 5,
-			"ppAtt": 5
+			"nome": "",
+			"tipo": "",
+			"ppTot": 0,
+			"ppAtt": 0
 		},
 		{
-			"nome": "Surf",
-			"tipo": "Acqua",
-			"ppTot": 5,
-			"ppAtt": 5
+			"nome": "",
+			"tipo": "",
+			"ppTot": 0,
+			"ppAtt": 0
 		}
 	],
-	"tipoBall": "pokeBall",
-	"x": 1.3
+	"tipoBall": "",
+	"x": 0
 },
 "poke4": {
-	"nomePokemon": "Giratina",
-	"livello": "100",
-	"esperienza": "0",
+	"nomePokemon": "",
+	"livello": "",
+	"esperienza": "",
 	"statistiche": {
-		"hpTot": 400,
-		"attack": 400,
-		"defense": 40,
-		"special_attack": 500,
-		"special_defense": 50,
-		"speed": 90,
-		"hp": 100
+		"hp": 0,
+		"hpTot": 0,
+		"attack": 0,
+		"defense": 0,
+		"special_attack": 0,
+		"special_defense": 0,
+		"speed": 0
 	},
 	"ev": {
 		"Hp": 0,
@@ -182,66 +132,166 @@
 		"Vel": 0
 	},
 	"iv": {
-		"Hp": 11,
-		"Att": 5,
-		"Dif": 14,
-		"Spec": 7,
-		"Vel": 9
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
 	},
 	"mosse": [
 		{
-			"nome": "Velenospina",
-			"tipo": "Veleno",
-			"ppTot": 5,
-			"ppAtt": "5"
+			"nome": "",
+			"tipo": "",
+			"ppTot": 0,
+			"ppAtt": 0
 		},
 		{
-			"nome": "Fulmine",
-			"tipo": "Elettro",
-			"ppTot": 15,
-			"ppAtt": "7"
+			"nome": "",
+			"tipo": "",
+			"ppTot": 0,
+			"ppAtt": 0
 		},
 		{
-			"nome": "Dragartigli",
-			"tipo": "Drago",
-			"ppTot": 15,
-			"ppAtt": "13"
+			"nome": "",
+			"tipo": "",
+			"ppTot": 0,
+			"ppAtt": 0
 		},
 		{
-			"nome": "Forzasfera",
-			"tipo": "Lotta",
-			"ppTot": 20,
-			"ppAtt": "5"
+			"nome": "",
+			"tipo": "",
+			"ppTot": 0,
+			"ppAtt": 0
 		}
 	],
-	"tipoBall": "masterBall",
-	"x": 1.3
+	"tipoBall": "",
+	"x": 0
 },
-"poke5": {
-	"nomePokemon": "Bidoof",
+"poke3": {
+	"nomePokemon": "",
+	"livello": "",
+	"esperienza": "",
 	"statistiche": {
-		"hp": 20,
+		"hp": 0,
+		"hpTot": 0,
+		"attack": 0,
+		"defense": 0,
+		"special_attack": 0,
+		"special_defense": 0,
+		"speed": 0
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"mosse": [
+		{
+			"nome": "",
+			"tipo": "",
+			"ppTot": 0,
+			"ppAtt": 0
+		},
+		{
+			"nome": "",
+			"tipo": "",
+			"ppTot": 0,
+			"ppAtt": 0
+		},
+		{
+			"nome": "",
+			"tipo": "",
+			"ppTot": 0,
+			"ppAtt": 0
+		},
+		{
+			"nome": "",
+			"tipo": "",
+			"ppTot": 0,
+			"ppAtt": 0
+		}
+	],
+	"tipoBall": "",
+	"x": 0
+},
+"poke2": {
+	"nomePokemon": "",
+	"livello": "",
+	"esperienza": "",
+	"statistiche": {
+		"hp": 0,
+		"hpTot": 0,
+		"attack": 0,
+		"defense": 0,
+		"special_attack": 0,
+		"special_defense": 0,
+		"speed": 0
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"mosse": [
+		{
+			"nome": "",
+			"tipo": "",
+			"ppTot": 0,
+			"ppAtt": 0
+		},
+		{
+			"nome": "",
+			"tipo": "",
+			"ppTot": 0,
+			"ppAtt": 0
+		},
+		{
+			"nome": "",
+			"tipo": "",
+			"ppTot": 0,
+			"ppAtt": 0
+		},
+		{
+			"nome": "",
+			"tipo": "",
+			"ppTot": 0,
+			"ppAtt": 0
+		}
+	],
+	"tipoBall": "",
+	"x": 0
+},
+"poke1": {
+	"nomePokemon": "Pikachu",
+	"livello": "10",
+	"esperienza": "0",
+	"statistiche": {
 		"hpTot": 35,
-		"attack": 5005,
+		"attack": 35,
 		"defense": 40,
 		"special_attack": 50,
 		"special_defense": 50,
-		"speed": 90
+		"speed": 90,
+		"hp": "35"
 	},
-	"mosse": [
-		{
-			"nome": "Tuonopugno",
-			"tipo": "Elettro",
-			"ppTot": 5,
-			"ppAtt": "4"
-		},
-		{
-			"nome": "Gigaimpatto",
-			"tipo": "Normale",
-			"ppTot": 5,
-			"ppAtt": "4"
-		}
-	],
 	"ev": {
 		"Hp": 0,
 		"Att": 0,
@@ -256,65 +306,33 @@
 		"Spec": 7,
 		"Vel": 9
 	},
-	"tipoBall": "pokeBall",
-	"x": 1.1,
-	"esperienza": 1309,
-	"livello": "15"
-},
-"poke1": {
-	"iv": {
-		"Hp": 11,
-		"Att": 5,
-		"Dif": 14,
-		"Spec": 7,
-		"Vel": 9
-	},
 	"mosse": [
 		{
-			"nome": "Terremoto",
-			"tipo": "Terra",
-			"ppTot": 5,
-			"ppAtt": "2"
+			"nome": "Azione",
+			"tipo": "Normale",
+			"ppTot": 35,
+			"ppAtt": "35"
 		},
 		{
-			"nome": "Fulmine",
+			"nome": "Tuonoshock",
 			"tipo": "Elettro",
-			"ppTot": 5,
-			"ppAtt": "5"
+			"ppTot": 25,
+			"ppAtt": "25"
 		},
 		{
-			"nome": "Focalcolpo",
-			"tipo": "Lotta",
-			"ppTot": 5,
-			"ppAtt": "5"
+			"nome": "AttaccoRapido",
+			"tipo": "Normale",
+			"ppTot": 30,
+			"ppAtt": "30"
 		},
 		{
-			"nome": "Rogodenti",
-			"tipo": "Fuoco",
-			"ppTot": 5,
-			"ppAtt": "4"
+			"nome": "",
+			"tipo": "",
+			"ppTot": 0,
+			"ppAtt": "0"
 		}
 	],
-	"tipoBall": "pokeBall",
-	"x": 1.3,
-	"ev": {
-		"Hp": 59,
-		"Att": 45,
-		"Dif": 40,
-		"Spec": 37,
-		"Vel": 31
-	},
-	"esperienza": 1077,
-	"livello": "17",
-	"nomePokemon": "Bibarel",
-	"statistiche": {
-		"hpTot": 57,
-		"attack": 35,
-		"defense": 30,
-		"special_attack": 26,
-		"special_defense": 28,
-		"speed": 32,
-		"hp": 47
-	}
+	"tipoBall": "Pokeball",
+	"x": 1.0
 }
 }

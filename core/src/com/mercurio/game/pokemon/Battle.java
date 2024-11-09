@@ -3123,7 +3123,12 @@ public class Battle extends ScreenAdapter {
                                                     labelDiscorsi21 = new LabelDiscorsi(discorso21,dimMax,0,true, false);
                                                     label21=labelDiscorsi21.getLabel();
                                                     stage.addActor(label21);
-                                                    salvaPokemonNelBox();
+                                                    String poke = controllaSquadra();
+                                                    if (poke != null) {
+                                                        scalvaPokemonInSquadra(poke);
+                                                    } else {
+                                                        salvaPokemonNelBox();
+                                                    }
 
                                                     Timer.schedule(new Timer.Task() {
                                                         @Override
@@ -3153,6 +3158,103 @@ public class Battle extends ScreenAdapter {
             }
         }, 0, Gdx.graphics.getDeltaTime());
 
+    }
+
+    //prima faccio in modo di controllare se c'è almeno un elemento libero
+    private String controllaSquadra() {
+        try {
+            // Carica il file JSON
+            FileHandle file = Gdx.files.internal("assets/ashJson/squadra.json");
+            String jsonString = file.readString();
+    
+            JsonValue json = new JsonReader().parse(jsonString);
+    
+            // Itera su poke1, poke2, ..., poke6
+            for (int i = 1; i <= 6; i++) {
+                String pokeKey = "poke" + i;
+                JsonValue poke = json.get(pokeKey);
+    
+                
+                if (poke != null) {
+                    String nomePokemon = poke.getString("nomePokemon", "");
+    
+                    // Se il nomePokemon è vuoto, ritorna la chiave del Pokémon (ad esempio "poke1")
+                    if (nomePokemon.isEmpty()) {
+                        return pokeKey;
+                    }
+                }
+            }
+    
+            // Se nessun nomePokemon è vuoto, ritorna null
+            return null;
+    
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private void scalvaPokemonInSquadra(String pokemon) {
+        try {
+
+            System.out.println(pokemon);
+            // Carica il file JSON
+            FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+            String jsonString = file.readString();
+
+            JsonValue json = new JsonReader().parse(jsonString);
+            
+            JsonValue newPokemon = new JsonValue(JsonValue.ValueType.object);
+            newPokemon.addChild("nomePokemon", new JsonValue(nameBot));
+            newPokemon.addChild("livello", new JsonValue(LVPokeBot));
+
+            JsonValue statistiche = new JsonValue(JsonValue.ValueType.object);
+            statistiche.addChild("hp", new JsonValue(Integer.parseInt(currentPokeHPBot)));
+            statistiche.addChild("hpTot", new JsonValue(Integer.parseInt(maxPokeHPBot)));
+            statistiche.addChild("attack", new JsonValue(statsBot.get(0)));
+            statistiche.addChild("defense", new JsonValue(statsBot.get(1)));
+            statistiche.addChild("special_attack", new JsonValue(statsBot.get(2)));
+            statistiche.addChild("special_defense", new JsonValue(statsBot.get(3)));
+            statistiche.addChild("speed", new JsonValue(statsBot.get(4)));
+            newPokemon.addChild("statistiche", statistiche);
+
+
+            JsonValue evStats = new JsonValue(JsonValue.ValueType.object);
+            evStats.addChild("Hp", new JsonValue(0));
+            evStats.addChild("Att", new JsonValue(0));
+            evStats.addChild("Dif", new JsonValue(0));
+            evStats.addChild("Spec", new JsonValue(0));
+            evStats.addChild("Vel", new JsonValue(0));
+
+            newPokemon.addChild("ev",evStats);
+
+            newPokemon.addChild("iv",pokeIvBot);
+            
+            JsonValue mosseJson = new JsonValue(JsonValue.ValueType.array);
+            for (Mossa mossaBot : listaMosseBot) {
+                JsonValue mossa = new JsonValue(JsonValue.ValueType.object);
+                mossa.addChild("nome", new JsonValue(mossaBot.getNome()));
+                mossa.addChild("tipo", new JsonValue(mossaBot.getTipo()));
+                mossa.addChild("ppTot", new JsonValue(mossaBot.getmaxPP()));
+                mossa.addChild("ppAtt", new JsonValue(mossaBot.getattPP()));
+                mosseJson.addChild(mossa);
+            }
+            newPokemon.addChild("mosse", mosseJson);
+
+            newPokemon.addChild("tipoBall", new JsonValue(nomeBall));
+            newPokemon.addChild("x", new JsonValue(x));
+
+            json.remove(pokemon);
+            json.addChild(pokemon, newPokemon);
+
+            System.out.println(json.prettyPrint(JsonWriter.OutputType.json, 1));
+
+            file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
+
+
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     private void salvaPokemonNelBox(){
