@@ -290,6 +290,12 @@ public class MercurioMain extends Game implements InterfacciaComune{
                 setPage(Constant.MENU_SCREEN);
                 break;
 
+            case Constant.LABORATORIO:
+                newScreen = new Laboratorio(this);
+                screen_id = 4;
+                luogo = "laboratorio";
+                break;
+
             
 
             default:
