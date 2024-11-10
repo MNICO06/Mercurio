@@ -14,7 +14,9 @@ import com.badlogic.gdx.ai.btree.Task;
 import com.badlogic.gdx.ai.btree.utils.DistributionAdapters.IntegerAdapter;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.TextureData;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -435,7 +437,7 @@ public class Battle extends ScreenAdapter {
                             label11.remove();
                             float timerTime=0f;
                             if (checkPerEvo){
-                                timerTime+=17f;
+                                timerTime+=22f;
                                 for (int i=0; i<pokeEvo.size();i++){
                                     evoluzione(i);
                                 }
@@ -460,7 +462,7 @@ public class Battle extends ScreenAdapter {
             else if(isBattleEnded){
                 float timerTime=0f;
                 if (checkPerEvo){
-                    timerTime+=17f;
+                    timerTime+=22f;
                     for (int i=0; i<pokeEvo.size();i++){
                         evoluzione(i);
                     }
@@ -3394,7 +3396,7 @@ public class Battle extends ScreenAdapter {
             if (json2.get("poke"+pokeInBattaglia.get(i)).getInt("livello")!=100){
                 
                 int expMaxLvl = calcoloEspMaxLivello(crescitaType,Integer.parseInt(LVPoke));
-                nuovaEsperienza = json2.get("poke"+pokeInBattaglia.get(i)).getInt("esperienza") + esperienzaVinta; //+10000 per i test
+                nuovaEsperienza = json2.get("poke"+pokeInBattaglia.get(i)).getInt("esperienza") + esperienzaVinta +10000; //+10000 per i test
                 int nuovaEsperienzaCheck = nuovaEsperienza;
                 int expMaxLvlCheck = expMaxLvl;
                 int LVPokeCheck = Integer.parseInt(LVPoke);
@@ -3949,30 +3951,74 @@ public class Battle extends ScreenAdapter {
         background.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         stage.addActor(background);
     
-        // Imposta il Pokémon attuale e l'immagine per l'animazione
-        Texture pokeTexture = new Texture("pokemon/"+pokeEvoluto+".png");
+        Texture lightTexture = new Texture("pokemon/lightCircle.png");
+
+        TextureRegion lightRegion = new TextureRegion(lightTexture, 0, 0, lightTexture.getWidth(), lightTexture.getHeight());
+        // Create the Pokémon image
+        Image lightSphere = new Image(lightRegion);
+        lightSphere.setSize(400, 400);
+        lightSphere.setPosition(
+            (Gdx.graphics.getWidth() / 2 - lightSphere.getWidth() / 2), 
+            (Gdx.graphics.getHeight() / 2 - lightSphere.getHeight() / 2)
+        );
+        lightSphere.setOrigin(Align.center);
+        lightSphere.setColor(1, 1, 1, 0);  // Start fully transparent
+        stage.addActor(lightSphere);
+
+        // Load the Pokémon texture and prepare it for Pixmap extraction
+        Texture pokeTexture = new Texture("pokemon/" + pokeEvoluto + ".png");
         int widthQuarter = pokeTexture.getWidth() / 4;
+
         TextureRegion pokeRegion = new TextureRegion(pokeTexture, 0, 0, widthQuarter, pokeTexture.getHeight());
-        // Crea un'immagine utilizzando il TextureRegion ritagliato
+        // Create the Pokémon image
         Image evolvingPoke = new Image(pokeRegion);
         evolvingPoke.setOrigin(Align.center);
         evolvingPoke.setSize(200, 200);
-        evolvingPoke.setPosition(Gdx.graphics.getWidth() / 2 - evolvingPoke.getWidth() / 2, 
-                                Gdx.graphics.getHeight() / 2 - evolvingPoke.getHeight() / 2);
+        evolvingPoke.setPosition(
+            (Gdx.graphics.getWidth() / 2 - evolvingPoke.getWidth() / 2), 
+            (Gdx.graphics.getHeight() / 2 - evolvingPoke.getHeight() / 2)
+        );
         stage.addActor(evolvingPoke);
-        
-        // Effetti di luce e pulsazione (cerchio di luce)
-        Texture lightCircleTexture = new Texture("pokemon/lightCircle.png");
-        Image lightCircle = new Image(lightCircleTexture);
-        lightCircle.setOrigin(Align.center);
-        lightCircle.setColor(new Color(1, 1, 1, 0));  // Trasparente all'inizio
-        lightCircle.setSize(400, 400);
-        lightCircle.setPosition(Gdx.graphics.getWidth() / 2 - lightCircle.getWidth() / 2, 
-                                Gdx.graphics.getHeight() / 2 - lightCircle.getHeight() / 2);
-        stage.addActor(lightCircle);
+
+        TextureData textureData = pokeTexture.getTextureData();
+
+        if (!textureData.isPrepared()) {
+            textureData.prepare();  // Prepare the texture data for pixmap access
+        }
+
+        // Retrieve the Pixmap from the texture data
+        Pixmap pokePixmap = textureData.consumePixmap();  // Now we can get the pixmap safely
+
+        // Create a white Pixmap with the same dimensions and transparency
+        Pixmap whitePixmap = new Pixmap(widthQuarter, pokeTexture.getHeight(), Pixmap.Format.RGBA8888);
+        for (int x = 0; x < widthQuarter; x++) {
+            for (int y = 0; y < pokeTexture.getHeight(); y++) {
+                int pixel = pokePixmap.getPixel(x, y);
+                int alpha = pixel & 0x000000FF;  // Extract the alpha component
+                whitePixmap.drawPixel(x, y, (0xFFFFFF00 | alpha));  // Set RGB to white, keep original alpha
+            }
+        }
+
+        // Create a white texture from the white pixmap
+        Texture whiteTexture = new Texture(whitePixmap);
+        pokePixmap.dispose();  // Dispose original pixmap to free resources
+        whitePixmap.dispose();  // Dispose white pixmap after creating the texture
+
+        // Continue with the rest of the setup using whiteTexture for the white overlay
+        TextureRegion whiteRegion = new TextureRegion(whiteTexture);
+        Image whiteOverlay = new Image(whiteRegion);  // Create an overlay image with white shape
+        whiteOverlay.setSize(200, 200);
+        whiteOverlay.setPosition(
+            (Gdx.graphics.getWidth() / 2 - whiteOverlay.getWidth() / 2), 
+            (Gdx.graphics.getHeight() / 2 - whiteOverlay.getHeight() / 2)
+        );
+        whiteOverlay.setOrigin(Align.center);
+        whiteOverlay.setColor(1, 1, 1, 0);  // Start fully transparent
+        stage.addActor(whiteOverlay);
+
     
         // Testo dell'evoluzione
-        String discorso28 = pokeEvoluto + " si sta evolvendo!";
+        String discorso28 = "Cosa? "+pokeEvoluto + " si sta evolvendo!";
         labelDiscorsi28 = new LabelDiscorsi(discorso28, 200, 0, true, false);
         label28 = labelDiscorsi28.getLabel();
         label28.setZIndex(100);
@@ -3986,26 +4032,111 @@ public class Battle extends ScreenAdapter {
                 label28.remove();
                 label28 = null;
 
-                evolvingPoke.addAction(Actions.sequence(
+                evolvingPoke.addAction(Actions.fadeOut(0f));
+
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        evolvingPoke.addAction(Actions.fadeIn(0f));
+                    }
+                }, 11f);
+
+                // Add the fade-in and fade-out effect to the white overlay
+                whiteOverlay.addAction(Actions.sequence(
                     Actions.parallel(
-                        Actions.repeat(5, Actions.sequence(
-                            Actions.scaleBy(0.2f, 0.2f, 1.5f),  
-                            Actions.scaleBy(-0.2f, -0.2f, 1.5f) 
-                        ))
-                    )
-                ));
-            
-                /*lightCircle.addAction(Actions.sequence(
-                    Actions.alpha(0.7f, 0.3f), // Rende il cerchio semi-trasparente
-                    Actions.parallel(
-                        Actions.repeat(5, Actions.sequence(
-                            Actions.scaleBy(0.4f, 0.4f, 1.5f),  // Ingrandisce la sfera di luce
-                            Actions.scaleBy(-0.4f, -0.4f, 1.5f) // Riduce la sfera di luce
+                        Actions.fadeIn(2f),
+                        Actions.repeat(2, Actions.sequence(
+                            Actions.scaleBy(0.3f, 0.3f, 1.5f),
+                            Actions.scaleBy(-0.3f, -0.3f, 1.5f)
                         ))
                     ),
-                    Actions.fadeOut(0.5f) // Sfumatura finale per far svanire la sfera
-                ));*/
+                    Actions.parallel(
+                        Actions.repeat(1, Actions.sequence(
+                            Actions.scaleBy(0.3f, 0.3f, 1.3f),
+                            Actions.scaleBy(-0.3f, -0.3f, 1.3f)
+                        ))
+                    ),
+                    Actions.parallel(
+                        Actions.repeat(1, Actions.sequence(
+                            Actions.scaleBy(0.3f, 0.3f, 1.1f),
+                            Actions.scaleBy(-0.3f, -0.3f, 1.1f)
+                        ))
+                    ),
+                    Actions.parallel(
+                        Actions.repeat(1, Actions.sequence(
+                            Actions.scaleBy(0.3f, 0.3f, 1f),
+                            Actions.scaleBy(-0.3f, -0.3f, 1f)
+                        ))
+                    ),
+                    Actions.parallel(
+                        Actions.repeat(2, Actions.sequence(
+                            Actions.scaleBy(0.3f, 0.3f, 0.8f),
+                            Actions.scaleBy(-0.3f, -0.3f, 0.8f)
+                        ))
+                    ),
+                    Actions.parallel(
+                        Actions.repeat(3, Actions.sequence(
+                            Actions.scaleBy(0.3f, 0.3f, 0.5f),
+                            Actions.scaleBy(-0.3f, -0.3f, 0.5f)
+                        ))
+                    ),
+                    Actions.parallel(
+                        Actions.repeat(5, Actions.sequence(
+                            Actions.scaleBy(0.3f, 0.3f, 0.3f),
+                            Actions.scaleBy(-0.3f, -0.3f, 0.3f)
+                        ))
+                    ),
+                    Actions.fadeOut(0f)
+                ));
 
+                // Add the fade-in and fade-out effect to the white overlay
+                lightSphere.addAction(Actions.sequence(
+                    Actions.parallel(
+                        Actions.fadeIn(2f),
+                        Actions.repeat(2, Actions.sequence(
+                            Actions.scaleBy(0.3f, 0.3f, 1.5f),
+                            Actions.scaleBy(-0.3f, -0.3f, 1.5f)
+                        ))
+                    ),
+                    Actions.parallel(
+                        Actions.repeat(1, Actions.sequence(
+                            Actions.scaleBy(0.3f, 0.3f, 1.3f),
+                            Actions.scaleBy(-0.3f, -0.3f, 1.3f)
+                        ))
+                    ),
+                    Actions.parallel(
+                        Actions.repeat(1, Actions.sequence(
+                            Actions.scaleBy(0.3f, 0.3f, 1.1f),
+                            Actions.scaleBy(-0.3f, -0.3f, 1.1f)
+                        ))
+                    ),
+                    Actions.parallel(
+                        Actions.repeat(1, Actions.sequence(
+                            Actions.scaleBy(0.3f, 0.3f, 1f),
+                            Actions.scaleBy(-0.3f, -0.3f, 1f)
+                        ))
+                    ),
+                    Actions.parallel(
+                        Actions.repeat(2, Actions.sequence(
+                            Actions.scaleBy(0.3f, 0.3f, 0.8f),
+                            Actions.scaleBy(-0.3f, -0.3f, 0.8f)
+                        ))
+                    ),
+                    Actions.parallel(
+                        Actions.repeat(3, Actions.sequence(
+                            Actions.scaleBy(0.3f, 0.3f, 0.5f),
+                            Actions.scaleBy(-0.3f, -0.3f, 0.5f)
+                        ))
+                    ),
+                    Actions.parallel(
+                        Actions.repeat(5, Actions.sequence(
+                            Actions.scaleBy(0.3f, 0.3f, 0.3f),
+                            Actions.scaleBy(-0.3f, -0.3f, 0.3f)
+                        ))
+                    ),
+                    Actions.fadeOut(0f)
+                ));
+            
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
@@ -4041,12 +4172,12 @@ public class Battle extends ScreenAdapter {
                                             label29.remove();
                                             label29 = null;
                                         }
-                                    }, 4.5f); // Durata dell'animazione principale
+                                    }, 6f); // Durata dell'animazione principale
                                 }
                             })
                         ));
                     }
-                }, 7.5f); // Durata
+                }, 11f); // Durata
             }
         }, 3.5f); // Durata dell'animazione principale
     }
