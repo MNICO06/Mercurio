@@ -55,7 +55,7 @@
 	"tipoBall": "",
 	"x": 0
 },
-"poke5": {
+"poke1": {
 	"nomePokemon": "",
 	"livello": "",
 	"esperienza": "",
@@ -279,7 +279,7 @@
 	"tipoBall": "",
 	"x": 0
 },
-"poke1": {
+"poke5": {
 	"nomePokemon": "Pikachu",
 	"livello": "10",
 	"esperienza": "0",
