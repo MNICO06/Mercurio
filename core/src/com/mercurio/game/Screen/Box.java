@@ -51,6 +51,23 @@ public class Box extends ScreenAdapter {
     private MercurioMain game;
     private Image avantiImage;
     private Image indietroImage;
+    Image background;
+
+    private float yPoke;                //questa è la y fissa da mettere al pokemon
+    private float valoreCambioRiga = 70; //questo è il valore da sommare ogni volta che va cambiata la riga
+    private int cont = 0;
+
+    private int boxAttuale = 1;         //mi salvo il box attuale e grazie a questo riesco a capire da che numero partire per il render dei pokemon nel box
+    private int totalePagineBox = 1;    //questo non appena viene chiamato per la prima volta caricaBorsa viene calcolato il numero totale di pagine
+
+    /*
+     * TODO: idea per fare le varie pagine:
+     * metto il listener sulla freccia, quando viene premuta la freccia controlla il box attuale + 1 rispetto al totalePagineBox
+     * se il boxAttuale + 1 è uguale a totalePagine allora ci sarà da contare precisamente il numero dei pokemon
+     * abbiamo quindi due opzioni:
+     * 1. viene premuta la freccia e la prossima pagina non è l'ultima: fa partire da (48 * (boxAttuale - 1)) in modo da avere i numeri giusti
+     * 2. viene premuta la freccia e la prossima pagina è l'ultima: calcolo (48 * (boxAttuale - 1)) e la dimensione del json e la faccio la differenza
+     */
 
     public Box(MercurioMain game){
         this.game=game;
@@ -58,9 +75,11 @@ public class Box extends ScreenAdapter {
         stage = new Stage();
         font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
         Gdx.input.setInputProcessor(stage);
+        getNumeroPagine();
 
         show();
-        caricaBorsa();
+        caricaPagina(1);
+        //caricaBorsa();
     }
 
     public void render() {
@@ -70,7 +89,6 @@ public class Box extends ScreenAdapter {
         // Disegna la UI della borsa
         stage.draw(); // Disegna lo stage sullo SpriteBatch
 
-        
     }
 
     public void dispose() {
@@ -93,15 +111,16 @@ public class Box extends ScreenAdapter {
         nomePoke = pokeJson.getString("nomePokemon");
     }
 
-    public void disegnaPoke(int param){
+    public void disegnaPoke(int param, int cont){
+
         Texture animationTexture = new Texture("pokemon/" + nomePoke + "Label.png");
         animationTextures.add(animationTexture);
-        Image background = new Image(sfondi[0]);
         TextureRegion animationRegion = new TextureRegion(animationTexture, 0, 0, animationTexture.getWidth() / 2, animationTexture.getHeight());
         // Crea un'immagine utilizzando solo la prima metà dell'immagine
         Image animationImage = new Image(animationRegion);
-        animationImage.setSize(animationTexture.getWidth() +20, animationTexture.getHeight()*2 +20);
-        animationImage.setPosition(250 + param*100,  (Gdx.graphics.getHeight() + background.getHeight()) / 2);
+        animationImage.setSize(animationTexture.getWidth() + 10, animationTexture.getHeight()*2 + 10);
+        animationImage.setPosition(250 + cont*80,  yPoke);
+        animationImages.add(animationImage);
         stage.addActor(animationImage);
     }
 
@@ -121,7 +140,7 @@ public class Box extends ScreenAdapter {
         }
 
         // Add background
-        Image background = new Image(sfondi[0]);
+        background = new Image(sfondi[0]);
         // Ritaglia l'immagine per adattarla alla dimensione dello schermo
         background.setSize(700, 600);
         background.setPosition(((Gdx.graphics.getWidth() - background.getWidth()) / 1.5f), (Gdx.graphics.getHeight() - background.getHeight()) / 2);
@@ -141,15 +160,6 @@ public class Box extends ScreenAdapter {
         float yPos = (Gdx.graphics.getHeight() + background.getHeight()) / 2 - avantiImage.getHeight() - marginTop;
         float separator = 240;
 
-        indietroImage.setPosition(centerX - indietroImage.getWidth() - separator, yPos);
-        indietroImage.setSize(30, 50);
-
-        avantiImage.setPosition(centerX + separator, yPos);
-        avantiImage.setSize(30, 50);
-
-        stage.addActor(avantiImage);
-        stage.addActor(indietroImage);
-
         // Carica il font personalizzato
         font = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
 
@@ -166,8 +176,107 @@ public class Box extends ScreenAdapter {
         // Posiziona la label centrata tra le frecce
         label.setPosition(centerX - label.getWidth() / 2, yPos);
         stage.addActor(label);
+
+        indietroImage.setPosition(centerX - indietroImage.getWidth() - separator, yPos);
+        indietroImage.setSize(30, 50);
+
+        avantiImage.setPosition(centerX + separator, yPos);
+        avantiImage.setSize(30, 50);
+
+        //listener per la freccia avanti
+        avantiImage.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                //se non la pagina successiva non esiste non fa nulla
+                if ((boxAttuale + 1) > totalePagineBox) {
+
+                }else {
+                    boxAttuale += 1;
+                    caricaPagina(boxAttuale);
+                    label.setText(getBoxLabel(boxAttuale));
+                }
+            }
+        });
+
+        //listener per la frecia indietro
+        indietroImage.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                //se la pagina precedente è la 0 o minore non fa nulla
+                if ((boxAttuale - 1) <= 0) {
+
+                }else {
+                    boxAttuale -= 1;
+                    caricaPagina(boxAttuale);
+                    label.setText(getBoxLabel(boxAttuale));
+                }
+            }
+        });
+
+        stage.addActor(avantiImage);
+        stage.addActor(indietroImage);
+
+        
+
     }
 
+    //da chiamare ad avvio del box per calolare il numero di pagine (salvate in una variabile globale)
+    private void getNumeroPagine() {
+        // Carica il file JSON
+        FileHandle file = Gdx.files.local("assets/ashJson/box.json");
+        String jsonString = file.readString();
+
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+        JsonValue json = new JsonReader().parse(jsonString);
+
+        totalePagineBox = (int) Math.ceil(json.size / 48.0);
+
+    }
+
+
+    //basta chiamare la funzione mettendo il numero della pagina attuale
+    private void caricaPagina(int pagina) {
+        //va a rimuovere tutte le immagini dei pokemon della vecchia pagina
+        clearPage();
+
+        background.setDrawable(new TextureRegionDrawable(new TextureRegion(sfondi[pagina - 1])));
+
+        // Carica il file JSON
+        FileHandle file = Gdx.files.local("assets/ashJson/box.json");
+        String jsonString = file.readString();
+
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+        JsonValue json = new JsonReader().parse(jsonString);
+        
+
+        if (pagina < totalePagineBox) {
+
+            for (int i = (48 * (pagina - 1)); i < (48 * (pagina)); i++) {
+                leggiPoke(i);
+                disegnaPoke(i, cont);
+                cont ++;
+                if (cont == 8) {
+                    cont = 0;
+                    yPoke = yPoke - valoreCambioRiga;
+                }
+            }
+
+        } else if (pagina == totalePagineBox) {
+
+            for (int i = (48 * (pagina - 1)); i < json.size; i++) {
+                leggiPoke(i);
+                disegnaPoke(i, cont);
+                cont ++;
+                if (cont == 8) {
+                    cont = 0;
+                    yPoke = yPoke - valoreCambioRiga;
+                }
+            }
+
+        }
+    }
+
+    //in teoria non mi serve più
     public void caricaBorsa() {
         // Carica il file JSON
         FileHandle file = Gdx.files.local("assets/ashJson/box.json");
@@ -176,11 +285,36 @@ public class Box extends ScreenAdapter {
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
 
+        totalePagineBox = (int) Math.ceil(48 / json.size);
+        System.out.println("json size: " + json.size);                  //48
+        System.out.println("formula: " + (48 * (boxAttuale - 1)));      //0
+        System.out.println("calcolo fine: " + (48 * (boxAttuale)));     //48
+
         // Crea un'etichetta per ogni oggetto nel file JSON
+        //48 pokemon e si riempie preciso il box
         for (int i = 0; i < json.size; i++) {
             leggiPoke(i);
-            disegnaPoke(i);
+            disegnaPoke(i, cont);
+            cont ++;
+            if (cont == 8) {
+                cont = 0;
+                yPoke = yPoke - valoreCambioRiga;
+            }
         }
+    }
+
+    private void clearPage() {        
+        // Rimuove tutti gli attori delle immagini di Pokémon dalla stage
+        for (Image img : animationImages) {
+            img.remove();
+        }
+        animationImages.clear(); // Pulisce l'array per evitare riferimenti residui
+        cont = 0; // Resetta il contatore
+        yPoke = ((Gdx.graphics.getHeight() + sfondi[0].getRegionHeight()) / 2) + 10; // Resetta la posizione verticale
+    }
+
+    public String getBoxLabel(int number) {
+        return "BOX " + number;
     }
 
 }

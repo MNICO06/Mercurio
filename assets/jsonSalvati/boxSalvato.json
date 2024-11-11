@@ -1,3 +1,2152 @@
 {
-
+"1": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"2": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"3": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"4": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"5": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"6": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"7": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"8": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"9": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"10": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"11": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"12": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"13": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"14": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"15": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"16": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"17": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"18": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"19": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"20": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"21": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"22": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"23": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"24": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"25": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"26": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"27": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"28": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"29": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"30": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"31": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"32": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"33": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"34": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"35": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"36": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"37": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"38": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"39": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"40": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"41": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"42": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"43": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"44": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"45": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"46": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"47": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"48": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"49": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+},
+"50": {
+	"nomePokemon": "NidoranM",
+	"livello": "6",
+	"statistiche": {
+		"hp": 23,
+		"hpTot": 23,
+		"attack": 15,
+		"defense": 8,
+		"special_attack": 6,
+		"special_defense": 7,
+		"speed": 7
+	},
+	"ev": {
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
+	},
+	"iv": {
+		"Hp": 15,
+		"Att": 15,
+		"Dif": 5,
+		"Spec": 11,
+		"Vel": 15
+	},
+	"mosse": [
+		{
+			"nome": "Beccata",
+			"tipo": "Volante",
+			"ppTot": "25",
+			"ppAtt": "25"
+		},
+		{
+			"nome": "Velenospina",
+			"tipo": "Veleno",
+			"ppTot": "30",
+			"ppAtt": "30"
+		}
+	],
+	"tipoBall": "pokeBall",
+	"x": 0.6903361678123474
+}
 }
