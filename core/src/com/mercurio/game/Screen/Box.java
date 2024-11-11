@@ -37,6 +37,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class Box extends ScreenAdapter {
 
@@ -46,11 +47,15 @@ public class Box extends ScreenAdapter {
 
     Array<Image> animationImages = new Array<>();
     Array<Texture> animationTextures = new Array<>();
+    private HashMap<Image, Integer> imageIds = new HashMap<>();
     private String nomePoke;
     private TextureRegion[] sfondi;
     private MercurioMain game;
     private Image avantiImage;
     private Image indietroImage;
+    private Image infoImage;
+    private Image spostaImage;
+    private Image liberaImage;
     Image background;
 
     private float yPoke;                //questa è la y fissa da mettere al pokemon
@@ -60,14 +65,11 @@ public class Box extends ScreenAdapter {
     private int boxAttuale = 1;         //mi salvo il box attuale e grazie a questo riesco a capire da che numero partire per il render dei pokemon nel box
     private int totalePagineBox = 1;    //questo non appena viene chiamato per la prima volta caricaBorsa viene calcolato il numero totale di pagine
 
-    /*
-     * TODO: idea per fare le varie pagine:
-     * metto il listener sulla freccia, quando viene premuta la freccia controlla il box attuale + 1 rispetto al totalePagineBox
-     * se il boxAttuale + 1 è uguale a totalePagine allora ci sarà da contare precisamente il numero dei pokemon
-     * abbiamo quindi due opzioni:
-     * 1. viene premuta la freccia e la prossima pagina non è l'ultima: fa partire da (48 * (boxAttuale - 1)) in modo da avere i numeri giusti
-     * 2. viene premuta la freccia e la prossima pagina è l'ultima: calcolo (48 * (boxAttuale - 1)) e la dimensione del json e la faccio la differenza
-     */
+    private int posizionePokemonSelezionato = -1;
+    private Image immagineSelezionato;
+
+    //TODO: per le info poke chiedo al chatty di fare in modo di accettare un altro parametro che sarà (se è da squadra o no) e poi va a prendere nel caso in cui è nel box il nome e recupera tutti i dati
+    
 
     public Box(MercurioMain game){
         this.game=game;
@@ -96,6 +98,9 @@ public class Box extends ScreenAdapter {
         font.dispose();
         stage.dispose();
         game.closeBox();
+        for (Texture texture : animationTextures) {
+            texture.dispose();
+        }
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -108,20 +113,61 @@ public class Box extends ScreenAdapter {
         JsonValue json = new JsonReader().parse(jsonString);
 
         JsonValue pokeJson = json.get(numero);
-        nomePoke = pokeJson.getString("nomePokemon");
+        nomePoke = pokeJson.getString("nomePokemon", "invisibile");
     }
 
     public void disegnaPoke(int param, int cont){
 
-        Texture animationTexture = new Texture("pokemon/" + nomePoke + "Label.png");
-        animationTextures.add(animationTexture);
-        TextureRegion animationRegion = new TextureRegion(animationTexture, 0, 0, animationTexture.getWidth() / 2, animationTexture.getHeight());
-        // Crea un'immagine utilizzando solo la prima metà dell'immagine
-        Image animationImage = new Image(animationRegion);
-        animationImage.setSize(animationTexture.getWidth() + 10, animationTexture.getHeight()*2 + 10);
-        animationImage.setPosition(250 + cont*80,  yPoke);
-        animationImages.add(animationImage);
-        stage.addActor(animationImage);
+        if (!nomePoke.isEmpty()) {
+
+            Texture animationTexture = new Texture("pokemon/" + nomePoke + "Label.png");
+            animationTextures.add(animationTexture);
+            TextureRegion animationRegion = new TextureRegion(animationTexture, 0, 0, animationTexture.getWidth() / 2, animationTexture.getHeight());
+            // Crea un'immagine utilizzando solo la prima metà dell'immagine
+            Image animationImage = new Image(animationRegion);
+            animationImage.setSize(animationTexture.getWidth() + 10, animationTexture.getHeight()*2 + 10);
+            animationImage.setPosition(250 + cont*80,  yPoke);
+
+            imageIds.put(animationImage, param);
+
+            animationImage.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+
+                    if (param == posizionePokemonSelezionato) {
+                        //nel caso in cui viene ripremuto il pokemon già selezionato non fa nulla
+
+                    }else {
+
+                        if (posizionePokemonSelezionato != -1) {
+                            //resettare le dimensioni di quello di prima
+                            immagineSelezionato.setSize(animationTexture.getWidth() + 10, animationTexture.getHeight()*2 + 10);
+                        }
+
+                        float originalWidth = animationImage.getWidth();
+                        float originalHeight = animationImage.getHeight();
+
+                        // Aumenta leggermente la dimensione dell'immagine
+                        animationImage.setSize(originalWidth * 1.1f, originalHeight * 1.1f);
+                        immagineSelezionato = animationImage;
+
+                        posizionePokemonSelezionato = param;
+
+                        //rendi i 3 pulsanti visibili
+                        liberaImage.setVisible(true);
+                        infoImage.setVisible(true);
+                        spostaImage.setVisible(true);
+                    }
+
+                    
+                    
+                }
+            });
+
+            animationImages.add(animationImage);
+            stage.addActor(animationImage);
+
+        }
     }
 
     @Override
@@ -153,7 +199,18 @@ public class Box extends ScreenAdapter {
         avantiImage = new Image(avantiTexture);
         indietroImage = new Image(indietroTexture);
 
-        // Posiziona le immagini in alto a sinistra e destraå
+        //aggiungi le immagini con i vari pulsanti (sposta, info, libera)
+        Texture pulsanteSposta = new Texture("assets/squadra/sposta.png");
+        Texture pulsanteInfo = new Texture("assets/squadra/info.png");
+        Texture pulsanteLibera = new Texture("assets/squadra/cancel.png");            //c'è da fare il tasto libera per ora metto cancel
+
+        spostaImage = new Image(pulsanteSposta);
+        infoImage = new Image(pulsanteInfo);
+        liberaImage = new Image(pulsanteLibera);
+
+
+
+        // Posiziona le immagini in alto a sinistra e destra
         float marginTop = 70; // distanza dal bordo superiore dello schermo
         // Calcola la posizione centrale per le immagini
         float centerX = Gdx.graphics.getWidth() / 2;
@@ -193,8 +250,15 @@ public class Box extends ScreenAdapter {
                 }else {
                     boxAttuale += 1;
                     caricaPagina(boxAttuale);
+                    aggiornaVisibilitaFreccie();
                     label.setText(getBoxLabel(boxAttuale));
                 }
+
+                liberaImage.setVisible(false);
+                infoImage.setVisible(false);
+                spostaImage.setVisible(false);
+
+                posizionePokemonSelezionato = -1;
             }
         });
 
@@ -208,15 +272,63 @@ public class Box extends ScreenAdapter {
                 }else {
                     boxAttuale -= 1;
                     caricaPagina(boxAttuale);
+                    aggiornaVisibilitaFreccie();
                     label.setText(getBoxLabel(boxAttuale));
                 }
+                liberaImage.setVisible(false);
+                infoImage.setVisible(false);
+                spostaImage.setVisible(false);
+
+                posizionePokemonSelezionato = -1;
             }
         });
 
         stage.addActor(avantiImage);
         stage.addActor(indietroImage);
 
-        
+        // Calcola la posizione in X per posizionare liberaImage sulla destra del background
+        float tastiX = background.getX() + background.getWidth() - 170;
+
+        // Calcola la fine del background in Y (la posizione più bassa del background)
+        float tastiY = background.getY() - 30;
+
+        liberaImage.setSize(56*3, 24*3);
+        infoImage.setSize(56*3, 24*3);
+        spostaImage.setSize(56*3, 24*3);
+        liberaImage.setPosition(tastiX, tastiY);
+        infoImage.setPosition(tastiX - 170, tastiY);
+        spostaImage.setPosition(tastiX  - 340, tastiY);
+
+        liberaImage.setVisible(false);
+        infoImage.setVisible(false);
+        spostaImage.setVisible(false);
+
+        liberaImage.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                
+            }
+        });
+        infoImage.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                
+            }
+        });
+        spostaImage.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                
+            }
+        });
+
+        stage.addActor(liberaImage);
+        stage.addActor(infoImage);
+        stage.addActor(spostaImage);
+
+
+        //da controllare se rimuovere le frecce in caso in cui non ci sia la prossima pagina
+        aggiornaVisibilitaFreccie();
 
     }
 
@@ -276,7 +388,7 @@ public class Box extends ScreenAdapter {
         }
     }
 
-    //in teoria non mi serve più
+    /*in teoria non mi serve più
     public void caricaBorsa() {
         // Carica il file JSON
         FileHandle file = Gdx.files.local("assets/ashJson/box.json");
@@ -302,6 +414,7 @@ public class Box extends ScreenAdapter {
             }
         }
     }
+    */
 
     private void clearPage() {        
         // Rimuove tutti gli attori delle immagini di Pokémon dalla stage
@@ -315,6 +428,13 @@ public class Box extends ScreenAdapter {
 
     public String getBoxLabel(int number) {
         return "BOX " + number;
+    }
+
+    private void aggiornaVisibilitaFreccie() {
+        // Nasconde la freccia indietro se sei sulla prima pagina
+        indietroImage.setVisible(boxAttuale > 1);
+        // Nasconde la freccia avanti se sei sull'ultima pagina
+        avantiImage.setVisible(boxAttuale < totalePagineBox);
     }
 
 }
