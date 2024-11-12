@@ -1,52 +1,10 @@
 {
-"1": {
-	"nomePokemon": "NidoranM",
-	"livello": "6",
-	"statistiche": {
-		"hp": 23,
-		"hpTot": 23,
-		"attack": 15,
-		"defense": 8,
-		"special_attack": 6,
-		"special_defense": 7,
-		"speed": 7
-	},
-	"ev": {
-		"Hp": 0,
-		"Att": 0,
-		"Dif": 0,
-		"Spec": 0,
-		"Vel": 0
-	},
-	"iv": {
-		"Hp": 15,
-		"Att": 15,
-		"Dif": 5,
-		"Spec": 11,
-		"Vel": 15
-	},
-	"mosse": [
-		{
-			"nome": "Beccata",
-			"tipo": "Volante",
-			"ppTot": "25",
-			"ppAtt": "25"
-		},
-		{
-			"nome": "Velenospina",
-			"tipo": "Veleno",
-			"ppTot": "30",
-			"ppAtt": "30"
-		}
-	],
-	"tipoBall": "pokeBall",
-	"x": 0.6903361678123474
-},
 "2": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -72,13 +30,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -87,9 +45,10 @@
 },
 "3": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -115,13 +74,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -130,9 +89,10 @@
 },
 "4": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -158,13 +118,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -173,9 +133,10 @@
 },
 "5": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -201,13 +162,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -216,9 +177,10 @@
 },
 "6": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -244,13 +206,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -259,9 +221,10 @@
 },
 "7": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -287,13 +250,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -302,9 +265,10 @@
 },
 "8": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -330,13 +294,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -345,9 +309,10 @@
 },
 "9": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -373,13 +338,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -388,9 +353,10 @@
 },
 "10": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -416,13 +382,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -431,9 +397,10 @@
 },
 "11": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -459,13 +426,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -474,9 +441,10 @@
 },
 "12": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -502,13 +470,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -517,9 +485,10 @@
 },
 "13": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -545,13 +514,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -560,9 +529,10 @@
 },
 "14": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -588,13 +558,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -603,9 +573,10 @@
 },
 "15": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -631,13 +602,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -646,9 +617,10 @@
 },
 "16": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -674,13 +646,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -689,9 +661,10 @@
 },
 "17": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -717,13 +690,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -732,9 +705,10 @@
 },
 "18": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -760,13 +734,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -775,9 +749,10 @@
 },
 "19": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -803,13 +778,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -818,9 +793,10 @@
 },
 "20": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -846,13 +822,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -861,9 +837,10 @@
 },
 "21": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -889,13 +866,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -904,9 +881,10 @@
 },
 "22": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -932,13 +910,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -947,9 +925,10 @@
 },
 "23": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -975,13 +954,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -990,9 +969,10 @@
 },
 "24": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -1018,13 +998,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -1033,9 +1013,10 @@
 },
 "25": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -1061,13 +1042,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -1076,9 +1057,10 @@
 },
 "26": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -1104,13 +1086,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -1119,9 +1101,10 @@
 },
 "27": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -1147,13 +1130,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -1162,9 +1145,10 @@
 },
 "28": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -1190,56 +1174,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
-			"ppAtt": "30"
-		}
-	],
-	"tipoBall": "pokeBall",
-	"x": 0.6903361678123474
-},
-"29": {
-	"nomePokemon": "NidoranM",
-	"livello": "6",
-	"statistiche": {
-		"hp": 23,
-		"hpTot": 23,
-		"attack": 15,
-		"defense": 8,
-		"special_attack": 6,
-		"special_defense": 7,
-		"speed": 7
-	},
-	"ev": {
-		"Hp": 0,
-		"Att": 0,
-		"Dif": 0,
-		"Spec": 0,
-		"Vel": 0
-	},
-	"iv": {
-		"Hp": 15,
-		"Att": 15,
-		"Dif": 5,
-		"Spec": 11,
-		"Vel": 15
-	},
-	"mosse": [
-		{
-			"nome": "Beccata",
-			"tipo": "Volante",
-			"ppTot": "25",
-			"ppAtt": "25"
-		},
-		{
-			"nome": "Velenospina",
-			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -1248,9 +1189,10 @@
 },
 "30": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -1276,13 +1218,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -1291,9 +1233,10 @@
 },
 "31": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -1319,13 +1262,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -1334,9 +1277,10 @@
 },
 "32": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -1362,13 +1306,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -1377,9 +1321,10 @@
 },
 "33": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -1405,13 +1350,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -1420,9 +1365,10 @@
 },
 "34": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -1448,13 +1394,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -1463,9 +1409,10 @@
 },
 "35": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -1491,13 +1438,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -1506,9 +1453,10 @@
 },
 "36": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -1534,13 +1482,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -1549,9 +1497,10 @@
 },
 "37": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -1577,13 +1526,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -1592,9 +1541,10 @@
 },
 "38": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -1620,13 +1570,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -1635,9 +1585,10 @@
 },
 "39": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -1663,13 +1614,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -1678,9 +1629,10 @@
 },
 "40": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -1706,13 +1658,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -1721,9 +1673,10 @@
 },
 "41": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -1749,13 +1702,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -1764,9 +1717,10 @@
 },
 "42": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -1792,13 +1746,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -1807,9 +1761,10 @@
 },
 "43": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -1835,13 +1790,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -1850,9 +1805,10 @@
 },
 "44": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -1878,13 +1834,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -1893,9 +1849,10 @@
 },
 "45": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -1921,13 +1878,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -1936,9 +1893,10 @@
 },
 "46": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -1964,13 +1922,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -1978,16 +1936,16 @@
 	"x": 0.6903361678123474
 },
 "47": {
-	"nomePokemon": "NidoranM",
-	"livello": "6",
+	"nomePokemon": "",
+	"livello": "",
 	"statistiche": {
-		"hp": 23,
-		"hpTot": 23,
-		"attack": 15,
-		"defense": 8,
-		"special_attack": 6,
-		"special_defense": 7,
-		"speed": 7
+		"hp": 0,
+		"hpTot": 0,
+		"attack": 0,
+		"defense": 0,
+		"special_attack": 0,
+		"special_defense": 0,
+		"speed": 0
 	},
 	"ev": {
 		"Hp": 0,
@@ -1997,34 +1955,35 @@
 		"Vel": 0
 	},
 	"iv": {
-		"Hp": 15,
-		"Att": 15,
-		"Dif": 5,
-		"Spec": 11,
-		"Vel": 15
+		"Hp": 0,
+		"Att": 0,
+		"Dif": 0,
+		"Spec": 0,
+		"Vel": 0
 	},
 	"mosse": [
 		{
-			"nome": "Beccata",
-			"tipo": "Volante",
-			"ppTot": "25",
-			"ppAtt": "25"
+			"nome": "",
+			"tipo": "",
+			"ppTot": "",
+			"ppAtt": ""
 		},
 		{
-			"nome": "Velenospina",
-			"tipo": "Veleno",
-			"ppTot": "30",
-			"ppAtt": "30"
+			"nome": "",
+			"tipo": "",
+			"ppTot": "",
+			"ppAtt": ""
 		}
 	],
-	"tipoBall": "pokeBall",
-	"x": 0.6903361678123474
+	"tipoBall": "",
+	"x": 0
 },
 "48": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -2050,13 +2009,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -2065,9 +2024,10 @@
 },
 "49": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -2093,13 +2053,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
@@ -2108,9 +2068,10 @@
 },
 "50": {
 	"nomePokemon": "NidoranM",
+	"esperienza": "10",
 	"livello": "6",
 	"statistiche": {
-		"hp": 23,
+		"hp": "23",
 		"hpTot": 23,
 		"attack": 15,
 		"defense": 8,
@@ -2136,13 +2097,13 @@
 		{
 			"nome": "Beccata",
 			"tipo": "Volante",
-			"ppTot": "25",
+			"ppTot": 25,
 			"ppAtt": "25"
 		},
 		{
 			"nome": "Velenospina",
 			"tipo": "Veleno",
-			"ppTot": "30",
+			"ppTot": 30,
 			"ppAtt": "30"
 		}
 	],
