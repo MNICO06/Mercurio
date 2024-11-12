@@ -52,10 +52,14 @@ public class infoPoke {
     private int maxExp;
     private int crescitaType;
 
+    private boolean box;
+    String index;
 
-    public infoPoke(Stage stage, int numDelPoke) {
+
+    public infoPoke(Stage stage, int numDelPoke, boolean box) {
         this.stage = stage;
         this.numDelPoke = numDelPoke;
+        this.box = box;
         this.batch = (SpriteBatch) stage.getBatch();
         Gdx.input.setInputProcessor(stage);
         font = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
@@ -88,7 +92,7 @@ public class infoPoke {
             }
         });
 
-        leggiPoke(numDelPoke);
+        leggiPoke(numDelPoke, box);
 
         //riempie la hash map con gli index della image dei tipi per piazzarli dopo
         tipoToIndex = new HashMap<>();
@@ -135,16 +139,25 @@ public class infoPoke {
         stage.dispose();
     }
 
-    public void leggiPoke(int numero) {
+    public void leggiPoke(int numero, boolean box) {
+
+        FileHandle file;
+        
+        if (box) {
+            file = Gdx.files.local("assets/ashJson/box.json");
+            index = "" + numero;
+        }else {
+            file = Gdx.files.local("assets/ashJson/squadra.json");
+            index = "poke" + numero;
+        }
 
         // Carica il file JSON
-        FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
         String jsonString = file.readString();
         
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
 
-            JsonValue pokeJson = json.get("poke"+numero);
+            JsonValue pokeJson = json.get(index);
             nomePoke = pokeJson.getString("nomePokemon");
             LVPoke = pokeJson.getString("livello");
             exp = pokeJson.getInt("esperienza");
@@ -419,12 +432,20 @@ public class infoPoke {
         JsonValue json = new JsonReader().parse(jsonString);
         // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
         JsonValue pokeJson = json.get(nomePoke);
-        FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
+
+        FileHandle file2;
+
+        if (box) {
+            file2 = Gdx.files.local("assets/ashJson/box.json");
+        }else {
+            file2 = Gdx.files.local("assets/ashJson/squadra.json");
+        }
+        
         String jsonString2 = file2.readString();
         JsonValue json2 = new JsonReader().parse(jsonString2);
 
         crescitaType = pokeJson.getInt("crescita");
-        int currentExp= json2.get("poke"+(numDelPoke)).getInt("esperienza");
+        int currentExp= json2.get(index).getInt("esperienza");
         maxExp = calcoloEspMaxLivello(crescitaType,Integer.parseInt(LVPoke));
         
         float percentualeExp = (float) currentExp / maxExp;

@@ -32,6 +32,7 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Timer;
 import com.mercurio.game.pokemon.Battle;
+import com.mercurio.game.pokemon.infoPoke;
 
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -67,6 +68,8 @@ public class Box extends ScreenAdapter {
 
     private int posizionePokemonSelezionato = -1;
     private Image immagineSelezionato;
+
+    private infoPoke infoPoke;
 
     //TODO: per le info poke chiedo al chatty di fare in modo di accettare un altro parametro che sarà (se è da squadra o no) e poi va a prendere nel caso in cui è nel box il nome e recupera tutti i dati
     
@@ -312,7 +315,7 @@ public class Box extends ScreenAdapter {
         infoImage.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                
+                infoPoke = new infoPoke(stage, posizionePokemonSelezionato, true);
             }
         });
         spostaImage.addListener(new ClickListener() {

@@ -261,7 +261,7 @@ public class Squadra {
                     infoImage.addListener(new ClickListener() {
                         @Override
                         public void clicked(InputEvent event, float x, float y) {
-                            infoPoke = new infoPoke(stage, indexNumPoke);
+                            infoPoke = new infoPoke(stage, indexNumPoke, false);
                         }
                     });
             

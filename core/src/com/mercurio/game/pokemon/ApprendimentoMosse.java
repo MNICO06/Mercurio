@@ -181,7 +181,7 @@ public class ApprendimentoMosse extends ScreenAdapter {
         clickArea3.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                infoPoke = new infoPoke(stage, indexPoke);
+                infoPoke = new infoPoke(stage, indexPoke, false);
             }
         });
 
