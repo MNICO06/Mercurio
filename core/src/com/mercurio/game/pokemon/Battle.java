@@ -3275,9 +3275,11 @@ public class Battle extends ScreenAdapter {
         JsonValue newPokemon = new JsonValue(JsonValue.ValueType.object);
         newPokemon.addChild("nomePokemon", new JsonValue(nameBot));
         newPokemon.addChild("livello", new JsonValue(LVPokeBot));
+        newPokemon.addChild("esperienza", new JsonValue("0"));
+
 
         JsonValue statistiche = new JsonValue(JsonValue.ValueType.object);
-        statistiche.addChild("hp", new JsonValue(Integer.parseInt(currentPokeHPBot)));
+        statistiche.addChild("hp", new JsonValue(currentPokeHPBot));
         statistiche.addChild("hpTot", new JsonValue(Integer.parseInt(maxPokeHPBot)));
         statistiche.addChild("attack", new JsonValue(statsBot.get(0)));
         statistiche.addChild("defense", new JsonValue(statsBot.get(1)));
@@ -3303,7 +3305,7 @@ public class Battle extends ScreenAdapter {
             JsonValue mossa = new JsonValue(JsonValue.ValueType.object);
             mossa.addChild("nome", new JsonValue(mossaBot.getNome()));
             mossa.addChild("tipo", new JsonValue(mossaBot.getTipo()));
-            mossa.addChild("ppTot", new JsonValue(mossaBot.getmaxPP()));
+            mossa.addChild("ppTot", new JsonValue(Integer.parseInt(mossaBot.getmaxPP())));
             mossa.addChild("ppAtt", new JsonValue(mossaBot.getattPP()));
             mosseJson.addChild(mossa);
         }
