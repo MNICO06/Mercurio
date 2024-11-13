@@ -3248,8 +3248,6 @@ public class Battle extends ScreenAdapter {
             json.remove(pokemon);
             json.addChild(pokemon, newPokemon);
 
-            System.out.println(json.prettyPrint(JsonWriter.OutputType.json, 1));
-
             file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
 
 

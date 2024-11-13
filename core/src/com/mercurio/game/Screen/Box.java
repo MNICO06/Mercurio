@@ -51,6 +51,7 @@ public class Box extends ScreenAdapter {
     Array<Texture> animationTextures = new Array<>();
     private HashMap<Image, Integer> imageIds = new HashMap<>();
     private String nomePoke;
+    private String nomePokeSquadra;
     private TextureRegion[] sfondi;
     private MercurioMain game;
     private Image avantiImage;
@@ -67,12 +68,12 @@ public class Box extends ScreenAdapter {
     private int boxAttuale = 1;         //mi salvo il box attuale e grazie a questo riesco a capire da che numero partire per il render dei pokemon nel box
     private int totalePagineBox = 16;    //questo non appena viene chiamato per la prima volta caricaBorsa viene calcolato il numero totale di pagine
 
-    private int posizionePokemonSelezionato = -1;
+    private int posizionePokemonSelezionato = 0;
+    private int posizioneSpostata = 0;
+    private boolean controllaSposta = false;
     private Image immagineSelezionato;
 
     private infoPoke infoPoke;
-
-    //TODO: per le info poke chiedo al chatty di fare in modo di accettare un altro parametro che sarà (se è da squadra o no) e poi va a prendere nel caso in cui è nel box il nome e recupera tutti i dati
     
 
     public Box(MercurioMain game){
@@ -83,6 +84,7 @@ public class Box extends ScreenAdapter {
         Gdx.input.setInputProcessor(stage);
 
         show();
+        caricaSquadra();
         caricaPagina(1);
         //caricaBorsa();
     }
@@ -151,24 +153,30 @@ public class Box extends ScreenAdapter {
 
                     }else {
 
-                        if (posizionePokemonSelezionato != -1) {
-                            //resettare le dimensioni di quello di prima
-                            immagineSelezionato.setSize(animationTexture.getWidth() + 10, animationTexture.getHeight()*2 + 10);
+                        if (!controllaSposta) {
+
+                            if (posizionePokemonSelezionato != 0) {
+                                //resettare le dimensioni di quello di prima
+                                immagineSelezionato.setSize(animationTexture.getWidth() + 10, animationTexture.getHeight()*2 + 10);
+                            }
+
+                            float originalWidth = animationImage.getWidth();
+                            float originalHeight = animationImage.getHeight();
+
+                            // Aumenta leggermente la dimensione dell'immagine
+                            animationImage.setSize(originalWidth * 1.1f, originalHeight * 1.1f);
+                            immagineSelezionato = animationImage;
+
+                            posizionePokemonSelezionato = param;
+
+                            //rendi i 3 pulsanti visibili
+                            liberaImage.setVisible(true);
+                            infoImage.setVisible(true);
+                            spostaImage.setVisible(true);
+
+                        }else {
+                            posizioneSpostata = param;
                         }
-
-                        float originalWidth = animationImage.getWidth();
-                        float originalHeight = animationImage.getHeight();
-
-                        // Aumenta leggermente la dimensione dell'immagine
-                        animationImage.setSize(originalWidth * 1.1f, originalHeight * 1.1f);
-                        immagineSelezionato = animationImage;
-
-                        posizionePokemonSelezionato = param;
-
-                        //rendi i 3 pulsanti visibili
-                        liberaImage.setVisible(true);
-                        infoImage.setVisible(true);
-                        spostaImage.setVisible(true);
                     }
                     
                 }
@@ -198,13 +206,17 @@ public class Box extends ScreenAdapter {
             animationImage.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-
+                    //da settare per lo sposta
+                    if (controllaSposta) {
+                        posizioneSpostata = param;
+                    }
                 }
             });
 
             
             animationImages.add(animationImage);
             stage.addActor(animationImage);
+
         }
     }
 
@@ -298,11 +310,16 @@ public class Box extends ScreenAdapter {
                     label.setText(getBoxLabel(boxAttuale));
                 }
 
-                liberaImage.setVisible(false);
-                infoImage.setVisible(false);
-                spostaImage.setVisible(false);
+                
 
-                posizionePokemonSelezionato = -1;
+                if (posizionePokemonSelezionato > 0) {
+
+                    liberaImage.setVisible(false);
+                    infoImage.setVisible(false);
+                    spostaImage.setVisible(false);
+
+                    posizionePokemonSelezionato = 0;
+                }
             }
         });
 
@@ -319,11 +336,17 @@ public class Box extends ScreenAdapter {
                     aggiornaVisibilitaFreccie();
                     label.setText(getBoxLabel(boxAttuale));
                 }
-                liberaImage.setVisible(false);
-                infoImage.setVisible(false);
-                spostaImage.setVisible(false);
 
-                posizionePokemonSelezionato = -1;
+
+                if (posizionePokemonSelezionato > 0) {
+
+                    liberaImage.setVisible(false);
+                    infoImage.setVisible(false);
+                    spostaImage.setVisible(false);
+
+                    posizionePokemonSelezionato = 0;
+                }
+                
             }
         });
 
@@ -350,23 +373,33 @@ public class Box extends ScreenAdapter {
         liberaImage.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println(posizionePokemonSelezionato);
                 liberaPokemon();
                 clearPage();
+                caricaSquadra();
                 caricaPagina(boxAttuale);
-                posizionePokemonSelezionato = -1;
+
+                posizionePokemonSelezionato = 0;
+                liberaImage.setVisible(false);
+                infoImage.setVisible(false);
+                spostaImage.setVisible(false);
             }
         });
         infoImage.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                infoPoke = new infoPoke(stage, posizionePokemonSelezionato, true);
+                if(posizionePokemonSelezionato > 0) {
+                    infoPoke = new infoPoke(stage, posizionePokemonSelezionato, true);
+                }else {
+                    infoPoke = new infoPoke(stage, posizionePokemonSelezionato * -1, false);
+                }
             }
         });
         spostaImage.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                
+                if(posizionePokemonSelezionato != 0) {
+                    controllaSposta = true;
+                }
             }
         });
 
@@ -387,13 +420,6 @@ public class Box extends ScreenAdapter {
 
         background.setDrawable(new TextureRegionDrawable(new TextureRegion(sfondi[pagina - 1])));
 
-        // Carica il file JSON
-        FileHandle file = Gdx.files.local("assets/ashJson/box.json");
-        String jsonString = file.readString();
-
-        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
-        JsonValue json = new JsonReader().parse(jsonString);
-
         for (int i = (48 * (pagina - 1)) + 1; i < (48 * (pagina)) + 1; i++) {
             leggiPoke(i);
             disegnaPoke(i, cont);
@@ -402,6 +428,114 @@ public class Box extends ScreenAdapter {
                 cont = 0;
                 yPoke = yPoke - valoreCambioRiga;
             }
+        }
+    }
+
+    private void disegnaPokeSquadra(int numero) {
+        // Carica il file JSON
+        FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+        String jsonString = file.readString();
+
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+        JsonValue json = new JsonReader().parse(jsonString);
+        JsonValue pokeJson = json.get("poke" + String.valueOf(numero * -1));
+
+        if (pokeJson == null) {
+            nomePokeSquadra = "";
+
+        } else {
+            // Caso in cui l'elemento esiste
+            nomePokeSquadra = pokeJson.getString("nomePokemon");
+        }
+
+        // Carica l'immagine di sfondo
+        Texture backgroundTexture = new Texture("assets/squadra/sfondoPokeSquadra.png");
+        Image backgroundImage = new Image(backgroundTexture);
+        float yBase = background.getImageY() + background.getHeight() - backgroundImage.getHeight() - 45;
+        float yFinalePoke = yBase - 70 * (numero * -1);
+        float xFInalePoke = background.getImageX() + backgroundImage.getWidth();
+        backgroundImage.setSize(80, 60);  // Imposta la dimensione dello sfondo, modifica se necessario
+        backgroundImage.setPosition(xFInalePoke - 5, yFinalePoke);
+
+        if (!nomePokeSquadra.isEmpty()) {
+            Texture animationTexture = new Texture("pokemon/" + nomePokeSquadra + "Label.png");
+            TextureRegion animationRegion = new TextureRegion(animationTexture, 0, 0, animationTexture.getWidth() / 2, animationTexture.getHeight());
+
+            Image animationImage = new Image(animationRegion);
+            animationImage.setSize(animationTexture.getWidth() + 10, animationTexture.getHeight()*2 + 10);
+            animationImage.setPosition(xFInalePoke,  yFinalePoke);
+
+            //aggiungo listener
+            animationImage.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+
+                    if (numero == posizionePokemonSelezionato) {
+                        //nel caso in cui viene ripremuto il pokemon già selezionato non fa nulla
+
+                    }else {
+
+                        if (!controllaSposta) {
+
+                            if (posizionePokemonSelezionato != 0) {
+                                //resettare le dimensioni di quello di prima
+                                immagineSelezionato.setSize(animationTexture.getWidth() + 10, animationTexture.getHeight()*2 + 10);
+                            }
+
+                            float originalWidth = animationImage.getWidth();
+                            float originalHeight = animationImage.getHeight();
+
+                            // Aumenta leggermente la dimensione dell'immagine
+                            animationImage.setSize(originalWidth * 1.1f, originalHeight * 1.1f);
+                            immagineSelezionato = animationImage;
+
+                            posizionePokemonSelezionato = numero;
+
+                            //rendi i 3 pulsanti visibili
+                            liberaImage.setVisible(true);
+                            infoImage.setVisible(true);
+                            spostaImage.setVisible(true);
+
+                        }else {
+                            posizioneSpostata = numero;
+                        }
+                    }
+                    
+                }
+            });
+
+            stage.addActor(backgroundImage);  
+            stage.addActor(animationImage);
+
+        }else {
+            Texture animationTexture = new Texture("pokemon/sphealLabel.png");
+            TextureRegion animationRegion = new TextureRegion(animationTexture, 0, 0, animationTexture.getWidth() / 2, animationTexture.getHeight());
+
+            Image animationImage = new Image(animationRegion);
+            animationImage.setSize(animationTexture.getWidth() + 10, animationTexture.getHeight()*2 + 10);
+            animationImage.setPosition(100,  100);
+
+            animationImage.setColor(1,1,1,0);
+
+            //aggiungo listener
+            animationImage.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    //da settare per lo sposta
+                    if (controllaSposta) {
+                        posizioneSpostata = numero;
+                    }
+                }
+            });
+
+            stage.addActor(backgroundImage);  
+            stage.addActor(animationImage);
+        }
+    }
+
+    private void caricaSquadra() {
+        for (int i = -1; i > -7; i--) {
+            disegnaPokeSquadra(i);
         }
     }
 
@@ -426,17 +560,204 @@ public class Box extends ScreenAdapter {
         avantiImage.setVisible(boxAttuale < totalePagineBox);
     }
 
+    //TODO: la squadra deve avere almeno un pokemon sempre dentro (fare una funzione per contare il numeoro di poke in squadra)
+    //TODO: fare una classe per rigirare i pokemon in squadra
     private void liberaPokemon() {
-        // Carica il file JSON
-        FileHandle file = Gdx.files.local("assets/ashJson/box.json");
-        String jsonString = file.readString();
 
-        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
-        JsonValue json = new JsonReader().parse(jsonString);
+        if (posizionePokemonSelezionato > 0) {
 
-        json.remove(String.valueOf(posizionePokemonSelezionato));
+            FileHandle file = Gdx.files.local("assets/ashJson/box.json");
+            String jsonString = file.readString();
 
-        file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
+            // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+            JsonValue json = new JsonReader().parse(jsonString);
+
+            json.remove(String.valueOf(posizionePokemonSelezionato));
+
+            file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
+
+        }else {
+
+            FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+            String jsonString = file.readString();
+
+            JsonValue json = new JsonReader().parse(jsonString);
+
+            JsonValue newPokemon = new JsonValue(JsonValue.ValueType.object);
+            newPokemon.addChild("nomePokemon", new JsonValue(""));
+            newPokemon.addChild("livello", new JsonValue(""));
+            newPokemon.addChild("esperienza", new JsonValue(0));
+
+            JsonValue statistiche = new JsonValue(JsonValue.ValueType.object);
+            statistiche.addChild("hp", new JsonValue(0));
+            statistiche.addChild("hpTot", new JsonValue(0));
+            statistiche.addChild("attack", new JsonValue(0));
+            statistiche.addChild("defense", new JsonValue(0));
+            statistiche.addChild("special_attack", new JsonValue(0));
+            statistiche.addChild("special_defense", new JsonValue(0));
+            statistiche.addChild("speed", new JsonValue(0));
+            newPokemon.addChild("statistiche", statistiche);
+
+
+            JsonValue evStats = new JsonValue(JsonValue.ValueType.object);
+            evStats.addChild("Hp", new JsonValue(0));
+            evStats.addChild("Att", new JsonValue(0));
+            evStats.addChild("Dif", new JsonValue(0));
+            evStats.addChild("Spec", new JsonValue(0));
+            evStats.addChild("Vel", new JsonValue(0));
+
+            newPokemon.addChild("ev", evStats);
+
+            JsonValue ivStats = new JsonValue(JsonValue.ValueType.object);
+            ivStats.addChild("Hp", new JsonValue(0));
+            ivStats.addChild("Att", new JsonValue(0));
+            ivStats.addChild("Dif", new JsonValue(0));
+            ivStats.addChild("Spec", new JsonValue(0));
+            ivStats.addChild("Vel", new JsonValue(0));
+
+            newPokemon.addChild("iv", ivStats);
+            
+            JsonValue mosseJson = new JsonValue(JsonValue.ValueType.array);
+            for (int i = 0; i < 4; i++) {
+                JsonValue mossa = new JsonValue(JsonValue.ValueType.object);
+                mossa.addChild("nome", new JsonValue(""));
+                mossa.addChild("tipo", new JsonValue(""));
+                mossa.addChild("ppTot", new JsonValue(0));
+                mossa.addChild("ppAtt", new JsonValue(""));
+                mosseJson.addChild(mossa);
+            }
+            newPokemon.addChild("mosse", mosseJson);
+
+            newPokemon.addChild("tipoBall", new JsonValue(""));
+            newPokemon.addChild("x", new JsonValue(0));
+
+            json.remove("poke" + (posizionePokemonSelezionato * -1));
+            json.addChild("poke" + (posizionePokemonSelezionato * -1), newPokemon);
+
+            file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
+
+        }
+    }
+
+    //da testare (secondo me esplode)
+    private void spostaPoke() {
+        liberaImage.setVisible(false);
+        infoImage.setVisible(false);
+        spostaImage.setVisible(false);
+
+        stage.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+                JsonValue json1;
+                JsonValue json2;
+                FileHandle file1;
+                FileHandle file2;
+                String nomePoke1;
+                String nomePoke2;
+                String nomePoke1Aggiornato;
+                String nomePoke2Aggiornato;
+
+                //qua posso falo lo spostamento pk si è selezionato il pokemon giusto
+                if (posizioneSpostata != 0) {
+
+
+                    /* 
+                    if (isInBoxPrimo) {
+                        // Carica il file JSON
+                        file1 = Gdx.files.local("assets/ashJson/box.json");
+                        String jsonString = file1.readString();
+
+                        json1 = new JsonReader().parse(jsonString);
+
+                        nomePoke1 = String.valueOf(posizionePokemonSelezionato);
+
+                        nomePoke2Aggiornato = String.valueOf(posizionePokemonSelezionato);
+
+                    }else {
+                        // Carica il file JSON
+                        file1 = Gdx.files.local("assets/ashJson/squadra.json");
+                        String jsonString = file1.readString();
+
+                        json1 = new JsonReader().parse(jsonString);
+
+                        nomePoke1 = "poke" + String.valueOf(posizionePokemonSelezionato);
+
+                        nomePoke2Aggiornato = "poke" + String.valueOf(posizionePokemonSelezionato);
+
+                    }
+
+                    if (isInBoxSecondo) {
+                        // Carica il file JSON
+                        file2 = Gdx.files.local("assets/ashJson/box.json");
+                        String jsonString = file2.readString();
+
+                        json2 = new JsonReader().parse(jsonString);
+
+                        nomePoke2 = String.valueOf(posizioneSpostata);
+
+                        nomePoke1Aggiornato = String.valueOf(posizioneSpostata);
+
+                    }else {
+                        // Carica il file JSON
+                        file2 = Gdx.files.local("assets/ashJson/box.json");
+                        String jsonString = file2.readString();
+
+                        json2 = new JsonReader().parse(jsonString);
+
+                        nomePoke2 = "poke" + String.valueOf(posizioneSpostata);
+
+                        nomePoke1Aggiornato = "poke" + String.valueOf(posizioneSpostata);
+
+                    }
+
+                    JsonValue poke1Data = json1.get(nomePoke1);
+                    JsonValue poke2Data = json2.get(nomePoke2);
+
+
+                    json1.remove(nomePoke1);
+                    json2.remove(nomePoke2);
+
+                    poke1Data.setName(nomePoke1Aggiornato);
+                    poke2Data.setName(nomePoke2Aggiornato);
+
+                    if (isInBoxPrimo) {
+                        json1.addChild(poke2Data);
+                    }else {
+                        json2.addChild(poke2Data);
+                    }
+
+
+                    if (isInBoxSecondo) {
+                        json1.addChild(poke1Data);
+                    }else {
+                        json2.addChild(poke1Data);
+                    }
+
+                    file1.writeString(json1.prettyPrint(JsonWriter.OutputType.json, 1), false);
+                    file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
+
+                    controllaSpostata = false;
+                    posizioneSpostata = -1;
+
+
+                    posizionePokemonSelezionato = -1;
+                    posizioneSpostata = -1;
+                    controllaSpostata = false;
+                    isInBoxPrimo = false;
+                    isInBoxSecondo = false;
+                    pokeBoxSelezionato = false;
+
+                    clearPage();
+                    caricaPagina(boxAttuale);
+
+                    stage.removeListener(this);
+                    */
+                }
+            }
+            
+        });
         
     }
+
 }
