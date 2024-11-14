@@ -578,64 +578,121 @@ public class Box extends ScreenAdapter {
 
         }else {
 
-            FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
-            String jsonString = file.readString();
+            if (contaPokeSquadra() > 1) {
 
-            JsonValue json = new JsonReader().parse(jsonString);
+                FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+                String jsonString = file.readString();
 
-            JsonValue newPokemon = new JsonValue(JsonValue.ValueType.object);
-            newPokemon.addChild("nomePokemon", new JsonValue(""));
-            newPokemon.addChild("livello", new JsonValue(""));
-            newPokemon.addChild("esperienza", new JsonValue(0));
+                JsonValue json = new JsonReader().parse(jsonString);
 
-            JsonValue statistiche = new JsonValue(JsonValue.ValueType.object);
-            statistiche.addChild("hp", new JsonValue(0));
-            statistiche.addChild("hpTot", new JsonValue(0));
-            statistiche.addChild("attack", new JsonValue(0));
-            statistiche.addChild("defense", new JsonValue(0));
-            statistiche.addChild("special_attack", new JsonValue(0));
-            statistiche.addChild("special_defense", new JsonValue(0));
-            statistiche.addChild("speed", new JsonValue(0));
-            newPokemon.addChild("statistiche", statistiche);
+                JsonValue newPokemon = new JsonValue(JsonValue.ValueType.object);
+                newPokemon.addChild("nomePokemon", new JsonValue(""));
+                newPokemon.addChild("livello", new JsonValue(""));
+                newPokemon.addChild("esperienza", new JsonValue(0));
+
+                JsonValue statistiche = new JsonValue(JsonValue.ValueType.object);
+                statistiche.addChild("hp", new JsonValue(0));
+                statistiche.addChild("hpTot", new JsonValue(0));
+                statistiche.addChild("attack", new JsonValue(0));
+                statistiche.addChild("defense", new JsonValue(0));
+                statistiche.addChild("special_attack", new JsonValue(0));
+                statistiche.addChild("special_defense", new JsonValue(0));
+                statistiche.addChild("speed", new JsonValue(0));
+                newPokemon.addChild("statistiche", statistiche);
 
 
-            JsonValue evStats = new JsonValue(JsonValue.ValueType.object);
-            evStats.addChild("Hp", new JsonValue(0));
-            evStats.addChild("Att", new JsonValue(0));
-            evStats.addChild("Dif", new JsonValue(0));
-            evStats.addChild("Spec", new JsonValue(0));
-            evStats.addChild("Vel", new JsonValue(0));
+                JsonValue evStats = new JsonValue(JsonValue.ValueType.object);
+                evStats.addChild("Hp", new JsonValue(0));
+                evStats.addChild("Att", new JsonValue(0));
+                evStats.addChild("Dif", new JsonValue(0));
+                evStats.addChild("Spec", new JsonValue(0));
+                evStats.addChild("Vel", new JsonValue(0));
 
-            newPokemon.addChild("ev", evStats);
+                newPokemon.addChild("ev", evStats);
 
-            JsonValue ivStats = new JsonValue(JsonValue.ValueType.object);
-            ivStats.addChild("Hp", new JsonValue(0));
-            ivStats.addChild("Att", new JsonValue(0));
-            ivStats.addChild("Dif", new JsonValue(0));
-            ivStats.addChild("Spec", new JsonValue(0));
-            ivStats.addChild("Vel", new JsonValue(0));
+                JsonValue ivStats = new JsonValue(JsonValue.ValueType.object);
+                ivStats.addChild("Hp", new JsonValue(0));
+                ivStats.addChild("Att", new JsonValue(0));
+                ivStats.addChild("Dif", new JsonValue(0));
+                ivStats.addChild("Spec", new JsonValue(0));
+                ivStats.addChild("Vel", new JsonValue(0));
 
-            newPokemon.addChild("iv", ivStats);
-            
-            JsonValue mosseJson = new JsonValue(JsonValue.ValueType.array);
-            for (int i = 0; i < 4; i++) {
-                JsonValue mossa = new JsonValue(JsonValue.ValueType.object);
-                mossa.addChild("nome", new JsonValue(""));
-                mossa.addChild("tipo", new JsonValue(""));
-                mossa.addChild("ppTot", new JsonValue(0));
-                mossa.addChild("ppAtt", new JsonValue(""));
-                mosseJson.addChild(mossa);
+                newPokemon.addChild("iv", ivStats);
+                
+                JsonValue mosseJson = new JsonValue(JsonValue.ValueType.array);
+                for (int i = 0; i < 4; i++) {
+                    JsonValue mossa = new JsonValue(JsonValue.ValueType.object);
+                    mossa.addChild("nome", new JsonValue(""));
+                    mossa.addChild("tipo", new JsonValue(""));
+                    mossa.addChild("ppTot", new JsonValue(0));
+                    mossa.addChild("ppAtt", new JsonValue(""));
+                    mosseJson.addChild(mossa);
+                }
+                newPokemon.addChild("mosse", mosseJson);
+
+                newPokemon.addChild("tipoBall", new JsonValue(""));
+                newPokemon.addChild("x", new JsonValue(0));
+
+                json.remove("poke" + (posizionePokemonSelezionato * -1));
+                json.addChild("poke" + (posizionePokemonSelezionato * -1), newPokemon);
+
+                file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
+
+                sistemaSquadra(posizionePokemonSelezionato * -1);
+
             }
-            newPokemon.addChild("mosse", mosseJson);
 
-            newPokemon.addChild("tipoBall", new JsonValue(""));
-            newPokemon.addChild("x", new JsonValue(0));
+        }
+    }
 
-            json.remove("poke" + (posizionePokemonSelezionato * -1));
-            json.addChild("poke" + (posizionePokemonSelezionato * -1), newPokemon);
+    private int contaPokeSquadra() {
+        FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+        String jsonString = file.readString();
 
+        JsonValue json = new JsonReader().parse(jsonString);
+
+        int cont = 0;
+
+        for (int i = 1; i < 7; i++) {
+            JsonValue pokeJson = json.get("poke" + String.valueOf(i));
+
+            if (!pokeJson.getString("nomePokemon").isEmpty()){
+                cont ++;
+            }
+        }
+
+        return cont;
+    }
+
+    private void sistemaSquadra(int posPokeEliminato) {
+        FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+        String jsonString = file.readString();
+
+        JsonValue json = new JsonReader().parse(jsonString);
+
+        for (int i = posPokeEliminato + 1; i < 7; i++) {
+
+            String poke1Name = "poke" + (i - 1);
+            String poke2Name = "poke" + i;
+
+            // Conserva i valori dei Pokémon da scambiare
+            JsonValue poke1Data = json.get(poke1Name);
+            JsonValue poke2Data = json.get(poke2Name);
+
+            // Rimuovi i Pokémon dalle posizioni correnti
+            json.remove(poke1Name);
+            json.remove(poke2Name);
+
+            // Assegna un nuovo nome generico a tutti i campi di ciascun Pokémon
+            poke1Data.setName(poke2Name);
+            poke2Data.setName(poke1Name);
+
+            // Aggiungi i Pokémon scambiati nelle posizioni corrispondenti
+            json.addChild(poke1Data);
+            json.addChild(poke2Data);
+
+            // Sovrascrivi il file JSON con i dati modificati
             file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
-
         }
     }
 
