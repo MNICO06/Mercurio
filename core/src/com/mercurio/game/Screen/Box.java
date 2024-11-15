@@ -208,6 +208,7 @@ public class Box extends ScreenAdapter {
                 public void clicked(InputEvent event, float x, float y) {
                     //da settare per lo sposta
                     if (controllaSposta) {
+                        creaPokeBoxVuoto(param);
                         posizioneSpostata = param;
                     }
                 }
@@ -399,6 +400,7 @@ public class Box extends ScreenAdapter {
             public void clicked(InputEvent event, float x, float y) {
                 if(posizionePokemonSelezionato != 0) {
                     controllaSposta = true;
+                    spostaPoke();
                 }
             }
         });
@@ -497,6 +499,7 @@ public class Box extends ScreenAdapter {
                             spostaImage.setVisible(true);
 
                         }else {
+
                             posizioneSpostata = numero;
                         }
                     }
@@ -513,7 +516,7 @@ public class Box extends ScreenAdapter {
 
             Image animationImage = new Image(animationRegion);
             animationImage.setSize(animationTexture.getWidth() + 10, animationTexture.getHeight()*2 + 10);
-            animationImage.setPosition(100,  100);
+            animationImage.setPosition(xFInalePoke,  yFinalePoke);
 
             animationImage.setColor(1,1,1,0);
 
@@ -521,8 +524,11 @@ public class Box extends ScreenAdapter {
             animationImage.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
+
+
                     //da settare per lo sposta
                     if (controllaSposta) {
+                        
                         posizioneSpostata = numero;
                     }
                 }
@@ -560,8 +566,7 @@ public class Box extends ScreenAdapter {
         avantiImage.setVisible(boxAttuale < totalePagineBox);
     }
 
-    //TODO: la squadra deve avere almeno un pokemon sempre dentro (fare una funzione per contare il numeoro di poke in squadra)
-    //TODO: fare una classe per rigirare i pokemon in squadra
+    
     private void liberaPokemon() {
 
         if (posizionePokemonSelezionato > 0) {
@@ -664,6 +669,48 @@ public class Box extends ScreenAdapter {
         return cont;
     }
 
+    private void sistemaSquadraSposta() {
+        FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+        JsonValue json = new JsonReader().parse(file.readString());
+
+        String primoPokeVuoto = "";
+        String nomePokePieno = "";
+
+        for (int i = 1; i < 7; i++) {
+            String nomePoke = "poke" + i;
+
+            JsonValue poke = json.get(nomePoke);
+            if (primoPokeVuoto.isEmpty()) {
+                
+                if (poke.getString("nomePokemon").isEmpty()) {
+                    primoPokeVuoto = nomePoke;
+                }
+            } else {
+                if (!poke.getString("nomePokemon").isEmpty()) {
+                    nomePokePieno = nomePoke;
+                }
+            }
+        }
+
+        if (!primoPokeVuoto.isEmpty() && !nomePokePieno.isEmpty()) {
+
+            JsonValue primoPokeVuotoJson = json.get(primoPokeVuoto);
+            JsonValue pokePienoSbagliato = json.get(nomePokePieno);
+
+            json.remove(primoPokeVuoto);
+            json.remove(nomePokePieno);
+
+            primoPokeVuotoJson.setName(nomePokePieno);
+            pokePienoSbagliato.setName(primoPokeVuoto);
+
+            json.addChild(primoPokeVuotoJson);
+            json.addChild(pokePienoSbagliato);
+
+            file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
+        }
+        
+    }
+
     private void sistemaSquadra(int posPokeEliminato) {
         FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
         String jsonString = file.readString();
@@ -706,110 +753,166 @@ public class Box extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
 
-                JsonValue json1;
-                JsonValue json2;
-                FileHandle file1;
-                FileHandle file2;
-                String nomePoke1;
-                String nomePoke2;
-                String nomePoke1Aggiornato;
-                String nomePoke2Aggiornato;
-
+                //TODO: controllare anche il caso in cui sono vuoti che potrebbe essere un piccolo problemino
+                
                 //qua posso falo lo spostamento pk si è selezionato il pokemon giusto
                 if (posizioneSpostata != 0) {
+                    
+                    //condizione 1: quella della squadra effettiva quindi uso stesso codice di nava
+                    if (posizionePokemonSelezionato < 0 && posizioneSpostata < 0) {
+
+                        FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+                        String jsonString = file.readString();
+                        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+                        JsonValue json = new JsonReader().parse(jsonString);
+
+                        // Ottieni i nomi dei due Pokémon da scambiare
+                        String poke1Name = "poke" + (posizionePokemonSelezionato * -1);
+                        String poke2Name = "poke" + (posizioneSpostata * -1);
+
+                        // Conserva i valori dei Pokémon da scambiare
+                        JsonValue poke1Data = json.get(poke1Name);
+                        JsonValue poke2Data = json.get(poke2Name);
+
+                        // Rimuovi i Pokémon dalle posizioni correnti
+                        json.remove(poke1Name);
+                        json.remove(poke2Name);
+
+                        // Assegna un nuovo nome generico a tutti i campi di ciascun Pokémon
+                        poke1Data.setName(poke2Name);
+                        poke2Data.setName(poke1Name);
+
+                        // Aggiungi i Pokémon scambiati nelle posizioni corrispondenti
+                        json.addChild(poke1Data);
+                        json.addChild(poke2Data);
+
+                        // Sovrascrivi il file JSON con i dati modificati
+                        file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
 
 
-                    /* 
-                    if (isInBoxPrimo) {
-                        // Carica il file JSON
-                        file1 = Gdx.files.local("assets/ashJson/box.json");
-                        String jsonString = file1.readString();
+                    }//condizione 2: quella con solo il box, copio codice di nava e lo modifico
+                    else if (posizionePokemonSelezionato > 0 && posizioneSpostata > 0) {
 
-                        json1 = new JsonReader().parse(jsonString);
+                        FileHandle file = Gdx.files.local("assets/ashJson/box.json");
+                        String jsonString = file.readString();
+                        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+                        JsonValue json = new JsonReader().parse(jsonString);
 
-                        nomePoke1 = String.valueOf(posizionePokemonSelezionato);
+                        // Ottieni i nomi dei due Pokémon da scambiare
+                        String poke1Name = String.valueOf(posizionePokemonSelezionato);
+                        String poke2Name = String.valueOf(posizioneSpostata);
 
-                        nomePoke2Aggiornato = String.valueOf(posizionePokemonSelezionato);
+                        // Conserva i valori dei Pokémon da scambiare
+                        JsonValue poke1Data = json.get(poke1Name);
+                        JsonValue poke2Data = json.get(poke2Name);
 
-                    }else {
-                        // Carica il file JSON
-                        file1 = Gdx.files.local("assets/ashJson/squadra.json");
-                        String jsonString = file1.readString();
+                        // Rimuovi i Pokémon dalle posizioni correnti
+                        json.remove(poke1Name);
+                        json.remove(poke2Name);
 
-                        json1 = new JsonReader().parse(jsonString);
+                        // Assegna un nuovo nome generico a tutti i campi di ciascun Pokémon
+                        poke1Data.setName(poke2Name);
+                        poke2Data.setName(poke1Name);
 
-                        nomePoke1 = "poke" + String.valueOf(posizionePokemonSelezionato);
+                        // Aggiungi i Pokémon scambiati nelle posizioni corrispondenti
+                        json.addChild(poke1Data);
 
-                        nomePoke2Aggiornato = "poke" + String.valueOf(posizionePokemonSelezionato);
+                        // Sovrascrivi il file JSON con i dati modificati
+                        file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
+
+                    }
+                    else {
+
+                        JsonValue json1;
+                        JsonValue json2;
+
+
+                        FileHandle file1;
+                        FileHandle file2;
+
+                        String nomePoke1;
+                        String nomePoke2;
+                        String nomePoke1Aggiornato;
+                        String nomePoke2Aggiornato;
+
+                        if (posizionePokemonSelezionato > 0) {
+
+                            file1 = Gdx.files.local("assets/ashJson/box.json");
+                            json1 = new JsonReader().parse(file1.readString());
+
+                            nomePoke1 = String.valueOf(posizionePokemonSelezionato);
+                            nomePoke2Aggiornato = nomePoke1;
+
+
+                        }else {
+                            
+                            file1 = Gdx.files.local("assets/ashJson/squadra.json");
+                            json1 = new JsonReader().parse(file1.readString());
+
+                            nomePoke1 = "poke" + (posizionePokemonSelezionato * -1);
+                            nomePoke2Aggiornato = nomePoke1;
+                        }
+
+                        if (posizioneSpostata > 0) {
+
+                            file2 = Gdx.files.local("assets/ashJson/box.json");
+                            json2 = new JsonReader().parse(file2.readString());
+
+                            nomePoke2 = String.valueOf(posizioneSpostata);
+                            nomePoke1Aggiornato = nomePoke2;
+
+                        }else {
+
+                            file2 = Gdx.files.local("assets/ashJson/squadra.json");
+                            json2 = new JsonReader().parse(file2.readString());
+
+                            nomePoke2 = "poke" + (posizioneSpostata * -1);
+                            nomePoke1Aggiornato = nomePoke2;
+
+                        }
+
+                        // Conserva i valori dei Pokémon da scambiare
+                        JsonValue jsonPoke1 = json1.get(nomePoke1);
+                        JsonValue jsonPoke2 = json2.get(nomePoke2);
+
+
+                        json1.remove(nomePoke1);
+                        json2.remove(nomePoke2);
+
+                        jsonPoke1.setName(nomePoke1Aggiornato);
+                        jsonPoke2.setName(nomePoke2Aggiornato);
+
+                        if (posizioneSpostata < 0 && jsonPoke2.get("nomePokemon").isEmpty()) {
+
+                        }else {
+                            json1.addChild(jsonPoke2);
+                        }
+                        
+                        json2.addChild(jsonPoke1);
+
+
+                        file1.writeString(json1.prettyPrint(JsonWriter.OutputType.json, 1), false);
+                        file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
 
                     }
 
-                    if (isInBoxSecondo) {
-                        // Carica il file JSON
-                        file2 = Gdx.files.local("assets/ashJson/box.json");
-                        String jsonString = file2.readString();
+                    
 
-                        json2 = new JsonReader().parse(jsonString);
-
-                        nomePoke2 = String.valueOf(posizioneSpostata);
-
-                        nomePoke1Aggiornato = String.valueOf(posizioneSpostata);
-
-                    }else {
-                        // Carica il file JSON
-                        file2 = Gdx.files.local("assets/ashJson/box.json");
-                        String jsonString = file2.readString();
-
-                        json2 = new JsonReader().parse(jsonString);
-
-                        nomePoke2 = "poke" + String.valueOf(posizioneSpostata);
-
-                        nomePoke1Aggiornato = "poke" + String.valueOf(posizioneSpostata);
-
-                    }
-
-                    JsonValue poke1Data = json1.get(nomePoke1);
-                    JsonValue poke2Data = json2.get(nomePoke2);
-
-
-                    json1.remove(nomePoke1);
-                    json2.remove(nomePoke2);
-
-                    poke1Data.setName(nomePoke1Aggiornato);
-                    poke2Data.setName(nomePoke2Aggiornato);
-
-                    if (isInBoxPrimo) {
-                        json1.addChild(poke2Data);
-                    }else {
-                        json2.addChild(poke2Data);
-                    }
-
-
-                    if (isInBoxSecondo) {
-                        json1.addChild(poke1Data);
-                    }else {
-                        json2.addChild(poke1Data);
-                    }
-
-                    file1.writeString(json1.prettyPrint(JsonWriter.OutputType.json, 1), false);
-                    file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
-
-                    controllaSpostata = false;
-                    posizioneSpostata = -1;
-
-
-                    posizionePokemonSelezionato = -1;
-                    posizioneSpostata = -1;
-                    controllaSpostata = false;
-                    isInBoxPrimo = false;
-                    isInBoxSecondo = false;
-                    pokeBoxSelezionato = false;
-
+                    
+                    //comandi da eseguire alla fine per resettare il tutto
+                    posizionePokemonSelezionato = 0;
+                    posizioneSpostata = 0;
+                    controllaSposta = false;
+                    
+                    sistemaSquadraSposta();
                     clearPage();
                     caricaPagina(boxAttuale);
+                    caricaSquadra();
+
 
                     stage.removeListener(this);
-                    */
+
+
                 }
             }
             
@@ -817,4 +920,61 @@ public class Box extends ScreenAdapter {
         
     }
 
+
+    public void creaPokeBoxVuoto(int posizionePoke) {
+        FileHandle file = Gdx.files.local("assets/ashJson/box.json");
+        JsonValue json = new JsonReader().parse(file.readString());
+
+        JsonValue newPokemon = new JsonValue(JsonValue.ValueType.object);
+        newPokemon.addChild("nomePokemon", new JsonValue(""));
+        newPokemon.addChild("livello", new JsonValue(""));
+        newPokemon.addChild("esperienza", new JsonValue(0));
+
+        JsonValue statistiche = new JsonValue(JsonValue.ValueType.object);
+        statistiche.addChild("hp", new JsonValue(0));
+        statistiche.addChild("hpTot", new JsonValue(0));
+        statistiche.addChild("attack", new JsonValue(0));
+        statistiche.addChild("defense", new JsonValue(0));
+        statistiche.addChild("special_attack", new JsonValue(0));
+        statistiche.addChild("special_defense", new JsonValue(0));
+        statistiche.addChild("speed", new JsonValue(0));
+        newPokemon.addChild("statistiche", statistiche);
+
+
+        JsonValue evStats = new JsonValue(JsonValue.ValueType.object);
+        evStats.addChild("Hp", new JsonValue(0));
+        evStats.addChild("Att", new JsonValue(0));
+        evStats.addChild("Dif", new JsonValue(0));
+        evStats.addChild("Spec", new JsonValue(0));
+        evStats.addChild("Vel", new JsonValue(0));
+
+        newPokemon.addChild("ev", evStats);
+
+        JsonValue ivStats = new JsonValue(JsonValue.ValueType.object);
+        ivStats.addChild("Hp", new JsonValue(0));
+        ivStats.addChild("Att", new JsonValue(0));
+        ivStats.addChild("Dif", new JsonValue(0));
+        ivStats.addChild("Spec", new JsonValue(0));
+        ivStats.addChild("Vel", new JsonValue(0));
+
+        newPokemon.addChild("iv", ivStats);
+        
+        JsonValue mosseJson = new JsonValue(JsonValue.ValueType.array);
+        for (int i = 0; i < 4; i++) {
+            JsonValue mossa = new JsonValue(JsonValue.ValueType.object);
+            mossa.addChild("nome", new JsonValue(""));
+            mossa.addChild("tipo", new JsonValue(""));
+            mossa.addChild("ppTot", new JsonValue(0));
+            mossa.addChild("ppAtt", new JsonValue(""));
+            mosseJson.addChild(mossa);
+        }
+        newPokemon.addChild("mosse", mosseJson);
+
+        newPokemon.addChild("tipoBall", new JsonValue(""));
+        newPokemon.addChild("x", new JsonValue(0));
+
+        json.addChild(String.valueOf(posizionePoke), newPokemon);
+
+        file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
+    }
 }
