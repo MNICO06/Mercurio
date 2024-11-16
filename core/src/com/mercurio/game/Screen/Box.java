@@ -224,7 +224,7 @@ public class Box extends ScreenAdapter {
     @Override
     public void show() {
 
-        Texture textureBack = new Texture("sfondo/sfondoBox.png");
+        Texture textureBack = new Texture("sfondo/sfondoBoxProva.png");
 
         sfondi = new TextureRegion[24];
 

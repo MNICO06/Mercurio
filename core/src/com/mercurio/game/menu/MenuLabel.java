@@ -27,6 +27,7 @@ import com.mercurio.game.pokemon.Battle;
 public class MenuLabel{
 
     private Squadra squadra;
+    private Pokedex pokedex;
 	private SpriteBatch batch;
     private BitmapFont font;
     public static Label openMenuLabel;
@@ -147,7 +148,7 @@ public class MenuLabel{
     }
 
     private void apriPokedex() {
-    	System.out.println("Pokedex aperto");
+        pokedex = new Pokedex(stage, this);
     }
     
 	private void apriPokemon() {
@@ -222,6 +223,7 @@ public class MenuLabel{
         game.copiaJson("bots/bots.json","assets/jsonSalvati/botsSalvato.json");
         game.copiaJson("ashJson/datiGenerali.json", "assets/jsonSalvati/datiGeneraliSalvato.json");
         game.copiaJson("ashJson/box.json", "assets/jsonSalvati/boxSalvato.json");
+        game.copiaJson("ashJson/pokemonScoperti.json","assets/jsonSalvati/pokemonScopertiSalvato.json");
     }
 
 	public static Stage getStage() {
@@ -341,6 +343,10 @@ public class MenuLabel{
             squadra.render();
         }
 
+        if (pokedex != null) {
+            pokedex.render();
+        }
+
 
         batch.begin();
         stage.draw();
@@ -357,5 +363,10 @@ public class MenuLabel{
     public void closeSquadra() {
         Gdx.input.setInputProcessor(stage);
         squadra = null;
+    }
+
+    public void closePokedex() {
+        Gdx.input.setInputProcessor(stage);
+        pokedex = null;
     }
 }
