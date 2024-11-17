@@ -206,6 +206,7 @@ public class Pokedex {
             if (pokeJson != null) {
 
                 String nomePoke = pokeJson.getString("nome");
+                int numeroPokedex = i;
 
                 Texture animationTexture = new Texture("pokemon/" + nomePoke + "Label.png");
                 TextureRegion animationRegion = new TextureRegion(animationTexture, 0, 0, animationTexture.getWidth() / 2, animationTexture.getHeight());
@@ -245,13 +246,38 @@ public class Pokedex {
                     stage.addActor(blackOverlay);
                     animationImages.add(blackOverlay);
 
+                    blackOverlay.addListener(new ClickListener() {
+                        private long lastClickTime = 0; // Memorizza il tempo del primo clic
+                        private static final long DOUBLE_CLICK_THRESHOLD = 500; // Intervallo massimo (in millisecondi) per un doppio clic
+                    
+                        @Override
+                        public void clicked(InputEvent event, float x, float y) {
+                            long currentTime = System.currentTimeMillis();
+                            if (currentTime - lastClickTime <= DOUBLE_CLICK_THRESHOLD) {
+                                // Esegui azione per doppio clic
+                                infoPoke(false, numeroPokedex);
+                            }
+                            lastClickTime = currentTime; // Aggiorna il tempo dell'ultimo clic
+                        }
+                    });
+
                 }
 
-
-                //TODO: aggiungere il listener
-
-
+                //listener per la freccia avanti
+                animationImage.addListener(new ClickListener() {
+                    private long lastClickTime = 0; // Memorizza il tempo del primo clic
+                    private static final long DOUBLE_CLICK_THRESHOLD = 500; // Intervallo massimo (in millisecondi) per un doppio clic
                 
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        long currentTime = System.currentTimeMillis();
+                        if (currentTime - lastClickTime <= DOUBLE_CLICK_THRESHOLD) {
+                            // Esegui azione per doppio clic
+                            infoPoke(true, numeroPokedex);
+                        }
+                        lastClickTime = currentTime; // Aggiorna il tempo dell'ultimo clic
+                    }
+                });
 
                 cont ++;
                 if (cont == 7) {
@@ -288,6 +314,10 @@ public class Pokedex {
     }
     public String getPaginaLabel(int number) {
         return "PAGINA " + number;
+    }
+
+    private void infoPoke(boolean isPokemonFounded, int numeroPokedex) {
+
     }
 
 
