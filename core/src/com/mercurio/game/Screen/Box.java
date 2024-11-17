@@ -224,19 +224,19 @@ public class Box extends ScreenAdapter {
     @Override
     public void show() {
 
-        Texture textureBack = new Texture("sfondo/sfondoBoxProva.png");
+        Texture textureBack = new Texture("sfondo/sfondiBoxCompleti.png");
 
         sfondi = new TextureRegion[24];
 
         // Calcola la larghezza e l'altezza di ogni frame
         int frameWidth = textureBack.getWidth() / 4;
-        int frameHeight = textureBack.getHeight() / 6;
+        int frameHeight = textureBack.getHeight() / 4;
 
         // Divide la texture in una griglia di (numeroRighe x numeroColonne)
         TextureRegion[][] tmp = TextureRegion.split(textureBack, frameWidth, frameHeight);
 
         int index = 0;
-        for (int r = 0; r < 6; r++) {
+        for (int r = 0; r < 4; r++) {
             for (int c = 0; c < 4 && index < 24; c++) {
                 sfondi[index++] = tmp[r][c];  // Copia ogni frame nell'array unidimensionale
             }
