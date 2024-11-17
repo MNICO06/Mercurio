@@ -80,276 +80,286 @@
       "incontrato": "0"
     },
     "17": {
-        "nome": "Kakuna",
-        "descrizione": "Si nasconde dai predatori dietro le foglie e fra i rami, in attesa dell'evoluzione.",
-      "incontrato": "0"
-    },
-    "18": {
         "nome": "Beedrill",
         "descrizione": "Vola intorno al nemico ad alta velocità, attacca con i pungiglioni avvelenati e si allontana rapido.",
       "incontrato": "0"
     },
-    "19": {
+    "18": {
         "nome": "NidoranM",
         "descrizione": "Esamina l'ambiente circostante tendendo le orecchie fuori dall'erba. Si protegge con il corno velenoso.",
       "incontrato": "0"
     },
-    "20": {
+    "19": {
         "nome": "NidorinoM",
         "descrizione": "Ha un temperamento violento e infilza i nemici con il corno, che, all'impatto, rilascia veleno.",
       "incontrato": "0"
     },
-    "21": {
+    "20": {
         "nome": "Nidoking",
         "descrizione": "Con un solo colpo della potente coda può abbattere un palo del telefono come se fosse un fiammifero.",
       "incontrato": "0"
     },
-    "22": {
+    "21": {
         "nome": "Bidoof",
         "descrizione": "Uno studio ha rivelato che gli incisivi di BIDOOF crescono allo stesso ritmo di quelli di RATTATA.",
       "incontrato": "0"
     },
-    "23": {
+    "22": {
         "nome": "Bibarel",
         "descrizione": "Un fiume in cui BIBAREL ha costruito una diga non straripa mai, cosa molto apprezzata da chi ci vive vicino.",
       "incontrato": "0"
     },
+    "23": {
+        "nome": "Mareep",
+        "descrizione": "Se il manto è carico d’elettricità, le sue dimensioni raddoppiano e può dare la scossa.",
+      "incontrato": "0"
+    },
     "24": {
+        "nome": "Flaaffy",
+        "descrizione": "Se il suo manto è del tutto carico d’elettricità, la coda s’illumina. Lancia peli che danno la scossa.",
+      "incontrato": "0"
+    },
+    "25": {
+        "nome": "Ampharos",
+        "descrizione": "La punta della sua coda brilla. In passato, le persone si inviavano segnali usando la luce della coda.",
+      "incontrato": "0"
+    },
+    "26": {
         "nome": "Onix",
         "descrizione": "Facendo ruotare il proprio corpo è in grado di perforare il terreno a una velocità di 80 km/h.",
       "incontrato": "0"
     },
-    "25": {
+    "27": {
         "nome": "Steelix",
         "descrizione": "Temprato dalla pressione e dall'intenso calore della vita sotterranea, ha un corpo più resistente dell'acciaio.",
       "incontrato": "0"
     },
-    "26": {
+    "28": {
         "nome": "Geodude",
         "descrizione": "Quando riposa sembra un sasso. Se viene calpestato, si infuria e agita i pugni.",
       "incontrato": "0"
     },
-    "27": {
+    "29": {
         "nome": "Graveler",
         "descrizione": "Si sposta rotolando per i sentieri di montagna. Quando prende velocità, e' quasi impossibile fermarlo.",
       "incontrato": "0"
     },
-    "28": {
+    "30": {
         "nome": "Golem",
         "descrizione": "Muta il guscio solo una volta all'anno. Neanche la dinamite può scalfire il suo corpo durissimo.",
         "incontrato": "0"
     },
-    "29": {
+    "31": {
         "nome": "Machop",
         "descrizione": "Nonostante sia piccolo, riesce a sollevare e lanciare piu' GEODUDE contemporaneamente.",
       "incontrato": "0"
     },
-    "30": {
+    "32": {
         "nome": "Machoke",
         "descrizione": "Sposta di buon grado carichi pesanti per rinforzarsi e gli piace dare una mano alle persone.",
       "incontrato": "0"
     },
-    "31": {
+    "33": {
         "nome": "Spheal",
         "descrizione": "Le quattro braccia di Machamp si muovono di riflesso, rendendole molto veloci e in grado di assestare pugni rapidissimi.",
       "incontrato": "0"
     },
-    "32": {
+    "34": {
         "nome": "Gastly",
         "descrizione": "Generato da sostanze gassose, fa perdere i sensi a chiunque respiri i gas tossici di cui e' costituito.",
         "incontrato": "0"
     },
-    "33": {
+    "35": {
         "nome": "Haunter",
         "descrizione": "Può spiare gli avversari nascondendosi nelle pareti e può passare attraverso le cose.",
       "incontrato": "0"
     },
-    "34": {
+    "36": {
         "nome": "Gengar",
         "descrizione": "Si aggira nel buio con lo sguardo perfido e si diverte a lanciare maledizioni.",
       "incontrato": "0"
     },
-    "35": {
+    "37": {
         "nome": "Diglett",
         "descrizione": "Un Pokémon che vive sottoterra. Poiché e' abituato a vivere al buio, non sopporta la luce solare.",
       "incontrato": "0"
     },
-    "36": {
+    "38": {
         "nome": "Dugtrio",
         "descrizione": "Le sue tre teste si muovono a turno per scavare nel duro suolo fino ad una profondità di 100 km.",
       "incontrato": "0"
     },
-    "37": {
+    "39": {
         "nome": "Riolu",
         "descrizione": "E' in grado di vedere emozioni come rabbia e gioia sotto forma di onde. Si tratta di un potere unico.",
       "incontrato": "0"
     },
-    "38": {
+    "40": {
         "nome": "Lucario",
         "descrizione": "Se ben addestrato, LUCARIO riesce a identificare e a percepire le emozioni di creature lontane 1 km.",
       "incontrato": "0"
     },
-    "39": {
+    "41": {
         "nome": "Magikarp",
         "descrizione": "Un MAGIKARP di una certa eta' puo' saltare una montagna con Splash, che però e' una mossa inutile.",
       "incontrato": "0"
     },
-    "40": {
+    "42": {
         "nome": "Gyarados",
         "descrizione": "Quando va su tutte le furie, GYARADOS brucia ogni cosa, anche nel mezzo di un violento temporale.",
       "incontrato": "0"
     },
-    "41": {
+    "43": {
         "nome": "Lapras",
         "descrizione": "Dotato di un temperamento mite, preferisce trasportare umani sul suo dorso, piuttosto che ingaggiare incontri con altri Pokemon.",
       "incontrato": "0"
     },
-    "42": {
+    "44": {
         "nome": "Horsea",
         "descrizione": "Crea la sua tana all'ombra dei coralli. Se avverte un pericolo, spruzza inchiostro nero e fugge.",
       "incontrato": "0"
     },
-    "43": {
+    "45": {
         "nome": "Seadra",
         "descrizione": "Si difende con gli aculei. Pinne e ossa sono comunemente usati nella medicina tradizionale.",
       "incontrato": "0"
     },
-    "44": {
+    "46": {
         "nome": "Kingdra",
         "descrizione": "Vive in caverne sui fondali marini e crea vortici giganteschi ogni volta che si muove.",
       "incontrato": "0"
     },
-    "45": {
+    "47": {
         "nome": "Corphish",
         "descrizione": "Vive anche nelle acque dei fiumi più inquinati. Le sue chele hanno una presa estremamente potente.",
       "incontrato": "0"
     },
-    "46": {
+    "48": {
         "nome": "Crawdaunt",
         "descrizione": "E' violento e portato a sfidare chiunque incontri. Le altre creature si rifiutano di vivere nei laghi abitati da questo Pokemon.",
       "incontrato": "0"
     },
-    "47": {
+    "49": {
         "nome": "Spheal",
         "descrizione": "Si muove piu' rapidamente rotolando che camminando. Alcuni esemplari a volte attraversano gli oceani stando in cima agli iceberg.",
       "incontrato": "0"
     },
-    "48": {
+    "50": {
         "nome": "Sealeo",
         "descrizione": "Quando vede qualcosa di nuovo, lo fa rotolare sul muso per saggiarne l'odore e la consistenza.",
       "incontrato": "0"
     },
-    "49": {
-        "nome": "Walrein",
+    "51": {
+        "nome": "Spheal",
         "descrizione": "Frantuma il ghiaccio con le zanne. Lo spesso strato adiposo respinge il freddo e gli attacchi nemici.",
       "incontrato": "0"
     },
-    "50": {
+    "52": {
         "nome": "Snorlax",
         "descrizione": "Diventa talmente pigro da non voler alzare nemmeno un dito se ha la pancia piena, che diventa un'arma di difesa quando ci salta sopra.",
       "incontrato": "0"
     },
-    "51": {
+    "53": {
         "nome": "Ralts",
         "descrizione": "Raramente si fa vedere dagli esseri umani, ma se percepisce un'energia positiva provenire da qualcuno è possibile che si avvicini.",
       "incontrato": "0"
     },
-    "52": {
+    "54": {
         "nome": "Kirlia",
         "descrizione": "E' in grado di percepire i sentimenti del suo Allenatore, e quando è felice si mette a ballare.",
       "incontrato": "0"
     },
-    "53": {
+    "55": {
         "nome": "Gardevoir",
         "descrizione": "Quando il suo Allenatore e' in pericolo usa tutto il suo potere psichico per creare un piccolo buco nero.",
       "incontrato": "0"
     },
-    "54": {
+    "56": {
         "nome": "Dratini",
         "descrizione": "Crescendo muta la pelle, e spesso la fa nascondendosi dietro il getto d'acqua di una cascata.",
       "incontrato": "0"
     },
-    "55": {
+    "57": {
         "nome": "Dragonair",
         "descrizione": "Se il suo corpo emana un’aura, il tempo cambia all'istante. Si dice che viva nei mari e nei laghi.",
       "incontrato": "0"
     },
-    "56": {
+    "58": {
         "nome": "Dragonite",
         "descrizione": "Si dice che viva in mare. Nonostante le piccole ali e il corpo di grandi dimensioni, in volo puo' superare la velocita' del suono.",
       "incontrato": "0"
     },
-    "57": {
+    "59": {
         "nome": "Swablu",
         "descrizione": "Ama la pulizia e spolvera qualsiasi superficie sporca con le sua ali simili al cotone.",
       "incontrato": "0"
     },
-    "58": {
+    "60": {
         "nome": "Altaria",
         "descrizione": "Ha un carattere gentile, ma se lo si fa arrabbiare emette un verso minaccioso per poi attaccare senza pieta'.",
       "incontrato": "0"
     },
-    "59": {
+    "61": {
         "nome": "Rhyhorn",
         "descrizione": "Carica caparbiamente calpestando tutto ciò che gli si para davanti.",
       "incontrato": "0"
     },
-    "60": {
+    "62": {
         "nome": "Rhydon",
         "descrizione": "Alzandosi sulle zampe posteriori, è diventato più sagace. Tuttavia, è molto smemorato.",
       "incontrato": "0"
     },
-    "61": {
+    "63": {
         "nome": "Rhyperior",
         "descrizione": "Lancia sassi e a volte dei Geodude dalle cavità dei suoi palmi. La sua corazza può resistere anche alle eruzioni vulcaniche.",
       "incontrato": "0"
     },
-    "62": {
+    "64": {
         "nome": "Mawile",
         "descrizione": "Le sue due enormi mandibole sono corna trasformate. Con esse può masticare persino travi di ferro.",
       "incontrato": "0"
     },
-    "63": {
-        "nome": "Absol",
+    "65": {
+        "nome": "Spheal",
         "descrizione": "Si dice che sia in grado di prevedere i disastri con il suo corno. Si è rifugiato sulle montagne.",
       "incontrato": "0"
     },
-    "64": {
+    "66": {
         "nome": "Trapinch",
         "descrizione": "Scava buche coniche in zone desertiche. Le sue ampie e robuste mandibole gli permettono di mangiare i sassi.",
       "incontrato": "0"
     },
-    "65": {
+    "67": {
         "nome": "Vibrava",
         "descrizione": "Sbattendo le ali, crea vibrazioni che emettono onde ultrasoniche.",
       "incontrato": "0"
     },
-    "66": {
+    "68": {
         "nome": "Flygon",
         "descrizione": "Genera tempeste di sabbia con il battito delle ali. E' detto anche Spirito primordiale del deserto.",
       "incontrato": "0"
     },
-    "67": {
+    "69": {
         "nome": "Celebi",
         "descrizione": "Celebi viaggia nel tempo come guardiano della foresta: ovunque compaia, prosperano prati e boschi.",
         "incontrato": "0"
     },
-    "68": {
+    "70": {
         "nome": "Mew",
         "descrizione": "Poiche' sa usare qualsiasi mossa, molti scienziati ritengono che MEW sia l’antenato di tutti i Pokémon.",
       "incontrato": "0"
     },
-    "69": {
+    "71": {
         "nome": "Giratina",
         "descrizione": "E' stato bandito per la sua violenza. Osserva il vecchio mondo in silenzio dal Mondo Distorto.",
       "incontrato": "0"
     },
-    "70": {
+    "72": {
         "nome": "Darkrai",
         "descrizione": "Per proteggersi, riempie di incubi la mente di chi gli sta intorno. Tuttavia, non è di indole malvagia.",
       "incontrato": "0"
     },
-    "71": {
+    "73": {
         "nome": "Shaymin",
         "descrizione": "I fiori che lo ricoprono sbocciano se viene abbracciato con affetto e si sente apprezzato.",
       "incontrato": "0"
