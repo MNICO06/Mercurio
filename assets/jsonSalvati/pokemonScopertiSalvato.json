@@ -2,17 +2,17 @@
   "1": {
       "nome": "Rowlet",
       "descrizione": "Questo Pokémon e' sempre all'erta. Di giorno accumula energia tramite fotosintesi per poi passare all'azione di notte.",
-      "incontrato": "0"
+      "incontrato": "1"
   },
   "2": {
       "nome": "Dartrix",
       "descrizione": "E' un po' vanitoso e non perde mai l'occasione di dedicarsi alla cura delle proprie ali. A volte rinuncia a lottare per non sporcarsi le piume.",
-      "incontrato": "0"
+      "incontrato": "1"
   },
   "3": {
       "nome": "Decidueye",
       "descrizione": "Scocca piume dalle sue ali come se fossero frecce. E' preciso al punto da riuscire a centrare una piccola pietra a 100 m di distanza.",
-      "incontrato": "0"
+      "incontrato": "1"
   },
   "4": {
       "nome": "Popplio",
@@ -47,7 +47,7 @@
   "10": {
       "nome": "Pikachu",
       "descrizione": "Di tanto in tanto ricarica gli altri PIKACHU indeboliti usando una scarica elettrica.",
-    "incontrato": "0"
+    "incontrato": "1"
   },
   "11": {
       "nome": "Raichu",
@@ -102,12 +102,12 @@
   "21": {
       "nome": "Bidoof",
       "descrizione": "Uno studio ha rivelato che gli incisivi di BIDOOF crescono allo stesso ritmo di quelli di RATTATA.",
-    "incontrato": "0"
+    "incontrato": "1"
   },
   "22": {
       "nome": "Bibarel",
       "descrizione": "Un fiume in cui BIBAREL ha costruito una diga non straripa mai, cosa molto apprezzata da chi ci vive vicino.",
-    "incontrato": "0"
+    "incontrato": "1"
   },
   "23": {
       "nome": "Mareep",
@@ -127,7 +127,7 @@
   "26": {
       "nome": "Onix",
       "descrizione": "Facendo ruotare il proprio corpo è in grado di perforare il terreno a una velocità di 80 km/h.",
-    "incontrato": "0"
+    "incontrato": "1"
   },
   "27": {
       "nome": "Steelix",
@@ -192,12 +192,12 @@
   "39": {
       "nome": "Riolu",
       "descrizione": "E' in grado di vedere emozioni come rabbia e gioia sotto forma di onde. Si tratta di un potere unico.",
-    "incontrato": "0"
+    "incontrato": "1"
   },
   "40": {
       "nome": "Lucario",
       "descrizione": "Se ben addestrato, LUCARIO riesce a identificare e a percepire le emozioni di creature lontane 1 km.",
-    "incontrato": "0"
+    "incontrato": "1"
   },
   "41": {
       "nome": "Magikarp",

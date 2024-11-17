@@ -2,7 +2,9 @@ package com.mercurio.game.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.TextureData;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -12,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
@@ -34,7 +37,7 @@ public class Pokedex {
     Array<Image> animationImages = new Array<>();
 
     private int pagina = 1;
-    private int yPoke = 540;
+    private int yPoke = 520;
     private int cont = 1;
     private int pokePerPag = 30;
     private int numeroPokemon = 73;
@@ -138,6 +141,10 @@ public class Pokedex {
         indietroImage.setVisible(false);
         avantiImage.setVisible(false);
 
+        pokedexActor.add(indietroImage);
+        pokedexActor.add(avantiImage);
+
+
         //listener per la freccia avanti
         indietroImage.addListener(new ClickListener() {
             @Override
@@ -178,6 +185,7 @@ public class Pokedex {
         label = new Label("PAGINA 1", labelStyle);
         label.setPosition(410, 60);
         label.setVisible(false);
+        pokedexActor.add(label);
 
         stage.addActor(label);
 
@@ -201,16 +209,49 @@ public class Pokedex {
 
                 Texture animationTexture = new Texture("pokemon/" + nomePoke + "Label.png");
                 TextureRegion animationRegion = new TextureRegion(animationTexture, 0, 0, animationTexture.getWidth() / 2, animationTexture.getHeight());
-
                 Image animationImage = new Image(animationRegion);
                 animationImage.setSize(animationTexture.getWidth() + 40, animationTexture.getHeight()*2 + 40);
                 animationImage.setPosition(50 + (cont * 120),  yPoke);
                 stage.addActor(animationImage);
-
-                //TODO: aggiungere il listener e il renderlo nero se non presente
-                
-
                 animationImages.add(animationImage);
+
+                if (pokeJson.getString("incontrato").equals("0")) {
+
+                    TextureData textureData = animationTexture.getTextureData();
+                    if (!textureData.isPrepared()) {
+                        textureData.prepare();  // Prepare the texture data for pixmap access
+                    }
+                    Pixmap pokePixmap = textureData.consumePixmap();  // Now we can get the pixmap safely
+
+                    // Create a white Pixmap with the same dimensions and transparency
+                    Pixmap blackPixmap = new Pixmap(animationTexture.getWidth() / 2, animationTexture.getHeight(), Pixmap.Format.RGBA8888);
+                    for (int x = 0; x < (animationTexture.getWidth() / 2); x++) {
+                        for (int y = 0; y < animationTexture.getHeight(); y++) {
+                            int pixel = pokePixmap.getPixel(x, y);
+                            int alpha = pixel & 0x000000FF;  // Extract the alpha component
+                            blackPixmap.drawPixel(x, y, (0x00000000 | alpha));  // Set RGB to white, keep original alpha
+                        }
+                    }
+
+                    Texture blackTexture = new Texture(blackPixmap);
+                    pokePixmap.dispose();  // Dispose original pixmap to free resources
+                    blackPixmap.dispose();  // Dispose white pixmap after creating the texture
+
+                    TextureRegion whiteRegion = new TextureRegion(blackTexture);
+                    Image blackOverlay = new Image(whiteRegion);  // Create an overlay image with white shape
+                    blackOverlay.setSize(animationTexture.getWidth() + 40, animationTexture.getHeight()*2 + 40);
+                    blackOverlay.setPosition(50 + (cont * 120),  yPoke);
+
+                    stage.addActor(blackOverlay);
+                    animationImages.add(blackOverlay);
+
+                }
+
+
+                //TODO: aggiungere il listener
+
+
+                
 
                 cont ++;
                 if (cont == 7) {
@@ -230,7 +271,7 @@ public class Pokedex {
 
         animationImages.clear();
         cont = 0;
-        yPoke = 540;
+        yPoke = 520;
     }
 
     private void pulsisciInventario() {
