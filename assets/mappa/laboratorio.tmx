@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="15" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="20" nextobjectid="57">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="15" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="20" nextobjectid="60">
  <tileset firstgid="1" name="ground" tilewidth="16" tileheight="16" tilecount="8284" columns="76">
   <image source="Room_Builder_16x16.png" width="1216" height="1744"/>
  </tileset>
@@ -45,9 +45,6 @@
 2620,2619,2620,2620,2620,2620,2620,2620,2620,2620,2620,2620,2620,2620,2620
 </data>
  </layer>
- <objectgroup color="#aaffff" id="17" name="teleport">
-  <object id="56" name="entrata" x="50" y="279.273" width="27.6364" height="22"/>
- </objectgroup>
  <layer id="2" name="WallAlwaysBack" width="15" height="20">
   <data encoding="csv">
 4691,4845,4844,4845,4844,4845,4844,4845,4844,4845,4844,4845,4844,4845,4694,
@@ -288,7 +285,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="11" name="exit" width="15" height="20">
+ <layer id="11" name="tappeto" width="15" height="20" offsetx="2.90801" offsety="0">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -377,6 +374,11 @@
     <property name="layer" value="bancone"/>
    </properties>
   </object>
+  <object id="59" name="pokeball" x="14.2791" y="196.461" width="213.636">
+   <properties>
+    <property name="layer" value="pokeball"/>
+   </properties>
+  </object>
   <object id="53" name="computer" x="13.8182" y="151.818" width="68">
    <properties>
     <property name="layer" value="computer"/>
@@ -387,8 +389,13 @@
     <property name="layer" value="fiascheVerdi"/>
    </properties>
   </object>
+  <object id="57" name="wall1" x="16.922" y="92.8191" width="205.981" height="0.875274">
+   <properties>
+    <property name="layer" value="wall1"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup color="#55ff00" id="19" name="exit">
-  <object id="55" name="uscita" x="50" y="305.091" width="27.8182" height="14.7273"/>
+  <object id="58" x="50.1823" y="304.012" width="28.0088" height="15.7549"/>
  </objectgroup>
 </map>

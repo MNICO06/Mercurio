@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapLayer;
@@ -16,8 +17,18 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
 
-public class Laboratorio extends ScreenAdapter {
+/*
+ * mettere un rettangolo di controllo tra le due teche, quando lo si passa e non si ha nessun pkemon si viene bloccati,
+ * il professere che si trova di fronte alla pokeball ti viene in contro e ti dice qualcosa, poi torna indietro fino ad essere
+ * dalla parte opposta delle pokeball e poi puoi tornare a muoverti, poi bisogna avvicinarsi alle pokeball e parlare per scegliere
+ * il pokemon, poi quando si sceglie non succede più nulla.
+ * quando si entra e si possiede già un pokemon il professore si trova in un altro punto
+ */
+
+public class Laboratorio extends ScreenAdapter{
     private final MercurioMain game;
 
     //dati per render della mappa
@@ -34,14 +45,15 @@ public class Laboratorio extends ScreenAdapter {
 
     public Laboratorio(MercurioMain game) {
         this.game = game;
+        //renderizzo il professore
+
         rectList = new ArrayList<Rectangle>();
     }
 
-
     @Override
     public void show() {
-
-        game.setLuogo("Laboratorio");
+        game.setLuogo("laboratorio");
+        game.getMusica().startMusic("labPokemon");
 
         TmxMapLoader mapLoader = new TmxMapLoader();
         lab = mapLoader.load(Constant.LAB_MAPPA);
@@ -54,14 +66,16 @@ public class Laboratorio extends ScreenAdapter {
 
         //creo la camera
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, map_size.x/1.9f, map_size.y/2f);
+        camera.setToOrtho(false, map_size.x/1.5f, map_size.y/2.5f);
         camera.update();
 
         game.setMap(lab, tileRenderer, camera, map_size.x, map_size.y);
 
-        game.getPlayer().setPosition(100, 50);
-        
-        //prendere rettangolo per mappa
+        //aggiungere alla lista delle collisioni quella del professore
+
+        game.getPlayer().setPosition(55, 20);
+
+        //recupero il rettangolo per uscire dalla mappa
         MapObjects objects = lab.getLayers().get("exit").getObjects();
         for (MapObject object : objects) {
             if (object instanceof RectangleMapObject) {
@@ -70,39 +84,33 @@ public class Laboratorio extends ScreenAdapter {
 
                 // Ottieni il rettangolo
                 rectangleUscita = rectangleObject.getRectangle();
+
             } 
         }
     }
 
     @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
     public void render(float delta) {
-        
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         lineeLayer = game.getLineeLayer();
         game.setRectangleList(rectList);
         cambiaProfondita(lineeLayer);
         controllaUscita();
-
     }
 
-    //cambio continuamente forground e background in base alla pos del personaggio
     private void cambiaProfondita(MapLayer lineeLayer) {
-        ArrayList<String> backbackground = new ArrayList<String>();
         ArrayList<String> background = new ArrayList<String>();
         ArrayList<String> foreground = new ArrayList<String>();
-        
 
-        backbackground.add("floor");
+        //aggiungo nel background tutto quello che sta sempre dietro
+        //background.add("");
 
+        background.add("floor");
         background.add("WallAlwaysBack");
         background.add("AlwaysBack1");
         background.add("AlwaysBack2");
+        background.add("tappeto");
 
 
         for (MapObject object : lineeLayer.getObjects()) {
@@ -113,38 +121,46 @@ public class Laboratorio extends ScreenAdapter {
                 String layerName = (String)rectangleObject.getProperties().get("layer");
 
                 if (game.getPlayer().getPlayerPosition().y < rectangleObject.getRectangle().getY()) {
-                    if (layerName == "bancone"){
-                        background.add(layerName);
-                        background.add("pokebal");
-                    }else{
-                        background.add(layerName);
-                    }
+                    background.add(layerName);
                 }else {
-                    if (layerName == "bancone"){
-                        foreground.add(layerName);
-                        foreground.add("pokebal");
-                    }else{
-                        foreground.add(layerName);
-                    }
+                    foreground.add(layerName);
                 }
             }
         }
+
+        /*  da usare in futuro per il professore
+        boolean isForeground = false;
+        if (game.getPlayer().getPlayerPosition().y < mammaAsh.getPosition().y){
+            isForeground = true;
+        }
+        */
 
         //background
         for (String layerName : background) {
             renderLayer(layerName);
         }
 
+        /*  da usare in futuro per il professore
+        if (isForeground) {
+            game.renderPersonaggiSecondari(mammaAsh.getTexture(), mammaAsh.getPosition().x, mammaAsh.getPosition().y, mammaAsh.getWidth(), mammaAsh.getHeight());
+        }
+        */
+
         game.renderPlayer();
-        
+
         //foreground
         for (String layerName : foreground) {
             renderLayer(layerName);
         }
-        
+
+        /*  da usare in futuro per il professore
+        if (!isForeground) {
+            game.renderPersonaggiSecondari(mammaAsh.getTexture(), mammaAsh.getPosition().x, mammaAsh.getPosition().y, mammaAsh.getWidth(), mammaAsh.getHeight());
+        }
+        */
+
     }
 
-    // Metodo per renderizzare un singolo layer
     private void renderLayer(String layerName) {
         tileRenderer.getBatch().begin();
         
@@ -156,19 +172,46 @@ public class Laboratorio extends ScreenAdapter {
         tileRenderer.getBatch().end();
     }
 
-    public void controllaUscita() {
-        if(game.getPlayer().getBoxPlayer().overlaps(rectangleUscita)) {
-            game.setTeleport("uscitaCasa");
-            game.setPage(Constant.MAPPA_SCREEN);
+    //ritorna false se non si ha ancora lo starter, se no ritorna true
+    private boolean controllaPresenzaStarter() {
+        try {
+            // Carica il file JSON
+            FileHandle file = Gdx.files.internal("assets/ashJson/squadra.json");
+            String jsonString = file.readString();
+
+            JsonValue json = new JsonReader().parse(jsonString);
+            JsonValue poke1 = json.get("poke1");
+
+            if (poke1 != null) {
+                String nomePokemon = poke1.getString("nomePokemon", "");
+
+                if (nomePokemon.isEmpty()) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+
+        } catch (Exception e) {
+            return false;
         }
     }
 
+    private void controllaUscita() {
+        if(game.getPlayer().getBoxPlayer().overlaps(rectangleUscita)) {
+            game.setTeleport("uscitaLab");
+            game.setPage(Constant.MAPPA_SCREEN);
+        }
+    }
 
     @Override
     public void dispose() {
         if (lab != null)  {
             lab.dispose();
         }
+
         tileRenderer.dispose();
     }
 

@@ -11,6 +11,6 @@ public class Constant {
     public static final String MAPPA_SCREEN = "mappa";
     public static final String MAPPA = "mappa/FullMapLimitedNV2.tmx";
     public static final String SCHERMATA_LOGO = "logo";
-    public static final String LABORATORIO = "lab";
+    public static final String LABORATORIO = "laboratorio";
     public static final String LAB_MAPPA = "mappa/laboratorio.tmx";
 }
