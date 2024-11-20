@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="15" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="25" nextobjectid="65">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="15" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="25" nextobjectid="65">
  <tileset firstgid="1" name="ground" tilewidth="16" tileheight="16" tilecount="8284" columns="76">
   <image source="Room_Builder_16x16.png" width="1216" height="1744"/>
  </tileset>
@@ -489,27 +489,27 @@
     <property name="layer" value="vetrina2"/>
    </properties>
   </object>
-  <object id="52" name="bancone" x="17.75" y="196.184" width="205.646" height="-1.36002e-14">
+  <object id="52" name="bancone" x="17.75" y="201.184" width="205.646" height="-1.36002e-14">
    <properties>
     <property name="layer" value="bancone"/>
    </properties>
   </object>
-  <object id="59" name="pokeball1" x="18.0187" y="196.452" width="205.646">
+  <object id="59" name="pokeball1" x="18.0187" y="202.452" width="205.646">
    <properties>
     <property name="layer" value="pokeball1"/>
    </properties>
   </object>
-  <object id="62" name="pokeball2" x="16.7273" y="195.091" width="205.909">
+  <object id="62" name="pokeball2" x="16.7273" y="202.091" width="205.909">
    <properties>
     <property name="layer" value="pokeball2"/>
    </properties>
   </object>
-  <object id="63" name="pokeball3" x="16.3409" y="196.727" width="206.75">
+  <object id="63" name="pokeball3" x="16.3409" y="202.727" width="206.75">
    <properties>
     <property name="layer" value="pokeball3"/>
    </properties>
   </object>
-  <object id="64" name="decoBancone" x="16.7051" y="197.992" width="209.568">
+  <object id="64" name="decoBancone" x="16.7051" y="201.992" width="209.568" visible="0">
    <properties>
     <property name="layer" value="decoBancone"/>
    </properties>

@@ -1,12 +1,16 @@
 package com.mercurio.game.Screen;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g3d.Renderable;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
@@ -19,6 +23,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import com.mercurio.game.personaggi.Bot;
+import com.mercurio.game.personaggi.Professore;
 
 /*
  * mettere un rettangolo di controllo tra le due teche, quando lo si passa e non si ha nessun pkemon si viene bloccati,
@@ -37,17 +43,28 @@ public class Laboratorio extends ScreenAdapter{
     private OrthographicCamera camera;
     private Vector2 map_size;
     private MapLayer lineeLayer;
+    private Professore professore;
+    private boolean haStarter = false;
 
     //rettangolo con la lista delle persone che collidono
     private ArrayList<Rectangle> rectList = null;
+    List<Render> render = new ArrayList<>();
+    ArrayList<String> listaAllawaysBack = new ArrayList<String>();
 
     private Rectangle rectangleUscita;
 
     public Laboratorio(MercurioMain game) {
         this.game = game;
+        professore = new Professore();
         //renderizzo il professore
 
         rectList = new ArrayList<Rectangle>();
+
+        listaAllawaysBack.add("floor");
+        listaAllawaysBack.add("WallAlwaysBack");
+        listaAllawaysBack.add("AlwaysBack1");
+        listaAllawaysBack.add("AlwaysBack2");
+        listaAllawaysBack.add("tappeto");
     }
 
     @Override
@@ -87,6 +104,16 @@ public class Laboratorio extends ScreenAdapter{
 
             } 
         }
+
+        if (controllaPresenzaStarter()) {
+            professore.setPosition(80, 130);
+            haStarter = true;
+            rectList.add(professore.getBox());
+        }else {
+            professore.setPosition(115, 100);
+            rectList.add(professore.getBox());
+            haStarter = false;
+        }
     }
 
     @Override
@@ -97,67 +124,53 @@ public class Laboratorio extends ScreenAdapter{
         game.setRectangleList(rectList);
         cambiaProfondita(lineeLayer);
         controllaUscita();
+
+        if (!haStarter) {
+            storiaStarter();
+        }
     }
 
     private void cambiaProfondita(MapLayer lineeLayer) {
-        ArrayList<String> background = new ArrayList<String>();
-        ArrayList<String> foreground = new ArrayList<String>();
+        //pulisco l'array in modo tale che non pesi
+        render.clear();
 
-        //aggiungo nel background tutto quello che sta sempre dietro
-        //background.add("");
-
-        background.add("floor");
-        background.add("WallAlwaysBack");
-        background.add("AlwaysBack1");
-        background.add("AlwaysBack2");
-        background.add("tappeto");
-
-
+        //inserisci i vari layer nella lista
         for (MapObject object : lineeLayer.getObjects()) {
             if (object instanceof RectangleMapObject) {
-                RectangleMapObject rectangleObject = (RectangleMapObject)object;
-
-                //salvo il nome del layer che verrà inserito in una delle due liste
-                String layerName = (String)rectangleObject.getProperties().get("layer");
-
-                if (game.getPlayer().getPlayerPosition().y < rectangleObject.getRectangle().getY()) {
-                    background.add(layerName);
-                }else {
-                    foreground.add(layerName);
-                }
+                RectangleMapObject rectangleObject = (RectangleMapObject) object;
+                String layerName = (String) rectangleObject.getProperties().get("layer");
+                float y = rectangleObject.getRectangle().getY();
+                render.add(new Render("layer", layerName, y));
             }
         }
 
-        /*  da usare in futuro per il professore
-        boolean isForeground = false;
-        if (game.getPlayer().getPlayerPosition().y < mammaAsh.getPosition().y){
-            isForeground = true;
-        }
-        */
+        // Inserisci il professore e il giocatore
+        render.add(new Render("bot", professore.getTexture(), professore.getPosition().x, professore.getPosition().y, professore.getWidth(), professore.getHeight()));
+        render.add(new Render("player", game.getPlayer().getPlayerPosition().y));
+
+
+        // Ordina in base alla posizione `y`
+        Collections.sort(render, Comparator.comparingDouble(r -> -r.y));
 
         //background
-        for (String layerName : background) {
+        for (String layerName : listaAllawaysBack) {
             renderLayer(layerName);
         }
 
-        /*  da usare in futuro per il professore
-        if (isForeground) {
-            game.renderPersonaggiSecondari(mammaAsh.getTexture(), mammaAsh.getPosition().x, mammaAsh.getPosition().y, mammaAsh.getWidth(), mammaAsh.getHeight());
+        // Renderizza nell'ordine corretto
+        for (Render renderComponent : render) {
+            switch (renderComponent.type) {
+                case "layer":
+                    renderLayer(renderComponent.layerName);
+                    break;
+                case "bot":
+                    game.renderPersonaggiSecondari(professore.getTexture(), professore.getPosition().x, professore.getPosition().y, professore.getWidth(), professore.getHeight());
+                    break;
+                case "player":
+                    game.renderPlayer();
+                    break;
+            }
         }
-        */
-
-        game.renderPlayer();
-
-        //foreground
-        for (String layerName : foreground) {
-            renderLayer(layerName);
-        }
-
-        /*  da usare in futuro per il professore
-        if (!isForeground) {
-            game.renderPersonaggiSecondari(mammaAsh.getTexture(), mammaAsh.getPosition().x, mammaAsh.getPosition().y, mammaAsh.getWidth(), mammaAsh.getHeight());
-        }
-        */
 
     }
 
@@ -170,6 +183,10 @@ public class Laboratorio extends ScreenAdapter{
         tileRenderer.renderTileLayer((TiledMapTileLayer)layer);
 
         tileRenderer.getBatch().end();
+    }
+
+    private void storiaStarter() {
+
     }
 
     //ritorna false se non si ha ancora lo starter, se no ritorna true
