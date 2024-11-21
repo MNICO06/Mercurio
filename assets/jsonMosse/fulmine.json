@@ -1,11 +1,188 @@
 {
     "data": {
-        "image": "spriteMosse/grass.png",
+        "image": "spriteMosse/eletric.png",
         "numeroColonne": 5,
-        "numeroRighe": 10,
+        "numeroRighe": 13,
         "tipologia": "continua",
         "frame": [
-            
+            [
+                {
+                    "numeroSprite": "0",
+                    "x": "50",
+                    "y": "50",
+                    "altezza": "300",
+                    "larghezza": "300",
+                    "opacity": "1"
+                },
+                {
+                    "numeroSprite": "1",
+                    "x": "50",
+                    "y": "50",
+                    "altezza": "300",
+                    "larghezza": "300",
+                    "opacity": "1"
+                },
+                {
+                    "numeroSprite": "0",
+                    "x": "50",
+                    "y": "50",
+                    "altezza": "300",
+                    "larghezza": "300",
+                    "opacity": "1"
+                },
+                {
+                    "numeroSprite": "1",
+                    "x": "50",
+                    "y": "50",
+                    "altezza": "300",
+                    "larghezza": "300",
+                    "opacity": "1"
+                },
+                {
+                    "numeroSprite": "0",
+                    "x": "50",
+                    "y": "50",
+                    "altezza": "300",
+                    "larghezza": "300",
+                    "opacity": "1"
+                },
+                {
+                    "numeroSprite": "1",
+                    "x": "50",
+                    "y": "50",
+                    "altezza": "300",
+                    "larghezza": "300",
+                    "opacity": "1"
+                },
+                {
+                    "numeroSprite": "0",
+                    "x": "50",
+                    "y": "50",
+                    "altezza": "300",
+                    "larghezza": "300",
+                    "opacity": "1"
+                },
+                {
+                    "numeroSprite": "1",
+                    "x": "50",
+                    "y": "50",
+                    "altezza": "300",
+                    "larghezza": "300",
+                    "opacity": "1"
+                },
+                {
+                    "numeroSprite": "0",
+                    "x": "50",
+                    "y": "50",
+                    "altezza": "300",
+                    "larghezza": "300",
+                    "opacity": "1"
+                },
+                {
+                    "numeroSprite": "1",
+                    "x": "50",
+                    "y": "50",
+                    "altezza": "300",
+                    "larghezza": "300",
+                    "opacity": "1"
+                },
+                {
+                    "numeroSprite": "0",
+                    "x": "50",
+                    "y": "50",
+                    "altezza": "300",
+                    "larghezza": "300",
+                    "opacity": "1"
+                },
+                {
+                    "numeroSprite": "1",
+                    "x": "50",
+                    "y": "50",
+                    "altezza": "300",
+                    "larghezza": "300",
+                    "opacity": "1"
+                },
+                {
+                    "numeroSprite": "0",
+                    "x": "50",
+                    "y": "50",
+                    "altezza": "300",
+                    "larghezza": "300",
+                    "opacity": "1"
+                },
+                {
+                    "numeroSprite": "1",
+                    "x": "50",
+                    "y": "50",
+                    "altezza": "300",
+                    "larghezza": "300",
+                    "opacity": "1"
+                },
+                {
+                    "numeroSprite": "0",
+                    "x": "50",
+                    "y": "50",
+                    "altezza": "300",
+                    "larghezza": "300",
+                    "opacity": "1"
+                },
+                {
+                    "numeroSprite": "1",
+                    "x": "50",
+                    "y": "50",
+                    "altezza": "300",
+                    "larghezza": "300",
+                    "opacity": "1"
+                },
+                {
+                    "numeroSprite": "0",
+                    "x": "50",
+                    "y": "50",
+                    "altezza": "300",
+                    "larghezza": "300",
+                    "opacity": "1"
+                },
+                {
+                    "numeroSprite": "1",
+                    "x": "50",
+                    "y": "50",
+                    "altezza": "300",
+                    "larghezza": "300",
+                    "opacity": "1"
+                },
+                {
+                    "numeroSprite": "0",
+                    "x": "50",
+                    "y": "50",
+                    "altezza": "300",
+                    "larghezza": "300",
+                    "opacity": "1"
+                },
+                {
+                    "numeroSprite": "1",
+                    "x": "50",
+                    "y": "50",
+                    "altezza": "300",
+                    "larghezza": "300",
+                    "opacity": "1"
+                },
+                {
+                    "numeroSprite": "0",
+                    "x": "50",
+                    "y": "50",
+                    "altezza": "300",
+                    "larghezza": "300",
+                    "opacity": "1"
+                },
+                {
+                    "numeroSprite": "1",
+                    "x": "50",
+                    "y": "50",
+                    "altezza": "300",
+                    "larghezza": "300",
+                    "opacity": "1"
+                }
+            ]
         ]
     }
 }
