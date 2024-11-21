@@ -10,7 +10,7 @@
 		"special_attack": 50,
 		"special_defense": 50,
 		"speed": 90,
-		"hp": "35"
+		"hp": "0"
 	},
 	"ev": {
 		"Hp": 0,
@@ -60,7 +60,7 @@
 		"special_attack": 50,
 		"special_defense": 50,
 		"speed": 90,
-		"hp": "35"
+		"hp": "0"
 	},
 	"ev": {
 		"Hp": 0,
@@ -116,7 +116,7 @@
 		"special_attack": 500,
 		"special_defense": 50,
 		"speed": 90,
-		"hp": "400"
+		"hp": "30"
 	},
 	"ev": {
 		"Hp": 0,

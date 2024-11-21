@@ -1392,7 +1392,7 @@ public class Battle extends ScreenAdapter {
 
     }
 
-    private void utilizzoMossaBot(boolean otherAttack, Image labelMosse){
+    public void utilizzoMossaBot(boolean otherAttack, Image labelMosse){
         nextMoveBot=false;
         nextMove=labelMosse;
         globalOtherAttack=otherAttack;

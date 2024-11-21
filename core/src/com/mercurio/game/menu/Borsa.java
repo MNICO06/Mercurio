@@ -27,6 +27,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
 import com.mercurio.game.pokemon.Battle;
+import com.mercurio.game.pokemon.squadraCure;
 
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -37,6 +38,7 @@ public class Borsa {
     
     private Texture itemTexture;
     private Array<Actor> inventoryItemActors = new Array<>(); // Array per tracciare gli attori degli oggetti dell'inventario
+    private Array<Label> quantityLabels = new Array<>();
     private int currentPageIndex = 0;
     private TextureRegion frame;
     private Stage stage;
@@ -79,7 +81,7 @@ public class Borsa {
     private Image labelKey;
 
     private float stateTime;
-
+    private squadraCure squadraCure;
     private Battle battaglia;
     
     public Borsa(Stage stage, boolean battle, Battle battaglia) {
@@ -130,6 +132,10 @@ public class Borsa {
     public void render() {
         float deltaTime = Gdx.graphics.getDeltaTime();
         stage.act(deltaTime); // Aggiorna lo stage con il deltaTime
+
+        if (squadraCure!=null){
+            squadraCure.render();
+        }
 
         // Disegna la UI della borsa
         stage.draw(); // Disegna lo stage sullo SpriteBatch
@@ -389,6 +395,8 @@ public class Borsa {
                 }
             };
 
+            Borsa borsa=this;
+
             ClickListener clickListener= new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y){
@@ -406,6 +414,21 @@ public class Borsa {
                             public void clicked(InputEvent event, float x, float y) {
                                 close();
                                 battaglia.calcoloTassoCattura(itemName);
+                            }
+                        });
+                    }
+                    if (inventoryItems==inventoryCure){
+                        Texture usaTexture = new Texture("sfondo/usa.png");
+                        usaImage = new Image(usaTexture);
+                        usaImage.setPosition(70, 10);
+                        usaImage.setSize(56*3, 24*3);
+                        stage.addActor(usaImage);
+                        inventoryItemActors.add(usaImage);
+                        usaImage.addListener(new ClickListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
+                                usaImage.remove();
+                                squadraCure= new squadraCure(stage, battle, borsa, itemName, itemQuantity);
                             }
                         });
                     }
@@ -439,6 +462,7 @@ public class Borsa {
             Label itemQuantityLabel = new Label("x " + itemQuantity, new Label.LabelStyle(font, null));
             itemQuantityLabel.setPosition(itemX + 565, itemY+ 25);
             itemQuantityLabel.setFontScale(4);
+            quantityLabels.add(itemQuantityLabel);
             stage.addActor(itemQuantityLabel);
             inventoryItemActors.add(itemQuantityLabel);
 
@@ -498,5 +522,15 @@ public class Borsa {
         inventoryItemActors.clear(); // Pulisci l'array degli attori dell'inventario
     }
 
+    public void closeSquadra() {
+        Gdx.input.setInputProcessor(stage);
+        squadraCure = null;
+    }
+
+    public void ritornaBattaglia(){
+        battaglia.utilizzoMossaBot(false, null);
+        squadraCure.clearInventoryItems();
+        clearInventoryItems();
+    }
     
 }
