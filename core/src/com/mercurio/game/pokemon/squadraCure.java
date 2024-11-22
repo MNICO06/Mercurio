@@ -607,6 +607,7 @@ public class squadraCure {
                                 label3.remove();
                             label3=null;
 
+                            chiamanteBo.aggiornaQuantity(itemName);
                             clearInventoryItems();
                         }
                     }, 3f);  
@@ -644,6 +645,7 @@ public class squadraCure {
                             label4.remove();
                             label4=null;
 
+                            chiamanteBo.aggiornaQuantity(itemName);
                             clearInventoryItems();
                         }
                     }, 3f);  

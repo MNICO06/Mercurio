@@ -114,20 +114,27 @@ public class BorsaModifier {
         for (int i = 0; i < inventory.length(); i++) {
             JSONObject item = inventory.getJSONObject(i);
             String existingItemName = item.getString("name");
+            
             if (existingItemName.equals(itemName)) {
-                // Decrementa la quantità e rimuovi la riga se la quantità diventa zero
+                // Decrementa la quantità
                 int quantity = item.getInt("quantity");
                 item.put("quantity", quantity - 1);
-                if (quantity <= 0) {
-                    inventory.remove(i);
-                } 
+                
+                // Se la quantità diventa 0 o inferiore, rimuove l'oggetto
+                if (item.getInt("quantity") <= 0) {
+                    inventory.remove(i);  // Rimuovi l'oggetto dall'array
+                    i--;  // Decresci l'indice per compensare il cambiamento nell'array
+                }
+    
                 found = true;
                 break;
             }
         }
+        
         // Scrivi le modifiche sull'inventario nel file JSON
         writeInventoryToJson();
     }
+    
 
 
 
