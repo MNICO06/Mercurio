@@ -462,6 +462,7 @@ public class Borsa {
             Label itemQuantityLabel = new Label("x " + itemQuantity, new Label.LabelStyle(font, null));
             itemQuantityLabel.setPosition(itemX + 565, itemY+ 25);
             itemQuantityLabel.setFontScale(4);
+            itemQuantityLabel.setName("quantity"+itemName);
             quantityLabels.add(itemQuantityLabel);
             stage.addActor(itemQuantityLabel);
             inventoryItemActors.add(itemQuantityLabel);
@@ -527,10 +528,20 @@ public class Borsa {
         squadraCure = null;
     }
 
-    public void ritornaBattaglia(){
-        battaglia.utilizzoMossaBot(false, null);
+    public void ritornaBattaglia(String discorso, int indexCurato, String currentHP, String maxHP, int passi, int psCurati){
+        battaglia.ricominciaBattagliaDopoCura(discorso, indexCurato, currentHP, maxHP, passi, psCurati);
         squadraCure.clearInventoryItems();
         clearInventoryItems();
+        close();
+    }
+
+    public void aggiornaQuantity(String itemNome){
+        for (Label label : quantityLabels) {
+            if (label.getName().equals("quantity"+itemNome)){
+                
+                //label.setText(""+(Integer.parseInt(label.getText())-1));
+            }
+        }
     }
     
 }

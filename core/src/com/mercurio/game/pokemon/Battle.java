@@ -153,6 +153,7 @@ public class Battle extends ScreenAdapter {
     private LabelDiscorsi labelDiscorsi27;
     private LabelDiscorsi labelDiscorsi28;
     private LabelDiscorsi labelDiscorsi29;
+    private LabelDiscorsi labelDiscorsiCura;
     private Label label1;
     private Label label2;
     private Label label3;
@@ -182,6 +183,7 @@ public class Battle extends ScreenAdapter {
     private Label label27;
     private Label label28;
     private Label label29;
+    private Label labelCura;
     private String nomePoke;
     private String nomePokeSquad;
     private String currentPokeHP;
@@ -683,6 +685,9 @@ public class Battle extends ScreenAdapter {
             }
             if (label29!=null){
                 labelDiscorsi29.renderDisc();
+            }
+            if (labelCura!=null){
+                labelDiscorsiCura.renderDisc();
             }
             if (apprendimentoMosse!=null){
                 apprendimentoMosse.render();
@@ -1392,7 +1397,7 @@ public class Battle extends ScreenAdapter {
 
     }
 
-    public void utilizzoMossaBot(boolean otherAttack, Image labelMosse){
+    private void utilizzoMossaBot(boolean otherAttack, Image labelMosse){
         nextMoveBot=false;
         nextMove=labelMosse;
         globalOtherAttack=otherAttack;
@@ -4221,4 +4226,73 @@ public class Battle extends ScreenAdapter {
         file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
 
     }
+
+    public void ricominciaBattagliaDopoCura(String discorso, int indexCurato, String currentHPCura, String maxHPCura, int passiCura, int psCuratiCura){
+
+        labelDiscorsiCura = new LabelDiscorsi(discorso,dimMax,0,true, false);
+        labelDiscorsiCura.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
+        labelCura=labelDiscorsiCura.getLabel();
+        stage.addActor(labelCura);
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                labelDiscorsi5.reset();
+                if (labelDiscorsiCura!=null)
+                    labelCura.remove();
+                labelCura=null;
+            }
+        }, 3f);  
+
+        if (indexCurato==numeroIndexPoke){
+            updateHpBarWidthCura(currentHPCura,maxHPCura,passiCura, indexCurato,psCuratiCura);
+            leggiPoke(indexCurato);
+        }
+
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                utilizzoMossaBot(false,null);
+            }
+        }, 2.5f); 
+    }
+
+    private void updateHpBarWidthCura(String currentHP, String maxHP, int passi, int index, int psCurati) {
+        float percentualeHP = Float.parseFloat(currentHP) / Float.parseFloat(maxHP);
+        float lunghezzaHPBar = 96 * percentualeHP;
+
+        Color coloreHPBar;
+        if (percentualeHP >= 0.5f) {
+            coloreHPBar = Color.GREEN; // Verde se sopra il 50%
+        } else if (percentualeHP > 0.15f && percentualeHP < 0.5f) {
+            coloreHPBar = Color.YELLOW; // Giallo se tra il 15% e il 50%
+        } else {
+            coloreHPBar = Color.RED; // Rosso se sotto il 15%
+        }
+        // Crea un'azione parallela per aggiornare la larghezza della barra
+        HPplayer.addAction(Actions.sizeTo(lunghezzaHPBar, HPplayer.getHeight(), 2.5f));
+
+        // Aggiungi un'azione per cambiare il colore della barra
+        HPplayer.addAction(Actions.color(coloreHPBar, 2.5f));
+
+        float ritardoTraPassi = 1.25f / passi;
+
+        // Crea un'azione parallela per gestire contemporaneamente l'aggiornamento della larghezza della barra HP e l'animazione del cambiamento di labelHP
+        ParallelAction parallelAction = new ParallelAction();
+
+        // Aggiungi un'azione per l'animazione del cambiamento del valore di labelHP
+        for (int i = 0; i < passi; i++) {
+            int nuovoValore = Integer.parseInt(currentHP)-psCurati + (i+1);
+            
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    labelHP.setText(String.valueOf(nuovoValore));
+                }
+            }, i * ritardoTraPassi);
+        }
+
+        // Esegui l'azione parallela
+        HPplayer.addAction(parallelAction);
+    }
+
 } //Fine battaglia :)

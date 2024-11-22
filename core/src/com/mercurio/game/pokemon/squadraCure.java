@@ -73,6 +73,7 @@ public class squadraCure {
 
     public squadraCure(Stage stage, boolean battaglia, Borsa chiamanteBo, String itemName, String itemQuantity){
         this.battaglia=battaglia;
+        this.chiamanteBo=chiamanteBo;
         this.batch = (SpriteBatch) stage.getBatch();
         this.font = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
         this.stage = stage;
@@ -589,29 +590,30 @@ public class squadraCure {
 
                 file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
 
-                updateHpBarWidth(hpBarImages.get(indexCurato-1), (""+nuoviHP),(""+json2.get("poke"+indexCurato).get("statistiche").getInt("hpTot")), nuoviHP-hpVecchi, indexCurato, nuoviHP-hpVecchi);
-
                 String discorso3= json2.get("poke"+indexCurato).getString("nomePokemon")+" ha ripreso " +(nuoviHP-hpVecchi)+ " punti salute.";
-                labelDiscorsi3 = new LabelDiscorsi(discorso3,30,0,false, false);
-                labelDiscorsi3.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
-                label3=labelDiscorsi3.getLabel();
-                stage.addActor(label3);
-                Timer.schedule(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        labelDiscorsi3.reset();
-                        if (label3!=null)
-                            label3.remove();
-                        label3=null;
 
-                        clearInventoryItems();
+                if (!battaglia){
+                    updateHpBarWidth(hpBarImages.get(indexCurato-1), (""+nuoviHP),(""+json2.get("poke"+indexCurato).get("statistiche").getInt("hpTot")), nuoviHP-hpVecchi, indexCurato, nuoviHP-hpVecchi);
 
-                        if(battaglia){
-                            chiamanteBo.ritornaBattaglia();
+                    labelDiscorsi3 = new LabelDiscorsi(discorso3,30,0,false, false);
+                    labelDiscorsi3.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
+                    label3=labelDiscorsi3.getLabel();
+                    stage.addActor(label3);
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            labelDiscorsi3.reset();
+                            if (label3!=null)
+                                label3.remove();
+                            label3=null;
+
+                            clearInventoryItems();
                         }
-                        
-                    }
-                }, 3f);  
+                    }, 3f);  
+                }
+                else{
+                    chiamanteBo.ritornaBattaglia(discorso3,indexCurato,""+nuoviHP,(""+json2.get("poke"+indexCurato).get("statistiche").getInt("hpTot")), nuoviHP-hpVecchi, nuoviHP-hpVecchi);
+                }
             }
         }
         else{
@@ -625,30 +627,30 @@ public class squadraCure {
 
                 file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
 
-                updateHpBarWidth(hpBarImages.get(indexCurato-1), (""+nuoviHP),(""+json2.get("poke"+indexCurato).get("statistiche").getInt("hpTot")), nuoviHP, indexCurato, nuoviHP);
-
                 String discorso4= json2.get("poke"+indexCurato).getString("nomePokemon")+" e' tornato in forma!";
-                labelDiscorsi4 = new LabelDiscorsi(discorso4,30,0,false, false);
-                labelDiscorsi4.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
-                label4=labelDiscorsi4.getLabel();
-                stage.addActor(label4);
-                Timer.schedule(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        labelDiscorsi4.reset();
-                        if (label4!=null)
-                        label4.remove();
-                        label4=null;
 
-                        clearInventoryItems();
+                    if (!battaglia){
+                    updateHpBarWidth(hpBarImages.get(indexCurato-1), (""+nuoviHP),(""+json2.get("poke"+indexCurato).get("statistiche").getInt("hpTot")), nuoviHP, indexCurato, nuoviHP);
 
-                        if(battaglia){
-                            chiamanteBo.ritornaBattaglia();
+                    labelDiscorsi4 = new LabelDiscorsi(discorso4,30,0,false, false);
+                    labelDiscorsi4.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
+                    label4=labelDiscorsi4.getLabel();
+                    stage.addActor(label4);
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            labelDiscorsi4.reset();
+                            if (label4!=null)
+                            label4.remove();
+                            label4=null;
+
+                            clearInventoryItems();
                         }
-                        
-                    }
-                }, 3f);  
-            
+                    }, 3f);  
+                }
+                else{
+                    chiamanteBo.ritornaBattaglia(discorso4,indexCurato,""+nuoviHP,(""+json2.get("poke"+indexCurato).get("statistiche").getInt("hpTot")), nuoviHP, nuoviHP);
+                }
             }
             else{
                 String discorso5= "Il pokemon è gia' in forma!";
