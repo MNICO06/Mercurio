@@ -217,6 +217,7 @@ public class SceltaStarterScreen extends ScreenAdapter {
                 if (risposta == 1) {
                     salvaStarter("Litten");
                     labelLitten.setSceltaUtente(-1);
+                    salvaStarterRivale("Popplio");
                     scelto = true;
 
                 }
@@ -236,6 +237,7 @@ public class SceltaStarterScreen extends ScreenAdapter {
                 if (risposta == 1) {
                     salvaStarter("Popplio");
                     labelPopplio.setSceltaUtente(-1);
+                    salvaStarterRivale("Rowlet");
                     scelto = true;
                 }
                 else if (risposta == 0) {
@@ -254,6 +256,7 @@ public class SceltaStarterScreen extends ScreenAdapter {
                 if (risposta == 1) {
                     salvaStarter("Rowlet");
                     labelRowlet.setSceltaUtente(-1);
+                    salvaStarterRivale("Litten");
                     scelto = true;
                 }
                 else if (risposta == 0) {
@@ -341,6 +344,43 @@ public class SceltaStarterScreen extends ScreenAdapter {
 
             Stats stats = new Stats();
             stats.aggiornaStatistichePokemon(1);
+    }
+
+    private void salvaStarterRivale(String pokemon) {
+        // Carica il file JSON
+        FileHandle file = Gdx.files.local("assets/ashJson/rivale.json");
+        String jsonString = file.readString();
+
+        JsonValue json = new JsonReader().parse(jsonString);
+
+        json.get("rivale").get("poke1").get("nomePokemon").set(pokemon);
+        json.get("rivale").get("poke1").get("livello").set("5");
+
+        //recupero dal json del nome delle due mosse
+        FileHandle filePokemon = Gdx.files.local("assets/pokemon/pokemon.json");
+        JsonValue jsonPokemon = new JsonReader().parse(filePokemon.readString());
+        String nomeMossa1 = jsonPokemon.get(pokemon).get("mosseImparabili").getString("M1");
+        String nomeMossa2 = jsonPokemon.get(pokemon).get("mosseImparabili").getString("M2");
+
+        //recupero dal json del tipo delle due mosse
+        FileHandle fileMosse = Gdx.files.local("assets/pokemon/mosse.json");
+        JsonValue jsonMosse = new JsonReader().parse(fileMosse.readString());
+
+
+        JsonValue mosseArray = json.get("rivale").get("poke1").get("mosse");
+        JsonValue primaMossa = mosseArray.get(0);
+        
+
+        primaMossa.get("nome").set(nomeMossa1);
+        primaMossa.get("tipo").set(jsonMosse.get(nomeMossa1).getString("tipo"));
+
+        JsonValue secondaMossa = mosseArray.get(1);
+
+        secondaMossa.get("nome").set(nomeMossa2);
+        secondaMossa.get("tipo").set(jsonMosse.get(nomeMossa2).getString("tipo"));
+
+        file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
+
     }
 
     public void dispose() {

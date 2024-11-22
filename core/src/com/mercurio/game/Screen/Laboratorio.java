@@ -37,6 +37,7 @@ import com.mercurio.game.effects.LabelDiscorsi;
 import com.mercurio.game.personaggi.Bot;
 import com.mercurio.game.personaggi.Professore;
 import com.mercurio.game.personaggi.Rivale;
+import com.mercurio.game.pokemon.Battle;
 
 /*
  * mettere un rettangolo di controllo tra le due teche, quando lo si passa e non si ha nessun pkemon si viene bloccati,
@@ -63,6 +64,8 @@ public class Laboratorio extends ScreenAdapter{
     Vector3 screenPosition;
     private float puntoEsclamativoX;
     private float puntoEsclamativoY;
+
+    private Battle battle;
 
     //rettangolo con la lista delle persone che collidono
     private ArrayList<Rectangle> rectList = null;
@@ -92,6 +95,15 @@ public class Laboratorio extends ScreenAdapter{
     private boolean iniziaDiscorso3 = false;
     private boolean iniziaFarComparireRivale = false;       //lo faccio renderizzare
     private boolean faiSalireRivale = false;                //lo faccio andare verso il bancone
+    private boolean faiSalireRivale2 = false;
+    private boolean faiSalireRivale3 = false;
+    private boolean iniziaDiscorso4Rivale = false;
+    private boolean inziaDiscorso5Prof = false;
+    private boolean iniziaDiscorso6Rivale = false;
+    private boolean iniziaDiscorso7Rivale = false;
+    private boolean iniziaDiscorso8Prof = false;
+    private boolean iniziaDiscorso9Rivale = false;
+    private boolean iniziaDiscorso10Prof = false;
 
     //variabili per il testo del professore quando non si ha uno starter
     private LabelDiscorsi primoDiscorso;
@@ -197,7 +209,7 @@ public class Laboratorio extends ScreenAdapter{
             haStarter = false;
         }
 
-        rivale.setPosition(115, 80);
+        rivale.setPosition(115, 20);
 
         
     }
@@ -303,7 +315,6 @@ public class Laboratorio extends ScreenAdapter{
         if (game.getPlayer().getBoxPlayer().overlaps(rettangoloFerma)) {
 
             game.getPlayer().setMovement(false);
-            game.getPlayer().setFermoAvanti();
 
             if (renderizzaPunto) {
                 renderizzaPuntoEsclamativo();
@@ -347,13 +358,40 @@ public class Laboratorio extends ScreenAdapter{
             if (faiSalireRivale) {
                 portaRivaleSu();
             }
-
+            if (faiSalireRivale2) {
+                portaRivaleSu2();
+            }
+            if (faiSalireRivale3) {
+                portaRivaleSu3();
+            }
+            if (iniziaDiscorso4Rivale) {
+                renderizzaDiscorso4();
+            }
+            if (inziaDiscorso5Prof) {
+                renderizzaDiscorso5();
+            }
+            if (iniziaDiscorso6Rivale) {
+                renderizzaDiscorso6();
+            }
+            if (iniziaDiscorso7Rivale) {
+                renderizzaDiscorso7();
+            }
+            if (iniziaDiscorso8Prof) {
+                renderizzaDiscorso8();
+            }
+            if (iniziaDiscorso9Rivale) {
+                renderizzaDiscorso9();
+            }
+            if (iniziaDiscorso10Prof) {
+                renderizzaDiscorso10();
+            }
             
         }
     }
 
     //metodo per mostrare il punto esclamativo in testa al professore
     private void renderizzaPuntoEsclamativo() {
+        game.getPlayer().setFermoAvanti();
 
         Timer.schedule(new Timer.Task() {
             @Override
@@ -489,6 +527,7 @@ public class Laboratorio extends ScreenAdapter{
             }else {
                 iniziaCamminataAsh2 = false;
                 iniziaDiscorso2Ash = true;
+                game.getPlayer().setFermoAvanti();
             }
         }else if (game.getPlayer().getPlayerPosition().x < 108) {
             if (110 - (game.getPlayer().getPlayerPosition().x) > 2) {
@@ -496,10 +535,12 @@ public class Laboratorio extends ScreenAdapter{
             }else {
                 iniziaCamminataAsh2 = false;
                 iniziaDiscorso2Ash = true;
+                game.getPlayer().setFermoAvanti();
             }
         }else {
             iniziaCamminataAsh2 = false;
             iniziaDiscorso2Ash = true;
+            game.getPlayer().setFermoAvanti();
         }
     }
 
@@ -544,8 +585,134 @@ public class Laboratorio extends ScreenAdapter{
     }
 
     private void portaRivaleSu() {
-
+        if ((95 - rivale.getPosition().y) > 5) {
+            rivale.muoviBotAlto();
+        }else {
+            faiSalireRivale = false;
+            faiSalireRivale2 = true;
+        }
     }
+
+    private void portaRivaleSu2() {
+        if ((rivale.getPosition().x - 85) > 5) {
+            rivale.muoviBotSinistra();
+        }else {
+            faiSalireRivale2 = false;
+            faiSalireRivale3 = true;
+        }
+    }
+
+    private void portaRivaleSu3() {
+        if ((110 - rivale.getPosition().y) > 5) {
+            rivale.muoviBotAlto();
+        }else {
+            faiSalireRivale3 = false;
+            iniziaDiscorso4Rivale = true;
+            continuaTesto = true;
+        }
+    }
+
+    private void renderizzaDiscorso4() {
+        if (continuaTesto) {
+            quartoDiscorsoRivale.renderDisc();
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+                //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
+                continuaTesto = quartoDiscorsoRivale.advanceText();
+            }
+        }else {
+            iniziaDiscorso4Rivale = false;
+            inziaDiscorso5Prof = true;
+            continuaTesto = true;
+        }
+    }
+
+    private void renderizzaDiscorso5() {
+        if (continuaTesto) {
+            quintiDiscorsoProf.renderDisc();
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+                //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
+                continuaTesto = quintiDiscorsoProf.advanceText();
+            }
+        }else {
+            inziaDiscorso5Prof = false;
+            iniziaDiscorso6Rivale = true;
+            continuaTesto = true;
+            rivale.setFermoDestra();
+            game.getPlayer().setFermoSinistra();
+        }
+    }
+
+    private void renderizzaDiscorso6() {
+        if (continuaTesto) {
+            sestoDiscorsoRivale.renderDisc();
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+                //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
+                continuaTesto = sestoDiscorsoRivale.advanceText();
+            }
+        }else {
+            //TODO: avvio la battaglia e poi passo alla prossima fase
+            iniziaDiscorso6Rivale = false;
+            iniziaDiscorso7Rivale = true; 
+            continuaTesto = true;
+        }
+    }
+
+    private void renderizzaDiscorso7() {
+        if (continuaTesto) {
+            settimoDiscorsoRivale.renderDisc();
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+                //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
+                continuaTesto = settimoDiscorsoRivale.advanceText();
+            }
+        }else {
+            iniziaDiscorso7Rivale = false;
+            iniziaDiscorso8Prof = true; 
+            continuaTesto = true;
+            rivale.setFermoAvanti();
+            game.getPlayer().setFermoAvanti();
+        }
+    }
+
+    private void renderizzaDiscorso8() {
+        if (continuaTesto) {
+            ottavoDiscorsoProf.renderDisc();
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+                //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
+                continuaTesto = ottavoDiscorsoProf.advanceText();
+            }
+        }else {
+            iniziaDiscorso8Prof = false;
+            iniziaDiscorso9Rivale = true;
+            continuaTesto = true; 
+        }
+    }
+
+    private void renderizzaDiscorso9() {
+        if (continuaTesto) {
+            nonoDiscorsoRivale.renderDisc();
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+                //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
+                continuaTesto = nonoDiscorsoRivale.advanceText();
+            }
+        }else {
+            iniziaDiscorso9Rivale = false;
+            iniziaDiscorso10Prof = true; 
+            continuaTesto = true;
+        }
+    }
+
+    private void renderizzaDiscorso10() {
+        if (continuaTesto) {
+            decimoDiscorsoProf.renderDisc();
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+                //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
+                continuaTesto = decimoDiscorsoProf.advanceText();
+            }
+        }else {
+            iniziaDiscorso10Prof = false;
+        }
+    }
+    
 
     //--------------------------------------------------------------------------------------------------------------------------------
 

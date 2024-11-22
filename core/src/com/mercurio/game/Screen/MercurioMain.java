@@ -96,6 +96,7 @@ public class MercurioMain extends Game implements InterfacciaComune{
         copiaJson("jsonSalvati/datiGeneraliSalvato.json", "assets/ashJson/datiGenerali.json");
         copiaJson("jsonSalvati/boxSalvato.json", "assets/ashJson/box.json");
         copiaJson("jsonSalvati/pokemonScopertiSalvato.json", "assets/ashJson/pokemonScoperti.json");
+        copiaJson("jsonSalvati/rivaleSalvato.json", "assets/ashJson/rivale.json");
         
 
 

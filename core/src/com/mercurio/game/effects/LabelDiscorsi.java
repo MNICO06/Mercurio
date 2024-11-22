@@ -424,6 +424,5 @@ public class LabelDiscorsi {
 
     private void modificaMostraLabel(){
         mostraDecisionLabels=true;
-        System.out.println(mostraDecisionLabels);
     }
 }

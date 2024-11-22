@@ -224,6 +224,7 @@ public class MenuLabel{
         game.copiaJson("ashJson/datiGenerali.json", "assets/jsonSalvati/datiGeneraliSalvato.json");
         game.copiaJson("ashJson/box.json", "assets/jsonSalvati/boxSalvato.json");
         game.copiaJson("ashJson/pokemonScoperti.json","assets/jsonSalvati/pokemonScopertiSalvato.json");
+        game.copiaJson("ashJson/rivale.json","assets/jsonSalvati/rivaleSalvato.json");
     }
 
 	public static Stage getStage() {
