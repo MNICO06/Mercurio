@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
+
 //import javafx.stage.Stage;
 
 public class LabelDiscorsi {
@@ -26,7 +27,7 @@ public class LabelDiscorsi {
     private float siWidth = 60, siHeight = 36;
     private float noWidth = 60, noHeight = 36;
     private int sceltaUtente = -1;
-    private boolean deveScegliere = false;
+    private boolean deveScegliere;
     private boolean mostraDecisionLabels = false;
 
     private BitmapFont font;
@@ -34,7 +35,9 @@ public class LabelDiscorsi {
     private ArrayList<String> righeDiscorso;
     private int rigaCorrente;
     private Timer timer;
+    private Timer timer2;
     private TimerTask letterTask;
+    private TimerTask task;
     private String testoCorrente;
     private int indiceLettera;
     private boolean isPrimaRigaStampata = false;
@@ -71,14 +74,13 @@ public class LabelDiscorsi {
     private Texture tappetoTexture;
     private Texture erbettaTexture;
 
-    private TimerTask task;
 
 
-    public LabelDiscorsi(String disc, int dimMax, int index, boolean battle, boolean scelta) {
+    public LabelDiscorsi(String disc, int dimMax, int index, boolean battle, boolean deveScegliere) {
         this.checkBattle = battle;
         this.discorso = disc;
         this.textBoxTextures = loadTextBoxTextures();
-        this.deveScegliere = scelta;
+        this.deveScegliere = deveScegliere;
         righeDiscorso = splitTestoInRighe(discorso, dimMax);
         batch = new SpriteBatch();
         font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
@@ -87,14 +89,6 @@ public class LabelDiscorsi {
         rigaCorrente = 0;
         isPrimaRigaStampata = false;
 
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                Gdx.app.postRunnable(() -> {
-                    mostraDecisionLabels = true;
-                });
-            }
-        };
     }
 
     public Label getLabel() {
@@ -190,12 +184,12 @@ public class LabelDiscorsi {
             }
         }
         
-        batch.end();
-
         if (deveScegliere) {
             // Gestisci il click
-            if (Gdx.input.justTouched()) {
-                handleClick(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
+            if (mostraDecisionLabels){
+                if (Gdx.input.justTouched()) {
+                    handleClick(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
+                }
             }
         }
         
@@ -213,16 +207,52 @@ public class LabelDiscorsi {
         }
 
         if (deveScegliere) {
+
+            if (timer2 != null) {
+                timer2.cancel();
+                timer2 = null;
+            }
+            timer2 = new Timer();
+
+            if (task != null) {
+                task.cancel();
+                task = null;
+            }
+
+            task = new TimerTask() {
+                @Override
+                public void run() {
+                    modificaMostraLabel();
+                }
+            };
+            
             if (righeDiscorso.size() -2 == 0) {
-                timer.schedule(task, 3000);
+                com.badlogic.gdx.utils.Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
+                    @Override
+                    public void run() {
+                        modificaMostraLabel();
+                    }
+                }, 3f);
             }else if (righeDiscorso.size() - 2 > 0) {
                 if (rigaCorrente == righeDiscorso.size() - 2) {
-                    timer.schedule(task, 1000);
+                    com.badlogic.gdx.utils.Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
+                        @Override
+                        public void run() {
+                            modificaMostraLabel();
+                        }
+                    }, 1f);
                 }
             }else if (righeDiscorso.size() - 2 < 0) {
-                timer.schedule(task, 700);
+                com.badlogic.gdx.utils.Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
+                    @Override
+                    public void run() {
+                        modificaMostraLabel();
+                    }
+                }, 0.7f);
             }
         }
+
+        batch.end();
 
         return sceltaUtente;
 
@@ -390,5 +420,10 @@ public class LabelDiscorsi {
 
     public void setSceltaUtente(int sceltaUtente) {
         this.sceltaUtente = sceltaUtente;
+    }
+
+    private void modificaMostraLabel(){
+        mostraDecisionLabels=true;
+        System.out.println(mostraDecisionLabels);
     }
 }
