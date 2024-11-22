@@ -36,6 +36,7 @@ public class MenuLabel{
     private boolean xKeyPressed;
     private Borsa borsa;
     private MercurioMain game;
+    private Medaglie medaglie;
     
     public MenuLabel(MercurioMain game) {
         batch = new SpriteBatch();
@@ -160,7 +161,7 @@ public class MenuLabel{
 	}
 	
 	private void apriMedaglie() {
-		System.out.println("Medaglie aperte");
+		medaglie = new Medaglie(getStage(),this);
 	}
 	
 	private void salvataggio() {
@@ -347,6 +348,10 @@ public class MenuLabel{
             pokedex.render();
         }
 
+        if (medaglie != null) {
+            medaglie.render();
+        }
+
 
         batch.begin();
         stage.draw();
@@ -368,5 +373,10 @@ public class MenuLabel{
     public void closePokedex() {
         Gdx.input.setInputProcessor(stage);
         pokedex = null;
+    }
+
+    public void closeMedaglie() {
+        Gdx.input.setInputProcessor(stage);
+        medaglie = null;
     }
 }
