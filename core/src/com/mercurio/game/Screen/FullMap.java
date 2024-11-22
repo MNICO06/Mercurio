@@ -486,6 +486,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
 
     private void muoviBot(Bot bot) {
         float tot;
+        stateTime += Gdx.graphics.getDeltaTime();
 
         switch (bot.getDirezioneFissa()) {
             case "-y":
@@ -795,13 +796,13 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
 
                 game.getPlayer().setMovement(false);
                 Timer.schedule(new Timer.Task() {
-                        @Override
-                        public void run() {
-                            puntoEsclamativoImage.remove();
-                            faiAvvicinare = true;
-                            cancel();
-                        }
-                    }, 2f);
+                    @Override
+                    public void run() {
+                        puntoEsclamativoImage.remove();
+                        faiAvvicinare = true;
+                        cancel();
+                    }
+                }, 2f);
 
                 if (faiAvvicinare) {
                     muoviNuotatore(bot);

@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 public class Professore {
     private float player_width;
@@ -28,7 +29,7 @@ public class Professore {
     private Animation<TextureRegion> characterAnimation;
     private TextureRegion currentAnimation;
     private Rectangle boxPlayer;
-    private Vector2 characterPosition;
+    private Vector3 characterPosition;
     private float camminataFrame_speed = 0.14f;
     private float stateTime;
 
@@ -95,12 +96,61 @@ public class Professore {
 
         stateTime = 0f;
         currentAnimation = camminaIndietro.getKeyFrame(0);
-        characterPosition = new Vector2();
+        characterPosition = new Vector3();
 
     }
 
+    //funzioni per far muovere il bot
+    public void muoviBotBasso() {
+        stateTime += Gdx.graphics.getDeltaTime();
+        currentAnimation = camminaIndietro.getKeyFrame(stateTime, true);
+        characterPosition.y -= 20f * Gdx.graphics.getDeltaTime();
+    }
+    public void muoviBotAlto() {
+        stateTime += Gdx.graphics.getDeltaTime();
+        currentAnimation = camminaAvanti.getKeyFrame(stateTime, true);
+        characterPosition.y += 20f * Gdx.graphics.getDeltaTime();
+    }
+    public void muoviBotDestra() {
+        stateTime += Gdx.graphics.getDeltaTime();
+        currentAnimation = camminaDestra.getKeyFrame(stateTime, true);
+        characterPosition.x += 20f * Gdx.graphics.getDeltaTime();
+    }
+    public void muoviBotSinistra() {
+        stateTime += Gdx.graphics.getDeltaTime();
+        currentAnimation = camminaSinistra.getKeyFrame(stateTime, true);
+        characterPosition.x -= 20f * Gdx.graphics.getDeltaTime();
+    }
+
+    //funzioni per settare animazione bot
+    public void setFermoSinistra() {
+        currentAnimation = fermoSinistra.getKeyFrame(stateTime, true);
+    }
+    public void setFermoDestra() {
+        currentAnimation = fermoDestra.getKeyFrame(stateTime, true);
+    }
+    public void setFermoAvanti() {
+        currentAnimation = fermoAvanti.getKeyFrame(stateTime, true);
+    }
+    public void setFermoIndietro() {
+        currentAnimation = fermoIndietro.getKeyFrame(stateTime, true);
+    }
+    public void setCamminaSinistra() {
+        currentAnimation = camminaSinistra.getKeyFrame(stateTime, true);
+    }
+    public void setCamminaDestra() {
+        currentAnimation = camminaDestra.getKeyFrame(stateTime, true);
+    }
+    public void setCamminaAvanti() {
+        currentAnimation = camminaAvanti.getKeyFrame(stateTime, true);
+    }
+    public void setCamminaIndietro() {
+        currentAnimation = camminaIndietro.getKeyFrame(stateTime, true);
+    }
+
+
     public void setPosition(float x, float y) {
-        characterPosition.set(x, y);
+        characterPosition.set(x, y, 0);
         boxPlayer = new Rectangle(x + player_width / 4 - 2, y - 2, player_width / 2 + 2, player_height / 6 + 6);
     }
 
@@ -110,7 +160,7 @@ public class Professore {
     public TextureRegion getTexture() {
         return currentAnimation;
     }
-    public Vector2 getPosition() {
+    public Vector3 getPosition() {
         return characterPosition;
     }
     public float getWidth() {
@@ -118,6 +168,12 @@ public class Professore {
     }
     public float getHeight() {
         return player_height;
+    }
+    public void updateStateTime() {
+        stateTime += Gdx.graphics.getDeltaTime();
+    }
+    public float getStateTime() {
+        return stateTime;
     }
 
     

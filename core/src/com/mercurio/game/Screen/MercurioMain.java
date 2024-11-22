@@ -457,13 +457,17 @@ public class MercurioMain extends Game implements InterfacciaComune{
     }
 
     public void creaSceltaStarter() {
-        getPlayer().setMovement(false);
-        sceltaStarterScreen = new SceltaStarterScreen(this);
+        if (sceltaStarterScreen == null) {
+            sceltaStarterScreen = new SceltaStarterScreen(this);
+        }
     }
     public void closeSceltaStarter() {
         getPlayer().setMovement(true);
         Gdx.input.setInputProcessor(MenuLabel.getStage());
         sceltaStarterScreen = null;
+    }
+    public boolean sceltoStarter() {
+        return sceltaStarterScreen.getSceltoStarter();
     }
 
     public MapLayer getOggettiStoria() {

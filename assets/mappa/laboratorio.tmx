@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="15" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="25" nextobjectid="65">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="15" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="26" nextobjectid="67">
  <tileset firstgid="1" name="ground" tilewidth="16" tileheight="16" tilecount="8284" columns="76">
   <image source="Room_Builder_16x16.png" width="1216" height="1744"/>
  </tileset>
@@ -437,8 +437,8 @@
   <object id="6" x="128" y="303.667" width="95.3333" height="15.3333"/>
   <object id="7" x="144.333" y="256" width="79.6667" height="15"/>
   <object id="8" x="16" y="251.667" width="94.6667" height="19.6667"/>
-  <object id="9" x="16.6667" y="193.667" width="47" height="8.33333"/>
-  <object id="10" x="80" y="194" width="79.6667" height="9.33333"/>
+  <object id="9" x="16.6667" y="191.741" width="47" height="10.2594"/>
+  <object id="10" x="80" y="191.524" width="79.6667" height="11.8097"/>
   <object id="11" x="192.667" y="194" width="30.6667" height="11.3333"/>
   <object id="12" x="16.3333" y="145" width="28.3333" height="13.6667"/>
   <object id="13" x="48.6667" y="148.333" width="12" height="9"/>
@@ -540,7 +540,19 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup color="#942192" id="25" name="controlliStoria" tintcolor="#942192">
+  <object id="65" name="fermaPlayer" x="111.163" y="252.318" width="32.7436" height="11.0062">
+   <properties>
+    <property name="tipo" value="ferma"/>
+   </properties>
+  </object>
+  <object id="66" name="obiettivoPlayer" x="112.126" y="203.273" width="32.7436" height="11.0062">
+   <properties>
+    <property name="tipo" value="obiettivo"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup color="#55ff00" id="19" name="exit">
-  <object id="58" x="50.1823" y="304.012" width="28.0088" height="15.7549"/>
+  <object id="58" x="52.9339" y="304.562" width="28.0088" height="15.7549"/>
  </objectgroup>
 </map>

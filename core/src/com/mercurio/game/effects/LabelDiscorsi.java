@@ -201,20 +201,27 @@ public class LabelDiscorsi {
         	 }
         }
 
-        if (rigaCorrente == righeDiscorso.size() -2) {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                Gdx.app.postRunnable(() -> {
+                    mostraDecisionLabels = true;
+                });
+            }
+        };
 
-            Timer timer = new Timer();
-            TimerTask task = new TimerTask() {
-                @Override
-                public void run() {
-                    Gdx.app.postRunnable(() -> {
-                        mostraDecisionLabels = true;
-                    });
+
+        if (deveScegliere) {
+            if (righeDiscorso.size() -2 == 0) {
+                timer.schedule(task, 3000);
+            }else if (righeDiscorso.size() - 2 > 0) {
+                if (rigaCorrente == righeDiscorso.size() - 2) {
+                    timer.schedule(task, 1000);
                 }
-            };
-
-            timer.schedule(task, 1000);            
-
+            }else if (righeDiscorso.size() - 2 < 0) {
+                timer.schedule(task, 700);
+            }
         }
 
         return sceltaUtente;
