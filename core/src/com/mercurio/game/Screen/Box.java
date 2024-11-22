@@ -226,7 +226,7 @@ public class Box extends ScreenAdapter {
 
         Texture textureBack = new Texture("sfondo/sfondiBoxCompleti.png");
 
-        sfondi = new TextureRegion[24];
+        sfondi = new TextureRegion[16];
 
         // Calcola la larghezza e l'altezza di ogni frame
         int frameWidth = textureBack.getWidth() / 4;
@@ -237,7 +237,7 @@ public class Box extends ScreenAdapter {
 
         int index = 0;
         for (int r = 0; r < 4; r++) {
-            for (int c = 0; c < 4 && index < 24; c++) {
+            for (int c = 0; c < 4 && index < 16; c++) {
                 sfondi[index++] = tmp[r][c];  // Copia ogni frame nell'array unidimensionale
             }
         }
@@ -306,6 +306,7 @@ public class Box extends ScreenAdapter {
 
                 }else {
                     boxAttuale += 1;
+                    System.out.println("aa");
                     caricaPagina(boxAttuale);
                     aggiornaVisibilitaFreccie();
                     label.setText(getBoxLabel(boxAttuale));
@@ -552,7 +553,7 @@ public class Box extends ScreenAdapter {
         }
         animationImages.clear(); // Pulisce l'array per evitare riferimenti residui
         cont = 0; // Resetta il contatore
-        yPoke = ((Gdx.graphics.getHeight() + sfondi[0].getRegionHeight()) / 2) + 10; // Resetta la posizione verticale
+        yPoke = ((Gdx.graphics.getHeight() + sfondi[0].getRegionHeight()) / 2) + 10 - 200; // Resetta la posizione verticale
     }
 
     public String getBoxLabel(int number) {
