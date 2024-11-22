@@ -402,6 +402,8 @@ public class Battle extends ScreenAdapter {
         else{
             leggiPokeSelvatico(nameBot,zona);
 
+            scopriPokemon(nameBot);
+
             Texture pokemonTexture = new Texture("pokemon/"+nameBot+".png");
             int frameWidth = pokemonTexture.getWidth() / 4;
             int frameHeight = pokemonTexture.getHeight();
@@ -1390,7 +1392,7 @@ public class Battle extends ScreenAdapter {
 
     }
 
-    private void utilizzoMossaBot(boolean otherAttack, Image labelMosse){
+    public void utilizzoMossaBot(boolean otherAttack, Image labelMosse){
         nextMoveBot=false;
         nextMove=labelMosse;
         globalOtherAttack=otherAttack;
@@ -1875,6 +1877,7 @@ public class Battle extends ScreenAdapter {
             Stats stats = new Stats();
 
             if (!nomePokeBot.equals("") && !LVPokeBot.equals("")){
+                scopriPokemon(nomePokeBot);
                 JsonValue statistiche = stats.calcolaStatsBot(nomePokeBot ,Integer.parseInt(LVPokeBot), pokeIvBot2);           
                 statsBot.clear();
             for (JsonValue stat : statistiche) {
@@ -3122,6 +3125,7 @@ public class Battle extends ScreenAdapter {
                                                 public void run() {
                                                     imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[11]));
                                                     String discorso21= "Hai catturato "+ nameBot+"!";
+                                                    conosciPokemon(nameBot);
                                                     labelDiscorsi21 = new LabelDiscorsi(discorso21,dimMax,0,true, false);
                                                     label21=labelDiscorsi21.getLabel();
                                                     stage.addActor(label21);
@@ -3396,7 +3400,7 @@ public class Battle extends ScreenAdapter {
             if (json2.get("poke"+pokeInBattaglia.get(i)).getInt("livello")!=100){
                 
                 int expMaxLvl = calcoloEspMaxLivello(crescitaType,Integer.parseInt(LVPoke));
-                nuovaEsperienza = json2.get("poke"+pokeInBattaglia.get(i)).getInt("esperienza") + esperienzaVinta +10000; //+10000 per i test
+                nuovaEsperienza = json2.get("poke"+pokeInBattaglia.get(i)).getInt("esperienza") + esperienzaVinta; //+10000 per i test
                 int nuovaEsperienzaCheck = nuovaEsperienza;
                 int expMaxLvlCheck = expMaxLvl;
                 int LVPokeCheck = Integer.parseInt(LVPoke);
@@ -4160,6 +4164,7 @@ public class Battle extends ScreenAdapter {
                             Actions.run(new Runnable() {
                                 @Override
                                 public void run() {
+                                    conosciPokemon(pokeEvo.get(evoIndex));
                                     String discorso29 = "Congratulazioni! "+pokeEvoluto + " si e' evoluto in "+ pokeEvo.get(evoIndex)+"!";
                                     labelDiscorsi29 = new LabelDiscorsi(discorso29, dimMax, 0, true, false);
                                     label29 = labelDiscorsi29.getLabel();
@@ -4180,5 +4185,40 @@ public class Battle extends ScreenAdapter {
                 }, 11f); // Durata
             }
         }, 3.5f); // Durata dell'animazione principale
+    }
+
+    private void scopriPokemon(String pokeName){
+        FileHandle file = Gdx.files.local("assets/ashJson/pokemonScoperti.json");
+        String jsonString = file.readString();
+        JsonValue json = new JsonReader().parse(jsonString);
+        int numPokePokedex=1;
+
+        while (!json.get(numPokePokedex).getString("nome").equalsIgnoreCase(pokeName)){
+            numPokePokedex++;
+        }
+        if (!json.get(numPokePokedex).getString("incontrato").equalsIgnoreCase("1")){
+            
+            json.get(numPokePokedex).remove("incontrato");
+            json.get(numPokePokedex).addChild("incontrato",new JsonValue("0"));
+    
+            file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);    
+        }
+    }
+
+    private void conosciPokemon(String pokeName){
+        FileHandle file = Gdx.files.local("assets/ashJson/pokemonScoperti.json");
+        String jsonString = file.readString();
+        JsonValue json = new JsonReader().parse(jsonString);
+        int numPokePokedex=1;
+
+        while (!json.get(numPokePokedex).getString("nome").equalsIgnoreCase(pokeName)){
+            numPokePokedex++;
+        }
+
+        json.get(numPokePokedex).remove("incontrato");
+        json.get(numPokePokedex).addChild("incontrato",new JsonValue("1"));
+
+        file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
+
     }
 } //Fine battaglia :)

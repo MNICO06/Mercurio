@@ -25,6 +25,17 @@
         
     ],
     "inventoryCure": [
-        
+        {
+            "quantity": 10,
+            "name": "Iperpozione"
+        },
+        {
+            "quantity": 10,
+            "name": "revitalizzante"
+        },
+        {
+            "quantity": 10,
+            "name": "revitalizzanteMAX"
+        }
     ]
 }
