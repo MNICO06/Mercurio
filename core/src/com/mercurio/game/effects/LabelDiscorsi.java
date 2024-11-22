@@ -71,6 +71,8 @@ public class LabelDiscorsi {
     private Texture tappetoTexture;
     private Texture erbettaTexture;
 
+    private TimerTask task;
+
 
     public LabelDiscorsi(String disc, int dimMax, int index, boolean battle, boolean scelta) {
         this.checkBattle = battle;
@@ -84,6 +86,15 @@ public class LabelDiscorsi {
 
         rigaCorrente = 0;
         isPrimaRigaStampata = false;
+
+        task = new TimerTask() {
+            @Override
+            public void run() {
+                Gdx.app.postRunnable(() -> {
+                    mostraDecisionLabels = true;
+                });
+            }
+        };
     }
 
     public Label getLabel() {
@@ -200,17 +211,6 @@ public class LabelDiscorsi {
         		 startLetterAnimationFirstLine(righeDiscorso.get(rigaCorrente)); 
         	 }
         }
-
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                Gdx.app.postRunnable(() -> {
-                    mostraDecisionLabels = true;
-                });
-            }
-        };
-
 
         if (deveScegliere) {
             if (righeDiscorso.size() -2 == 0) {
