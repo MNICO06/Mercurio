@@ -692,6 +692,11 @@ public class Battle extends ScreenAdapter {
             if (apprendimentoMosse!=null){
                 apprendimentoMosse.render();
             }
+            if (borsa!=null){
+                if (borsa.getSquadraCure()!=null){
+                    borsa.render();
+                }
+            }
         }
 
         float deltaTime = Gdx.graphics.getDeltaTime();

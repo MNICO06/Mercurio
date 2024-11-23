@@ -38,10 +38,12 @@ public class PokeCenter extends ScreenAdapter {
     private Dottoressa dottoressa;
     private LabelDiscorsi discorso;
 
-    private boolean renderTesto = false;
+    private boolean renderTesto = true;
     private boolean continuaTesto = true;
+    private boolean muoviPlayer = false;
 
     private boolean nelBox = false;
+    private boolean renderizzaTesto = false;
 
     //rettangolo con la lista delle persone che collidono
     private ArrayList<Rectangle> rectList = null;
@@ -49,7 +51,6 @@ public class PokeCenter extends ScreenAdapter {
     public PokeCenter(MercurioMain game) {
         this.game = game;
         dottoressa = new Dottoressa();
-        discorso = new LabelDiscorsi("Benvenuto! Questo e' un centro pokemon! riportero' i tuoi pokemon in perfetta forma in un batter d'occhio! Vuoi che mi prenda cura dei tuoi pokemon??", 30, 0, false, true);
     }
 
     @Override
@@ -88,7 +89,17 @@ public class PokeCenter extends ScreenAdapter {
         esci();
         checkCure();
         checkBox();
-        checkTesto();
+        if (renderizzaTesto) {
+            checkTesto();
+        }
+        if (muoviPlayer) {
+            muoviPlayerPosition();
+        }
+    }
+
+    private void muoviPlayerPosition() {
+        game.getPlayer().setMovement(true);
+        muoviPlayer = false;
     }
 
     public void getPostionDoctor() {
@@ -172,7 +183,8 @@ public class PokeCenter extends ScreenAdapter {
             Rectangle rect = rectObject.getRectangle();
             if (game.getPlayer().getBoxPlayer().overlaps(rect)) {
                 if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
-                    renderTesto = true;
+                    discorso = new LabelDiscorsi("Benvenuto! Questo e' un centro pokemon! riportero' i tuoi pokemon in perfetta forma in un batter d'occhio! Vuoi che mi prenda cura dei tuoi pokemon??", 30, 0, false, true);
+                    renderizzaTesto = true;
                     game.getPlayer().setMovement(false);
                 }
             }
@@ -207,7 +219,7 @@ public class PokeCenter extends ScreenAdapter {
             risposta = discorso.renderDisc();
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
                 //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
-                continuaTesto = discorso.advanceText();
+                discorso.advanceText();
             }
 
             if (risposta != -1) {
@@ -224,12 +236,11 @@ public class PokeCenter extends ScreenAdapter {
 
         }
         else {
-            if (!nelBox) {
-                renderTesto = false;
-                continuaTesto = true;
-                game.getPlayer().setMovement(true);
-                discorso.reset();
-            }
+            renderizzaTesto = false;
+            renderTesto = true;
+            game.getPlayer().setMovement(true);
+            discorso.reset();
+            discorso = null;
         }
     }
 

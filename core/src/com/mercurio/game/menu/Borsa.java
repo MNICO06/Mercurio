@@ -538,10 +538,47 @@ public class Borsa {
     public void aggiornaQuantity(String itemNome){
         for (Label label : quantityLabels) {
             if (label.getName().equals("quantity"+itemNome)){
-                
-                //label.setText(""+(Integer.parseInt(label.getText())-1));
+
+                String qty = ""+label.getText().substring(2);
+
+                label.setText("x "+(Integer.parseInt(qty)-1));
+                if ((Integer.parseInt(qty)-1)<=0){
+                    aggiornaBorsa();
+                    showInventoryItems(inventoryCure);
+                }
+                break;
             }
         }
     }
     
+    private void aggiornaBorsa(){
+        try (FileReader fileReader = new FileReader("assets/ashJson/borsa.json")) {
+            // Utilizza JSONTokener per leggere il file JSON
+            JSONTokener tokener = new JSONTokener(fileReader);
+            JSONObject inventoryData = new JSONObject(tokener);
+
+            // Riempire le matrici di inventario
+            jsonCure.clear();
+            jsonBall.clear();
+            jsonMT.clear();
+            jsonKey.clear();
+            quantityLabels.clear();
+            jsonCure = inventoryData.getJSONArray("inventoryCure");
+            jsonBall = inventoryData.getJSONArray("inventoryBall");
+            jsonMT = inventoryData.getJSONArray("inventoryMT");
+            jsonKey = inventoryData.getJSONArray("inventoryKey");
+
+            inventoryCure = jsonArrayToMatrix(jsonCure);
+            inventoryBall = jsonArrayToMatrix(jsonBall);
+            inventoryMT = jsonArrayToMatrix(jsonMT);
+            inventoryKey = jsonArrayToMatrix(jsonKey);
+
+        } catch (IOException e) {
+            System.err.println("Errore durante la lettura del file JSON: " + e.getMessage());
+        }
+    }
+
+    public squadraCure getSquadraCure(){
+        return squadraCure;
+    }
 }
