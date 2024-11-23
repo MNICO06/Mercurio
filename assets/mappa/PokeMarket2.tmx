@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="13" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="35" nextobjectid="39">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="13" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="35" nextobjectid="41">
  <tileset firstgid="1" name="floor" tilewidth="16" tileheight="16" tilecount="8284" columns="76">
   <image source="Room_Builder_16x16.png" width="1216" height="1744"/>
  </tileset>
@@ -76,9 +76,9 @@
 </data>
  </layer>
  <objectgroup color="#aaffff" id="33" name="teleport">
-  <object id="32" name="entra" x="48" y="176.182" width="32.1818" height="15.6364"/>
+  <object id="32" x="48" y="176.182" width="32.1818" height="15.6364"/>
  </objectgroup>
- <layer id="14" name="exit" width="13" height="13">
+ <layer id="14" name="tappeto" width="13" height="13">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -345,12 +345,12 @@
   <object id="10" x="63.25" y="17.5" width="32" height="21.25"/>
   <object id="11" x="48.1818" y="27.2727" width="15.0909" height="84.1818"/>
   <object id="12" x="15.6364" y="91.4545" width="45.6364" height="19.8182"/>
-  <object id="13" x="15.6364" y="155.273" width="128.182" height="11.4545"/>
-  <object id="14" x="160" y="155.091" width="32.5455" height="11.8182"/>
-  <object id="15" x="99.4545" y="114.364" width="25.2727" height="7.09091"/>
+  <object id="13" x="15.6364" y="151.249" width="128.182" height="15.4781"/>
+  <object id="14" x="160" y="151.355" width="32.5455" height="15.5544"/>
+  <object id="15" x="99.4545" y="106.604" width="25.2727" height="14.8506"/>
   <object id="16" x="68.3636" y="103.273" width="6.18182" height="4"/>
   <object id="17" x="63.4545" y="96" width="15.8182" height="7.09091"/>
-  <object id="18" x="63.8182" y="83.6364" width="95.2727" height="9.27273"/>
+  <object id="18" x="63.8182" y="80.6187" width="95.2727" height="12.2904"/>
   <object id="19" x="116.091" y="195.636" width="70.8182" height="8.72727"/>
   <object id="20" x="18.1818" y="194.909" width="11.9556" height="10.7273"/>
   <object id="22" x="171.273" y="124.545" width="12.5455" height="1.45455"/>
@@ -362,54 +362,59 @@
     <property name="layer" value="piantina"/>
    </properties>
   </object>
-  <object id="34" name="trenino-2" x="114.727" y="197.818" width="17.6364" height="0.0909091">
-   <properties>
-    <property name="layer" value="trenino2"/>
-   </properties>
-  </object>
-  <object id="35" name="trenino" x="132.818" y="198.818" width="55.8182">
-   <properties>
-    <property name="layer" value="trenino"/>
-   </properties>
-  </object>
-  <object id="36" name="spheal" x="132.455" y="196.636" width="56.4545">
+  <object id="36" name="spheal" x="132.455" y="201.636" width="56.4545">
    <properties>
     <property name="layer" value="spheal1"/>
    </properties>
   </object>
-  <object id="24" name="libreria" x="15.4545" y="154.909" width="177.091">
+  <object id="34" name="trenino-2" x="114.727" y="201.818" width="17.6364" height="0.0909091">
+   <properties>
+    <property name="layer" value="trenino2"/>
+   </properties>
+  </object>
+  <object id="35" name="trenino" x="132.818" y="199.818" width="55.8182">
+   <properties>
+    <property name="layer" value="trenino"/>
+   </properties>
+  </object>
+  <object id="24" name="libreria" x="15.4545" y="162.909" width="177.091">
    <properties>
     <property name="layer" value="libreria"/>
    </properties>
   </object>
-  <object id="26" name="tavolino" x="98" y="117.545" width="28.9091">
-   <properties>
-    <property name="layer" value="tavolino"/>
-   </properties>
-  </object>
-  <object id="37" name="decoTavolino" x="97.4545" y="114.091" width="31.4545">
+  <object id="37" name="decoTavolino" x="97.4545" y="116.091" width="31.4545">
    <properties>
     <property name="layer" value="decoTavolo"/>
    </properties>
   </object>
-  <object id="27" name="spheal" x="168.182" y="120.455" width="19.0909">
+  <object id="26" name="tavolino" x="98" y="113.545" width="28.9091">
+   <properties>
+    <property name="layer" value="tavolino"/>
+   </properties>
+  </object>
+  <object id="27" name="spheal" x="168.182" y="123.455" width="19.0909">
    <properties>
     <property name="layer" value="spheal"/>
    </properties>
   </object>
-  <object id="28" name="scaffaleC1" x="63.2727" y="85.0909" width="99.4545" height="0.181818">
+  <object id="28" name="scaffaleC1" x="63.2727" y="91.0909" width="99.4545" height="0.181818">
    <properties>
     <property name="layer" value="scaffaleC1"/>
    </properties>
   </object>
- </objectgroup>
- <objectgroup color="#55ff00" id="29" name="exit">
-  <object id="29" name="uscita" x="48" y="193.455" width="32.3636" height="14.3636"/>
+  <object id="39" name="orsetto2" x="63.2014" y="100.575" width="16.6106" height="0.405137">
+   <properties>
+    <property name="layer" value="orsetto2"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup color="#55ff00" id="30" name="market">
   <object id="30" name="market" x="64.9091" y="43.4545" width="10.5455" height="19.2727"/>
  </objectgroup>
  <objectgroup color="#ff00ff" id="31" name="posizioneCas">
   <object id="31" name="posizioneCas" x="37.6364" y="46.7273" width="8.90909" height="17.0909"/>
+ </objectgroup>
+ <objectgroup color="#55ff00" id="29" name="exit">
+  <object id="29" x="48" y="193.455" width="32.3636" height="14.3636"/>
  </objectgroup>
 </map>

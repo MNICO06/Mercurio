@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="13" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="23" nextobjectid="37">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="13" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="23" nextobjectid="38">
  <tileset firstgid="1" name="floor" tilewidth="16" tileheight="16" tilecount="8284" columns="76">
-  <image source="../OneDrive/Desktop/Informatica/Mercurio/assets/mappa/Room_Builder_16x16.png" width="1216" height="1744"/>
+  <image source="Room_Builder_16x16.png" width="1216" height="1744"/>
  </tileset>
  <tileset firstgid="8285" name="lab" tilewidth="16" tileheight="16" tilecount="1050" columns="42">
-  <image source="../OneDrive/Desktop/Informatica/Mercurio/assets/mappa/lab.png" width="672" height="400"/>
+  <image source="lab.png" width="672" height="400"/>
  </tileset>
  <tileset firstgid="9335" name="bedroom" tilewidth="16" tileheight="16" tilecount="1712" columns="16">
-  <image source="../OneDrive/Desktop/Informatica/Mercurio/assets/mappa/4_Bedroom_Shadowless.png" width="256" height="1712"/>
+  <image source="4_Bedroom_Shadowless.png" width="256" height="1712"/>
  </tileset>
  <tileset firstgid="11047" name="arte" tilewidth="16" tileheight="16" tilecount="112" columns="16">
-  <image source="../OneDrive/Desktop/Informatica/Mercurio/assets/mappa/7_Art_Shadowless.png" width="256" height="112"/>
+  <image source="7_Art_Shadowless.png" width="256" height="112"/>
  </tileset>
  <layer id="1" name="floor" width="13" height="13">
   <data encoding="csv">
@@ -233,7 +233,7 @@
 0,8699,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="8" name="exit" width="13" height="13">
+ <layer id="8" name="tappeto" width="13" height="13">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -256,22 +256,22 @@
   <object id="3" x="144.25" y="30.5" width="14.75" height="13"/>
   <object id="4" x="144.25" y="16.5" width="63" height="14"/>
   <object id="5" x="191.75" y="30.5" width="16.5" height="177.25"/>
-  <object id="6" x="113.5" y="115.25" width="60.75" height="9.25"/>
-  <object id="7" x="33.5" y="113" width="61.25" height="11.25"/>
+  <object id="6" x="113.5" y="110.886" width="60.75" height="13.6136"/>
+  <object id="7" x="33.5" y="110.273" width="61.25" height="13.9773"/>
   <object id="8" x="16" y="156.75" width="14" height="19"/>
   <object id="9" x="20.25" y="202.5" width="8.25" height="2"/>
   <object id="10" x="18.25" y="198.75" width="11.25" height="2.75"/>
   <object id="11" x="179.5" y="42" width="9.25" height="3"/>
   <object id="12" x="178" y="33.25" width="11.75" height="8"/>
   <object id="13" x="18.75" y="66" width="10" height="11.5"/>
-  <object id="14" x="129.75" y="164.75" width="11.5" height="4"/>
-  <object id="15" x="49.75" y="147.75" width="12" height="4.75"/>
+  <object id="14" x="129.75" y="159.477" width="11.5" height="9.27273"/>
+  <object id="15" x="49.75" y="142.659" width="12" height="9.84091"/>
   <object id="16" x="112.25" y="149.5" width="14.25" height="5.75"/>
   <object id="17" x="60" y="184.75" width="28.75" height="1.5"/>
   <object id="18" x="62.5" y="186.75" width="23.25" height="2.75"/>
   <object id="19" x="54.75" y="179.25" width="35.75" height="3.75"/>
-  <object id="20" x="51" y="176.5" width="43" height="2.5"/>
-  <object id="21" x="176.75" y="198.25" width="14.75" height="9.5"/>
+  <object id="20" x="51" y="172.323" width="43" height="6.67703"/>
+  <object id="21" x="176.75" y="182.432" width="14.75" height="25.3182"/>
   <object id="22" x="180.5" y="153.25" width="8.5" height="2.25"/>
   <object id="23" x="0.25" y="208" width="208.25" height="4.75"/>
  </objectgroup>
@@ -312,11 +312,8 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#55ff00" id="19" name="exit">
-  <object id="31" name="exit" x="106" y="197.636" width="28.1818" height="10"/>
- </objectgroup>
  <objectgroup color="#aaffff" id="20" name="teleport">
-  <object id="32" name="entrata" x="106.182" y="182.909" width="28.1818" height="11.6364"/>
+  <object id="32" x="106.182" y="174.909" width="28.1818" height="11.6364"/>
  </objectgroup>
  <objectgroup color="#ff00ff" id="21" name="posizioneCas">
   <object id="33" name="posizioneCas" x="112.5" y="35.5" width="15.75" height="11"/>
@@ -325,5 +322,8 @@
  <objectgroup color="#55ff00" id="22" name="market">
   <object id="35" name="market" x="64" y="64.7273" width="16.1818" height="11.0909"/>
   <object id="36" name="market" x="112.364" y="64.7273" width="16.1818" height="11.0909"/>
+ </objectgroup>
+ <objectgroup color="#55ff00" id="19" name="exit">
+  <object id="37" x="106.527" y="198.151" width="27.775" height="9.99221"/>
  </objectgroup>
 </map>

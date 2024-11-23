@@ -299,7 +299,17 @@ public class MercurioMain extends Game implements InterfacciaComune{
                 luogo = "laboratorio";
                 break;
 
-            
+            case Constant.POKEMARKET1:
+                newScreen = new PokeMarket1(this);
+                screen_id = 5;
+                luogo = "pokemarket";
+                break;
+
+            case Constant.POKEMARKET2:
+                newScreen = new PokeMarket2(this);
+                screen_id = 6;
+                luogo = "pokemarket";
+                break;
 
             default:
                 break;

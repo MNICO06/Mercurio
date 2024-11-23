@@ -13,4 +13,8 @@ public class Constant {
     public static final String SCHERMATA_LOGO = "logo";
     public static final String LABORATORIO = "laboratorio";
     public static final String LAB_MAPPA = "mappa/laboratorio.tmx";
+    public static final String POKEMARKET1_MAP = "mappa/PokeMarket1.tmx";
+    public static final String POKEMARKET1 = "pokeMarketC";
+    public static final String POKEMARKET2_MAP = "mappa/PokeMarket2.tmx";
+    public static final String POKEMARKET2 = "pokeMarketMare";
 }
