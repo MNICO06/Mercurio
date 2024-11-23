@@ -22,6 +22,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.badlogic.gdx.utils.Timer;
 import com.mercurio.game.Screen.MercurioMain;
+import com.mercurio.game.effects.LabelDiscorsi;
 import com.mercurio.game.pokemon.Battle;
 
 public class MenuLabel{
@@ -37,6 +38,10 @@ public class MenuLabel{
     private Borsa borsa;
     private MercurioMain game;
     private Medaglie medaglie;
+    private LabelDiscorsi labelDiscorsi1;
+    private Label label1;
+    private LabelDiscorsi labelDiscorsi2;
+    private Label label2;
     
     public MenuLabel(MercurioMain game) {
         batch = new SpriteBatch();
@@ -166,7 +171,7 @@ public class MenuLabel{
 	
 	private void salvataggio() {
         salva();
-		System.out.println("Salvato");
+        salvaAnimazione();
 	}
 	
 	private void spegnimento() {
@@ -327,9 +332,11 @@ public class MenuLabel{
         if (Gdx.input.isKeyJustPressed(Input.Keys.X) && !game.getIsInMovement()) {
             if (!menuOpened && xKeyPressed) {
                 // Se il menu non è aperto e il tasto X è abilitato, apri il menu
+                game.getPlayer().setMovement(false);
                 apriMenu();
             } else if (menuOpened) {
                 // Se il menu è aperto, chiudi il menu
+                game.getPlayer().setMovement(true);
                 chiudiMenu();
             }
         }
@@ -352,6 +359,13 @@ public class MenuLabel{
             medaglie.render();
         }
 
+        if (label1!=null){
+            labelDiscorsi1.renderDisc();
+        }
+
+        if (label2!=null){
+            labelDiscorsi2.renderDisc();
+        }
 
         batch.begin();
         stage.draw();
@@ -378,5 +392,39 @@ public class MenuLabel{
     public void closeMedaglie() {
         Gdx.input.setInputProcessor(stage);
         medaglie = null;
+    }
+
+    public void salvaAnimazione(){
+        chiudiMenu();
+        game.getPlayer().setMovement(false);
+        String discorso1= "Salvataggio in corso...";
+        labelDiscorsi1 = new LabelDiscorsi(discorso1,30,0,false, false);
+        labelDiscorsi1.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
+        label1=labelDiscorsi1.getLabel();
+        stage.addActor(label1);
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                labelDiscorsi1.reset();
+                if (label1!=null)
+                    label1.remove();
+                label1=null;
+                String discorso2= "Salvataggio completato!";
+                labelDiscorsi2 = new LabelDiscorsi(discorso2,30,0,false, false);
+                labelDiscorsi2.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
+                label2=labelDiscorsi2.getLabel();
+                stage.addActor(label2);
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        labelDiscorsi2.reset();
+                        if (label2!=null)
+                        label2.remove();
+                        label2=null;
+                        game.getPlayer().setMovement(true);
+                    }
+                }, 2f);   
+            }
+        }, 4f);   
     }
 }
