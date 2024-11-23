@@ -4196,7 +4196,7 @@ public class Battle extends ScreenAdapter {
         FileHandle file = Gdx.files.local("assets/ashJson/pokemonScoperti.json");
         String jsonString = file.readString();
         JsonValue json = new JsonReader().parse(jsonString);
-        int numPokePokedex=1;
+        int numPokePokedex=0;
 
         while (!json.get(numPokePokedex).getString("nome").equalsIgnoreCase(pokeName)){
             numPokePokedex++;

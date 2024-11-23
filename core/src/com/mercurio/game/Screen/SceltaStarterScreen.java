@@ -348,7 +348,7 @@ public class SceltaStarterScreen extends ScreenAdapter {
 
     private void salvaStarterRivale(String pokemon) {
         // Carica il file JSON
-        FileHandle file = Gdx.files.local("assets/ashJson/rivale.json");
+        FileHandle file = Gdx.files.local("assets/bots/bots.json");
         String jsonString = file.readString();
 
         JsonValue json = new JsonReader().parse(jsonString);

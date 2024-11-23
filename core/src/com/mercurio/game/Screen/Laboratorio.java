@@ -32,6 +32,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mercurio.game.effects.LabelDiscorsi;
+import com.mercurio.game.menu.MenuLabel;
 import com.mercurio.game.effects.LabelDiscorsi;
 import com.mercurio.game.effects.LabelDiscorsi;
 import com.mercurio.game.personaggi.Bot;
@@ -47,7 +48,7 @@ import com.mercurio.game.pokemon.Battle;
  * quando si entra e si possiede già un pokemon il professore si trova in un altro punto
  */
 
-public class Laboratorio extends ScreenAdapter{
+public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
     private final MercurioMain game;
 
     //dati per render della mappa
@@ -104,6 +105,9 @@ public class Laboratorio extends ScreenAdapter{
     private boolean iniziaDiscorso8Prof = false;
     private boolean iniziaDiscorso9Rivale = false;
     private boolean iniziaDiscorso10Prof = false;
+    private boolean portaGiuRivale = false;
+    private boolean portaDestraRivale = false;
+    private boolean portaGiuRivale2 = false;
 
     //variabili per il testo del professore quando non si ha uno starter
     private LabelDiscorsi primoDiscorso;
@@ -127,6 +131,8 @@ public class Laboratorio extends ScreenAdapter{
     private String testoDiscorso7Rivale = "Rivale: Sono molto contento bravo";
     private String testoDiscorso8Prof = "Professore: Adesso voglio che vi mettete entrambi a lavorare sul pokedex";
     private String testoDiscorso9Rivale = "Rivale: Parto subito verso la ricerca della figa";
+
+    //dopo che il rivale se n'è andato
     private String testoDiscorso10Prof = "Professore: Il tuo primo obbiettivo sarà quelli di raggiungere la capitale, buona fortuna";
 
     public Laboratorio(MercurioMain game) {
@@ -314,9 +320,8 @@ public class Laboratorio extends ScreenAdapter{
     private void storiaStarter() {
         if (game.getPlayer().getBoxPlayer().overlaps(rettangoloFerma)) {
 
-            game.getPlayer().setMovement(false);
-
             if (renderizzaPunto) {
+                game.getPlayer().setMovement(false);
                 renderizzaPuntoEsclamativo();
             }
             if (iniziaRiposizionaBot) {
@@ -382,8 +387,22 @@ public class Laboratorio extends ScreenAdapter{
             if (iniziaDiscorso9Rivale) {
                 renderizzaDiscorso9();
             }
+            if (portaGiuRivale) {
+                portaRivaleGiu1();
+            }
+            if (portaDestraRivale) {
+                portaRivaleGiu2();
+            }
+            if (portaGiuRivale2) {
+                portaRivaleGiu3();
+            }
             if (iniziaDiscorso10Prof) {
                 renderizzaDiscorso10();
+            }
+
+
+            if (battle != null) {
+                battle.render();
             }
             
         }
@@ -650,10 +669,13 @@ public class Laboratorio extends ScreenAdapter{
                 continuaTesto = sestoDiscorsoRivale.advanceText();
             }
         }else {
-            //TODO: avvio la battaglia e poi passo alla prossima fase
             iniziaDiscorso6Rivale = false;
+            battle = new Battle(this, "rivale", true, null, null);
+
+            /* per evitare battaglia committa la creazione e togli questo
             iniziaDiscorso7Rivale = true; 
             continuaTesto = true;
+            */
         }
     }
 
@@ -696,11 +718,38 @@ public class Laboratorio extends ScreenAdapter{
             }
         }else {
             iniziaDiscorso9Rivale = false;
-            iniziaDiscorso10Prof = true; 
+            portaGiuRivale = true;
             continuaTesto = true;
         }
     }
 
+    private void portaRivaleGiu1() {
+        if ((rivale.getPosition().y - 80) > 5) {
+            rivale.muoviBotBasso();
+        }else {
+            portaGiuRivale = false;
+            portaDestraRivale = true;
+        }
+    }
+
+    private void portaRivaleGiu2() {
+        if ((120 - rivale.getPosition().x) > 5) {
+            rivale.muoviBotDestra();
+        }else {
+            portaDestraRivale = false;
+            portaGiuRivale2 = true;
+        }
+    }
+    private void portaRivaleGiu3() {
+        if ((rivale.getPosition().y - 20) > 5) {
+            rivale.muoviBotBasso();
+        }else {
+            portaGiuRivale2 = false;
+            iniziaDiscorso10Prof = true;
+            iniziaFarComparireRivale = false;
+        }
+    }
+    
     private void renderizzaDiscorso10() {
         if (continuaTesto) {
             decimoDiscorsoProf.renderDisc();
@@ -710,6 +759,7 @@ public class Laboratorio extends ScreenAdapter{
             }
         }else {
             iniziaDiscorso10Prof = false;
+            game.getPlayer().setMovement(true);
         }
     }
     
@@ -737,7 +787,7 @@ public class Laboratorio extends ScreenAdapter{
     private boolean controllaPresenzaStarter() {
         try {
             // Carica il file JSON
-            FileHandle file = Gdx.files.internal("assets/ashJson/squadra.json");
+            FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
             String jsonString = file.readString();
 
             JsonValue json = new JsonReader().parse(jsonString);
@@ -774,6 +824,15 @@ public class Laboratorio extends ScreenAdapter{
         }
 
         tileRenderer.dispose();
+    }
+
+    @Override
+    public void closeBattle() {
+        //game.getPlayer().setMovement(true);
+        Gdx.input.setInputProcessor(MenuLabel.getStage());
+        battle = null;
+        iniziaDiscorso7Rivale = true; 
+        continuaTesto = true;
     }
 
 }
