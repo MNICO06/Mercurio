@@ -125,6 +125,7 @@ public class Grotta extends ScreenAdapter{
                 } 
             }
         }else {
+            
             //leggo il json salvato e setto la posizione (quindi metto x e y al personaggio)
         }
     }

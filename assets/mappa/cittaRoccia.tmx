@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="90" height="110" tilewidth="16" tileheight="16" infinite="0" nextlayerid="53" nextobjectid="176">
  <tileset firstgid="1" name="ground" tilewidth="16" tileheight="16" tilecount="256" columns="16">
-  <image source="png mappa/ground_grounds_2.png" width="256" height="256"/>
+  <image source="ground_grounds_2.png" width="256" height="256"/>
  </tileset>
  <tileset firstgid="257" name="deco1" tilewidth="16" tileheight="16" tilecount="256" columns="16">
-  <image source="png mappa/ground_cliffs.png" width="256" height="256"/>
+  <image source="ground_cliffs.png" width="256" height="256"/>
  </tileset>
  <tileset firstgid="513" name="path" tilewidth="16" tileheight="16" tilecount="256" columns="16">
-  <image source="png mappa/ground_paths_cobble_1.png" width="256" height="256"/>
+  <image source="ground_paths_cobble_1.png" width="256" height="256"/>
  </tileset>
  <tileset firstgid="769" name="scale" tilewidth="16" tileheight="16" tilecount="15" columns="3">
-  <image source="png mappa/scale1.png" width="48" height="80"/>
+  <image source="scale1.png" width="48" height="80"/>
  </tileset>
  <tileset firstgid="784" name="ground2" tilewidth="16" tileheight="16" tilecount="256" columns="16">
-  <image source="png mappa/ground_grounds_1.png" width="256" height="256"/>
+  <image source="ground_grounds_1.png" width="256" height="256"/>
  </tileset>
  <tileset firstgid="1040" name="case" tilewidth="16" tileheight="16" tilecount="775" columns="31">
-  <image source="png mappa/case-terra1.png" width="496" height="406"/>
+  <image source="case-terra1.png" width="496" height="406"/>
  </tileset>
  <tileset firstgid="1815" name="deco2" tilewidth="16" tileheight="16" tilecount="256" columns="16">
-  <image source="png mappa/deco_rocks.png" width="256" height="256"/>
+  <image source="deco_rocks.png" width="256" height="256"/>
  </tileset>
  <tileset firstgid="2071" name="deco3" tilewidth="16" tileheight="16" tilecount="256" columns="16">
-  <image source="png mappa/deco_village.png" width="256" height="256"/>
+  <image source="deco_village.png" width="256" height="256"/>
  </tileset>
  <tileset firstgid="2327" name="case1" tilewidth="16" tileheight="16" tilecount="2262" columns="58">
-  <image source="png mappa/citta.png" width="935" height="632"/>
+  <image source="citta.png" width="935" height="632"/>
  </tileset>
  <tileset firstgid="4589" name="deco3" tilewidth="16" tileheight="16" tilecount="2" columns="2">
-  <image source="png mappa/portoneUscita.png" width="32" height="16"/>
+  <image source="portoneUscita.png" width="32" height="16"/>
  </tileset>
  <tileset firstgid="4591" name="deco4" tilewidth="16" tileheight="16" tilecount="4" columns="1">
-  <image source="png mappa/ciminiera.png" width="16" height="64"/>
+  <image source="ciminiera.png" width="16" height="64"/>
  </tileset>
  <layer id="1" name="Ground" width="90" height="110">
   <data encoding="csv">

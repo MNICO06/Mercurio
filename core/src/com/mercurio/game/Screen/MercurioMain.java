@@ -358,11 +358,6 @@ public class MercurioMain extends Game implements InterfacciaComune{
         setLuogo(json.getString("luogo"));
         setPage(json.getString("screen"));
         musica.startMusic(luogo);
-
-        //System.out.println(getPlayer().getPlayerPosition().x);
-        //System.out.println(getPlayer().getPlayerPosition().y);
-        //System.out.println(getLuogo());
-        //System.out.println(getScreenString());
     }
 
     public void setMap(TiledMap map, OrthogonalTiledMapRenderer render, OrthographicCamera camera, float larghezza, float altezza) {
