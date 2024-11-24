@@ -59,7 +59,6 @@ public class Grotta extends ScreenAdapter{
         listaAllawaysBack.add("WallAlwaysBack");
         listaAllawaysBack.add("AlwaysBack");
         listaAllawaysBack.add("AlwaysBackRock");
-        listaAllawaysBack.add("oscuramento");
     }
 
     @Override
@@ -182,6 +181,8 @@ public class Grotta extends ScreenAdapter{
                     break;
             }
         }
+
+        renderLayer("oscuramento");
     }
 
     //funzione per il rendering dei layer

@@ -99,9 +99,6 @@ public class MercurioMain extends Game implements InterfacciaComune{
         copiaJson("jsonSalvati/boxSalvato.json", "assets/ashJson/box.json");
         copiaJson("jsonSalvati/pokemonScopertiSalvato.json", "assets/ashJson/pokemonScoperti.json");
 
-        
-
-
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {

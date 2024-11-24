@@ -61,7 +61,7 @@ public class CittaMontagna extends ScreenAdapter{
         game.getMusica().startMusic("pokeCenter");
 
         TmxMapLoader mapLoader = new TmxMapLoader();
-        cittaGrotta = mapLoader.load(Constant.GROTTA_MAP);
+        cittaGrotta = mapLoader.load(Constant.CITTAMONTAGNA_MAP);
         tileRenderer = new OrthogonalTiledMapRenderer(cittaGrotta);
 
         //calcolo e assegno dimensioni alla mappa
@@ -165,6 +165,7 @@ public class CittaMontagna extends ScreenAdapter{
         }
         else {
             layer = cittaGrotta.getLayers().get(layerName);
+            
         }
 
         // Renderizza il layer

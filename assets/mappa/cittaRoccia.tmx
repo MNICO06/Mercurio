@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="90" height="110" tilewidth="16" tileheight="16" infinite="0" nextlayerid="53" nextobjectid="176">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="90" height="110" tilewidth="16" tileheight="16" infinite="0" nextlayerid="54" nextobjectid="177">
  <tileset firstgid="1" name="ground" tilewidth="16" tileheight="16" tilecount="256" columns="16">
   <image source="ground_grounds_2.png" width="256" height="256"/>
  </tileset>
@@ -5279,7 +5279,10 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#00ff00" id="52" name="teleport">
+ <objectgroup color="#00ff00" id="52" name="exit">
   <object id="175" name="teloportGrotta" x="703.667" y="1432.67" width="32.6667" height="6.66667"/>
+ </objectgroup>
+ <objectgroup color="#00fdff" id="53" name="teleport">
+  <object id="176" name="ingressoDaGrotta" x="704.197" y="1400.99" width="31.6062" height="18.5141"/>
  </objectgroup>
 </map>
