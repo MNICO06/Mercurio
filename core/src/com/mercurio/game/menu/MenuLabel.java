@@ -221,6 +221,7 @@ public class MenuLabel{
 
         json.remove("screen");
         json.addChild("screen", new JsonValue(game.getScreenString()));
+        
         // Scrivi il JSON aggiornato nel file mantenendo la formattazione
         file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
 
@@ -230,7 +231,6 @@ public class MenuLabel{
         game.copiaJson("ashJson/datiGenerali.json", "assets/jsonSalvati/datiGeneraliSalvato.json");
         game.copiaJson("ashJson/box.json", "assets/jsonSalvati/boxSalvato.json");
         game.copiaJson("ashJson/pokemonScoperti.json","assets/jsonSalvati/pokemonScopertiSalvato.json");
-        game.copiaJson("ashJson/rivale.json","assets/jsonSalvati/rivaleSalvato.json");
     }
 
 	public static Stage getStage() {

@@ -23,18 +23,15 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-
-public class PokeMarket1 extends ScreenAdapter {
+public class Grotta extends ScreenAdapter{
     private final MercurioMain game;
 
     //dati per render della mappa
-    private TiledMap pokeMarket;
+    private TiledMap grotta;
     private OrthogonalTiledMapRenderer tileRenderer;
     private OrthographicCamera camera;
     private Vector2 map_size;
     private MapLayer lineeLayer;
-
-
 
     private SpriteBatch batch;
     private Stage stage;
@@ -46,9 +43,12 @@ public class PokeMarket1 extends ScreenAdapter {
     List<Render> render = new ArrayList<>();
     ArrayList<String> listaAllawaysBack = new ArrayList<String>();
 
-    private Rectangle rectangleUscita;
+    private Rectangle rectangleUscitaCapitale;
+    private Rectangle rectangleUscitaCitta;
+    private Rectangle rectangleUscitaVetta;
 
-    public PokeMarket1(MercurioMain game) {
+    //TODO: settare che quando si entra qua dentro deve essere prima scritto in mercurio main da dove si arriva
+    public Grotta(MercurioMain game) {
         this.game = game;
 
         rectList = new ArrayList<Rectangle>();
@@ -56,33 +56,32 @@ public class PokeMarket1 extends ScreenAdapter {
 
 
         listaAllawaysBack.add("floor");
-        listaAllawaysBack.add("tappeto");
         listaAllawaysBack.add("WallAlwaysBack");
         listaAllawaysBack.add("AlwaysBack");
-        listaAllawaysBack.add("AlwaysBack2");
-
+        listaAllawaysBack.add("AlwaysBackRock");
+        listaAllawaysBack.add("oscuramento");
     }
 
     @Override
     public void show() {
-        game.setLuogo("pokeCenter1");
+        game.setLuogo("grotta");
         game.getMusica().startMusic("pokeCenter");
 
         TmxMapLoader mapLoader = new TmxMapLoader();
-        pokeMarket = mapLoader.load(Constant.POKEMARKET1_MAP);
-        tileRenderer = new OrthogonalTiledMapRenderer(pokeMarket);
+        grotta = mapLoader.load(Constant.GROTTA_MAP);
+        tileRenderer = new OrthogonalTiledMapRenderer(grotta);
 
         //calcolo e assegno dimensioni alla mappa
-        int mapWidth = pokeMarket.getProperties().get("width", Integer.class) * pokeMarket.getProperties().get("tilewidth", Integer.class);
-        int mapHeight = pokeMarket.getProperties().get("height", Integer.class) * pokeMarket.getProperties().get("tileheight", Integer.class);
+        int mapWidth = grotta.getProperties().get("width", Integer.class) * grotta.getProperties().get("tilewidth", Integer.class);
+        int mapHeight = grotta.getProperties().get("height", Integer.class) * grotta.getProperties().get("tileheight", Integer.class);
         map_size = new Vector2(mapWidth,mapHeight);
 
         //creo la camera
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, map_size.x/1.8f, map_size.y/1.8f);
+        camera.setToOrtho(false, map_size.x/23f, map_size.y/13f);
         camera.update();
 
-        game.setMap(pokeMarket, tileRenderer, camera, map_size.x, map_size.y);
+        game.setMap(grotta, tileRenderer, camera, map_size.x, map_size.y);
 
         //aggiungere alla lista delle collisioni quella del professore
 
@@ -90,32 +89,43 @@ public class PokeMarket1 extends ScreenAdapter {
 
 
         //recupero il rettangolo per uscire dalla mappa
-        MapObjects objects = pokeMarket.getLayers().get("exit").getObjects();
+        MapObjects objects = grotta.getLayers().get("exit").getObjects();
         for (MapObject object : objects) {
             if (object instanceof RectangleMapObject) {
                 // Se l'oggetto è un rettangolo
                 RectangleMapObject rectangleObject = (RectangleMapObject) object;
 
                 // Ottieni il rettangolo
-                rectangleUscita = rectangleObject.getRectangle();
-
-            } 
+                if ("exitVetta".equals(object.getName())) {
+                    rectangleUscitaVetta = rectangleObject.getRectangle();
+                }
+                else if("exitCitta".equals(object.getName())) {
+                    rectangleUscitaCitta = rectangleObject.getRectangle();
+                }
+                else if("exitCapitale".equals(object.getName())) {
+                    rectangleUscitaCapitale = rectangleObject.getRectangle();
+                }
+            }
         }
     }
 
     private void settaPlayerPotion() {
-        //recupero il rettangolo per uscire dalla mappa
-        MapObjects objects = pokeMarket.getLayers().get("teleport").getObjects();
-        for (MapObject object : objects) {
-            if (object instanceof RectangleMapObject) {
-                // Se l'oggetto è un rettangolo
-                RectangleMapObject rectangleObject = (RectangleMapObject) object;
 
-                // Ottieni il rettangolo
-                game.getPlayer().setPosition(rectangleObject.getRectangle().getX(), rectangleObject.getRectangle().getY());
-                rectangleUscita = rectangleObject.getRectangle();
+        if (game.getIngressoGrotta() != null) {
+            MapObjects objects = grotta.getLayers().get("teleport").getObjects();
+            for (MapObject object : objects) {
+                if (object instanceof RectangleMapObject) {
+                    // Se l'oggetto è un rettangolo
+                    RectangleMapObject rectangleObject = (RectangleMapObject) object;
 
-            } 
+                    if (game.getIngressoGrotta().equals(object.getName())) {
+
+                        game.getPlayer().setPosition(rectangleObject.getRectangle().getX(), rectangleObject.getRectangle().getY());
+                    }
+                } 
+            }
+        }else {
+            //leggo il json salvato e setto la posizione (quindi metto x e y al personaggio)
         }
     }
 
@@ -178,7 +188,7 @@ public class PokeMarket1 extends ScreenAdapter {
         tileRenderer.getBatch().begin();
         
         // Recupera il layer dalla mappa
-        MapLayer layer = pokeMarket.getLayers().get(layerName);
+        MapLayer layer = grotta.getLayers().get(layerName);
         // Renderizza il layer
         tileRenderer.renderTileLayer((TiledMapTileLayer)layer);
 
@@ -187,21 +197,39 @@ public class PokeMarket1 extends ScreenAdapter {
 
 
     private void controllaUscita() {
-        if (rectangleUscita != null) {
-            if (game.getPlayer().getBoxPlayer().overlaps(rectangleUscita)) {
-                game.setTeleport("uscitaPokeMarketC");
+
+        //TELEPORT è una roba per la fullMap
+        
+        if (rectangleUscitaCapitale != null) {
+            if (game.getPlayer().getBoxPlayer().overlaps(rectangleUscitaCapitale)) {
+                game.setTeleport("uscitagrottaC");
                 game.setPage(Constant.MAPPA_SCREEN);
             }
         }
+
+        if (rectangleUscitaCitta != null) {
+            if (game.getPlayer().getBoxPlayer().overlaps(rectangleUscitaCitta)) {
+                game.setTeleport("uscitaCitta");
+                game.setIngressoCittaMontagna("ingressoDaGrotta");
+                game.setPage(Constant.CITTAMONTAGNA);
+            }
+        }
         
+        if (rectangleUscitaVetta != null) {
+            if (game.getPlayer().getBoxPlayer().overlaps(rectangleUscitaVetta)) {
+                game.setTeleport("uscitaVetta");
+                game.setPage(Constant.MAPPA_SCREEN);    //da settare la città nelle montagne
+            }
+        }
     }
 
     @Override
     public void dispose() {
-        if (pokeMarket != null)  {
-            pokeMarket.dispose();
+        if (grotta != null)  {
+            grotta.dispose();
         }
 
         tileRenderer.dispose();
     }
+
 }

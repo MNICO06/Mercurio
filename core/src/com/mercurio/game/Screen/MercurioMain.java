@@ -75,6 +75,8 @@ public class MercurioMain extends Game implements InterfacciaComune{
     private boolean isInMovement = false;
 
     private String ingressoPokeCenter;
+    private String ingressoGrotta;
+    private String ingressoCittaMontagna;
 
     private String screenString;
 
@@ -96,7 +98,7 @@ public class MercurioMain extends Game implements InterfacciaComune{
         copiaJson("jsonSalvati/datiGeneraliSalvato.json", "assets/ashJson/datiGenerali.json");
         copiaJson("jsonSalvati/boxSalvato.json", "assets/ashJson/box.json");
         copiaJson("jsonSalvati/pokemonScopertiSalvato.json", "assets/ashJson/pokemonScoperti.json");
-        copiaJson("jsonSalvati/rivaleSalvato.json", "assets/ashJson/rivale.json");
+
         
 
 
@@ -297,18 +299,35 @@ public class MercurioMain extends Game implements InterfacciaComune{
                 newScreen = new Laboratorio(this);
                 screen_id = 4;
                 luogo = "laboratorio";
+                screenString=screen;
                 break;
 
             case Constant.POKEMARKET1:
                 newScreen = new PokeMarket1(this);
                 screen_id = 5;
                 luogo = "pokemarket";
+                screenString=screen;
                 break;
 
             case Constant.POKEMARKET2:
                 newScreen = new PokeMarket2(this);
                 screen_id = 6;
                 luogo = "pokemarket";
+                screenString=screen;
+                break;
+
+            case Constant.GROTTA:
+                newScreen = new Grotta(this);
+                screen_id = 7;
+                luogo = "grotta";
+                screenString=screen;
+                break;
+
+            case Constant.CITTAMONTAGNA:
+                newScreen = new CittaMontagna(this);
+                screen_id = 7;
+                luogo = "cittamontagna";
+                screenString=screen;
                 break;
 
             default:
@@ -443,6 +462,22 @@ public class MercurioMain extends Game implements InterfacciaComune{
 
     public void setIngressoPokeCenter(String ingressoPokeCenter) {
         this.ingressoPokeCenter = ingressoPokeCenter;
+    }
+
+    public String getIngressoGrotta() {
+        return ingressoGrotta;
+    }
+
+    public void setIngressoGrotta(String ingressoGrotta) {
+        this.ingressoGrotta = ingressoGrotta;
+    }
+
+    public String getIngressoCittaMontagna() {
+        return ingressoCittaMontagna;
+    }
+
+    public void setIngressoCittaMontagna(String ingressoCittaMontagna) {
+        this.ingressoCittaMontagna = ingressoCittaMontagna;
     }
 
     public String getScreenString(){

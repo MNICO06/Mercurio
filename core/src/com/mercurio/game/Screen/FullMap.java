@@ -901,6 +901,9 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
     }
 
     public void change(RectangleMapObject rectangleObject) {
+        if (rectangleObject.getName().equals("grotta")) {
+            game.setIngressoGrotta("ingressoCapitale");
+        }
         game.setPage(rectangleObject.getName());
     }
 

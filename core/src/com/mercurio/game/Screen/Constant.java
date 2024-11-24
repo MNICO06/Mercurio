@@ -17,4 +17,8 @@ public class Constant {
     public static final String POKEMARKET1 = "pokeMarketC";
     public static final String POKEMARKET2_MAP = "mappa/PokeMarket2.tmx";
     public static final String POKEMARKET2 = "pokeMarketMare";
+    public static final String GROTTA = "grotta";
+    public static final String GROTTA_MAP = "mappa/grottaCitta3.tmx";
+    public static final String CITTAMONTAGNA = "cittamontagna";
+    public static final String CITTAMONTAGNA_MAP = "mappa/cittaRoccia.tmx";    
 }
