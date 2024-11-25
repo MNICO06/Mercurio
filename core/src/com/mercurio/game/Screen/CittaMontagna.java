@@ -71,7 +71,7 @@ public class CittaMontagna extends ScreenAdapter{
 
         //creo la camera
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, map_size.x/23f, map_size.y/13f);
+        camera.setToOrtho(false, map_size.x/8f, map_size.y/9f);
         camera.update();
 
         game.setMap(cittaGrotta, tileRenderer, camera, map_size.x, map_size.y);
@@ -83,18 +83,21 @@ public class CittaMontagna extends ScreenAdapter{
     }
 
     private void settaPlayerPotion() {
-        MapObjects objects = cittaGrotta.getLayers().get("teleport").getObjects();
-        for (MapObject object : objects) {
-            if (object instanceof RectangleMapObject) {
-                // Se l'oggetto è un rettangolo
-                RectangleMapObject rectangleObject = (RectangleMapObject) object;
-
-                if (game.getIngressoCittaMontagna().equals(object.getName())) {
-
-                    game.getPlayer().setPosition(rectangleObject.getRectangle().getX(), rectangleObject.getRectangle().getY());
-                }
-            } 
+        if (game.getIngressoCittaMontagna() != null) {
+            MapObjects objects = cittaGrotta.getLayers().get("teleport").getObjects();
+            for (MapObject object : objects) {
+                if (object instanceof RectangleMapObject) {
+                    // Se l'oggetto è un rettangolo
+                    RectangleMapObject rectangleObject = (RectangleMapObject) object;
+    
+                    if (game.getIngressoCittaMontagna().equals(object.getName())) {
+    
+                        game.getPlayer().setPosition(rectangleObject.getRectangle().getX(), rectangleObject.getRectangle().getY());
+                    }
+                } 
+            }
         }
+        
     }
 
     @Override

@@ -64,7 +64,7 @@ public class Grotta extends ScreenAdapter{
     @Override
     public void show() {
         game.setLuogo("grotta");
-        game.getMusica().startMusic("pokeCenter");
+        game.getMusica().startMusic("grotta");
 
         TmxMapLoader mapLoader = new TmxMapLoader();
         grotta = mapLoader.load(Constant.GROTTA_MAP);
