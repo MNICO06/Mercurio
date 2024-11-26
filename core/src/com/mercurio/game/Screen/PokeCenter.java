@@ -261,8 +261,13 @@ public class PokeCenter extends ScreenAdapter {
             RectangleMapObject rectObject = (RectangleMapObject) obj;
             Rectangle rect = rectObject.getRectangle();
             if (game.getPlayer().getBoxPlayer().overlaps(rect)) {
-                game.setTeleport(game.getIngressoPokeCenter());
+                if (game.getIngressoPokeCenter().equals("cittaRoccia")) {
+                    game.setIngressoCittaMontagna("ingressoDaPokecenter");
+                    game.setPage(Constant.CITTAMONTAGNA);
+                }else {
+                    game.setTeleport(game.getIngressoPokeCenter());
                 game.setPage(Constant.MAPPA_SCREEN);
+                }
             }
         }
     }

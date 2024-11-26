@@ -327,6 +327,13 @@ public class MercurioMain extends Game implements InterfacciaComune{
                 screenString=screen;
                 break;
 
+            case Constant.CENTRO_POKEMON_SCREEN:
+                newScreen = new PokeCenter(this);
+                screen_id = 8;
+                luogo = "pokeCenter";
+                screenString=screen;
+                break;
+
             default:
                 break;
         }

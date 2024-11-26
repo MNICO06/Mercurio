@@ -89,6 +89,8 @@ public class CittaMontagna extends ScreenAdapter{
                 if (object instanceof RectangleMapObject) {
                     // Se l'oggetto è un rettangolo
                     RectangleMapObject rectangleObject = (RectangleMapObject) object;
+
+                    //METTO IN INGRESSO CITTà MONTGNA IL NOME EFFETTIVO DEL RETTANGOLO IL CUI DEVO ESSERE TELETRASPORTATO
     
                     if (game.getIngressoCittaMontagna().equals(object.getName())) {
     
@@ -215,14 +217,26 @@ public class CittaMontagna extends ScreenAdapter{
                 RectangleMapObject rectangleObject = (RectangleMapObject) object;
 
                 if (game.getPlayer().getBoxPlayer().overlaps(rectangleObject.getRectangle())) {
-                    if (object.getName().equals("grotta")) {
+                    
+                    if (object.getName().equals("teleportGrotta")) {
+
                         game.setIngressoGrotta("ingressoCitta");
+                        game.setPage(Constant.GROTTA);
+
+                    }else if (object.getName().equals("teleportPokecenter")) {
+
+                        game.setIngressoPokeCenter("cittaRoccia");
+                        game.setPage(Constant.CENTRO_POKEMON_SCREEN);
+
+                    }else if (object.getName().equals("teleportShop")) {
+                        //per ora non metto nulla
+                    }else {
+
+                        game.setPage(object.getName());
                     }
-                    game.setPage(object.getName());
                 }
             }
         }
-
     }
 
     @Override

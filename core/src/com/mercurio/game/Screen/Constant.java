@@ -20,5 +20,6 @@ public class Constant {
     public static final String GROTTA = "grotta";
     public static final String GROTTA_MAP = "mappa/grottaCitta3.tmx";
     public static final String CITTAMONTAGNA = "cittamontagna";
-    public static final String CITTAMONTAGNA_MAP = "mappa/cittaRoccia.tmx";    
+    public static final String CITTAMONTAGNA_MAP = "mappa/cittaRoccia.tmx";
+    public static final String CENTRO_POKEMON_SCREEN = "pokecenter"; 
 }
