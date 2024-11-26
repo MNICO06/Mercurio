@@ -226,7 +226,7 @@ public class CittaMontagna extends ScreenAdapter{
                     }else if (object.getName().equals("teleportPokecenter")) {
 
                         game.setIngressoPokeCenter("cittaRoccia");
-                        game.setPage(Constant.CENTRO_POKEMON_SCREEN);
+                        game.setPage(Constant.CENTRO_POKEMON_ROCCIA);
 
                     }else if (object.getName().equals("teleportShop")) {
                         //per ora non metto nulla
