@@ -102,22 +102,22 @@ public class Rivale {
     public void muoviBotBasso() {
         stateTime += Gdx.graphics.getDeltaTime();
         currentAnimation = camminaIndietro.getKeyFrame(stateTime, true);
-        characterPosition.y -= 40f * Gdx.graphics.getDeltaTime();
+        characterPosition.y -= 50f * Gdx.graphics.getDeltaTime();
     }
     public void muoviBotAlto() {
         stateTime += Gdx.graphics.getDeltaTime();
         currentAnimation = camminaAvanti.getKeyFrame(stateTime, true);
-        characterPosition.y += 40f * Gdx.graphics.getDeltaTime();
+        characterPosition.y += 50f * Gdx.graphics.getDeltaTime();
     }
     public void muoviBotDestra() {
         stateTime += Gdx.graphics.getDeltaTime();
         currentAnimation = camminaDestra.getKeyFrame(stateTime, true);
-        characterPosition.x += 40f * Gdx.graphics.getDeltaTime();
+        characterPosition.x += 50f * Gdx.graphics.getDeltaTime();
     }
     public void muoviBotSinistra() {
         stateTime += Gdx.graphics.getDeltaTime();
         currentAnimation = camminaSinistra.getKeyFrame(stateTime, true);
-        characterPosition.x -= 40f * Gdx.graphics.getDeltaTime();
+        characterPosition.x -= 50f * Gdx.graphics.getDeltaTime();
     }
 
     //funzioni per settare animazione bot

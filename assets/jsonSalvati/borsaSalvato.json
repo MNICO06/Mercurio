@@ -17,25 +17,31 @@
             "name": "Masterball"
         }
     ],
-    "inventoryKey": [{
+    "inventoryKey": [
+        {
         "quantity": 1,
         "name": "Surf"
-    }],
+        },
+        {
+        "quantity": 1,
+        "name": "Mappa Citta"
+        }
+    ],
     "inventoryMT": [
         
     ],
     "inventoryCure": [
         {
-            "quantity": 10,
+            "quantity": 1,
             "name": "Iperpozione"
         },
         {
             "quantity": 10,
-            "name": "revitalizzante"
+            "name": "Revitalizzante"
         },
         {
             "quantity": 10,
-            "name": "revitalizzanteMAX"
+            "name": "Revitalizzante Max"
         }
     ]
 }
