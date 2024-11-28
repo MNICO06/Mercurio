@@ -1,11 +1,20 @@
 {
     "data": {
-        "image": "spriteMosse/grass.png",
+        "image": "spriteMosse/fire.png",
         "numeroColonne": 5,
-        "numeroRighe": 10,
+        "numeroRighe": 15,
         "tipologia": "continua",
         "frame": [
-            
+            [
+                {
+                    "numeroSprite": 1,
+                    "x": 1,
+                    "y": 1,
+                    "altezza": 1,
+                    "larghezza": 1,
+                    "opacity": 1
+                }
+            ]
         ]
     }
 }
