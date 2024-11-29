@@ -81,6 +81,7 @@ public class MercurioMain extends Game implements InterfacciaComune{
     private String screenString;
 
     private Box box;
+    private Shop shop;
     private SceltaStarterScreen sceltaStarterScreen;
     
     @Override
@@ -160,6 +161,10 @@ public class MercurioMain extends Game implements InterfacciaComune{
 
             if (box != null){
                 box.render();
+            }
+
+            if (shop != null) {
+                shop.render();
             }
 
             if (sceltaStarterScreen != null) {
@@ -500,6 +505,17 @@ public class MercurioMain extends Game implements InterfacciaComune{
         getPlayer().setMovement(true);
         Gdx.input.setInputProcessor(MenuLabel.getStage());
         box = null;
+    }
+
+    public void creaShop() {
+        getPlayer().setMovement(false);
+        shop = new Shop(this);
+    }
+
+    public void closeShop() {
+        getPlayer().setMovement(true);
+        Gdx.input.setInputProcessor(MenuLabel.getStage());
+        shop = null;
     }
 
     public void creaSceltaStarter() {

@@ -1,0 +1,38 @@
+{
+    "Pokeball": {
+        "costo": 200,
+        "descrizione": "Strumento dotato di Capsula usato per catturare Pokemon selvatici. Si lancia contro il bersaglio come una palla.",
+        "path": "assets/oggetti/pokeball.png",
+        "tipo": "inventoryBall"
+    },
+    "Megaball": {
+        "costo": 600,
+        "descrizione": "Ball dalle ottime prestazioni: fornisce maggiori probabilità di cattura rispetto alla Poke Ball.",
+        "path": "assets/oggetti/megaball.png",
+        "tipo": "inventoryBall"
+    },
+    "Ultraball": {
+        "costo": 1000,
+        "descrizione": "Ball dalle prestazioni eccellenti: fornisce maggiori probabilità di cattura rispetto alla Mega Ball.",
+        "path": "assets/oggetti/ultraball.png",
+        "tipo": "inventoryBall"
+    },
+    "Pozione": {
+        "costo": 300,
+        "descrizione": "Rimedio spray per le ferite. Restituisce 20 PS ad un Pokemon.",
+        "path": "assets/oggetti/pozione.png",
+        "tipo": "inventoryCure"
+    },
+    "Iperpozione": {
+        "costo": 1200,
+        "descrizione": "Rimedio spray per le ferite. Restituisce 120 PS ad un Pokemon.",
+        "path": "assets/oggetti/iperPozione.png",
+        "tipo": "inventoryCure"
+    },
+    "Revitalizzante": {
+        "costo": 1500,
+        "descrizione": "Rimedio che rianima un Pokemon esausto e gli restituisce meta' dei suoi PS massimi.",
+        "path": "assets/oggetti/revitalizzante.png",
+        "tipo": "inventoryCure"
+    }
+}

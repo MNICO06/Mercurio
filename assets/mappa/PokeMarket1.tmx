@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="13" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="24" nextobjectid="40">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="13" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="24" nextobjectid="40">
  <tileset firstgid="1" name="floor" tilewidth="16" tileheight="16" tilecount="8284" columns="76">
   <image source="Room_Builder_16x16.png" width="1216" height="1744"/>
  </tileset>
@@ -342,8 +342,8 @@
   <object id="34" name="posizioneCas" x="64" y="35.5313" width="16" height="10.9375"/>
  </objectgroup>
  <objectgroup color="#55ff00" id="22" name="market">
-  <object id="35" name="market" x="64" y="64.7273" width="16.1818" height="11.0909"/>
-  <object id="36" name="market" x="112.364" y="64.7273" width="16.1818" height="11.0909"/>
+  <object id="35" x="64" y="64.7273" width="16.1818" height="11.0909"/>
+  <object id="36" x="112.364" y="64.7273" width="16.1818" height="11.0909"/>
  </objectgroup>
  <objectgroup color="#55ff00" id="19" name="exit">
   <object id="37" x="106.527" y="198.151" width="27.775" height="9.99221"/>
