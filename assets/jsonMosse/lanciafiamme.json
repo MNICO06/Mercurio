@@ -8,195 +8,227 @@
             [
                 {
                     "numeroSprite": 0,
-                    "x": 1,
-                    "y": 1,
+                    "x": 325,
+                    "y": 210,
+                    "altezza": 340,
+                    "larghezza": 340,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 0,
+                    "x": 330,
+                    "y": 220,
                     "altezza": 340,
                     "larghezza": 340,
                     "opacity": 1
                 },
                 {
                     "numeroSprite": 1,
-                    "x": 1,
-                    "y": 1,
+                    "x": 340,
+                    "y": 225,
+                    "altezza": 340,
+                    "larghezza": 340,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 1,
+                    "x": 350,
+                    "y": 230,
                     "altezza": 340,
                     "larghezza": 340,
                     "opacity": 1
                 },
                 {
                     "numeroSprite": 2,
-                    "x": 1,
-                    "y": 1,
+                    "x": 360,
+                    "y": 240,
+                    "altezza": 340,
+                    "larghezza": 340,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 2,
+                    "x": 370,
+                    "y": 240,
                     "altezza": 340,
                     "larghezza": 340,
                     "opacity": 1
                 },
                 {
                     "numeroSprite": 3,
-                    "x": 1,
-                    "y": 1,
+                    "x": 370,
+                    "y": 240,
+                    "altezza": 340,
+                    "larghezza": 340,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 3,
+                    "x": 360,
+                    "y": 230,
                     "altezza": 340,
                     "larghezza": 340,
                     "opacity": 1
                 },
                 {
                     "numeroSprite": 4,
-                    "x": 1,
-                    "y": 1,
+                    "x": 355,
+                    "y": 225,
+                    "altezza": 340,
+                    "larghezza": 340,
+                    "opacity": 1
+                },
+                {
+                    "numeroSprite": 4,
+                    "x": 350,
+                    "y": 220,
                     "altezza": 340,
                     "larghezza": 340,
                     "opacity": 1
                 },
                 {
                     "numeroSprite": 5,
-                    "x": 1,
-                    "y": 1,
+                    "x": 350,
+                    "y": 220,
                     "altezza": 340,
                     "larghezza": 340,
                     "opacity": 1
                 },
                 {
                     "numeroSprite": 6,
-                    "x": 1,
-                    "y": 1,
+                    "x": 625,
+                    "y": 240,
                     "altezza": 340,
                     "larghezza": 340,
                     "opacity": 1
                 },
                 {
                     "numeroSprite": 6,
-                    "x": 1,
-                    "y": 1,
+                    "x": 625,
+                    "y": 240,
                     "altezza": 340,
                     "larghezza": 340,
                     "opacity": 1
                 },
                 {
                     "numeroSprite": 7,
-                    "x": 1,
-                    "y": 1,
+                    "x": 625,
+                    "y": 240,
                     "altezza": 340,
                     "larghezza": 340,
                     "opacity": 1
                 },
                 {
                     "numeroSprite": 7,
-                    "x": 1,
-                    "y": 1,
+                    "x": 625,
+                    "y": 240,
                     "altezza": 340,
                     "larghezza": 340,
                     "opacity": 1
                 },
                 {
                     "numeroSprite": 8,
-                    "x": 1,
-                    "y": 1,
+                    "x": 625,
+                    "y": 240,
                     "altezza": 340,
                     "larghezza": 340,
                     "opacity": 1
                 },
                 {
                     "numeroSprite": 8,
-                    "x": 1,
-                    "y": 1,
+                    "x": 625,
+                    "y": 240,
                     "altezza": 340,
                     "larghezza": 340,
                     "opacity": 1
                 },
                 {
                     "numeroSprite": 9,
-                    "x": 1,
-                    "y": 1,
+                    "x": 625,
+                    "y": 240,
                     "altezza": 340,
                     "larghezza": 340,
                     "opacity": 1
                 },
                 {
                     "numeroSprite": 9,
-                    "x": 1,
-                    "y": 1,
+                    "x": 625,
+                    "y": 240,
                     "altezza": 340,
                     "larghezza": 340,
                     "opacity": 1
                 },
                 {
                     "numeroSprite": 10,
-                    "x": 1,
-                    "y": 1,
+                    "x": 625,
+                    "y": 240,
                     "altezza": 340,
                     "larghezza": 340,
                     "opacity": 1
                 },
                 {
                     "numeroSprite": 10,
-                    "x": 1,
-                    "y": 1,
+                    "x": 625,
+                    "y": 240,
                     "altezza": 340,
                     "larghezza": 340,
                     "opacity": 1
                 },
                 {
                     "numeroSprite": 11,
-                    "x": 1,
-                    "y": 1,
+                    "x": 625,
+                    "y": 240,
                     "altezza": 340,
                     "larghezza": 340,
                     "opacity": 1
                 },
                 {
                     "numeroSprite": 11,
-                    "x": 1,
-                    "y": 1,
+                    "x": 625,
+                    "y": 240,
                     "altezza": 340,
                     "larghezza": 340,
                     "opacity": 1
                 },
                 {
                     "numeroSprite": 12,
-                    "x": 1,
-                    "y": 1,
+                    "x": 625,
+                    "y": 240,
                     "altezza": 340,
                     "larghezza": 340,
                     "opacity": 1
                 },
                 {
                     "numeroSprite": 12,
-                    "x": 1,
-                    "y": 1,
+                    "x": 625,
+                    "y": 240,
                     "altezza": 340,
                     "larghezza": 340,
                     "opacity": 1
                 },
                 {
                     "numeroSprite": 13,
-                    "x": 1,
-                    "y": 1,
+                    "x": 625,
+                    "y": 240,
                     "altezza": 340,
                     "larghezza": 340,
                     "opacity": 1
                 },
                 {
                     "numeroSprite": 13,
-                    "x": 1,
-                    "y": 1,
+                    "x": 625,
+                    "y": 240,
                     "altezza": 340,
                     "larghezza": 340,
                     "opacity": 1
                 },
                 {
-                    "numeroSprite": 14,
-                    "x": 1,
-                    "y": 1,
+                    "numeroSprite": 13,
+                    "x": 625,
+                    "y": 240,
                     "altezza": 340,
                     "larghezza": 340,
-                    "opacity": 1
-                },
-                {
-                    "numeroSprite": 14,
-                    "x": 1,
-                    "y": 1,
-                    "altezza": 340,
-                    "larghezza": 340,
-                    "opacity": 1
+                    "opacity": 0
                 }
             ]
         ]
