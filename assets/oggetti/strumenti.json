@@ -1,21 +1,21 @@
 {
     "cure":{
-        "pozione":{
+        "Pozione":{
             "curaPs" : 20
         },
-        "superPozione":{
+        "Superpozione":{
             "curaPs" : 60
         },
-        "iperPozione":{
+        "Iperpozione":{
             "curaPs" : 120
         },
-        "revitalizzante":{
+        "Revitalizzante":{
             "rivitalizzazione":50
         },
-        "revitalizzanteMAX":{
+        "Revitalizzante Max":{
             "rivitalizzazione":100
         },
-        "ricaricaTot":{
+        "Ricarica Totale":{
             "curaPs" : 500
         }
 

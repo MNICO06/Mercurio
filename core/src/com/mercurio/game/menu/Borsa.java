@@ -28,6 +28,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
 import com.mercurio.game.pokemon.Battle;
 import com.mercurio.game.pokemon.squadraCure;
+import com.mercurio.game.strumenti.MiniMappa;
 
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -83,6 +84,7 @@ public class Borsa {
     private float stateTime;
     private squadraCure squadraCure;
     private Battle battaglia;
+    private MiniMappa miniMappa;
     
     public Borsa(Stage stage, boolean battle, Battle battaglia) {
         this.batch = (SpriteBatch) stage.getBatch();
@@ -137,6 +139,9 @@ public class Borsa {
             squadraCure.render();
         }
 
+        if (miniMappa!=null){
+            miniMappa.render();
+        }
         // Disegna la UI della borsa
         stage.draw(); // Disegna lo stage sullo SpriteBatch
     }
@@ -432,6 +437,23 @@ public class Borsa {
                             }
                         });
                     }
+                    if (inventoryItems==inventoryKey){
+                        Texture usaTexture = new Texture("sfondo/usa.png");
+                        usaImage = new Image(usaTexture);
+                        usaImage.setPosition(70, 10);
+                        usaImage.setSize(56*3, 24*3);
+                        stage.addActor(usaImage);
+                        inventoryItemActors.add(usaImage);
+                        usaImage.addListener(new ClickListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
+                                usaImage.remove();
+                                if (itemName.equals("Mappa Citta")){
+                                    apriMiniMappa();
+                                }
+                            }
+                        });
+                    }
                 }
             };
 
@@ -443,11 +465,11 @@ public class Borsa {
                 itemTexture = new Texture(Gdx.files.local("assets/oggetti/MT.png"));
             }
             else{
-                itemTexture = new Texture(Gdx.files.local("assets/oggetti/" + itemName.toLowerCase() + ".png"));
+                itemTexture = new Texture(Gdx.files.local("assets/oggetti/" + itemName + ".png"));
             }
             Image itemImage = new Image(itemTexture);
             itemImage.setSize(itemWidth, itemHeight);
-            itemImage.setPosition(itemX + 20, itemY);
+            itemImage.setPosition(itemX + 20, itemY + 5);
             stage.addActor(itemImage);
             inventoryItemActors.add(itemImage);
     
@@ -580,5 +602,15 @@ public class Borsa {
 
     public squadraCure getSquadraCure(){
         return squadraCure;
+    }
+
+
+    private void apriMiniMappa(){
+        miniMappa= new MiniMappa(stage, this);
+    }
+
+    public void closeMiniMappa(){
+        miniMappa=null;
+        Gdx.input.setInputProcessor(stage);
     }
 }

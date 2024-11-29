@@ -1913,7 +1913,7 @@ public class Battle extends ScreenAdapter {
                 listaMosseBot.add(mossa);
             }
 
-            if (isBotFight){
+            if (isBotFight && currentPokeHPBot!=null && nomePokeBot!=null){
                 if (currentPokeHPBot.equals("0") || nomePokeBot.equals("")){
                     if (numeroIndexPokeBot<6){
                         numeroIndexPokeBot++;

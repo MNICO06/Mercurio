@@ -121,19 +121,19 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
     private LabelDiscorsi nonoDiscorsoRivale;
     private LabelDiscorsi decimoDiscorsoProf;
 
-    private String testoDiscorso1 = "Professore: Ciao ben ritrovato questo e' un testo di prova";
-    private String testoDiscorso2 = "Professore: Ciao scegli un tuo pokemon tra questi tre";
-    private String testoDiscorso3Prof = "Professore: Ottima scelta dello starter";
-    private String testoDiscorso4Rivale = "Rivale: Voglio uno starter anche io";
-    private String testoDiscorso5Prof = "Professore: va bene prendine uno";
-    private String testoDiscorso6Rivale = "Rivale: Proviamoli subito, combatti con me";
+    private String testoDiscorso1 = "Professor Rowan: Eccoti... E cosi' tu sei Ash... Ti ho chiamato perche' ho bisogno del tuo aiuto. Ora seguimi, hai bisogno di prepararti prima di partire.";
+    private String testoDiscorso2 = "Professor Rowan: Da qua parte la tua avventura. Scegli il Pokemon che preferisci, sara' il tuo compagno piu' fidato.";
+    private String testoDiscorso3Prof = "Professor Rowan: Hai scelto il tuo primo Pokemon, ora sei un'allenatore Pokemon a tutti gli effetti.";
+    private String testoDiscorso4Rivale = "Barry: Hey hey non cosi' in fretta, non lasciero' di certo Ash da solo! Voglio partire con lui e diventare io il campione!";
+    private String testoDiscorso5Prof = "Professor Rowan: Mhh... Barry... Capisco il tuo entusiasmo. E va bene, di Pokemon ne ho per entrambi. Poi un po' di sana competizione vi fara' del bene. Puoi scegliere anche tu il tuo compagno.";
+    private String testoDiscorso6Rivale = "Barry: Fantastico! Ma ci credi Ash, abbiamo entrabmi ora dei Pokemon, e ora siamo rivali! Dai proviamoli subito in una bella battaglia! ";
     //dopo la battaglia
-    private String testoDiscorso7Rivale = "Rivale: Sono molto contento bravo";
-    private String testoDiscorso8Prof = "Professore: Adesso voglio che vi mettete entrambi a lavorare sul pokedex";
-    private String testoDiscorso9Rivale = "Rivale: Parto subito verso la ricerca della figa";
+    private String testoDiscorso7Rivale = "Barry: E' stato incredibile! Sei veramente incredibile! Ma sappilo, io diventero' il piu' forte di tutti, anche di te!";
+    private String testoDiscorso8Prof = "Professor Rowan: Bravi ragazzi! Il vostro entusiasmo mi fa tornare il mente la mia gioventu'. Ma torniamo alla vostra missione: vi dovrete mettere in viaggio per aiutarmi a incontrare tutte le specie di Pokemon e completare il Pokedex. Voglio anche che affrontate le 3 palestre di Klower e voglio che miriate a diventare campioni. Ora, IN VIAGGIO!";
+    private String testoDiscorso9Rivale = "Barry: Grazie Professore, non la deluderemo. E ricordati Ash, io saro' il piu' forteee!";
 
     //dopo che il rivale se n'è andato
-    private String testoDiscorso10Prof = "Professore: Il tuo primo obbiettivo sarà quelli di raggiungere la capitale, buona fortuna";
+    private String testoDiscorso10Prof = "Professor Rowan: Quel ragazzo e' pieno di energie, sono sicuro che sara' un ottimo amico e rivale per te. Ora puoi partire anche tu. Il tuo primo obbiettivo sara' Margolia, la capitale. Per raggiungerla dei passare dal Bosco Tempovia. Vai, parti all'avventura!";
 
     public Laboratorio(MercurioMain game) {
         this.game = game;
@@ -796,7 +796,7 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
             if (poke1 != null) {
                 String nomePokemon = poke1.getString("nomePokemon", "");
 
-                if (nomePokemon.isEmpty()) {
+                if (!nomePokemon.isEmpty()) {
                     return false;
                 } else {
                     return true;
