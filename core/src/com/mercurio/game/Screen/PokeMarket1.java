@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -34,7 +35,7 @@ public class PokeMarket1 extends ScreenAdapter {
     private Vector2 map_size;
     private MapLayer lineeLayer;
 
-
+    private boolean nelloShop = false;
 
     private SpriteBatch batch;
     private Stage stage;
@@ -128,6 +129,7 @@ public class PokeMarket1 extends ScreenAdapter {
         game.setRectangleList(rectList);
         cambiaProfondita(lineeLayer);
         controllaUscita();
+        controllaShop();
     }
 
     private void cambiaProfondita(MapLayer lineeLayer) {
@@ -193,7 +195,32 @@ public class PokeMarket1 extends ScreenAdapter {
                 game.setPage(Constant.MAPPA_SCREEN);
             }
         }
-        
+    }
+
+    public void controllaShop() {
+        //recupero il rettangolo per uscire dalla mappa
+        MapObjects objects = pokeMarket.getLayers().get("market").getObjects();
+        for (MapObject object : objects) {
+            if (object instanceof RectangleMapObject) {
+                // Se l'oggetto è un rettangolo
+                RectangleMapObject rectangleObject = (RectangleMapObject) object;
+
+                if (game.getPlayer().getBoxPlayer().overlaps(rectangleObject.getRectangle())) {
+                    
+                    if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
+                        if (!nelloShop) {
+                            nelloShop = true;
+                            game.creaShop();
+                        }else {
+                            nelloShop = false;
+                            game.closeShop();
+                        }
+                    }
+                }
+
+
+            } 
+        }
     }
 
     @Override

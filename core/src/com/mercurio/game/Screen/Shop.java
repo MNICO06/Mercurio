@@ -39,11 +39,16 @@ public class Shop extends ScreenAdapter{
 
     private int inizioRiga = 0; //aumento e diminuisco in base a se premo la freccia in giù o in su
 
+    private int numeroRighe = 5;  //da cambiare all'inzio controllando il numero di oggetti con le medagli che si possiedono
+
     private Label labelDescrizioneCopia;
     private Image imageOggettoCopia;
 
     private MercurioMain game;
     Image background;
+    Image imageFrecciaSuPag;
+    Image imageFrecciaGiuPag;
+    
 
     private Label labelDenaro;
     private int yPosIniziale = 560;
@@ -122,6 +127,44 @@ public class Shop extends ScreenAdapter{
 
         labelDenaro.setPosition(pos, 610);
         stage.addActor(labelDenaro);
+
+        //settaggio freccia in su
+        Texture textureFrecciaSuPag = new Texture("sfondo/frecciaMarketUp.png");
+        imageFrecciaSuPag = new Image(textureFrecciaSuPag);
+        imageFrecciaSuPag.setPosition(460, 645);
+        imageFrecciaSuPag.setSize(46, 25);
+        stage.addActor(imageFrecciaSuPag);
+
+        //listener per la freccia in su
+        imageFrecciaSuPag.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                inizioRiga --;
+                svuotaTutto();
+                renderizzaLabel();
+                controllaFrecce();
+            }
+        });
+
+        //settaggio freccia in giu
+        Texture textureFrecciaGiuPag = new Texture("sfondo/frecciaMarketDown.png");
+        imageFrecciaGiuPag = new Image(textureFrecciaGiuPag);
+        imageFrecciaGiuPag.setPosition(460, 200);
+        imageFrecciaGiuPag.setSize(46, 25);
+        stage.addActor(imageFrecciaGiuPag);
+
+        //listener per la freccia in giu
+        imageFrecciaGiuPag.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                inizioRiga ++;
+                svuotaTutto();
+                renderizzaLabel();
+                controllaFrecce();
+            }
+        });
+        
+        controllaFrecce();
 
         renderizzaLabel();
     }
@@ -257,6 +300,24 @@ public class Shop extends ScreenAdapter{
         for (Image img : animationImages) {
             img.remove();
         }
+
+        yPosIniziale = 560;
+        yPosInizialeLabel = 590;
+    }
+
+    private void controllaFrecce() {
+        if (inizioRiga == 0) {
+            imageFrecciaSuPag.setVisible(false);
+        }else {
+            imageFrecciaSuPag.setVisible(true);
+        }
+
+        if (numeroRighe - inizioRiga <= 4) {
+            imageFrecciaGiuPag.setVisible(false);
+        }else {
+            imageFrecciaGiuPag.setVisible(true);
+        }
+
     }
 
 }
