@@ -23,7 +23,7 @@ public class MiniMappa {
     private Array<Actor> medaglieActor;
     private Borsa chiamanteB;
     private Image background;
-    private boolean isMedaglieChiuso;
+    private Image map;
     private Image tastoXImage;
 
     public MiniMappa(Stage stage, Borsa chiamanteB){
@@ -43,12 +43,12 @@ public class MiniMappa {
         float screenHeight = Gdx.graphics.getHeight();
 
         // Stato iniziale
-        isMedaglieChiuso = true;
-        Texture backgroundTexture = new Texture("sfondo/miniMappaCompleta.png");
-        background = new Image(backgroundTexture);
-        background.setSize(700, 700);
-        stage.addActor(background);
-        medaglieActor.add(background);
+        Texture mapTexture = new Texture("sfondo/miniMappaCompleta.png");
+        map = new Image(mapTexture);
+        map.setPosition((screenWidth-700)/2, (screenHeight-700)/2);
+        map.setSize(700, 700);
+        stage.addActor(map);
+        medaglieActor.add(map);
 
 
         Texture closeButtonTexture = new Texture("sfondo/x.png");
