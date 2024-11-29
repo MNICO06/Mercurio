@@ -35,46 +35,46 @@ public class Rivale {
 
     public Rivale() {
         //modificare l'assets per mettere quello effettivo del rivale
-        Texture texture = new Texture(Gdx.files.internal("assets/player/professorRowan.png"));
-        tmp = TextureRegion.split(texture, texture.getWidth() / 3, texture.getHeight() / 4);
+        Texture texture = new Texture(Gdx.files.internal("assets/player/barry.png"));
+        tmp = TextureRegion.split(texture, texture.getWidth() / 4, texture.getHeight() / 4);
 
         indietro = new TextureRegion[3];
         sinistra = new TextureRegion[3];
         destra = new TextureRegion[3];
         avanti = new TextureRegion[3];
         for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 3; j++) {
+            for (int j = 0; j < 4; j++) {
                 if (i == 0) {
                     if (j == 0) {
-                        avanti[0] = tmp[i][j];
+                        indietro[0] = tmp[i][j];
                     } else if (j == 1) {
-                        destra[0] = tmp[i][j];
-                    } else if (j == 2) {
-                        avanti[1] = tmp[i][j];
+                        indietro[1] = tmp[i][j];
+                    } else if (j == 3) {
+                        indietro[2] = tmp[i][j];
                     }
                 } else if (i == 1) {
                     if (j == 0) {
-                        sinistra[0] = tmp[i][j];
+                        avanti[0] = tmp[i][j];
                     } else if (j == 1) {
-                        destra[1] = tmp[i][j];
-                    } else if (j == 2) {
-                        indietro[0] = tmp[i][j];
+                        avanti[1] = tmp[i][j];
+                    } else if (j == 3) {
+                        avanti[2] = tmp[i][j];
                     }
                 } else if (i == 2) {
                     if (j == 0) {
-                        sinistra[1] = tmp[i][j];
+                        sinistra[0] = tmp[i][j];
                     } else if (j == 1) {
-                        destra[2] = tmp[i][j];
-                    } else if (j == 2) {
-                        indietro[1] = tmp[i][j];
+                        sinistra[1] = tmp[i][j];
+                    } else if (j == 3) {
+                        sinistra[2] = tmp[i][j];
                     }
                 } else if (i == 3) {
                     if (j == 0) {
-                        sinistra[2] = tmp[i][j];
+                        destra[0] = tmp[i][j];
                     } else if (j == 1) {
-                        avanti[2] = tmp[i][j];
-                    } else if (j == 2) {
-                        indietro[2] = tmp[i][j];
+                        destra[1] = tmp[i][j];
+                    } else if (j == 3) {
+                        destra[2] = tmp[i][j];
                     }
                 }
             }
@@ -102,22 +102,22 @@ public class Rivale {
     public void muoviBotBasso() {
         stateTime += Gdx.graphics.getDeltaTime();
         currentAnimation = camminaIndietro.getKeyFrame(stateTime, true);
-        characterPosition.y -= 50f * Gdx.graphics.getDeltaTime();
+        characterPosition.y -= 60f * Gdx.graphics.getDeltaTime();
     }
     public void muoviBotAlto() {
         stateTime += Gdx.graphics.getDeltaTime();
         currentAnimation = camminaAvanti.getKeyFrame(stateTime, true);
-        characterPosition.y += 50f * Gdx.graphics.getDeltaTime();
+        characterPosition.y += 60f * Gdx.graphics.getDeltaTime();
     }
     public void muoviBotDestra() {
         stateTime += Gdx.graphics.getDeltaTime();
         currentAnimation = camminaDestra.getKeyFrame(stateTime, true);
-        characterPosition.x += 50f * Gdx.graphics.getDeltaTime();
+        characterPosition.x += 60f * Gdx.graphics.getDeltaTime();
     }
     public void muoviBotSinistra() {
         stateTime += Gdx.graphics.getDeltaTime();
         currentAnimation = camminaSinistra.getKeyFrame(stateTime, true);
-        characterPosition.x -= 50f * Gdx.graphics.getDeltaTime();
+        characterPosition.x -= 60f * Gdx.graphics.getDeltaTime();
     }
 
     //funzioni per settare animazione bot
