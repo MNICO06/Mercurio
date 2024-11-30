@@ -1,14 +1,5 @@
 package com.mercurio.game.Screen;
 
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.sound.midi.SysexMessage;
-
-import org.json.JSONTokener;
-
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.files.FileHandle;
@@ -41,7 +32,10 @@ public class Shop extends ScreenAdapter{
 
     private int numeroRighe = 5;  //da cambiare all'inzio controllando il numero di oggetti con le medagli che si possiedono
 
+    private int quantita = 0;
+
     private Label labelDescrizioneCopia;
+    private Label labelQuantitaCompra;
     private Image imageOggettoCopia;
 
     private MercurioMain game;
@@ -180,7 +174,7 @@ public class Shop extends ScreenAdapter{
 
             if (oggettoJson != null) {
 
-                //TODO: inserire ancora scelta quantità, cambio pagina, riduzione dei propri soldi solo se si può comprare
+                //TODO: inserire ancora scelta quantità, riduzione dei propri soldi solo se si può comprare
                 
                 final String nome = oggettoJson.name;
 
@@ -213,6 +207,56 @@ public class Shop extends ScreenAdapter{
                 imageOggetto.setVisible(false);
                 animationImages.add(imageOggetto);
                 stage.addActor(imageOggetto);
+
+                //settaggio dell'immagine del numero oggetti scelti e delle frecce
+                texture = new Texture("sfondo/mostraQuantita.png");
+                Image imageSceltaQta = new Image(texture);
+                imageSceltaQta.setPosition(870, 150);
+                imageSceltaQta.setSize(75, 85);
+                imageSceltaQta.setVisible(false);
+                animationImages.add(imageSceltaQta);
+                stage.addActor(imageSceltaQta);
+
+                texture = new Texture("sfondo/frecciaQtaSu.png");
+                Image imageFrecciaQtaSu = new Image(texture);
+                imageFrecciaQtaSu.setPosition(950, 197);
+                imageFrecciaQtaSu.setVisible(false);
+                animationImages.add(imageFrecciaQtaSu);
+                stage.addActor(imageFrecciaQtaSu);
+                imageFrecciaQtaSu.addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        if (quantita < 100) {
+                            quantita += 1;
+                            labelQuantitaCompra.setText(String.valueOf(quantita));
+                            posizionaLabelQuantitaCompra();
+                        }
+                    }
+                });
+
+                texture = new Texture("sfondo/frecciaQtaGiu.png");
+                Image imageFrecciaQtaGiu = new Image(texture);
+                imageFrecciaQtaGiu.setPosition(950, 150);
+                imageFrecciaQtaGiu.setVisible(false);
+                animationImages.add(imageFrecciaQtaGiu);
+                stage.addActor(imageFrecciaQtaGiu);
+                imageFrecciaQtaGiu.addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        if (quantita > 0) {
+                            quantita -= 1;
+                            labelQuantitaCompra.setText(String.valueOf(quantita));
+                            posizionaLabelQuantitaCompra();
+                        }
+                    }
+                });
+
+                labelQuantitaCompra = new Label(String.valueOf(quantita), new Label.LabelStyle(font1, null));
+                labelQuantitaCompra.setFontScale(5f);
+                posizionaLabelQuantitaCompra();
+                labelQuantitaCompra.setVisible(false);
+                animationTextures.add(labelQuantitaCompra);
+                stage.addActor(labelQuantitaCompra);
 
                 //codice per preparare la descrizione in modo da dividerla in righe
                 String[] parole = oggettoJson.getString("descrizione").split(" ");
@@ -249,6 +293,10 @@ public class Shop extends ScreenAdapter{
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
 
+                        if (labelDescrizioneCopia != labelDescrizione) {
+                            quantita = 0;
+                        }
+
                         //rimuovo se c'enerano di precedenti
                         if (imageOggettoCopia != null) {
                             imageOggettoCopia.setVisible(false);
@@ -263,10 +311,18 @@ public class Shop extends ScreenAdapter{
                         labelDescrizione.setVisible(true);
                         imageOggetto.setVisible(true);
 
+                        imageSceltaQta.setVisible(true);
+                        imageFrecciaQtaGiu.setVisible(true);
+                        imageFrecciaQtaSu.setVisible(true);
+                        labelQuantitaCompra.setVisible(true);
+
+                        labelQuantitaCompra.setText(String.valueOf(quantita));
+                        posizionaLabelQuantitaCompra();
+
+
                         labelDescrizioneCopia = labelDescrizione;
                         imageOggettoCopia = imageOggetto;
 
-                        //TODO: aggiungere il controllo per inserire il numero in borsa
                         FileHandle borsa = Gdx.files.local("assets/ashJson/borsa.json");
                         JsonValue oggettoBorsa = new JsonReader().parse(borsa.readString());
 
@@ -317,7 +373,14 @@ public class Shop extends ScreenAdapter{
         }else {
             imageFrecciaGiuPag.setVisible(true);
         }
+    }
 
+    private void posizionaLabelQuantitaCompra() {
+        if (quantita < 10) {
+            labelQuantitaCompra.setPosition(895, 185);
+        }else {
+            labelQuantitaCompra.setPosition(885, 185);
+        }
     }
 
 }
