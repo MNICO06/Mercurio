@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.JsonWriter;
 
 public class Shop extends ScreenAdapter{
     private Stage stage;
@@ -26,13 +27,14 @@ public class Shop extends ScreenAdapter{
     Array<Image> animationImages = new Array<>();
     Array<Actor> animationTextures = new Array<>();
 
-    private int denaro;
+    private int denaro = 0;
+    private int quantita = 0;
+    private int qtaInventario = 0;
 
     private int inizioRiga = 0; //aumento e diminuisco in base a se premo la freccia in giù o in su
 
     private int numeroRighe = 5;  //da cambiare all'inzio controllando il numero di oggetti con le medagli che si possiedono
-
-    private int quantita = 0;
+    
 
     private Label labelDescrizioneCopia;
     private Label labelQuantitaCompra;
@@ -177,7 +179,7 @@ public class Shop extends ScreenAdapter{
                 //TODO: inserire ancora scelta quantità, riduzione dei propri soldi solo se si può comprare
                 
                 final String nome = oggettoJson.name;
-
+                final int index = i;
                 
                 //posizionare le varie linee e poi le label al loro interno
                 Texture texture1 = new Texture("sfondo/lineaOggetto.png");
@@ -211,7 +213,7 @@ public class Shop extends ScreenAdapter{
                 //settaggio dell'immagine del numero oggetti scelti e delle frecce
                 texture = new Texture("sfondo/mostraQuantita.png");
                 Image imageSceltaQta = new Image(texture);
-                imageSceltaQta.setPosition(870, 150);
+                imageSceltaQta.setPosition(770, 150);
                 imageSceltaQta.setSize(75, 85);
                 imageSceltaQta.setVisible(false);
                 animationImages.add(imageSceltaQta);
@@ -219,7 +221,7 @@ public class Shop extends ScreenAdapter{
 
                 texture = new Texture("sfondo/frecciaQtaSu.png");
                 Image imageFrecciaQtaSu = new Image(texture);
-                imageFrecciaQtaSu.setPosition(950, 197);
+                imageFrecciaQtaSu.setPosition(850, 197);
                 imageFrecciaQtaSu.setVisible(false);
                 animationImages.add(imageFrecciaQtaSu);
                 stage.addActor(imageFrecciaQtaSu);
@@ -236,7 +238,7 @@ public class Shop extends ScreenAdapter{
 
                 texture = new Texture("sfondo/frecciaQtaGiu.png");
                 Image imageFrecciaQtaGiu = new Image(texture);
-                imageFrecciaQtaGiu.setPosition(950, 150);
+                imageFrecciaQtaGiu.setPosition(850, 150);
                 imageFrecciaQtaGiu.setVisible(false);
                 animationImages.add(imageFrecciaQtaGiu);
                 stage.addActor(imageFrecciaQtaGiu);
@@ -257,6 +259,47 @@ public class Shop extends ScreenAdapter{
                 labelQuantitaCompra.setVisible(false);
                 animationTextures.add(labelQuantitaCompra);
                 stage.addActor(labelQuantitaCompra);
+
+                texture = new Texture("sfondo/usa.png");
+                Image imageOk = new Image(texture);
+                imageOk.setPosition(900, 150);
+                imageOk.setSize(56*1.8f, 24*1.8f);
+                imageOk.setVisible(false);
+                animationImages.add(imageOk);
+                stage.addActor(imageOk);
+                imageOk.addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        int costo = oggettoJson.getInt("costo") * quantita;
+
+                        //controllo che io abbia abbastanza soldi per comprarlo
+                        if (costo < denaro) {
+                            //controllo in modo che non vada oltre a 999 in totale
+                            if (qtaInventario + quantita < 1000) {
+
+                                FileHandle file = Gdx.files.local("assets/ashJson/datiGenerali.json");
+                                JsonValue json = new JsonReader().parse(file.readString());
+                                json.get("denaro").set(denaro - costo, "denaro");
+                                file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
+
+
+                                FileHandle borsa = Gdx.files.local("assets/ashJson/borsa.json");
+                                JsonValue oggettoBorsa = new JsonReader().parse(borsa.readString());
+                                for (int gianni = 0; gianni < oggettoBorsa.get(oggettiShop.get(index).getString("tipo")).size; gianni++) {
+                                    if (oggettoBorsa.get(oggettiShop.get(index).getString("tipo")).get(gianni).getString("name").equals(nome)) {
+                                        oggettoBorsa.get(oggettiShop.get(index).getString("tipo")).get(gianni).get("quantity").set(qtaInventario + quantita, "quantity");
+                                    }
+                                }
+                                borsa.writeString(oggettoBorsa.prettyPrint(JsonWriter.OutputType.json, 1), false);
+
+                                svuotaTutto();
+                                renderizzaLabel();
+                            }
+
+                        }
+                    }
+                });
+
 
                 //codice per preparare la descrizione in modo da dividerla in righe
                 String[] parole = oggettoJson.getString("descrizione").split(" ");
@@ -288,7 +331,6 @@ public class Shop extends ScreenAdapter{
 
                 labelQuantita = new Label("", new Label.LabelStyle(font1, null));
 
-                final int index = i;
                 imageOggetto1.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
@@ -315,6 +357,8 @@ public class Shop extends ScreenAdapter{
                         imageFrecciaQtaGiu.setVisible(true);
                         imageFrecciaQtaSu.setVisible(true);
                         labelQuantitaCompra.setVisible(true);
+                        imageOk.setVisible(true);
+                        
 
                         labelQuantitaCompra.setText(String.valueOf(quantita));
                         posizionaLabelQuantitaCompra();
@@ -326,15 +370,13 @@ public class Shop extends ScreenAdapter{
                         FileHandle borsa = Gdx.files.local("assets/ashJson/borsa.json");
                         JsonValue oggettoBorsa = new JsonReader().parse(borsa.readString());
 
-                        int qta = 0;
-
                         for (int gianni = 0; gianni < oggettoBorsa.get(oggettiShop.get(index).getString("tipo")).size; gianni++) {
                             if (oggettoBorsa.get(oggettiShop.get(index).getString("tipo")).get(gianni).getString("name").equals(nome)) {
-                                qta = oggettoBorsa.get(oggettiShop.get(index).getString("tipo")).get(gianni).getInt("quantity");
+                                qtaInventario = oggettoBorsa.get(oggettiShop.get(index).getString("tipo")).get(gianni).getInt("quantity");
                             }
                         }
 
-                        labelQuantita.setText(String.valueOf(qta));
+                        labelQuantita.setText(String.valueOf(qtaInventario));
                         labelQuantita.setFontScale(5f);
                         labelQuantita.setPosition(220, 185);
                         animationTextures.add(labelQuantita);
@@ -377,9 +419,9 @@ public class Shop extends ScreenAdapter{
 
     private void posizionaLabelQuantitaCompra() {
         if (quantita < 10) {
-            labelQuantitaCompra.setPosition(895, 185);
+            labelQuantitaCompra.setPosition(795, 185);
         }else {
-            labelQuantitaCompra.setPosition(885, 185);
+            labelQuantitaCompra.setPosition(785, 185);
         }
     }
 
