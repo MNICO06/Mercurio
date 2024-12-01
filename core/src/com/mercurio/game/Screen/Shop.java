@@ -39,11 +39,13 @@ public class Shop extends ScreenAdapter{
     private Label labelDescrizioneCopia;
     private Label labelQuantitaCompra;
     private Image imageOggettoCopia;
+    private Image imageLineaCopia;
 
     private MercurioMain game;
     Image background;
     Image imageFrecciaSuPag;
     Image imageFrecciaGiuPag;
+    Image imageOggettoSelezionato;
     
 
     private Label labelDenaro;
@@ -101,26 +103,8 @@ public class Shop extends ScreenAdapter{
         denaro = json.getInt("denaro");
         labelDenaro = new Label(String.valueOf(denaro), new Label.LabelStyle(font1, null));
         labelDenaro.setFontScale(5f);
-        int pos = 180;
 
-        if (denaro > 9 && denaro < 100) {
-            pos = pos - 20;
-        }else if (denaro > 99 && denaro < 1000) {
-            pos = pos - 40;
-        }else if (denaro > 999 && denaro < 10000) {
-            pos = pos - 60;
-        }else if (denaro > 9999 && denaro < 100000) {
-            pos = pos - 90;
-        }else if (denaro > 99999 && denaro < 1000000) {
-            pos = pos - 120;
-        }else if (denaro > 999999 && denaro < 10000000) {
-            pos = pos - 150;
-        }else if (denaro > 9999999 && denaro < 100000000) {
-            pos = pos - 170;
-        }else if (denaro > 99999999 && denaro < 1000000000) {
-            pos = pos - 175;
-        }
-
+        int pos = getPos(denaro);
         labelDenaro.setPosition(pos, 610);
         stage.addActor(labelDenaro);
 
@@ -139,6 +123,7 @@ public class Shop extends ScreenAdapter{
                 svuotaTutto();
                 renderizzaLabel();
                 controllaFrecce();
+                imageOggettoSelezionato.setVisible(false);
             }
         });
 
@@ -157,8 +142,16 @@ public class Shop extends ScreenAdapter{
                 svuotaTutto();
                 renderizzaLabel();
                 controllaFrecce();
+                imageOggettoSelezionato.setVisible(false);
             }
         });
+
+        //posizionare le varie linee e poi le label al loro interno
+        Texture texture = new Texture("sfondo/lineaOggettoSelezionato.png");
+        imageOggettoSelezionato = new Image(texture);
+        imageOggettoSelezionato.setSize(280*2, 35*2);
+        stage.addActor(imageOggettoSelezionato);
+        imageOggettoSelezionato.setVisible(false);
         
         controllaFrecce();
 
@@ -186,6 +179,7 @@ public class Shop extends ScreenAdapter{
                 Image imageOggetto1 = new Image(texture1);
                 imageOggetto1.setSize(280*2, 35*2);
                 imageOggetto1.setPosition(430, yPosIniziale);
+                final float posImageLineaOggetto = yPosIniziale;
                 animationImages.add(imageOggetto1);
                 stage.addActor(imageOggetto1);
 
@@ -213,7 +207,7 @@ public class Shop extends ScreenAdapter{
                 //settaggio dell'immagine del numero oggetti scelti e delle frecce
                 texture = new Texture("sfondo/mostraQuantita.png");
                 Image imageSceltaQta = new Image(texture);
-                imageSceltaQta.setPosition(770, 150);
+                imageSceltaQta.setPosition(10, 250);
                 imageSceltaQta.setSize(75, 85);
                 imageSceltaQta.setVisible(false);
                 animationImages.add(imageSceltaQta);
@@ -221,7 +215,7 @@ public class Shop extends ScreenAdapter{
 
                 texture = new Texture("sfondo/frecciaQtaSu.png");
                 Image imageFrecciaQtaSu = new Image(texture);
-                imageFrecciaQtaSu.setPosition(850, 197);
+                imageFrecciaQtaSu.setPosition(87, 297);
                 imageFrecciaQtaSu.setVisible(false);
                 animationImages.add(imageFrecciaQtaSu);
                 stage.addActor(imageFrecciaQtaSu);
@@ -238,7 +232,7 @@ public class Shop extends ScreenAdapter{
 
                 texture = new Texture("sfondo/frecciaQtaGiu.png");
                 Image imageFrecciaQtaGiu = new Image(texture);
-                imageFrecciaQtaGiu.setPosition(850, 150);
+                imageFrecciaQtaGiu.setPosition(87, 250);
                 imageFrecciaQtaGiu.setVisible(false);
                 animationImages.add(imageFrecciaQtaGiu);
                 stage.addActor(imageFrecciaQtaGiu);
@@ -260,10 +254,10 @@ public class Shop extends ScreenAdapter{
                 animationTextures.add(labelQuantitaCompra);
                 stage.addActor(labelQuantitaCompra);
 
-                texture = new Texture("sfondo/usa.png");
+                texture = new Texture("sfondo/okLabel.png");
                 Image imageOk = new Image(texture);
-                imageOk.setPosition(900, 150);
-                imageOk.setSize(56*1.8f, 24*1.8f);
+                imageOk.setPosition(140, 250);
+                imageOk.setSize(35*2f, 24*2f);
                 imageOk.setVisible(false);
                 animationImages.add(imageOk);
                 stage.addActor(imageOk);
@@ -280,6 +274,7 @@ public class Shop extends ScreenAdapter{
                                 FileHandle file = Gdx.files.local("assets/ashJson/datiGenerali.json");
                                 JsonValue json = new JsonReader().parse(file.readString());
                                 json.get("denaro").set(denaro - costo, "denaro");
+                                denaro = denaro - costo;
                                 file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
 
 
@@ -294,6 +289,7 @@ public class Shop extends ScreenAdapter{
 
                                 svuotaTutto();
                                 renderizzaLabel();
+                                aggiornaDenaro();
                             }
 
                         }
@@ -348,6 +344,10 @@ public class Shop extends ScreenAdapter{
                             labelDescrizioneCopia.setVisible(false);
                             labelDescrizioneCopia = null;
                         }
+                        if (imageLineaCopia != null) {
+                            imageLineaCopia.setVisible(true);
+                            imageLineaCopia = null;
+                        }
 
                         //vado ad aprire il pokedex regionale
                         labelDescrizione.setVisible(true);
@@ -366,6 +366,7 @@ public class Shop extends ScreenAdapter{
 
                         labelDescrizioneCopia = labelDescrizione;
                         imageOggettoCopia = imageOggetto;
+                        imageLineaCopia = imageOggetto1;
 
                         FileHandle borsa = Gdx.files.local("assets/ashJson/borsa.json");
                         JsonValue oggettoBorsa = new JsonReader().parse(borsa.readString());
@@ -382,6 +383,9 @@ public class Shop extends ScreenAdapter{
                         animationTextures.add(labelQuantita);
                         stage.addActor(labelQuantita);
 
+                        imageOggetto1.setVisible(false);
+                        imageOggettoSelezionato.setPosition(430, posImageLineaOggetto);
+                        imageOggettoSelezionato.setVisible(true);
                     }
                 });
 
@@ -419,10 +423,39 @@ public class Shop extends ScreenAdapter{
 
     private void posizionaLabelQuantitaCompra() {
         if (quantita < 10) {
-            labelQuantitaCompra.setPosition(795, 185);
-        }else {
-            labelQuantitaCompra.setPosition(785, 185);
+            labelQuantitaCompra.setPosition(35, 285);
+        }else {//x = - 10      y = uguale
+            labelQuantitaCompra.setPosition(25, 285);
         }
     }
 
+    private void aggiornaDenaro() {
+        labelDenaro.setText(String.valueOf(denaro));
+        int pos = getPos(denaro);
+        labelDenaro.setPosition(pos, 610);
+    }
+    
+    private int getPos(int denaro) {
+        int pos = 180;
+
+        if (denaro > 9 && denaro < 100) {
+            pos = pos - 20;
+        }else if (denaro > 99 && denaro < 1000) {
+            pos = pos - 40;
+        }else if (denaro > 999 && denaro < 10000) {
+            pos = pos - 60;
+        }else if (denaro > 9999 && denaro < 100000) {
+            pos = pos - 90;
+        }else if (denaro > 99999 && denaro < 1000000) {
+            pos = pos - 120;
+        }else if (denaro > 999999 && denaro < 10000000) {
+            pos = pos - 150;
+        }else if (denaro > 9999999 && denaro < 100000000) {
+            pos = pos - 170;
+        }else if (denaro > 99999999 && denaro < 1000000000) {
+            pos = pos - 175;
+        }
+
+        return pos;
+    }
 }
