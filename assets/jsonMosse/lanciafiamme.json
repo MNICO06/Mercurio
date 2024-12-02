@@ -141,7 +141,9 @@
                     "altezza": 340,
                     "larghezza": 340,
                     "opacity": 1
-                },
+                }
+            ],
+            [
                 {
                     "numeroSprite": 6,
                     "x": 625,
