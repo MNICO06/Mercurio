@@ -18,11 +18,13 @@ public class Erba {
     private final int numeroPokemonP2 = 4;
     private final int numeroPokemonMare = 7;
     private final int numeroPokemonP4 = 7;
+    private final int numeroPokemonGrotta1 = 8;
     private final String nomeJsonP1 = "percorso1";
     private final String nomeJsonBosco = "bosco";
     private final String nomeJsonP2 = "percorso2";
     private final String nomeJsonMare = "percorsoMare";
     private final String nomeJsonP4 = "percorso4";
+    private final String nomeJsonGrotta1 = "grotta1";
 
     public Erba(MercurioMain game) {
         this.game = game;
@@ -93,6 +95,20 @@ public class Erba {
                     }
                 }
                 break;
+
+            case "grotta":
+                if (check(map, "erbaAltaGrotta") && game.getIsInMovement()) {
+                    int num = random.nextInt(200);
+                    if (estratto==0){
+                        if (num == 39) {
+                            checkPerDoppioPoke++;
+                            estraiPokemonGrotta();
+                        }
+                    }
+                }
+                break;
+
+                
             default:
                 break;
         }
@@ -148,6 +164,15 @@ public class Erba {
         checkPerDoppioPoke=0;
     }
 
+    private void estraiPokemonGrotta() {
+        if (checkPerDoppioPoke>1){
+            return; //Se viene estratto un pokemon quando è già in corso una battaglia, viene bloccato il secondo (è un bug che succedeva e bloccava tutto il programma)
+        }
+        int num = 1 + random.nextInt(numeroPokemonGrotta1);
+        game.creaBattaglia(nomeJsonGrotta1, String.valueOf(num));
+        estratto=1;
+        checkPerDoppioPoke=0;
+    }
 
     private boolean check(TiledMap map, String nome) {
         MapObjects objects = map.getLayers().get(nome).getObjects();

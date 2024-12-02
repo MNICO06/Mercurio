@@ -23,6 +23,7 @@ public class Shop extends ScreenAdapter{
     private SpriteBatch batch;
     private BitmapFont font;
     private BitmapFont font1;
+    //TODO: da fare il controllo con le medaglie
 
     Array<Image> animationImages = new Array<>();
     Array<Actor> animationTextures = new Array<>();
@@ -168,8 +169,6 @@ public class Shop extends ScreenAdapter{
             JsonValue oggettoJson = oggettiShop.get(i);
 
             if (oggettoJson != null) {
-
-                //TODO: inserire ancora scelta quantità, riduzione dei propri soldi solo se si può comprare
                 
                 final String nome = oggettoJson.name;
                 final int index = i;

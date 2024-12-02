@@ -54,18 +54,12 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
     private Image puntoEsclamativoImage;
     private Stage stage;
 
-    private Timer timer;
-    private float stateTime;
-
     //quando entra la mette a true e fino a quando non termina la battaglia rimane a true, quando termina la battaglia viene rimessa
     //a false e viene salvato il dato sul json e anche sul bot. (momentaneamente poi non funziona più)
     private boolean inEsecuzione = false;
 
     private boolean faiMuovereBot = false;
 
-    private boolean isChanging = false;
-
-    private boolean giaInAcqua = false;
 
     private float y;
     private float x;
@@ -95,7 +89,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
         nuotatoriList = new ArrayList<Bot>();
         
         stage = new Stage();
-        timer = new Timer();
+        new Timer();
     }
 
     @Override
@@ -116,8 +110,6 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
 
         game.setMap(mappa, tileRenderer, camera, map_size.x, map_size.y);
         controllaPresenzaStarter();
-
-        stateTime = 0f;
     }
 
     @Override
@@ -486,7 +478,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
 
     private void muoviBot(Bot bot) {
         float tot;
-        stateTime += Gdx.graphics.getDeltaTime();
+        Gdx.graphics.getDeltaTime();
 
         switch (bot.getDirezioneFissa()) {
             case "-y":
