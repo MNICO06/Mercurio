@@ -4,7 +4,7 @@
         "numeroColonne": 5,
         "numeroRighe": 15,
         "tipologia": "continua",
-        "speed": 0.06,
+        "speed": 0.065,
         "frame": [
             [
                 {
