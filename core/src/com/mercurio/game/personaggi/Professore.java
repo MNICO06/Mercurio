@@ -175,6 +175,4 @@ public class Professore {
     public float getStateTime() {
         return stateTime;
     }
-
-    
 }
