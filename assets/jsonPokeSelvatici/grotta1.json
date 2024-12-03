@@ -1,28 +1,28 @@
 {
     "1" : {
         "nomePokemon" : "Machop",
-        "livello-min" : 9,
-        "livello-max": 15
+        "livello-min" : 11,
+        "livello-max": 17
     },
     "2" : {
         "nomePokemon" : "Diglett",
-        "livello-min" : 9,
-        "livello-max": 15
+        "livello-min" : 10,
+        "livello-max": 16
     },
     "3" : {
         "nomePokemon" : "Geodude",
-        "livello-min" : 9,
-        "livello-max": 15
+        "livello-min" : 11,
+        "livello-max": 17
     },
     "4" : {
         "nomePokemon" : "Onix",
-        "livello-min" : 9,
-        "livello-max": 15
+        "livello-min" : 12,
+        "livello-max": 18
     },
     "5" : {
         "nomePokemon" : "Gastly",
-        "livello-min" : 9,
-        "livello-max": 15
+        "livello-min" : 11,
+        "livello-max": 17
     },
     "6" : {
         "nomePokemon" : "Bidoof",
@@ -31,12 +31,12 @@
     },
     "7" : {
         "nomePokemon" : "Graveler",
-        "livello-min" : 9,
-        "livello-max": 15
+        "livello-min" : 13,
+        "livello-max": 20
     },
     "8" : {
         "nomePokemon" : "Rhyhorn",
-        "livello-min" : 9,
-        "livello-max": 15
+        "livello-min" : 13,
+        "livello-max": 18
     }
 }

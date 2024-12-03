@@ -1525,7 +1525,9 @@ public class Battle extends ScreenAdapter {
                                             try {
                                                 semaphore.acquire();
                                                 checkPerDoppioPoke++;
-                                                showPokemon(labelBaseU, nomePokeBot);
+                                                if (!nomePokeBot.equals("")) {
+                                                    showPokemon(labelBaseU, nomePokeBot);
+                                                }
                                             } catch (InterruptedException e) {
                                                 e.printStackTrace();
                                             }
@@ -3222,6 +3224,7 @@ public class Battle extends ScreenAdapter {
             JsonValue newPokemon = new JsonValue(JsonValue.ValueType.object);
             newPokemon.addChild("nomePokemon", new JsonValue(nameBot));
             newPokemon.addChild("livello", new JsonValue(LVPokeBot));
+            newPokemon.addChild("livello", new JsonValue(0));
 
             JsonValue statistiche = new JsonValue(JsonValue.ValueType.object);
             statistiche.addChild("hp", new JsonValue(Integer.parseInt(currentPokeHPBot)));

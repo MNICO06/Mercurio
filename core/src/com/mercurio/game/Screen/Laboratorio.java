@@ -796,7 +796,7 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
             if (poke1 != null) {
                 String nomePokemon = poke1.getString("nomePokemon", "");
 
-                if (!nomePokemon.isEmpty()) {
+                if (nomePokemon.isEmpty()) {
                     return false;
                 } else {
                     return true;
