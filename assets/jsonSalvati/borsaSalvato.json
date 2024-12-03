@@ -3,45 +3,18 @@
         {
             "quantity": 10,
             "name": "Pokeball"
-        },
-        {
-            "quantity": 5,
-            "name": "Megaball"
-        },
-        {
-            "quantity": 3,
-            "name": "Ultraball"
-        },
-        {
-            "quantity": 1,
-            "name": "Masterball"
         }
     ],
     "inventoryKey": [
         {
         "quantity": 1,
         "name": "Surf"
-        },
-        {
-        "quantity": 1,
-        "name": "Mappa Citta"
         }
     ],
     "inventoryMT": [
         
     ],
     "inventoryCure": [
-        {
-            "quantity": 1,
-            "name": "Iperpozione"
-        },
-        {
-            "quantity": 10,
-            "name": "Revitalizzante"
-        },
-        {
-            "quantity": 10,
-            "name": "Revitalizzante Max"
-        }
+        
     ]
 }

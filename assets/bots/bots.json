@@ -10784,12 +10784,12 @@
 	}
 },
 "rivale": {
-	"nome": "Gianni Morandi",
+	"nome": "Barry",
 	"testo1": "",
 	"testo2": "",
 	"affrontato": 0,
 	"soldi": 16,
-	"tipo": "teenagerM",
+	"tipo": "rivale",
 	"poke1": {
 		"nomePokemon": "",
 		"livello": "",

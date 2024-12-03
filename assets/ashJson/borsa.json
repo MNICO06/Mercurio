@@ -3,24 +3,14 @@
         {
             "quantity": 10,
             "name": "Pokeball"
-        },
-        {
-            "quantity": 5,
-            "name": "Megaball"
-        },
-        {
-            "quantity": 3,
-            "name": "Ultraball"
-        },
-        {
-            "quantity": 1,
-            "name": "Masterball"
         }
     ],
-    "inventoryKey": [{
+    "inventoryKey": [
+        {
         "quantity": 1,
         "name": "Surf"
-    }],
+        }
+    ],
     "inventoryMT": [
         
     ],
