@@ -1525,7 +1525,9 @@ public class Battle extends ScreenAdapter {
                                             try {
                                                 semaphore.acquire();
                                                 checkPerDoppioPoke++;
-                                                showPokemon(labelBaseU, nomePokeBot);
+                                                if (nomePokeBot != null) {
+                                                    showPokemon(labelBaseU, nomePokeBot);
+                                                }
                                             } catch (InterruptedException e) {
                                                 e.printStackTrace();
                                             }

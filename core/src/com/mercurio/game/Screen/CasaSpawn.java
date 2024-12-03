@@ -23,7 +23,6 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.mercurio.game.effects.LabelDiscorsi;
-import com.mercurio.game.personaggi.Ash;
 import com.mercurio.game.personaggi.MammaAsh;
 import java.util.Timer;
 
@@ -55,6 +54,9 @@ public class CasaSpawn extends ScreenAdapter {
     private boolean tieniApertoDiscorsoPrima = false;
     private boolean tieniApertoDiscorsoDopo = false;
     private boolean fPressed = false;
+    private boolean ferma = true;
+    private boolean iniziaMovimento = false;
+    private boolean iniziaPrimoDiscorso = false;
 
 
     public CasaSpawn(MercurioMain game) {
@@ -108,7 +110,6 @@ public class CasaSpawn extends ScreenAdapter {
         //aggiungo alla lista dei rettangoli per le collisioni quello della mamma
         rectList.add(mammaAsh.getBoxPlayer());
 
-        game.getPlayer().setPosition(100, 50);
         
         //prendere rettangolo per mappa
         MapObjects objects = casaAsh.getLayers().get("exit").getObjects();
@@ -121,6 +122,8 @@ public class CasaSpawn extends ScreenAdapter {
                 rectangleUscita = rectangleObject.getRectangle();
             } 
         }
+
+        settaPlayerPotion();
     }
 
     @Override
@@ -140,7 +143,66 @@ public class CasaSpawn extends ScreenAdapter {
         controlloTesto();
         controlloTestoIniziale();
         controllaUscita();
+        controllaFermaPlayer();
 
+    }
+
+    private void settaPlayerPotion() {
+        //true se proviene dal fullmap, se no non faccio nulla che prende le posizioni salvate nel json
+        if (game.getProvieneDaMappa()) {
+            MapObjects objects = casaAsh.getLayers().get("teleport").getObjects();
+            for (MapObject object : objects) {
+                if (object instanceof RectangleMapObject) {
+                    // Se l'oggetto è un rettangolo
+                    RectangleMapObject rectangleObject = (RectangleMapObject) object;
+                    game.getPlayer().setPosition(rectangleObject.getRectangle().getX(), rectangleObject.getRectangle().getY());
+                } 
+            }
+            game.setProvieneDaMappa(false);
+        }
+    }
+
+    private void controllaFermaPlayer() {
+        //true se proviene dal fullmap, se no non faccio nulla che prende le posizioni salvate nel json
+        MapObjects objects = casaAsh.getLayers().get("lineaFerma").getObjects();
+        for (MapObject object : objects) {
+            if (object instanceof RectangleMapObject) {
+                // Se l'oggetto è un rettangolo
+                RectangleMapObject rectangleObject = (RectangleMapObject) object;
+
+                if (game.getPlayer().getBoxPlayer().overlaps(rectangleObject.getRectangle()) && !controllaPresenzaStarter() && ferma) {
+                    fermaPlayer();
+                }
+            } 
+        }
+        game.setProvieneDaMappa(false);
+    }
+
+    //funzione per fermare il player e portarlo verso la mamma
+    private void fermaPlayer() {
+        game.getPlayer().setMovement(false);
+        game.getPlayer().setFermoDestra();
+        mammaAsh.setSinstra();
+
+        // Pianifica un nuovo compito per far tornare la mamma nella posizione "avanti" dopo 5 secondi
+        mammaTimerTask = new TimerTask() {
+            @Override
+            public void run() {
+                iniziaMovimento = true;
+            }
+        };
+        // Avvia il timer per il compito della mamma
+        timer.schedule(mammaTimerTask, 1000);
+
+
+        if (iniziaMovimento) {
+            if ((mammaAsh.getPosition().x - game.getPlayer().getPlayerPosition().x) > 15) {
+                game.getPlayer().muoviBotDestra();
+            }else {
+                ferma = false;
+                tieniApertoDiscorsoPrima = true;
+            }
+        }
     }
 
     //cambio continuamente forground e background in base alla pos del personaggio
@@ -323,6 +385,7 @@ public class CasaSpawn extends ScreenAdapter {
             //quando deve terminare 
             tieniApertoDiscorsoPrima = false;
             fPressed = false;
+            iniziaPrimoDiscorso = false;
             game.getPlayer().setMovement(true);
             labelDiscorsiSenzaStarter.reset();
         }

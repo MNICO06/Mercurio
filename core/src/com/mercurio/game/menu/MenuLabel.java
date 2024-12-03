@@ -95,9 +95,11 @@ public class MenuLabel{
             public void clicked(InputEvent event, float x, float y) {
                 if (!menuOpened) {
                     // Se il menu non è aperto, apri il menu
+                    game.getPlayer().setMovement(false);
                     apriMenu();
                 } else {
                     // Se il menu è aperto, chiudi il menu
+                    game.getPlayer().setMovement(true);
                     chiudiMenu();
                 }
             }
@@ -325,8 +327,6 @@ public class MenuLabel{
             }, 0.1f); // Ritardo di 0.1 secondi prima di rimuovere gli attori
         }
     }
-
-
 
     public void render() {
         // Controlla se il tasto X è premuto per aprire o chiudere il menu

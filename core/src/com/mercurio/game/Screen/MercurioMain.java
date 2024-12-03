@@ -77,6 +77,7 @@ public class MercurioMain extends Game implements InterfacciaComune{
     private String ingressoPokeCenter;
     private String ingressoGrotta;
     private String ingressoCittaMontagna;
+    private boolean provieneDaMappa = false;
 
     private String screenString;
 
@@ -536,4 +537,11 @@ public class MercurioMain extends Game implements InterfacciaComune{
         return oggettiStoria;
     }
 
+    public void setProvieneDaMappa(boolean provieneDaMappa) {
+        this.provieneDaMappa = provieneDaMappa;
+    }
+
+    public boolean getProvieneDaMappa() {
+        return provieneDaMappa;
+    }
 }

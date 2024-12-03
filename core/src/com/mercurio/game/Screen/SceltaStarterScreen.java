@@ -344,6 +344,17 @@ public class SceltaStarterScreen extends ScreenAdapter {
 
             Stats stats = new Stats();
             stats.aggiornaStatistichePokemon(1);
+
+            // Carica il file JSON
+            FileHandle fileScoperti = Gdx.files.local("assets/ashJson/pokemonScoperti.json");
+            JsonValue jsonScoperti = new JsonReader().parse(fileScoperti.readString());
+            for (int i = 0; i < jsonScoperti.size; i++) {
+                if (jsonScoperti.get(i).getString("nome").equals(pokemon)) {
+                    jsonScoperti.get(i).get("incontrato").set("1");
+                }
+            }
+
+            fileScoperti.writeString(jsonScoperti.prettyPrint(JsonWriter.OutputType.json, 1), false);
     }
 
     private void salvaStarterRivale(String pokemon) {

@@ -29,6 +29,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.JsonWriter;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mercurio.game.effects.LabelDiscorsi;
@@ -138,7 +139,6 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
     public Laboratorio(MercurioMain game) {
         this.game = game;
         stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
         professore = new Professore();
         //renderizzo il professore
 
@@ -321,8 +321,10 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
         if (game.getPlayer().getBoxPlayer().overlaps(rettangoloFerma)) {
 
             if (renderizzaPunto) {
+                game.setisInMovement(true);
                 game.getPlayer().setMovement(false);
                 renderizzaPuntoEsclamativo();
+                Gdx.input.setInputProcessor(stage);
             }
             if (iniziaRiposizionaBot) {
                 riposizionaBot();
@@ -585,6 +587,8 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
             game.closeSceltaStarter();
             iniziaDiscorso3 = true;
             continuaTesto = true;
+            game.getPlayer().setMovement(false);
+            Gdx.input.setInputProcessor(stage);
         }
     }
 
@@ -673,7 +677,7 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
             battle = new Battle(this, "rivale", true, null, null);
 
             /* per evitare battaglia committa la creazione e togli questo
-            iniziaDiscorso7Rivale = true; 
+            iniziaDiscorso7Rivale = true;
             continuaTesto = true;
             */
         }
@@ -717,6 +721,7 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
                 continuaTesto = nonoDiscorsoRivale.advanceText();
             }
         }else {
+            cura();
             iniziaDiscorso9Rivale = false;
             portaGiuRivale = true;
             continuaTesto = true;
@@ -760,6 +765,8 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
         }else {
             iniziaDiscorso10Prof = false;
             game.getPlayer().setMovement(true);
+            Gdx.input.setInputProcessor(MenuLabel.getStage());
+            game.setisInMovement(false);
         }
     }
     
@@ -796,7 +803,7 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
             if (poke1 != null) {
                 String nomePokemon = poke1.getString("nomePokemon", "");
 
-                if (!nomePokemon.isEmpty()) {
+                if (nomePokemon.isEmpty()) {
                     return false;
                 } else {
                     return true;
@@ -807,6 +814,40 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
 
         } catch (Exception e) {
             return false;
+        }
+    }
+
+    public void cura() {
+        // Carica il file JSON
+        FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+        String jsonString = file.readString();
+        
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+        JsonValue json = new JsonReader().parse(jsonString);
+        
+        for (int i=0; i<6; i++){
+            int index =i+1;
+            JsonValue pokeJson = json.get("poke"+index);
+            //System.out.println(index);
+            String nomePoke = pokeJson.getString("nomePokemon");
+            //System.out.println(index);
+
+            if (!nomePoke.equals("")){
+                JsonValue statistiche = pokeJson.get("statistiche"); 
+                String maxPokeHP = statistiche.getString("hpTot");
+                //ripristina gli hp al massimo
+                statistiche.remove("hp");
+                statistiche.addChild("hp", new JsonValue(maxPokeHP));
+                JsonValue mosse = pokeJson.get("mosse");
+                for (JsonValue mossaJson : mosse) {
+                    String maxPP = mossaJson.getString("ppTot");
+                    // ripristina attPP al massimo per ogni mossa
+                    mossaJson.remove("ppAtt");
+                    mossaJson.addChild("ppAtt", new JsonValue(maxPP));
+                }
+            }
+        
+            file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
         }
     }
 
@@ -829,7 +870,6 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
     @Override
     public void closeBattle() {
         //game.getPlayer().setMovement(true);
-        Gdx.input.setInputProcessor(MenuLabel.getStage());
         battle = null;
         iniziaDiscorso7Rivale = true; 
         continuaTesto = true;

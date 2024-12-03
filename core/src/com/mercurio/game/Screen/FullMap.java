@@ -885,6 +885,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                 RectangleMapObject rectangleObject = (RectangleMapObject) object;
 
                 if (game.getPlayer().getBoxPlayer().overlaps(rectangleObject.getRectangle())) {
+                    game.setProvieneDaMappa(true);
                     change(rectangleObject);
                     game.setLuogo(rectangleObject.getName());
                 }
