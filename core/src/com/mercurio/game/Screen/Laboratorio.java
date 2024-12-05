@@ -767,6 +767,8 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
             game.getPlayer().setMovement(true);
             Gdx.input.setInputProcessor(MenuLabel.getStage());
             game.setisInMovement(false);
+            rectList.clear();
+            rectList.add(professore.getBox());
         }
     }
     

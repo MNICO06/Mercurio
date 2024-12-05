@@ -375,6 +375,7 @@ public class CasaSpawn extends ScreenAdapter {
     //questa funzione serve per il testo base senza scelta
     public void controlloTestoIniziale() {
         if (tieniApertoDiscorsoPrima) {
+            game.getPlayer().setMovement(false);
             labelDiscorsiSenzaStarter.renderDisc();
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
                 //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
