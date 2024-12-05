@@ -55,6 +55,7 @@ public class MercurioMain extends Game implements InterfacciaComune{
     private MapLayer alberiBack;
     private MapLayer alberiFore;
     private MapLayer divAlberi;
+    private MapLayer lineeBloccaStoria;
 
     private float elapsedTime = 0;
 
@@ -392,6 +393,7 @@ public class MercurioMain extends Game implements InterfacciaComune{
             lineeLayer = map.getLayers().get("linee");
             alberiBack = map.getLayers().get("alberiBack");
             alberiFore = map.getLayers().get("alberiFore");
+            lineeBloccaStoria = map.getLayers().get("lineeBloccaStoria");
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -401,6 +403,14 @@ public class MercurioMain extends Game implements InterfacciaComune{
         if (lineeLayer != null) {
             return lineeLayer;
         }
+        return null;
+    }
+
+    public MapLayer getLineeBloccaStoria() {
+        if (lineeBloccaStoria != null) {
+            return lineeBloccaStoria;
+        }
+
         return null;
     }
 
@@ -534,7 +544,10 @@ public class MercurioMain extends Game implements InterfacciaComune{
     }
 
     public MapLayer getOggettiStoria() {
-        return oggettiStoria;
+        if (oggettiStoria != null) {
+            return oggettiStoria;
+        }
+        return null;
     }
 
     public void setProvieneDaMappa(boolean provieneDaMappa) {

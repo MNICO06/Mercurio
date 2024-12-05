@@ -43,6 +43,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
     private MapLayer alberiBack;
     private MapLayer alberiFore;
     private MapLayer divAlberi;
+    private MapLayer lineeBloccaStoria;
 
     //rettangolo con la lista delle persone che collidono
     private ArrayList<Rectangle> rectList = null;
@@ -118,7 +119,8 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
         alberiBack = game.getAlberiBack();
         alberiFore = game.getAlberiFore();
         divAlberi = game.getDivAlberi();
-        cambiaProfondita(lineeLayer);
+        lineeBloccaStoria = game.getLineeBloccaStoria();
+        cambiaProfondita(lineeLayer, lineeBloccaStoria);
         if (leggiTesto) {
             renderizzaDiscorsoInizio();
         }
@@ -173,7 +175,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
         stage.draw(); // Disegna lo stage sullo SpriteBatch
     }
 
-    private void cambiaProfondita(MapLayer lineeLayer) {
+    private void cambiaProfondita(MapLayer lineeLayer, MapLayer lineeBloccaStoria) {
         ArrayList<String> background = new ArrayList<String>();
         ArrayList<String> foreground = new ArrayList<String>();
         botListBack = new ArrayList<Bot>();
@@ -198,6 +200,46 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
         for (MapObject obj : lineeLayer.getObjects()) {
             if (obj instanceof RectangleMapObject) {
                 RectangleMapObject rectObj = (RectangleMapObject)obj;
+
+                MapLayer oggettiStoria = game.getOggettiStoria();
+                for (MapObject object : oggettiStoria.getObjects()) {
+                    // Verifica se l'oggetto ha la proprietà "tipoBlocco" con valore "prendiStater"
+                    boolean considerare = (boolean) object.getProperties().get("considerare");
+
+                    if (considerare) {
+                        int inizio = Integer.parseInt((String) object.getProperties().get("inizio"));
+                        int fine = Integer.parseInt((String) object.getProperties().get("fine"));
+
+                        for (int i = inizio; i <= fine; i++) {
+                            MapObject lineaStoria = null;
+                            RectangleMapObject rectLinee = null;
+
+                            for (MapObject objLinee : lineeBloccaStoria.getObjects()) {
+                                if (objLinee.getName().equals(String.valueOf(i))) { // Controlla il nome dell'oggetto
+                                    lineaStoria = objLinee;
+                                    break; // Interrompi il ciclo quando trovi l'oggetto
+                                }
+                            }
+
+                            if (lineaStoria != null) {
+                                rectLinee = (RectangleMapObject)lineaStoria;
+                            }
+                            
+                            if (rectLinee != null) {
+                                float yStoria = rectLinee.getRectangle().getY() - game.getPlayer().getPlayerPosition().y;
+                                float xStoria = rectLinee.getRectangle().getX() - game.getPlayer().getPlayerPosition().x;
+
+                                String layerName = (String)rectLinee.getProperties().get("layer");
+
+                                if (yStoria > 0 && yStoria < 250 && xStoria > -500 && xStoria < 500) {
+                                    background.add(layerName);
+                                }else if (y < 0 && y > -250 && x > -500 && x < 500) {
+                                    foreground.add(layerName);
+                                }
+                            }
+                        }
+                    }
+                }
 
                 String layerName = (String)rectObj.getProperties().get("layer");
 
@@ -1088,7 +1130,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
     }
 
     private void controllaPresenzaStarter() {
-        try {            
+        try{
             // Carica il file JSON
             FileHandle file = Gdx.files.internal("assets/ashJson/squadra.json");
             String jsonString = file.readString();
@@ -1101,9 +1143,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                 String nomePokemon = poke1.getString("nomePokemon", "");
                 
                 if (nomePokemon.isEmpty()) {
-
                     MapLayer oggettiStoria = game.getOggettiStoria();
-
                     for (MapObject object : oggettiStoria.getObjects()) {
                         // Verifica se l'oggetto ha la proprietà "tipoBlocco" con valore "prendiStater"
                         String tipoBlocco = (String)object.getProperties().get("tipoBlocco");
@@ -1117,7 +1157,6 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                 }
             } else {
                 MapLayer oggettiStoria = game.getOggettiStoria();
-
                 for (MapObject object : oggettiStoria.getObjects()) {
                     // Verifica se l'oggetto ha la proprietà "tipoBlocco" con valore "prendiStater"
                     String tipoBlocco = object.getProperties().get("tipoBlocco", String.class);
@@ -1127,7 +1166,6 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                     }
                 }
             }
-
         } catch (Exception e) {
             System.out.println("errore sul prindiStarter: " + e);
         }
