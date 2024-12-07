@@ -12,6 +12,8 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.mercurio.game.AssetManager.GameAsset;
+import com.mercurio.game.AssetManager.GameAsset.AssetsAsh;
 import com.mercurio.game.Screen.MercurioMain;
 
 public class Ash {
@@ -94,18 +96,21 @@ public class Ash {
     private Rectangle boxPlayer_cammina;
     private Rectangle boxPlayer_surf;
 
+    private GameAsset asset;
+
     public Ash(MercurioMain game) {
         this.game = game;
+        this.asset = game.getGameAsset();
 
         //vado a dichiarare e a prendere tutte le texture di immagini
         indietro = new TextureRegion[3];
         avanti = new TextureRegion[3];
         destra = new TextureRegion[3];
         sinistra = new TextureRegion[3];
-        textureIndietro = new Texture(Gdx.files.local("assets/player/personaggioIndietro.png"));
-        textureAvanti = new Texture(Gdx.files.local("assets/player/personaggioAvanti.png"));
-        textureDestra = new Texture(Gdx.files.local("assets/player/personaggioDestra.png"));
-        textureSinistra = new Texture(Gdx.files.local("assets/player/personaggioSinistra.png"));
+        textureIndietro = asset.getAsh(AssetsAsh.P_INDIETRO);
+        textureAvanti = asset.getAsh(AssetsAsh.P_AVANTI);
+        textureDestra = asset.getAsh(AssetsAsh.P_DESTRA);
+        textureSinistra = asset.getAsh(AssetsAsh.P_SINISTRA);
 
 
         int regionWidthInd = textureIndietro.getWidth() / 3;
@@ -142,10 +147,10 @@ public class Ash {
         avantiSurf = new TextureRegion[4];
         indietroSurf = new TextureRegion[4];
         
-        textureSinistraSurf = new Texture(Gdx.files.local("assets/player/surf sinistra.png"));
-        textureDestraSurf = new Texture(Gdx.files.local("assets/player/surf destra.png"));
-        textureAvantiSurf = new Texture(Gdx.files.local("assets/player/surf avanti.png"));
-        textureIndietroSurf = new Texture(Gdx.files.local("assets/player/surf indietro.png"));
+        textureSinistraSurf = asset.getAsh(AssetsAsh.SURF_P_SINISTRA);
+        textureDestraSurf = asset.getAsh(AssetsAsh.SURF_P_DESTRA);
+        textureAvantiSurf = asset.getAsh(AssetsAsh.SURF_P_AVANTI);
+        textureIndietroSurf = asset.getAsh(AssetsAsh.SURF_P_INDIETRO);
         
         regionWidthInd = textureIndietroSurf.getWidth() / 4;
         regionHeightInd = textureIndietroSurf.getHeight();
