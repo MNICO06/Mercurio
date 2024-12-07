@@ -87,6 +87,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
     //----------------------------------------------------------------------------
     public FullMap(MercurioMain game, TiledMap mappa) {
         this.game = game;
+        this.asset = game.getGameAsset();
         this.mappa = mappa;
         rectList = new ArrayList<Rectangle>();
         botList = new ArrayList<Bot>();

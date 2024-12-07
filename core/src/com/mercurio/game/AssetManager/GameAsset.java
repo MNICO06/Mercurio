@@ -24,6 +24,7 @@ public class GameAsset{
         BALLS_FOR_NUMBER("battle/ballsForNumber.png", Texture.class),
         FIGHT_BOX("battle/fightBox.png", Texture.class),
         HP_BAR("battle/playerHPBar.png", Texture.class),
+        BOT_HP_BAR("battle/botHPBar.png", Texture.class),
         NO_MOVE("battle/noMove.png", Texture.class),
         B("battle/b.png", Texture.class),
         WHITE_PX("battle/white_pixel.png", Texture.class),
@@ -48,9 +49,6 @@ public class GameAsset{
 
     public void loadBattleAssets() {
         for (Assets asset : Assets.values()) {
-            System.out.println(asset);
-            System.out.println(asset.getPath());
-            System.out.println("\n");
             assetManager.load(asset.getPath(), asset.getType());
         }
     }
