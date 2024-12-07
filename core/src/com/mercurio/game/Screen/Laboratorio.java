@@ -632,6 +632,7 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
             faiSalireRivale3 = false;
             iniziaDiscorso4Rivale = true;
             continuaTesto = true;
+            rivale.setFermoAvanti();
         }
     }
 
