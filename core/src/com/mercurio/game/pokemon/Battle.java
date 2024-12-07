@@ -1,18 +1,13 @@
 package com.mercurio.game.pokemon;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Semaphore;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.ai.btree.Task;
-import com.badlogic.gdx.ai.btree.utils.DistributionAdapters.IntegerAdapter;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -33,14 +28,11 @@ import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
@@ -2061,7 +2053,7 @@ public class Battle extends ScreenAdapter {
         float percentualeHP = Float.parseFloat(currentHP)  / Float.parseFloat(maxHP);
         float lunghezzaHPBar = 96 * percentualeHP;
         // Crea e posiziona la hpBar sopra imageHPPlayer con l'offset specificato
-        Image hpBar = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("battle/white_pixel.png")))); // TODO Controllare se si riesce a integrare asset manager
+        Image hpBar = new Image(new TextureRegionDrawable(new TextureRegion(asset.getBattle(Assets.WHITE_PX))));
         hpBar.setSize((int)lunghezzaHPBar, 6);
         hpBar.setPosition(image.getX() + diffX, image.getY() + diffY);
         //hpBar.setPosition(400, 400);
@@ -3612,7 +3604,7 @@ public class Battle extends ScreenAdapter {
         float percentualeExp = (float) currentExp / maxExp;
         float lunghezzaExpBar = 96*2 * percentualeExp;
 
-        Image expBar = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("battle/white_pixel.png")))); //TODO verificare se si può integrare Asset Manager
+        Image expBar = new Image(new TextureRegionDrawable(new TextureRegion(asset.getBattle(Assets.WHITE_PX))));
         expBar.setSize((int)lunghezzaExpBar, 4);
         expBar.setPosition(image.getX() + 48 , image.getY() + 6 );
 
