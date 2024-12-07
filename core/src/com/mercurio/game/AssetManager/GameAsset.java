@@ -1,7 +1,6 @@
 package com.mercurio.game.AssetManager;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
@@ -28,14 +27,7 @@ public class GameAsset{
         NO_MOVE("battle/noMove.png", Texture.class),
         B("battle/b.png", Texture.class),
         WHITE_PX("battle/white_pixel.png", Texture.class),
-        CIRCLE_LG("pokemon/lightCircle.png", Texture.class),
-
-        //JSON
-        MOSSE_JS("pokemon/mosse.json", FileHandle.class),
-        POKEMON_JS("pokemon/Pokemon.json", FileHandle.class),
-
-        // Font
-        FONT("font/font.fnt", BitmapFont.class);
+        CIRCLE_LG("pokemon/lightCircle.png", Texture.class);
 
         private final String path;
         private final Class<?> type;
@@ -56,6 +48,9 @@ public class GameAsset{
 
     public void loadBattleAssets() {
         for (Assets asset : Assets.values()) {
+            System.out.println(asset);
+            System.out.println(asset.getPath());
+            System.out.println("\n");
             assetManager.load(asset.getPath(), asset.getType());
         }
     }
@@ -68,9 +63,8 @@ public class GameAsset{
         return assetManager.getProgress();
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T> T getBattle(Assets asset) {
-        return (T) assetManager.get(asset.getPath(), asset.getType());
+    public Texture getBattle(Assets asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
     }    
 
     public static void unloadBattle(Assets asset) {
@@ -79,162 +73,8 @@ public class GameAsset{
         }
     }
 
-    /*
-    *  
-    *  Asset Ash
-    * 
-    */
-    public enum AssetsAsh {
-        //JSON
-        BORSA_JS("ashJson/borsa.json", FileHandle.class),
-        BOX_JS("ashJson/box.json", FileHandle.class),
-        GEN_DATA_JS("ashJson/datiGenerali.json", FileHandle.class),
-        POS_DATA_JS("ashJson/datiPosizione.json", FileHandle.class),
-        DIS_POKE_JS("ashJson/pokemonScoperti.json", FileHandle.class),
-        SQUAD_JS("ashJson/squadra.json", FileHandle.class);
-
-        private final String path;
-        private final Class<?> type;
-
-        AssetsAsh(String path, Class<?> type) {
-            this.path = path;
-            this.type = type;
-        }
-
-        public String getPath() {
-            return path;
-        }
-
-        public Class<?> getType() {
-            return type;
-        }
-    }
-
-    public void loadAshAssets() {
-        for (Assets asset : Assets.values()) {
-            assetManager.load(asset.getPath(), asset.getType());
-        }
-    }
-
-    public static boolean updateAsh() {
-        return assetManager.update();
-    }
-
-    public static float getProgressAsh() {
-        return assetManager.getProgress();
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <T> T getAhs(AssetsAsh asset) {
-        return (T) assetManager.get(asset.getPath(), asset.getType());
-    }    
-
-    public static void unloadAsh(AssetsAsh asset) {
-        if (assetManager.isLoaded(asset.getPath())) {
-            assetManager.unload(asset.getPath());
-        }
-    }
-
-    /*
-    *  
-    *  Asset Bot
-    * 
-    */
-    public enum AssetsBot {
-        //JSON
-        BOT_JS("bots/bots.json", FileHandle.class);
-
-        private final String path;
-        private final Class<?> type;
-
-        AssetsBot(String path, Class<?> type) {
-            this.path = path;
-            this.type = type;
-        }
-
-        public String getPath() {
-            return path;
-        }
-
-        public Class<?> getType() {
-            return type;
-        }
-    }
-
-    public void loadBotAssets() {
-        for (Assets asset : Assets.values()) {
-            assetManager.load(asset.getPath(), asset.getType());
-        }
-    }
-
-    public static boolean updateBot() {
-        return assetManager.update();
-    }
-
-    public static float getProgressBot() {
-        return assetManager.getProgress();
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <T> T getBot(AssetsBot asset) {
-        return (T) assetManager.get(asset.getPath(), asset.getType());
-    }    
-
-    public static void unloadBot(AssetsBot asset) {
-        if (assetManager.isLoaded(asset.getPath())) {
-            assetManager.unload(asset.getPath());
-        }
-    }
-
-    /*
-    *  
-    *  Asset Strumenti
-    * 
-    */
-    public enum AssetsStrumenti {
-        //JSON
-        STRUMENTI_JS("oggetti/strumenti.json", FileHandle.class);
-
-        private final String path;
-        private final Class<?> type;
-
-        AssetsStrumenti(String path, Class<?> type) {
-            this.path = path;
-            this.type = type;
-        }
-
-        public String getPath() {
-            return path;
-        }
-
-        public Class<?> getType() {
-            return type;
-        }
-    }
-
-    public void loadStrumentiAssets() {
-        for (Assets asset : Assets.values()) {
-            assetManager.load(asset.getPath(), asset.getType());
-        }
-    }
-
-    public static boolean updateStrumenti() {
-        return assetManager.update();
-    }
-
-    public static float getProgressStrumenti() {
-        return assetManager.getProgress();
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <T> T getStrumenti(AssetsStrumenti asset) {
-        return (T) assetManager.get(asset.getPath(), asset.getType());
-    }    
-
-    public static void unloadStrumenti(AssetsStrumenti asset) {
-        if (assetManager.isLoaded(asset.getPath())) {
-            assetManager.unload(asset.getPath());
-        }
+    public void finishLoading() {
+        assetManager.finishLoading();
     }
 
     public static void dispose() {

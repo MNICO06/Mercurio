@@ -23,6 +23,7 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Timer;
 import com.mercurio.game.AssetManager.GameAsset;
+import com.mercurio.game.AssetManager.GameAsset.Assets;
 import com.mercurio.game.effects.Musica;
 import com.mercurio.game.menu.MenuLabel;
 import com.mercurio.game.personaggi.Ash;
@@ -86,15 +87,13 @@ public class MercurioMain extends Game implements InterfacciaComune{
     private SceltaStarterScreen sceltaStarterScreen;
 
     //Asset Manager
-    GameAsset asset = new GameAsset();
+    public GameAsset asset = new GameAsset();
     
     @Override
     public void create() {
         //Asset Manager
         asset.loadBattleAssets();
-        asset.loadAshAssets();
-        asset.loadBotAssets();
-        asset.loadStrumentiAssets();
+        asset.finishLoading();
 
         ash = new Ash(this);
         erba = new Erba (this);
@@ -247,7 +246,9 @@ public class MercurioMain extends Game implements InterfacciaComune{
                 thread.interrupt();
             }
         }
-    
+        
+        //Dispose degli asset
+        GameAsset.dispose();
         // Chiudi il batch
         batch.dispose();
         // Chiudi l'applicazione
@@ -546,4 +547,8 @@ public class MercurioMain extends Game implements InterfacciaComune{
         return oggettiStoria;
     }
 
+    @Override
+    public GameAsset getGameAsset(){
+        return asset;
+    }
 }

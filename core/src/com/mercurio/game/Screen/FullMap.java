@@ -1148,5 +1148,9 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
         battle = null;
         battagliaIsFinished = true;
     }
-
+    
+    @Override
+    public GameAsset getGameAsset(){
+        return asset;
+    }
 }

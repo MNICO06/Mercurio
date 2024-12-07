@@ -136,8 +136,11 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
     //dopo che il rivale se n'è andato
     private String testoDiscorso10Prof = "Professor Rowan: Quel ragazzo e' pieno di energie, sono sicuro che sara' un ottimo amico e rivale per te. Ora puoi partire anche tu. Il tuo primo obbiettivo sara' Margolia, la capitale. Per raggiungerla dei passare dal Bosco Tempovia. Vai, parti all'avventura!";
 
+    public GameAsset asset;
+
     public Laboratorio(MercurioMain game) {
         this.game = game;
+        this.asset = game.getGameAsset();
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         professore = new Professore();
@@ -797,7 +800,7 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
             if (poke1 != null) {
                 String nomePokemon = poke1.getString("nomePokemon", "");
 
-                if (!nomePokemon.isEmpty()) {
+                if (nomePokemon.isEmpty()) {
                     return false;
                 } else {
                     return true;
@@ -836,4 +839,8 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
         continuaTesto = true;
     }
 
+    @Override
+    public GameAsset getGameAsset(){
+        return asset;
+    }
 }
