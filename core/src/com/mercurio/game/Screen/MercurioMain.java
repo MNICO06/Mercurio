@@ -93,6 +93,7 @@ public class MercurioMain extends Game implements InterfacciaComune{
     public void create() {
         //Asset Manager
         asset.loadBattleAssets();
+        asset.loadAshAsset();
         asset.finishLoading();
 
         ash = new Ash(this);

@@ -70,6 +70,63 @@ public class GameAsset{
         }
     }
 
+    /*
+    *  
+    *  Asset Ash
+    * 
+    */
+    public enum AssetsAsh {
+        // Textures per la battaglia
+        P_INDIETRO("assets/player/personaggioIndietro.png", Texture.class),
+        P_AVANTI("assets/player/personaggioAvanti.png", Texture.class),
+        P_DESTRA("assets/player/personaggioDestra.png", Texture.class),
+        P_SINISTRA("assets/player/personaggioSinistra.png", Texture.class),
+        SURF_P_INDIETRO("assets/player/surf indietro.png", Texture.class),
+        SURF_P_AVANTI("assets/player/surf avanti.png", Texture.class),
+        SURF_P_DESTRA("assets/player/surf destra.png", Texture.class),
+        SURF_P_SINISTRA("assets/player/surf sinistra.png", Texture.class);
+
+        private final String path;
+        private final Class<?> type;
+
+        AssetsAsh(String path, Class<?> type) {
+            this.path = path;
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public Class<?> getType() {
+            return type;
+        }
+    }
+
+    public void loadAshAsset() {
+        for (AssetsAsh asset : AssetsAsh.values()) {
+            assetManager.load(asset.getPath(), asset.getType());
+        }
+    }
+
+    public static boolean updateAsh() {
+        return assetManager.update();
+    }
+
+    public static float getProgressAsh() {
+        return assetManager.getProgress();
+    }
+
+    public Texture getAsh(AssetsAsh asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
+    }    
+
+    public static void unloadAsh(AssetsAsh asset) {
+        if (assetManager.isLoaded(asset.getPath())) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
     public void finishLoading() {
         assetManager.finishLoading();
     }
