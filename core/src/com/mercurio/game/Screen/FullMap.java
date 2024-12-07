@@ -2,7 +2,7 @@ package com.mercurio.game.Screen;
 
 import java.util.ArrayList;
 
-
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
@@ -22,6 +22,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.mercurio.game.AssetManager.GameAsset;
 import com.mercurio.game.effects.LabelDiscorsi;
 import com.mercurio.game.menu.MenuLabel;
 import com.mercurio.game.personaggi.Bot;
@@ -79,6 +80,9 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
 
     //quando il personaggio passa di fronte al bot mette il testo di inzio del bot e true il boolean, poi legge e rimette a false e aspetta di nuovo
     private boolean leggiTesto = false;
+
+    //Asset Manager
+    GameAsset asset;
 
     //----------------------------------------------------------------------------
     public FullMap(MercurioMain game, TiledMap mappa) {

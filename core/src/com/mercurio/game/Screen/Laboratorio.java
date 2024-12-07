@@ -31,6 +31,7 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.mercurio.game.AssetManager.GameAsset;
 import com.mercurio.game.effects.LabelDiscorsi;
 import com.mercurio.game.menu.MenuLabel;
 import com.mercurio.game.effects.LabelDiscorsi;

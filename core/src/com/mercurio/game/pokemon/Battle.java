@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Semaphore;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.ai.btree.Task;
@@ -44,6 +45,8 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.badlogic.gdx.utils.Timer;
+import com.mercurio.game.AssetManager.GameAsset;
+import com.mercurio.game.AssetManager.GameAsset.Assets;
 import com.mercurio.game.Screen.Erba;
 import com.mercurio.game.Screen.InterfacciaComune;
 import com.mercurio.game.effects.LabelDiscorsi;
@@ -91,7 +94,7 @@ public class Battle extends ScreenAdapter {
     private Image playerArrow;
     private Image botArrow;
     private Texture ballTexture ;
-    private Texture ballTextureBot = new Texture("battle/pokeBallPlayer.png"); //questo lo si prende dal json
+    private Texture ballTextureBot; //questo lo si prende dal json
     private boolean isInNext=true; 
     private int lanciato = 0;
     private Image labelBaseU;
@@ -272,7 +275,8 @@ public class Battle extends ScreenAdapter {
         this.chiamante = chiamante;
         batch = new SpriteBatch();
         stage = new Stage();
-        font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
+        font = GameAsset.getBattle(GameAsset.Assets.FONT);
+        ballTextureBot = GameAsset.getBattle(GameAsset.Assets.BALL_PLAYER);
         Gdx.input.setInputProcessor(stage);
         dimMax=200;
         leggiPoke(numeroIndexPoke);
@@ -287,7 +291,7 @@ public class Battle extends ScreenAdapter {
             leggiBot(nameBot);
             leggiPokeBot(nameBot,numeroIndexPokeBot);
         }
-        ballTexture = new Texture("battle/"+nomeBall+"Player.png");
+        ballTexture = GameAsset.getBattle(GameAsset.Assets.SFONDO_BATTLE);
 
         String discorso1= "Parte la sfida di "+nomeBot+" ("+tipoBot+")"+"!";
         labelDiscorsi1 = new LabelDiscorsi(discorso1,dimMax,0,true, false);
@@ -352,12 +356,12 @@ public class Battle extends ScreenAdapter {
         
 
         // Add background 
-        Texture backgroundTexture = new Texture("battle/sfondoBattle.png");
+        Texture backgroundTexture = GameAsset.getBattle(GameAsset.Assets.SFONDO_BATTLE);
         Image background = new Image(backgroundTexture);
         background.setSize(screenWidth, screenHeight);
         stage.addActor(background);
         
-        textureLancio = new Texture(Gdx.files.internal("battle/lancioBall.png"));
+        textureLancio = GameAsset.getBattle(GameAsset.Assets.LANCIO_BALL);
         int regionHeight = textureLancio.getHeight();
         int regionWidth = textureLancio.getWidth()/4;
         // Divide lo spritesheet in 4colonne
@@ -369,12 +373,12 @@ public class Battle extends ScreenAdapter {
         muoviPlayer = new Animation<>(cambioFrame_speed, player);
 
 
-        Texture imageBaseD = new Texture("battle/baseD.png");
+        Texture imageBaseD = GameAsset.getBattle(GameAsset.Assets.BASE_D);
         labelBaseD = new Image(imageBaseD);
         labelBaseD.setSize(256*3, 32*3);
         stage.addActor(labelBaseD);
 
-        Texture imageBaseU = new Texture("battle/baseU.png");
+        Texture imageBaseU = GameAsset.getBattle(GameAsset.Assets.BASE_U);
         labelBaseU = new Image(imageBaseU);
         labelBaseU.setSize(128*3, 62*3);
         stage.addActor(labelBaseU);
@@ -829,7 +833,7 @@ public class Battle extends ScreenAdapter {
         fightLabels = new TextureRegion[8]; 
     
         // Carica l'immagine contenente tutte le label
-        Texture textBoxesImage = new Texture("battle/fightBox.png");
+        Texture textBoxesImage = GameAsset.getBattle(GameAsset.Assets.FIGHT_BOX);
     
         // Calcola le dimensioni di ogni label nella griglia
         int textBoxWidth = textBoxesImage.getWidth() / 2; // Due colonne
@@ -1011,7 +1015,7 @@ public class Battle extends ScreenAdapter {
     private void piazzaLabelLottaPerBot(){
         
         //e ora piazza le hp Bar
-        Texture imageHPBot = new Texture("battle/botHPBar.png");
+        Texture imageHPBot = GameAsset.getBattle(GameAsset.Assets.HP_BAR);
         botHPBar = new Image(imageHPBot);
         botHPBar.setSize(244, 70);
         botHPBar.setPosition(-250, 520);
@@ -1149,14 +1153,14 @@ public class Battle extends ScreenAdapter {
             }
         
             for (int j=0; j<4-listaMosse.size(); j++){
-                Texture noMoveTexture = new Texture("battle/noMove.png");
+                Texture noMoveTexture = GameAsset.getBattle(GameAsset.Assets.NO_MOVE);
                 Image labelMosse = new Image(noMoveTexture);
                 labelMosse.setPosition((j+listaMosse.size())*256, 0);
                 labelMosse.setSize(256,125);
                 stage.addActor(labelMosse);
                 labelMosseArray.add(labelMosse);
             }
-        Texture backButton = new Texture("battle/b.png");
+        Texture backButton = GameAsset.getBattle(GameAsset.Assets.B);
         backImage = new Image(backButton);
         backImage.setPosition(0,130);
         backImage.setSize(60, 60);
@@ -1191,7 +1195,7 @@ public class Battle extends ScreenAdapter {
         label4=labelDiscorsi4.getLabel(); 
         stage.addActor(label4);
 
-        FileHandle mosseFile = Gdx.files.internal("pokemon/mosse.json");
+        FileHandle mosseFile = GameAsset.getBattle(GameAsset.Assets.MOSSE_JS);
         String mosseJsonString = mosseFile.readString();
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON delle mosse
         JsonValue mosseJson = new JsonReader().parse(mosseJsonString);
@@ -1419,7 +1423,7 @@ public class Battle extends ScreenAdapter {
         label14=labelDiscorsi14.getLabel(); 
         stage.addActor(label14);
 
-        FileHandle mosseFile = Gdx.files.internal("pokemon/mosse.json");
+        FileHandle mosseFile = GameAsset.getBattle(GameAsset.Assets.MOSSE_JS);
         String mosseJsonString = mosseFile.readString();
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON delle mosse
         JsonValue mosseJson = new JsonReader().parse(mosseJsonString);
@@ -1631,7 +1635,7 @@ public class Battle extends ScreenAdapter {
 
     public void leggiPoke(int numero) {
         // Carica il file JSON
-        FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+        FileHandle file = GameAsset.getAhs(GameAsset.AssetsAsh.SQUAD_JS);
         String jsonString = file.readString();
         
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
@@ -1678,7 +1682,7 @@ public class Battle extends ScreenAdapter {
 
     public void leggiPokeSecondario(int numero) {
         // Carica il file JSON
-        FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+        FileHandle file = GameAsset.getAhs(GameAsset.AssetsAsh.SQUAD_JS);
         String jsonString = file.readString();
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
@@ -1697,7 +1701,7 @@ public class Battle extends ScreenAdapter {
 
         labelPokePiazzate=true;
  
-        Texture arrowPlayer = new Texture("battle/playerArrow.png");
+        Texture arrowPlayer = GameAsset.getBattle(GameAsset.Assets.PLAYER_ARROW);
         playerArrow = new Image(arrowPlayer);
         //playerArrow.setPosition(1024-250,270);
         playerArrow.setPosition(1024,270); //inizialmente fuori dallo schermo
@@ -1705,7 +1709,7 @@ public class Battle extends ScreenAdapter {
         stage.addActor(playerArrow);
 
         if (isBotFight){
-        Texture arrowBot = new Texture("battle/botArrow.png");
+        Texture arrowBot = GameAsset.getBattle(GameAsset.Assets.BOT_ARROW);
         botArrow = new Image(arrowBot);
         //botArrow.setPosition(0,650);
         botArrow.setPosition(-250,650); //inizialmente fuori dallo schermo
@@ -1727,7 +1731,7 @@ public class Battle extends ScreenAdapter {
 
 
     private void piazzaSquad(){
-        Texture texture = new Texture("battle/ballsForNumber.png");
+        Texture texture = GameAsset.getBattle(GameAsset.Assets.BALLS_FOR_NUMBER);
         TextureRegion[][] textureRegions = TextureRegion.split(texture, texture.getWidth() / 8, texture.getHeight() / 3);
         // Inizializza l'array di sprite
         spriteArrayBallsSquadra = new Sprite[8];
@@ -1787,7 +1791,7 @@ public class Battle extends ScreenAdapter {
     }
 
     private void piazzaSquadBot(){
-        Texture texture = new Texture("battle/ballsForNumber.png");
+        Texture texture = GameAsset.getBattle(GameAsset.Assets.BALLS_FOR_NUMBER);
         TextureRegion[][] textureRegions = TextureRegion.split(texture, texture.getWidth() / 8, texture.getHeight() / 3);
         // Inizializza l'array di sprite
         spriteArrayBallsSquadra = new Sprite[8];
@@ -1847,9 +1851,9 @@ public class Battle extends ScreenAdapter {
     }
 
 
-
+    
     private void leggiBot(String nameBot){
-        FileHandle file = Gdx.files.internal("bots/bots.json");
+        FileHandle file = GameAsset.getBot(GameAsset.AssetsBot.BOT_JS);
         String jsonString = file.readString();
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
@@ -1862,10 +1866,10 @@ public class Battle extends ScreenAdapter {
 
     private void leggiPokeBot(String nBot, int numeroPoke) {
         // Carica il file JSON
-        FileHandle file = Gdx.files.internal("bots/bots.json");
+        FileHandle file = GameAsset.getBot(GameAsset.AssetsBot.BOT_JS);
         String jsonString = file.readString();
 
-        FileHandle file2 = Gdx.files.internal("pokemon/mosse.json");
+        FileHandle file2 = GameAsset.getBattle(GameAsset.Assets.MOSSE_JS);
         String jsonString2 = file2.readString();
         
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
@@ -1934,7 +1938,7 @@ public class Battle extends ScreenAdapter {
         // Carica il file JSON
         FileHandle file = Gdx.files.internal("jsonPokeSelvatici/"+ zona +".json");
         String jsonString = file.readString();
-        FileHandle file2 = Gdx.files.internal("pokemon/mosse.json");
+        FileHandle file2 = GameAsset.getBattle(GameAsset.Assets.MOSSE_JS);
         String jsonString2 = file2.readString();
         
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
@@ -1954,7 +1958,7 @@ public class Battle extends ScreenAdapter {
         int randoLvlInt = (int) randoLvl;  // Converte il valore in intero
         LVPokeBot = String.valueOf(randoLvlInt);
 
-        FileHandle filePoke = Gdx.files.internal("pokemon/Pokemon.json");
+        FileHandle filePoke = GameAsset.getBattle(GameAsset.Assets.POKEMON_JS);
         String jsonStringPoke = filePoke.readString();
         JsonValue jsonPoke = new JsonReader().parse(jsonStringPoke);
 
@@ -2019,7 +2023,7 @@ public class Battle extends ScreenAdapter {
 
     public void leggiPokeSecondarioBot(int numero, int numBot) {
         // Carica il file JSON
-        FileHandle file = Gdx.files.internal("bots/bots.json");
+        FileHandle file = GameAsset.getBot(GameAsset.AssetsBot.BOT_JS);
         String jsonString = file.readString();
         
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
@@ -2053,11 +2057,11 @@ public class Battle extends ScreenAdapter {
         // Calcola la percentuale degli HP attuali rispetto agli HP totali
         float percentualeHP = Float.parseFloat(currentHP)  / Float.parseFloat(maxHP);
         float lunghezzaHPBar = 96 * percentualeHP;
-         // Crea e posiziona la hpBar sopra imageHPPlayer con l'offset specificato
-         Image hpBar = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("battle/white_pixel.png"))));
-         hpBar.setSize((int)lunghezzaHPBar, 6);
-         hpBar.setPosition(image.getX() + diffX, image.getY() + diffY);
-         //hpBar.setPosition(400, 400);
+        // Crea e posiziona la hpBar sopra imageHPPlayer con l'offset specificato
+        Image hpBar = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("battle/white_pixel.png")))); // TODO Controllare se si riesce a integrare asset manager
+        hpBar.setSize((int)lunghezzaHPBar, 6);
+        hpBar.setPosition(image.getX() + diffX, image.getY() + diffY);
+        //hpBar.setPosition(400, 400);
         // Determina il colore della hpBar in base alla percentuale calcolata
         Color coloreHPBar;
         if (percentualeHP >= 0.5f) {
@@ -2416,7 +2420,7 @@ public class Battle extends ScreenAdapter {
 
     public void modificaHPPoke(int numero, String currentHP) {
         // Carica il file JSON
-        FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+        FileHandle file = GameAsset.getAhs(GameAsset.AssetsAsh.SQUAD_JS);
         String jsonString = file.readString();
         
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
@@ -2439,7 +2443,7 @@ public class Battle extends ScreenAdapter {
     
 
     public void updatePokeSquadBot(){
-        Texture texture = new Texture("battle/ballsForNumber.png");
+        Texture texture = GameAsset.getBattle(GameAsset.Assets.BALLS_FOR_NUMBER);
         TextureRegion[][] textureRegions = TextureRegion.split(texture, texture.getWidth() / 8, texture.getHeight() / 3);
         // Inizializza l'array di sprite
         spriteArrayBallsSquadra = new Sprite[8];
@@ -2483,7 +2487,7 @@ public class Battle extends ScreenAdapter {
     }
 
     public void updatePokeSquad(){
-        Texture texture = new Texture("battle/ballsForNumber.png");
+        Texture texture = GameAsset.getBattle(GameAsset.Assets.BALLS_FOR_NUMBER);
         TextureRegion[][] textureRegions = TextureRegion.split(texture, texture.getWidth() / 8, texture.getHeight() / 3);
         // Inizializza l'array di sprite
         spriteArrayBallsSquadra = new Sprite[8];
@@ -2651,7 +2655,7 @@ public class Battle extends ScreenAdapter {
 
     public void modifcicaDenaro(int soldiModifica){
         // Carica il file JSON
-        FileHandle file = Gdx.files.local("assets/ashJson/datiGenerali.json");
+        FileHandle file = GameAsset.getAhs(GameAsset.AssetsAsh.GEN_DATA_JS);
         String jsonString = file.readString();
         
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
@@ -2668,7 +2672,7 @@ public class Battle extends ScreenAdapter {
 
     public void calcolaDenaroPerso(){
         // Carica il file JSON
-        FileHandle file = Gdx.files.internal("assets/ashJson/datiGenerali.json");
+        FileHandle file = GameAsset.getAhs(GameAsset.AssetsAsh.GEN_DATA_JS);
         String jsonString = file.readString();
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
@@ -2700,14 +2704,14 @@ public class Battle extends ScreenAdapter {
         borsaModifier.removeInventoryBall(nameUsedBall);
 
         // Carica il file JSON
-        FileHandle file = Gdx.files.internal("assets/oggetti/strumenti.json");
+        FileHandle file = GameAsset.getStrumenti(GameAsset.AssetsStrumenti.STRUMENTI_JS);
         String jsonString = file.readString();
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
         bonusBall = json.get("pokeballs").get(nameUsedBall).getFloat("cattura");
 
         // Carica il file JSON
-        FileHandle file2 = Gdx.files.internal("assets/pokemon/Pokemon.json");
+        FileHandle file2 = GameAsset.getBattle(GameAsset.Assets.POKEMON_JS);
         String jsonString2 = file2.readString();
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json2 = new JsonReader().parse(jsonString2);
@@ -3180,7 +3184,7 @@ public class Battle extends ScreenAdapter {
     private String controllaSquadra() {
         try {
             // Carica il file JSON
-            FileHandle file = Gdx.files.internal("assets/ashJson/squadra.json");
+            FileHandle file = GameAsset.getAhs(GameAsset.AssetsAsh.SQUAD_JS);
             String jsonString = file.readString();
     
             JsonValue json = new JsonReader().parse(jsonString);
@@ -3214,7 +3218,7 @@ public class Battle extends ScreenAdapter {
 
             System.out.println(pokemon);
             // Carica il file JSON
-            FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file = GameAsset.getAhs(GameAsset.AssetsAsh.SQUAD_JS);
             String jsonString = file.readString();
 
             JsonValue json = new JsonReader().parse(jsonString);
@@ -3273,7 +3277,7 @@ public class Battle extends ScreenAdapter {
 
     private void salvaPokemonNelBox(){
         // Carica il file JSON
-        FileHandle file = Gdx.files.local("assets/ashJson/box.json");
+        FileHandle file = GameAsset.getAhs(GameAsset.AssetsAsh.BOX_JS);
         String jsonString = file.readString();
         
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
@@ -3340,7 +3344,7 @@ public class Battle extends ScreenAdapter {
 
     public void modificaPPMossePoke(int numero, ArrayList<Mossa> listaMossePoke) {
         // Carica il file JSON
-        FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+        FileHandle file = GameAsset.getAhs(GameAsset.AssetsAsh.SQUAD_JS);
         String jsonString = file.readString();
         
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
@@ -3385,7 +3389,7 @@ public class Battle extends ScreenAdapter {
         }
 
         // Carica il file JSON
-        FileHandle file = Gdx.files.local("assets/pokemon/Pokemon.json");
+        FileHandle file = GameAsset.getBattle(GameAsset.Assets.POKEMON_JS);
         String jsonString = file.readString();
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
@@ -3402,7 +3406,7 @@ public class Battle extends ScreenAdapter {
 
         for (int i=0; i<pokeInBattaglia.size();i++){
 
-            FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file2 = GameAsset.getAhs(GameAsset.AssetsAsh.SQUAD_JS);
             String jsonString2 = file2.readString();
             JsonValue json2 = new JsonReader().parse(jsonString2);
             String nomePokeEsp= json2.get("poke"+pokeInBattaglia.get(i)).getString("nomePokemon");
@@ -3453,7 +3457,7 @@ public class Battle extends ScreenAdapter {
         }
         ////System.out.println("Da fare ancora :)");
         // Apre il file JSON
-        FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
+        FileHandle file2 = GameAsset.getAhs(GameAsset.AssetsAsh.SQUAD_JS);
         String jsonString2 = file2.readString();
         JsonValue json2 = new JsonReader().parse(jsonString2);
 
@@ -3477,7 +3481,7 @@ public class Battle extends ScreenAdapter {
         statsM.aggiornaStatistichePokemon(pokeInBattaglia.get(i));
 
         if (pokeInBattaglia.get(i)==numeroIndexPoke){
-            FileHandle file3 = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file3 = GameAsset.getAhs(GameAsset.AssetsAsh.SQUAD_JS);
             String jsonString3 = file3.readString();
             JsonValue json3 = new JsonReader().parse(jsonString3);
             // Recupera il Pokémon da modificare
@@ -3519,7 +3523,7 @@ public class Battle extends ScreenAdapter {
                     }
                 }
 
-                FileHandle file = Gdx.files.local("assets/pokemon/Pokemon.json");
+                FileHandle file = GameAsset.getBattle(GameAsset.Assets.POKEMON_JS);
                 String jsonString = file.readString();
                 // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
                 JsonValue json = new JsonReader().parse(jsonString);
@@ -3587,13 +3591,13 @@ public class Battle extends ScreenAdapter {
 
     private Image placeExpBar(Image image){
 
-        FileHandle file = Gdx.files.local("assets/pokemon/Pokemon.json");
+        FileHandle file = GameAsset.getBattle(GameAsset.Assets.POKEMON_JS);
         String jsonString = file.readString();
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
         // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
         JsonValue pokeJson = json.get(nomePoke);
-        FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
+        FileHandle file2 = GameAsset.getAhs(GameAsset.AssetsAsh.SQUAD_JS);
         String jsonString2 = file2.readString();
         JsonValue json2 = new JsonReader().parse(jsonString2);
 
@@ -3604,7 +3608,7 @@ public class Battle extends ScreenAdapter {
         float percentualeExp = (float) currentExp / maxExp;
         float lunghezzaExpBar = 96*2 * percentualeExp;
 
-        Image expBar = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("battle/white_pixel.png"))));
+        Image expBar = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("battle/white_pixel.png")))); //TODO verificare se si può integrare Asset Manager
         expBar.setSize((int)lunghezzaExpBar, 4);
         expBar.setPosition(image.getX() + 48 , image.getY() + 6 );
 
@@ -3623,13 +3627,13 @@ public class Battle extends ScreenAdapter {
             checkNextLV=true;
             return;
         }
-        FileHandle file = Gdx.files.local("assets/pokemon/Pokemon.json");
+        FileHandle file = GameAsset.getBattle(GameAsset.Assets.POKEMON_JS);
         String jsonString = file.readString();
         JsonValue json = new JsonReader().parse(jsonString);
     
         // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
         JsonValue pokeJson = json.get(nomePoke);
-        FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
+        FileHandle file2 = GameAsset.getAhs(GameAsset.AssetsAsh.SQUAD_JS);
         String jsonString2 = file2.readString();
         JsonValue json2 = new JsonReader().parse(jsonString2);
     
@@ -3676,13 +3680,13 @@ public class Battle extends ScreenAdapter {
     
     private void updateEV(){
 
-        FileHandle file = Gdx.files.local("assets/pokemon/Pokemon.json");
+        FileHandle file = GameAsset.getBattle(GameAsset.Assets.POKEMON_JS);
         String jsonString = file.readString();
         JsonValue json = new JsonReader().parse(jsonString);
         JsonValue pokeJson = json.get(nomePokeBot);
     
         // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
-        FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
+        FileHandle file2 = GameAsset.getAhs(GameAsset.AssetsAsh.SQUAD_JS);
         String jsonString2 = file2.readString();
         JsonValue json2 = new JsonReader().parse(jsonString2);
         JsonValue poke = json2.get("poke" + (numeroIndexPoke));
@@ -3755,7 +3759,7 @@ public class Battle extends ScreenAdapter {
         timerCreatedDelay.add(partialDelay);
         timerCreatedData.add(new timerData(esperienzaVinta, expMaxLvl, i));
 
-        FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
+        FileHandle file2 = GameAsset.getAhs(GameAsset.AssetsAsh.SQUAD_JS);
         String jsonString2 = file2.readString();
         JsonValue json2 = new JsonReader().parse(jsonString2);
         String nomePokeEsp= json2.get("poke"+pokeInBattaglia.get(i)).getString("nomePokemon");
@@ -3944,7 +3948,7 @@ public class Battle extends ScreenAdapter {
 
     private void evoluzione(int evoIndex) {
         // Caricamento dello stato attuale e della grafica di sfondo
-        FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
+        FileHandle file2 = GameAsset.getAhs(GameAsset.AssetsAsh.SQUAD_JS);
         String jsonString2 = file2.readString();
         JsonValue json2 = new JsonReader().parse(jsonString2);
         
@@ -3965,7 +3969,7 @@ public class Battle extends ScreenAdapter {
         background.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         stage.addActor(background);
     
-        Texture lightTexture = new Texture("pokemon/lightCircle.png");
+        Texture lightTexture = GameAsset.getBattle(GameAsset.Assets.CIRCLE_LG);
 
         TextureRegion lightRegion = new TextureRegion(lightTexture, 0, 0, lightTexture.getWidth(), lightTexture.getHeight());
         // Create the Pokémon image
@@ -4198,7 +4202,7 @@ public class Battle extends ScreenAdapter {
     }
 
     private void scopriPokemon(String pokeName){
-        FileHandle file = Gdx.files.local("assets/ashJson/pokemonScoperti.json");
+        FileHandle file = GameAsset.getAhs(GameAsset.AssetsAsh.DIS_POKE_JS);
         String jsonString = file.readString();
         JsonValue json = new JsonReader().parse(jsonString);
         int numPokePokedex=0;
@@ -4216,7 +4220,7 @@ public class Battle extends ScreenAdapter {
     }
 
     private void conosciPokemon(String pokeName){
-        FileHandle file = Gdx.files.local("assets/ashJson/pokemonScoperti.json");
+        FileHandle file = GameAsset.getAhs(GameAsset.AssetsAsh.DIS_POKE_JS);
         String jsonString = file.readString();
         JsonValue json = new JsonReader().parse(jsonString);
         int numPokePokedex=1;

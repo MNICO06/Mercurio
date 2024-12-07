@@ -22,6 +22,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Timer;
+import com.mercurio.game.AssetManager.GameAsset;
 import com.mercurio.game.effects.Musica;
 import com.mercurio.game.menu.MenuLabel;
 import com.mercurio.game.personaggi.Ash;
@@ -83,9 +84,18 @@ public class MercurioMain extends Game implements InterfacciaComune{
     private Box box;
     private Shop shop;
     private SceltaStarterScreen sceltaStarterScreen;
+
+    //Asset Manager
+    GameAsset asset = new GameAsset();
     
     @Override
     public void create() {
+        //Asset Manager
+        asset.loadBattleAssets();
+        asset.loadAshAssets();
+        asset.loadBotAssets();
+        asset.loadStrumentiAssets();
+
         ash = new Ash(this);
         erba = new Erba (this);
         musica = new Musica (this, assetManager);
