@@ -3229,6 +3229,7 @@ public class Battle extends ScreenAdapter {
             JsonValue newPokemon = new JsonValue(JsonValue.ValueType.object);
             newPokemon.addChild("nomePokemon", new JsonValue(nameBot));
             newPokemon.addChild("livello", new JsonValue(LVPokeBot));
+            newPokemon.addChild("esperienza", new JsonValue(0));
 
             JsonValue statistiche = new JsonValue(JsonValue.ValueType.object);
             statistiche.addChild("hp", new JsonValue(Integer.parseInt(currentPokeHPBot)));
