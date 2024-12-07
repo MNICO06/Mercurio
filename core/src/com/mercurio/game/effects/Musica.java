@@ -17,34 +17,54 @@ public class Musica {
     }
     
     public void playMusic(String musicPath) {
-        stopMusic();
 
-        if (!assetManager.isLoaded(musicPath, Music.class)) {
-            assetManager.load(musicPath, Music.class);
-            assetManager.finishLoading();
+        try {
+            stopMusic();
+
+            if (!assetManager.isLoaded(musicPath, Music.class)) {
+                assetManager.load(musicPath, Music.class);
+                assetManager.finishLoading();
+            }
+            currentMusic = assetManager.get(musicPath, Music.class);
+
+            // Riproduci la musica in loop
+            currentMusic.setLooping(true);
+            currentMusic.play();
+
+        } catch (Exception e) {
+            System.out.println("Errore playMusic, " + e);
         }
-        currentMusic = assetManager.get(musicPath, Music.class);
 
-        // Riproduci la musica in loop
-        currentMusic.setLooping(true);
-        currentMusic.play();
+        
     }
 
     // Metodo per riprodurre suoni brevi
     public void playSound(String soundPath) {
-        if (!assetManager.isLoaded(soundPath, Sound.class)) {
-            assetManager.load(soundPath, Sound.class);
-            assetManager.finishLoading();
+
+        try {
+            if (!assetManager.isLoaded(soundPath, Sound.class)) {
+                assetManager.load(soundPath, Sound.class);
+                assetManager.finishLoading();
+            }
+            Sound sound = assetManager.get(soundPath, Sound.class);
+            sound.play();
+        } catch (Exception e) {
+            System.out.println("Errore playSound, " + e);
         }
-        Sound sound = assetManager.get(soundPath, Sound.class);
-        sound.play();
+        
     }
 
     public void stopMusic() {
-        // Interrompi la riproduzione della musica se è attualmente in corso
-        if (currentMusic != null && currentMusic.isPlaying()) {
-            currentMusic.stop();
+
+        try {
+            // Interrompi la riproduzione della musica se è attualmente in corso
+            if (currentMusic != null && currentMusic.isPlaying()) {
+                currentMusic.stop();
+            }
+        } catch (Exception e) {
+            System.out.println("Errore stopMusic, " + e);
         }
+        
     }
 
     public void startMusic(String luogo) {

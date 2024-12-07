@@ -41,16 +41,11 @@ public class LabelDiscorsi {
     private String testoCorrente;
     private int indiceLettera;
     private boolean isPrimaRigaStampata = false;
-    private boolean isPrimaRiga;
     private TextureRegion[] textBoxTextures;
 
     // Variabili per il timer
     private float intervalloLettera = 0.05f; // Intervallo di tempo tra le lettere
-    private int indiceDiscorso;
-    private boolean continuaDiscorso;
     private String discorso;
-    private String pezzoDiscorso;
-    private ArrayList<String> discorsoDivisoMamma;
     
     private boolean checkBattle;
     private Texture standardGrigioBordoTexture;
@@ -97,165 +92,183 @@ public class LabelDiscorsi {
 
 
     private TextureRegion[] loadTextBoxTextures() {
-        TextureRegion[] textures = new TextureRegion[20];
+        try {
+            TextureRegion[] textures = new TextureRegion[20];
     
-        // Carica l'immagine contenente tutte le label
-        Texture textBoxesImage = new Texture("sfondo/boxText.png");
-    
-        // Calcola le dimensioni di ogni label nella griglia
-        int textBoxWidth = textBoxesImage.getWidth() / 2; // Due colonne
-        int textBoxHeight = textBoxesImage.getHeight() / 10; // Dieci righe
+            // Carica l'immagine contenente tutte le label
+            Texture textBoxesImage = new Texture("sfondo/boxText.png");
+        
+            // Calcola le dimensioni di ogni label nella griglia
+            int textBoxWidth = textBoxesImage.getWidth() / 2; // Due colonne
+            int textBoxHeight = textBoxesImage.getHeight() / 10; // Dieci righe
 
-        // Estrai ogni label dall'immagine e salvala nell'array di texture
-        for (int row = 0; row < 10; row++) {
-            for (int col = 0; col < 2; col++) {
-                int index = row * 2 + col; // Calcola l'indice dell'array
-    
-                int startX = col * textBoxWidth;
-                int startY = row * textBoxHeight;  
-                textures[index] = new TextureRegion(textBoxesImage, startX, startY, textBoxWidth, textBoxHeight);
+            // Estrai ogni label dall'immagine e salvala nell'array di texture
+            for (int row = 0; row < 10; row++) {
+                for (int col = 0; col < 2; col++) {
+                    int index = row * 2 + col; // Calcola l'indice dell'array
+        
+                    int startX = col * textBoxWidth;
+                    int startY = row * textBoxHeight;  
+                    textures[index] = new TextureRegion(textBoxesImage, startX, startY, textBoxWidth, textBoxHeight);
+                }
             }
+        
+            return textures;
+
+        } catch (Exception e) {
+            System.out.println("Errore loadTextBoxTextures: " + e);
+            return null;
         }
-    
-        return textures;
+        
     }
 
     private void createLabel(int index) {
-        Skin skin = new Skin();
-        skin.add("custom-font", font);
 
-        TextureRegion backgroundTexture = textBoxTextures[index];
-        NinePatchDrawable backgroundDrawable = new NinePatchDrawable(new NinePatch(backgroundTexture, 10, 10, 10, 10));
-        Label.LabelStyle style = new Label.LabelStyle();
+        try {
+            Skin skin = new Skin();
+            skin.add("custom-font", font);
 
-        style.font = skin.getFont("custom-font");
-        style.background = backgroundDrawable;
+            TextureRegion backgroundTexture = textBoxTextures[index];
+            NinePatchDrawable backgroundDrawable = new NinePatchDrawable(new NinePatch(backgroundTexture, 10, 10, 10, 10));
+            Label.LabelStyle style = new Label.LabelStyle();
 
-        label = new Label("", style);
+            style.font = skin.getFont("custom-font");
+            style.background = backgroundDrawable;
 
-        if (deveScegliere) {
-            // Crea le label per "Sì" e "No"
-            labelSi = new Label("Si'", style);
-            labelNo = new Label("No", style);
-        }
-        
-
-        if (!checkBattle){
-            label.setPosition(280, 20); // Posizione della label
-            label.setWidth(400);
-            label.setHeight(75); // Altezza sufficiente per due righe
-            label.setWrap(true);
+            label = new Label("", style);
 
             if (deveScegliere) {
-                labelSi.setWidth(siWidth);
-                labelNo.setWidth(noWidth);
-                labelSi.setHeight(siHeight);
-                labelNo.setHeight(noHeight);
-                // Imposta le posizioni delle label
-                siX = label.getX() + label.getWidth() + 2;
-                siY = label.getY() + labelSi.getHeight() + 3;
-                noX = label.getX() + label.getWidth() + 2;
-                noY = label.getY();
-    
-                labelSi.setPosition(siX, siY);
-                labelNo.setPosition(noX, noY);
+                // Crea le label per "Sì" e "No"
+                labelSi = new Label("Si'", style);
+                labelNo = new Label("No", style);
             }
+            
+
+            if (!checkBattle){
+                label.setPosition(280, 20); // Posizione della label
+                label.setWidth(400);
+                label.setHeight(75); // Altezza sufficiente per due righe
+                label.setWrap(true);
+
+                if (deveScegliere) {
+                    labelSi.setWidth(siWidth);
+                    labelNo.setWidth(noWidth);
+                    labelSi.setHeight(siHeight);
+                    labelNo.setHeight(noHeight);
+                    // Imposta le posizioni delle label
+                    siX = label.getX() + label.getWidth() + 2;
+                    siY = label.getY() + labelSi.getHeight() + 3;
+                    noX = label.getX() + label.getWidth() + 2;
+                    noY = label.getY();
+        
+                    labelSi.setPosition(siX, siY);
+                    labelNo.setPosition(noX, noY);
+                }
+            }
+            else {
+                label.setPosition(0, 0); // Posizione della label
+                label.setWidth(1024);
+                label.setHeight(125); // Altezza sufficiente per due righe
+                style.font.getData().setScale(1.5f);
+                label.setWrap(true);
+            }
+        } catch (Exception e) {
+            System.out.println("Errore createLabel, " + e);
         }
-        else {
-            label.setPosition(0, 0); // Posizione della label
-            label.setWidth(1024);
-            label.setHeight(125); // Altezza sufficiente per due righe
-            style.font.getData().setScale(1.5f);
-            label.setWrap(true);
-        }
+
+        
     }
 
 
     public int renderDisc() {
-    	
-        batch.begin();
-        label.draw(batch, 1);
 
-        if (deveScegliere) {
-            // Disegna le label "Sì" e "No" solo se il flag è true
-            if (mostraDecisionLabels) {
-                labelSi.draw(batch, 1);
-                labelNo.draw(batch, 1);
-            }
-        }
-        
-        if (deveScegliere) {
-            // Gestisci il click
-            if (mostraDecisionLabels){
-                if (Gdx.input.justTouched()) {
-                    handleClick(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
+        try {
+            batch.begin();
+            label.draw(batch, 1);
+
+            if (deveScegliere) {
+                // Disegna le label "Sì" e "No" solo se il flag è true
+                if (mostraDecisionLabels) {
+                    labelSi.draw(batch, 1);
+                    labelNo.draw(batch, 1);
                 }
             }
-        }
-        
-        if (!isPrimaRigaStampata && label.getPrefHeight() > 0) {
-        	isPrimaRigaStampata = true;
-
-            // Avvia l'animazione della seconda riga se presente
-        	 if (isPrimaRigaStampata && rigaCorrente + 1 < righeDiscorso.size()) {
-                startLetterAnimationFirstLine(righeDiscorso.get(rigaCorrente) + "\n" + righeDiscorso.get(rigaCorrente + 1));
-            }
-        	 
-        	 else {
-        		 startLetterAnimationFirstLine(righeDiscorso.get(rigaCorrente)); 
-        	 }
-        }
-
-        if (deveScegliere) {
-
-            if (timer2 != null) {
-                timer2.cancel();
-                timer2 = null;
-            }
-            timer2 = new Timer();
-
-            if (task != null) {
-                task.cancel();
-                task = null;
-            }
-
-            task = new TimerTask() {
-                @Override
-                public void run() {
-                    modificaMostraLabel();
-                }
-            };
             
-            if (righeDiscorso.size() -2 == 0) {
-                com.badlogic.gdx.utils.Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
+            if (deveScegliere) {
+                // Gestisci il click
+                if (mostraDecisionLabels){
+                    if (Gdx.input.justTouched()) {
+                        handleClick(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
+                    }
+                }
+            }
+            
+            if (!isPrimaRigaStampata && label.getPrefHeight() > 0) {
+                isPrimaRigaStampata = true;
+
+                // Avvia l'animazione della seconda riga se presente
+                if (isPrimaRigaStampata && rigaCorrente + 1 < righeDiscorso.size()) {
+                    startLetterAnimationFirstLine(righeDiscorso.get(rigaCorrente) + "\n" + righeDiscorso.get(rigaCorrente + 1));
+                }
+                
+                else {
+                    startLetterAnimationFirstLine(righeDiscorso.get(rigaCorrente)); 
+                }
+            }
+
+            if (deveScegliere) {
+
+                if (timer2 != null) {
+                    timer2.cancel();
+                    timer2 = null;
+                }
+                timer2 = new Timer();
+
+                if (task != null) {
+                    task.cancel();
+                    task = null;
+                }
+
+                task = new TimerTask() {
                     @Override
                     public void run() {
                         modificaMostraLabel();
                     }
-                }, 3f);
-            }else if (righeDiscorso.size() - 2 > 0) {
-                if (rigaCorrente == righeDiscorso.size() - 2) {
+                };
+                
+                if (righeDiscorso.size() -2 == 0) {
                     com.badlogic.gdx.utils.Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
                         @Override
                         public void run() {
                             modificaMostraLabel();
                         }
-                    }, 1f);
-                }
-            }else if (righeDiscorso.size() - 2 < 0) {
-                com.badlogic.gdx.utils.Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
-                    @Override
-                    public void run() {
-                        modificaMostraLabel();
+                    }, 3f);
+                }else if (righeDiscorso.size() - 2 > 0) {
+                    if (rigaCorrente == righeDiscorso.size() - 2) {
+                        com.badlogic.gdx.utils.Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
+                            @Override
+                            public void run() {
+                                modificaMostraLabel();
+                            }
+                        }, 1f);
                     }
-                }, 0.7f);
+                }else if (righeDiscorso.size() - 2 < 0) {
+                    com.badlogic.gdx.utils.Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
+                        @Override
+                        public void run() {
+                            modificaMostraLabel();
+                        }
+                    }, 0.7f);
+                }
             }
+
+            batch.end();
+
+            return sceltaUtente;
+        } catch (Exception e) {
+            System.out.println("Errore renderDisc, " + e);
+            return 0;
         }
-
-        batch.end();
-
-        return sceltaUtente;
-
     }
 
     private void handleClick(float mouseX, float mouseY) {
@@ -275,36 +288,50 @@ public class LabelDiscorsi {
 
 
     private ArrayList<String> splitTestoInRighe(String testo, int lunghezzaMassima) {
-        ArrayList<String> righe = new ArrayList<>();
-        String[] parole = testo.split(" ");
-        StringBuilder rigaCorrente = new StringBuilder(parole[0]);
 
-        for (int i = 1; i < parole.length; i++) {
-            if (rigaCorrente.length() + 1 + parole[i].length() <= lunghezzaMassima) {
-                rigaCorrente.append(" ").append(parole[i]);
-            } else {
-                righe.add(rigaCorrente.toString());
-                rigaCorrente = new StringBuilder(parole[i]);
+        try {
+            ArrayList<String> righe = new ArrayList<>();
+            String[] parole = testo.split(" ");
+            StringBuilder rigaCorrente = new StringBuilder(parole[0]);
+
+            for (int i = 1; i < parole.length; i++) {
+                if (rigaCorrente.length() + 1 + parole[i].length() <= lunghezzaMassima) {
+                    rigaCorrente.append(" ").append(parole[i]);
+                } else {
+                    righe.add(rigaCorrente.toString());
+                    rigaCorrente = new StringBuilder(parole[i]);
+                }
             }
-        }
 
-        if (rigaCorrente.length() > 0) {
-            righe.add(rigaCorrente.toString());
-        }
+            if (rigaCorrente.length() > 0) {
+                righe.add(rigaCorrente.toString());
+            }
 
-        return righe;
+            return righe;
+
+        } catch (Exception e) {
+            System.out.println("Errore splitTestoInRighe, " + e);
+            return null;
+        }
     }
 
     public boolean advanceText() {
-        
-        if (isPrimaRigaStampata && rigaCorrente < righeDiscorso.size() - 2) {
-            rigaCorrente++;
-            updateTwoLines();
-            return true;
-        }
-        else {
+
+        try {
+            if (isPrimaRigaStampata && rigaCorrente < righeDiscorso.size() - 2) {
+                rigaCorrente++;
+                updateTwoLines();
+                return true;
+            }
+            else {
+                return false;
+            }
+        } catch (Exception e) {
+            System.out.println("Errore advanceText, " + e);
             return false;
         }
+        
+        
     }
 
     private void updateTwoLines() {
@@ -315,72 +342,88 @@ public class LabelDiscorsi {
     }
 
     private void startLetterAnimation(String testo) {
-        testoCorrente = testo;
-        indiceLettera = 0;
 
-        if (letterTask != null) {
-            letterTask.cancel();
-            letterTask = null;
-        }
+        try {
+            testoCorrente = testo;
+            indiceLettera = 0;
 
-        letterTask = new TimerTask() {
-            @Override
-            public void run() {
-                Gdx.app.postRunnable(() -> {
-                    if (indiceLettera <= testoCorrente.length()) {
-                    	
-                		// Aggiorna solo la seconda riga con l'animazione carattere per carattere
-                        String testoCompleto = righeDiscorso.get(rigaCorrente) + "\n" + testoCorrente.substring(0, indiceLettera);
-                        label.setText(testoCompleto);
-                        indiceLettera++;
-                        
-                    } else {
-                        cancelTextAnimation();
-                    }
-                });
+            if (letterTask != null) {
+                letterTask.cancel();
+                letterTask = null;
             }
-        };
 
-        if (timer != null) {
-            timer.cancel();
-            timer = null;
+            letterTask = new TimerTask() {
+                @Override
+                public void run() {
+                    Gdx.app.postRunnable(() -> {
+                        if (indiceLettera <= testoCorrente.length()) {
+                            
+                            // Aggiorna solo la seconda riga con l'animazione carattere per carattere
+                            String testoCompleto = righeDiscorso.get(rigaCorrente) + "\n" + testoCorrente.substring(0, indiceLettera);
+                            label.setText(testoCompleto);
+                            indiceLettera++;
+                            
+                        } else {
+                            cancelTextAnimation();
+                        }
+                    });
+                }
+            };
+
+            if (timer != null) {
+                timer.cancel();
+                timer = null;
+            }
+            timer = new Timer();
+            timer.scheduleAtFixedRate(letterTask, 0, (long) (intervalloLettera * 1000)); // Parte subito e si ripete ogni intervalloLettera secondi
+        
+        } catch (Exception e) {
+            System.out.println("Errore StartLetterAnimaion, " + e);
         }
-        timer = new Timer();
-        timer.scheduleAtFixedRate(letterTask, 0, (long) (intervalloLettera * 1000)); // Parte subito e si ripete ogni intervalloLettera secondi
+        
     }
 
     
     private void startLetterAnimationFirstLine(String testo) {
-        testoCorrente = testo;
-        indiceLettera = 0;
 
-        if (letterTask != null) {
-            letterTask.cancel();
-            letterTask = null;
-        }
+        try {
 
-        letterTask = new TimerTask() {
-            @Override
-            public void run() {
-                Gdx.app.postRunnable(() -> {
-                    if (indiceLettera <= testoCorrente.length()) {
-                            String testoCompleto = testoCorrente.substring(0, indiceLettera);
-                            label.setText(testoCompleto);
-                            indiceLettera++;
-                        
-                    } else {
-                        cancelTextAnimation();
-                    }
-                });
+            testoCorrente = testo;
+            indiceLettera = 0;
+
+            if (letterTask != null) {
+                letterTask.cancel();
+                letterTask = null;
             }
-        };
 
-        if (timer != null) {
-            timer.cancel();
-            timer = null;
+            letterTask = new TimerTask() {
+                @Override
+                public void run() {
+                    Gdx.app.postRunnable(() -> {
+                        if (indiceLettera <= testoCorrente.length()) {
+                                String testoCompleto = testoCorrente.substring(0, indiceLettera);
+                                label.setText(testoCompleto);
+                                indiceLettera++;
+                            
+                        } else {
+                            cancelTextAnimation();
+                        }
+                    });
+                }
+            };
+
+            if (timer != null) {
+                timer.cancel();
+                timer = null;
+            }
+            timer = new Timer();
+            timer.scheduleAtFixedRate(letterTask, 0, (long) (intervalloLettera * 1000)); // Parte subito e si ripete ogni intervalloLettera secondi
+
+        } catch (Exception e) {
+            System.out.println("Errore startLetterAnimationFirstLine, " + e);
         }
-        timer = new Timer();
-        timer.scheduleAtFixedRate(letterTask, 0, (long) (intervalloLettera * 1000)); // Parte subito e si ripete ogni intervalloLettera secondi
+
+        
     }
 
 
@@ -396,26 +439,32 @@ public class LabelDiscorsi {
     }
      
     public void reset() {
-        // Interrompi qualsiasi animazione in corso
-        cancelTextAnimation();
 
-        // Non far renderizzare più il si e no
-        mostraDecisionLabels = false;
+        try {
+            // Interrompi qualsiasi animazione in corso
+            cancelTextAnimation();
 
-        // Reimposta le variabili di stato
-        rigaCorrente = 0;
-        isPrimaRigaStampata = false;
+            // Non far renderizzare più il si e no
+            mostraDecisionLabels = false;
 
-        // Ricrea la label con il testo vuoto
-        label.setText("");
+            // Reimposta le variabili di stato
+            rigaCorrente = 0;
+            isPrimaRigaStampata = false;
 
-        // Avvia nuovamente l'animazione della prima e seconda riga
-        if (righeDiscorso.size() > 0) {
-            startLetterAnimation(righeDiscorso.get(0)); // Avvia l'animazione per la prima riga
-        }
-        if (righeDiscorso.size() > 1) {
-            startLetterAnimation(righeDiscorso.get(1)); // Avvia l'animazione per la seconda riga se presente
-        }
+            // Ricrea la label con il testo vuoto
+            label.setText("");
+
+            // Avvia nuovamente l'animazione della prima e seconda riga
+            if (righeDiscorso.size() > 0) {
+                startLetterAnimation(righeDiscorso.get(0)); // Avvia l'animazione per la prima riga
+            }
+            if (righeDiscorso.size() > 1) {
+                startLetterAnimation(righeDiscorso.get(1)); // Avvia l'animazione per la seconda riga se presente
+            }
+
+        } catch (Exception e) {
+            System.out.println("Errore reset, " + e);
+        }        
     }
 
     public void setSceltaUtente(int sceltaUtente) {
