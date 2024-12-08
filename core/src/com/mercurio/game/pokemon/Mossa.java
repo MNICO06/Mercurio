@@ -14,21 +14,21 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 
 class Mossa {
-    private boolean crit=false;
+    private boolean crit = false;
     private String nome;
     private String tipo;
     private String maxPP;
     private String attPP;
     private String pokePlay;
     private String pokeEnemy;
-    private float modifier=1.0f;
+    private float modifier = 1.0f;
     private int potenza;
     private String tipo1;
     private String tipo2;
     private String tipo3;
     private String tipo4;
     private Battle chiamante;
-    private int modifierPerText=0;
+    private int modifierPerText = 0;
     private int precisione;
     private String tipologia;
 
@@ -38,157 +38,115 @@ class Mossa {
 
     // Lista di tipi di Pokémon e relativa resistenza
     ArrayList<String> listaPEAcqua = new ArrayList<>(
-        Arrays.asList("Fuoco","Acqua","Ghiaccio","Acciaio")
-    );
+            Arrays.asList("Fuoco", "Acqua", "Ghiaccio", "Acciaio"));
     ArrayList<String> listaPEFuoco = new ArrayList<>(
-        Arrays.asList("Fuoco","Erba","Ghiaccio","Coleottero","Acciaio","Folletto")
-    );
+            Arrays.asList("Fuoco", "Erba", "Ghiaccio", "Coleottero", "Acciaio", "Folletto"));
     ArrayList<String> listaPEErba = new ArrayList<>(
-        Arrays.asList("Acqua","Elettro","Erba","Terra")
-    );
+            Arrays.asList("Acqua", "Elettro", "Erba", "Terra"));
     ArrayList<String> listaPEElettro = new ArrayList<>(
-        Arrays.asList("Volante","Elettro","Acciaio")
-    );
+            Arrays.asList("Volante", "Elettro", "Acciaio"));
     ArrayList<String> listaPENormale = new ArrayList<>(
-        Arrays.asList()
-    );
+            Arrays.asList());
     ArrayList<String> listaPEPsico = new ArrayList<>(
-        Arrays.asList("Lotta","Psico")
-    );
+            Arrays.asList("Lotta", "Psico"));
     ArrayList<String> listaPELotta = new ArrayList<>(
-        Arrays.asList("Coleottero","Roccia","Buio")
-    );
+            Arrays.asList("Coleottero", "Roccia", "Buio"));
     ArrayList<String> listaPEVolante = new ArrayList<>(
-        Arrays.asList("Erba","Lotta","Coleottero")
-    );
+            Arrays.asList("Erba", "Lotta", "Coleottero"));
     ArrayList<String> listaPETerra = new ArrayList<>(
-        Arrays.asList("Veleno","Roccia")
-    );
+            Arrays.asList("Veleno", "Roccia"));
     ArrayList<String> listaPEGhiaccio = new ArrayList<>(
-        Arrays.asList("Ghiaccio")
-    );
+            Arrays.asList("Ghiaccio"));
     ArrayList<String> listaPERoccia = new ArrayList<>(
-        Arrays.asList("Normale","Fuoco","Veleno","Volante")
-    );
+            Arrays.asList("Normale", "Fuoco", "Veleno", "Volante"));
     ArrayList<String> listaPEBuio = new ArrayList<>(
-        Arrays.asList("Spettro","Buio")
-    );
+            Arrays.asList("Spettro", "Buio"));
     ArrayList<String> listaPEAcciaio = new ArrayList<>(
-        Arrays.asList("Normale","Erba","Ghiaccio","Volante","Psico","Coleottero","Roccia","Drago","Acciaio","Folletto")
-    );
+            Arrays.asList("Normale", "Erba", "Ghiaccio", "Volante", "Psico", "Coleottero", "Roccia", "Drago", "Acciaio",
+                    "Folletto"));
     ArrayList<String> listaPEFolletto = new ArrayList<>(
-        Arrays.asList("Lotta","Coleottero","Buio")
-    );
+            Arrays.asList("Lotta", "Coleottero", "Buio"));
     ArrayList<String> listaPEVeleno = new ArrayList<>(
-        Arrays.asList("Erba","Lotta","Veleno","Coleottero","Folletto")
-    );
+            Arrays.asList("Erba", "Lotta", "Veleno", "Coleottero", "Folletto"));
     ArrayList<String> listaPEColeottero = new ArrayList<>(
-        Arrays.asList("Erba","Lotta","Terra")
-    );
+            Arrays.asList("Erba", "Lotta", "Terra"));
     ArrayList<String> listaPEDrago = new ArrayList<>(
-        Arrays.asList("Acqua","Erba","Fuoco","Elettro")
-    );
+            Arrays.asList("Acqua", "Erba", "Fuoco", "Elettro"));
     ArrayList<String> listaPESpettro = new ArrayList<>(
-        Arrays.asList("Veleno","Coleottero")
-    );
+            Arrays.asList("Veleno", "Coleottero"));
 
-    // Lista di tipi di Pokémon e relativi danni super efficaci / per controllare e aggiungere il *2
+    // Lista di tipi di Pokémon e relativi danni super efficaci / per controllare e
+    // aggiungere il *2
     ArrayList<String> listaSEAcqua = new ArrayList<>(
-        Arrays.asList("Erba","Elettro")
-    );
+            Arrays.asList("Erba", "Elettro"));
     ArrayList<String> listaSEFuoco = new ArrayList<>(
-        Arrays.asList("Terra","Roccia","Acqua")
-    );
+            Arrays.asList("Terra", "Roccia", "Acqua"));
     ArrayList<String> listaSEErba = new ArrayList<>(
-        Arrays.asList("Fuoco","Coleottero","Ghiaccio","Veleno","Volante")
-    );
+            Arrays.asList("Fuoco", "Coleottero", "Ghiaccio", "Veleno", "Volante"));
     ArrayList<String> listaSEElettro = new ArrayList<>(
-        Arrays.asList("Terra")
-    );
+            Arrays.asList("Terra"));
     ArrayList<String> listaSENormale = new ArrayList<>(
-        Arrays.asList("Lotta")
-    );
+            Arrays.asList("Lotta"));
     ArrayList<String> listaSEPsico = new ArrayList<>(
-        Arrays.asList("Buio","Spettro","Coleottero")
-    );
+            Arrays.asList("Buio", "Spettro", "Coleottero"));
     ArrayList<String> listaSELotta = new ArrayList<>(
-        Arrays.asList("Psico","Folletto","Volante")
-    );
+            Arrays.asList("Psico", "Folletto", "Volante"));
     ArrayList<String> listaSEVolante = new ArrayList<>(
-        Arrays.asList("Roccia","Elettro","Ghiaccio")
-    );
+            Arrays.asList("Roccia", "Elettro", "Ghiaccio"));
     ArrayList<String> listaSETerra = new ArrayList<>(
-        Arrays.asList("Erba","Acqua","Ghiaccio")
-    );
+            Arrays.asList("Erba", "Acqua", "Ghiaccio"));
     ArrayList<String> listaSEGhiaccio = new ArrayList<>(
-        Arrays.asList("Fuoco","Lotta","Roccia","Acciaio")
-    );
+            Arrays.asList("Fuoco", "Lotta", "Roccia", "Acciaio"));
     ArrayList<String> listaSERoccia = new ArrayList<>(
-        Arrays.asList("Lotta","Erba","Acqua","Acciaio","Terra")
-    );
+            Arrays.asList("Lotta", "Erba", "Acqua", "Acciaio", "Terra"));
     ArrayList<String> listaSEBuio = new ArrayList<>(
-        Arrays.asList("Folletto","Lotta","Coleottero")
-    );
+            Arrays.asList("Folletto", "Lotta", "Coleottero"));
     ArrayList<String> listaSEAcciaio = new ArrayList<>(
-        Arrays.asList("Terra","Fuoco","Lotta")
-    );
+            Arrays.asList("Terra", "Fuoco", "Lotta"));
     ArrayList<String> listaSEFolletto = new ArrayList<>(
-        Arrays.asList("Veleno","Acciaio")
-    );
+            Arrays.asList("Veleno", "Acciaio"));
     ArrayList<String> listaSEVeleno = new ArrayList<>(
-        Arrays.asList("Terra","Psico")
-    );
+            Arrays.asList("Terra", "Psico"));
     ArrayList<String> listaSEColeottero = new ArrayList<>(
-        Arrays.asList("Fuoco","Roccia","Volante")
-    );
+            Arrays.asList("Fuoco", "Roccia", "Volante"));
     ArrayList<String> listaSEDrago = new ArrayList<>(
-        Arrays.asList("Drago","Folletto","Ghiaccio")
-    );
+            Arrays.asList("Drago", "Folletto", "Ghiaccio"));
     ArrayList<String> listaSESpettro = new ArrayList<>(
-        Arrays.asList("Buio","Spettro")
-    );
+            Arrays.asList("Buio", "Spettro"));
 
-
-    //liste dei non efficace / per controllare e aggiungere il *0
+    // liste dei non efficace / per controllare e aggiungere il *0
     ArrayList<String> listaNEAcqua = new ArrayList<>();
     ArrayList<String> listaNEFuoco = new ArrayList<>();
     ArrayList<String> listaNEErba = new ArrayList<>();
     ArrayList<String> listaNEElettro = new ArrayList<>();
     ArrayList<String> listaNENormale = new ArrayList<>(
-        Arrays.asList("Spettro")
-    );
+            Arrays.asList("Spettro"));
     ArrayList<String> listaNEPsico = new ArrayList<>();
     ArrayList<String> listaNELotta = new ArrayList<>();
     ArrayList<String> listaNEVolante = new ArrayList<>(
-        Arrays.asList("Terra")
-    );
+            Arrays.asList("Terra"));
     ArrayList<String> listaNETerra = new ArrayList<>(
-        Arrays.asList("Elettro")
-    );
+            Arrays.asList("Elettro"));
     ArrayList<String> listaNEGhiaccio = new ArrayList<>();
     ArrayList<String> listaNERoccia = new ArrayList<>();
     ArrayList<String> listaNEBuio = new ArrayList<>(
-        Arrays.asList("Psico")
-    );
+            Arrays.asList("Psico"));
     ArrayList<String> listaNEAcciaio = new ArrayList<>();
     ArrayList<String> listaNEFolletto = new ArrayList<>(
-        Arrays.asList("Drago")
-    );
+            Arrays.asList("Drago"));
     ArrayList<String> listaNEVeleno = new ArrayList<>();
     ArrayList<String> listaNEColeottero = new ArrayList<>();
     ArrayList<String> listaNEDrago = new ArrayList<>();
     ArrayList<String> listaNESpettro = new ArrayList<>(
-        Arrays.asList("Normale","Lotta")
-    );
-
-
+            Arrays.asList("Normale", "Lotta"));
 
     public void SpriteCutter() {
         // Carica la texture
         texture = new Texture("battle/fullLabelFight.png");
 
         // Divide la texture in 18 parti in altezza
-        TextureRegion[][] textureRegions = TextureRegion.split(texture, texture.getWidth() / 3, texture.getHeight() / 6);
+        TextureRegion[][] textureRegions = TextureRegion.split(texture, texture.getWidth() / 3,
+                texture.getHeight() / 6);
 
         // Inizializza l'array di sprite
         spriteArray = new Sprite[18];
@@ -240,13 +198,12 @@ class Mossa {
         return spriteArray;
     }
 
-    
     public Mossa(String nome, String tipo, String maxPP, String attPP, Battle battle) {
         this.nome = nome;
         this.tipo = tipo;
         this.maxPP = maxPP;
         this.attPP = attPP;
-        if (battle!=null){
+        if (battle != null) {
             this.chiamante = battle;
         }
     }
@@ -267,15 +224,15 @@ class Mossa {
         return attPP;
     }
 
-    public void setattPP(){
-        attPP=Integer.toString(Integer.parseInt(attPP)-1);
+    public void setattPP() {
+        attPP = Integer.toString(Integer.parseInt(attPP) - 1);
     }
 
-    public void estraiPotenza(){
+    public void estraiPotenza() {
         // Carica il file JSON
         FileHandle file = Gdx.files.local("assets/pokemon/mosse.json");
         String jsonString = file.readString();
-        
+
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
 
@@ -283,16 +240,16 @@ class Mossa {
         potenza = Integer.parseInt(pokeJson.getString("potenza"));
     }
 
-    public int getPotenza(){
+    public int getPotenza() {
         estraiPotenza();
         return potenza;
     }
 
-    public void estraiPrecisione(){
+    public void estraiPrecisione() {
         // Carica il file JSON
         FileHandle file = Gdx.files.local("assets/pokemon/mosse.json");
         String jsonString = file.readString();
-        
+
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
 
@@ -300,16 +257,16 @@ class Mossa {
         precisione = Integer.parseInt(pokeJson.getString("precisione"));
     }
 
-    public int getPrecisione(){
+    public int getPrecisione() {
         estraiPrecisione();
         return precisione;
     }
 
-    public void estraiTipologia(){
+    public void estraiTipologia() {
         // Carica il file JSON
         FileHandle file = Gdx.files.local("assets/pokemon/mosse.json");
         String jsonString = file.readString();
-        
+
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
 
@@ -317,154 +274,162 @@ class Mossa {
         tipologia = pokeJson.getString("attacco");
     }
 
-    public String getTipologia(){
+    public String getTipologia() {
         estraiTipologia();
         return tipologia;
     }
 
+    public void calcolaModifier() {
+        try {
+            // Carica il file JSON
+            FileHandle file = Gdx.files.local("assets/pokemon/Pokemon.json");
+            String jsonString = file.readString();
 
-    public void calcolaModifier(){
-        // Carica il file JSON
-        FileHandle file = Gdx.files.local("assets/pokemon/Pokemon.json");
-        String jsonString = file.readString();
-        
-        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
-        JsonValue json = new JsonReader().parse(jsonString);
+            // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+            JsonValue json = new JsonReader().parse(jsonString);
 
-        JsonValue pokeJson = json.get(pokeEnemy);
-        tipo1 = pokeJson.getString("tipo1");
-        tipo2 = pokeJson.getString("tipo2");
+            JsonValue pokeJson = json.get(pokeEnemy);
+            tipo1 = pokeJson.getString("tipo1");
+            tipo2 = pokeJson.getString("tipo2");
 
-        ArrayList<String> listaPEControllo1 = new ArrayList<>(reimpiListeControllo(tipo1,"PE"));
-        ArrayList<String> listaPEControllo2 = new ArrayList<>(reimpiListeControllo(tipo2,"PE"));
-        ArrayList<String> listaSEControllo1 = new ArrayList<>(reimpiListeControllo(tipo1,"SE"));
-        ArrayList<String> listaSEControllo2 = new ArrayList<>(reimpiListeControllo(tipo2,"SE"));
-        ArrayList<String> listaNEControllo1 = new ArrayList<>(reimpiListeControllo(tipo1,"NE"));
-        ArrayList<String> listaNEControllo2 = new ArrayList<>(reimpiListeControllo(tipo2,"NE"));
+            ArrayList<String> listaPEControllo1 = new ArrayList<>(reimpiListeControllo(tipo1, "PE"));
+            ArrayList<String> listaPEControllo2 = new ArrayList<>(reimpiListeControllo(tipo2, "PE"));
+            ArrayList<String> listaSEControllo1 = new ArrayList<>(reimpiListeControllo(tipo1, "SE"));
+            ArrayList<String> listaSEControllo2 = new ArrayList<>(reimpiListeControllo(tipo2, "SE"));
+            ArrayList<String> listaNEControllo1 = new ArrayList<>(reimpiListeControllo(tipo1, "NE"));
+            ArrayList<String> listaNEControllo2 = new ArrayList<>(reimpiListeControllo(tipo2, "NE"));
 
-        // Controllo se tipo1 è presente nell'ArrayList listaPEControllo1
-        int indexPEControllo1 = 0;
-        while (indexPEControllo1 < listaPEControllo1.size()) {
-            if (tipo.equals(listaPEControllo1.get(indexPEControllo1))) {
-                modifier *= 0.5f;
-                modifierPerText-=1;
-                break;
+            // Controllo se tipo1 è presente nell'ArrayList listaPEControllo1
+            int indexPEControllo1 = 0;
+            while (indexPEControllo1 < listaPEControllo1.size()) {
+                if (tipo.equals(listaPEControllo1.get(indexPEControllo1))) {
+                    modifier *= 0.5f;
+                    modifierPerText -= 1;
+                    break;
+                }
+                indexPEControllo1++;
             }
-            indexPEControllo1++;
+
+            // Controllo se tipo2 è presente nell'ArrayList listaPEControllo2
+            int indexPEControllo2 = 0;
+            while (indexPEControllo2 < listaPEControllo2.size()) {
+                if (!tipo2.equals("") && tipo.equals(listaPEControllo2.get(indexPEControllo2))) {
+                    modifier *= 0.5f;
+                    modifierPerText -= 1;
+                    break;
+                }
+                indexPEControllo2++;
+            }
+
+            // Controllo se tipo1 è presente nell'ArrayList listaSEControllo1
+            int indexSEControllo1 = 0;
+            while (indexSEControllo1 < listaSEControllo1.size()) {
+                if (tipo.equals(listaSEControllo1.get(indexSEControllo1))) {
+                    modifier *= 2;
+                    modifierPerText += 1;
+                    break;
+                }
+                indexSEControllo1++;
+            }
+
+            // Controllo se tipo2 è presente nell'ArrayList listaSEControllo2
+            int indexSEControllo2 = 0;
+            while (indexSEControllo2 < listaSEControllo2.size()) {
+                if (!tipo2.equals("") && tipo.equals(listaSEControllo2.get(indexSEControllo2))) {
+                    modifier *= 2;
+                    modifierPerText += 1;
+                    break;
+                }
+                indexSEControllo2++;
+            }
+
+            // Controllo se tipo1 è presente nell'ArrayList listaNEControllo1
+            int indexNEControllo1 = 0;
+            while (indexNEControllo1 < listaNEControllo1.size()) {
+                if (tipo.equals(listaNEControllo1.get(indexNEControllo1))) {
+                    modifier *= 0;
+                    chiamante.piazzaLabel7();
+                    break;
+                }
+                indexNEControllo1++;
+            }
+
+            // Controllo se tipo2 è presente nell'ArrayList listaNEControllo2
+            int indexNEControllo2 = 0;
+            while (indexNEControllo2 < listaNEControllo2.size()) {
+                if (!tipo2.equals("") && tipo.equals(listaNEControllo2.get(indexNEControllo2))) {
+                    modifier *= 0;
+                    chiamante.piazzaLabel7();
+                    break;
+                }
+                indexNEControllo2++;
+            }
+
+            if (modifier != 0) {
+                crit = false;
+                Random random = new Random();
+                // Genera un numero casuale compreso tra 1 e 24
+                int randomNumber = random.nextInt(24) + 1; // Genera un numero tra 1 e 24 inclusi
+                // Verifica se il numero generato è uguale a 1 (probabilità 1/24)
+                // randomNumber=16; //mi serve per fare dei controlli sui brutti colpi :)
+                if (randomNumber == 16) {
+                    modifier *= 2f; // Modifica il modifier di conseguenza
+                    crit = true;
+                    chiamante.modificaContPerText();
+                }
+
+                if (modifierPerText > 0) {
+                    chiamante.piazzaLabel5();
+                } else if (modifierPerText < 0) {
+                    chiamante.piazzaLabel6();
+                }
+                if (crit == true) {
+                    chiamante.piazzaLabel9();
+                }
+
+                float stab = calcolaStab();
+
+                modifier *= stab;
+            }
+
+        } catch (Exception e) {
+            System.out.println("Errore calcolaModifier mossa, " + e);
         }
-
-        // Controllo se tipo2 è presente nell'ArrayList listaPEControllo2
-        int indexPEControllo2 = 0;
-        while (indexPEControllo2 < listaPEControllo2.size()) {
-            if (!tipo2.equals("") && tipo.equals(listaPEControllo2.get(indexPEControllo2))) {
-                modifier *= 0.5f;
-                modifierPerText-=1;
-                break;
-            }
-            indexPEControllo2++;
-        }
-
-        // Controllo se tipo1 è presente nell'ArrayList listaSEControllo1
-        int indexSEControllo1 = 0;
-        while (indexSEControllo1 < listaSEControllo1.size()) {
-            if (tipo.equals(listaSEControllo1.get(indexSEControllo1))) {
-                modifier *= 2;
-                modifierPerText+=1;
-                break;
-            }
-            indexSEControllo1++;
-        }
-
-        // Controllo se tipo2 è presente nell'ArrayList listaSEControllo2
-        int indexSEControllo2 = 0;
-        while (indexSEControllo2 < listaSEControllo2.size()) {
-            if (!tipo2.equals("") && tipo.equals(listaSEControllo2.get(indexSEControllo2))) {
-                modifier *= 2;
-                modifierPerText+=1;
-                break;
-            }
-            indexSEControllo2++;
-        }
-
-
-        // Controllo se tipo1 è presente nell'ArrayList listaNEControllo1
-        int indexNEControllo1 = 0;
-        while (indexNEControllo1 < listaNEControllo1.size()) {
-            if (tipo.equals(listaNEControllo1.get(indexNEControllo1))) {
-                modifier *= 0;
-                chiamante.piazzaLabel7();
-                break;
-            }
-            indexNEControllo1++;
-        }
-
-        // Controllo se tipo2 è presente nell'ArrayList listaNEControllo2
-        int indexNEControllo2 = 0;
-        while (indexNEControllo2 < listaNEControllo2.size()) {
-            if (!tipo2.equals("") && tipo.equals(listaNEControllo2.get(indexNEControllo2))) {
-                modifier *= 0;
-                chiamante.piazzaLabel7();
-                break;
-            }
-            indexNEControllo2++;
-        }
-
-        if(modifier!=0){
-            crit=false;
-            Random random = new Random();
-            // Genera un numero casuale compreso tra 1 e 24
-            int randomNumber = random.nextInt(24) + 1; // Genera un numero tra 1 e 24 inclusi
-            // Verifica se il numero generato è uguale a 1 (probabilità 1/24)
-            //randomNumber=16; //mi serve per fare dei controlli sui brutti colpi :)
-            if (randomNumber == 16) {
-                modifier *= 2f; // Modifica il modifier di conseguenza
-                crit=true;
-                chiamante.modificaContPerText();
-            }
-
-            if (modifierPerText>0){
-                chiamante.piazzaLabel5();
-            }
-            else if (modifierPerText<0){
-                chiamante.piazzaLabel6();
-            }
-            if (crit==true){
-                chiamante.piazzaLabel9();
-            }
-
-            float stab=calcolaStab();
-
-            modifier *= stab;
-        }
-    }
-
-    public float calcolaStab(){
-        float stab=1;
-
-        // Carica il file JSON
-        FileHandle file = Gdx.files.local("assets/pokemon/Pokemon.json");
-        String jsonString = file.readString();
-        
-        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
-        JsonValue json = new JsonReader().parse(jsonString);
-
-        JsonValue pokeJson = json.get(pokePlay);
-        tipo3 = pokeJson.getString("tipo1");
-        tipo4 = pokeJson.getString("tipo2");
-
-
-        if (tipo.equals(tipo3)||tipo.equals(tipo4)){
-            stab=1.5f;
-        }
-
-        return stab;
 
     }
 
+    public float calcolaStab() {
+        try {
+            float stab = 1;
+
+            // Carica il file JSON
+            FileHandle file = Gdx.files.local("assets/pokemon/Pokemon.json");
+            String jsonString = file.readString();
+
+            // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+            JsonValue json = new JsonReader().parse(jsonString);
+
+            JsonValue pokeJson = json.get(pokePlay);
+            tipo3 = pokeJson.getString("tipo1");
+            tipo4 = pokeJson.getString("tipo2");
+
+            if (tipo.equals(tipo3) || tipo.equals(tipo4)) {
+                stab = 1.5f;
+            }
+
+            return stab;
+
+        } catch (Exception e) {
+            System.out.println("Errore calcolaStab, " + e);
+            return 1;
+        }
+
+    }
 
     public ArrayList<String> reimpiListeControllo(String tipo, String typeLista) {
+
         ArrayList<String> listaControllo = new ArrayList<>();
-    
+
         switch (tipo) {
             case "Acqua":
                 if (typeLista.equals("PE")) {
@@ -631,32 +596,28 @@ class Mossa {
             default:
                 // Gestisci il caso in cui il tipo non sia gestito
                 break;
-        }       
+        }
 
         return listaControllo;
     }
-    
 
-
-    public int calcolaDanno(int attacco, int difesa, int livello, String pokePlay, String pokeEnemy){
-        modifier=1;
-        this.pokePlay=pokePlay;
-        this.pokeEnemy=pokeEnemy;
+    public int calcolaDanno(int attacco, int difesa, int livello, String pokePlay, String pokeEnemy) {
+        modifier = 1;
+        this.pokePlay = pokePlay;
+        this.pokeEnemy = pokeEnemy;
         estraiPotenza();
         calcolaModifier();
         float danno;
 
-        if (potenza==0){
+        if (potenza == 0) {
             return 1000;
-        }
-        else if (potenza==999){
+        } else if (potenza == 999) {
             return 40;
-        }
-        else{
-            danno = ((((((livello*2)/5)+2)*potenza*attacco/difesa)/50)+2)*modifier;
+        } else {
+            danno = ((((((livello * 2) / 5) + 2) * potenza * attacco / difesa) / 50) + 2) * modifier;
             int dannoIntero = (int) danno;
             return dannoIntero;
         }
-        
-    } 
+
+    }
 }
