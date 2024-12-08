@@ -1,6 +1,5 @@
 package com.mercurio.game.personaggi;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
@@ -21,7 +20,6 @@ public class Dottoressa {
     private TextureRegion[] destra;
     private TextureRegion[] avanti;
 
-
     private Animation<TextureRegion> camminaSinistra;
     private Animation<TextureRegion> camminaDestra;
     private Animation<TextureRegion> camminaAvanti;
@@ -41,8 +39,8 @@ public class Dottoressa {
     private int player_width;
     private int player_height;
 
-    //private float speed_Camminata_orizontale = 50;
-    //private float speed_Camminata_verticale = 40;
+    // private float speed_Camminata_orizontale = 50;
+    // private float speed_Camminata_verticale = 40;
 
     private float camminataFrame_speed = 0.14f;
 
@@ -51,60 +49,66 @@ public class Dottoressa {
     private GameAsset asset;
 
     public Dottoressa(MercurioMain game) {
-        this.asset = game.getGameAsset();
+        try {
+            this.asset = game.getGameAsset();
 
-        texture = asset.getBot(AssetsBot.DOC);
-        TextureRegion[][] tmp = TextureRegion.split(texture, texture.getWidth() / 3, texture.getHeight() / 4);
-        indietro = new TextureRegion[3];
-        sinistra = new TextureRegion[3];
-        destra = new TextureRegion[3];
-        avanti = new TextureRegion[3];
+            texture = asset.getBot(AssetsBot.DOC);
+            TextureRegion[][] tmp = TextureRegion.split(texture, texture.getWidth() / 3, texture.getHeight() / 4);
+            indietro = new TextureRegion[3];
+            sinistra = new TextureRegion[3];
+            destra = new TextureRegion[3];
+            avanti = new TextureRegion[3];
 
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j< 3; j++) {
-                if (i == 0) {
-                    avanti[j] = tmp [i][j];
-                }
-                else if (i == 1) {
-                    indietro[j] = tmp [i][j];
-                }
-                else if (i == 2) {
-                    sinistra[j] = tmp [i][j];
-                }
-                else if (i == 3) {
-                    destra[j] = tmp [i][j];
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if (i == 0) {
+                        avanti[j] = tmp[i][j];
+                    } else if (i == 1) {
+                        indietro[j] = tmp[i][j];
+                    } else if (i == 2) {
+                        sinistra[j] = tmp[i][j];
+                    } else if (i == 3) {
+                        destra[j] = tmp[i][j];
+                    }
                 }
             }
+
+            camminaSinistra = new Animation<>(camminataFrame_speed, sinistra);
+            camminaDestra = new Animation<>(camminataFrame_speed, destra);
+            camminaAvanti = new Animation<>(camminataFrame_speed, avanti);
+            camminaIndietro = new Animation<>(camminataFrame_speed, indietro);
+
+            fermoSinistra = new Animation<>(camminataFrame_speed, sinistra[0]);
+            fermoDestra = new Animation<>(camminataFrame_speed, destra[0]);
+            fermoAvanti = new Animation<>(camminataFrame_speed, avanti[0]);
+            fermoIndietro = new Animation<>(camminataFrame_speed, indietro[0]);
+
+            characterPosition = new Vector2(188, 110);
+
+            player_width = 19; // Larghezza del personaggio
+            player_height = 20; // Altezza del personaggio
+
+            currentAnimation = fermoIndietro.getKeyFrame(0);
+            stateTime = 0f;
+
+        } catch (Exception e) {
+            System.out.println("Errore costructor dottorssa, " + e);
         }
-
-        camminaSinistra = new Animation<>(camminataFrame_speed, sinistra);
-        camminaDestra = new Animation<>(camminataFrame_speed, destra);
-        camminaAvanti = new Animation<>(camminataFrame_speed, avanti);
-        camminaIndietro = new Animation<>(camminataFrame_speed, indietro);
         
-        fermoSinistra = new Animation<>(camminataFrame_speed, sinistra[0]);
-        fermoDestra = new Animation<>(camminataFrame_speed, destra[0]);
-        fermoAvanti = new Animation<>(camminataFrame_speed, avanti[0]);
-        fermoIndietro = new Animation<>(camminataFrame_speed, indietro[0]);
-
-        characterPosition = new Vector2(188, 110);
-
-        player_width = 19; // Larghezza del personaggio
-        player_height = 20; // Altezza del personaggio
-
-        currentAnimation = fermoIndietro.getKeyFrame(0);
-        stateTime = 0f;
     }
 
     public void setSinstra() {
         currentAnimation = fermoSinistra.getKeyFrame(0);
     }
+
     public void setDestra() {
         currentAnimation = fermoDestra.getKeyFrame(0);
     }
+
     public void setIndietro() {
         currentAnimation = fermoIndietro.getKeyFrame(0);
     }
+
     public void setAvanti() {
         currentAnimation = fermoAvanti.getKeyFrame(0);
     }
@@ -112,12 +116,15 @@ public class Dottoressa {
     public void setCamminaAvanti() {
         currentAnimation = camminaAvanti.getKeyFrame(stateTime, true);
     }
+
     public void setCamminaIndietro() {
         currentAnimation = camminaIndietro.getKeyFrame(stateTime, true);
     }
+
     public void setCamminaDestra() {
         currentAnimation = camminaDestra.getKeyFrame(stateTime, true);
     }
+
     public void setCamminaSinistra() {
         currentAnimation = camminaSinistra.getKeyFrame(stateTime, true);
     }
@@ -149,28 +156,27 @@ public class Dottoressa {
     public void setPosition(float x, float y) {
         characterPosition.set(x, y);
     }
-    
 
-    public void cura(){
+    public void cura() {
         try {
             // Carica il file JSON
             FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
             String jsonString = file.readString();
-            
+
             // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
             JsonValue json = new JsonReader().parse(jsonString);
-            
-            for (int i=0; i<6; i++){
-                int index =i+1;
-                JsonValue pokeJson = json.get("poke"+index);
-                //System.out.println(index);
-                String nomePoke = pokeJson.getString("nomePokemon");
-                //System.out.println(index);
 
-                if (!nomePoke.equals("")){
-                    JsonValue statistiche = pokeJson.get("statistiche"); 
+            for (int i = 0; i < 6; i++) {
+                int index = i + 1;
+                JsonValue pokeJson = json.get("poke" + index);
+                // System.out.println(index);
+                String nomePoke = pokeJson.getString("nomePokemon");
+                // System.out.println(index);
+
+                if (!nomePoke.equals("")) {
+                    JsonValue statistiche = pokeJson.get("statistiche");
                     String maxPokeHP = statistiche.getString("hpTot");
-                    //ripristina gli hp al massimo
+                    // ripristina gli hp al massimo
                     statistiche.remove("hp");
                     statistiche.addChild("hp", new JsonValue(maxPokeHP));
                     JsonValue mosse = pokeJson.get("mosse");
@@ -181,15 +187,14 @@ public class Dottoressa {
                         mossaJson.addChild("ppAtt", new JsonValue(maxPP));
                     }
                 }
-            
+
                 file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
             }
 
         } catch (Exception e) {
             System.out.println("Errore cura dottoressa, " + e);
         }
-        
-        
+
     }
 
 }

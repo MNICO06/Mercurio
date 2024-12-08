@@ -48,27 +48,6 @@ public class LabelDiscorsi {
     private String discorso;
     
     private boolean checkBattle;
-    private Texture standardGrigioBordoTexture;
-    private Texture standardGrigioTexture;
-    private Texture standardRossoTexture;
-    private Texture standardBluTexture;
-    private Texture standardVerdeTexture;
-    private Texture standardArancioneTexture;
-    private Texture standardViolaTexture;
-    private Texture nuvolaTexture;
-    private Texture stranoGialloTexture;
-    private Texture nuvolaRosaTexture;
-    private Texture gialloFigoTexture;
-    private Texture grigioFigoTexture;
-    private Texture grigioScuroTexture;
-    private Texture cianoTexture;
-    private Texture rosaTexture;
-    private Texture siepeTexture;
-    private Texture pergamenaTexture;
-    private Texture muroTexture;
-    private Texture tappetoTexture;
-    private Texture erbettaTexture;
-
 
 
     public LabelDiscorsi(String disc, int dimMax, int index, boolean battle, boolean deveScegliere) {
