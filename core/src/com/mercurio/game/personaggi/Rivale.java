@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.mercurio.game.AssetManager.GameAsset;
+import com.mercurio.game.AssetManager.GameAsset.AssetsBot;
+import com.mercurio.game.Screen.MercurioMain;
 
 public class Rivale {
     private float player_width;
@@ -33,9 +36,12 @@ public class Rivale {
     private float xBase;
     private float yBase;
 
-    public Rivale() {
-        //modificare l'assets per mettere quello effettivo del rivale
-        Texture texture = new Texture(Gdx.files.internal("assets/player/barry.png"));
+    private GameAsset asset;
+
+    public Rivale(MercurioMain game) {
+        this.asset = game.getGameAsset();
+
+        Texture texture = asset.getBot(AssetsBot.RIVALE);
         tmp = TextureRegion.split(texture, texture.getWidth() / 4, texture.getHeight() / 4);
 
         indietro = new TextureRegion[3];

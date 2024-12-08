@@ -3,14 +3,14 @@ package com.mercurio.game.AssetManager;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 
-public class GameAsset{
+public class GameAsset {
     private static final AssetManager assetManager = new AssetManager();
 
     /*
-    *  
-    *  Asset Battle
-    * 
-    */
+     * 
+     * Asset Battle
+     * 
+     */
     public enum Assets {
         // Textures per la battaglia
         SFONDO_BATTLE("battle/sfondoBattle.png", Texture.class),
@@ -62,7 +62,7 @@ public class GameAsset{
 
     public Texture getBattle(Assets asset) {
         return (Texture) assetManager.get(asset.getPath(), asset.getType());
-    }    
+    }
 
     public static void unloadBattle(Assets asset) {
         if (assetManager.isLoaded(asset.getPath())) {
@@ -71,10 +71,10 @@ public class GameAsset{
     }
 
     /*
-    *  
-    *  Asset Ash
-    * 
-    */
+     * 
+     * Asset Ash
+     * 
+     */
     public enum AssetsAsh {
         // Textures per la battaglia
         P_INDIETRO("assets/player/personaggioIndietro.png", Texture.class),
@@ -119,9 +119,62 @@ public class GameAsset{
 
     public Texture getAsh(AssetsAsh asset) {
         return (Texture) assetManager.get(asset.getPath(), asset.getType());
-    }    
+    }
 
     public static void unloadAsh(AssetsAsh asset) {
+        if (assetManager.isLoaded(asset.getPath())) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
+    /*
+     * 
+     * Asset Bot
+     * 
+     */
+    public enum AssetsBot {
+        // Textures per la battaglia
+        DOC("player/dottoressa.png", Texture.class),
+        MOM("assets/player/mammaAsh.png", Texture.class),
+        PROF("assets/player/professorRowan.png", Texture.class),
+        RIVALE("assets/player/barry.png", Texture.class);
+
+        private final String path;
+        private final Class<?> type;
+
+        AssetsBot(String path, Class<?> type) {
+            this.path = path;
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public Class<?> getType() {
+            return type;
+        }
+    }
+
+    public void loadBotAsset() {
+        for (AssetsBot asset : AssetsBot.values()) {
+            assetManager.load(asset.getPath(), asset.getType());
+        }
+    }
+
+    public static boolean updateBot() {
+        return assetManager.update();
+    }
+
+    public static float getProgressBot() {
+        return assetManager.getProgress();
+    }
+
+    public Texture getBot(AssetsBot asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
+    }
+
+    public static void unloadBot(AssetsBot asset) {
         if (assetManager.isLoaded(asset.getPath())) {
             assetManager.unload(asset.getPath());
         }

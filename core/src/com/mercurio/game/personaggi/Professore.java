@@ -9,6 +9,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.mercurio.game.AssetManager.GameAsset;
+import com.mercurio.game.AssetManager.GameAsset.AssetsBot;
+import com.mercurio.game.Screen.MercurioMain;
 
 public class Professore {
     private float player_width;
@@ -36,8 +39,12 @@ public class Professore {
     private float xBase;
     private float yBase;
 
-    public Professore() {
-        Texture texture = new Texture(Gdx.files.internal("assets/player/professorRowan.png"));
+    private GameAsset asset;
+
+    public Professore(MercurioMain game) {
+        this.asset = game.getGameAsset();
+
+        Texture texture = asset.getBot(AssetsBot.PROF);
         tmp = TextureRegion.split(texture, texture.getWidth() / 3, texture.getHeight() / 4);
 
         indietro = new TextureRegion[3];

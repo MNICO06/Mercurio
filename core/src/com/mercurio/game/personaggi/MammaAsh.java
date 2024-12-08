@@ -10,6 +10,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
+import com.mercurio.game.AssetManager.GameAsset;
+import com.mercurio.game.AssetManager.GameAsset.AssetsBot;
+import com.mercurio.game.Screen.MercurioMain;
 
 public class MammaAsh {
     private TextureRegion[] indietro;
@@ -43,10 +46,12 @@ public class MammaAsh {
     private Rectangle boxInteractionOrizzontaleDestro;
     private Rectangle boxInteractionOrizzontaleSinistro;
 
+    private GameAsset asset;
 
-    public MammaAsh() {
+    public MammaAsh(MercurioMain game) {
+        this.asset = game.getGameAsset();
 
-        texture = new Texture (Gdx.files.local("assets/player/mammaAsh.png"));
+        texture = asset.getBot(AssetsBot.MOM);
         TextureRegion[][] tmp = TextureRegion.split(texture, texture.getWidth() / 4, texture.getHeight() / 4);
         indietro = new TextureRegion[4];
         sinistra = new TextureRegion[4];

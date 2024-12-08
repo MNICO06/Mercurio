@@ -59,7 +59,7 @@ public class CasaSpawn extends ScreenAdapter {
 
     public CasaSpawn(MercurioMain game) {
         this.game = game;
-        mammaAsh = new MammaAsh();
+        mammaAsh = new MammaAsh(game);
 
         /*variabili che andranno lette da file */
         String discorsoSenzaStarter = "C'era il professor Pokemon che ti cercava, vai al suo laboratorio per vedere cosa ti deve dire";

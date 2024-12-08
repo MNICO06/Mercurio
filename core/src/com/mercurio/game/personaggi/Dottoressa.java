@@ -11,6 +11,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
+import com.mercurio.game.AssetManager.GameAsset;
+import com.mercurio.game.AssetManager.GameAsset.AssetsBot;
+import com.mercurio.game.Screen.MercurioMain;
 
 public class Dottoressa {
     private TextureRegion[] indietro;
@@ -45,8 +48,12 @@ public class Dottoressa {
 
     private Rectangle boxPlayer;
 
-    public Dottoressa() {
-        texture = new Texture (Gdx.files.internal("player/dottoressa.png"));
+    private GameAsset asset;
+
+    public Dottoressa(MercurioMain game) {
+        this.asset = game.getGameAsset();
+
+        texture = asset.getBot(AssetsBot.DOC);
         TextureRegion[][] tmp = TextureRegion.split(texture, texture.getWidth() / 3, texture.getHeight() / 4);
         indietro = new TextureRegion[3];
         sinistra = new TextureRegion[3];
