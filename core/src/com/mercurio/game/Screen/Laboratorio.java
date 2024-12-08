@@ -143,10 +143,10 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
         this.asset = game.getGameAsset();
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
-        professore = new Professore();
+        professore = new Professore(game);
         //renderizzo il professore
 
-        rivale = new Rivale();
+        rivale = new Rivale(game);
 
         rectList = new ArrayList<Rectangle>();
         batch = new SpriteBatch();

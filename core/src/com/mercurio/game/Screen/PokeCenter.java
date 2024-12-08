@@ -50,7 +50,7 @@ public class PokeCenter extends ScreenAdapter {
 
     public PokeCenter(MercurioMain game) {
         this.game = game;
-        dottoressa = new Dottoressa();
+        dottoressa = new Dottoressa(game);
     }
 
     @Override
