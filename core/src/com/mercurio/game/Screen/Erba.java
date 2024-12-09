@@ -32,6 +32,8 @@ public class Erba {
     }
 
     public void controllaPokemon(TiledMap map) {
+        try {
+            
         
         switch (game.getLuogo()) {
             case "percorso1":
@@ -112,6 +114,10 @@ public class Erba {
             default:
                 break;
         }
+        } catch (Exception e) {
+            System.out.println("Errore controllaPokemon erba, " + e);
+        }
+        
     }
 
     private void estraiPokemonP1() {
@@ -175,22 +181,25 @@ public class Erba {
     }
 
     private boolean check(TiledMap map, String nome) {
-        MapObjects objects = map.getLayers().get(nome).getObjects();
-        for (MapObject object : objects) {
-            if (object instanceof RectangleMapObject) {
-                // Se l'oggetto è un rettangolo
-                RectangleMapObject rectangleObject = (RectangleMapObject) object;
+        try {
+            
+            MapObjects objects = map.getLayers().get(nome).getObjects();
+            for (MapObject object : objects) {
+                if (object instanceof RectangleMapObject) {
+                    // Se l'oggetto è un rettangolo
+                    RectangleMapObject rectangleObject = (RectangleMapObject) object;
 
-                if (game.getPlayer().getBoxPlayer().overlaps(rectangleObject.getRectangle())) {
-                    return true;
+                    if (game.getPlayer().getBoxPlayer().overlaps(rectangleObject.getRectangle())) {
+                        return true;
+                    }
                 }
             }
+            return false;
+        } catch (Exception e) {
+            System.out.println("Errore check erba, " + e);
+            return false;
         }
-        return false;
-    }
-
-    private void setEstraibile(){
-        estratto=0;
+        
     }
 
 }
