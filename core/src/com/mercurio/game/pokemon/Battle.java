@@ -49,7 +49,6 @@ import com.mercurio.game.menu.BorsaModifier;
 import com.mercurio.game.menu.MenuLabel;
 import com.mercurio.game.menu.Squadra;
 
-
 public class Battle extends ScreenAdapter {
 
     private int checkPerDoppioPoke = 0;
@@ -58,16 +57,16 @@ public class Battle extends ScreenAdapter {
     private boolean globalOtherAttack;
     private Image backImage;
     private boolean nextMoveBot;
-    private int counterForNextMove=0;
+    private int counterForNextMove = 0;
     private BorsaModifier borsaModifier = new BorsaModifier();
     private String nameUsedBall;
     private int danno;
     private int dannoBot;
     private final Object lock = new Object(); // Dichiarazione di un oggetto di blocco
-    private boolean isBattleEnded=false;
+    private boolean isBattleEnded = false;
     private Label labelNomePokemonBot;
     private Label labelLVBot;
-    private float delaySecondText=0;
+    private float delaySecondText = 0;
     private int checkInt;
     private Image pokemonImage;
     private Image pokemonImageBot;
@@ -85,10 +84,10 @@ public class Battle extends ScreenAdapter {
     private Image botImage;
     private Image playerArrow;
     private Image botArrow;
-    private Texture ballTexture ;
-    private Texture ballTextureBot; //questo lo si prende dal json
-    private boolean isInNext=true; 
-    private int lanciato = 0;
+    private Texture ballTexture;
+    private Texture ballTextureBot; // questo lo si prende dal json
+    private boolean isInNext = true;
+    private boolean lanciato = false;
     private Image labelBaseU;
     private Image labelBaseD;
     private Texture textureLancio;
@@ -213,39 +212,39 @@ public class Battle extends ScreenAdapter {
     private boolean checkLabel6 = true;
     private InterfacciaComune chiamante;
     private int numeroIndexPokeBot;
-    private int numeroIndexPoke=1;
+    private int numeroIndexPoke = 1;
     private String nameBot;
-    private Battle battle=this;
+    private Battle battle = this;
     private Label labelNomePokemon;
     private Label labelLV;
     private Label labelHP;
     private Label labelHPTot;
-    private boolean switched=false;
-    private boolean switchForzato=false;
-    private boolean sconfitta=false;
+    private boolean switched = false;
+    private boolean switchForzato = false;
+    private boolean sconfitta = false;
     private String zona;
     private int denaroPerso;
-    private int levelMax=0;
+    private int levelMax = 0;
     private String levelLastPokeBot;
     private Semaphore semaphore;
     private String pokeHPbeforeFight;
     private float tassoCattura;
     private String nomeSelvatico;
-    private boolean cattura=false;
-    private float x=0;
-    private ArrayList<Integer> pokeInBattaglia = new ArrayList<>(); 
+    private boolean cattura = false;
+    private float x = 0;
+    private ArrayList<Integer> pokeInBattaglia = new ArrayList<>();
     private ArrayList<Integer> pokeInBattagliaLU = new ArrayList<>();
-    private ArrayList<Integer> pokeInBattagliaNLevelUp = new ArrayList<>();  
-    private int ritardoLvUp=0;
+    private ArrayList<Integer> pokeInBattagliaNLevelUp = new ArrayList<>();
+    private int ritardoLvUp = 0;
     private JsonValue pokeIvBot;
-    private ArrayList<Integer> hpBotSquad = new ArrayList<>(); 
+    private ArrayList<Integer> hpBotSquad = new ArrayList<>();
     private int nuovaEsperienza;
     ApprendimentoMosse apprendimentoMosse;
     private ArrayList<Integer> timerCreated = new ArrayList<>();
     private ArrayList<Float> timerCreatedDelay = new ArrayList<>();
     private ArrayList<timerData> timerCreatedData = new ArrayList<>();
     private boolean checkNextLV;
-    private boolean continueLVOperations=true;
+    private boolean continueLVOperations = true;
     private int numberOfLVtoUp;
     private mosse mosse;
     TextureRegion[] frames;
@@ -254,250 +253,242 @@ public class Battle extends ScreenAdapter {
     private boolean checkPerEvo = false;
     private ArrayList<String> pokeEvo = new ArrayList<>();
     private ArrayList<Integer> pokeEvoIndex = new ArrayList<>();
+    private Timer.Task lanciatoTask;
 
     public GameAsset asset;
- 
+
     public Battle(InterfacciaComune chiamante, String nameBot, boolean isBotFight, String zona, String nomeSelvatico) {
         MenuLabel.openMenuLabel.setVisible(false);
         semaphore = new Semaphore(1); // Semaforo binario
-        this.nameBot=nameBot;
-        this.nomeSelvatico=nomeSelvatico;
-        this.isBotFight=isBotFight;
-        this.zona=zona;
-        checkInt=0;
-        numeroIndexPokeBot=1;
+        this.nameBot = nameBot;
+        this.nomeSelvatico = nomeSelvatico;
+        this.isBotFight = isBotFight;
+        this.zona = zona;
+        checkInt = 0;
+        numeroIndexPokeBot = 1;
         this.chiamante = chiamante;
         this.asset = chiamante.getGameAsset();
         batch = new SpriteBatch();
         stage = new Stage();
         font = new BitmapFont(Gdx.files.local("assets/font/font.fnt"));
-        ballTextureBot = asset.getBattle(Assets.BALL_PLAYER); 
+        ballTextureBot = asset.getBattle(Assets.BALL_PLAYER);
         Gdx.input.setInputProcessor(stage);
-        dimMax=200;
+        dimMax = 200;
         leggiPoke(numeroIndexPoke);
-        if (!pokeInBattaglia.contains(numeroIndexPoke)){
+        if (!pokeInBattaglia.contains(numeroIndexPoke)) {
             pokeInBattaglia.add(numeroIndexPoke);
-        }
-        else{
+        } else {
             pokeInBattaglia.remove(Integer.valueOf(numeroIndexPoke));
             pokeInBattaglia.add(numeroIndexPoke);
         }
-        if (isBotFight){
+        if (isBotFight) {
             leggiBot(nameBot);
-            leggiPokeBot(nameBot,numeroIndexPokeBot);
+            leggiPokeBot(nameBot, numeroIndexPokeBot);
         }
         ballTexture = asset.getBattle(Assets.BALL_PLAYER);
 
-        String discorso1= "Parte la sfida di "+nomeBot+" ("+tipoBot+")"+"!";
-        labelDiscorsi1 = new LabelDiscorsi(discorso1,dimMax,0,true, false);
-        
-        String discorso2= "Vai "+ nomePoke + "!";
-        labelDiscorsi2 = new LabelDiscorsi(discorso2,dimMax,0,true, false);
+        String discorso1 = "Parte la sfida di " + nomeBot + " (" + tipoBot + ")" + "!";
+        labelDiscorsi1 = new LabelDiscorsi(discorso1, dimMax, 0, true, false);
 
-        String discorso3= "Hai sconfitto "+ nomeBot+" ("+tipoBot+")"+"!";
-        labelDiscorsi3 = new LabelDiscorsi(discorso3,dimMax,0,true, false);
+        String discorso2 = "Vai " + nomePoke + "!";
+        labelDiscorsi2 = new LabelDiscorsi(discorso2, dimMax, 0, true, false);
 
-        String discorso5= "E' superefficace!";
-        labelDiscorsi5 = new LabelDiscorsi(discorso5,dimMax,0,true, false);
+        String discorso3 = "Hai sconfitto " + nomeBot + " (" + tipoBot + ")" + "!";
+        labelDiscorsi3 = new LabelDiscorsi(discorso3, dimMax, 0, true, false);
 
-        String discorso6= "Non e' molto efficace...";
-        labelDiscorsi6 = new LabelDiscorsi(discorso6,dimMax,0,true, false);
+        String discorso5 = "E' superefficace!";
+        labelDiscorsi5 = new LabelDiscorsi(discorso5, dimMax, 0, true, false);
 
-        String discorso7= "Non ha effetto!";
-        labelDiscorsi7 = new LabelDiscorsi(discorso7,dimMax,0,true, false);
+        String discorso6 = "Non e' molto efficace...";
+        labelDiscorsi6 = new LabelDiscorsi(discorso6, dimMax, 0, true, false);
 
-        String discorso9= "Brutto colpo!";
-        labelDiscorsi9 = new LabelDiscorsi(discorso9,dimMax,0,true, false);
+        String discorso7 = "Non ha effetto!";
+        labelDiscorsi7 = new LabelDiscorsi(discorso7, dimMax, 0, true, false);
 
-        String discorso10= "Non puoi sottrarti alla lotta!";
-        labelDiscorsi10 = new LabelDiscorsi(discorso10,dimMax,0,true, false);
+        String discorso9 = "Brutto colpo!";
+        labelDiscorsi9 = new LabelDiscorsi(discorso9, dimMax, 0, true, false);
 
-        String discorso11= "Scampato pericolo!";
-        labelDiscorsi11 = new LabelDiscorsi(discorso11,dimMax,0,true, false);
+        String discorso10 = "Non puoi sottrarti alla lotta!";
+        labelDiscorsi10 = new LabelDiscorsi(discorso10, dimMax, 0, true, false);
 
-        String discorso15= "E' apparso un "+ nameBot +" selvatico!";
-        labelDiscorsi15 = new LabelDiscorsi(discorso15,dimMax,0,true, false);
+        String discorso11 = "Scampato pericolo!";
+        labelDiscorsi11 = new LabelDiscorsi(discorso11, dimMax, 0, true, false);
 
-        String discorso16= "Non hai piu' Pokemon disponibili...";
-        labelDiscorsi16 = new LabelDiscorsi(discorso16,dimMax,0,true, false);
+        String discorso15 = "E' apparso un " + nameBot + " selvatico!";
+        labelDiscorsi15 = new LabelDiscorsi(discorso15, dimMax, 0, true, false);
 
-        String discorso18= "Sei stato portato d'urgenza al Centro Pokémon!";
-        labelDiscorsi18 = new LabelDiscorsi(discorso18,dimMax,0,true, false);
-        
-        
+        String discorso16 = "Non hai piu' Pokemon disponibili...";
+        labelDiscorsi16 = new LabelDiscorsi(discorso16, dimMax, 0, true, false);
+
+        String discorso18 = "Sei stato portato d'urgenza al Centro Pokémon!";
+        labelDiscorsi18 = new LabelDiscorsi(discorso18, dimMax, 0, true, false);
+
         show();
     }
 
     @Override
     public void show() {
-        checkInt=0;
+        checkInt = 0;
         float screenWidth = Gdx.graphics.getWidth();
         float screenHeight = Gdx.graphics.getHeight();
 
         targetPosXD = -200;
-        initialPosXD = screenWidth; 
+        initialPosXD = screenWidth;
 
-        targetPosXU = screenWidth-128*3+15;
+        targetPosXU = screenWidth - 128 * 3 + 15;
         initialPosXU = 0;
 
         animationTime = 0f;
 
-        
-
         int ballWidth = ballTexture.getWidth() / 3;
         int ballHeight = ballTexture.getHeight();
-    
-        ball2 =  new TextureRegion(ballTexture, 0, 0, ballWidth, ballHeight);
-        
 
-        // Add background 
+        ball2 = new TextureRegion(ballTexture, 0, 0, ballWidth, ballHeight);
+
+        // Add background
         Texture backgroundTexture = asset.getBattle(Assets.SFONDO_BATTLE);
         Image background = new Image(backgroundTexture);
         background.setSize(screenWidth, screenHeight);
         stage.addActor(background);
-        
+
         textureLancio = asset.getBattle(Assets.LANCIO_BALL);
         int regionHeight = textureLancio.getHeight();
-        int regionWidth = textureLancio.getWidth()/4;
+        int regionWidth = textureLancio.getWidth() / 4;
         // Divide lo spritesheet in 4colonne
         player = new TextureRegion[4];
         for (int i = 0; i < 4; i++) {
-            player[i] = new TextureRegion(textureLancio, i*regionWidth, 0, regionWidth, regionHeight);
-            }
+            player[i] = new TextureRegion(textureLancio, i * regionWidth, 0, regionWidth, regionHeight);
+        }
 
         muoviPlayer = new Animation<>(cambioFrame_speed, player);
 
-
         Texture imageBaseD = asset.getBattle(Assets.BASE_D);
         labelBaseD = new Image(imageBaseD);
-        labelBaseD.setSize(256*3, 32*3);
+        labelBaseD.setSize(256 * 3, 32 * 3);
         stage.addActor(labelBaseD);
 
         Texture imageBaseU = asset.getBattle(Assets.BASE_U);
         labelBaseU = new Image(imageBaseU);
-        labelBaseU.setSize(128*3, 62*3);
+        labelBaseU.setSize(128 * 3, 62 * 3);
         stage.addActor(labelBaseU);
 
         imageBall2 = new Image(ball2);
-        imageBall2.setSize(16*4, 25*4);
-        imageBall2.setPosition(-300, -300); //fuori dallo schermo che non si deve vedere
+        imageBall2.setSize(16 * 4, 25 * 4);
+        imageBall2.setPosition(-300, -300); // fuori dallo schermo che non si deve vedere
         stage.addActor(imageBall2);
 
         imagePlayer = new Image(player[0]);
-        imagePlayer.setSize(66*4, 52*4);
+        imagePlayer.setSize(66 * 4, 52 * 4);
         stage.addActor(imagePlayer);
 
+        if (isBotFight) {
 
-        if (isBotFight){
-
-            Texture botTexture = new Texture("bots/"+ tipoBot + ".png");
+            Texture botTexture = new Texture("bots/" + tipoBot + ".png");
             botImage = new Image(botTexture);
-            botImage.setPosition(labelBaseU.getX()+68, labelBaseU.getY());
+            botImage.setPosition(labelBaseU.getX() + 68, labelBaseU.getY());
             botImage.setSize(320, 320);
             stage.addActor(botImage);
-            
-            labelDiscorsi1.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
-            label1=labelDiscorsi1.getLabel();
+
+            labelDiscorsi1.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di
+                                                      // quello degli altri attori
+            label1 = labelDiscorsi1.getLabel();
             stage.addActor(label1);
-        }
-        else{
-            leggiPokeSelvatico(nameBot,zona);
+        } else {
+            leggiPokeSelvatico(nameBot, zona);
 
             scopriPokemon(nameBot);
 
-            Texture pokemonTexture = new Texture("pokemon/"+nameBot+".png");
+            Texture pokemonTexture = new Texture("pokemon/" + nameBot + ".png");
             int frameWidth = pokemonTexture.getWidth() / 4;
             int frameHeight = pokemonTexture.getHeight();
-        
+
             TextureRegion[] pokeSelvFrames;
 
             pokeSelvFrames = new TextureRegion[2];
             for (int i = 0; i < 2; i++) {
                 pokeSelvFrames[i] = new TextureRegion(pokemonTexture, i * frameWidth, 0, frameWidth, frameHeight);
             }
-    
+
             botImage = new Image(pokeSelvFrames[0]);
             botImage.setSize(frameWidth * 3, frameHeight * 3);
-            botImage.setPosition(labelBaseU.getX()+60, labelBaseU.getY()+20);
+            botImage.setPosition(labelBaseU.getX() + 60, labelBaseU.getY() + 20);
             stage.addActor(botImage);
 
-            labelDiscorsi15.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
-            label15=labelDiscorsi15.getLabel();
+            labelDiscorsi15.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di
+                                                       // quello degli altri attori
+            label15 = labelDiscorsi15.getLabel();
             stage.addActor(label15);
         }
 
-        }
+    }
 
-
-        @Override
-        public void dispose() {
-            if (!isBotFight && !isBattleEnded){
-                label11=labelDiscorsi11.getLabel();
-                    stage.addActor(label11);
+    @Override
+    public void dispose() {
+        if (!isBotFight && !isBattleEnded) {
+            label11 = labelDiscorsi11.getLabel();
+            stage.addActor(label11);
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    label11.remove();
+                    float timerTime = 0f;
+                    if (checkPerEvo) {
+                        timerTime += 22f;
+                        for (int i = 0; i < pokeEvo.size(); i++) {
+                            evoluzione(i);
+                        }
+                    }
                     Timer.schedule(new Timer.Task() {
                         @Override
                         public void run() {
-                            label11.remove();
-                            float timerTime=0f;
-                            if (checkPerEvo){
-                                timerTime+=22f;
-                                for (int i=0; i<pokeEvo.size();i++){
-                                    evoluzione(i);
-                                }
-                            }
-                            Timer.schedule(new Timer.Task() {
-                                @Override
-                                public void run() {
-                                    batch.dispose();
-                                    font.dispose();
-                                    stage.dispose();
-                                    Gdx.input.setInputProcessor(null);
-                                    chiamante.closeBattle();
-                                    MenuLabel.openMenuLabel.setVisible(true);
-                                    Erba.estratto=0;
-                                }
-                            }, timerTime);
+                            batch.dispose();
+                            font.dispose();
+                            stage.dispose();
+                            Gdx.input.setInputProcessor(null);
+                            chiamante.closeBattle();
+                            MenuLabel.openMenuLabel.setVisible(true);
+                            Erba.estratto = 0;
                         }
-                    }, 2f);
-            }
-            else if(isBattleEnded){
-                float timerTime=0f;
-                if (checkPerEvo){
-                    timerTime+=22f;
-                    for (int i=0; i<pokeEvo.size();i++){
-                        evoluzione(i);
-                    }
+                    }, timerTime);
                 }
-                Timer.schedule(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        batch.dispose();
-                        font.dispose();
-                        stage.dispose();
-                        Gdx.input.setInputProcessor(null);
-                        chiamante.closeBattle();
-                        MenuLabel.openMenuLabel.setVisible(true);
-                        Erba.estratto=0;
-                    }
-                }, timerTime);
+            }, 2f);
+        } else if (isBattleEnded) {
+            float timerTime = 0f;
+            if (checkPerEvo) {
+                timerTime += 22f;
+                for (int i = 0; i < pokeEvo.size(); i++) {
+                    evoluzione(i);
+                }
             }
-            else {
-                label10=labelDiscorsi10.getLabel();
-                    stage.addActor(label10);
-                    Timer.schedule(new Timer.Task() {
-                        @Override
-                        public void run() {
-                            labelDiscorsi10.reset();
-                            label10.remove();
-                            label10=null;
-                        }
-                    }, 2f);
-            }
-    
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    batch.dispose();
+                    font.dispose();
+                    stage.dispose();
+                    Gdx.input.setInputProcessor(null);
+                    chiamante.closeBattle();
+                    MenuLabel.openMenuLabel.setVisible(true);
+                    Erba.estratto = 0;
+                }
+            }, timerTime);
+        } else {
+            label10 = labelDiscorsi10.getLabel();
+            stage.addActor(label10);
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    labelDiscorsi10.reset();
+                    label10.remove();
+                    label10 = null;
+                }
+            }, 2f);
         }
+
+    }
 
     public void render() {
-     
+
         animationTime += 0.045f;
         if (animationTime < animationDuration) {
             labelDiscorsi1.renderDisc();
@@ -507,17 +498,15 @@ public class Battle extends ScreenAdapter {
             labelBaseD.setPosition(newXD, 125);
             float newXU = MathUtils.lerp(initialPosXU, targetPosXU, progress);
             labelBaseU.setPosition(newXU, 300);
-            if (isBotFight){
-                botImage.setPosition(labelBaseU.getX()+40, labelBaseU.getY()+70);
+            if (isBotFight) {
+                botImage.setPosition(labelBaseU.getX() + 40, labelBaseU.getY() + 70);
+            } else {
+                botImage.setPosition(labelBaseU.getX() + 60, labelBaseU.getY() + 20);
             }
-            else{
-                botImage.setPosition(labelBaseU.getX()+60, labelBaseU.getY()+20);
-            }
-            
+
             imagePlayer.setPosition(newXD + 370, 125);
 
         } else {
-
 
             // Avvia l'animazione del player
             if (animationTime < animationDuration + 2f) {
@@ -529,166 +518,170 @@ public class Battle extends ScreenAdapter {
 
                 }
             } else {
-                if(!labelPokePiazzate){
+                if (!labelPokePiazzate) {
                     posizionaLabelSquadra();
                 }
 
-                
                 // Dopo un secondo, sposta il player fino al bordo dello schermo
-                float newX = imagePlayer.getX() - 300 * Gdx.graphics.getDeltaTime(); // Spostamento di 300 pixel al secondo
+                float newX = imagePlayer.getX() - 300 * Gdx.graphics.getDeltaTime(); // Spostamento di 300 pixel al
+                                                                                     // secondo
                 float newXBot = botImage.getX() + 300 * Gdx.graphics.getDeltaTime();
 
-                if (isInNext){
-                    imageBall2.setPosition(newX+10, 195);
-                }
-                else{
-                    imageBall2.setPosition(newX+10, 220);
+                if (isInNext) {
+                    imageBall2.setPosition(newX + 10, 195);
+                } else {
+                    imageBall2.setPosition(newX + 10, 220);
                 }
 
                 if (newX + imagePlayer.getWidth() < 120) {
-                    // Una volta che il player è fuori dallo schermo, cambia l'animazione a player[2] e player[3]
+                    // Una volta che il player è fuori dallo schermo, cambia l'animazione a
+                    // player[2] e player[3]
                     imagePlayer.setDrawable(new TextureRegionDrawable(player[3]));
-                    lanciato++;  
-                   isInNext=true;
+                    lanciato = true;
+                    isInNext = true;
                     // Rimuovi il player dallo stage dopo l'ultima animazione
-                }
-                else if (newX + imagePlayer.getWidth() > 120 && newX + imagePlayer.getWidth() < 270) {
+                } else if (newX + imagePlayer.getWidth() > 120 && newX + imagePlayer.getWidth() < 270) {
                     imagePlayer.setDrawable(new TextureRegionDrawable(player[2]));
-                    isInNext=false;
+                    isInNext = false;
                     if (muoviPlayer.isAnimationFinished(3f)) {
                         Timer.schedule(new Timer.Task() {
                             @Override
                             public void run() {
                                 imagePlayer.remove(); // Rimuovi lo sprite dallo stage
-                                if (isBotFight){
+                                if (isBotFight) {
                                     botImage.remove();
                                 }
                             }
                         }, 2f);
                     }
                 }
-                
-                
 
-                if(imagePlayer!=null)
+                if (imagePlayer != null)
                     imagePlayer.setPosition(newX, imagePlayer.getY());
 
-                if(botImage!=null && isBotFight)
-                    botImage.setPosition(newXBot, botImage.getY());    
-                
+                if (botImage != null && isBotFight)
+                    botImage.setPosition(newXBot, botImage.getY());
+
             }
-            try { //semaforo per evitare che piazzi tutto due volte (non si sa perchè lo faccia ma si sistema tutto con un semaforo) *non va tuttora*
-                synchronized (lock) {
-                    semaphore.acquire();
-                    if (lanciato==1){
-                            showBall(ballTexture);
-                            lanciato++;
-                        if (isBotFight){
+
+            if (lanciato) {
+                // Se un task precedente esiste, annullalo
+                if (lanciatoTask != null && !lanciatoTask.isScheduled()) {
+                    lanciatoTask.cancel();
+                }
+
+                // Crea un nuovo task
+                lanciatoTask = new Timer.Task() {
+                    @Override
+                    public void run() {
+                        showBall(ballTexture);
+                        lanciato = false;
+
+                        if (isBotFight) {
                             showBallBot();
-                        }
-                        else{
+                        } else {
                             checkPerDoppioPoke++;
                             showPokemon(labelBaseU, nameBot);
                         }
                     }
-                } // Fine del blocco sincronizzato
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } finally {
-                semaphore.release();
+                };
+
+                // Pianifica il nuovo task
+                Timer.schedule(lanciatoTask, 0.5f);
             }
-            if (label2!=null){
+
+            if (label2 != null) {
                 labelDiscorsi2.renderDisc();
             }
-            if (label3!=null){
+            if (label3 != null) {
                 labelDiscorsi3.renderDisc();
             }
-            if (label4!=null){
+            if (label4 != null) {
                 labelDiscorsi4.renderDisc();
             }
-            if (label5!=null){
+            if (label5 != null) {
                 labelDiscorsi5.renderDisc();
             }
-            if (label6!=null){
+            if (label6 != null) {
                 labelDiscorsi6.renderDisc();
             }
-            if (label7!=null){
+            if (label7 != null) {
                 labelDiscorsi7.renderDisc();
             }
-            if (label8!=null){
+            if (label8 != null) {
                 labelDiscorsi8.renderDisc();
             }
-            if (label9!=null){
+            if (label9 != null) {
                 labelDiscorsi9.renderDisc();
             }
-            if (label10!=null){
+            if (label10 != null) {
                 labelDiscorsi10.renderDisc();
             }
-            if (label11!=null){
+            if (label11 != null) {
                 labelDiscorsi11.renderDisc();
             }
-            if (label12!=null){
+            if (label12 != null) {
                 labelDiscorsi12.renderDisc();
             }
-            if (label13!=null){
+            if (label13 != null) {
                 labelDiscorsi13.renderDisc();
             }
-            if (label14!=null){
+            if (label14 != null) {
                 labelDiscorsi14.renderDisc();
             }
-            if (label15!=null){
+            if (label15 != null) {
                 labelDiscorsi15.renderDisc();
             }
-            if (label16!=null){
+            if (label16 != null) {
                 labelDiscorsi16.renderDisc();
             }
-            if (label17!=null){
+            if (label17 != null) {
                 labelDiscorsi17.renderDisc();
             }
-            if (label18!=null){
+            if (label18 != null) {
                 labelDiscorsi18.renderDisc();
             }
-            if (label19!=null){
+            if (label19 != null) {
                 labelDiscorsi19.renderDisc();
             }
-            if (label20!=null){
+            if (label20 != null) {
                 labelDiscorsi20.renderDisc();
             }
-            if (label21!=null){
+            if (label21 != null) {
                 labelDiscorsi21.renderDisc();
             }
-            if (label22!=null){
+            if (label22 != null) {
                 labelDiscorsi22.renderDisc();
             }
-            if (label23!=null){
+            if (label23 != null) {
                 labelDiscorsi23.renderDisc();
             }
-            if (label24!=null){
+            if (label24 != null) {
                 labelDiscorsi24.renderDisc();
             }
-            if (label25!=null){
+            if (label25 != null) {
                 labelDiscorsi25.renderDisc();
             }
-            if (label26!=null){
+            if (label26 != null) {
                 labelDiscorsi26.renderDisc();
             }
-            if (label27!=null){
+            if (label27 != null) {
                 labelDiscorsi27.renderDisc();
             }
-            if (label28!=null){
+            if (label28 != null) {
                 labelDiscorsi28.renderDisc();
             }
-            if (label29!=null){
+            if (label29 != null) {
                 labelDiscorsi29.renderDisc();
             }
-            if (labelCura!=null){
+            if (labelCura != null) {
                 labelDiscorsiCura.renderDisc();
             }
-            if (apprendimentoMosse!=null){
+            if (apprendimentoMosse != null) {
                 apprendimentoMosse.render();
             }
-            if (borsa!=null){
-                if (borsa.getSquadraCure()!=null){
+            if (borsa != null) {
+                if (borsa.getSquadraCure() != null) {
                     borsa.render();
                 }
             }
@@ -700,77 +693,72 @@ public class Battle extends ScreenAdapter {
         // Disegna la UI della borsa
         stage.draw(); // Disegna lo stage sullo SpriteBatch
     }
-    
-    
+
     private void showBall(Texture textureBall) {
         int regionWidth = textureBall.getWidth() / 3;
         int regionHeight = textureBall.getHeight();
-    
+
         // Inizializza l'array delle TextureRegion della ball
         ball = new TextureRegion[3];
         for (int i = 0; i < 3; i++) {
             ball[i] = new TextureRegion(textureBall, i * regionWidth, 0, regionWidth, regionHeight);
         }
-    
+
         muoviBall = new Animation<>(0.5f, ball);
 
         // Crea e aggiungi l'immagine della ball allo stage
         imageBall = new Image(ball[0]);
-        imageBall.setSize(16*4, 25*4);
-    
+        imageBall.setSize(16 * 4, 25 * 4);
+
         // Posizione iniziale della ball (NON CAMBIATELE)
         float startX = 1;
         float startY = 220;
-    
+
         imageBall.setPosition(0, startY);
-    
+
         stage.addActor(imageBall);
-    
+
         // Durata del movimento della ball (secondi)
         float duration = 2.5f;
-    
+
         // Animazione di spostamento lungo una traiettoria curva
         Timer.schedule(new Timer.Task() {
             float elapsed = 0;
-    
+
             @Override
             public void run() {
                 if (elapsed <= duration) {
                     // Calcola la posizione sulla traiettoria curva
                     float percent = elapsed / duration;
-                    imageBall.setPosition((startX * percent * 175)+35, startY - (startY - 110)* percent * percent); 
+                    imageBall.setPosition((startX * percent * 175) + 35, startY - (startY - 110) * percent * percent);
                     elapsed += 0.1f;
                 } else {
                     // Avvia l'animazione dei frame della ball
                     activateAnimation(imageBall, muoviBall);
-                    if (isBotFight){
+                    if (isBotFight) {
                         label1.remove();
-                    }
-                    else{
+                    } else {
                         label15.remove();
                     }
-                    
 
-                    label2=labelDiscorsi2.getLabel();
+                    label2 = labelDiscorsi2.getLabel();
                     stage.addActor(label2);
                     Timer.schedule(new Timer.Task() {
                         @Override
                         public void run() {
                             label2.remove();
-                            if (!switched){
+                            if (!switched) {
                                 createFightLabels();
                             }
                         }
                     }, 2f);
                     this.cancel(); // Interrompi il Timer.Task
-                    
+
                 }
             }
         }, 0, Gdx.graphics.getDeltaTime());
 
     }
-    
-
 
     private void showBallBot() {
         int regionWidth = ballTextureBot.getWidth() / 3;
@@ -782,32 +770,34 @@ public class Battle extends ScreenAdapter {
         }
 
         muoviBallBot = new Animation<>(0.5f, ballBot);
-    
+
         // Crea e aggiungi l'immagine della ball del bot allo stage
         imageBallBot = new Image(ballBot[0]);
-        imageBallBot.setSize(16*4, 25*4);
-    
+        imageBallBot.setSize(16 * 4, 25 * 4);
+
         // Posizione iniziale della ball del bot (NON CAMBIATELE)
         float startXBot = stage.getHeight();
         float startYBot = 800;
-        
+
         imageBallBot.setPosition(01000, 1000);
-    
+
         stage.addActor(imageBallBot);
-    
+
         // Durata del movimento della ball del bot (secondi)
         float duration = 2.5f;
-    
+
         // Animazione di spostamento lungo una traiettoria curva
         Timer.schedule(new Timer.Task() {
             float elapsed = 0;
-    
+
             @Override
             public void run() {
                 if (elapsed <= duration) {
                     // Calcola la posizione sulla traiettoria curva
                     float percent = elapsed / duration;
-                    imageBallBot.setPosition(startXBot - (startXBot * percent) + 800, startYBot - (startYBot - 330) * percent * percent * percent); // Utilizza una curva quadratica
+                    imageBallBot.setPosition(startXBot - (startXBot * percent) + 800,
+                            startYBot - (startYBot - 330) * percent * percent * percent); // Utilizza una curva
+                                                                                          // quadratica
                     elapsed += 0.1f;
                 } else {
                     // Avvia l'animazione dei frame della ball del bot
@@ -818,29 +808,26 @@ public class Battle extends ScreenAdapter {
         }, 0, Gdx.graphics.getDeltaTime());
     }
 
-    
-
     private void createFightLabels() {
-        fightLabels = new TextureRegion[8]; 
-    
+        fightLabels = new TextureRegion[8];
+
         // Carica l'immagine contenente tutte le label
         Texture textBoxesImage = asset.getBattle(Assets.FIGHT_BOX);
-    
+
         // Calcola le dimensioni di ogni label nella griglia
         int textBoxWidth = textBoxesImage.getWidth() / 2; // Due colonne
         int textBoxHeight = textBoxesImage.getHeight() / 4; // Dieci righe
-    
+
         // Estrai ogni label dall'immagine e salvala nell'array di texture
         for (int row = 0; row < 4; row++) {
             for (int col = 0; col < 2; col++) {
                 int index = row * 2 + col; // Calcola l'indice dell'array
-    
+
                 int startX = col * textBoxWidth;
-                int startY = row * textBoxHeight;  
+                int startY = row * textBoxHeight;
                 fightLabels[index] = new TextureRegion(textBoxesImage, startX, startY, textBoxWidth, textBoxHeight);
             }
         }
-    
 
         Image label1 = new Image(fightLabels[0]);
         label1.setSize(256, 125);
@@ -861,7 +848,6 @@ public class Battle extends ScreenAdapter {
             }
         });
 
-
         Image label2 = new Image(fightLabels[2]);
         label2.setSize(256, 125);
         label2.setPosition(256, 0); // Posizione delle etichette sulla schermata
@@ -875,17 +861,16 @@ public class Battle extends ScreenAdapter {
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
-                        squadra = new Squadra(stage,true, battle, null, false);
-                        switchForzato=false;
+                        squadra = new Squadra(stage, true, battle, null, false);
+                        switchForzato = false;
                     }
                 }, 0.3f);
             }
         });
 
-
         Image label3 = new Image(fightLabels[4]);
         label3.setSize(256, 125);
-        label3.setPosition(256*2, 0); // Posizione delle etichette sulla schermata
+        label3.setPosition(256 * 2, 0); // Posizione delle etichette sulla schermata
         stage.addActor(label3);
 
         label3.addListener(new ClickListener() {
@@ -896,17 +881,16 @@ public class Battle extends ScreenAdapter {
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
-                        borsa = new Borsa(stage,true, battle);
+                        borsa = new Borsa(stage, true, battle);
                     }
                 }, 0.3f);
-                
+
             }
         });
 
-
         Image label4 = new Image(fightLabels[6]);
         label4.setSize(256, 125);
-        label4.setPosition(3*256, 0); // Posizione delle etichette sulla schermata
+        label4.setPosition(3 * 256, 0); // Posizione delle etichette sulla schermata
         stage.addActor(label4);
 
         label4.addListener(new ClickListener() {
@@ -923,89 +907,86 @@ public class Battle extends ScreenAdapter {
             }
         });
 
-        
-
         piazzaLabelLottaPlayer();
         piazzaLabelLottaPerBot();
     }
 
-    private void piazzaLabelLottaPlayer(){
+    private void piazzaLabelLottaPlayer() {
 
-        //e ora piazza le hp Bar
+        // e ora piazza le hp Bar
         Texture imageHPPlayer = asset.getBattle(Assets.HP_BAR);
         playerHPBar = new Image(imageHPPlayer);
-        playerHPBar.setSize(256, 47*2);
+        playerHPBar.setSize(256, 47 * 2);
         playerHPBar.setPosition(1024, 140);
         stage.addActor(playerHPBar);
 
-        Action moveActionPlayer = Actions.moveTo(1024-256, 140, 0.5f);
+        Action moveActionPlayer = Actions.moveTo(1024 - 256, 140, 0.5f);
         // Applica l'azione all'immagine
         playerHPBar.addAction(moveActionPlayer);
 
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
-            HPplayer=placeHpBar(playerHPBar,144,38,currentPokeHP,maxPokeHP); 
-            expPlayer=placeExpBar(playerHPBar); 
+                HPplayer = placeHpBar(playerHPBar, 144, 38, currentPokeHP, maxPokeHP);
+                expPlayer = placeExpBar(playerHPBar);
             }
         }, 0.51f);
 
         labelNomePokemon = new Label(nomePoke, new Label.LabelStyle(font, null));
-        labelNomePokemon.setPosition(playerHPBar.getX()+55,playerHPBar.getY()+50); // Posiziona la label accanto all'immagine della mossa
+        labelNomePokemon.setPosition(playerHPBar.getX() + 55, playerHPBar.getY() + 50); // Posiziona la label accanto
+                                                                                        // all'immagine della mossa
         labelNomePokemon.setFontScale(1f);
         stage.addActor(labelNomePokemon);
         labelNomeHPBars.add(labelNomePokemon);
 
-        Action moveActionNomePoke = Actions.moveTo(1024-256+55, playerHPBar.getY()+50, 0.5f);
+        Action moveActionNomePoke = Actions.moveTo(1024 - 256 + 55, playerHPBar.getY() + 50, 0.5f);
         // Applica l'azione all'immagine
         labelNomePokemon.addAction(moveActionNomePoke);
 
-
         labelLV = new Label(LVPoke, new Label.LabelStyle(font, null));
-        labelLV.setPosition(labelNomePokemon.getX(),labelNomePokemon.getY()); // Posiziona la label accanto all'immagine della mossa
+        labelLV.setPosition(labelNomePokemon.getX(), labelNomePokemon.getY()); // Posiziona la label accanto
+                                                                               // all'immagine della mossa
         labelLV.setFontScale(1f);
         stage.addActor(labelLV);
         labelNomeHPBars.add(labelLV);
 
-        Action moveActionLV= Actions.moveTo(1024-256+210, labelNomePokemon.getY(), 0.5f);
+        Action moveActionLV = Actions.moveTo(1024 - 256 + 210, labelNomePokemon.getY(), 0.5f);
         // Applica l'azione all'immagine
         labelLV.addAction(moveActionLV);
 
-
-        labelHP= new Label(currentPokeHP, new Label.LabelStyle(font, null));
-        labelHP.setPosition(1024,149); // Posiziona la label accanto all'immagine della mossa
+        labelHP = new Label(currentPokeHP, new Label.LabelStyle(font, null));
+        labelHP.setPosition(1024, 149); // Posiziona la label accanto all'immagine della mossa
         labelHP.setFontScale(0.8f);
         stage.addActor(labelHP);
         labelNomeHPBars.add(labelHP);
 
-        Action moveActionHP= Actions.moveTo(1024-110,149, 0.5f);
+        Action moveActionHP = Actions.moveTo(1024 - 110, 149, 0.5f);
         // Applica l'azione all'immagine
         labelHP.addAction(moveActionHP);
 
-
-        labelHPTot= new Label(maxPokeHP, new Label.LabelStyle(font, null));
-        labelHPTot.setPosition(1024,149); // Posiziona la label accanto all'immagine della mossa
+        labelHPTot = new Label(maxPokeHP, new Label.LabelStyle(font, null));
+        labelHPTot.setPosition(1024, 149); // Posiziona la label accanto all'immagine della mossa
         labelHPTot.setFontScale(0.8f);
         stage.addActor(labelHPTot);
         labelNomeHPBars.add(labelHPTot);
 
-        Action moveActionHPTot= Actions.moveTo(1024-55,149, 0.5f);
+        Action moveActionHPTot = Actions.moveTo(1024 - 55, 149, 0.5f);
         // Applica l'azione all'immagine
         labelHPTot.addAction(moveActionHPTot);
-        if (switched && !switchForzato){
+        if (switched && !switchForzato) {
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
-                    utilizzoMossaBot(false,null);
+                    utilizzoMossaBot(false, null);
                 }
             }, 2.5f);
-            
+
         }
     }
 
-    private void piazzaLabelLottaPerBot(){
-        
-        //e ora piazza le hp Bar
+    private void piazzaLabelLottaPerBot() {
+
+        // e ora piazza le hp Bar
         Texture imageHPBot = asset.getBattle(Assets.BOT_HP_BAR);
         botHPBar = new Image(imageHPBot);
         botHPBar.setSize(244, 70);
@@ -1020,29 +1001,29 @@ public class Battle extends ScreenAdapter {
             @Override
             public void run() {
                 checkPerDoppiaBarra++;
-                HPbot=placeHpBar(botHPBar,100,16,currentPokeHPBot,maxPokeHPBot); 
+                HPbot = placeHpBar(botHPBar, 100, 16, currentPokeHPBot, maxPokeHPBot);
             }
         }, 0.51f);
-        
 
         labelNomePokemonBot = new Label(nomePokeBot, new Label.LabelStyle(font, null));
-        labelNomePokemonBot.setPosition(-300,botHPBar.getY()+27); // Posiziona la label accanto all'immagine della mossa
+        labelNomePokemonBot.setPosition(-300, botHPBar.getY() + 27); // Posiziona la label accanto all'immagine della
+                                                                     // mossa
         labelNomePokemonBot.setFontScale(1f);
         stage.addActor(labelNomePokemonBot);
         labelNomeHPBars.add(labelNomePokemonBot);
 
-        Action moveActionNomePokeBot = Actions.moveTo(25, botHPBar.getY()+27, 0.5f);
+        Action moveActionNomePokeBot = Actions.moveTo(25, botHPBar.getY() + 27, 0.5f);
         // Applica l'azione all'immagine
         labelNomePokemonBot.addAction(moveActionNomePokeBot);
 
-
         labelLVBot = new Label(LVPokeBot, new Label.LabelStyle(font, null));
-        labelLVBot.setPosition(labelNomePokemonBot.getX(),labelNomePokemonBot.getY()); // Posiziona la label accanto all'immagine della mossa
+        labelLVBot.setPosition(labelNomePokemonBot.getX(), labelNomePokemonBot.getY()); // Posiziona la label accanto
+                                                                                        // all'immagine della mossa
         labelLVBot.setFontScale(1f);
         stage.addActor(labelLVBot);
         labelNomeHPBars.add(labelLVBot);
 
-        Action moveActionLVBot = Actions.moveTo(170,labelNomePokemonBot.getY(), 0.5f);
+        Action moveActionLVBot = Actions.moveTo(170, labelNomePokemonBot.getY(), 0.5f);
         // Applica l'azione all'immagine
         labelLVBot.addAction(moveActionLVBot);
 
@@ -1052,9 +1033,9 @@ public class Battle extends ScreenAdapter {
         Drawable newDrawable = new TextureRegionDrawable(fightLabels[currentIndex]);
         label.setDrawable(newDrawable);
     }
-    
+
     private void updateLabelImage(Image label) {
-        Drawable newDrawable = new TextureRegionDrawable(fightLabels[currentIndex+1]);
+        Drawable newDrawable = new TextureRegionDrawable(fightLabels[currentIndex + 1]);
         label.setDrawable(newDrawable);
         Timer.schedule(new Timer.Task() {
             @Override
@@ -1063,97 +1044,99 @@ public class Battle extends ScreenAdapter {
             }
         }, 0.3f);
     }
-    
 
-
-    private void piazzaMosse(){
-        for (int i=0;i<listaMosse.size();i++){
+    private void piazzaMosse() {
+        for (int i = 0; i < listaMosse.size(); i++) {
             Image labelMosse = new Image(listaMosse.get(i).getLabelTipo(listaMosse.get(i).getTipo()));
-            labelMosse.setPosition(i*256, 0);
-            labelMosse.setSize(256,125);
+            labelMosse.setPosition(i * 256, 0);
+            labelMosse.setSize(256, 125);
             stage.addActor(labelMosse);
             labelMosseArray.add(labelMosse);
 
             Label labelNomeMossa = new Label(listaMosse.get(i).getNome(), new Label.LabelStyle(font, null));
-            labelNomeMossa.setPosition(labelMosse.getX() + 20, labelMosse.getY() + 68); // Posiziona la label accanto all'immagine della mossa
+            labelNomeMossa.setPosition(labelMosse.getX() + 20, labelMosse.getY() + 68); // Posiziona la label accanto
+                                                                                        // all'immagine della mossa
             labelNomeMossa.setFontScale(1.5f);
             stage.addActor(labelNomeMossa);
             labelNomeMosseArray.add(labelNomeMossa);
 
             Label labelPPTot = new Label(listaMosse.get(i).getmaxPP(), new Label.LabelStyle(font, null));
-            labelPPTot.setPosition(labelMosse.getX() + 195, labelMosse.getY() + 30); 
+            labelPPTot.setPosition(labelMosse.getX() + 195, labelMosse.getY() + 30);
             labelPPTot.setFontScale(1.3f);
             stage.addActor(labelPPTot);
             labelNomeMosseArray.add(labelPPTot);
 
-
             Label labelPPatt = new Label(listaMosse.get(i).getattPP(), new Label.LabelStyle(font, null));
-            if(Integer.parseInt(listaMosse.get(i).getattPP())>9){
-                labelPPatt.setPosition(labelMosse.getX() + 145, labelMosse.getY() + 30); 
-            }
-            else{
+            if (Integer.parseInt(listaMosse.get(i).getattPP()) > 9) {
+                labelPPatt.setPosition(labelMosse.getX() + 145, labelMosse.getY() + 30);
+            } else {
                 labelPPatt.setPosition(labelMosse.getX() + 158, labelMosse.getY() + 30);
             }
             labelPPatt.setFontScale(1.3f);
             stage.addActor(labelPPatt);
             labelNomeMosseArray.add(labelPPatt);
 
-            final int indiceMossa=i;
+            final int indiceMossa = i;
             ClickListener listener = new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     backImage.remove();
-                    if (statsPlayer.get(4)>=statsBot.get(4)){
+                    if (statsPlayer.get(4) >= statsBot.get(4)) {
                         listaMosse.get(indiceMossa).setattPP();
                         utilizzoMossa(labelMosse, true);
-                        modificaPPMossePoke(numeroIndexPoke,listaMosse);
-                        /*if (Integer.parseInt(currentPokeHPBot)>0){
-                            Timer.schedule(new Timer.Task() {
-                                @Override
-                                public void run() {
-                                    utilizzoMossaBot();
-                                }
-                            }, 3.51f);
-                            
-                        }*/
-                    }
-                    else{
+                        modificaPPMossePoke(numeroIndexPoke, listaMosse);
+                        /*
+                         * if (Integer.parseInt(currentPokeHPBot)>0){
+                         * Timer.schedule(new Timer.Task() {
+                         * 
+                         * @Override
+                         * public void run() {
+                         * utilizzoMossaBot();
+                         * }
+                         * }, 3.51f);
+                         * 
+                         * }
+                         */
+                    } else {
                         utilizzoMossaBot(true, labelMosse);
-                        if (Integer.parseInt(currentPokeHP)>0){
+                        if (Integer.parseInt(currentPokeHP) > 0) {
                             listaMosse.get(indiceMossa).setattPP();
-                            modificaPPMossePoke(numeroIndexPoke,listaMosse);
+                            modificaPPMossePoke(numeroIndexPoke, listaMosse);
                         }
-                        /*if (Integer.parseInt(currentPokeHP)>0){
-                            Timer.schedule(new Timer.Task() {
-                                @Override
-                                public void run() {
-                                    utilizzoMossa(labelMosse,false);
-                                }
-                            }, 3.51f);
-                            
-                        }*/
+                        /*
+                         * if (Integer.parseInt(currentPokeHP)>0){
+                         * Timer.schedule(new Timer.Task() {
+                         * 
+                         * @Override
+                         * public void run() {
+                         * utilizzoMossa(labelMosse,false);
+                         * }
+                         * }, 3.51f);
+                         * 
+                         * }
+                         */
                     }
                 }
             };
-            if (Integer.parseInt(listaMosse.get(i).getattPP())>0){
+            if (Integer.parseInt(listaMosse.get(i).getattPP()) > 0) {
                 labelMosse.addListener(listener);
                 labelNomeMossa.addListener(listener);
                 labelPPTot.addListener(listener);
                 labelPPatt.addListener(listener);
             }
-            }
-        
-            for (int j=0; j<4-listaMosse.size(); j++){
-                Texture noMoveTexture = asset.getBattle(Assets.NO_MOVE);
-                Image labelMosse = new Image(noMoveTexture);
-                labelMosse.setPosition((j+listaMosse.size())*256, 0);
-                labelMosse.setSize(256,125);
-                stage.addActor(labelMosse);
-                labelMosseArray.add(labelMosse);
-            }
+        }
+
+        for (int j = 0; j < 4 - listaMosse.size(); j++) {
+            Texture noMoveTexture = asset.getBattle(Assets.NO_MOVE);
+            Image labelMosse = new Image(noMoveTexture);
+            labelMosse.setPosition((j + listaMosse.size()) * 256, 0);
+            labelMosse.setSize(256, 125);
+            stage.addActor(labelMosse);
+            labelMosseArray.add(labelMosse);
+        }
         Texture backButton = asset.getBattle(Assets.B);
         backImage = new Image(backButton);
-        backImage.setPosition(0,130);
+        backImage.setPosition(0, 130);
         backImage.setSize(60, 60);
         stage.addActor(backImage);
         labelMosseArray.add(backImage);
@@ -1173,17 +1156,18 @@ public class Battle extends ScreenAdapter {
         backImage.addListener(listener);
     }
 
-    private void utilizzoMossa(Image labelMosse, boolean otherAttack){
-        nextMoveBot=true;
-        nextMove=labelMosse;
-        globalOtherAttack=otherAttack;
-        counterForNextMove=0;
-        float trovaX= (labelMosse.getX())/256;
+    private void utilizzoMossa(Image labelMosse, boolean otherAttack) {
+        nextMoveBot = true;
+        nextMove = labelMosse;
+        globalOtherAttack = otherAttack;
+        counterForNextMove = 0;
+        float trovaX = (labelMosse.getX()) / 256;
         int X = (int) trovaX;
-        nomeMossa=listaMosse.get(X).getNome();
+        nomeMossa = listaMosse.get(X).getNome();
         sistemaLabel4(nomeMossa);
-        labelDiscorsi4.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
-        label4=labelDiscorsi4.getLabel(); 
+        labelDiscorsi4.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di
+                                                  // quello degli altri attori
+        label4 = labelDiscorsi4.getLabel();
         stage.addActor(label4);
 
         FileHandle mosseFile = Gdx.files.local("pokemon/mosse.json");
@@ -1194,9 +1178,11 @@ public class Battle extends ScreenAdapter {
         String tipologiaMossa = tipoJson.getString("attacco");
 
         if (tipologiaMossa.equals("fisico")) {
-            danno = listaMosse.get(X).calcolaDanno(statsPlayer.get(0), statsBot.get(1), Integer.parseInt(LVPoke), nomePoke, nomePokeBot);
+            danno = listaMosse.get(X).calcolaDanno(statsPlayer.get(0), statsBot.get(1), Integer.parseInt(LVPoke),
+                    nomePoke, nomePokeBot);
         } else {
-            danno = listaMosse.get(X).calcolaDanno(statsPlayer.get(2), statsBot.get(3), Integer.parseInt(LVPoke), nomePoke, nomePokeBot);
+            danno = listaMosse.get(X).calcolaDanno(statsPlayer.get(2), statsBot.get(3), Integer.parseInt(LVPoke),
+                    nomePoke, nomePokeBot);
         }
 
         currentPokeHPBot = Integer.toString((Integer.parseInt(currentPokeHPBot)) - danno);
@@ -1205,26 +1191,32 @@ public class Battle extends ScreenAdapter {
             currentPokeHPBot = Integer.toString(0);
         }
 
-        //TODO: animazione (ferma quello sotto)
+        // TODO: animazione (ferma quello sotto)
         mosse = new mosse(nomeMossa);
         frames = mosse.getSpriteMossa();
         frameDataList = mosse.getFrameDataList();
         tipologia = mosse.getTipologia();
         float speedAnimationMoves = mosse.getSpeed();
 
-
         // Crea un array di immagini della mossa
         Image[] imagesMossa = new Image[frameDataList.size()];
 
-        //TODO: eventualmente capire anche il movimento del mio pokemon e di quello avversario
+        // TODO: eventualmente capire anche il movimento del mio pokemon e di quello
+        // avversario
         if (tipologia.equals("continua")) {
 
             // Inizializza ogni immagine della mossa
             for (int i = 0; i < frameDataList.size(); i++) {
                 FrameData[] currentFrameDataSet = frameDataList.get(i); // Ottieni il set di frame corrente
-                imagesMossa[i] = new Image(frames[currentFrameDataSet[0].getNumeroSprite()]); // Usa il primo sprite del set per l'inizializzazione
-                imagesMossa[i].setSize(currentFrameDataSet[0].getAltezza(), currentFrameDataSet[0].getLarghezza()); // Imposta le dimensioni dell'immagine
-                imagesMossa[i].setPosition(currentFrameDataSet[0].getX(), currentFrameDataSet[0].getY()); // Posizione iniziale
+                imagesMossa[i] = new Image(frames[currentFrameDataSet[0].getNumeroSprite()]); // Usa il primo sprite del
+                                                                                              // set per
+                                                                                              // l'inizializzazione
+                imagesMossa[i].setSize(currentFrameDataSet[0].getAltezza(), currentFrameDataSet[0].getLarghezza()); // Imposta
+                                                                                                                    // le
+                                                                                                                    // dimensioni
+                                                                                                                    // dell'immagine
+                imagesMossa[i].setPosition(currentFrameDataSet[0].getX(), currentFrameDataSet[0].getY()); // Posizione
+                                                                                                          // iniziale
                 stage.addActor(imagesMossa[i]); // Aggiungi l'immagine al palco
             }
 
@@ -1238,7 +1230,8 @@ public class Battle extends ScreenAdapter {
 
                     // Cicla attraverso tutti i set di frame contemporaneamente
                     for (int currentSetIndex = 0; currentSetIndex < frameDataList.size(); currentSetIndex++) {
-                        FrameData[] currentFrameDataSet = frameDataList.get(currentSetIndex); // Ottieni il set di frame corrente
+                        FrameData[] currentFrameDataSet = frameDataList.get(currentSetIndex); // Ottieni il set di frame
+                                                                                              // corrente
 
                         // Se non abbiamo raggiunto la fine del set corrente
                         if (currentFrameIndex < currentFrameDataSet.length) {
@@ -1250,9 +1243,14 @@ public class Battle extends ScreenAdapter {
                             if (currentFrameDataSet[currentFrameIndex].getX() != -1) {
                                 // Aggiorna la posizione, dimensione e drawable del frame corrente
                                 imageMossa.setVisible(true);
-                                imageMossa.setPosition(currentFrameDataSet[currentFrameIndex].getX(), currentFrameDataSet[currentFrameIndex].getY()); // Imposta la posizione
-                                imageMossa.setSize(currentFrameDataSet[currentFrameIndex].getAltezza(), currentFrameDataSet[currentFrameIndex].getLarghezza()); // Imposta la dimensione
-                                imageMossa.setDrawable(new TextureRegionDrawable(frames[currentFrameDataSet[currentFrameIndex].getNumeroSprite()])); // Imposta il nuovo sprite
+                                imageMossa.setPosition(currentFrameDataSet[currentFrameIndex].getX(),
+                                        currentFrameDataSet[currentFrameIndex].getY()); // Imposta la posizione
+                                imageMossa.setSize(currentFrameDataSet[currentFrameIndex].getAltezza(),
+                                        currentFrameDataSet[currentFrameIndex].getLarghezza()); // Imposta la dimensione
+                                imageMossa.setDrawable(new TextureRegionDrawable(
+                                        frames[currentFrameDataSet[currentFrameIndex].getNumeroSprite()])); // Imposta
+                                                                                                            // il nuovo
+                                                                                                            // sprite
                                 imageMossa.setColor(1, 1, 1, currentFrameDataSet[currentFrameIndex].getOpacity());
                             } else {
                                 // Nascondi lo sprite se la posizione X è -1
@@ -1267,7 +1265,6 @@ public class Battle extends ScreenAdapter {
                     // Se tutti i set di frame sono stati completati, esegui il codice finale
                     if (allSetsFinished) {
 
-
                         if (danno != 0) {
                             if (isBotFight) {
                                 modificaHPPokeBot(numeroIndexPokeBot, currentPokeHPBot);
@@ -1280,11 +1277,11 @@ public class Battle extends ScreenAdapter {
                         Timer.schedule(new Timer.Task() {
                             @Override
                             public void run() {
-                                
+
                                 for (Image imageMossa : imagesMossa) {
                                     imageMossa.remove(); // Rimuove l'immagine dalla scena
                                 }
-    
+
                             }
                         }, 0.5f);
 
@@ -1306,7 +1303,6 @@ public class Battle extends ScreenAdapter {
                                     imageMossa.remove(); // Rimuove l'immagine dalla scena
                                 }
 
-                                
                                 if (otherAttack == true) {
                                     if (counterForNextMove == 0) {
                                         if (Integer.parseInt(currentPokeHPBot) > 0) {
@@ -1322,7 +1318,7 @@ public class Battle extends ScreenAdapter {
             }, 0, speedAnimationMoves);
         } else if (tipologia.equals("istantanea")) {
 
-            //con questo timer comincia prima a dire la mossa e poi va a farla renderizzare
+            // con questo timer comincia prima a dire la mossa e poi va a farla renderizzare
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
@@ -1330,7 +1326,8 @@ public class Battle extends ScreenAdapter {
                     for (int i = 0; i < frameDataList.size(); i++) {
                         FrameData[] currentFrameDataSet = frameDataList.get(i);
                         imagesMossa[i] = new Image(frames[currentFrameDataSet[0].getNumeroSprite()]);
-                        imagesMossa[i].setSize(currentFrameDataSet[0].getAltezza(), currentFrameDataSet[0].getLarghezza());
+                        imagesMossa[i].setSize(currentFrameDataSet[0].getAltezza(),
+                                currentFrameDataSet[0].getLarghezza());
                         imagesMossa[i].setPosition(currentFrameDataSet[0].getX(), currentFrameDataSet[0].getY());
                         imagesMossa[i].setColor(1, 1, 1, currentFrameDataSet[0].getOpacity());
                         stage.addActor(imagesMossa[i]);
@@ -1348,7 +1345,7 @@ public class Battle extends ScreenAdapter {
                     Timer.schedule(new Timer.Task() {
                         @Override
                         public void run() {
-                            
+
                             for (Image imageMossa : imagesMossa) {
                                 imageMossa.remove(); // Rimuove l'immagine dalla scena
                             }
@@ -1358,7 +1355,6 @@ public class Battle extends ScreenAdapter {
 
                 }
             }, 1f);
-
 
             // Timer per rimuovere l'animazione dopo un breve periodo
             Timer.schedule(new Timer.Task() {
@@ -1378,7 +1374,6 @@ public class Battle extends ScreenAdapter {
                             labelMosseArray.clear();
                             labelNomeMosseArray.clear();
 
-                            
                             if (otherAttack == true) {
                                 if (counterForNextMove == 0) {
                                     if (Integer.parseInt(currentPokeHPBot) > 0) {
@@ -1397,21 +1392,22 @@ public class Battle extends ScreenAdapter {
 
     }
 
-    private void utilizzoMossaBot(boolean otherAttack, Image labelMosse){
-        nextMoveBot=false;
-        nextMove=labelMosse;
-        globalOtherAttack=otherAttack;
-        counterForNextMove=0;
+    private void utilizzoMossaBot(boolean otherAttack, Image labelMosse) {
+        nextMoveBot = false;
+        nextMove = labelMosse;
+        globalOtherAttack = otherAttack;
+        counterForNextMove = 0;
         Random random = new Random();
         int X = random.nextInt(listaMosseBot.size());
-        while (Integer.parseInt(listaMosseBot.get(X).getattPP())<=0){
+        while (Integer.parseInt(listaMosseBot.get(X).getattPP()) <= 0) {
             X = random.nextInt(listaMosseBot.size());
         }
-        nomeMossaBot=listaMosseBot.get(X).getNome();
+        nomeMossaBot = listaMosseBot.get(X).getNome();
         listaMosseBot.get(X).setattPP();
         sistemaLabel14(nomeMossaBot);
-        labelDiscorsi14.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
-        label14=labelDiscorsi14.getLabel(); 
+        labelDiscorsi14.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di
+                                                   // quello degli altri attori
+        label14 = labelDiscorsi14.getLabel();
         stage.addActor(label14);
 
         FileHandle mosseFile = Gdx.files.local("pokemon/mosse.json");
@@ -1420,25 +1416,24 @@ public class Battle extends ScreenAdapter {
         JsonValue mosseJson = new JsonReader().parse(mosseJsonString);
         JsonValue tipoJson = mosseJson.get(nomeMossaBot);
         String tipologiaMossa = tipoJson.getString("attacco");
-        //TODO: animazione (blocca quell oche c'è dopo)
-        if (tipologiaMossa.equals("fisico")){
-            dannoBot=listaMosseBot.get(X).calcolaDanno(statsBot.get(0),statsPlayer.get(1),Integer.parseInt(LVPokeBot),nomePokeBot,nomePoke);
-        }
-        else{
-            dannoBot=listaMosseBot.get(X).calcolaDanno(statsBot.get(2),statsPlayer.get(3),Integer.parseInt(LVPokeBot),nomePokeBot,nomePoke);
-        }   
-
-        pokeHPbeforeFight=currentPokeHP;
-
-        currentPokeHP= Integer.toString((Integer.parseInt(currentPokeHP))-dannoBot);
-
-
-        if(Integer.parseInt(currentPokeHP)<=0){
-            currentPokeHP= Integer.toString(0);
+        // TODO: animazione (blocca quell oche c'è dopo)
+        if (tipologiaMossa.equals("fisico")) {
+            dannoBot = listaMosseBot.get(X).calcolaDanno(statsBot.get(0), statsPlayer.get(1),
+                    Integer.parseInt(LVPokeBot), nomePokeBot, nomePoke);
+        } else {
+            dannoBot = listaMosseBot.get(X).calcolaDanno(statsBot.get(2), statsPlayer.get(3),
+                    Integer.parseInt(LVPokeBot), nomePokeBot, nomePoke);
         }
 
+        pokeHPbeforeFight = currentPokeHP;
 
-        if (dannoBot!=0){
+        currentPokeHP = Integer.toString((Integer.parseInt(currentPokeHP)) - dannoBot);
+
+        if (Integer.parseInt(currentPokeHP) <= 0) {
+            currentPokeHP = Integer.toString(0);
+        }
+
+        if (dannoBot != 0) {
             modificaHPPoke(numeroIndexPoke, currentPokeHP);
             Timer.schedule(new Timer.Task() {
                 @Override
@@ -1461,42 +1456,40 @@ public class Battle extends ScreenAdapter {
                 labelMosseArray.clear();
                 labelNomeMosseArray.clear();
 
-                if(otherAttack==true){
-                    if (counterForNextMove==0){
-                        if (Integer.parseInt(currentPokeHP)>0){
-                            utilizzoMossa(labelMosse,false);
-                        }                
+                if (otherAttack == true) {
+                    if (counterForNextMove == 0) {
+                        if (Integer.parseInt(currentPokeHP) > 0) {
+                            utilizzoMossa(labelMosse, false);
+                        }
                     }
                 }
             }
         }, 2.5f);
     }
 
-    private void sistemaLabel4(String nome){
-        this.nomeMossa=nome;
-        String discorso4= nomePoke + " utilizza " + nomeMossa+"!";
-        labelDiscorsi4 = new LabelDiscorsi(discorso4,dimMax,0,true, false);
+    private void sistemaLabel4(String nome) {
+        this.nomeMossa = nome;
+        String discorso4 = nomePoke + " utilizza " + nomeMossa + "!";
+        labelDiscorsi4 = new LabelDiscorsi(discorso4, dimMax, 0, true, false);
     }
 
-    private void sistemaLabel14(String nome){
-        this.nomeMossa=nome;
-        String discorso14= nomePokeBot + " utilizza " + nomeMossa+"!";
-        labelDiscorsi14 = new LabelDiscorsi(discorso14,dimMax,0,true, false);
+    private void sistemaLabel14(String nome) {
+        this.nomeMossa = nome;
+        String discorso14 = nomePokeBot + " utilizza " + nomeMossa + "!";
+        labelDiscorsi14 = new LabelDiscorsi(discorso14, dimMax, 0, true, false);
     }
-    
 
     private void activateAnimation(Image image, Animation<TextureRegion> animation) {
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
                 boolean check;
-        
-                if (image==imageBall){
-                    check=true;
+
+                if (image == imageBall) {
+                    check = true;
                     checkInt++;
-                }
-                else{
-                    check=false;
+                } else {
+                    check = false;
                     checkInt++;
                 }
                 Timer.schedule(new Timer.Task() {
@@ -1511,12 +1504,13 @@ public class Battle extends ScreenAdapter {
                                 @Override
                                 public void run() {
                                     image.remove();
-                                    //nel caso dovesse esplodere un giorno tutto questo, di fianco ad entrambi i check aggiungere && checkInt<3; da problemi ma se qualcosa esplode lo si riaggiunge
-                                    if (check ){
+                                    // nel caso dovesse esplodere un giorno tutto questo, di fianco ad entrambi i
+                                    // check aggiungere && checkInt<3; da problemi ma se qualcosa esplode lo si
+                                    // riaggiunge
+                                    if (check) {
                                         showPokemon(labelBaseD, nomePoke);
-                                    }
-                                    else if (isBotFight && !check){
-                                        synchronized(lock){
+                                    } else if (isBotFight && !check) {
+                                        synchronized (lock) {
                                             try {
                                                 semaphore.acquire();
                                                 checkPerDoppioPoke++;
@@ -1526,7 +1520,7 @@ public class Battle extends ScreenAdapter {
                                             }
                                             semaphore.release();
                                         }
-                                    }         
+                                    }
                                 }
                             }, 0.5f);
                             this.cancel();
@@ -1538,35 +1532,35 @@ public class Battle extends ScreenAdapter {
     }
 
     private void showPokemon(Image baseImage, String nome) {
-        if (baseImage.equals(labelBaseU) && checkPerDoppioPoke>1){
+        if (baseImage.equals(labelBaseU) && checkPerDoppioPoke > 1) {
             return;
         }
-        Texture pokemonTexture = new Texture("pokemon/"+nome+".png");
+        Texture pokemonTexture = new Texture("pokemon/" + nome + ".png");
         int frameWidth = pokemonTexture.getWidth() / 4;
         int frameHeight = pokemonTexture.getHeight();
-    
+
         TextureRegion[] pokemonFrames;
         Animation<TextureRegion> pokemonAnimation;
-        
-    
+
         if (baseImage == labelBaseD) {
             pokemonFrames = new TextureRegion[2];
             int startX = frameWidth * 2; // Inizia dalla terza parte dell'immagine
             for (int i = 0; i < 2; i++) {
-                pokemonFrames[i] = new TextureRegion(pokemonTexture, startX + i * frameWidth, 0, frameWidth, frameHeight);
+                pokemonFrames[i] = new TextureRegion(pokemonTexture, startX + i * frameWidth, 0, frameWidth,
+                        frameHeight);
             }
             pokemonAnimation = new Animation<>(0.4f, pokemonFrames);
-    
+
             pokemonImage = new Image(pokemonFrames[0]);
             pokemonImage.setSize(frameWidth * 3, frameHeight * 3);
-            pokemonImage.setPosition(labelBaseD.getX()+270, labelBaseD.getY());
+            pokemonImage.setPosition(labelBaseD.getX() + 270, labelBaseD.getY());
             pokemonImage.setName("pokemon player");
             stage.addActor(pokemonImage);
             animation(pokemonImage, pokemonAnimation);
-        } 
-        
+        }
+
         else if (baseImage == labelBaseU) {
-            if (!isBotFight){
+            if (!isBotFight) {
                 botImage.remove();
             }
             pokemonFrames = new TextureRegion[2];
@@ -1574,10 +1568,10 @@ public class Battle extends ScreenAdapter {
                 pokemonFrames[i] = new TextureRegion(pokemonTexture, i * frameWidth, 0, frameWidth, frameHeight);
             }
             pokemonAnimation = new Animation<>(0.4f, pokemonFrames);
-    
+
             pokemonImageBot = new Image(pokemonFrames[0]);
             pokemonImageBot.setSize(frameWidth * 3, frameHeight * 3);
-            pokemonImageBot.setPosition(labelBaseU.getX()+60, labelBaseU.getY()+20);
+            pokemonImageBot.setPosition(labelBaseU.getX() + 60, labelBaseU.getY() + 20);
             pokemonImageBot.setName("pokemon bot");
             stage.addActor(pokemonImageBot);
             animation(pokemonImageBot, pokemonAnimation);
@@ -1585,22 +1579,22 @@ public class Battle extends ScreenAdapter {
             return; // Esci dalla funzione in caso di baseImage non gestito
         }
 
-        if (baseImage.equals(labelBaseU)){
-            checkPerDoppioPoke=0;
+        if (baseImage.equals(labelBaseU)) {
+            checkPerDoppioPoke = 0;
         }
     }
 
-    private void animation(Image pokeImage, Animation<TextureRegion> pokemonAnimation){   
+    private void animation(Image pokeImage, Animation<TextureRegion> pokemonAnimation) {
 
         final Animation<TextureRegion> finalPokemonAnimation = pokemonAnimation; // Copia final dell'animazione
-    
+
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
                 float stateTime = 0f;
                 TextureRegion frame = finalPokemonAnimation.getKeyFrame(stateTime, false);
                 pokeImage.setDrawable(new TextureRegionDrawable(frame));
-    
+
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
@@ -1622,52 +1616,53 @@ public class Battle extends ScreenAdapter {
         }, 0f); // Inizia subito l'animazione
 
     }
-    
 
     public void leggiPoke(int numero) {
         // Carica il file JSON
         FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
         String jsonString = file.readString();
-        
+
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
 
-            JsonValue pokeJson = json.get("poke"+numero);
-            nomePoke = pokeJson.getString("nomePokemon");
-            LVPoke = pokeJson.getString("livello");
+        JsonValue pokeJson = json.get("poke" + numero);
+        nomePoke = pokeJson.getString("nomePokemon");
+        LVPoke = pokeJson.getString("livello");
 
-            JsonValue statistiche = pokeJson.get("statistiche"); 
+        JsonValue statistiche = pokeJson.get("statistiche");
 
-            currentPokeHP = pokeJson.get("statistiche").getString("hp");
-            maxPokeHP = pokeJson.get("statistiche").getString("hpTot");
+        currentPokeHP = pokeJson.get("statistiche").getString("hp");
+        maxPokeHP = pokeJson.get("statistiche").getString("hpTot");
 
-            statsPlayer.clear();
-            for (JsonValue stat : statistiche) {
-                if (!stat.name.equals("hp") && !stat.name.equals("hpTot")){
-                    statsPlayer.add(stat.asInt());
-                }
+        statsPlayer.clear();
+        for (JsonValue stat : statistiche) {
+            if (!stat.name.equals("hp") && !stat.name.equals("hpTot")) {
+                statsPlayer.add(stat.asInt());
             }
-            
-            JsonValue mosse = pokeJson.get("mosse");
-            nomeBall = pokeJson.getString("tipoBall");
-            listaMosse.clear();
-            for (JsonValue mossaJson : mosse) {
-                String nomeMossa = mossaJson.getString("nome");
-                String tipoMossa = mossaJson.getString("tipo");
-                String attPP = mossaJson.getString("ppAtt");
-                String maxPP = mossaJson.getString("ppTot");
-                
-                // Aggiungi la mossa alla lista
-                Mossa mossa=new Mossa(nomeMossa, tipoMossa, maxPP, attPP, this); //gli passo Battle stesso con "this" per poter chiamare anche i metodi di Battle da Mossa
-                listaMosse.add(mossa);
-            }
+        }
 
-            if (currentPokeHP.equals("0") || nomePoke.equals("")){
-                if (numeroIndexPoke<6){
-                    numeroIndexPoke++;
-                    leggiPoke(numeroIndexPoke);
-                }
+        JsonValue mosse = pokeJson.get("mosse");
+        nomeBall = pokeJson.getString("tipoBall");
+        listaMosse.clear();
+        for (JsonValue mossaJson : mosse) {
+            String nomeMossa = mossaJson.getString("nome");
+            String tipoMossa = mossaJson.getString("tipo");
+            String attPP = mossaJson.getString("ppAtt");
+            String maxPP = mossaJson.getString("ppTot");
+
+            // Aggiungi la mossa alla lista
+            Mossa mossa = new Mossa(nomeMossa, tipoMossa, maxPP, attPP, this); // gli passo Battle stesso con "this" per
+                                                                               // poter chiamare anche i metodi di
+                                                                               // Battle da Mossa
+            listaMosse.add(mossa);
+        }
+
+        if (currentPokeHP.equals("0") || nomePoke.equals("")) {
+            if (numeroIndexPoke < 6) {
+                numeroIndexPoke++;
+                leggiPoke(numeroIndexPoke);
             }
+        }
 
     }
 
@@ -1677,42 +1672,43 @@ public class Battle extends ScreenAdapter {
         String jsonString = file.readString();
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
-        JsonValue pokeJson = json.get("poke"+numero);
+        JsonValue pokeJson = json.get("poke" + numero);
         currentPokeHPforSquad = pokeJson.get("Statistiche").getString("hp");
         nomePokeSquad = pokeJson.getString("nomePokemon");
-        if (!pokeJson.getString("livello").equals("")){
-            if (pokeJson.getInt("livello")>levelMax){
-                levelMax=pokeJson.getInt("livello");
+        if (!pokeJson.getString("livello").equals("")) {
+            if (pokeJson.getInt("livello") > levelMax) {
+                levelMax = pokeJson.getInt("livello");
             }
         }
 
     }
 
-    private void posizionaLabelSquadra(){
+    private void posizionaLabelSquadra() {
 
-        labelPokePiazzate=true;
- 
+        labelPokePiazzate = true;
+
         Texture arrowPlayer = asset.getBattle(Assets.PLAYER_ARROW);
         playerArrow = new Image(arrowPlayer);
-        //playerArrow.setPosition(1024-250,270);
-        playerArrow.setPosition(1024,270); //inizialmente fuori dallo schermo
+        // playerArrow.setPosition(1024-250,270);
+        playerArrow.setPosition(1024, 270); // inizialmente fuori dallo schermo
         playerArrow.setSize(250, 26);
         stage.addActor(playerArrow);
 
-        if (isBotFight){
-        Texture arrowBot = asset.getBattle(Assets.BOT_ARROW);
-        botArrow = new Image(arrowBot);
-        //botArrow.setPosition(0,650);
-        botArrow.setPosition(-250,650); //inizialmente fuori dallo schermo
-        botArrow.setSize(250, 26);
-        stage.addActor(botArrow);
-        Action botArrowAction = Actions.moveTo(0, 650, 0.5f);
-        botArrow.addAction(botArrowAction);
-        piazzaSquadBot();
+        if (isBotFight) {
+            Texture arrowBot = asset.getBattle(Assets.BOT_ARROW);
+            botArrow = new Image(arrowBot);
+            // botArrow.setPosition(0,650);
+            botArrow.setPosition(-250, 650); // inizialmente fuori dallo schermo
+            botArrow.setSize(250, 26);
+            stage.addActor(botArrow);
+            Action botArrowAction = Actions.moveTo(0, 650, 0.5f);
+            botArrow.addAction(botArrowAction);
+            piazzaSquadBot();
         }
 
         // Creazione delle azioni per lo spostamento delle frecce
-        Action playerArrowAction = Actions.moveTo(1024-250, 270, 0.5f); // duration è la durata dell'animazione in secondi
+        Action playerArrowAction = Actions.moveTo(1024 - 250, 270, 0.5f); // duration è la durata dell'animazione in
+                                                                          // secondi
 
         // Applicazione delle azioni alle frecce
         playerArrow.addAction(playerArrowAction);
@@ -1720,51 +1716,49 @@ public class Battle extends ScreenAdapter {
         piazzaSquad();
     }
 
-
-    private void piazzaSquad(){
+    private void piazzaSquad() {
         Texture texture = asset.getBattle(Assets.BALLS_FOR_NUMBER);
-        TextureRegion[][] textureRegions = TextureRegion.split(texture, texture.getWidth() / 8, texture.getHeight() / 3);
+        TextureRegion[][] textureRegions = TextureRegion.split(texture, texture.getWidth() / 8,
+                texture.getHeight() / 3);
         // Inizializza l'array di sprite
         spriteArrayBallsSquadra = new Sprite[8];
-        int colonna=-1;
+        int colonna = -1;
 
-        for (int i=0; i<6; i++){
-            leggiPokeSecondario(i+1);
-            if (nomePokeSquad.isEmpty()){
-                colonna=2;
-            }
-            else {
-                if (currentPokeHPforSquad.equals("0")){
-                    colonna=1;
-                }
-                else{
-                    colonna=0;
+        for (int i = 0; i < 6; i++) {
+            leggiPokeSecondario(i + 1);
+            if (nomePokeSquad.isEmpty()) {
+                colonna = 2;
+            } else {
+                if (currentPokeHPforSquad.equals("0")) {
+                    colonna = 1;
+                } else {
+                    colonna = 0;
                 }
             }
-
 
             // Riempie l'array di sprite
             int indice = 0;
             for (int riga = 0; riga < 3; riga++) {
-                    spriteArrayBallsSquadra[indice++] = new Sprite(textureRegions[riga][colonna]);
+                spriteArrayBallsSquadra[indice++] = new Sprite(textureRegions[riga][colonna]);
             }
 
             final int index = i;
-            final int col =colonna;
+            final int col = colonna;
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
                     TextureRegion region = textureRegions[col][0];
                     Image image = new Image(region); // Crea un'istanza di Image con la texture region corrispondente
 
-                    // Imposta l'origine dell'immagine al centro per rendere la rotazione attorno al suo asse centrale
+                    // Imposta l'origine dell'immagine al centro per rendere la rotazione attorno al
+                    // suo asse centrale
                     image.setOrigin(Align.center);
                     image.setPosition(1024, 270); // Posiziona l'immagine fuori dallo schermo
                     image.setSize(32, 30);
                     stage.addActor(image); // Aggiungi l'immagine allo stage
-                    
 
-                    Action moveAction = Actions.moveTo(playerArrow.getX() + (30 * (6-index) + 10 * (6-index) - 20), playerArrow.getY(), 1f); // Sposta l'immagine sulla freccia del giocatore
+                    Action moveAction = Actions.moveTo(playerArrow.getX() + (30 * (6 - index) + 10 * (6 - index) - 20),
+                            playerArrow.getY(), 1f); // Sposta l'immagine sulla freccia del giocatore
                     image.setOrigin(image.getWidth() / 2, image.getHeight() / 2);
                     Action rotateAction = Actions.rotateBy(360, 1f); // Ruota l'immagine di 360 gradi in 1 secondi
                     Action changeImageAction = Actions.run(() -> {
@@ -1775,56 +1769,54 @@ public class Battle extends ScreenAdapter {
                     image.addAction(sequenceAction); // Applica le azioni all'immagine
 
                 }
-            }, 0.5f*(6-i));
+            }, 0.5f * (6 - i));
         }
-
 
     }
 
-    private void piazzaSquadBot(){
+    private void piazzaSquadBot() {
         Texture texture = asset.getBattle(Assets.BALLS_FOR_NUMBER);
-        TextureRegion[][] textureRegions = TextureRegion.split(texture, texture.getWidth() / 8, texture.getHeight() / 3);
+        TextureRegion[][] textureRegions = TextureRegion.split(texture, texture.getWidth() / 8,
+                texture.getHeight() / 3);
         // Inizializza l'array di sprite
         spriteArrayBallsSquadra = new Sprite[8];
-        int colonna=-1;
+        int colonna = -1;
 
-        for (int i=0; i<6; i++){
-            leggiPokeSecondarioBot(i+1,1);
-            if (nomePokeSquadBot.isEmpty()){
-                colonna=2;
-            }
-            else {
-                if (hpBotSquad.get(i).equals(0)){
-                    colonna=1;
-                }
-                else{
-                    colonna=0;
+        for (int i = 0; i < 6; i++) {
+            leggiPokeSecondarioBot(i + 1, 1);
+            if (nomePokeSquadBot.isEmpty()) {
+                colonna = 2;
+            } else {
+                if (hpBotSquad.get(i).equals(0)) {
+                    colonna = 1;
+                } else {
+                    colonna = 0;
                 }
             }
-
 
             // Riempie l'array di sprite
             int indice = 0;
             for (int riga = 0; riga < 3; riga++) {
-                    spriteArrayBallsSquadra[indice++] = new Sprite(textureRegions[riga][colonna]);
+                spriteArrayBallsSquadra[indice++] = new Sprite(textureRegions[riga][colonna]);
             }
 
             final int index = i;
-            final int col =colonna;
+            final int col = colonna;
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
                     TextureRegion region = textureRegions[col][0];
                     Image image = new Image(region); // Crea un'istanza di Image con la texture region corrispondente
 
-                    // Imposta l'origine dell'immagine al centro per rendere la rotazione attorno al suo asse centrale
+                    // Imposta l'origine dell'immagine al centro per rendere la rotazione attorno al
+                    // suo asse centrale
                     image.setOrigin(Align.center);
                     image.setPosition(0, 650); // Posiziona l'immagine fuori dallo schermo
                     image.setSize(32, 30);
                     stage.addActor(image); // Aggiungi l'immagine allo stage
-                    
 
-                    Action moveAction = Actions.moveTo(botArrow.getX() + (30 * index + 10 * index), botArrow.getY(), 1f); // Sposta l'immagine sulla freccia del giocatore
+                    Action moveAction = Actions.moveTo(botArrow.getX() + (30 * index + 10 * index), botArrow.getY(),
+                            1f); // Sposta l'immagine sulla freccia del giocatore
                     image.setOrigin(image.getWidth() / 2, image.getHeight() / 2);
                     Action rotateAction = Actions.rotateBy(360, 1f); // Ruota l'immagine di 360 gradi in 1.5 secondi
                     Action changeImageAction = Actions.run(() -> {
@@ -1835,15 +1827,12 @@ public class Battle extends ScreenAdapter {
                     image.addAction(sequenceAction); // Applica le azioni all'immagine
 
                 }
-            }, 0.5f*(6-i));
+            }, 0.5f * (6 - i));
         }
-
 
     }
 
-
-    
-    private void leggiBot(String nameBot){
+    private void leggiBot(String nameBot) {
         FileHandle file = Gdx.files.local("bots/bots.json");
         String jsonString = file.readString();
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
@@ -1851,7 +1840,6 @@ public class Battle extends ScreenAdapter {
         JsonValue pokeJson = json.get(nameBot);
         nomeBot = pokeJson.getString("nome");
         tipoBot = pokeJson.getString("tipo");
-
 
     }
 
@@ -1862,82 +1850,78 @@ public class Battle extends ScreenAdapter {
 
         FileHandle file2 = Gdx.files.local("pokemon/mosse.json");
         String jsonString2 = file2.readString();
-        
+
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
 
         JsonValue json2 = new JsonReader().parse(jsonString2);
 
-            JsonValue pokeJson = json.get(nBot).get("poke"+numeroPoke);
-            nomePokeBot = pokeJson.getString("nomePokemon");
-            LVPokeBot = pokeJson.getString("livello");
+        JsonValue pokeJson = json.get(nBot).get("poke" + numeroPoke);
+        nomePokeBot = pokeJson.getString("nomePokemon");
+        LVPokeBot = pokeJson.getString("livello");
 
-            if (!LVPokeBot.equals("")){
-                levelLastPokeBot=LVPokeBot;
-            }
+        if (!LVPokeBot.equals("")) {
+            levelLastPokeBot = LVPokeBot;
+        }
 
-            IV iv = new IV();
-            JsonValue pokeIvBot2 = iv.creaIV();
-    
-            Stats stats = new Stats();
+        IV iv = new IV();
+        JsonValue pokeIvBot2 = iv.creaIV();
 
-            if (!nomePokeBot.equals("") && !LVPokeBot.equals("")){
-                scopriPokemon(nomePokeBot);
-                JsonValue statistiche = stats.calcolaStatsBot(nomePokeBot ,Integer.parseInt(LVPokeBot), pokeIvBot2);           
-                statsBot.clear();
+        Stats stats = new Stats();
+
+        if (!nomePokeBot.equals("") && !LVPokeBot.equals("")) {
+            scopriPokemon(nomePokeBot);
+            JsonValue statistiche = stats.calcolaStatsBot(nomePokeBot, Integer.parseInt(LVPokeBot), pokeIvBot2);
+            statsBot.clear();
             for (JsonValue stat : statistiche) {
-                if (!stat.name.equals("hp") && !stat.name.equals("hpTot")){
+                if (!stat.name.equals("hp") && !stat.name.equals("hpTot")) {
                     statsBot.add(stat.asInt());
                 }
             }
             maxPokeHPBot = statistiche.getString("hp");
-            currentPokeHPBot = statistiche.getString("hp"); 
-            }
+            currentPokeHPBot = statistiche.getString("hp");
+        }
 
-            JsonValue mosse = pokeJson.get("mosse");
-            listaMosseBot.clear(); 
-            for (JsonValue mossaJson : mosse) {
-                String nomeMossa = mossaJson.getString("nome");
-                String tipoMossa = mossaJson.getString("tipo");
-                String ppMossa = "0";
-                if(!nomeMossa.isEmpty()){
-                    ppMossa = json2.get(nomeMossa).getString("pp");
-                }
-                // Aggiungi la mossa alla lista
-                Mossa mossa=new Mossa(nomeMossa, tipoMossa, ppMossa, ppMossa, this);
-                listaMosseBot.add(mossa);
+        JsonValue mosse = pokeJson.get("mosse");
+        listaMosseBot.clear();
+        for (JsonValue mossaJson : mosse) {
+            String nomeMossa = mossaJson.getString("nome");
+            String tipoMossa = mossaJson.getString("tipo");
+            String ppMossa = "0";
+            if (!nomeMossa.isEmpty()) {
+                ppMossa = json2.get(nomeMossa).getString("pp");
             }
+            // Aggiungi la mossa alla lista
+            Mossa mossa = new Mossa(nomeMossa, tipoMossa, ppMossa, ppMossa, this);
+            listaMosseBot.add(mossa);
+        }
 
-            if (isBotFight && currentPokeHPBot!=null && nomePokeBot!=null){
-                if (currentPokeHPBot.equals("0") || nomePokeBot.equals("")){
-                    if (numeroIndexPokeBot<6){
-                        numeroIndexPokeBot++;
-                        leggiPokeBot(nBot,numeroIndexPokeBot);
-                    }
-                    else if(numeroIndexPokeBot==6){
-                        calcolaDenaroVintoDaNPC();
-                        modifcicaDenaro(soldiPresi);
-                        fineBattaglia();
-                    }
+        if (isBotFight && currentPokeHPBot != null && nomePokeBot != null) {
+            if (currentPokeHPBot.equals("0") || nomePokeBot.equals("")) {
+                if (numeroIndexPokeBot < 6) {
+                    numeroIndexPokeBot++;
+                    leggiPokeBot(nBot, numeroIndexPokeBot);
+                } else if (numeroIndexPokeBot == 6) {
+                    calcolaDenaroVintoDaNPC();
+                    modifcicaDenaro(soldiPresi);
+                    fineBattaglia();
                 }
             }
+        }
 
     }
 
-
     private void leggiPokeSelvatico(String nBot, String zona) {
         // Carica il file JSON
-        FileHandle file = Gdx.files.local("jsonPokeSelvatici/"+ zona +".json");
+        FileHandle file = Gdx.files.local("jsonPokeSelvatici/" + zona + ".json");
         String jsonString = file.readString();
         FileHandle file2 = Gdx.files.local("pokemon/mosse.json");
         String jsonString2 = file2.readString();
-        
+
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
 
         JsonValue json2 = new JsonReader().parse(jsonString2);
-
-        
 
         JsonValue pokeJson = json.get(nomeSelvatico);
         nomePokeBot = pokeJson.getString("nomePokemon");
@@ -1945,69 +1929,68 @@ public class Battle extends ScreenAdapter {
         SelvaticoLVPokeBotMax = pokeJson.getInt("livello-max");
 
         x = (float) (Math.random() * (1.3 - 0.4)) + 0.4f;
-        float randoLvl = (float) (Math.random() * (SelvaticoLVPokeBotMax - SelvaticoLVPokeBotMin + 1)) + SelvaticoLVPokeBotMin;
-        int randoLvlInt = (int) randoLvl;  // Converte il valore in intero
+        float randoLvl = (float) (Math.random() * (SelvaticoLVPokeBotMax - SelvaticoLVPokeBotMin + 1))
+                + SelvaticoLVPokeBotMin;
+        int randoLvlInt = (int) randoLvl; // Converte il valore in intero
         LVPokeBot = String.valueOf(randoLvlInt);
 
         FileHandle filePoke = Gdx.files.local("pokemon/Pokemon.json");
         String jsonStringPoke = filePoke.readString();
         JsonValue jsonPoke = new JsonReader().parse(jsonStringPoke);
 
-        IV iv= new IV();
+        IV iv = new IV();
         pokeIvBot = iv.creaIV();
 
         Stats stats = new Stats();
-        JsonValue statistiche = stats.calcolaStatsBot(nameBot,Integer.parseInt(LVPokeBot), pokeIvBot);
+        JsonValue statistiche = stats.calcolaStatsBot(nameBot, Integer.parseInt(LVPokeBot), pokeIvBot);
         statsBot.clear();
         for (JsonValue stat : statistiche) {
-            if (!stat.name.equals("hp")){
-                statsBot.add((int)(stat.asInt()*x));
+            if (!stat.name.equals("hp")) {
+                statsBot.add((int) (stat.asInt() * x));
             }
         }
         maxPokeHPBot = statistiche.getString("hp");
         currentPokeHPBot = statistiche.getString("hp");
 
-
         int numMosseImparabili = (int) (randoLvl / 2);
 
         // Ottieni la lista delle mosse imparabili
-        JsonValue mosseImparabili = jsonPoke.get(nameBot).get("mosseImparabili"); 
+        JsonValue mosseImparabili = jsonPoke.get(nameBot).get("mosseImparabili");
 
         // Seleziona le prime `n` mosse in base al numero calcolato
         List<String> mossePossibili = new ArrayList<>();
-        for (int i = 1; i <= numMosseImparabili && i <= 50; i++) {  // Assumiamo che ci siano al massimo 50 mosse
+        for (int i = 1; i <= numMosseImparabili && i <= 50; i++) { // Assumiamo che ci siano al massimo 50 mosse
             String mossa = mosseImparabili.getString("M" + i);
             if (!mossa.isEmpty()) {
                 mossePossibili.add(mossa);
             }
         }
 
-        //System.out.println(LVPokeBot);
+        // System.out.println(LVPokeBot);
 
         // Seleziona un numero casuale di mosse (da 1 a 4)
-        int numMosseDaSelezionare = (int) (Math.random() * 4) + 1;  // Genera un numero da 1 a 4
+        int numMosseDaSelezionare = (int) (Math.random() * 4) + 1; // Genera un numero da 1 a 4
 
         // Seleziona casualmente `numMosseDaSelezionare` mosse dalle mosse possibili
         Collections.shuffle(mossePossibili);
         List<String> mosseScelte = mossePossibili.subList(0, Math.min(numMosseDaSelezionare, mossePossibili.size()));
 
-
         // Itera sulle mosse selezionate, recuperando i dettagli dal file `mosse.json`
         for (String nomeMossa : mosseScelte) {
-            JsonValue mossaJson = json2.get(nomeMossa);  // Cerca la mossa in `mosse.json`
+            JsonValue mossaJson = json2.get(nomeMossa); // Cerca la mossa in `mosse.json`
 
             // Verifica che la mossa esista nel file delle mosse
             if (mossaJson != null) {
-                String tipoMossa = mossaJson.getString("tipo", "");  // Ottieni il tipo della mossa
-                String ppMossa = mossaJson.getString("pp", "0");     // Ottieni i PP della mossa
+                String tipoMossa = mossaJson.getString("tipo", ""); // Ottieni il tipo della mossa
+                String ppMossa = mossaJson.getString("pp", "0"); // Ottieni i PP della mossa
 
                 // Crea e aggiungi la mossa alla lista `listaMosseBot`
-                //System.out.println(nomeMossa);
+                // System.out.println(nomeMossa);
 
                 Mossa mossa = new Mossa(nomeMossa, tipoMossa, ppMossa, ppMossa, this);
                 listaMosseBot.add(mossa);
             } else {
-                //System.out.println("Mossa non trovata: " + nomeMossa);
+                // System.out.println("Mossa non trovata: " + nomeMossa);
             }
         }
     }
@@ -2016,43 +1999,41 @@ public class Battle extends ScreenAdapter {
         // Carica il file JSON
         FileHandle file = Gdx.files.local("bots/bots.json");
         String jsonString = file.readString();
-        
+
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
 
-        JsonValue pokeJson = json.get(nameBot).get("poke"+numero);
+        JsonValue pokeJson = json.get(nameBot).get("poke" + numero);
         nomePokeSquadBot = pokeJson.getString("nomePokemon");
         String LVPokeBotSQ = pokeJson.getString("livello");
-        IV iv= new IV();
+        IV iv = new IV();
         pokeIvBot = iv.creaIV();
 
         Stats stats = new Stats();
 
-        if (!nomePokeSquadBot.isEmpty()){
-            JsonValue statistiche = stats.calcolaStatsBot(nomePokeSquadBot,Integer.parseInt(LVPokeBotSQ), pokeIvBot);
+        if (!nomePokeSquadBot.isEmpty()) {
+            JsonValue statistiche = stats.calcolaStatsBot(nomePokeSquadBot, Integer.parseInt(LVPokeBotSQ), pokeIvBot);
             currentPokeHPBotSquad = statistiche.getInt("hp");
-        }
-        else{
-            currentPokeHPBotSquad=-90310;
+        } else {
+            currentPokeHPBotSquad = -90310;
         }
 
         hpBotSquad.add(currentPokeHPBotSquad);
 
     }
 
-
-    private Image placeHpBar(Image image, int diffX, int diffY, String currentHP, String maxHP){
-        if (image.equals(botHPBar) && checkPerDoppiaBarra>1){
-            return null; //ferma l'esecuzione se è già attiva (evita il problema della doppia barra)
+    private Image placeHpBar(Image image, int diffX, int diffY, String currentHP, String maxHP) {
+        if (image.equals(botHPBar) && checkPerDoppiaBarra > 1) {
+            return null; // ferma l'esecuzione se è già attiva (evita il problema della doppia barra)
         }
         // Calcola la percentuale degli HP attuali rispetto agli HP totali
-        float percentualeHP = Float.parseFloat(currentHP)  / Float.parseFloat(maxHP);
+        float percentualeHP = Float.parseFloat(currentHP) / Float.parseFloat(maxHP);
         float lunghezzaHPBar = 96 * percentualeHP;
         // Crea e posiziona la hpBar sopra imageHPPlayer con l'offset specificato
         Image hpBar = new Image(new TextureRegionDrawable(new TextureRegion(asset.getBattle(Assets.WHITE_PX))));
-        hpBar.setSize((int)lunghezzaHPBar, 6);
+        hpBar.setSize((int) lunghezzaHPBar, 6);
         hpBar.setPosition(image.getX() + diffX, image.getY() + diffY);
-        //hpBar.setPosition(400, 400);
+        // hpBar.setPosition(400, 400);
         // Determina il colore della hpBar in base alla percentuale calcolata
         Color coloreHPBar;
         if (percentualeHP >= 0.5f) {
@@ -2067,13 +2048,12 @@ public class Battle extends ScreenAdapter {
         // Aggiungi hpBar allo stage
         stage.addActor(hpBar);
 
-        if (image.equals(botHPBar)){
-            checkPerDoppiaBarra=0;
+        if (image.equals(botHPBar)) {
+            checkPerDoppiaBarra = 0;
         }
-        
+
         return hpBar;
     }
-
 
     // Metodo per aggiornare la larghezza della barra degli HP con un'animazione
     private void updateHpBarWidth(Image hpBar, String currentHP, String maxHP, Image pokeImage, String nomePokem) {
@@ -2098,23 +2078,23 @@ public class Battle extends ScreenAdapter {
             if (hpBar == HPplayer) {
                 int passi;
                 // Calcola il numero di passi necessari per raggiungere currentHP
-                if (dannoBot>Integer.parseInt(pokeHPbeforeFight)){
+                if (dannoBot > Integer.parseInt(pokeHPbeforeFight)) {
                     passi = Integer.parseInt(pokeHPbeforeFight);
                     for (int i = 0; i < pokeInBattaglia.size(); i++) {
-                        if (pokeInBattaglia.get(i).equals(numeroIndexPoke)){
+                        if (pokeInBattaglia.get(i).equals(numeroIndexPoke)) {
                             pokeInBattaglia.remove(i);
                         }
                     }
 
-                }
-                else{
+                } else {
                     passi = dannoBot;
                 }
-                
+
                 // Calcola il ritardo tra ogni passo
                 float ritardoTraPassi = 1f / passi;
 
-                // Crea un'azione parallela per gestire contemporaneamente l'aggiornamento della larghezza della barra HP e l'animazione del cambiamento di labelHP
+                // Crea un'azione parallela per gestire contemporaneamente l'aggiornamento della
+                // larghezza della barra HP e l'animazione del cambiamento di labelHP
                 ParallelAction parallelAction = new ParallelAction();
 
                 // Aggiungi un'azione per aggiornare la larghezza della barra HP
@@ -2122,8 +2102,8 @@ public class Battle extends ScreenAdapter {
 
                 // Aggiungi un'azione per l'animazione del cambiamento del valore di labelHP
                 for (int i = 0; i < passi; i++) {
-                    int nuovoValore = Integer.parseInt(pokeHPbeforeFight) - (i+1);
-                    
+                    int nuovoValore = Integer.parseInt(pokeHPbeforeFight) - (i + 1);
+
                     Timer.schedule(new Timer.Task() {
                         @Override
                         public void run() {
@@ -2156,182 +2136,179 @@ public class Battle extends ScreenAdapter {
         } // Fine del blocco sincronizzato
     }
 
-
-    public void piazzaLabel5(){
-        counterForNextMove++; 
-        delaySecondText=0.7f;
-        if (checkLabel5){
-            checkLabel5=false;
+    public void piazzaLabel5() {
+        counterForNextMove++;
+        delaySecondText = 0.7f;
+        if (checkLabel5) {
+            checkLabel5 = false;
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
-                labelDiscorsi5.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
-                label5=labelDiscorsi5.getLabel();
-                stage.addActor(label5);
-                Timer.schedule(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        labelDiscorsi5.reset();
-                        label5.remove();
-                        label5=null;
-                        checkLabel5=true;
-                        if(globalOtherAttack==true){
-                            if (counterForNextMove==1){
-                                    if (nextMoveBot){
-                                        if (Integer.parseInt(currentPokeHPBot)>0)
+                    labelDiscorsi5.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più
+                                                              // alto di quello degli altri attori
+                    label5 = labelDiscorsi5.getLabel();
+                    stage.addActor(label5);
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            labelDiscorsi5.reset();
+                            label5.remove();
+                            label5 = null;
+                            checkLabel5 = true;
+                            if (globalOtherAttack == true) {
+                                if (counterForNextMove == 1) {
+                                    if (nextMoveBot) {
+                                        if (Integer.parseInt(currentPokeHPBot) > 0)
                                             utilizzoMossaBot(false, null);
-                                    }
-                                    else{
-                                        if (Integer.parseInt(currentPokeHP)>0)
-                                            utilizzoMossa(nextMove,false);
+                                    } else {
+                                        if (Integer.parseInt(currentPokeHP) > 0)
+                                            utilizzoMossa(nextMove, false);
                                     }
                                 }
                             }
-                    }
-                }, 1.2f);
-            }
-        }, 2f);
-    }
+                        }
+                    }, 1.2f);
+                }
+            }, 2f);
+        }
 
     }
-    
 
-    public void piazzaLabel6(){
-        counterForNextMove++; 
-        delaySecondText=0.7f;
-        if (checkLabel6){
-            checkLabel6=false;
+    public void piazzaLabel6() {
+        counterForNextMove++;
+        delaySecondText = 0.7f;
+        if (checkLabel6) {
+            checkLabel6 = false;
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
-                labelDiscorsi6.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
-                label6=labelDiscorsi6.getLabel();
-                stage.addActor(label6);
-                Timer.schedule(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        labelDiscorsi6.reset();
-                        label6.remove();
-                        label6=null;
-                        checkLabel6=true;
-                        if(globalOtherAttack==true){
-                            if (counterForNextMove==1){
-                                    if (nextMoveBot){
-                                        if (Integer.parseInt(currentPokeHPBot)>0)
+                    labelDiscorsi6.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più
+                                                              // alto di quello degli altri attori
+                    label6 = labelDiscorsi6.getLabel();
+                    stage.addActor(label6);
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            labelDiscorsi6.reset();
+                            label6.remove();
+                            label6 = null;
+                            checkLabel6 = true;
+                            if (globalOtherAttack == true) {
+                                if (counterForNextMove == 1) {
+                                    if (nextMoveBot) {
+                                        if (Integer.parseInt(currentPokeHPBot) > 0)
                                             utilizzoMossaBot(false, null);
-                                    }
-                                    else{
-                                        if (Integer.parseInt(currentPokeHP)>0)
-                                            utilizzoMossa(nextMove,false); 
+                                    } else {
+                                        if (Integer.parseInt(currentPokeHP) > 0)
+                                            utilizzoMossa(nextMove, false);
                                     }
                                 }
                             }
-                    }
-                }, 1.2f);
-            }
-        }, 2f);
-    }
+                        }
+                    }, 1.2f);
+                }
+            }, 2f);
+        }
     }
 
-
-    public void piazzaLabel7(){
-        counterForNextMove++; 
-        delaySecondText=0.7f;
+    public void piazzaLabel7() {
+        counterForNextMove++;
+        delaySecondText = 0.7f;
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
-            labelDiscorsi7.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
-            label7=labelDiscorsi7.getLabel();
-            stage.addActor(label7);
-            Timer.schedule(new Timer.Task() {
-                @Override
-                public void run() {
-                    labelDiscorsi7.reset();
-                    label7.remove();
-                    label7=null;
-                    if(globalOtherAttack==true){
-                        if (counterForNextMove==1){
-                                if (nextMoveBot){
-                                    if (Integer.parseInt(currentPokeHPBot)>0)
+                labelDiscorsi7.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto
+                                                          // di quello degli altri attori
+                label7 = labelDiscorsi7.getLabel();
+                stage.addActor(label7);
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        labelDiscorsi7.reset();
+                        label7.remove();
+                        label7 = null;
+                        if (globalOtherAttack == true) {
+                            if (counterForNextMove == 1) {
+                                if (nextMoveBot) {
+                                    if (Integer.parseInt(currentPokeHPBot) > 0)
                                         utilizzoMossaBot(false, null);
-                                }
-                                else{
-                                    if (Integer.parseInt(currentPokeHP)>0)
-                                        utilizzoMossa(nextMove,false); 
+                                } else {
+                                    if (Integer.parseInt(currentPokeHP) > 0)
+                                        utilizzoMossa(nextMove, false);
                                 }
                             }
                         }
-                }
-            }, 1.2f);
-        }
-    }, 2f);
+                    }
+                }, 1.2f);
+            }
+        }, 2f);
     }
 
-    public void piazzaLabel9(){
-        //delay se è attiva già un'altra animazione
-        float d=0;
-        if (!checkLabel5 || !checkLabel6){
-            d=1.2f;
+    public void piazzaLabel9() {
+        // delay se è attiva già un'altra animazione
+        float d = 0;
+        if (!checkLabel5 || !checkLabel6) {
+            d = 1.2f;
         }
 
-        final float delay=d;
-        delaySecondText=0.7f+delay;
+        final float delay = d;
+        delaySecondText = 0.7f + delay;
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
-            labelDiscorsi9.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
-            label9=labelDiscorsi9.getLabel();
-            stage.addActor(label9);
-            Timer.schedule(new Timer.Task() {
-                @Override
-                public void run() {
-                    labelDiscorsi9.reset();
-                    label9.remove();
-                    label9=null; 
-                    if(globalOtherAttack==true){
-                            if (nextMoveBot){
-                                if (Integer.parseInt(currentPokeHPBot)>0)
+                labelDiscorsi9.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto
+                                                          // di quello degli altri attori
+                label9 = labelDiscorsi9.getLabel();
+                stage.addActor(label9);
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        labelDiscorsi9.reset();
+                        label9.remove();
+                        label9 = null;
+                        if (globalOtherAttack == true) {
+                            if (nextMoveBot) {
+                                if (Integer.parseInt(currentPokeHPBot) > 0)
                                     utilizzoMossaBot(false, null);
-                            }
-                            else{
-                                if (Integer.parseInt(currentPokeHP)>0)
-                                    utilizzoMossa(nextMove,false); 
+                            } else {
+                                if (Integer.parseInt(currentPokeHP) > 0)
+                                    utilizzoMossa(nextMove, false);
                             }
                         }
-                }
-            }, 1.2f);
-        }
-    }, 2f+delay);
+                    }
+                }, 1.2f);
+            }
+        }, 2f + delay);
 
     }
 
+    public void faintPokemon(final Image pokeImage) {
 
-
-    public void faintPokemon(final Image pokeImage) { 
-
-        if (pokeImage!=pokemonImage){
+        if (pokeImage != pokemonImage) {
             updateEV();
         }
 
-        modificaPPMossePoke(numeroIndexPoke,listaMosse); //Aggiorna i PP delle mosse del pokemon se viene sconfitto
+        modificaPPMossePoke(numeroIndexPoke, listaMosse); // Aggiorna i PP delle mosse del pokemon se viene sconfitto
 
-        Rectangle scissors = new Rectangle(pokeImage.getX(), pokeImage.getY(), pokeImage.getWidth(), pokeImage.getHeight());
-    
+        Rectangle scissors = new Rectangle(pokeImage.getX(), pokeImage.getY(), pokeImage.getWidth(),
+                pokeImage.getHeight());
+
         float initialY = pokeImage.getY();
-    
+
         // Calcola la nuova posizione Y, che sarà sotto lo schermo
         float newY = -initialY;
-    
+
         // Crea un'azione di spostamento dell'immagine verso la nuova posizione Y
         Action moveAction = Actions.moveBy(0, newY, 0.6f); // Durata: 0.6 secondi
-    
+
         // Applica l'azione di spostamento all'immagine
         pokeImage.addAction(moveAction);
-    
+
         // Ritaglia l'area dell'immagine mentre diminuisci la sua altezza
-        ScissorStack.calculateScissors(stage.getCamera(), batch.getTransformMatrix(), new Rectangle(pokeImage.getX(), pokeImage.getY(), pokeImage.getWidth(), pokeImage.getHeight()), scissors);
+        ScissorStack.calculateScissors(stage.getCamera(), batch.getTransformMatrix(),
+                new Rectangle(pokeImage.getX(), pokeImage.getY(), pokeImage.getWidth(), pokeImage.getHeight()),
+                scissors);
         ScissorStack.pushScissors(scissors);
-    
 
         Timer.schedule(new Timer.Task() {
             @Override
@@ -2340,60 +2317,55 @@ public class Battle extends ScreenAdapter {
                 ScissorStack.popScissors();
                 pokeImage.remove();
 
-                if (isBotFight && pokeImage!=pokemonImage){
-                    if (numeroIndexPokeBot<6 && Integer.parseInt(currentPokeHPBot)==0){
+                if (isBotFight && pokeImage != pokemonImage) {
+                    if (numeroIndexPokeBot < 6 && Integer.parseInt(currentPokeHPBot) == 0) {
                         numeroIndexPokeBot++;
                         rimuoviPokeDaBattagliaBot();
-                        
-                    }
-                    else if (numeroIndexPokeBot==6 && Integer.parseInt(currentPokeHPBot)==0 && !isBattleEnded){
+
+                    } else if (numeroIndexPokeBot == 6 && Integer.parseInt(currentPokeHPBot) == 0 && !isBattleEnded) {
                         calcolaDenaroVintoDaNPC();
                         modifcicaDenaro(soldiPresi);
                         fineBattaglia();
                     }
-                }
-                else if(pokeImage==pokemonImage){
-                    int counter=0;
-                    for (int i=0; i<6; i++){
-                        leggiPokeSecondario(i+1);
-                        if (Integer.parseInt(currentPokeHPforSquad)>0){
+                } else if (pokeImage == pokemonImage) {
+                    int counter = 0;
+                    for (int i = 0; i < 6; i++) {
+                        leggiPokeSecondario(i + 1);
+                        if (Integer.parseInt(currentPokeHPforSquad) > 0) {
                             counter++;
                         }
                     }
-                    if (counter!=0){
-                        squadra = new Squadra(stage,true, battle, null, true);
-                        switchForzato=true;
-                    }
-                    else{
-                        sconfitta=true;
+                    if (counter != 0) {
+                        squadra = new Squadra(stage, true, battle, null, true);
+                        switchForzato = true;
+                    } else {
+                        sconfitta = true;
                         calcolaDenaroPerso();
                         modifcicaDenaro(denaroPerso);
                         fineBattaglia();
                     }
-                }
-                else{
+                } else {
                     calcoloEsperienzaVinta(0);
                 }
             }
         }, 0.6f);
-        
+
     }
 
-
-
-    public void piazzaLabel12(String nomePokem){
-        String discorso12= nomePokem+ " non ha piu' energie!";
-        labelDiscorsi12 = new LabelDiscorsi(discorso12,dimMax,0,true, false);
-        labelDiscorsi12.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
-        label12=labelDiscorsi12.getLabel();
+    public void piazzaLabel12(String nomePokem) {
+        String discorso12 = nomePokem + " non ha piu' energie!";
+        labelDiscorsi12 = new LabelDiscorsi(discorso12, dimMax, 0, true, false);
+        labelDiscorsi12.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di
+                                                   // quello degli altri attori
+        label12 = labelDiscorsi12.getLabel();
         stage.addActor(label12);
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
                 labelDiscorsi12.reset();
                 label12.remove();
-                label12=null;
-                if (isBotFight){
+                label12 = null;
+                if (isBotFight) {
                     updatePokeSquadBot();
                 }
                 updatePokeSquad();
@@ -2413,122 +2385,120 @@ public class Battle extends ScreenAdapter {
         // Carica il file JSON
         FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
         String jsonString = file.readString();
-        
+
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
-    
+
         // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
         JsonValue pokeJson = json.get("poke" + numero);
-    
+
         // Ottieni l'oggetto "statistiche" all'interno del Pokémon
         JsonValue statistiche = pokeJson.get("statistiche");
-    
+
         // Rimuovi il campo "hp" corrente
         statistiche.remove("hp");
         // Aggiungi il nuovo campo "hp" con il valore aggiornato
         statistiche.addChild("hp", new JsonValue(Integer.parseInt(currentHP)));
         // Scrivi il JSON aggiornato nel file mantenendo la formattazione
         file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
-        
-    }
-    
 
-    public void updatePokeSquadBot(){
+    }
+
+    public void updatePokeSquadBot() {
         Texture texture = asset.getBattle(Assets.BALLS_FOR_NUMBER);
-        TextureRegion[][] textureRegions = TextureRegion.split(texture, texture.getWidth() / 8, texture.getHeight() / 3);
+        TextureRegion[][] textureRegions = TextureRegion.split(texture, texture.getWidth() / 8,
+                texture.getHeight() / 3);
         // Inizializza l'array di sprite
         spriteArrayBallsSquadra = new Sprite[8];
-        int colonna=-1;
+        int colonna = -1;
 
-        for (int i=0; i<6; i++){
-            leggiPokeSecondarioBot(i+1,1);
-            if (nomePokeSquadBot.isEmpty()){
-                colonna=2;
-            }
-            else {
-                if (hpBotSquad.get(i).equals(0)){
-                    //System.out.println("a");
-                    colonna=1;
-                }
-                else{
-                    colonna=0;
-                    //System.out.println("b");
+        for (int i = 0; i < 6; i++) {
+            leggiPokeSecondarioBot(i + 1, 1);
+            if (nomePokeSquadBot.isEmpty()) {
+                colonna = 2;
+            } else {
+                if (hpBotSquad.get(i).equals(0)) {
+                    // System.out.println("a");
+                    colonna = 1;
+                } else {
+                    colonna = 0;
+                    // System.out.println("b");
                 }
             }
 
             // Riempie l'array di sprite
             int indice = 0;
             for (int riga = 0; riga < 3; riga++) {
-                    spriteArrayBallsSquadra[indice++] = new Sprite(textureRegions[riga][colonna]);
+                spriteArrayBallsSquadra[indice++] = new Sprite(textureRegions[riga][colonna]);
             }
 
             final int index = i;
-            final int col =colonna;
+            final int col = colonna;
 
             TextureRegion region = textureRegions[col][0];
             Image image = new Image(region); // Crea un'istanza di Image con la texture region corrispondente
 
-            // Imposta l'origine dell'immagine al centro per rendere la rotazione attorno al suo asse centrale
+            // Imposta l'origine dell'immagine al centro per rendere la rotazione attorno al
+            // suo asse centrale
             image.setOrigin(Align.center);
-            image.setPosition(botArrow.getX() + (30 * index + 10 * index), botArrow.getY()); 
+            image.setPosition(botArrow.getX() + (30 * index + 10 * index), botArrow.getY());
             image.setSize(32, 30);
             stage.addActor(image); // Aggiungi l'immagine allo stage
 
         }
     }
 
-    public void updatePokeSquad(){
+    public void updatePokeSquad() {
         Texture texture = asset.getBattle(Assets.BALLS_FOR_NUMBER);
-        TextureRegion[][] textureRegions = TextureRegion.split(texture, texture.getWidth() / 8, texture.getHeight() / 3);
+        TextureRegion[][] textureRegions = TextureRegion.split(texture, texture.getWidth() / 8,
+                texture.getHeight() / 3);
         // Inizializza l'array di sprite
         spriteArrayBallsSquadra = new Sprite[8];
-        int colonna=-1;
+        int colonna = -1;
 
-        for (int i=0; i<6; i++){
-            leggiPokeSecondario(i+1);
-            if (nomePokeSquad.isEmpty()){
-                colonna=2;
-            }
-            else {
-                if (currentPokeHPforSquad.equals("0")){
-                    colonna=1;
-                }
-                else{
-                    colonna=0;
+        for (int i = 0; i < 6; i++) {
+            leggiPokeSecondario(i + 1);
+            if (nomePokeSquad.isEmpty()) {
+                colonna = 2;
+            } else {
+                if (currentPokeHPforSquad.equals("0")) {
+                    colonna = 1;
+                } else {
+                    colonna = 0;
                 }
             }
 
             // Riempie l'array di sprite
             int indice = 0;
             for (int riga = 0; riga < 3; riga++) {
-                    spriteArrayBallsSquadra[indice++] = new Sprite(textureRegions[riga][colonna]);
+                spriteArrayBallsSquadra[indice++] = new Sprite(textureRegions[riga][colonna]);
             }
 
             final int index = i;
-            final int col =colonna;
+            final int col = colonna;
 
             TextureRegion region = textureRegions[col][0];
             Image image = new Image(region); // Crea un'istanza di Image con la texture region corrispondente
 
-            // Imposta l'origine dell'immagine al centro per rendere la rotazione attorno al suo asse centrale
+            // Imposta l'origine dell'immagine al centro per rendere la rotazione attorno al
+            // suo asse centrale
             image.setOrigin(Align.center);
-            image.setPosition(playerArrow.getX() + (30 * (6-index) + 10 * (6-index) - 20), playerArrow.getY()); 
+            image.setPosition(playerArrow.getX() + (30 * (6 - index) + 10 * (6 - index) - 20), playerArrow.getY());
             image.setSize(32, 30);
             stage.addActor(image); // Aggiungi l'immagine allo stage
 
         }
     }
 
-
-    public void rimuoviPokeDaBattagliaBot(){        
+    public void rimuoviPokeDaBattagliaBot() {
         for (int i = 0; i < pokeInBattaglia.size(); i++) {
-            //System.out.println(pokeInBattaglia.get(i));
+            // System.out.println(pokeInBattaglia.get(i));
         }
         calcoloEsperienzaVinta(1);
 
     }
 
-    public void rimuoviPokeDaBattaglia(){
+    public void rimuoviPokeDaBattaglia() {
         playerHPBar.remove();
         HPplayer.remove();
         expPlayer.remove();
@@ -2546,24 +2516,23 @@ public class Battle extends ScreenAdapter {
         labelHPTot.remove();
     }
 
+    private void fineBattaglia() {
+        isBattleEnded = true;
+        modificaPPMossePoke(numeroIndexPoke, listaMosse); // Aggiorna i PP delle mosse del pokemon se la battaglia
+                                                          // finisce
 
-
-    private void fineBattaglia(){
-        isBattleEnded= true;
-        modificaPPMossePoke(numeroIndexPoke,listaMosse); //Aggiorna i PP delle mosse del pokemon se la battaglia finisce
-
-        if (isBotFight && !sconfitta){
-            label3=labelDiscorsi3.getLabel();
+        if (isBotFight && !sconfitta) {
+            label3 = labelDiscorsi3.getLabel();
             stage.addActor(label3);
-        
+
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
                     labelDiscorsi3.reset();
                     label3.remove();
-                    label3=null;
+                    label3 = null;
 
-                    label8=labelDiscorsi8.getLabel();
+                    label8 = labelDiscorsi8.getLabel();
                     stage.addActor(label8);
 
                     Timer.schedule(new Timer.Task() {
@@ -2571,41 +2540,40 @@ public class Battle extends ScreenAdapter {
                         public void run() {
                             labelDiscorsi8.reset();
                             label8.remove();
-                            label8=null;
+                            label8 = null;
                             dispose();
                         }
                     }, 2f);
-                    
+
                 }
             }, 2f);
-        }
-        else if (sconfitta){
-            label16=labelDiscorsi16.getLabel();
+        } else if (sconfitta) {
+            label16 = labelDiscorsi16.getLabel();
             stage.addActor(label16);
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
                     labelDiscorsi16.reset();
                     label16.remove();
-                    label16=null;
+                    label16 = null;
 
-                    label17=labelDiscorsi17.getLabel();
+                    label17 = labelDiscorsi17.getLabel();
                     stage.addActor(label17);
                     Timer.schedule(new Timer.Task() {
                         @Override
                         public void run() {
                             labelDiscorsi17.reset();
                             label17.remove();
-                            label17=null;
+                            label17 = null;
 
-                            label18=labelDiscorsi18.getLabel();
+                            label18 = labelDiscorsi18.getLabel();
                             stage.addActor(label18);
                             Timer.schedule(new Timer.Task() {
                                 @Override
                                 public void run() {
                                     labelDiscorsi18.reset();
                                     label18.remove();
-                                    label18=null;
+                                    label18 = null;
                                     dispose();
                                 }
                             }, 3.5f);
@@ -2613,26 +2581,24 @@ public class Battle extends ScreenAdapter {
                     }, 2.5f);
                 }
             }, 2f);
-        }
-        else{
+        } else {
             dispose();
         }
 
     }
 
-
-    public void cambiaPokemon(int newIndex){
-        modificaPPMossePoke(numeroIndexPoke,listaMosse); //Aggiorna i PP delle mosse del pokemon se viene cambiato
-        switched=true; 
+    public void cambiaPokemon(int newIndex) {
+        modificaPPMossePoke(numeroIndexPoke, listaMosse); // Aggiorna i PP delle mosse del pokemon se viene cambiato
+        switched = true;
         rimuoviPokeDaBattaglia();
         listaMosse.clear();
-        leggiPoke(newIndex+1);
-        ballTexture = new Texture("battle/"+nomeBall+"Player.png");
-        String discorso2= "Vai "+ nomePoke + "!";
-        labelDiscorsi2 = new LabelDiscorsi(discorso2,dimMax,0,true, false);
+        leggiPoke(newIndex + 1);
+        ballTexture = new Texture("battle/" + nomeBall + "Player.png");
+        String discorso2 = "Vai " + nomePoke + "!";
+        labelDiscorsi2 = new LabelDiscorsi(discorso2, dimMax, 0, true, false);
         pokemonImage.remove();
-        numeroIndexPoke=newIndex+1;
-        if (!pokeInBattaglia.contains(numeroIndexPoke)){
+        numeroIndexPoke = newIndex + 1;
+        if (!pokeInBattaglia.contains(numeroIndexPoke)) {
             pokeInBattaglia.add(numeroIndexPoke);
         }
         showBall(ballTexture);
@@ -2644,51 +2610,50 @@ public class Battle extends ScreenAdapter {
         squadra = null;
     }
 
-    public void modifcicaDenaro(int soldiModifica){
+    public void modifcicaDenaro(int soldiModifica) {
         // Carica il file JSON
         FileHandle file = Gdx.files.local("assets/ashJson/datiGenerali.json");
         String jsonString = file.readString();
-        
+
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
 
-        int soldi= json.getInt("denaro");
+        int soldi = json.getInt("denaro");
 
         json.remove("denaro");
 
-        json.addChild("denaro", new JsonValue(soldi+soldiModifica));
+        json.addChild("denaro", new JsonValue(soldi + soldiModifica));
         file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
-        
+
     }
 
-    public void calcolaDenaroPerso(){
+    public void calcolaDenaroPerso() {
         // Carica il file JSON
         FileHandle file = Gdx.files.local("assets/ashJson/datiGenerali.json");
         String jsonString = file.readString();
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
         int nMedaglie = json.getInt("numero_medaglie");
-        denaroPerso=levelMax*(nMedaglie*33 +1);
-        if (json.getInt("denaro")<denaroPerso){
-            denaroPerso=json.getInt("denaro");
+        denaroPerso = levelMax * (nMedaglie * 33 + 1);
+        if (json.getInt("denaro") < denaroPerso) {
+            denaroPerso = json.getInt("denaro");
         }
 
-        String discorso17= "Hai perso " + denaroPerso + " Pokédollari nella fuga.";
-        labelDiscorsi17 = new LabelDiscorsi(discorso17,dimMax,0,true, false);
+        String discorso17 = "Hai perso " + denaroPerso + " Pokédollari nella fuga.";
+        labelDiscorsi17 = new LabelDiscorsi(discorso17, dimMax, 0, true, false);
 
-        denaroPerso*=-1;
+        denaroPerso *= -1;
     }
 
-    public void calcolaDenaroVintoDaNPC(){
-        soldiPresi=Integer.parseInt(levelLastPokeBot)*150;
+    public void calcolaDenaroVintoDaNPC() {
+        soldiPresi = Integer.parseInt(levelLastPokeBot) * 150;
 
-        String discorso8= "Hai guadagnato "+ soldiPresi+" Pokédollari.";
-        labelDiscorsi8 = new LabelDiscorsi(discorso8,dimMax,0,true, false);
+        String discorso8 = "Hai guadagnato " + soldiPresi + " Pokédollari.";
+        labelDiscorsi8 = new LabelDiscorsi(discorso8, dimMax, 0, true, false);
     }
 
-
-    public void calcoloTassoCattura(String nameUsedBall){
-        this.nameUsedBall=nameUsedBall;
+    public void calcoloTassoCattura(String nameUsedBall) {
+        this.nameUsedBall = nameUsedBall;
         int tasso;
         float bonusBall;
 
@@ -2710,14 +2675,15 @@ public class Battle extends ScreenAdapter {
         JsonValue pokeJson = json2.get(nameBot);
         tasso = pokeJson.getInt("tassoCattura");
 
-        tassoCattura=((((3*Integer.parseInt(maxPokeHPBot)) - (2*Integer.parseInt(currentPokeHPBot)))*tasso*bonusBall))/(3*Integer.parseInt(maxPokeHPBot));
+        tassoCattura = ((((3 * Integer.parseInt(maxPokeHPBot)) - (2 * Integer.parseInt(currentPokeHPBot))) * tasso
+                * bonusBall)) / (3 * Integer.parseInt(maxPokeHPBot));
 
-        ////System.out.println(tassoCattura);
+        //// System.out.println(tassoCattura);
 
-        String discorso19= "Hai lanciato una "+ nameUsedBall + "!";
-        labelDiscorsi19 = new LabelDiscorsi(discorso19,dimMax,0,true, false);
+        String discorso19 = "Hai lanciato una " + nameUsedBall + "!";
+        labelDiscorsi19 = new LabelDiscorsi(discorso19, dimMax, 0, true, false);
 
-        label19=labelDiscorsi19.getLabel();
+        label19 = labelDiscorsi19.getLabel();
         stage.addActor(label19);
 
         Timer.schedule(new Timer.Task() {
@@ -2726,479 +2692,497 @@ public class Battle extends ScreenAdapter {
                 calcoloVibrazioni(nameUsedBall);
             }
         }, 1.5f);
-        
-        
+
     }
 
-    public void calcoloVibrazioni(String ballName){
-        synchronized(lock){
-        int nVibrazioni=0;
-        Texture lanciaBallTexture = new Texture("battle/"+ballName+"Cattura.png");
+    public void calcoloVibrazioni(String ballName) {
+        synchronized (lock) {
+            int nVibrazioni = 0;
+            Texture lanciaBallTexture = new Texture("battle/" + ballName + "Cattura.png");
 
-        if(tassoCattura<255){
-            int vibrazione = (int)(1048560/Math.sqrt(Math.sqrt(16711680/(int)tassoCattura)));
+            if (tassoCattura < 255) {
+                int vibrazione = (int) (1048560 / Math.sqrt(Math.sqrt(16711680 / (int) tassoCattura)));
 
-            for (int i=0; i<4; i++){
-                int randomNumber = MathUtils.random(65535);
-                if (randomNumber<vibrazione){
-                    nVibrazioni++;
+                for (int i = 0; i < 4; i++) {
+                    int randomNumber = MathUtils.random(65535);
+                    if (randomNumber < vibrazione) {
+                        nVibrazioni++;
+                    }
                 }
+
+                lanciaCatturaBall(lanciaBallTexture, nVibrazioni);
+
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        labelDiscorsi19.reset();
+                        label19.remove();
+                        label19 = null;
+                    }
+                }, (1.5f + 1.5f * nVibrazioni));
+
+                /*
+                 * if (nVibrazioni==4){
+                 * //System.out.println("catturato");
+                 * }
+                 * else{
+                 * //System.out.println("uscito, numero vibrazioni "+ nVibrazioni);
+                 * }
+                 */
+
+            } else {
+                lanciaCatturaBall(lanciaBallTexture, 4);
             }
-
-            
-            lanciaCatturaBall(lanciaBallTexture, nVibrazioni);
-            
-
-            Timer.schedule(new Timer.Task() {
-                @Override
-                public void run() {
-                    labelDiscorsi19.reset();
-                    label19.remove();
-                    label19=null;
-                }
-            }, (1.5f+1.5f*nVibrazioni));
-
-            /*if (nVibrazioni==4){
-                //System.out.println("catturato");
-            }
-            else{
-                //System.out.println("uscito, numero vibrazioni "+ nVibrazioni);
-            }*/
-
-        }
-        else{
-            lanciaCatturaBall(lanciaBallTexture, 4);
-        }
-    } // fine blocco sincronizzato
+        } // fine blocco sincronizzato
     }
 
-    private void lanciaCatturaBall(Texture textureBall, int nVibrazioni){
-        
+    private void lanciaCatturaBall(Texture textureBall, int nVibrazioni) {
 
         int regionWidth = textureBall.getWidth() / 12;
         int regionHeight = textureBall.getHeight();
-    
+
         // Inizializza l'array delle TextureRegion della ball
         ballLanciata = new TextureRegion[12];
         for (int i = 0; i < 12; i++) {
             ballLanciata[i] = new TextureRegion(textureBall, i * regionWidth, 0, regionWidth, regionHeight);
         }
-    
+
         muoviBallLanciata = new Animation<>(0.5f, ballLanciata);
 
         // Crea e aggiungi l'immagine della ball allo stage
         imageBallLanciata = new Image(ballLanciata[1]);
-        imageBallLanciata.setSize(8*4, 12.5f*4);
-    
+        imageBallLanciata.setSize(8 * 4, 12.5f * 4);
+
         // Posizione iniziale della ball (NON CAMBIATELE) *alla fine le ho cambiate io
         float startX = 300;
         float startY = 100;
-    
+
         imageBallLanciata.setPosition(startX, startY);
-    
+
         stage.addActor(imageBallLanciata);
-    
+
         // Durata del movimento della ball
         float duration = 1.5f;
-    
+
         // Animazione di spostamento lungo una traiettoria curva
         Timer.schedule(new Timer.Task() {
             float elapsed = 0;
-    
+
             @Override
             public void run() {
                 if (elapsed <= duration) {
                     // Calcola la posizione sulla traiettoria curva
                     float percent = elapsed / duration;
-                    imageBallLanciata.setPosition((820) * percent, startY +(330)* percent);
+                    imageBallLanciata.setPosition((820) * percent, startY + (330) * percent);
                     elapsed += 0.05f;
-                } 
-                else {
+                } else {
                     // Cambia l'immagine della ball a [0]
                     imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[0]));
-    
+
                     // Nasconde l'immagine del Pokémon
                     pokemonImageBot.setVisible(false);
-    
+
                     float bounceHeight = 30f; // Altezza del rimbalzo
                     float bounceDuration = 0.25f; // Durata di ogni rimbalzo
 
-                    
                     // Esegue l'animazione di rimbalzo dopo un breve ritardo
                     imageBallLanciata.addAction(Actions.sequence(
-                        Actions.delay(0.5f),
-                        Actions.run(new Runnable() {
-                            @Override
-                            public void run() {
-                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[1]));
-                            }
-                        }),
-                        
-                        Actions.sequence(
-                            Actions.moveBy(0, -bounceHeight - 5f, bounceDuration), // cade a terra
-                            Actions.moveBy(0, bounceHeight, bounceDuration), // Primo rimbalzo
-                            Actions.moveBy(0, -bounceHeight, bounceDuration),
-                            Actions.moveBy(0, bounceHeight / 2, bounceDuration/2), // Secondo rimbalzo
-                            Actions.moveBy(0, -bounceHeight / 2, bounceDuration/2),
-                            Actions.moveBy(0, bounceHeight / 4, bounceDuration/4), // Terzo rimbalzo
-                            Actions.moveBy(0, -bounceHeight / 4, bounceDuration/4),
-                            Actions.delay(0.5f) // Attende 0.5 secondi
-                        ),
-                        // Controllo del numero di vibrazioni
-                        Actions.run(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (nVibrazioni == 0) {
-                                    Actions.delay(0.5f);
-                                    // Se nVibrazioni è 0, esegue l'animazione come richiesto
-                                    imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[0]));
-                                    // Solita animazione
-                                    Actions.delay(0.5f);
-                                    Actions.removeActor();
-                                    String discorso20= "Oh No! Il pokemon selvatico si e' liberato!";
-                                    labelDiscorsi20 = new LabelDiscorsi(discorso20,dimMax,0,true, false);
-                                    label20=labelDiscorsi20.getLabel();
-                                    stage.addActor(label20);
+                            Actions.delay(0.5f),
+                            Actions.run(new Runnable() {
+                                @Override
+                                public void run() {
+                                    imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[1]));
+                                }
+                            }),
 
-                                    Timer.schedule(new Timer.Task() {
-                                        @Override
-                                        public void run() {
-                                            utilizzoMossaBot(false,null);
-                                            labelDiscorsi20.reset();
-                                            label20.remove();
-                                            label20=null;
-                                        }
-                                    }, 2.5f);
+                            Actions.sequence(
+                                    Actions.moveBy(0, -bounceHeight - 5f, bounceDuration), // cade a terra
+                                    Actions.moveBy(0, bounceHeight, bounceDuration), // Primo rimbalzo
+                                    Actions.moveBy(0, -bounceHeight, bounceDuration),
+                                    Actions.moveBy(0, bounceHeight / 2, bounceDuration / 2), // Secondo rimbalzo
+                                    Actions.moveBy(0, -bounceHeight / 2, bounceDuration / 2),
+                                    Actions.moveBy(0, bounceHeight / 4, bounceDuration / 4), // Terzo rimbalzo
+                                    Actions.moveBy(0, -bounceHeight / 4, bounceDuration / 4),
+                                    Actions.delay(0.5f) // Attende 0.5 secondi
+                    ),
+                            // Controllo del numero di vibrazioni
+                            Actions.run(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (nVibrazioni == 0) {
+                                        Actions.delay(0.5f);
+                                        // Se nVibrazioni è 0, esegue l'animazione come richiesto
+                                        imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[0]));
+                                        // Solita animazione
+                                        Actions.delay(0.5f);
+                                        Actions.removeActor();
+                                        String discorso20 = "Oh No! Il pokemon selvatico si e' liberato!";
+                                        labelDiscorsi20 = new LabelDiscorsi(discorso20, dimMax, 0, true, false);
+                                        label20 = labelDiscorsi20.getLabel();
+                                        stage.addActor(label20);
 
-                                } else if (nVibrazioni == 1) {
-                                    // Se nVibrazioni è 1, passa sui frame 7 e 8 e torna a 0 dopo 0.5 secondi
-                                    imageBallLanciata.addAction(Actions.sequence(
-                                        Actions.run(new Runnable() {
+                                        Timer.schedule(new Timer.Task() {
                                             @Override
                                             public void run() {
-                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[7]));
+                                                utilizzoMossaBot(false, null);
+                                                labelDiscorsi20.reset();
+                                                label20.remove();
+                                                label20 = null;
                                             }
-                                        }),
-                                        Actions.delay(0.25f),
-                                        Actions.run(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[8]));
-                                            }
-                                        }),
-                                        Actions.delay(0.25f),
-                                        Actions.run(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[0]));
-                                                pokemonImageBot.setVisible(true);
-                                                String discorso20= "Oh No! Il pokemon selvatico si e' liberato!";
-                                                labelDiscorsi20 = new LabelDiscorsi(discorso20,dimMax,0,true, false);
-                                                label20=labelDiscorsi20.getLabel();
-                                                stage.addActor(label20);
+                                        }, 2.5f);
 
-                                                Timer.schedule(new Timer.Task() {
+                                    } else if (nVibrazioni == 1) {
+                                        // Se nVibrazioni è 1, passa sui frame 7 e 8 e torna a 0 dopo 0.5 secondi
+                                        imageBallLanciata.addAction(Actions.sequence(
+                                                Actions.run(new Runnable() {
                                                     @Override
                                                     public void run() {
-                                                        labelDiscorsi20.reset();
-                                                        label20.remove();
-                                                        label20=null;
-                                                        utilizzoMossaBot(false, null);
+                                                        imageBallLanciata.setDrawable(
+                                                                new TextureRegionDrawable(ballLanciata[7]));
                                                     }
-                                                }, 2.5f);
-                                            }
-                                        }),
-                                        // Solita animazione
-                                        Actions.delay(0.5f),
-                                        Actions.removeActor()
-
-                                    ));
-                                }
-
-                                else if (nVibrazioni == 2) {
-                                    // Se nVibrazioni è 2, esegue l'animazione specifica
-                                    imageBallLanciata.addAction(Actions.sequence(
-                                        // Passa su 7 e 8
-                                        Actions.run(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[7]));
-                                            }
-                                        }),
-                                        Actions.delay(0.25f),
-                                        Actions.run(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[8]));
-                                            }
-                                        }),
-                                
-                                        Actions.delay(0.5f),
-                                        // Passa su 9 e 8
-                                        Actions.delay(0.25f),
-                                        Actions.run(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[9]));
-                                            }
-                                        }),
-                                        Actions.delay(0.25f),
-                                        Actions.run(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[8]));
-                                            }
-                                        }),
-                                
-                                        // Ritorna all'animazione normale
-                                        Actions.delay(0.25f),
-                                        Actions.run(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[0]));
-                                                pokemonImageBot.setVisible(true);
-                                                String discorso20= "Oh No! Il pokemon selvatico si e' liberato!";
-                                                labelDiscorsi20 = new LabelDiscorsi(discorso20,dimMax,0,true, false);
-                                                label20=labelDiscorsi20.getLabel();
-                                                stage.addActor(label20);
-
-                                                Timer.schedule(new Timer.Task() {
+                                                }),
+                                                Actions.delay(0.25f),
+                                                Actions.run(new Runnable() {
                                                     @Override
                                                     public void run() {
-                                                        labelDiscorsi20.reset();
-                                                        label20.remove();
-                                                        label20=null; 
-                                                        utilizzoMossaBot(false, null);
+                                                        imageBallLanciata.setDrawable(
+                                                                new TextureRegionDrawable(ballLanciata[8]));
                                                     }
-                                                }, 2.5f);
-                                            }
-                                        }),
-                                        // Solita animazione
-                                        Actions.delay(0.5f),
-                                        Actions.removeActor()
-
-                                    ));
-                                }
-
-                                else if (nVibrazioni == 3) {
-                                    // Se nVibrazioni è 3, esegue l'animazione specifica
-                                    imageBallLanciata.addAction(Actions.sequence(
-                                        // Passa su 7 e 8
-                                        Actions.run(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[7]));
-                                            }
-                                        }),
-                                        Actions.delay(0.25f),
-                                        Actions.run(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[8]));
-                                            }
-                                        }),
-                                
-                                        Actions.delay(0.5f),
-                                        // Passa su 9 e 8
-                                        Actions.delay(0.25f),
-                                        Actions.run(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[9]));
-                                            }
-                                        }),
-                                        Actions.delay(0.25f),
-                                        Actions.run(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[8]));
-                                            }
-                                        }),
-                                
-                                        Actions.delay(0.5f),
-                                        // Passa su 7 e 8 di nuovo
-                                        Actions.delay(0.25f),
-                                        Actions.run(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[7]));
-                                            }
-                                        }),
-                                        Actions.delay(0.25f),
-                                        Actions.run(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[8]));
-                                            }
-                                        }),
-                                
-                                        // Torna a 0 dopo 0.5 secondi
-                                        Actions.delay(0.25f),
-                                        Actions.run(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[0]));
-                                                pokemonImageBot.setVisible(true);
-                                                String discorso20= "Oh No! Il pokemon selvatico si e' liberato!";
-                                                labelDiscorsi20 = new LabelDiscorsi(discorso20,dimMax,0,true, false);
-                                                label20=labelDiscorsi20.getLabel();
-                                                stage.addActor(label20);
-
-                                                Timer.schedule(new Timer.Task() {
+                                                }),
+                                                Actions.delay(0.25f),
+                                                Actions.run(new Runnable() {
                                                     @Override
                                                     public void run() {
-                                                        labelDiscorsi20.reset();
-                                                        label20.remove();
-                                                        label20=null;
-                                                        utilizzoMossaBot(false, null);
+                                                        imageBallLanciata.setDrawable(
+                                                                new TextureRegionDrawable(ballLanciata[0]));
+                                                        pokemonImageBot.setVisible(true);
+                                                        String discorso20 = "Oh No! Il pokemon selvatico si e' liberato!";
+                                                        labelDiscorsi20 = new LabelDiscorsi(discorso20, dimMax, 0, true,
+                                                                false);
+                                                        label20 = labelDiscorsi20.getLabel();
+                                                        stage.addActor(label20);
+
+                                                        Timer.schedule(new Timer.Task() {
+                                                            @Override
+                                                            public void run() {
+                                                                labelDiscorsi20.reset();
+                                                                label20.remove();
+                                                                label20 = null;
+                                                                utilizzoMossaBot(false, null);
+                                                            }
+                                                        }, 2.5f);
                                                     }
-                                                }, 2.5f);
-                                            }
-                                        }),
-                                
-                                        // Solita animazione
-                                        Actions.delay(0.5f),
-                                        Actions.removeActor()
-                                    ));
-                                }
+                                                }),
+                                                // Solita animazione
+                                                Actions.delay(0.5f),
+                                                Actions.removeActor()
 
-                                else if (nVibrazioni == 4) {
-                                    // Se nVibrazioni è 4, esegue l'animazione specifica
-                                    imageBallLanciata.addAction(Actions.sequence(
-                                        // Passa su 7 e 8
-                                        Actions.run(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[7]));
-                                            }
-                                        }),
-                                        Actions.delay(0.25f),
-                                        Actions.run(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[8]));
-                                            }
-                                        }),
-                                
-                                        Actions.delay(0.5f),
+                            ));
+                                    }
 
-                                        // Passa su 9 e 8
-                                        Actions.delay(0.25f),
-                                        Actions.run(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[9]));
-                                            }
-                                        }),
-                                        Actions.delay(0.25f),
-                                        Actions.run(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[8]));
-                                            }
-                                        }),
-
-                                        Actions.delay(0.5f),
-                                        // Passa su 7 e 8
-                                        Actions.run(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[7]));
-                                            }
-                                        }),
-                                        Actions.delay(0.25f),
-                                        Actions.run(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[8]));
-                                            }
-                                        }),
-                                
-                                        Actions.delay(0.5f),
-                                        
-                                        Actions.sequence(
-                                            Actions.delay(0.25f),
-                                            Actions.run(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[10]));
-                                                }
-                                            }),
-                                            Actions.delay(0.03f),
-                                            Actions.run(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    imageBallLanciata.setDrawable(new TextureRegionDrawable(ballLanciata[11]));
-                                                    String discorso21= "Hai catturato "+ nameBot+"!";
-                                                    conosciPokemon(nameBot);
-                                                    labelDiscorsi21 = new LabelDiscorsi(discorso21,dimMax,0,true, false);
-                                                    label21=labelDiscorsi21.getLabel();
-                                                    stage.addActor(label21);
-                                                    String poke = controllaSquadra();
-                                                    if (poke != null) {
-                                                        scalvaPokemonInSquadra(poke);
-                                                    } else {
-                                                        salvaPokemonNelBox();
+                            else if (nVibrazioni == 2) {
+                                        // Se nVibrazioni è 2, esegue l'animazione specifica
+                                        imageBallLanciata.addAction(Actions.sequence(
+                                                // Passa su 7 e 8
+                                                Actions.run(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        imageBallLanciata.setDrawable(
+                                                                new TextureRegionDrawable(ballLanciata[7]));
                                                     }
+                                                }),
+                                                Actions.delay(0.25f),
+                                                Actions.run(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        imageBallLanciata.setDrawable(
+                                                                new TextureRegionDrawable(ballLanciata[8]));
+                                                    }
+                                                }),
 
-                                                    Timer.schedule(new Timer.Task() {
-                                                        @Override
-                                                        public void run() {
-                                                            labelDiscorsi21.reset();
-                                                            if (label21!=null)
-                                                                label21.remove();                                              
-                                                            label21=null;
-                                                            calcoloEsperienzaVinta(2);
+                                                Actions.delay(0.5f),
+                                                // Passa su 9 e 8
+                                                Actions.delay(0.25f),
+                                                Actions.run(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        imageBallLanciata.setDrawable(
+                                                                new TextureRegionDrawable(ballLanciata[9]));
+                                                    }
+                                                }),
+                                                Actions.delay(0.25f),
+                                                Actions.run(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        imageBallLanciata.setDrawable(
+                                                                new TextureRegionDrawable(ballLanciata[8]));
+                                                    }
+                                                }),
 
-                                                        }
-                                                    }, 2.5f);
-                                                }
-                                            })
-                                        )
-                                        
-                                    ));
+                                                // Ritorna all'animazione normale
+                                                Actions.delay(0.25f),
+                                                Actions.run(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        imageBallLanciata.setDrawable(
+                                                                new TextureRegionDrawable(ballLanciata[0]));
+                                                        pokemonImageBot.setVisible(true);
+                                                        String discorso20 = "Oh No! Il pokemon selvatico si e' liberato!";
+                                                        labelDiscorsi20 = new LabelDiscorsi(discorso20, dimMax, 0, true,
+                                                                false);
+                                                        label20 = labelDiscorsi20.getLabel();
+                                                        stage.addActor(label20);
+
+                                                        Timer.schedule(new Timer.Task() {
+                                                            @Override
+                                                            public void run() {
+                                                                labelDiscorsi20.reset();
+                                                                label20.remove();
+                                                                label20 = null;
+                                                                utilizzoMossaBot(false, null);
+                                                            }
+                                                        }, 2.5f);
+                                                    }
+                                                }),
+                                                // Solita animazione
+                                                Actions.delay(0.5f),
+                                                Actions.removeActor()
+
+                            ));
+                                    }
+
+                            else if (nVibrazioni == 3) {
+                                        // Se nVibrazioni è 3, esegue l'animazione specifica
+                                        imageBallLanciata.addAction(Actions.sequence(
+                                                // Passa su 7 e 8
+                                                Actions.run(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        imageBallLanciata.setDrawable(
+                                                                new TextureRegionDrawable(ballLanciata[7]));
+                                                    }
+                                                }),
+                                                Actions.delay(0.25f),
+                                                Actions.run(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        imageBallLanciata.setDrawable(
+                                                                new TextureRegionDrawable(ballLanciata[8]));
+                                                    }
+                                                }),
+
+                                                Actions.delay(0.5f),
+                                                // Passa su 9 e 8
+                                                Actions.delay(0.25f),
+                                                Actions.run(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        imageBallLanciata.setDrawable(
+                                                                new TextureRegionDrawable(ballLanciata[9]));
+                                                    }
+                                                }),
+                                                Actions.delay(0.25f),
+                                                Actions.run(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        imageBallLanciata.setDrawable(
+                                                                new TextureRegionDrawable(ballLanciata[8]));
+                                                    }
+                                                }),
+
+                                                Actions.delay(0.5f),
+                                                // Passa su 7 e 8 di nuovo
+                                                Actions.delay(0.25f),
+                                                Actions.run(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        imageBallLanciata.setDrawable(
+                                                                new TextureRegionDrawable(ballLanciata[7]));
+                                                    }
+                                                }),
+                                                Actions.delay(0.25f),
+                                                Actions.run(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        imageBallLanciata.setDrawable(
+                                                                new TextureRegionDrawable(ballLanciata[8]));
+                                                    }
+                                                }),
+
+                                                // Torna a 0 dopo 0.5 secondi
+                                                Actions.delay(0.25f),
+                                                Actions.run(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        imageBallLanciata.setDrawable(
+                                                                new TextureRegionDrawable(ballLanciata[0]));
+                                                        pokemonImageBot.setVisible(true);
+                                                        String discorso20 = "Oh No! Il pokemon selvatico si e' liberato!";
+                                                        labelDiscorsi20 = new LabelDiscorsi(discorso20, dimMax, 0, true,
+                                                                false);
+                                                        label20 = labelDiscorsi20.getLabel();
+                                                        stage.addActor(label20);
+
+                                                        Timer.schedule(new Timer.Task() {
+                                                            @Override
+                                                            public void run() {
+                                                                labelDiscorsi20.reset();
+                                                                label20.remove();
+                                                                label20 = null;
+                                                                utilizzoMossaBot(false, null);
+                                                            }
+                                                        }, 2.5f);
+                                                    }
+                                                }),
+
+                                                // Solita animazione
+                                                Actions.delay(0.5f),
+                                                Actions.removeActor()));
+                                    }
+
+                            else if (nVibrazioni == 4) {
+                                        // Se nVibrazioni è 4, esegue l'animazione specifica
+                                        imageBallLanciata.addAction(Actions.sequence(
+                                                // Passa su 7 e 8
+                                                Actions.run(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        imageBallLanciata.setDrawable(
+                                                                new TextureRegionDrawable(ballLanciata[7]));
+                                                    }
+                                                }),
+                                                Actions.delay(0.25f),
+                                                Actions.run(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        imageBallLanciata.setDrawable(
+                                                                new TextureRegionDrawable(ballLanciata[8]));
+                                                    }
+                                                }),
+
+                                                Actions.delay(0.5f),
+
+                                                // Passa su 9 e 8
+                                                Actions.delay(0.25f),
+                                                Actions.run(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        imageBallLanciata.setDrawable(
+                                                                new TextureRegionDrawable(ballLanciata[9]));
+                                                    }
+                                                }),
+                                                Actions.delay(0.25f),
+                                                Actions.run(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        imageBallLanciata.setDrawable(
+                                                                new TextureRegionDrawable(ballLanciata[8]));
+                                                    }
+                                                }),
+
+                                                Actions.delay(0.5f),
+                                                // Passa su 7 e 8
+                                                Actions.run(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        imageBallLanciata.setDrawable(
+                                                                new TextureRegionDrawable(ballLanciata[7]));
+                                                    }
+                                                }),
+                                                Actions.delay(0.25f),
+                                                Actions.run(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        imageBallLanciata.setDrawable(
+                                                                new TextureRegionDrawable(ballLanciata[8]));
+                                                    }
+                                                }),
+
+                                                Actions.delay(0.5f),
+
+                                                Actions.sequence(
+                                                        Actions.delay(0.25f),
+                                                        Actions.run(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                imageBallLanciata.setDrawable(
+                                                                        new TextureRegionDrawable(ballLanciata[10]));
+                                                            }
+                                                        }),
+                                                        Actions.delay(0.03f),
+                                                        Actions.run(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                imageBallLanciata.setDrawable(
+                                                                        new TextureRegionDrawable(ballLanciata[11]));
+                                                                String discorso21 = "Hai catturato " + nameBot + "!";
+                                                                conosciPokemon(nameBot);
+                                                                labelDiscorsi21 = new LabelDiscorsi(discorso21, dimMax,
+                                                                        0, true, false);
+                                                                label21 = labelDiscorsi21.getLabel();
+                                                                stage.addActor(label21);
+                                                                String poke = controllaSquadra();
+                                                                if (poke != null) {
+                                                                    scalvaPokemonInSquadra(poke);
+                                                                } else {
+                                                                    salvaPokemonNelBox();
+                                                                }
+
+                                                                Timer.schedule(new Timer.Task() {
+                                                                    @Override
+                                                                    public void run() {
+                                                                        labelDiscorsi21.reset();
+                                                                        if (label21 != null)
+                                                                            label21.remove();
+                                                                        label21 = null;
+                                                                        calcoloEsperienzaVinta(2);
+
+                                                                    }
+                                                                }, 2.5f);
+                                                            }
+                                                        }))
+
+                            ));
+                                    }
                                 }
-                            }
-                        })
+                            })
 
                     ));
-                    
-    
-                    cancel(); 
+
+                    cancel();
                 }
             }
         }, 0, Gdx.graphics.getDeltaTime());
 
     }
 
-    //prima faccio in modo di controllare se c'è almeno un elemento libero
+    // prima faccio in modo di controllare se c'è almeno un elemento libero
     private String controllaSquadra() {
         try {
             // Carica il file JSON
             FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
             String jsonString = file.readString();
-    
+
             JsonValue json = new JsonReader().parse(jsonString);
-    
+
             // Itera su poke1, poke2, ..., poke6
             for (int i = 1; i <= 6; i++) {
                 String pokeKey = "poke" + i;
                 JsonValue poke = json.get(pokeKey);
-    
-                
+
                 if (poke != null) {
                     String nomePokemon = poke.getString("nomePokemon", "");
-    
+
                     // Se il nomePokemon è vuoto, ritorna la chiave del Pokémon (ad esempio "poke1")
                     if (nomePokemon.isEmpty()) {
                         return pokeKey;
                     }
                 }
             }
-    
+
             // Se nessun nomePokemon è vuoto, ritorna null
             return null;
-    
+
         } catch (Exception e) {
             return null;
         }
@@ -3213,7 +3197,7 @@ public class Battle extends ScreenAdapter {
             String jsonString = file.readString();
 
             JsonValue json = new JsonReader().parse(jsonString);
-            
+
             JsonValue newPokemon = new JsonValue(JsonValue.ValueType.object);
             newPokemon.addChild("nomePokemon", new JsonValue(nameBot));
             newPokemon.addChild("livello", new JsonValue(LVPokeBot));
@@ -3229,7 +3213,6 @@ public class Battle extends ScreenAdapter {
             statistiche.addChild("speed", new JsonValue(statsBot.get(4)));
             newPokemon.addChild("statistiche", statistiche);
 
-
             JsonValue evStats = new JsonValue(JsonValue.ValueType.object);
             evStats.addChild("Hp", new JsonValue(0));
             evStats.addChild("Att", new JsonValue(0));
@@ -3237,10 +3220,10 @@ public class Battle extends ScreenAdapter {
             evStats.addChild("Spec", new JsonValue(0));
             evStats.addChild("Vel", new JsonValue(0));
 
-            newPokemon.addChild("ev",evStats);
+            newPokemon.addChild("ev", evStats);
 
-            newPokemon.addChild("iv",pokeIvBot);
-            
+            newPokemon.addChild("iv", pokeIvBot);
+
             JsonValue mosseJson = new JsonValue(JsonValue.ValueType.array);
             for (Mossa mossaBot : listaMosseBot) {
                 JsonValue mossa = new JsonValue(JsonValue.ValueType.object);
@@ -3260,18 +3243,16 @@ public class Battle extends ScreenAdapter {
 
             file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
 
-
-
         } catch (Exception e) {
             System.out.println(e);
         }
     }
 
-    private void salvaPokemonNelBox(){
+    private void salvaPokemonNelBox() {
         // Carica il file JSON
         FileHandle file = Gdx.files.local("assets/ashJson/box.json");
         String jsonString = file.readString();
-        
+
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
 
@@ -3285,7 +3266,6 @@ public class Battle extends ScreenAdapter {
         newPokemon.addChild("livello", new JsonValue(LVPokeBot));
         newPokemon.addChild("esperienza", new JsonValue("0"));
 
-
         JsonValue statistiche = new JsonValue(JsonValue.ValueType.object);
         statistiche.addChild("hp", new JsonValue(currentPokeHPBot));
         statistiche.addChild("hpTot", new JsonValue(Integer.parseInt(maxPokeHPBot)));
@@ -3296,7 +3276,6 @@ public class Battle extends ScreenAdapter {
         statistiche.addChild("speed", new JsonValue(statsBot.get(4)));
         newPokemon.addChild("statistiche", statistiche);
 
-
         JsonValue evStats = new JsonValue(JsonValue.ValueType.object);
         evStats.addChild("Hp", new JsonValue(0));
         evStats.addChild("Att", new JsonValue(0));
@@ -3304,10 +3283,10 @@ public class Battle extends ScreenAdapter {
         evStats.addChild("Spec", new JsonValue(0));
         evStats.addChild("Vel", new JsonValue(0));
 
-        newPokemon.addChild("ev",evStats);
+        newPokemon.addChild("ev", evStats);
 
-        newPokemon.addChild("iv",pokeIvBot);
-        
+        newPokemon.addChild("iv", pokeIvBot);
+
         JsonValue mosseJson = new JsonValue(JsonValue.ValueType.array);
         for (Mossa mossaBot : listaMosseBot) {
             JsonValue mossa = new JsonValue(JsonValue.ValueType.object);
@@ -3324,34 +3303,32 @@ public class Battle extends ScreenAdapter {
 
         json.addChild(Integer.toString(i), newPokemon);
 
-
         file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
 
     }
 
-
-    public void modificaContPerText(){
-        counterForNextMove=2;
+    public void modificaContPerText() {
+        counterForNextMove = 2;
     }
 
     public void modificaPPMossePoke(int numero, ArrayList<Mossa> listaMossePoke) {
         // Carica il file JSON
         FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
         String jsonString = file.readString();
-        
+
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
         JsonValue json = new JsonReader().parse(jsonString);
-    
+
         // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
         JsonValue pokeJson = json.get("poke" + numero);
-    
+
         // Ottieni l'oggetto "statistiche" all'interno del Pokémon
         JsonValue mosse = pokeJson.get("mosse");
 
         for (Mossa mossa : listaMossePoke) {
             // Ottieni il nome della mossa per cercarla nel JSON
             String nomeMossa = mossa.getNome(); // Suppongo che tu abbia un metodo per ottenere il nome della mossa
-    
+
             // Cerca l'oggetto JSON corrispondente alla mossa per aggiornare attPP
             for (JsonValue mossaJson : mosse) {
                 if (mossaJson.getString("nome").equals(nomeMossa)) {
@@ -3364,20 +3341,19 @@ public class Battle extends ScreenAdapter {
 
         // Scrivi il JSON aggiornato nel file mantenendo la formattazione
         file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
-        
+
     }
 
+    private void calcoloEsperienzaVinta(int nextFunction) {
 
-    private void calcoloEsperienzaVinta(int nextFunction){
-
-        int skipExp=0;
-        int lvNumber=0;
+        int skipExp = 0;
+        int lvNumber = 0;
 
         Experience esperienza = new Experience();
-        float a=1f;
+        float a = 1f;
         int b;
-        if (isBotFight){
-            a=1.5f;
+        if (isBotFight) {
+            a = 1.5f;
         }
 
         // Carica il file JSON
@@ -3388,25 +3364,28 @@ public class Battle extends ScreenAdapter {
         // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
         JsonValue pokeJson = json.get(nomePokeBot);
         JsonValue pokeJson2 = json.get(nomePoke);
-        
+
         int crescitaType = pokeJson2.getInt("crescita");
         b = pokeJson.getInt("espBase");
         int L = Integer.parseInt(LVPokeBot);
         int s = pokeInBattaglia.size();
 
-        int esperienzaVinta = esperienza.calcoloEsperienzaGuadagnato(a,b,L,s);
+        int esperienzaVinta = esperienza.calcoloEsperienzaGuadagnato(a, b, L, s);
 
-        for (int i=0; i<pokeInBattaglia.size();i++){
+        for (int i = 0; i < pokeInBattaglia.size(); i++) {
 
             FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
             String jsonString2 = file2.readString();
             JsonValue json2 = new JsonReader().parse(jsonString2);
-            String nomePokeEsp= json2.get("poke"+pokeInBattaglia.get(i)).getString("nomePokemon");
+            String nomePokeEsp = json2.get("poke" + pokeInBattaglia.get(i)).getString("nomePokemon");
 
-            if (json2.get("poke"+pokeInBattaglia.get(i)).getInt("livello")!=100){
-                
-                int expMaxLvl = calcoloEspMaxLivello(crescitaType,Integer.parseInt(LVPoke));
-                nuovaEsperienza = json2.get("poke"+pokeInBattaglia.get(i)).getInt("esperienza") + esperienzaVinta; //+10000 per i test
+            if (json2.get("poke" + pokeInBattaglia.get(i)).getInt("livello") != 100) {
+
+                int expMaxLvl = calcoloEspMaxLivello(crescitaType, Integer.parseInt(LVPoke));
+                nuovaEsperienza = json2.get("poke" + pokeInBattaglia.get(i)).getInt("esperienza") + esperienzaVinta; // +10000
+                                                                                                                     // per
+                                                                                                                     // i
+                                                                                                                     // test
                 int nuovaEsperienzaCheck = nuovaEsperienza;
                 int expMaxLvlCheck = expMaxLvl;
                 int LVPokeCheck = Integer.parseInt(LVPoke);
@@ -3416,38 +3395,37 @@ public class Battle extends ScreenAdapter {
 
                 while (nuovaEsperienzaCheck >= expMaxLvlCheck) {
                     ritardoLvUp++;
-                    pokeInBattagliaNLevelUp.set(i,(pokeInBattagliaNLevelUp.get(i)+1));
+                    pokeInBattagliaNLevelUp.set(i, (pokeInBattagliaNLevelUp.get(i) + 1));
                     lvNumber++;
                     nuovaEsperienzaCheck -= expMaxLvlCheck; // Sottrae l'esperienza necessaria per il livello corrente
                     LVPokeCheck++;
-                    expMaxLvlCheck = calcoloEspMaxLivello(crescitaType,LVPokeCheck);
+                    expMaxLvlCheck = calcoloEspMaxLivello(crescitaType, LVPokeCheck);
                 }
 
                 final int index = i;
 
-                float partialDelay = 3f*i+2.9f*pokeInBattagliaLU.get(index);
-                partialTimer1(partialDelay,esperienzaVinta,expMaxLvl,i);
-                
-            }
-            else{
+                float partialDelay = 3f * i + 2.9f * pokeInBattagliaLU.get(index);
+                partialTimer1(partialDelay, esperienzaVinta, expMaxLvl, i);
+
+            } else {
                 skipExp++;
             }
         }
 
-        float delayTot = 3f*pokeInBattaglia.size() - 3f*skipExp +2.9f*ritardoLvUp;
-        timerTotal1(delayTot,nextFunction);
+        float delayTot = 3f * pokeInBattaglia.size() - 3f * skipExp + 2.9f * ritardoLvUp;
+        timerTotal1(delayTot, nextFunction);
 
-        //System.out.println(esperienzaVinta);
-        
+        // System.out.println(esperienzaVinta);
+
     }
 
-    private void aumentoLivello(int i){
-        if (continueLVOperations==false){
-            numberOfLVtoUp=i;
-            checkNextLV=true;
+    private void aumentoLivello(int i) {
+        if (continueLVOperations == false) {
+            numberOfLVtoUp = i;
+            checkNextLV = true;
             return;
         }
-        ////System.out.println("Da fare ancora :)");
+        //// System.out.println("Da fare ancora :)");
         // Apre il file JSON
         FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
         String jsonString2 = file2.readString();
@@ -3461,57 +3439,61 @@ public class Battle extends ScreenAdapter {
 
         // Incrementa il livello di 1 e aggiorna il JSON
         pokeObject.remove("livello"); // Rimuove il campo "livello"
-        pokeObject.addChild("livello", new JsonValue(String.valueOf(livello + 1))); // Aggiunge il nuovo valore come stringa
+        pokeObject.addChild("livello", new JsonValue(String.valueOf(livello + 1))); // Aggiunge il nuovo valore come
+                                                                                    // stringa
 
-        /*//System.out.println(index);
-        //System.out.println(pokeInBattaglia.get(index));
-        //System.out.println(numeroIndexPoke);*/
+        /*
+         * //System.out.println(index);
+         * //System.out.println(pokeInBattaglia.get(index));
+         * //System.out.println(numeroIndexPoke);
+         */
         file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
 
         Stats statsM = new Stats();
 
         statsM.aggiornaStatistichePokemon(pokeInBattaglia.get(i));
 
-        if (pokeInBattaglia.get(i)==numeroIndexPoke){
+        if (pokeInBattaglia.get(i) == numeroIndexPoke) {
             FileHandle file3 = Gdx.files.local("assets/ashJson/squadra.json");
             String jsonString3 = file3.readString();
             JsonValue json3 = new JsonReader().parse(jsonString3);
             // Recupera il Pokémon da modificare
-            JsonValue poke = json3.get("poke"+pokeInBattaglia.get(i));
+            JsonValue poke = json3.get("poke" + pokeInBattaglia.get(i));
             // Statistiche del Pokémon
             JsonValue stats = poke.get("statistiche");
             int hpTot = stats.getInt("hpTot");
             int hp = stats.getInt("hp");
 
-            labelLV.setText(livello+1); // Aggiorna il testo della label
+            labelLV.setText(livello + 1); // Aggiorna il testo della label
             labelHP.setText(hp);
             labelHPTot.setText(hpTot);
-        }        
+        }
         // Salva il file JSON con il livello aggiornato
-        
-        String discorso23= pokeObject.getString("nomePokemon") + " e' salito al livello "+ (livello+1) +" !";
-        labelDiscorsi23 = new LabelDiscorsi(discorso23,dimMax,0,true, false);
-        labelDiscorsi22.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
-        label23=labelDiscorsi23.getLabel();
+
+        String discorso23 = pokeObject.getString("nomePokemon") + " e' salito al livello " + (livello + 1) + " !";
+        labelDiscorsi23 = new LabelDiscorsi(discorso23, dimMax, 0, true, false);
+        labelDiscorsi22.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di
+                                                   // quello degli altri attori
+        label23 = labelDiscorsi23.getLabel();
         stage.addActor(label23);
 
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
                 labelDiscorsi23.reset();
-                if (label23!=null){
+                if (label23 != null) {
                     label23.remove();
-                    label23=null;
+                    label23 = null;
                 }
-                if (label23!=null){
+                if (label23 != null) {
                     labelDiscorsi23.reset();
                     label23.remove();
-                    label23=null;
+                    label23 = null;
                 }
 
-                for (int i=0; i<timerCreatedDelay.size();i++){
-                    if (timerCreated.get(i)!=2){
-                        timerCreatedDelay.set(i, (timerCreatedDelay.get(i)-2.9f));
+                for (int i = 0; i < timerCreatedDelay.size(); i++) {
+                    if (timerCreated.get(i) != 2) {
+                        timerCreatedDelay.set(i, (timerCreatedDelay.get(i) - 2.9f));
                     }
                 }
 
@@ -3526,35 +3508,35 @@ public class Battle extends ScreenAdapter {
                 String chiave = "EVO" + livelloIncrementato;
 
                 if (pokeJson2.get("mosseImparabili").has(chiave)) {
-                    checkPerEvo=true;
+                    checkPerEvo = true;
                     pokeEvo.add(pokeJson2.get("mosseImparabili").getString(chiave));
                     pokeEvoIndex.add(pokeInBattaglia.get(i));
                 }
 
-                if ((livello+1)%2==0){
-                    //continueLVOperations=false; lo lacio perchè sto pezzente mi ha fatto perdere mezz'ora; mannaggia a me che metto codice a tentativi
-                    apprendimentoMosse = new ApprendimentoMosse(Battle.this,stage,pokeInBattaglia.get(i));
+                if ((livello + 1) % 2 == 0) {
+                    // continueLVOperations=false; lo lacio perchè sto pezzente mi ha fatto perdere
+                    // mezz'ora; mannaggia a me che metto codice a tentativi
+                    apprendimentoMosse = new ApprendimentoMosse(Battle.this, stage, pokeInBattaglia.get(i));
                 }
             }
         }, 2.9f);
-        
-        if (pokeInBattaglia.get(i)==numeroIndexPoke){
-            if (pokeInBattagliaNLevelUp.get(i)>1){
-                pokeInBattagliaNLevelUp.set(i, (pokeInBattagliaNLevelUp.get(i)-1));
-                updateExpBar(true,i);
-            }
-            else{
-                //System.out.println("sadh");
-                updateExpBar(false,i);
+
+        if (pokeInBattaglia.get(i) == numeroIndexPoke) {
+            if (pokeInBattagliaNLevelUp.get(i) > 1) {
+                pokeInBattagliaNLevelUp.set(i, (pokeInBattagliaNLevelUp.get(i) - 1));
+                updateExpBar(true, i);
+            } else {
+                // System.out.println("sadh");
+                updateExpBar(false, i);
             }
         }
     }
 
-    private int calcoloEspMaxLivello(int crescitaType, int livello){
+    private int calcoloEspMaxLivello(int crescitaType, int livello) {
 
         Experience esperienza = new Experience();
 
-        int espMaxLvl=0;
+        int espMaxLvl = 0;
 
         switch (crescitaType) {
             case 0:
@@ -3581,7 +3563,7 @@ public class Battle extends ScreenAdapter {
 
     }
 
-    private Image placeExpBar(Image image){
+    private Image placeExpBar(Image image) {
 
         FileHandle file = Gdx.files.local("pokemon/Pokemon.json");
         String jsonString = file.readString();
@@ -3594,17 +3576,17 @@ public class Battle extends ScreenAdapter {
         JsonValue json2 = new JsonReader().parse(jsonString2);
 
         int crescitaType = pokeJson.getInt("crescita");
-        int currentExp= json2.get("poke"+(numeroIndexPoke)).getInt("esperienza");
-        int maxExp = calcoloEspMaxLivello(crescitaType,Integer.parseInt(LVPoke));
-        
+        int currentExp = json2.get("poke" + (numeroIndexPoke)).getInt("esperienza");
+        int maxExp = calcoloEspMaxLivello(crescitaType, Integer.parseInt(LVPoke));
+
         float percentualeExp = (float) currentExp / maxExp;
-        float lunghezzaExpBar = 96*2 * percentualeExp;
+        float lunghezzaExpBar = 96 * 2 * percentualeExp;
 
         Image expBar = new Image(new TextureRegionDrawable(new TextureRegion(asset.getBattle(Assets.WHITE_PX))));
-        expBar.setSize((int)lunghezzaExpBar, 4);
-        expBar.setPosition(image.getX() + 48 , image.getY() + 6 );
+        expBar.setSize((int) lunghezzaExpBar, 4);
+        expBar.setPosition(image.getX() + 48, image.getY() + 6);
 
-        Color coloreExpBar = new Color(72 / 255f, 168 / 255f, 208 / 255f, 1); //colore barra esperienza
+        Color coloreExpBar = new Color(72 / 255f, 168 / 255f, 208 / 255f, 1); // colore barra esperienza
 
         expBar.setColor(coloreExpBar);
         // Aggiungi expBar allo stage
@@ -3614,54 +3596,52 @@ public class Battle extends ScreenAdapter {
     }
 
     private void updateExpBar(boolean lvChange, int indexLV) {
-        if (continueLVOperations==false){
-            numberOfLVtoUp=indexLV;
-            checkNextLV=true;
+        if (continueLVOperations == false) {
+            numberOfLVtoUp = indexLV;
+            checkNextLV = true;
             return;
         }
         FileHandle file = Gdx.files.local("pokemon/Pokemon.json");
         String jsonString = file.readString();
         JsonValue json = new JsonReader().parse(jsonString);
-    
+
         // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
         JsonValue pokeJson = json.get(nomePoke);
         FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
         String jsonString2 = file2.readString();
         JsonValue json2 = new JsonReader().parse(jsonString2);
-    
+
         int crescitaType = pokeJson.getInt("crescita");
         int currentExp = json2.get("poke" + (numeroIndexPoke)).getInt("esperienza");
         int maxExp = calcoloEspMaxLivello(crescitaType, Integer.parseInt(LVPoke));
-    
-    
+
         if (lvChange) {
-            Timer.schedule(new Timer.Task(){
+            Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
                     expPlayer.addAction(Actions.sizeTo(96 * 2, expPlayer.getHeight(), 1.5f));
-                    ////System.out.println("Animazione estesa");
+                    //// System.out.println("Animazione estesa");
                 }
             }, 0);
-            
-            Timer.schedule(new Timer.Task(){
+
+            Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
                     expPlayer.addAction(Actions.sizeTo(0, expPlayer.getHeight(), 0f));
-                    ////System.out.println("Reset completato");
+                    //// System.out.println("Reset completato");
                 }
             }, 1.5f); // Dopo 1.5 secondi
-            
-            Timer.schedule(new Timer.Task(){
+
+            Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
-                    ////System.out.println("Delay completato");
+                    //// System.out.println("Delay completato");
                     aumentoLivello(indexLV);
                 }
             }, 2.9f); // Dopo 1.5f + 1.4f = 2.9 secondi
-            
-        }
-        else {
-            //System.out.println("fdf");
+
+        } else {
+            // System.out.println("fdf");
             // Calcola la percentuale dell'esperienza e la lunghezza della barra
             float percentualeExp = (float) currentExp / maxExp;
             float lunghezzaExpBar = 96 * 2 * percentualeExp;
@@ -3669,14 +3649,14 @@ public class Battle extends ScreenAdapter {
             expPlayer.addAction(Actions.sizeTo(lunghezzaExpBar, expPlayer.getHeight(), 1.5f));
         }
     }
-    
-    private void updateEV(){
+
+    private void updateEV() {
 
         FileHandle file = Gdx.files.local("pokemon/Pokemon.json");
         String jsonString = file.readString();
         JsonValue json = new JsonReader().parse(jsonString);
         JsonValue pokeJson = json.get(nomePokeBot);
-    
+
         // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
         FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
         String jsonString2 = file2.readString();
@@ -3686,7 +3666,8 @@ public class Battle extends ScreenAdapter {
         int evHp = Math.min(poke.get("ev").getInt("Hp") + pokeJson.get("stat").getInt("PS"), 65536);
         int evAtt = Math.min(poke.get("ev").getInt("Att") + pokeJson.get("stat").getInt("Att"), 65536);
         int evDif = Math.min(poke.get("ev").getInt("Dif") + pokeJson.get("stat").getInt("Dif"), 65536);
-        int evSpec = Math.min(poke.get("ev").getInt("Spec") + ((pokeJson.get("stat").getInt("AttS")+pokeJson.get("stat").getInt("DifS"))/2), 65536);
+        int evSpec = Math.min(poke.get("ev").getInt("Spec")
+                + ((pokeJson.get("stat").getInt("AttS") + pokeJson.get("stat").getInt("DifS")) / 2), 65536);
         int evVel = Math.min(poke.get("ev").getInt("Vel") + pokeJson.get("stat").getInt("Vel"), 65536);
 
         JsonValue evStats = new JsonValue(JsonValue.ValueType.object);
@@ -3697,17 +3678,15 @@ public class Battle extends ScreenAdapter {
         evStats.addChild("Vel", new JsonValue(evVel));
 
         json2.get("poke" + (numeroIndexPoke)).remove("ev");
-        json2.get("poke" + (numeroIndexPoke)).addChild("ev",evStats);
+        json2.get("poke" + (numeroIndexPoke)).addChild("ev", evStats);
 
         file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
     }
 
-
-    private void timerTotal1(float delay, int nextFunction){
+    private void timerTotal1(float delay, int nextFunction) {
         timerCreated.add(0);
         timerCreatedDelay.add(delay);
         timerCreatedData.add(new timerData(nextFunction, -1, -1));
-
 
         Timer.schedule(new Timer.Task() {
             @Override
@@ -3715,12 +3694,11 @@ public class Battle extends ScreenAdapter {
                 pokeInBattaglia.clear();
                 pokeInBattagliaLU.clear();
                 pokeInBattaglia.add(numeroIndexPoke);
-                ritardoLvUp=0;
+                ritardoLvUp = 0;
 
-                if (nextFunction==0){
+                if (nextFunction == 0) {
                     fineBattaglia();
-                }
-                else if(nextFunction==1){
+                } else if (nextFunction == 1) {
                     botHPBar.remove();
                     HPbot.remove();
                     // Rimuovi labelNomePokemonBot
@@ -3729,24 +3707,23 @@ public class Battle extends ScreenAdapter {
                     // Rimuovi labelLVBot
                     labelNomeHPBars.remove(labelLVBot);
                     labelLVBot.remove();
-                    leggiPokeBot(nameBot,numeroIndexPokeBot);
-                    if (!isBattleEnded){
+                    leggiPokeBot(nameBot, numeroIndexPokeBot);
+                    if (!isBattleEnded) {
                         piazzaLabelLottaPerBot();
                         checkInt--;
                         showBallBot();
                         checkPerDoppiaBarra++;
-                        HPbot=placeHpBar(botHPBar,100,16,currentPokeHPBot,maxPokeHPBot);
-                    } 
-                }
-                else if(nextFunction==2){
-                    isBattleEnded=true;
+                        HPbot = placeHpBar(botHPBar, 100, 16, currentPokeHPBot, maxPokeHPBot);
+                    }
+                } else if (nextFunction == 2) {
+                    isBattleEnded = true;
                     dispose();
                 }
             }
         }, delay);
     }
 
-    private void partialTimer1(float partialDelay, int esperienzaVinta, int expMaxLvl, int i){
+    private void partialTimer1(float partialDelay, int esperienzaVinta, int expMaxLvl, int i) {
         timerCreated.add(1);
         timerCreatedDelay.add(partialDelay);
         timerCreatedData.add(new timerData(esperienzaVinta, expMaxLvl, i));
@@ -3754,58 +3731,59 @@ public class Battle extends ScreenAdapter {
         FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
         String jsonString2 = file2.readString();
         JsonValue json2 = new JsonReader().parse(jsonString2);
-        String nomePokeEsp= json2.get("poke"+pokeInBattaglia.get(i)).getString("nomePokemon");
+        String nomePokeEsp = json2.get("poke" + pokeInBattaglia.get(i)).getString("nomePokemon");
 
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
-                String discorso22= nomePokeEsp + " ha guadagnato "+ esperienzaVinta + " punti esperienza.";
-                labelDiscorsi22 = new LabelDiscorsi(discorso22,dimMax,0,true, false);
-                ////System.out.println("a");
-                labelDiscorsi22.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
-                label22=labelDiscorsi22.getLabel();
+                String discorso22 = nomePokeEsp + " ha guadagnato " + esperienzaVinta + " punti esperienza.";
+                labelDiscorsi22 = new LabelDiscorsi(discorso22, dimMax, 0, true, false);
+                //// System.out.println("a");
+                labelDiscorsi22.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più
+                                                           // alto di quello degli altri attori
+                label22 = labelDiscorsi22.getLabel();
                 stage.addActor(label22);
-                if(nuovaEsperienza>=expMaxLvl){
+                if (nuovaEsperienza >= expMaxLvl) {
                     // Aggiorna il valore di "esperienza" nel JSON
-                    json2.get("poke"+pokeInBattaglia.get(index)).remove("esperienza");
-                    while (nuovaEsperienza>=expMaxLvl){
-                        nuovaEsperienza=nuovaEsperienza-expMaxLvl;
+                    json2.get("poke" + pokeInBattaglia.get(index)).remove("esperienza");
+                    while (nuovaEsperienza >= expMaxLvl) {
+                        nuovaEsperienza = nuovaEsperienza - expMaxLvl;
                     }
-                    json2.get("poke" + pokeInBattaglia.get(index)).addChild("esperienza", new JsonValue(nuovaEsperienza));
-            
-                    file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
-                    
-                    if (pokeInBattaglia.get(index)==numeroIndexPoke){
-                        updateExpBar(true,index);
-                    }
-                    else{
-                        partialTimer2(index);
-                    }
-                }
-                else{
-                    // Aggiorna il valore di "esperienza" nel JSON
-                    json2.get("poke"+pokeInBattaglia.get(index)).remove("esperienza");
-                    json2.get("poke" + pokeInBattaglia.get(index)).addChild("esperienza", new JsonValue(nuovaEsperienza));
-            
+                    json2.get("poke" + pokeInBattaglia.get(index)).addChild("esperienza",
+                            new JsonValue(nuovaEsperienza));
+
                     file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
 
-                    if (pokeInBattaglia.get(index)==numeroIndexPoke){
-                        updateExpBar(false,index);
-                    }                        
+                    if (pokeInBattaglia.get(index) == numeroIndexPoke) {
+                        updateExpBar(true, index);
+                    } else {
+                        partialTimer2(index);
+                    }
+                } else {
+                    // Aggiorna il valore di "esperienza" nel JSON
+                    json2.get("poke" + pokeInBattaglia.get(index)).remove("esperienza");
+                    json2.get("poke" + pokeInBattaglia.get(index)).addChild("esperienza",
+                            new JsonValue(nuovaEsperienza));
+
+                    file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
+
+                    if (pokeInBattaglia.get(index) == numeroIndexPoke) {
+                        updateExpBar(false, index);
+                    }
                 }
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
-                        ////System.out.println("b");
+                        //// System.out.println("b");
                         labelDiscorsi22.reset();
-                        if (label22!=null){
+                        if (label22 != null) {
                             label22.remove();
                         }
-                        label22=null;
+                        label22 = null;
 
-                        for (int i=0; i<timerCreatedDelay.size();i++){
-                            if (timerCreated.get(i)!=2){
-                                timerCreatedDelay.set(i, (timerCreatedDelay.get(i)-2.9f));
+                        for (int i = 0; i < timerCreatedDelay.size(); i++) {
+                            if (timerCreated.get(i) != 2) {
+                                timerCreatedDelay.set(i, (timerCreatedDelay.get(i) - 2.9f));
                             }
                         }
                     }
@@ -3814,27 +3792,27 @@ public class Battle extends ScreenAdapter {
         }, partialDelay);
     }
 
-    public void partialTimer2(int index){
+    public void partialTimer2(int index) {
 
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
                 aumentoLivello(index);
-                }
+            }
         }, 2.8f);
     }
 
-    public void cancelAP(){
-        apprendimentoMosse=null;
+    public void cancelAP() {
+        apprendimentoMosse = null;
         Gdx.input.setInputProcessor(stage);
     }
 
-    public void destroyTimers(){
-        continueLVOperations=false;
+    public void destroyTimers() {
+        continueLVOperations = false;
         Timer.instance().clear();
     }
 
-    public void reCreateTimers(){
+    public void reCreateTimers() {
         // Create temporary copies of the lists before clearing the originals
         ArrayList<Integer> tempTimerCreated = new ArrayList<>(timerCreated);
         ArrayList<timerData> tempTimerCreatedData = new ArrayList<>(timerCreatedData);
@@ -3845,95 +3823,99 @@ public class Battle extends ScreenAdapter {
         timerCreatedData.clear();
         timerCreatedDelay.clear();
 
-        //System.out.println(checkNextLV);
-        if (checkNextLV){
-            continueLVOperations=true;
+        // System.out.println(checkNextLV);
+        if (checkNextLV) {
+            continueLVOperations = true;
             aumentoLivello(numberOfLVtoUp);
-            checkNextLV=false;
+            checkNextLV = false;
         }
         // Iterate over the copied lists to perform operations
         for (int i = 0; i < tempTimerCreated.size(); i++) {
-            if(tempTimerCreatedDelay.get(i)>0f){
+            if (tempTimerCreatedDelay.get(i) > 0f) {
                 if (tempTimerCreated.get(i) == 0) {
                     timerTotal1(tempTimerCreatedDelay.get(i), tempTimerCreatedData.get(i).getFirst());
-                } else if (tempTimerCreated.get(i) == 1){
+                } else if (tempTimerCreated.get(i) == 1) {
                     partialTimer1(
-                        tempTimerCreatedDelay.get(i), 
-                        tempTimerCreatedData.get(i).getFirst(), 
-                        tempTimerCreatedData.get(i).getSecond(), 
-                        tempTimerCreatedData.get(i).getThird()
-                    );
+                            tempTimerCreatedDelay.get(i),
+                            tempTimerCreatedData.get(i).getFirst(),
+                            tempTimerCreatedData.get(i).getSecond(),
+                            tempTimerCreatedData.get(i).getThird());
                 }
             }
         }
-        
-        //continueLVOperations=true;
+
+        // continueLVOperations=true;
         tempTimerCreated.clear();
         tempTimerCreatedData.clear();
         tempTimerCreatedDelay.clear();
     }
 
-    public void piazzaLabel24(String nomePoke, String nomeMossa){
-        String discorso24= nomePoke+" sta cercando di imparare "+ nomeMossa + ", ma "+nomePoke+" conosce gia' 4 mosse. Quale mossa deve sostituire?";
-        labelDiscorsi24 = new LabelDiscorsi(discorso24,dimMax,0,true, false);
-        labelDiscorsi24.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
-        label24=labelDiscorsi24.getLabel();
+    public void piazzaLabel24(String nomePoke, String nomeMossa) {
+        String discorso24 = nomePoke + " sta cercando di imparare " + nomeMossa + ", ma " + nomePoke
+                + " conosce gia' 4 mosse. Quale mossa deve sostituire?";
+        labelDiscorsi24 = new LabelDiscorsi(discorso24, dimMax, 0, true, false);
+        labelDiscorsi24.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di
+                                                   // quello degli altri attori
+        label24 = labelDiscorsi24.getLabel();
         stage.addActor(label24);
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
                 labelDiscorsi24.reset();
                 label24.remove();
-                label24=null;
+                label24 = null;
             }
         }, 7f);
     }
 
-
-    public void piazzaLabel25(String nomePoke, String nomeMossa, String nomeMossaVecchia){
-        String discorso25= "Uno, due e... ...Ta-da! "+nomePoke+ " ha dimenticato "+ nomeMossaVecchia + "... Al suo posto ha imparato "+nomeMossa+"!";
-        labelDiscorsi25 = new LabelDiscorsi(discorso25,dimMax,0,true, false);
-        labelDiscorsi25.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
-        label25=labelDiscorsi25.getLabel();
+    public void piazzaLabel25(String nomePoke, String nomeMossa, String nomeMossaVecchia) {
+        String discorso25 = "Uno, due e... ...Ta-da! " + nomePoke + " ha dimenticato " + nomeMossaVecchia
+                + "... Al suo posto ha imparato " + nomeMossa + "!";
+        labelDiscorsi25 = new LabelDiscorsi(discorso25, dimMax, 0, true, false);
+        labelDiscorsi25.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di
+                                                   // quello degli altri attori
+        label25 = labelDiscorsi25.getLabel();
         stage.addActor(label25);
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
                 labelDiscorsi25.reset();
                 label25.remove();
-                label25=null;
+                label25 = null;
             }
         }, 10f);
     }
 
-    public void piazzaLabel26(String nomePoke, String nomeMossa){
-        String discorso26= nomePoke+" ha rinunciato ad imparare "+ nomeMossa+".";
-        labelDiscorsi26 = new LabelDiscorsi(discorso26,dimMax,0,true, false);
-        labelDiscorsi26.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
-        label26=labelDiscorsi26.getLabel();
+    public void piazzaLabel26(String nomePoke, String nomeMossa) {
+        String discorso26 = nomePoke + " ha rinunciato ad imparare " + nomeMossa + ".";
+        labelDiscorsi26 = new LabelDiscorsi(discorso26, dimMax, 0, true, false);
+        labelDiscorsi26.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di
+                                                   // quello degli altri attori
+        label26 = labelDiscorsi26.getLabel();
         stage.addActor(label26);
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
                 labelDiscorsi26.reset();
                 label26.remove();
-                label26=null;
+                label26 = null;
             }
         }, 4f);
     }
 
-    public void piazzaLabel27(String nomePoke, String nomeMossa){
-        String discorso27= nomePoke+" ha imparato "+ nomeMossa+"!";
-        labelDiscorsi27 = new LabelDiscorsi(discorso27,dimMax,0,true, false);
-        labelDiscorsi27.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
-        label27=labelDiscorsi27.getLabel();
+    public void piazzaLabel27(String nomePoke, String nomeMossa) {
+        String discorso27 = nomePoke + " ha imparato " + nomeMossa + "!";
+        labelDiscorsi27 = new LabelDiscorsi(discorso27, dimMax, 0, true, false);
+        labelDiscorsi27.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di
+                                                   // quello degli altri attori
+        label27 = labelDiscorsi27.getLabel();
         stage.addActor(label27);
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
                 labelDiscorsi27.reset();
                 label27.remove();
-                label27=null;
+                label27 = null;
             }
         }, 3.5f);
     }
@@ -3943,36 +3925,36 @@ public class Battle extends ScreenAdapter {
         FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
         String jsonString2 = file2.readString();
         JsonValue json2 = new JsonReader().parse(jsonString2);
-        
+
         // Rimuove e aggiorna il nome del Pokémon
-        String pokeEvoluto = json2.get("poke"+pokeEvoIndex.get(evoIndex)).getString("nomePokemon");
-        json2.get("poke"+pokeEvoIndex.get(evoIndex)).remove("nomePokemon");
-        json2.get("poke"+pokeEvoIndex.get(evoIndex)).addChild("nomePokemon", new JsonValue(pokeEvo.get(evoIndex)));
+        String pokeEvoluto = json2.get("poke" + pokeEvoIndex.get(evoIndex)).getString("nomePokemon");
+        json2.get("poke" + pokeEvoIndex.get(evoIndex)).remove("nomePokemon");
+        json2.get("poke" + pokeEvoIndex.get(evoIndex)).addChild("nomePokemon", new JsonValue(pokeEvo.get(evoIndex)));
         file2.writeString(json2.prettyPrint(JsonWriter.OutputType.json, 1), false);
-    
+
         // Aggiorna statistiche del Pokémon
         Stats stats = new Stats();
         stats.aggiornaStatistichePokemon(pokeEvoIndex.get(evoIndex));
-    
+
         // Imposta lo sfondo dell'animazione
         Texture backgroundTexture = new Texture("sfondo/evolutionBG.png");
         Image background = new Image(backgroundTexture);
         background.setZIndex(100);
         background.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         stage.addActor(background);
-    
+
         Texture lightTexture = asset.getBattle(Assets.CIRCLE_LG);
 
-        TextureRegion lightRegion = new TextureRegion(lightTexture, 0, 0, lightTexture.getWidth(), lightTexture.getHeight());
+        TextureRegion lightRegion = new TextureRegion(lightTexture, 0, 0, lightTexture.getWidth(),
+                lightTexture.getHeight());
         // Create the Pokémon image
         Image lightSphere = new Image(lightRegion);
         lightSphere.setSize(400, 400);
         lightSphere.setPosition(
-            (Gdx.graphics.getWidth() / 2 - lightSphere.getWidth() / 2), 
-            (Gdx.graphics.getHeight() / 2 - lightSphere.getHeight() / 2)
-        );
+                (Gdx.graphics.getWidth() / 2 - lightSphere.getWidth() / 2),
+                (Gdx.graphics.getHeight() / 2 - lightSphere.getHeight() / 2));
         lightSphere.setOrigin(Align.center);
-        lightSphere.setColor(1, 1, 1, 0);  // Start fully transparent
+        lightSphere.setColor(1, 1, 1, 0); // Start fully transparent
         stage.addActor(lightSphere);
 
         // Load the Pokémon texture and prepare it for Pixmap extraction
@@ -3985,59 +3967,56 @@ public class Battle extends ScreenAdapter {
         evolvingPoke.setOrigin(Align.center);
         evolvingPoke.setSize(200, 200);
         evolvingPoke.setPosition(
-            (Gdx.graphics.getWidth() / 2 - evolvingPoke.getWidth() / 2), 
-            (Gdx.graphics.getHeight() / 2 - evolvingPoke.getHeight() / 2)
-        );
+                (Gdx.graphics.getWidth() / 2 - evolvingPoke.getWidth() / 2),
+                (Gdx.graphics.getHeight() / 2 - evolvingPoke.getHeight() / 2));
         stage.addActor(evolvingPoke);
 
         TextureData textureData = pokeTexture.getTextureData();
 
         if (!textureData.isPrepared()) {
-            textureData.prepare();  // Prepare the texture data for pixmap access
+            textureData.prepare(); // Prepare the texture data for pixmap access
         }
 
         // Retrieve the Pixmap from the texture data
-        Pixmap pokePixmap = textureData.consumePixmap();  // Now we can get the pixmap safely
+        Pixmap pokePixmap = textureData.consumePixmap(); // Now we can get the pixmap safely
 
         // Create a white Pixmap with the same dimensions and transparency
         Pixmap whitePixmap = new Pixmap(widthQuarter, pokeTexture.getHeight(), Pixmap.Format.RGBA8888);
         for (int x = 0; x < widthQuarter; x++) {
             for (int y = 0; y < pokeTexture.getHeight(); y++) {
                 int pixel = pokePixmap.getPixel(x, y);
-                int alpha = pixel & 0x000000FF;  // Extract the alpha component
-                whitePixmap.drawPixel(x, y, (0xFFFFFF00 | alpha));  // Set RGB to white, keep original alpha
+                int alpha = pixel & 0x000000FF; // Extract the alpha component
+                whitePixmap.drawPixel(x, y, (0xFFFFFF00 | alpha)); // Set RGB to white, keep original alpha
             }
         }
 
         // Create a white texture from the white pixmap
         Texture whiteTexture = new Texture(whitePixmap);
-        pokePixmap.dispose();  // Dispose original pixmap to free resources
-        whitePixmap.dispose();  // Dispose white pixmap after creating the texture
+        pokePixmap.dispose(); // Dispose original pixmap to free resources
+        whitePixmap.dispose(); // Dispose white pixmap after creating the texture
 
         // Continue with the rest of the setup using whiteTexture for the white overlay
         TextureRegion whiteRegion = new TextureRegion(whiteTexture);
-        Image whiteOverlay = new Image(whiteRegion);  // Create an overlay image with white shape
+        Image whiteOverlay = new Image(whiteRegion); // Create an overlay image with white shape
         whiteOverlay.setSize(200, 200);
         whiteOverlay.setPosition(
-            (Gdx.graphics.getWidth() / 2 - whiteOverlay.getWidth() / 2), 
-            (Gdx.graphics.getHeight() / 2 - whiteOverlay.getHeight() / 2)
-        );
+                (Gdx.graphics.getWidth() / 2 - whiteOverlay.getWidth() / 2),
+                (Gdx.graphics.getHeight() / 2 - whiteOverlay.getHeight() / 2));
         whiteOverlay.setOrigin(Align.center);
-        whiteOverlay.setColor(1, 1, 1, 0);  // Start fully transparent
+        whiteOverlay.setColor(1, 1, 1, 0); // Start fully transparent
         stage.addActor(whiteOverlay);
 
-    
         // Testo dell'evoluzione
-        String discorso28 = "Cosa? "+pokeEvoluto + " si sta evolvendo!";
+        String discorso28 = "Cosa? " + pokeEvoluto + " si sta evolvendo!";
         labelDiscorsi28 = new LabelDiscorsi(discorso28, 200, 0, true, false);
         label28 = labelDiscorsi28.getLabel();
         label28.setZIndex(100);
         stage.addActor(label28);
-    
+
         // Rimozione del testo e animazione finale
         Timer.schedule(new Timer.Task() {
             @Override
-            public void run() { 
+            public void run() {
                 labelDiscorsi28.reset();
                 label28.remove();
                 label28 = null;
@@ -4053,208 +4032,181 @@ public class Battle extends ScreenAdapter {
 
                 // Add the fade-in and fade-out effect to the white overlay
                 whiteOverlay.addAction(Actions.sequence(
-                    Actions.parallel(
-                        Actions.fadeIn(2f),
-                        Actions.repeat(2, Actions.sequence(
-                            Actions.scaleBy(0.3f, 0.3f, 1.5f),
-                            Actions.scaleBy(-0.3f, -0.3f, 1.5f)
-                        ))
-                    ),
-                    Actions.parallel(
-                        Actions.repeat(1, Actions.sequence(
-                            Actions.scaleBy(0.3f, 0.3f, 1.3f),
-                            Actions.scaleBy(-0.3f, -0.3f, 1.3f)
-                        ))
-                    ),
-                    Actions.parallel(
-                        Actions.repeat(1, Actions.sequence(
-                            Actions.scaleBy(0.3f, 0.3f, 1.1f),
-                            Actions.scaleBy(-0.3f, -0.3f, 1.1f)
-                        ))
-                    ),
-                    Actions.parallel(
-                        Actions.repeat(1, Actions.sequence(
-                            Actions.scaleBy(0.3f, 0.3f, 1f),
-                            Actions.scaleBy(-0.3f, -0.3f, 1f)
-                        ))
-                    ),
-                    Actions.parallel(
-                        Actions.repeat(2, Actions.sequence(
-                            Actions.scaleBy(0.3f, 0.3f, 0.8f),
-                            Actions.scaleBy(-0.3f, -0.3f, 0.8f)
-                        ))
-                    ),
-                    Actions.parallel(
-                        Actions.repeat(3, Actions.sequence(
-                            Actions.scaleBy(0.3f, 0.3f, 0.5f),
-                            Actions.scaleBy(-0.3f, -0.3f, 0.5f)
-                        ))
-                    ),
-                    Actions.parallel(
-                        Actions.repeat(5, Actions.sequence(
-                            Actions.scaleBy(0.3f, 0.3f, 0.3f),
-                            Actions.scaleBy(-0.3f, -0.3f, 0.3f)
-                        ))
-                    ),
-                    Actions.fadeOut(0f)
-                ));
+                        Actions.parallel(
+                                Actions.fadeIn(2f),
+                                Actions.repeat(2, Actions.sequence(
+                                        Actions.scaleBy(0.3f, 0.3f, 1.5f),
+                                        Actions.scaleBy(-0.3f, -0.3f, 1.5f)))),
+                        Actions.parallel(
+                                Actions.repeat(1, Actions.sequence(
+                                        Actions.scaleBy(0.3f, 0.3f, 1.3f),
+                                        Actions.scaleBy(-0.3f, -0.3f, 1.3f)))),
+                        Actions.parallel(
+                                Actions.repeat(1, Actions.sequence(
+                                        Actions.scaleBy(0.3f, 0.3f, 1.1f),
+                                        Actions.scaleBy(-0.3f, -0.3f, 1.1f)))),
+                        Actions.parallel(
+                                Actions.repeat(1, Actions.sequence(
+                                        Actions.scaleBy(0.3f, 0.3f, 1f),
+                                        Actions.scaleBy(-0.3f, -0.3f, 1f)))),
+                        Actions.parallel(
+                                Actions.repeat(2, Actions.sequence(
+                                        Actions.scaleBy(0.3f, 0.3f, 0.8f),
+                                        Actions.scaleBy(-0.3f, -0.3f, 0.8f)))),
+                        Actions.parallel(
+                                Actions.repeat(3, Actions.sequence(
+                                        Actions.scaleBy(0.3f, 0.3f, 0.5f),
+                                        Actions.scaleBy(-0.3f, -0.3f, 0.5f)))),
+                        Actions.parallel(
+                                Actions.repeat(5, Actions.sequence(
+                                        Actions.scaleBy(0.3f, 0.3f, 0.3f),
+                                        Actions.scaleBy(-0.3f, -0.3f, 0.3f)))),
+                        Actions.fadeOut(0f)));
 
                 // Add the fade-in and fade-out effect to the white overlay
                 lightSphere.addAction(Actions.sequence(
-                    Actions.parallel(
-                        Actions.fadeIn(2f),
-                        Actions.repeat(2, Actions.sequence(
-                            Actions.scaleBy(0.3f, 0.3f, 1.5f),
-                            Actions.scaleBy(-0.3f, -0.3f, 1.5f)
-                        ))
-                    ),
-                    Actions.parallel(
-                        Actions.repeat(1, Actions.sequence(
-                            Actions.scaleBy(0.3f, 0.3f, 1.3f),
-                            Actions.scaleBy(-0.3f, -0.3f, 1.3f)
-                        ))
-                    ),
-                    Actions.parallel(
-                        Actions.repeat(1, Actions.sequence(
-                            Actions.scaleBy(0.3f, 0.3f, 1.1f),
-                            Actions.scaleBy(-0.3f, -0.3f, 1.1f)
-                        ))
-                    ),
-                    Actions.parallel(
-                        Actions.repeat(1, Actions.sequence(
-                            Actions.scaleBy(0.3f, 0.3f, 1f),
-                            Actions.scaleBy(-0.3f, -0.3f, 1f)
-                        ))
-                    ),
-                    Actions.parallel(
-                        Actions.repeat(2, Actions.sequence(
-                            Actions.scaleBy(0.3f, 0.3f, 0.8f),
-                            Actions.scaleBy(-0.3f, -0.3f, 0.8f)
-                        ))
-                    ),
-                    Actions.parallel(
-                        Actions.repeat(3, Actions.sequence(
-                            Actions.scaleBy(0.3f, 0.3f, 0.5f),
-                            Actions.scaleBy(-0.3f, -0.3f, 0.5f)
-                        ))
-                    ),
-                    Actions.parallel(
-                        Actions.repeat(5, Actions.sequence(
-                            Actions.scaleBy(0.3f, 0.3f, 0.3f),
-                            Actions.scaleBy(-0.3f, -0.3f, 0.3f)
-                        ))
-                    ),
-                    Actions.fadeOut(0f)
-                ));
-            
+                        Actions.parallel(
+                                Actions.fadeIn(2f),
+                                Actions.repeat(2, Actions.sequence(
+                                        Actions.scaleBy(0.3f, 0.3f, 1.5f),
+                                        Actions.scaleBy(-0.3f, -0.3f, 1.5f)))),
+                        Actions.parallel(
+                                Actions.repeat(1, Actions.sequence(
+                                        Actions.scaleBy(0.3f, 0.3f, 1.3f),
+                                        Actions.scaleBy(-0.3f, -0.3f, 1.3f)))),
+                        Actions.parallel(
+                                Actions.repeat(1, Actions.sequence(
+                                        Actions.scaleBy(0.3f, 0.3f, 1.1f),
+                                        Actions.scaleBy(-0.3f, -0.3f, 1.1f)))),
+                        Actions.parallel(
+                                Actions.repeat(1, Actions.sequence(
+                                        Actions.scaleBy(0.3f, 0.3f, 1f),
+                                        Actions.scaleBy(-0.3f, -0.3f, 1f)))),
+                        Actions.parallel(
+                                Actions.repeat(2, Actions.sequence(
+                                        Actions.scaleBy(0.3f, 0.3f, 0.8f),
+                                        Actions.scaleBy(-0.3f, -0.3f, 0.8f)))),
+                        Actions.parallel(
+                                Actions.repeat(3, Actions.sequence(
+                                        Actions.scaleBy(0.3f, 0.3f, 0.5f),
+                                        Actions.scaleBy(-0.3f, -0.3f, 0.5f)))),
+                        Actions.parallel(
+                                Actions.repeat(5, Actions.sequence(
+                                        Actions.scaleBy(0.3f, 0.3f, 0.3f),
+                                        Actions.scaleBy(-0.3f, -0.3f, 0.3f)))),
+                        Actions.fadeOut(0f)));
+
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
                         // Cambia l'immagine del Pokémon all'immagine evoluta
                         Texture evolvedTexture = new Texture("pokemon/" + pokeEvo.get(evoIndex) + ".png");
-                        // Crea un TextureRegion che prende solo il primo quarto della larghezza della texture evoluta
+                        // Crea un TextureRegion che prende solo il primo quarto della larghezza della
+                        // texture evoluta
                         int evolvedWidthQuarter = evolvedTexture.getWidth() / 4;
-                        TextureRegion evolvedRegion = new TextureRegion(evolvedTexture, 0, 0, evolvedWidthQuarter, evolvedTexture.getHeight());
-                        
-                        // Imposta il TextureRegionDrawable per mostrare solo il primo quarto della larghezza
-                        evolvingPoke.setDrawable(new TextureRegionDrawable(evolvedRegion));                
+                        TextureRegion evolvedRegion = new TextureRegion(evolvedTexture, 0, 0, evolvedWidthQuarter,
+                                evolvedTexture.getHeight());
+
+                        // Imposta il TextureRegionDrawable per mostrare solo il primo quarto della
+                        // larghezza
+                        evolvingPoke.setDrawable(new TextureRegionDrawable(evolvedRegion));
                         // Effetti conclusivi (scintillio e ingrandimento finale)
                         evolvingPoke.addAction(Actions.sequence(
-                            Actions.parallel(
-                                Actions.scaleTo(1.2f, 1.2f, 0.8f),
-                                Actions.alpha(1, 0.8f)
-                            ),
-                            Actions.parallel(
-                                Actions.scaleTo(1.0f, 1.0f, 0.5f)
-                            ),
-                            Actions.run(new Runnable() {
-                                @Override
-                                public void run() {
-                                    conosciPokemon(pokeEvo.get(evoIndex));
-                                    String discorso29 = "Congratulazioni! "+pokeEvoluto + " si e' evoluto in "+ pokeEvo.get(evoIndex)+"!";
-                                    labelDiscorsi29 = new LabelDiscorsi(discorso29, dimMax, 0, true, false);
-                                    label29 = labelDiscorsi29.getLabel();
-                                    label29.setZIndex(102);
-                                    stage.addActor(label29);        
-                                    Timer.schedule(new Timer.Task() {
-                                        @Override
-                                        public void run() {
-                                            labelDiscorsi29.reset();
-                                            label29.remove();
-                                            label29 = null;
-                                        }
-                                    }, 6f); // Durata dell'animazione principale
-                                }
-                            })
-                        ));
+                                Actions.parallel(
+                                        Actions.scaleTo(1.2f, 1.2f, 0.8f),
+                                        Actions.alpha(1, 0.8f)),
+                                Actions.parallel(
+                                        Actions.scaleTo(1.0f, 1.0f, 0.5f)),
+                                Actions.run(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        conosciPokemon(pokeEvo.get(evoIndex));
+                                        String discorso29 = "Congratulazioni! " + pokeEvoluto + " si e' evoluto in "
+                                                + pokeEvo.get(evoIndex) + "!";
+                                        labelDiscorsi29 = new LabelDiscorsi(discorso29, dimMax, 0, true, false);
+                                        label29 = labelDiscorsi29.getLabel();
+                                        label29.setZIndex(102);
+                                        stage.addActor(label29);
+                                        Timer.schedule(new Timer.Task() {
+                                            @Override
+                                            public void run() {
+                                                labelDiscorsi29.reset();
+                                                label29.remove();
+                                                label29 = null;
+                                            }
+                                        }, 6f); // Durata dell'animazione principale
+                                    }
+                                })));
                     }
                 }, 11f); // Durata
             }
         }, 3.5f); // Durata dell'animazione principale
     }
 
-    private void scopriPokemon(String pokeName){
+    private void scopriPokemon(String pokeName) {
         FileHandle file = Gdx.files.local("assets/ashJson/pokemonScoperti.json");
         String jsonString = file.readString();
         JsonValue json = new JsonReader().parse(jsonString);
-        int numPokePokedex=0;
+        int numPokePokedex = 0;
 
-        while (!json.get(numPokePokedex).getString("nome").equalsIgnoreCase(pokeName)){
+        while (!json.get(numPokePokedex).getString("nome").equalsIgnoreCase(pokeName)) {
             numPokePokedex++;
         }
-        if (!json.get(numPokePokedex).getString("incontrato").equalsIgnoreCase("1")){
-            
+        if (!json.get(numPokePokedex).getString("incontrato").equalsIgnoreCase("1")) {
+
             json.get(numPokePokedex).remove("incontrato");
-            json.get(numPokePokedex).addChild("incontrato",new JsonValue("0"));
-    
-            file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);    
+            json.get(numPokePokedex).addChild("incontrato", new JsonValue("0"));
+
+            file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
         }
     }
 
-    private void conosciPokemon(String pokeName){
+    private void conosciPokemon(String pokeName) {
         FileHandle file = Gdx.files.local("assets/ashJson/pokemonScoperti.json");
         String jsonString = file.readString();
         JsonValue json = new JsonReader().parse(jsonString);
-        int numPokePokedex=1;
+        int numPokePokedex = 1;
 
-        while (!json.get(numPokePokedex).getString("nome").equalsIgnoreCase(pokeName)){
+        while (!json.get(numPokePokedex).getString("nome").equalsIgnoreCase(pokeName)) {
             numPokePokedex++;
         }
 
         json.get(numPokePokedex).remove("incontrato");
-        json.get(numPokePokedex).addChild("incontrato",new JsonValue("1"));
+        json.get(numPokePokedex).addChild("incontrato", new JsonValue("1"));
 
         file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
 
     }
 
-    public void ricominciaBattagliaDopoCura(String discorso, int indexCurato, String currentHPCura, String maxHPCura, int passiCura, int psCuratiCura){
+    public void ricominciaBattagliaDopoCura(String discorso, int indexCurato, String currentHPCura, String maxHPCura,
+            int passiCura, int psCuratiCura) {
 
-        labelDiscorsiCura = new LabelDiscorsi(discorso,dimMax,0,true, false);
-        labelDiscorsiCura.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di quello degli altri attori
-        labelCura=labelDiscorsiCura.getLabel();
+        labelDiscorsiCura = new LabelDiscorsi(discorso, dimMax, 0, true, false);
+        labelDiscorsiCura.getLabel().setZIndex(100); // Imposta il valore dello z-index su 100 o un valore più alto di
+                                                     // quello degli altri attori
+        labelCura = labelDiscorsiCura.getLabel();
         stage.addActor(labelCura);
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
                 labelDiscorsi5.reset();
-                if (labelDiscorsiCura!=null)
+                if (labelDiscorsiCura != null)
                     labelCura.remove();
-                labelCura=null;
+                labelCura = null;
             }
-        }, 3f);  
+        }, 3f);
 
-        if (indexCurato==numeroIndexPoke){
-            updateHpBarWidthCura(currentHPCura,maxHPCura,passiCura, indexCurato,psCuratiCura);
+        if (indexCurato == numeroIndexPoke) {
+            updateHpBarWidthCura(currentHPCura, maxHPCura, passiCura, indexCurato, psCuratiCura);
             leggiPoke(indexCurato);
         }
 
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
-                utilizzoMossaBot(false,null);
+                utilizzoMossaBot(false, null);
             }
-        }, 2.5f); 
+        }, 2.5f);
     }
 
     private void updateHpBarWidthCura(String currentHP, String maxHP, int passi, int index, int psCurati) {
@@ -4277,13 +4229,14 @@ public class Battle extends ScreenAdapter {
 
         float ritardoTraPassi = 1.25f / passi;
 
-        // Crea un'azione parallela per gestire contemporaneamente l'aggiornamento della larghezza della barra HP e l'animazione del cambiamento di labelHP
+        // Crea un'azione parallela per gestire contemporaneamente l'aggiornamento della
+        // larghezza della barra HP e l'animazione del cambiamento di labelHP
         ParallelAction parallelAction = new ParallelAction();
 
         // Aggiungi un'azione per l'animazione del cambiamento del valore di labelHP
         for (int i = 0; i < passi; i++) {
-            int nuovoValore = Integer.parseInt(currentHP)-psCurati + (i+1);
-            
+            int nuovoValore = Integer.parseInt(currentHP) - psCurati + (i + 1);
+
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
@@ -4296,4 +4249,4 @@ public class Battle extends ScreenAdapter {
         HPplayer.addAction(parallelAction);
     }
 
-} //Fine battaglia :)
+} // Fine battaglia :)
