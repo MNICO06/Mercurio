@@ -1,5 +1,7 @@
 package com.mercurio.game.AssetManager;
 
+import java.util.EnumSet;
+
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 
@@ -70,6 +72,12 @@ public class GameAsset {
         }
     }
 
+    public void unloadAllBattle(){
+        for (Assets asset: Assets.values()){
+            assetManager.unload(asset.getPath());
+        }
+    }
+
     /*
      * 
      * Asset Ash
@@ -135,9 +143,9 @@ public class GameAsset {
     public enum AssetsBot {
         // Textures per la battaglia
         DOC("player/dottoressa.png", Texture.class),
-        MOM("assets/player/mammaAsh.png", Texture.class),
-        PROF("assets/player/professorRowan.png", Texture.class),
-        RIVALE("assets/player/barry.png", Texture.class);
+        MOM("player/mammaAsh.png", Texture.class),
+        PROF("player/professorRowan.png", Texture.class),
+        RIVALE("player/barry.png", Texture.class);
 
         private final String path;
         private final Class<?> type;
@@ -180,11 +188,77 @@ public class GameAsset {
         }
     }
 
+    public void unloadAllBot (){
+        for (AssetsBot asset : AssetsBot.values()) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
+    public boolean areAssetsLoaded() {
+        for (AssetsBot asset : AssetsBot.values()) {
+            if (!assetManager.isLoaded(asset.getPath(), asset.getType())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public enum AssetsBox {
+        SPHEAL_LB("pokemon/sphealLabel.png", Texture.class),
+        BOX_SF_COM("sfondo/sfondiBoxCompleti.png", Texture.class),
+        SF_AVANTI("assets/sfondo/avanti.png", Texture.class),
+        SF_INDIETRO("assets/sfondo/indietro.png", Texture.class),
+        SPOSTA("assets/squadra/sposta.png", Texture.class),
+        INFO("assets/squadra/info.png", Texture.class),
+        CANCEL("assets/squadra/cancel.png", Texture.class),
+        SF_POKE_SQ("assets/squadra/sfondoPokeSquadra.png", Texture.class);
+
+        private final String path;
+        private final Class<?> type;
+
+        AssetsBox(String path, Class<?> type) {
+            this.path = path;
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public Class<?> getType() {
+            return type;
+        }
+    }
+
+    public void loadBoxAsset() {
+        for (AssetsBox asset : AssetsBox.values()) {
+            assetManager.load(asset.getPath(), asset.getType());
+        }
+    }
+
+    public static boolean updateBox() {
+        return assetManager.update();
+    }
+
+    public static float getProgressBox() {
+        return assetManager.getProgress();
+    }
+
+    public Texture getBox(AssetsBox asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
+    }
+
+    public static void unloadBox(AssetsBox asset) {
+        if (assetManager.isLoaded(asset.getPath())) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
     public void finishLoading() {
         assetManager.finishLoading();
     }
 
-    public static void dispose() {
+    public void dispose() {
         assetManager.dispose();
     }
 }

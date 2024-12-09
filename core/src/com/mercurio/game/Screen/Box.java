@@ -17,6 +17,9 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
+import com.mercurio.game.AssetManager.GameAsset;
+import com.mercurio.game.AssetManager.GameAsset.AssetsBot;
+import com.mercurio.game.AssetManager.GameAsset.AssetsBox;
 import com.mercurio.game.pokemon.infoPoke;
 
 import java.util.HashMap;
@@ -57,8 +60,11 @@ public class Box extends ScreenAdapter {
 
     private infoPoke infoPoke;
 
+    private GameAsset asset;
+
     public Box(MercurioMain game) {
         this.game = game;
+        this.asset = game.getGameAsset();
         batch = new SpriteBatch();
         stage = new Stage();
         font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
@@ -176,7 +182,7 @@ public class Box extends ScreenAdapter {
 
             } else {
 
-                Texture animationTexture = new Texture("pokemon/sphealLabel.png");
+                Texture animationTexture = asset.getBox(AssetsBox.SPHEAL_LB);
 
                 animationTextures.add(animationTexture);
                 TextureRegion animationRegion = new TextureRegion(animationTexture, 0, 0,
@@ -216,7 +222,7 @@ public class Box extends ScreenAdapter {
     @Override
     public void show() {
         try {
-            Texture textureBack = new Texture("sfondo/sfondiBoxCompleti.png");
+            Texture textureBack = asset.getBox(AssetsBox.BOX_SF_COM);
 
             sfondi = new TextureRegion[16];
 
@@ -243,16 +249,16 @@ public class Box extends ScreenAdapter {
             stage.addActor(background);
 
             // Aggiungi le immagini "avanti" e "indietro" in alto
-            Texture avantiTexture = new Texture("assets/sfondo/avanti.png");
-            Texture indietroTexture = new Texture("assets/sfondo/indietro.png");
+            Texture avantiTexture = asset.getBox(AssetsBox.SF_AVANTI);
+            Texture indietroTexture = asset.getBox(AssetsBox.SF_INDIETRO);
 
             avantiImage = new Image(avantiTexture);
             indietroImage = new Image(indietroTexture);
 
             // aggiungi le immagini con i vari pulsanti (sposta, info, libera)
-            Texture pulsanteSposta = new Texture("assets/squadra/sposta.png");
-            Texture pulsanteInfo = new Texture("assets/squadra/info.png");
-            Texture pulsanteLibera = new Texture("assets/squadra/cancel.png"); // c'è da fare il tasto libera per ora
+            Texture pulsanteSposta = asset.getBox(AssetsBox.SPOSTA);
+            Texture pulsanteInfo = asset.getBox(AssetsBox.INFO);
+            Texture pulsanteLibera = asset.getBox(AssetsBox.CANCEL); // c'è da fare il tasto libera per ora
                                                                                // metto cancel
 
             spostaImage = new Image(pulsanteSposta);
@@ -455,7 +461,7 @@ public class Box extends ScreenAdapter {
             }
 
             // Carica l'immagine di sfondo
-            Texture backgroundTexture = new Texture("assets/squadra/sfondoPokeSquadra.png");
+            Texture backgroundTexture = asset.getBox(AssetsBox.SF_POKE_SQ);
             Image backgroundImage = new Image(backgroundTexture);
             float yBase = background.getImageY() + background.getHeight() - backgroundImage.getHeight() - 45;
             float yFinalePoke = yBase - 70 * (numero * -1);
@@ -517,7 +523,7 @@ public class Box extends ScreenAdapter {
                 stage.addActor(animationImage);
 
             } else {
-                Texture animationTexture = new Texture("pokemon/sphealLabel.png");
+                Texture animationTexture = asset.getBox(AssetsBox.SPHEAL_LB);
                 TextureRegion animationRegion = new TextureRegion(animationTexture, 0, 0,
                         animationTexture.getWidth() / 2, animationTexture.getHeight());
 
