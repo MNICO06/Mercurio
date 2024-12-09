@@ -268,7 +268,7 @@ public class MercurioMain extends Game implements InterfacciaComune{
                 break;
 
             case Constant.CASA_ASH_SCREEN:
-                asset.loadBotAsset;
+                asset.loadBotAsset();
                 asset.finishLoading();
                 newScreen = new CasaSpawn(this);
                 luogo = "casaSpawn";
@@ -277,7 +277,7 @@ public class MercurioMain extends Game implements InterfacciaComune{
                 break;
 
             case Constant.CENTRO_POKEMON_CAPITALE_SCREEN:
-                asset.loadBotAsset;
+                asset.loadBotAsset();
                 asset.finishLoading();
                 newScreen = new PokeCenter(this);
                 screen_id = 2;
@@ -287,7 +287,7 @@ public class MercurioMain extends Game implements InterfacciaComune{
                 break;
 
             case Constant.CENTRO_POKEMON_NORD_SCREEN:
-                asset.loadBotAsset;
+                asset.loadBotAsset();
                 asset.finishLoading();
                 newScreen = new PokeCenter(this);
                 screen_id = 2;
@@ -297,7 +297,7 @@ public class MercurioMain extends Game implements InterfacciaComune{
                 break;
 
             case Constant.CENTRO_POKEMON_MARE_SCREEN:
-                asset.loadBotAsset;
+                asset.loadBotAsset();
                 asset.finishLoading();
                 newScreen = new PokeCenter(this);
                 screen_id = 2;
@@ -307,7 +307,9 @@ public class MercurioMain extends Game implements InterfacciaComune{
                 break;
 
             case Constant.MAPPA_SCREEN:
-                asset.unloadBot();
+                if(asset.areAssetsLoaded()){
+                    asset.unloadAllBot();
+                }
                 newScreen = new FullMap(this, mappa);
                 screen_id = 3;
                 screenString=screen;
@@ -319,7 +321,7 @@ public class MercurioMain extends Game implements InterfacciaComune{
                 break;
 
             case Constant.LABORATORIO:
-                asset.loadBotAsset;
+                asset.loadBotAsset();
                 asset.finishLoading();
                 newScreen = new Laboratorio(this);
                 screen_id = 4;
@@ -328,7 +330,7 @@ public class MercurioMain extends Game implements InterfacciaComune{
                 break;
 
             case Constant.POKEMARKET1:
-                asset.loadBotAsset;
+                asset.loadBotAsset();
                 asset.finishLoading();
                 newScreen = new PokeMarket1(this);
                 screen_id = 5;
@@ -337,7 +339,7 @@ public class MercurioMain extends Game implements InterfacciaComune{
                 break;
 
             case Constant.POKEMARKET2:
-                asset.loadBotAsset;
+                asset.loadBotAsset();
                 asset.finishLoading();
                 newScreen = new PokeMarket2(this);
                 screen_id = 6;
@@ -353,7 +355,9 @@ public class MercurioMain extends Game implements InterfacciaComune{
                 break;
 
             case Constant.CITTAMONTAGNA:
-                asset.unloadBot();
+                if(asset.areAssetsLoaded()){
+                    asset.unloadAllBot();
+                }
                 newScreen = new CittaMontagna(this);
                 screen_id = 7;
                 luogo = "cittamontagna";
@@ -361,7 +365,7 @@ public class MercurioMain extends Game implements InterfacciaComune{
                 break;
 
             case Constant.CENTRO_POKEMON_ROCCIA:
-                asset.loadBotAsset;
+                asset.loadBotAsset();
                 asset.finishLoading();
                 newScreen = new PokeCenter(this);
                 screen_id = 8;

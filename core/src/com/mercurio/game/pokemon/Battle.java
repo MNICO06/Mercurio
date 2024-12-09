@@ -451,8 +451,6 @@ public class Battle extends ScreenAdapter {
                                     batch.dispose();
                                     font.dispose();
                                     stage.dispose();
-                                    textureLancio.dispose();
-                                    ballTexture.dispose();
                                     Gdx.input.setInputProcessor(null);
                                     chiamante.closeBattle();
                                     MenuLabel.openMenuLabel.setVisible(true);
@@ -476,8 +474,6 @@ public class Battle extends ScreenAdapter {
                         batch.dispose();
                         font.dispose();
                         stage.dispose();
-                        textureLancio.dispose();
-                        ballTexture.dispose();
                         Gdx.input.setInputProcessor(null);
                         chiamante.closeBattle();
                         MenuLabel.openMenuLabel.setVisible(true);
