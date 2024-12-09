@@ -272,9 +272,9 @@ public class MercurioMain extends Game implements InterfacciaComune {
                 thread.interrupt();
             }
         }
-
-        // Dispose degli asset
-        GameAsset.dispose();
+        
+        //Dispose degli asset
+        asset.dispose();
         // Chiudi il batch
         batch.dispose();
         // Chiudi l'applicazione
@@ -293,6 +293,8 @@ public class MercurioMain extends Game implements InterfacciaComune {
                 break;
 
             case Constant.CASA_ASH_SCREEN:
+                asset.loadBotAsset;
+                asset.finishLoading();
                 newScreen = new CasaSpawn(this);
                 luogo = "casaSpawn";
                 screen_id = 1;
@@ -300,6 +302,8 @@ public class MercurioMain extends Game implements InterfacciaComune {
                 break;
 
             case Constant.CENTRO_POKEMON_CAPITALE_SCREEN:
+                asset.loadBotAsset;
+                asset.finishLoading();
                 newScreen = new PokeCenter(this);
                 screen_id = 2;
                 luogo = "pokeCenter";
@@ -308,6 +312,8 @@ public class MercurioMain extends Game implements InterfacciaComune {
                 break;
 
             case Constant.CENTRO_POKEMON_NORD_SCREEN:
+                asset.loadBotAsset;
+                asset.finishLoading();
                 newScreen = new PokeCenter(this);
                 screen_id = 2;
                 luogo = "pokeCenter";
@@ -316,6 +322,8 @@ public class MercurioMain extends Game implements InterfacciaComune {
                 break;
 
             case Constant.CENTRO_POKEMON_MARE_SCREEN:
+                asset.loadBotAsset;
+                asset.finishLoading();
                 newScreen = new PokeCenter(this);
                 screen_id = 2;
                 luogo = "pokeCenter";
@@ -324,6 +332,7 @@ public class MercurioMain extends Game implements InterfacciaComune {
                 break;
 
             case Constant.MAPPA_SCREEN:
+                asset.unloadBot();
                 newScreen = new FullMap(this, mappa);
                 screen_id = 3;
                 screenString = screen;
@@ -335,6 +344,8 @@ public class MercurioMain extends Game implements InterfacciaComune {
                 break;
 
             case Constant.LABORATORIO:
+                asset.loadBotAsset;
+                asset.finishLoading();
                 newScreen = new Laboratorio(this);
                 screen_id = 4;
                 luogo = "laboratorio";
@@ -342,6 +353,8 @@ public class MercurioMain extends Game implements InterfacciaComune {
                 break;
 
             case Constant.POKEMARKET1:
+                asset.loadBotAsset;
+                asset.finishLoading();
                 newScreen = new PokeMarket1(this);
                 screen_id = 5;
                 luogo = "pokemarket";
@@ -349,6 +362,8 @@ public class MercurioMain extends Game implements InterfacciaComune {
                 break;
 
             case Constant.POKEMARKET2:
+                asset.loadBotAsset;
+                asset.finishLoading();
                 newScreen = new PokeMarket2(this);
                 screen_id = 6;
                 luogo = "pokemarket";
@@ -363,6 +378,7 @@ public class MercurioMain extends Game implements InterfacciaComune {
                 break;
 
             case Constant.CITTAMONTAGNA:
+                asset.unloadBot();
                 newScreen = new CittaMontagna(this);
                 screen_id = 7;
                 luogo = "cittamontagna";
@@ -370,6 +386,8 @@ public class MercurioMain extends Game implements InterfacciaComune {
                 break;
 
             case Constant.CENTRO_POKEMON_ROCCIA:
+                asset.loadBotAsset;
+                asset.finishLoading();
                 newScreen = new PokeCenter(this);
                 screen_id = 8;
                 luogo = "pokeCenter";
