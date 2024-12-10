@@ -1,7 +1,5 @@
 package com.mercurio.game.AssetManager;
 
-import java.util.EnumSet;
-
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 
@@ -262,3 +260,95 @@ public class GameAsset {
         assetManager.dispose();
     }
 }
+
+/*
+SUDDIVISIONE DELLE RISORSE
+
+//Enum Borsa
+sfondo/sfondo1.png
+sfondo/sfondo2.png
+sfondo/usa.png
+sfondo/cureBag.png
+sfondo/keyBag.png
+sfondo/mtBag.png
+
+oggetti/MT.png
+
+//Enum Pokedex
+sfondo/sfondoPokedex.png
+sfondo/sfondoPokedexAperto.png
+sfondo/descrizionePokedex.png
+sfondo/tastoAperturaPokedex.png
+sfondo/freccaIndietro.png
+sfondo/puntoInterrogativo.png
+
+//Enum Medaglie
+sfondo/medaglieChiuse.png
+sfondo/medaglieAperte.png
+
+//Enum Shop
+sfondo/sfondoPokemarket.png
+sfondo/frecciaMarketUp.png
+sfondo/frecciaMarketDown.png
+sfondo/lineaOggettoSelezionato.png
+sfondo/lineaOggetto.png
+sfondo/mostraQuantita.png
+sfondo/frecciaQtaSu.png
+sfondo/frecciaQtaGiu.png
+sfondo/okLabel.png
+
+//Enum Box
+sfondo/sfondiBoxCompleti.png
+squadra/sfondoPokeSquadra.png
+pokemon/sphealLabel.png
+
+//Enum MiniMappa
+sfondo/miniMappaCompleta.png
+sfondo/miniMapBG.png
+cursore/cursoreMiniMap1.png
+cursore/cursoreMiniMap2.png
+
+//Enum SceltaStarteScreen
+sfondo/sfondoFuoco.png
+sfondo/sfondoErba.png
+sfondo/sfondoAcqua.png
+pokemon/litten.png
+pokemon/rowlet.png
+pokemon/popplio.png
+
+//Enum LabelDiscorsi
+sfondo/boxText.png
+
+//Enum ApprendimentoMosse
+sfondo/newMoveBG.png
+
+//Enum Squadra
+squadra/cambia.png
+
+//Enum InfoPoke
+squadra/infoPoke.png
+
+//Enum Battle
+battle/sfondoBattle.png 
+battle/baseD.png 
+battle/baseU.png 
+battle/lancioBall.png  
+battle/pokeBallPlayer.png 
+battle/playerArrow.png 
+battle/botArrow.png 
+battle/ballsForNumber.png 
+battle/fightBox.png 
+battle/playerHPBar.png 
+battle/botHPBar.png 
+battle/noMove.png 
+battle/b.png 
+
+pokemon/lightCircle.png
+
+//Enum Menu
+menuImage/sfondoImmagine.png
+menuImage/logoMercurio.png
+menuImage/scrittaMercurio.jpg
+menuImage/logoGruppo.png
+
+*/
