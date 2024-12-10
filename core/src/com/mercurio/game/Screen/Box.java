@@ -18,7 +18,6 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.mercurio.game.AssetManager.GameAsset;
-import com.mercurio.game.AssetManager.GameAsset.AssetsBot;
 import com.mercurio.game.AssetManager.GameAsset.AssetsBox;
 import com.mercurio.game.pokemon.infoPoke;
 

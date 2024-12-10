@@ -59,7 +59,6 @@ public class Battle extends ScreenAdapter {
     private boolean nextMoveBot;
     private int counterForNextMove = 0;
     private BorsaModifier borsaModifier = new BorsaModifier();
-    private String nameUsedBall;
     private int danno;
     private int dannoBot;
     private final Object lock = new Object(); // Dichiarazione di un oggetto di blocco
@@ -110,7 +109,6 @@ public class Battle extends ScreenAdapter {
     private Animation<TextureRegion> muoviBall;
     private Animation<TextureRegion> muoviBallLanciata;
     private Animation<TextureRegion> muoviBallBot;
-    private TextureRegion newTextureRegionFight;
     private float cambioFrame_speed = 0.7f;
     private float animationTime;
     private float animationDuration = 3f; // Durata dell'animazione in secondi
@@ -230,7 +228,6 @@ public class Battle extends ScreenAdapter {
     private String pokeHPbeforeFight;
     private float tassoCattura;
     private String nomeSelvatico;
-    private boolean cattura = false;
     private float x = 0;
     private ArrayList<Integer> pokeInBattaglia = new ArrayList<>();
     private ArrayList<Integer> pokeInBattagliaLU = new ArrayList<>();
@@ -569,7 +566,6 @@ public class Battle extends ScreenAdapter {
                 if (lanciatoTask != null && !lanciatoTask.isScheduled()) {
                     lanciatoTask.cancel();
                 }
-
                 // Crea un nuovo task
                 lanciatoTask = new Timer.Task() {
                     @Override
@@ -587,7 +583,7 @@ public class Battle extends ScreenAdapter {
                 };
 
                 // Pianifica il nuovo task
-                Timer.schedule(lanciatoTask, 0.5f);
+                Timer.schedule(lanciatoTask, 0.2f);
             }
 
             if (label2 != null) {
@@ -2653,7 +2649,6 @@ public class Battle extends ScreenAdapter {
     }
 
     public void calcoloTassoCattura(String nameUsedBall) {
-        this.nameUsedBall = nameUsedBall;
         int tasso;
         float bonusBall;
 
