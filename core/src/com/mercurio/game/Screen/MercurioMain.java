@@ -284,6 +284,7 @@ public class MercurioMain extends Game implements InterfacciaComune {
     }
 
     // avvia un altra scheda
+    @Override
     public void setPage(String screen) {
         Screen newScreen = null;
         switch (screen) {
@@ -506,6 +507,7 @@ public class MercurioMain extends Game implements InterfacciaComune {
         return teleport;
     }
 
+    @Override
     public void setLuogo(String luogo) {
         this.luogo = luogo;
     }

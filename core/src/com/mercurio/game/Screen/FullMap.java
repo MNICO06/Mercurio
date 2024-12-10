@@ -1265,4 +1265,14 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
     public GameAsset getGameAsset() {
         return asset;
     }
+
+    @Override
+    public void setLuogo(String luogo) {
+        game.setLuogo(luogo);
+    }
+
+    @Override
+    public void setPage(String screen) {
+        game.setPage(screen);
+    }
 }

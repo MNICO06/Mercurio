@@ -7,4 +7,8 @@ public interface InterfacciaComune {
     void closeBattle();
 
     public GameAsset getGameAsset();
+
+    void setLuogo(String luogo);
+
+    void setPage(String screen);
 }
