@@ -252,6 +252,9 @@ public class Battle extends ScreenAdapter {
     private ArrayList<String> pokeEvo = new ArrayList<>();
     private ArrayList<Integer> pokeEvoIndex = new ArrayList<>();
     private Timer.Task lanciatoTask;
+    private int checkDoublePlacement =0;
+    private int checkDoublePlacementBot =0;
+
 
     public GameAsset asset;
 
@@ -577,30 +580,17 @@ public class Battle extends ScreenAdapter {
 
                 }
 
-                if (lanciato) {
-                    // Se un task precedente esiste, annullalo
-                    if (lanciatoTask != null && !lanciatoTask.isScheduled()) {
-                        lanciatoTask.cancel();
-                    }
-                    // Crea un nuovo task
-                    lanciatoTask = new Timer.Task() {
-                        @Override
-                        public void run() {
-                            showBall(ballTexture);
-                            lanciato = false;
 
-                            if (isBotFight) {
-                                showBallBot();
-                            } else {
-                                checkPerDoppioPoke++;
-                                showPokemon(labelBaseU, nameBot);
-                            }
-                        }
-                    };
+                showBall(ballTexture);
+                lanciato = false;
 
-                    // Pianifica il nuovo task
-                    Timer.schedule(lanciatoTask, 0.2f);
+                if (isBotFight) {
+                    showBallBot();
+                } else {
+                    checkPerDoppioPoke++;
+                    showPokemon(labelBaseU, nameBot);
                 }
+
 
                 if (label2 != null) {
                     labelDiscorsi2.renderDisc();
@@ -712,7 +702,7 @@ public class Battle extends ScreenAdapter {
 
     private void showBall(Texture textureBall) {
         try {
-
+            checkDoublePlacement=0;
             int regionWidth = textureBall.getWidth() / 3;
             int regionHeight = textureBall.getHeight();
 
@@ -752,27 +742,29 @@ public class Battle extends ScreenAdapter {
                                 startY - (startY - 110) * percent * percent);
                         elapsed += 0.1f;
                     } else {
-                        // Avvia l'animazione dei frame della ball
-                        activateAnimation(imageBall, muoviBall);
-                        if (isBotFight) {
-                            label1.remove();
-                        } else {
-                            label15.remove();
-                        }
-
-                        label2 = labelDiscorsi2.getLabel();
-                        stage.addActor(label2);
-                        Timer.schedule(new Timer.Task() {
-                            @Override
-                            public void run() {
-                                label2.remove();
-                                if (!switched) {
-                                    createFightLabels();
-                                }
+                        checkDoublePlacement++;
+                        if (checkDoublePlacement==1){
+                            // Avvia l'animazione dei frame della ball
+                            activateAnimation(imageBall, muoviBall);
+                            if (isBotFight) {
+                                label1.remove();
+                            } else {
+                                label15.remove();
                             }
-                        }, 2f);
-                        this.cancel(); // Interrompi il Timer.Task
 
+                            label2 = labelDiscorsi2.getLabel();
+                            stage.addActor(label2);
+                            Timer.schedule(new Timer.Task() {
+                                @Override
+                                public void run() {
+                                    label2.remove();
+                                    if (!switched) {
+                                        createFightLabels();
+                                    }
+                                }
+                            }, 2f);
+                            this.cancel(); // Interrompi il Timer.Task
+                        }
                     }
                 }
             }, 0, Gdx.graphics.getDeltaTime());
@@ -784,7 +776,7 @@ public class Battle extends ScreenAdapter {
 
     private void showBallBot() {
         try {
-
+            checkDoublePlacementBot=0;
             int regionWidth = ballTextureBot.getWidth() / 3;
             int regionHeight = ballTextureBot.getHeight();
             // Inizializza l'array delle TextureRegion della ball del bot
@@ -824,9 +816,12 @@ public class Battle extends ScreenAdapter {
                                                                                               // quadratica
                         elapsed += 0.1f;
                     } else {
-                        // Avvia l'animazione dei frame della ball del bot
-                        activateAnimation(imageBallBot, muoviBallBot);
-                        this.cancel(); // Interrompi il Timer.Task
+                        checkDoublePlacementBot++;
+                        if (checkDoublePlacementBot==1){
+                            // Avvia l'animazione dei frame della ball del bot
+                            activateAnimation(imageBallBot, muoviBallBot);
+                            this.cancel(); // Interrompi il Timer.Task
+                        }
                     }
                 }
             }, 0, Gdx.graphics.getDeltaTime());
