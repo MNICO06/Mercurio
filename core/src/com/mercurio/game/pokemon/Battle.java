@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Semaphore;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.files.FileHandle;
@@ -87,7 +86,7 @@ public class Battle extends ScreenAdapter {
     private Texture ballTexture;
     private Texture ballTextureBot; // questo lo si prende dal json
     private boolean isInNext = true;
-    private boolean lanciato = false;
+    private int lanciato = 0;
     private Image labelBaseU;
     private Image labelBaseD;
     private Texture textureLancio;
@@ -251,10 +250,9 @@ public class Battle extends ScreenAdapter {
     private boolean checkPerEvo = false;
     private ArrayList<String> pokeEvo = new ArrayList<>();
     private ArrayList<Integer> pokeEvoIndex = new ArrayList<>();
-    private Timer.Task lanciatoTask;
-    private int checkDoublePlacement =0;
-    private int checkDoublePlacementBot =0;
-
+    private int showBall = 0;
+    private int checkDoublePlacement = 0;
+    private int checkDoublePlacementBot = 0;
 
     public GameAsset asset;
 
@@ -553,7 +551,7 @@ public class Battle extends ScreenAdapter {
                         // Una volta che il player è fuori dallo schermo, cambia l'animazione a
                         // player[2] e player[3]
                         imagePlayer.setDrawable(new TextureRegionDrawable(player[3]));
-                        lanciato = true;
+                        lanciato++;
                         isInNext = true;
                         // Rimuovi il player dallo stage dopo l'ultima animazione
                     } else if (newX + imagePlayer.getWidth() > 120 && newX + imagePlayer.getWidth() < 270) {
@@ -580,17 +578,19 @@ public class Battle extends ScreenAdapter {
 
                 }
 
+                if (lanciato == 1) {
+                    lanciato++;
 
-                showBall(ballTexture);
-                lanciato = false;
+                    showBall(ballTexture);
 
-                if (isBotFight) {
-                    showBallBot();
-                } else {
-                    checkPerDoppioPoke++;
-                    showPokemon(labelBaseU, nameBot);
+                    if (isBotFight) {
+                        showBallBot();
+                    } else {
+                        checkPerDoppioPoke++;
+                        showPokemon(labelBaseU, nameBot);
+                    }
+
                 }
-
 
                 if (label2 != null) {
                     labelDiscorsi2.renderDisc();
@@ -702,7 +702,7 @@ public class Battle extends ScreenAdapter {
 
     private void showBall(Texture textureBall) {
         try {
-            checkDoublePlacement=0;
+            checkDoublePlacement = 0;
             int regionWidth = textureBall.getWidth() / 3;
             int regionHeight = textureBall.getHeight();
 
@@ -743,7 +743,7 @@ public class Battle extends ScreenAdapter {
                         elapsed += 0.1f;
                     } else {
                         checkDoublePlacement++;
-                        if (checkDoublePlacement==1){
+                        if (checkDoublePlacement == 1) {
                             // Avvia l'animazione dei frame della ball
                             activateAnimation(imageBall, muoviBall);
                             if (isBotFight) {
@@ -776,7 +776,7 @@ public class Battle extends ScreenAdapter {
 
     private void showBallBot() {
         try {
-            checkDoublePlacementBot=0;
+            checkDoublePlacementBot = 0;
             int regionWidth = ballTextureBot.getWidth() / 3;
             int regionHeight = ballTextureBot.getHeight();
             // Inizializza l'array delle TextureRegion della ball del bot
@@ -817,7 +817,7 @@ public class Battle extends ScreenAdapter {
                         elapsed += 0.1f;
                     } else {
                         checkDoublePlacementBot++;
-                        if (checkDoublePlacementBot==1){
+                        if (checkDoublePlacementBot == 1) {
                             // Avvia l'animazione dei frame della ball del bot
                             activateAnimation(imageBallBot, muoviBallBot);
                             this.cancel(); // Interrompi il Timer.Task
