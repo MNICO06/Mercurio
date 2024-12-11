@@ -89,7 +89,6 @@ public class MercurioMain extends Game implements InterfacciaComune {
         try {
 
             // Asset Manager
-            asset.loadBattleAssets();
             asset.loadAshAsset();
             asset.finishLoading();
 
