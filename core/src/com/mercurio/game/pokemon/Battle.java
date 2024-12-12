@@ -326,8 +326,14 @@ public class Battle extends ScreenAdapter {
             String discorso16 = "Non hai piu' Pokemon disponibili...";
             labelDiscorsi16 = new LabelDiscorsi(discorso16, dimMax, 0, true, false);
 
-            String discorso18 = "Sei stato portato d'urgenza al Centro Pokémon!";
-            labelDiscorsi18 = new LabelDiscorsi(discorso18, dimMax, 0, true, false);
+            if (isBotFight && nameBot.equals("rivale")) {
+                String discorso18 = "Hai affrontato il tuo rivale Barry";
+                labelDiscorsi18 = new LabelDiscorsi(discorso18, dimMax, 0, true, false);
+            }else {
+                String discorso18 = "Sei stato portato d'urgenza al Centro Pokémon...";
+                labelDiscorsi18 = new LabelDiscorsi(discorso18, dimMax, 0, true, false);
+            }
+            
 
             show();
         } catch (Exception e) {
@@ -2806,10 +2812,19 @@ public class Battle extends ScreenAdapter {
                                         label18.remove();
                                         label18 = null;
 
+                                        if (isBotFight) {
+                                            if (!nameBot.equals("rivale")) {
+                                                chiamante.setLuogo("casaSpawn");
+                                                chiamante.setPage("casaSpawn");
+                                            }
+                                        }else {
+                                            chiamante.setLuogo("casaSpawn");
+                                            chiamante.setPage("casaSpawn");
+                                        }
+
                                         // TODO: da modificare e mettere una funzione in futuro per il l'ultimo
                                         // pokecenter visitato
-                                        chiamante.setLuogo("casaSpawn");
-                                        chiamante.setPage("casaSpawn");
+                                        
 
                                         dispose();
                                     }
