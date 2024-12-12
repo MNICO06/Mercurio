@@ -8,81 +8,10 @@ public class GameAsset {
 
     /*
      * 
-     * Asset Battle
-     * 
-     */
-    public enum Assets {
-        // Textures per la battaglia
-        SFONDO_BATTLE("battle/sfondoBattle.png", Texture.class),
-        BASE_D("battle/baseD.png", Texture.class),
-        BASE_U("battle/baseU.png", Texture.class),
-        LANCIO_BALL("battle/lancioBall.png", Texture.class),
-        BALL_PLAYER("battle/pokeBallPlayer.png", Texture.class),
-        PLAYER_ARROW("battle/playerArrow.png", Texture.class),
-        BOT_ARROW("battle/botArrow.png", Texture.class),
-        BALLS_FOR_NUMBER("battle/ballsForNumber.png", Texture.class),
-        FIGHT_BOX("battle/fightBox.png", Texture.class),
-        HP_BAR("battle/playerHPBar.png", Texture.class),
-        BOT_HP_BAR("battle/botHPBar.png", Texture.class),
-        NO_MOVE("battle/noMove.png", Texture.class),
-        B("battle/b.png", Texture.class),
-        WHITE_PX("battle/white_pixel.png", Texture.class),
-        CIRCLE_LG("pokemon/lightCircle.png", Texture.class);
-
-        private final String path;
-        private final Class<?> type;
-
-        Assets(String path, Class<?> type) {
-            this.path = path;
-            this.type = type;
-        }
-
-        public String getPath() {
-            return path;
-        }
-
-        public Class<?> getType() {
-            return type;
-        }
-    }
-
-    public void loadBattleAssets() {
-        for (Assets asset : Assets.values()) {
-            assetManager.load(asset.getPath(), asset.getType());
-        }
-    }
-
-    public static boolean updateBattle() {
-        return assetManager.update();
-    }
-
-    public static float getProgressBattle() {
-        return assetManager.getProgress();
-    }
-
-    public Texture getBattle(Assets asset) {
-        return (Texture) assetManager.get(asset.getPath(), asset.getType());
-    }
-
-    public static void unloadBattle(Assets asset) {
-        if (assetManager.isLoaded(asset.getPath())) {
-            assetManager.unload(asset.getPath());
-        }
-    }
-
-    public void unloadAllBattle(){
-        for (Assets asset: Assets.values()){
-            assetManager.unload(asset.getPath());
-        }
-    }
-
-    /*
-     * 
      * Asset Ash
      * 
      */
     public enum AssetsAsh {
-        // Textures per la battaglia
         P_INDIETRO("assets/player/personaggioIndietro.png", Texture.class),
         P_AVANTI("assets/player/personaggioAvanti.png", Texture.class),
         P_DESTRA("assets/player/personaggioDestra.png", Texture.class),
@@ -115,22 +44,8 @@ public class GameAsset {
         }
     }
 
-    public static boolean updateAsh() {
-        return assetManager.update();
-    }
-
-    public static float getProgressAsh() {
-        return assetManager.getProgress();
-    }
-
     public Texture getAsh(AssetsAsh asset) {
         return (Texture) assetManager.get(asset.getPath(), asset.getType());
-    }
-
-    public static void unloadAsh(AssetsAsh asset) {
-        if (assetManager.isLoaded(asset.getPath())) {
-            assetManager.unload(asset.getPath());
-        }
     }
 
     /*
@@ -168,22 +83,8 @@ public class GameAsset {
         }
     }
 
-    public static boolean updateBot() {
-        return assetManager.update();
-    }
-
-    public static float getProgressBot() {
-        return assetManager.getProgress();
-    }
-
     public Texture getBot(AssetsBot asset) {
         return (Texture) assetManager.get(asset.getPath(), asset.getType());
-    }
-
-    public static void unloadBot(AssetsBot asset) {
-        if (assetManager.isLoaded(asset.getPath())) {
-            assetManager.unload(asset.getPath());
-        }
     }
 
     public void unloadAllBot (){
@@ -200,21 +101,24 @@ public class GameAsset {
         }
         return true;
     }
-
-    public enum AssetsBox {
-        SPHEAL_LB("pokemon/sphealLabel.png", Texture.class),
-        BOX_SF_COM("sfondo/sfondiBoxCompleti.png", Texture.class),
-        SF_AVANTI("assets/sfondo/avanti.png", Texture.class),
-        SF_INDIETRO("assets/sfondo/indietro.png", Texture.class),
-        SPOSTA("assets/squadra/sposta.png", Texture.class),
-        INFO("assets/squadra/info.png", Texture.class),
-        CANCEL("assets/squadra/cancel.png", Texture.class),
-        SF_POKE_SQ("assets/squadra/sfondoPokeSquadra.png", Texture.class);
+    
+    /*
+     * 
+     * Asset Borsa
+     * 
+     */
+    public enum AssetBorsa {
+        SF_1("sfondo/sfondo1.png", Texture.class),
+        SF_2("sfondo/sfondo2.png", Texture.class),
+        SF_USA("sfondo/usa.png", Texture.class),
+        SF_CURE_BG("sfondo/cureBag.png", Texture.class),
+        SF_KEY_BG("sfondo/keyBag.png", Texture.class),
+        SF_MT_BAG("sfondo/mtBag.png", Texture.class);
 
         private final String path;
         private final Class<?> type;
 
-        AssetsBox(String path, Class<?> type) {
+        AssetBorsa(String path, Class<?> type) {
             this.path = path;
             this.type = type;
         }
@@ -225,33 +129,934 @@ public class GameAsset {
 
         public Class<?> getType() {
             return type;
-        }
+        } 
     }
 
-    public void loadBoxAsset() {
-        for (AssetsBox asset : AssetsBox.values()) {
+    public void loadBorsaAsset() {
+        for (AssetPokeD asset : AssetPokeD.values()) {
             assetManager.load(asset.getPath(), asset.getType());
         }
     }
 
-    public static boolean updateBox() {
-        return assetManager.update();
-    }
-
-    public static float getProgressBox() {
-        return assetManager.getProgress();
-    }
-
-    public Texture getBox(AssetsBox asset) {
+    public Texture getBorsa(AssetBorsa asset) {
         return (Texture) assetManager.get(asset.getPath(), asset.getType());
     }
 
-    public static void unloadBox(AssetsBox asset) {
-        if (assetManager.isLoaded(asset.getPath())) {
+    public void unloadAllBorsa (){
+        for (AssetBorsa asset : AssetBorsa.values()) {
             assetManager.unload(asset.getPath());
         }
     }
 
+    /*
+     * 
+     * Asset Pokedex
+     * 
+     */
+    public enum AssetPokeD {
+        SF_POKEDEX("sfondo/sfondoPokedex.png", Texture.class),
+        SF_POKEDEX_OP("sfondo/sfondoPokedexAperto.png", Texture.class),
+        SF_POKEDEX_DS("sfondo/descrizionePokedex.png", Texture.class),
+        SF_POKEDEX_OPG("sfondo/tastoAperturaPokedex.png", Texture.class),
+        SF_POKEDEX_FI("sfondo/freccaIndietro.png", Texture.class),
+        SF_POKEDEX_INT("sfondo/puntoInterrogativo.png", Texture.class);
+
+        private final String path;
+        private final Class<?> type;
+
+        AssetPokeD(String path, Class<?> type) {
+            this.path = path;
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public Class<?> getType() {
+            return type;
+        } 
+    }
+
+    public void loadPokeDexAsset() {
+        for (AssetPokeD asset : AssetPokeD.values()) {
+            assetManager.load(asset.getPath(), asset.getType());
+        }
+    }
+
+    public Texture getPokeD(AssetPokeD asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
+    }
+
+    public void unloadAllPokeD (){
+        for (AssetPokeD asset : AssetPokeD.values()) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
+    /*
+     * 
+     * Asset Medaglie
+     * 
+     */
+    public enum AssetMedaglie {
+        SF_MEDAGLIE_CL("sfondo/medaglieChiuse.png", Texture.class),
+        SF_MEDAGLIE_OP("sfondo/medaglieAperte.png", Texture.class);
+
+        private final String path;
+        private final Class<?> type;
+
+        AssetMedaglie(String path, Class<?> type) {
+            this.path = path;
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public Class<?> getType() {
+            return type;
+        } 
+    }
+
+    public void loadMedaglieAsset() {
+        for (AssetMedaglie asset : AssetMedaglie.values()) {
+            assetManager.load(asset.getPath(), asset.getType());
+        }
+    }
+
+    public Texture getMedaglie(AssetMedaglie asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
+    }
+
+    public void unloadAllMedaglie (){
+        for (AssetMedaglie asset : AssetMedaglie.values()) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
+    /*
+     * 
+     * Asset Shop
+     * 
+     */
+    public enum AssetShop {
+        SF_POKE_MARKET("sfondo/sfondoPokemarket.png", Texture.class),
+        SF_MARKET_UP("sfondo/frecciaMarketUp.png", Texture.class),
+        SF_MARKET_DW("sfondo/frecciaMarketDown.png", Texture.class),
+        SF_SELECT_OB("sfondo/lineaOggettoSelezionato.png", Texture.class),
+        SF_OGGETTO_LN("sfondo/lineaOggetto.png", Texture.class),
+        SF_QUANTITA_SH("sfondo/mostraQuantita.png", Texture.class),
+        SF_FRECCIA_QUP("sfondo/frecciaQtaSu.png", Texture.class),
+        SF_FRECCIA_QDW("sfondo/frecciaQtaGiu.png", Texture.class),
+        SF_LABEL_OK("sfondo/okLabel.png", Texture.class);
+
+        private final String path;
+        private final Class<?> type;
+
+        AssetShop(String path, Class<?> type) {
+            this.path = path;
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public Class<?> getType() {
+            return type;
+        } 
+    }
+
+    public void loadShopAsset() {
+        for (AssetShop asset : AssetShop.values()) {
+            assetManager.load(asset.getPath(), asset.getType());
+        }
+    }
+
+    public Texture getShop(AssetShop asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
+    }
+
+    public void unloadAllShop (){
+        for (AssetShop asset : AssetShop.values()) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
+    /*
+     * 
+     * Asset MiniMappa
+     * 
+     */
+    public enum AssetMMappa {
+        SF_MINI_COM("sfondo/miniMappaCompleta.png", Texture.class),
+        SF_MINI_MBG("sfondo/miniMapBG.png", Texture.class),
+        CS_CURSORE_MM1("cursore/cursoreMiniMap1.png", Texture.class),
+        CS_CURSORE_MM2("cursore/cursoreMiniMap2.png", Texture.class);
+
+        private final String path;
+        private final Class<?> type;
+
+        AssetMMappa(String path, Class<?> type) {
+            this.path = path;
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public Class<?> getType() {
+            return type;
+        } 
+    }
+
+    public void loadMiniMappaAsset() {
+        for (AssetMMappa asset : AssetMMappa.values()) {
+            assetManager.load(asset.getPath(), asset.getType());
+        }
+    }
+
+    public Texture getMiniMappa(AssetMMappa asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
+    }
+
+    public void unloadAllMiniM (){
+        for (AssetMMappa asset : AssetMMappa.values()) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
+    /*
+     * 
+     * Asset SceltaStarterScreen
+     * 
+     */
+    public enum AssetSStarterS {
+        SF_FUOCO("sfondo/sfondoFuoco.png", Texture.class),
+        SF_ERBA("sfondo/sfondoErba.png", Texture.class),
+        SF_ACQUA("sfondo/sfondoAcqua.png", Texture.class),
+        PK_LITTEN("pokemon/litten.png", Texture.class),
+        PK_ROWLET("pokemon/rowlet.png", Texture.class),
+        PK_POPPLIO("pokemon/popplio.png", Texture.class);
+
+        private final String path;
+        private final Class<?> type;
+
+        AssetSStarterS(String path, Class<?> type) {
+            this.path = path;
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public Class<?> getType() {
+            return type;
+        } 
+    }
+
+    public void loadStartScreenAsset() {
+        for (AssetSStarterS asset : AssetSStarterS.values()) {
+            assetManager.load(asset.getPath(), asset.getType());
+        }
+    }
+
+    public Texture getStartScreen(AssetSStarterS asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
+    }
+
+    public void unloadAllSStarterS (){
+        for (AssetSStarterS asset : AssetSStarterS.values()) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
+    /*
+     * 
+     * Asset Battle
+     * 
+     */
+    public enum AssetBattle {
+        BL_BATTLE_SF("battle/sfondoBattle.png", Texture.class),
+        BL_BASE_D("battle/baseD.png", Texture.class),
+        BL_BASE_U("battle/baseU.png", Texture.class),
+        BL_LANCIO_BA("battle/lancioBall.png", Texture.class),
+        BL_BALL_PL("battle/pokeBallPlayer.png", Texture.class),
+        BL_ARROW_PL("battle/playerArrow.png", Texture.class),
+        BL_ARROW_BT("battle/botArrow.png", Texture.class),
+        BL_NUMBER_BF("battle/ballsForNumber.png", Texture.class),
+        BL_FIGHT_BX("battle/fightBox.png", Texture.class),
+        BL_PLAYER_HP("battle/playerHPBar.png", Texture.class),
+        BL_BOT_HP("battle/botHPBar.png", Texture.class),
+        BL_MOVE_NO("battle/noMove.png", Texture.class),
+        BL_B("battle/b.png", Texture.class),
+        PK_LIGHT_CL("pokemon/lightCircle.png", Texture.class);
+
+        private final String path;
+        private final Class<?> type;
+
+        AssetBattle(String path, Class<?> type) {
+            this.path = path;
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public Class<?> getType() {
+            return type;
+        } 
+    }
+
+    public void loadBattleAsset() {
+        for (AssetBattle asset : AssetBattle.values()) {
+            assetManager.load(asset.getPath(), asset.getType());
+        }
+    }
+
+    public Texture getBattle(AssetBattle asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
+    }
+
+    public void unloadAllBattle (){
+        for (AssetBattle asset : AssetBattle.values()) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
+    /*
+     * 
+     * Asset Menu
+     * 
+     */
+    public enum AssetMenu {
+        MI_IMAGINE_SF("menuImage/sfondoImmagine.png", Texture.class),
+        MI_MERCURIO_LG("menuImage/logoMercurio.png", Texture.class),
+        MI_mERCURIO_SC("menuImage/scrittaMercurio.jpg", Texture.class),
+        MI_GRUPPO_LG("menuImage/logoGruppo.png", Texture.class);
+
+        private final String path;
+        private final Class<?> type;
+
+        AssetMenu(String path, Class<?> type) {
+            this.path = path;
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public Class<?> getType() {
+            return type;
+        } 
+    }
+
+    public void loadMenuAsset() {
+        for (AssetMenu asset : AssetMenu.values()) {
+            assetManager.load(asset.getPath(), asset.getType());
+        }
+    }
+
+    public Texture getMenu(AssetMenu asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
+    }
+
+    public void unloadAllMenu (){
+        for (AssetMenu asset : AssetMenu.values()) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
+    /*
+     * 
+     * Asset SQPCURE
+     * 
+     */
+    public enum AssetSQPCure {
+        SQ_SQUADRA_NS("squadra/nsSquadra.png", Texture.class),
+        SQ_FIRST_SQ("squadra/nsFirstSquadra.png", Texture.class),
+        SQ_FIRST_SL("squadra/selFirst.png", Texture.class),
+        SQ_SQUADRA_SL("squadra/selSquadra.png", Texture.class);
+
+        private final String path;
+        private final Class<?> type;
+
+        AssetSQPCure(String path, Class<?> type) {
+            this.path = path;
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public Class<?> getType() {
+            return type;
+        } 
+    }
+
+    public void loadSQPCAsset() {
+        for (AssetSQPCure asset : AssetSQPCure.values()) {
+            assetManager.load(asset.getPath(), asset.getType());
+        }
+    }
+
+    public Texture getSQPC(AssetSQPCure asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
+    }
+
+    public void unloadAllSQPC (){
+        for (AssetSQPCure asset : AssetSQPCure.values()) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
+    /*
+     * 
+     * Asset SquadraBox
+     * 
+     */
+    public enum AssetSQBox {
+        SQ_INFO("squadra/info.png", Texture.class),
+        SQ_SPOSTA("squadra/sposta.png", Texture.class);
+
+        private final String path;
+        private final Class<?> type;
+
+        AssetSQBox(String path, Class<?> type) {
+            this.path = path;
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public Class<?> getType() {
+            return type;
+        } 
+    }
+
+    public void loadSQBoxAsset() {
+        for (AssetSQBox asset : AssetSQBox.values()) {
+            assetManager.load(asset.getPath(), asset.getType());
+        }
+    }
+
+    public Texture getSQBox(AssetSQBox asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
+    }
+
+    public void unloadAllSQBox (){
+        for (AssetSQBox asset : AssetSQBox.values()) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
+    /*
+     * 
+     * Asset BorsaPokedexBox
+     * 
+     */
+    public enum AssetBPB {
+        SF_AVANTI("sfondo/avanti.png", Texture.class),
+        SF_INDIETRO("sfondo/indietro.png", Texture.class);
+
+        private final String path;
+        private final Class<?> type;
+
+        AssetBPB(String path, Class<?> type) {
+            this.path = path;
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public Class<?> getType() {
+            return type;
+        } 
+    }
+
+    public void loadBPBAsset() {
+        for (AssetBPB asset : AssetBPB.values()) {
+            assetManager.load(asset.getPath(), asset.getType());
+        }
+    }
+
+    public Texture getBPB(AssetBPB asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
+    }
+
+    public void unloadAllBPB (){
+        for (AssetBPB asset : AssetBPB.values()) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
+    /*
+     * 
+     * Asset SquadraInfoSquadraCureBox
+     * 
+     */
+    public enum AssetSISCB {
+        SQ_CANCEL("squadra/cancel.png", Texture.class);
+
+        private final String path;
+        private final Class<?> type;
+
+        AssetSISCB(String path, Class<?> type) {
+            this.path = path;
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public Class<?> getType() {
+            return type;
+        } 
+    }
+
+    public void loadSISCBAsset() {
+        for (AssetSISCB asset : AssetSISCB.values()) {
+            assetManager.load(asset.getPath(), asset.getType());
+        }
+    }
+
+    public Texture getSISCB(AssetSISCB asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
+    }
+
+    public void unloadAllSISCB (){
+        for (AssetSISCB asset : AssetSISCB.values()) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
+    /*
+     * 
+     * Asset SquadraBattleInfoPoke
+     * 
+     */
+    public enum AssetSBIP {
+        BL_WHITE_PX("battle/white_pixel.png", Texture.class);
+
+        private final String path;
+        private final Class<?> type;
+
+        AssetSBIP(String path, Class<?> type) {
+            this.path = path;
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public Class<?> getType() {
+            return type;
+        } 
+    }
+
+    public void loadSBIPAsset() {
+        for (AssetSBIP asset : AssetSBIP.values()) {
+            assetManager.load(asset.getPath(), asset.getType());
+        }
+    }
+
+    public Texture getSBIP(AssetSBIP asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
+    }
+
+    public void unloadAllSBIP (){
+        for (AssetSBIP asset : AssetSBIP.values()) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
+    /*
+     * 
+     * Asset MossaMosseBot
+     * 
+     */
+    public enum AssetMMB {
+        BL_LABEL_FG("battle/fullLabelFight.png", Texture.class);
+
+        private final String path;
+        private final Class<?> type;
+
+        AssetMMB(String path, Class<?> type) {
+            this.path = path;
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public Class<?> getType() {
+            return type;
+        } 
+    }
+
+    public void loadMMBAsset() {
+        for (AssetMMB asset : AssetMMB.values()) {
+            assetManager.load(asset.getPath(), asset.getType());
+        }
+    }
+
+    public Texture getMMB(AssetMMB asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
+    }
+
+    public void unloadAllMMB (){
+        for (AssetMMB asset : AssetMMB.values()) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
+    /*
+     * 
+     * Asset LabFullMap
+     * 
+     */
+    public enum AssetLFM {
+        BT_MARK_EXL("bots/ExlMark.png", Texture.class);
+
+        private final String path;
+        private final Class<?> type;
+
+        AssetLFM(String path, Class<?> type) {
+            this.path = path;
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public Class<?> getType() {
+            return type;
+        } 
+    }
+
+    public void loadLFMAsset() {
+        for (AssetLFM asset : AssetLFM.values()) {
+            assetManager.load(asset.getPath(), asset.getType());
+        }
+    }
+
+    public Texture getLFM(AssetLFM asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
+    }
+
+    public void unloadAllLFM (){
+        for (AssetLFM asset : AssetLFM.values()) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
+    /*
+     * 
+     * Asset LabelDiscorsi
+     * 
+     */
+    public enum AssetLD {
+        SF_TEXT_BOX("sfondo/boxText.png", Texture.class);
+
+        private final String path;
+        private final Class<?> type;
+
+        AssetLD(String path, Class<?> type) {
+            this.path = path;
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public Class<?> getType() {
+            return type;
+        } 
+    }
+
+    public void loadLDsset() {
+        for (AssetLD asset : AssetLD.values()) {
+            assetManager.load(asset.getPath(), asset.getType());
+        }
+    }
+
+    public Texture getLD(AssetLD asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
+    }
+
+    public void unloadAllLD (){
+        for (AssetLD asset : AssetLD.values()) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
+    /*
+     * 
+     * Asset ApprendimentoMosse
+     * 
+     */
+    public enum AssetAM {
+        SF_MOVE_BG("sfondo/newMoveBG.png", Texture.class);
+
+        private final String path;
+        private final Class<?> type;
+
+        AssetAM(String path, Class<?> type) {
+            this.path = path;
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public Class<?> getType() {
+            return type;
+        } 
+    }
+
+    public void loadAMAsset() {
+        for (AssetAM asset : AssetAM.values()) {
+            assetManager.load(asset.getPath(), asset.getType());
+        }
+    }
+
+    public Texture getAM(AssetAM asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
+    }
+
+    public void unloadAllAM (){
+        for (AssetAM asset : AssetAM.values()) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
+    /*
+     * 
+     * Asset Squadra
+     * 
+     */
+    public enum AssetSquadra {
+        SQ_CAMBIA("squadra/cambia.png", Texture.class);
+
+        private final String path;
+        private final Class<?> type;
+
+        AssetSquadra(String path, Class<?> type) {
+            this.path = path;
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public Class<?> getType() {
+            return type;
+        } 
+    }
+
+    public void loadSquadraAsset() {
+        for (AssetSquadra asset : AssetSquadra.values()) {
+            assetManager.load(asset.getPath(), asset.getType());
+        }
+    }
+
+    public Texture getSquadra(AssetSquadra asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
+    }
+
+    public void unloadAllSquadra (){
+        for (AssetSquadra asset : AssetSquadra.values()) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
+    /*
+     * 
+     * Asset InfoPoke
+     * 
+     */
+    public enum AssetInfoPoke {
+        SQ_INFO_PK("squadra/infoPoke.png", Texture.class);
+
+        private final String path;
+        private final Class<?> type;
+
+        AssetInfoPoke(String path, Class<?> type) {
+            this.path = path;
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public Class<?> getType() {
+            return type;
+        } 
+    }
+
+    public void loadInfoPAsset() {
+        for (AssetInfoPoke asset : AssetInfoPoke.values()) {
+            assetManager.load(asset.getPath(), asset.getType());
+        }
+    }
+
+    public Texture getInfoP(AssetInfoPoke asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
+    }
+
+    public void unloadAllInfoP (){
+        for (AssetInfoPoke asset : AssetInfoPoke.values()) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
+    /*
+     * 
+     * Asset BorsaMedaglieMenuLabelPokedex
+     * 
+     */
+    public enum AssetBMMLP {
+        SF_X("sfondo/x.png", Texture.class);
+
+        private final String path;
+        private final Class<?> type;
+
+        AssetBMMLP(String path, Class<?> type) {
+            this.path = path;
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public Class<?> getType() {
+            return type;
+        } 
+    }
+
+    public void loadBMMLPAsset() {
+        for (AssetBMMLP asset : AssetBMMLP.values()) {
+            assetManager.load(asset.getPath(), asset.getType());
+        }
+    }
+
+    public Texture getBMMLP(AssetBMMLP asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
+    }
+
+    public void unloadAllBMMLP (){
+        for (AssetBMMLP asset : AssetBMMLP.values()) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
+    /*
+     * 
+     * Asset BorsaMenuLabelSquadraSquadraCure
+     * 
+     */
+    public enum AssetBMLSSC {
+        SF_SFONDO("sfondo/sfondo.png", Texture.class);
+
+        private final String path;
+        private final Class<?> type;
+
+        AssetBMLSSC(String path, Class<?> type) {
+            this.path = path;
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public Class<?> getType() {
+            return type;
+        } 
+    }
+
+    public void loadBMLSSCPAsset() {
+        for (AssetBMLSSC asset : AssetBMLSSC.values()) {
+            assetManager.load(asset.getPath(), asset.getType());
+        }
+    }
+
+    public Texture getBMLSSC(AssetBMLSSC asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
+    }
+
+    public void unloadAllBMLSSC (){
+        for (AssetBMLSSC asset : AssetBMLSSC.values()) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
+    /*
+     * 
+     * Asset PokedexInfoPoke
+     * 
+     */
+    public enum AssetPIP {
+        SQ_TIPO("squadra/types.png", Texture.class);
+
+        private final String path;
+        private final Class<?> type;
+
+        AssetPIP(String path, Class<?> type) {
+            this.path = path;
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public Class<?> getType() {
+            return type;
+        } 
+    }
+
+    public void loadPIPAsset() {
+        for (AssetPIP asset : AssetPIP.values()) {
+            assetManager.load(asset.getPath(), asset.getType());
+        }
+    }
+
+    public Texture getPIP(AssetPIP asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
+    }
+
+    public void unloadAllPIP (){
+        for (AssetPIP asset : AssetPIP.values()) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
+    /*
+     * 
+     * General Method
+     * 
+     */
     public void finishLoading() {
         assetManager.finishLoading();
     }
@@ -260,95 +1065,3 @@ public class GameAsset {
         assetManager.dispose();
     }
 }
-
-/*
-SUDDIVISIONE DELLE RISORSE
-
-//Enum Borsa
-sfondo/sfondo1.png
-sfondo/sfondo2.png
-sfondo/usa.png
-sfondo/cureBag.png
-sfondo/keyBag.png
-sfondo/mtBag.png
-
-oggetti/MT.png
-
-//Enum Pokedex
-sfondo/sfondoPokedex.png
-sfondo/sfondoPokedexAperto.png
-sfondo/descrizionePokedex.png
-sfondo/tastoAperturaPokedex.png
-sfondo/freccaIndietro.png
-sfondo/puntoInterrogativo.png
-
-//Enum Medaglie
-sfondo/medaglieChiuse.png
-sfondo/medaglieAperte.png
-
-//Enum Shop
-sfondo/sfondoPokemarket.png
-sfondo/frecciaMarketUp.png
-sfondo/frecciaMarketDown.png
-sfondo/lineaOggettoSelezionato.png
-sfondo/lineaOggetto.png
-sfondo/mostraQuantita.png
-sfondo/frecciaQtaSu.png
-sfondo/frecciaQtaGiu.png
-sfondo/okLabel.png
-
-//Enum Box
-sfondo/sfondiBoxCompleti.png
-squadra/sfondoPokeSquadra.png
-pokemon/sphealLabel.png
-
-//Enum MiniMappa
-sfondo/miniMappaCompleta.png
-sfondo/miniMapBG.png
-cursore/cursoreMiniMap1.png
-cursore/cursoreMiniMap2.png
-
-//Enum SceltaStarteScreen
-sfondo/sfondoFuoco.png
-sfondo/sfondoErba.png
-sfondo/sfondoAcqua.png
-pokemon/litten.png
-pokemon/rowlet.png
-pokemon/popplio.png
-
-//Enum LabelDiscorsi
-sfondo/boxText.png
-
-//Enum ApprendimentoMosse
-sfondo/newMoveBG.png
-
-//Enum Squadra
-squadra/cambia.png
-
-//Enum InfoPoke
-squadra/infoPoke.png
-
-//Enum Battle
-battle/sfondoBattle.png 
-battle/baseD.png 
-battle/baseU.png 
-battle/lancioBall.png  
-battle/pokeBallPlayer.png 
-battle/playerArrow.png 
-battle/botArrow.png 
-battle/ballsForNumber.png 
-battle/fightBox.png 
-battle/playerHPBar.png 
-battle/botHPBar.png 
-battle/noMove.png 
-battle/b.png 
-
-pokemon/lightCircle.png
-
-//Enum Menu
-menuImage/sfondoImmagine.png
-menuImage/logoMercurio.png
-menuImage/scrittaMercurio.jpg
-menuImage/logoGruppo.png
-
-*/
