@@ -38,7 +38,8 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.badlogic.gdx.utils.Timer;
 import com.mercurio.game.AssetManager.GameAsset;
-import com.mercurio.game.AssetManager.GameAsset.Assets;
+import com.mercurio.game.AssetManager.GameAsset.AssetBattle;
+import com.mercurio.game.AssetManager.GameAsset.AssetSBIP;
 import com.mercurio.game.Screen.Erba;
 import com.mercurio.game.Screen.InterfacciaComune;
 import com.mercurio.game.effects.LabelDiscorsi;
@@ -270,10 +271,13 @@ public class Battle extends ScreenAdapter {
             numeroIndexPokeBot = 1;
             this.chiamante = chiamante;
             this.asset = chiamante.getGameAsset();
+            asset.loadBattleAsset();
+            asset.loadSBIPAsset();
+            asset.finishLoading();
             batch = new SpriteBatch();
             stage = new Stage();
             font = new BitmapFont(Gdx.files.local("assets/font/font.fnt"));
-            ballTextureBot = asset.getBattle(Assets.BALL_PLAYER);
+            ballTextureBot = asset.getBattle(AssetBattle.BL_BALL_PL);
             Gdx.input.setInputProcessor(stage);
             dimMax = 200;
             leggiPoke(numeroIndexPoke);
@@ -287,7 +291,7 @@ public class Battle extends ScreenAdapter {
                 leggiBot(nameBot);
                 leggiPokeBot(nameBot, numeroIndexPokeBot);
             }
-            ballTexture = asset.getBattle(Assets.BALL_PLAYER);
+            ballTexture = asset.getBattle(AssetBattle.BL_BALL_PL);
 
             String discorso1 = "Parte la sfida di " + nomeBot + " (" + tipoBot + ")" + "!";
             labelDiscorsi1 = new LabelDiscorsi(discorso1, dimMax, 0, true, false);
@@ -354,12 +358,12 @@ public class Battle extends ScreenAdapter {
             ball2 = new TextureRegion(ballTexture, 0, 0, ballWidth, ballHeight);
 
             // Add background
-            Texture backgroundTexture = asset.getBattle(Assets.SFONDO_BATTLE);
+            Texture backgroundTexture = asset.getBattle(AssetBattle.BL_BATTLE_SF);
             Image background = new Image(backgroundTexture);
             background.setSize(screenWidth, screenHeight);
             stage.addActor(background);
 
-            textureLancio = asset.getBattle(Assets.LANCIO_BALL);
+            textureLancio = asset.getBattle(AssetBattle.BL_LANCIO_BA);
             int regionHeight = textureLancio.getHeight();
             int regionWidth = textureLancio.getWidth() / 4;
             // Divide lo spritesheet in 4colonne
@@ -370,12 +374,12 @@ public class Battle extends ScreenAdapter {
 
             muoviPlayer = new Animation<>(cambioFrame_speed, player);
 
-            Texture imageBaseD = asset.getBattle(Assets.BASE_D);
+            Texture imageBaseD = asset.getBattle(AssetBattle.BL_BASE_D);
             labelBaseD = new Image(imageBaseD);
             labelBaseD.setSize(256 * 3, 32 * 3);
             stage.addActor(labelBaseD);
 
-            Texture imageBaseU = asset.getBattle(Assets.BASE_U);
+            Texture imageBaseU = asset.getBattle(AssetBattle.BL_BASE_U);
             labelBaseU = new Image(imageBaseU);
             labelBaseU.setSize(128 * 3, 62 * 3);
             stage.addActor(labelBaseU);
@@ -457,6 +461,8 @@ public class Battle extends ScreenAdapter {
                             batch.dispose();
                             font.dispose();
                             stage.dispose();
+                            asset.unloadAllBattle();
+                            asset.unloadAllSBIP();
                             Gdx.input.setInputProcessor(null);
                             chiamante.closeBattle();
                             MenuLabel.openMenuLabel.setVisible(true);
@@ -479,6 +485,8 @@ public class Battle extends ScreenAdapter {
                     batch.dispose();
                     font.dispose();
                     stage.dispose();
+                    asset.unloadAllBattle();
+                    asset.unloadAllSBIP();
                     Gdx.input.setInputProcessor(null);
                     chiamante.closeBattle();
                     MenuLabel.openMenuLabel.setVisible(true);
@@ -837,7 +845,7 @@ public class Battle extends ScreenAdapter {
             fightLabels = new TextureRegion[8];
 
             // Carica l'immagine contenente tutte le label
-            Texture textBoxesImage = asset.getBattle(Assets.FIGHT_BOX);
+            Texture textBoxesImage = asset.getBattle(AssetBattle.BL_FIGHT_BX);
 
             // Calcola le dimensioni di ogni label nella griglia
             int textBoxWidth = textBoxesImage.getWidth() / 2; // Due colonne
@@ -944,7 +952,7 @@ public class Battle extends ScreenAdapter {
         try {
 
             // e ora piazza le hp Bar
-            Texture imageHPPlayer = asset.getBattle(Assets.HP_BAR);
+            Texture imageHPPlayer = asset.getBattle(AssetBattle.BL_PLAYER_HP);
             playerHPBar = new Image(imageHPPlayer);
             playerHPBar.setSize(256, 47 * 2);
             playerHPBar.setPosition(1024, 140);
@@ -1023,7 +1031,7 @@ public class Battle extends ScreenAdapter {
         try {
 
             // e ora piazza le hp Bar
-            Texture imageHPBot = asset.getBattle(Assets.BOT_HP_BAR);
+            Texture imageHPBot = asset.getBattle(AssetBattle.BL_BOT_HP);
             botHPBar = new Image(imageHPBot);
             botHPBar.setSize(244, 70);
             botHPBar.setPosition(-250, 520);
@@ -1177,14 +1185,14 @@ public class Battle extends ScreenAdapter {
             }
 
             for (int j = 0; j < 4 - listaMosse.size(); j++) {
-                Texture noMoveTexture = asset.getBattle(Assets.NO_MOVE);
+                Texture noMoveTexture = asset.getBattle(AssetBattle.BL_MOVE_NO);
                 Image labelMosse = new Image(noMoveTexture);
                 labelMosse.setPosition((j + listaMosse.size()) * 256, 0);
                 labelMosse.setSize(256, 125);
                 stage.addActor(labelMosse);
                 labelMosseArray.add(labelMosse);
             }
-            Texture backButton = asset.getBattle(Assets.B);
+            Texture backButton = asset.getBattle(AssetBattle.BL_B);
             backImage = new Image(backButton);
             backImage.setPosition(0, 130);
             backImage.setSize(60, 60);
@@ -1785,7 +1793,7 @@ public class Battle extends ScreenAdapter {
 
             labelPokePiazzate = true;
 
-            Texture arrowPlayer = asset.getBattle(Assets.PLAYER_ARROW);
+            Texture arrowPlayer = asset.getBattle(AssetBattle.BL_ARROW_PL);
             playerArrow = new Image(arrowPlayer);
             // playerArrow.setPosition(1024-250,270);
             playerArrow.setPosition(1024, 270); // inizialmente fuori dallo schermo
@@ -1793,7 +1801,7 @@ public class Battle extends ScreenAdapter {
             stage.addActor(playerArrow);
 
             if (isBotFight) {
-                Texture arrowBot = asset.getBattle(Assets.BOT_ARROW);
+                Texture arrowBot = asset.getBattle(AssetBattle.BL_ARROW_BT);
                 botArrow = new Image(arrowBot);
                 // botArrow.setPosition(0,650);
                 botArrow.setPosition(-250, 650); // inizialmente fuori dallo schermo
@@ -1821,7 +1829,7 @@ public class Battle extends ScreenAdapter {
     private void piazzaSquad() {
         try {
 
-            Texture texture = asset.getBattle(Assets.BALLS_FOR_NUMBER);
+            Texture texture = asset.getBattle(AssetBattle.BL_NUMBER_BF);
             TextureRegion[][] textureRegions = TextureRegion.split(texture, texture.getWidth() / 8,
                     texture.getHeight() / 3);
             // Inizializza l'array di sprite
@@ -1886,7 +1894,7 @@ public class Battle extends ScreenAdapter {
     private void piazzaSquadBot() {
         try {
 
-            Texture texture = asset.getBattle(Assets.BALLS_FOR_NUMBER);
+            Texture texture = asset.getBattle(AssetBattle.BL_NUMBER_BF);
             TextureRegion[][] textureRegions = TextureRegion.split(texture, texture.getWidth() / 8,
                     texture.getHeight() / 3);
             // Inizializza l'array di sprite
@@ -2170,7 +2178,7 @@ public class Battle extends ScreenAdapter {
             float percentualeHP = Float.parseFloat(currentHP) / Float.parseFloat(maxHP);
             float lunghezzaHPBar = 96 * percentualeHP;
             // Crea e posiziona la hpBar sopra imageHPPlayer con l'offset specificato
-            Image hpBar = new Image(new TextureRegionDrawable(new TextureRegion(asset.getBattle(Assets.WHITE_PX))));
+            Image hpBar = new Image(new TextureRegionDrawable(new TextureRegion(asset.getSBIP(AssetSBIP.BL_WHITE_PX))));
             hpBar.setSize((int) lunghezzaHPBar, 6);
             hpBar.setPosition(image.getX() + diffX, image.getY() + diffY);
             // hpBar.setPosition(400, 400);
@@ -2608,7 +2616,7 @@ public class Battle extends ScreenAdapter {
     public void updatePokeSquadBot() {
         try {
 
-            Texture texture = asset.getBattle(Assets.BALLS_FOR_NUMBER);
+            Texture texture = asset.getBattle(AssetBattle.BL_NUMBER_BF);
             TextureRegion[][] textureRegions = TextureRegion.split(texture, texture.getWidth() / 8,
                     texture.getHeight() / 3);
             // Inizializza l'array di sprite
@@ -2658,7 +2666,7 @@ public class Battle extends ScreenAdapter {
     public void updatePokeSquad() {
         try {
 
-            Texture texture = asset.getBattle(Assets.BALLS_FOR_NUMBER);
+            Texture texture = asset.getBattle(AssetBattle.BL_NUMBER_BF);
             TextureRegion[][] textureRegions = TextureRegion.split(texture, texture.getWidth() / 8,
                     texture.getHeight() / 3);
             // Inizializza l'array di sprite
@@ -3886,7 +3894,7 @@ public class Battle extends ScreenAdapter {
             float percentualeExp = (float) currentExp / maxExp;
             float lunghezzaExpBar = 96 * 2 * percentualeExp;
 
-            Image expBar = new Image(new TextureRegionDrawable(new TextureRegion(asset.getBattle(Assets.WHITE_PX))));
+            Image expBar = new Image(new TextureRegionDrawable(new TextureRegion(asset.getSBIP(AssetSBIP.BL_WHITE_PX))));
             expBar.setSize((int) lunghezzaExpBar, 4);
             expBar.setPosition(image.getX() + 48, image.getY() + 6);
 
@@ -4320,7 +4328,7 @@ public class Battle extends ScreenAdapter {
             background.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
             stage.addActor(background);
 
-            Texture lightTexture = asset.getBattle(Assets.CIRCLE_LG);
+            Texture lightTexture = asset.getBattle(AssetBattle.PK_LIGHT_CL);
 
             TextureRegion lightRegion = new TextureRegion(lightTexture, 0, 0, lightTexture.getWidth(),
                     lightTexture.getHeight());

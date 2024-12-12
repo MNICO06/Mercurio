@@ -18,7 +18,10 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.mercurio.game.AssetManager.GameAsset;
-import com.mercurio.game.AssetManager.GameAsset.AssetsBox;
+import com.mercurio.game.AssetManager.GameAsset.AssetBPB;
+import com.mercurio.game.AssetManager.GameAsset.AssetBox;
+import com.mercurio.game.AssetManager.GameAsset.AssetSISCB;
+import com.mercurio.game.AssetManager.GameAsset.AssetSQBox;
 import com.mercurio.game.pokemon.infoPoke;
 
 import java.util.HashMap;
@@ -64,6 +67,10 @@ public class Box extends ScreenAdapter {
     public Box(MercurioMain game) {
         this.game = game;
         this.asset = game.getGameAsset();
+        asset.loadSISCBAsset();
+        asset.loadBPBAsset();
+        asset.loadBoxAsset();
+        asset.finishLoading();
         batch = new SpriteBatch();
         stage = new Stage();
         font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
@@ -92,6 +99,9 @@ public class Box extends ScreenAdapter {
         for (Texture texture : animationTextures) {
             texture.dispose();
         }
+        asset.unloadAllBox();
+        asset.unloadAllBPB();
+        asset.unloadAllSISCB();
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -181,7 +191,7 @@ public class Box extends ScreenAdapter {
 
             } else {
 
-                Texture animationTexture = asset.getBox(AssetsBox.SPHEAL_LB);
+                Texture animationTexture = asset.getBox(AssetBox.PK_SPHEAL_LB);
 
                 animationTextures.add(animationTexture);
                 TextureRegion animationRegion = new TextureRegion(animationTexture, 0, 0,
@@ -221,7 +231,7 @@ public class Box extends ScreenAdapter {
     @Override
     public void show() {
         try {
-            Texture textureBack = asset.getBox(AssetsBox.BOX_SF_COM);
+            Texture textureBack = asset.getBox(AssetBox.SF_BOX_CM);
 
             sfondi = new TextureRegion[16];
 
@@ -248,16 +258,16 @@ public class Box extends ScreenAdapter {
             stage.addActor(background);
 
             // Aggiungi le immagini "avanti" e "indietro" in alto
-            Texture avantiTexture = asset.getBox(AssetsBox.SF_AVANTI);
-            Texture indietroTexture = asset.getBox(AssetsBox.SF_INDIETRO);
+            Texture avantiTexture = asset.getBPB(AssetBPB.SF_AVANTI);
+            Texture indietroTexture = asset.getBPB(AssetBPB.SF_INDIETRO);
 
             avantiImage = new Image(avantiTexture);
             indietroImage = new Image(indietroTexture);
 
             // aggiungi le immagini con i vari pulsanti (sposta, info, libera)
-            Texture pulsanteSposta = asset.getBox(AssetsBox.SPOSTA);
-            Texture pulsanteInfo = asset.getBox(AssetsBox.INFO);
-            Texture pulsanteLibera = asset.getBox(AssetsBox.CANCEL); // c'è da fare il tasto libera per ora
+            Texture pulsanteSposta = asset.getSQBox(AssetSQBox.SQ_SPOSTA);
+            Texture pulsanteInfo = asset.getSQBox(AssetSQBox.SQ_INFO);
+            Texture pulsanteLibera = asset.getSISCB(AssetSISCB.SQ_CANCEL); // c'è da fare il tasto libera per ora
                                                                                // metto cancel
 
             spostaImage = new Image(pulsanteSposta);
@@ -460,7 +470,7 @@ public class Box extends ScreenAdapter {
             }
 
             // Carica l'immagine di sfondo
-            Texture backgroundTexture = asset.getBox(AssetsBox.SF_POKE_SQ);
+            Texture backgroundTexture = asset.getBox(AssetBox.SQ_POKE_SQ);
             Image backgroundImage = new Image(backgroundTexture);
             float yBase = background.getImageY() + background.getHeight() - backgroundImage.getHeight() - 45;
             float yFinalePoke = yBase - 70 * (numero * -1);
@@ -522,7 +532,7 @@ public class Box extends ScreenAdapter {
                 stage.addActor(animationImage);
 
             } else {
-                Texture animationTexture = asset.getBox(AssetsBox.SPHEAL_LB);
+                Texture animationTexture = asset.getBox(AssetBox.PK_SPHEAL_LB);
                 TextureRegion animationRegion = new TextureRegion(animationTexture, 0, 0,
                         animationTexture.getWidth() / 2, animationTexture.getHeight());
 

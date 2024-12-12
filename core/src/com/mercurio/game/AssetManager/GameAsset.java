@@ -519,6 +519,49 @@ public class GameAsset {
 
     /*
      * 
+     * Asset Box
+     * 
+     */
+    public enum AssetBox {
+        PK_SPHEAL_LB("pokemon/sphealLabel.png", Texture.class),
+        SF_BOX_CM("sfondo/sfondiBoxCompleti.png", Texture.class),
+        SQ_POKE_SQ("squadra/sfondoPokeSquadra.png", Texture.class);
+
+        private final String path;
+        private final Class<?> type;
+
+        AssetBox(String path, Class<?> type) {
+            this.path = path;
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public Class<?> getType() {
+            return type;
+        } 
+    }
+
+    public void loadBoxAsset() {
+        for (AssetBox asset : AssetBox.values()) {
+            assetManager.load(asset.getPath(), asset.getType());
+        }
+    }
+
+    public Texture getBox(AssetBox asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
+    }
+
+    public void unloadAllBox (){
+        for (AssetBox asset : AssetBox.values()) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
+    /*
+     * 
      * Asset SquadraBox
      * 
      */
