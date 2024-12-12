@@ -1275,10 +1275,11 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                 MapLayer oggettiStoria = game.getOggettiStoria();
                 for (MapObject object : oggettiStoria.getObjects()) {
                     // Verifica se l'oggetto ha la proprietà "tipoBlocco" con valore "prendiStater"
-                    String tipoBlocco = object.getProperties().get("tipoBlocco", String.class);
+                    String tipoBlocco = (String) object.getProperties().get("tipoBlocco");
                     if ("prendiStarter".equals(tipoBlocco)) {
                         // Imposta la proprietà "considerare" su true
-                        object.getProperties().put("considerare", true);
+
+                        object.getProperties().put("considerare", false);
                     }
                 }
             }
