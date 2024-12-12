@@ -16,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
-public class Menu extends ScreenAdapter{
+public class Menu extends ScreenAdapter {
     private final MercurioMain game;
 
     private SpriteBatch spriteBatch;
@@ -31,23 +31,27 @@ public class Menu extends ScreenAdapter{
 
     private OrthographicCamera camera;
 
-
-    float x = 0 ;
+    float x = 0;
     private float durata = 6f;
 
     public Menu(MercurioMain game) {
         this.game = game;
     }
 
-
     private void createMenu() {
-        //tutti i comandi per andare a creare e scrivere il testo con il font giusto (per continuare)
-        BitmapFont fontBase = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
-        fontBase.getData().setScale(3.0f);
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = fontBase; 
-        labelContinua = new Label(testoContinua, labelStyle);
-        labelContinua.setPosition(220, 20);
+        try {
+
+            // tutti i comandi per andare a creare e scrivere il testo con il font giusto
+            // (per continuare)
+            BitmapFont fontBase = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
+            fontBase.getData().setScale(3.0f);
+            Label.LabelStyle labelStyle = new Label.LabelStyle();
+            labelStyle.font = fontBase;
+            labelContinua = new Label(testoContinua, labelStyle);
+            labelContinua.setPosition(220, 20);
+        } catch (Exception e) {
+            System.out.println("Errore createMenu menu, " + e);
+        }
 
     }
 
@@ -57,73 +61,81 @@ public class Menu extends ScreenAdapter{
 
         spriteBatch = new SpriteBatch();
 
-        Texture background_texture = new Texture(Gdx.files.local("assets/menuImage/sfondoImmagine.png"));
-        
-        background = new Image(background_texture);
-        background.setSize(1024,600);
-        background.setPosition(0,x);
+        try {
 
-        //da cambiare con quello nuovo
-        Texture titoloPokemon = new Texture(Gdx.files.local("assets/menuImage/logoMercurio.png"));
-        pokemon = new Image(titoloPokemon);
-        pokemon.setSize(700,400);
-        pokemon.setPosition(180, 400);
+            Texture background_texture = new Texture(Gdx.files.local("assets/menuImage/sfondoImmagine.png"));
 
-        MoveToAction moveUpAction = new MoveToAction();
-        moveUpAction.setPosition(x, 126); // Imposta la posizione in alto
-        moveUpAction.setDuration(durata);
-        
+            background = new Image(background_texture);
+            background.setSize(1024, 600);
+            background.setPosition(0, x);
 
-        // Crea un'azione per muovere l'immagine verso il basso
-        MoveToAction moveDownAction = new MoveToAction();
-        moveDownAction.setPosition(x, 20); // Imposta la posizione in basso
-        moveDownAction.setDuration(durata);
+            // da cambiare con quello nuovo
+            Texture titoloPokemon = new Texture(Gdx.files.local("assets/menuImage/logoMercurio.png"));
+            pokemon = new Image(titoloPokemon);
+            pokemon.setSize(700, 400);
+            pokemon.setPosition(180, 400);
 
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, 1024, 720);
-        camera.update();
+            MoveToAction moveUpAction = new MoveToAction();
+            moveUpAction.setPosition(x, 126); // Imposta la posizione in alto
+            moveUpAction.setDuration(durata);
 
-        SequenceAction sequenceAction = Actions.sequence(moveUpAction, moveDownAction);
+            // Crea un'azione per muovere l'immagine verso il basso
+            MoveToAction moveDownAction = new MoveToAction();
+            moveDownAction.setPosition(x, 20); // Imposta la posizione in basso
+            moveDownAction.setDuration(durata);
 
+            camera = new OrthographicCamera();
+            camera.setToOrtho(false, 1024, 720);
+            camera.update();
 
-        float durationNonVisibile = 0.5f;
-        float durationVisibile = 2f;
-        Action lampeggia = Actions.sequence(
-            Actions.visible(true),  // Mostra il testo
-            Actions.delay(durationVisibile),  // Attende di nuovo
-            Actions.visible(false), // Nasconde il testo
-            Actions.delay(durationNonVisibile) // Attende per la durata specificata
-        );
+            SequenceAction sequenceAction = Actions.sequence(moveUpAction, moveDownAction);
 
-        background.addAction(Actions.forever(sequenceAction));
+            float durationNonVisibile = 0.5f;
+            float durationVisibile = 2f;
+            Action lampeggia = Actions.sequence(
+                    Actions.visible(true), // Mostra il testo
+                    Actions.delay(durationVisibile), // Attende di nuovo
+                    Actions.visible(false), // Nasconde il testo
+                    Actions.delay(durationNonVisibile) // Attende per la durata specificata
+            );
 
-        stage.addActor(background);
-        stage.addActor(pokemon);
+            background.addAction(Actions.forever(sequenceAction));
 
-        createMenu();
+            stage.addActor(background);
+            stage.addActor(pokemon);
 
-        labelContinua.addAction(Actions.forever(lampeggia));
+            createMenu();
 
-        stage.addActor(labelContinua);
+            labelContinua.addAction(Actions.forever(lampeggia));
+
+            stage.addActor(labelContinua);
+        } catch (Exception e) {
+            System.out.println("Errore show menu, " + e);
+        }
 
     }
 
     @Override
     public void render(float delta) {
-        
-        // Cancella il buffer del colore con il colore nero
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        try {
 
-        controlloTasti();
+            // Cancella il buffer del colore con il colore nero
+            Gdx.gl.glClearColor(0, 0, 0, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        stage.act(delta);
-        stage.draw();
+            controlloTasti();
 
-        camera.update();
+            stage.act(delta);
+            stage.draw();
+
+            camera.update();
+        } catch (Exception e) {
+            System.out.println("Errore render menu, " + e);
+        }
+
     }
 
-    //quando viene messa in pausa la scheda si interromono le animazioni
+    // quando viene messa in pausa la scheda si interromono le animazioni
     @Override
     public void pause() {
         stage.getRoot().clearActions();
@@ -141,4 +153,3 @@ public class Menu extends ScreenAdapter{
         }
     }
 }
-

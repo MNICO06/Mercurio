@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.mercurio.game.AssetManager.GameAsset;
+import com.mercurio.game.AssetManager.GameAsset.AssetsBot;
+import com.mercurio.game.Screen.MercurioMain;
 
 public class Rivale {
     private float player_width;
@@ -23,20 +26,21 @@ public class Rivale {
     private Animation<TextureRegion> fermoDestra;
     private Animation<TextureRegion> fermoAvanti;
     private Animation<TextureRegion> fermoIndietro;
-    private Animation<TextureRegion> characterAnimation;
     private TextureRegion currentAnimation;
     private Rectangle boxPlayer;
     private Vector3 characterPosition;
     private float camminataFrame_speed = 0.14f;
     private float stateTime;
 
-    private float xBase;
-    private float yBase;
+    private GameAsset asset;
 
-    public Rivale() {
-        //modificare l'assets per mettere quello effettivo del rivale
-        Texture texture = new Texture(Gdx.files.internal("assets/player/barry.png"));
-        tmp = TextureRegion.split(texture, texture.getWidth() / 3, texture.getHeight() / 4);
+    public Rivale(MercurioMain game) {
+        try {
+
+            this.asset = game.getGameAsset();
+
+            Texture texture = asset.getBot(AssetsBot.RIVALE);
+            tmp = TextureRegion.split(texture, texture.getWidth() / 3, texture.getHeight() / 4);
 
         indietro = new TextureRegion[3];
         sinistra = new TextureRegion[3];
@@ -65,63 +69,76 @@ public class Rivale {
         camminaAvanti = new Animation<>(camminataFrame_speed, avanti);
         camminaIndietro = new Animation<>(camminataFrame_speed, indietro);
 
-        player_width = 24; // Larghezza del personaggio
-        player_height = 24; // Altezza del personaggio
+            player_width = 24; // Larghezza del personaggio
+            player_height = 24; // Altezza del personaggio
 
-        stateTime = 0f;
-        currentAnimation = camminaIndietro.getKeyFrame(0);
-        characterPosition = new Vector3();
+            stateTime = 0f;
+            currentAnimation = camminaIndietro.getKeyFrame(0);
+            characterPosition = new Vector3();
+
+        } catch (Exception e) {
+            System.out.println("Errore costructor rivale, " + e);
+        }
 
     }
 
-    //funzioni per far muovere il bot
+    // funzioni per far muovere il bot
     public void muoviBotBasso() {
         stateTime += Gdx.graphics.getDeltaTime();
         currentAnimation = camminaIndietro.getKeyFrame(stateTime, true);
         characterPosition.y -= 40f * Gdx.graphics.getDeltaTime();
     }
+
     public void muoviBotAlto() {
         stateTime += Gdx.graphics.getDeltaTime();
         currentAnimation = camminaAvanti.getKeyFrame(stateTime, true);
         characterPosition.y += 40f * Gdx.graphics.getDeltaTime();
     }
+
     public void muoviBotDestra() {
         stateTime += Gdx.graphics.getDeltaTime();
         currentAnimation = camminaDestra.getKeyFrame(stateTime, true);
         characterPosition.x += 40f * Gdx.graphics.getDeltaTime();
     }
+
     public void muoviBotSinistra() {
         stateTime += Gdx.graphics.getDeltaTime();
         currentAnimation = camminaSinistra.getKeyFrame(stateTime, true);
         characterPosition.x -= 40f * Gdx.graphics.getDeltaTime();
     }
 
-    //funzioni per settare animazione bot
+    // funzioni per settare animazione bot
     public void setFermoSinistra() {
         currentAnimation = fermoSinistra.getKeyFrame(stateTime, true);
     }
+
     public void setFermoDestra() {
         currentAnimation = fermoDestra.getKeyFrame(stateTime, true);
     }
+
     public void setFermoAvanti() {
         currentAnimation = fermoAvanti.getKeyFrame(stateTime, true);
     }
+
     public void setFermoIndietro() {
         currentAnimation = fermoIndietro.getKeyFrame(stateTime, true);
     }
+
     public void setCamminaSinistra() {
         currentAnimation = camminaSinistra.getKeyFrame(stateTime, true);
     }
+
     public void setCamminaDestra() {
         currentAnimation = camminaDestra.getKeyFrame(stateTime, true);
     }
+
     public void setCamminaAvanti() {
         currentAnimation = camminaAvanti.getKeyFrame(stateTime, true);
     }
+
     public void setCamminaIndietro() {
         currentAnimation = camminaIndietro.getKeyFrame(stateTime, true);
     }
-
 
     public void setPosition(float x, float y) {
         characterPosition.set(x, y, 0);
@@ -131,21 +148,27 @@ public class Rivale {
     public Rectangle getBox() {
         return boxPlayer;
     }
+
     public TextureRegion getTexture() {
         return currentAnimation;
     }
+
     public Vector3 getPosition() {
         return characterPosition;
     }
+
     public float getWidth() {
         return player_width;
     }
+
     public float getHeight() {
         return player_height;
     }
+
     public void updateStateTime() {
         stateTime += Gdx.graphics.getDeltaTime();
     }
+
     public float getStateTime() {
         return stateTime;
     }

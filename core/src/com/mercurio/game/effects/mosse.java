@@ -160,42 +160,57 @@ public class mosse {
 
     // Funzione per rendere la region sempre unidimensionale
     private TextureRegion[] creaFrames(Texture texture, int numeroColonne, int numeroRighe, int totaleSprite) {
-        // Calcola la larghezza e l'altezza di ogni frame
-        int frameWidth = texture.getWidth() / numeroColonne;
-        int frameHeight = texture.getHeight() / numeroRighe;
 
-        // Divide la texture in una griglia di (numeroRighe x numeroColonne)
-        TextureRegion[][] tmp = TextureRegion.split(texture, frameWidth, frameHeight);
+        try {
+            // Calcola la larghezza e l'altezza di ogni frame
+            int frameWidth = texture.getWidth() / numeroColonne;
+            int frameHeight = texture.getHeight() / numeroRighe;
 
-        // Crea un array unidimensionale per contenere tutti i frame
-        TextureRegion[] frames = new TextureRegion[totaleSprite];
+            // Divide la texture in una griglia di (numeroRighe x numeroColonne)
+            TextureRegion[][] tmp = TextureRegion.split(texture, frameWidth, frameHeight);
 
-        // Riempie l'array unidimensionale con i frame
-        int index = 0;
-        for (int r = 0; r < numeroRighe; r++) {
-            for (int c = 0; c < numeroColonne && index < totaleSprite; c++) {
-                frames[index++] = tmp[r][c];  // Copia ogni frame nell'array unidimensionale
+            // Crea un array unidimensionale per contenere tutti i frame
+            TextureRegion[] frames = new TextureRegion[totaleSprite];
+
+            // Riempie l'array unidimensionale con i frame
+            int index = 0;
+            for (int r = 0; r < numeroRighe; r++) {
+                for (int c = 0; c < numeroColonne && index < totaleSprite; c++) {
+                    frames[index++] = tmp[r][c];  // Copia ogni frame nell'array unidimensionale
+                }
             }
-        }
 
-        return frames;  // Restituisce l'array unidimensionale di tutti i frame
+            return frames;  // Restituisce l'array unidimensionale di tutti i frame
+        } catch (Exception e) {
+            System.out.println("Errore creaFrames, " + e);
+            return null;
+        }
+        
     }
 
     private TextureRegion[] aggiungiSpeculari(TextureRegion[] framesOriginali) {
-        TextureRegion[] framesConSpeculari = new TextureRegion[framesOriginali.length * 2];
-    
-        // Aggiungi gli sprite originali
-        for (int i = 0; i < framesOriginali.length; i++) {
-            framesConSpeculari[i] = framesOriginali[i];
+
+        try {
+            TextureRegion[] framesConSpeculari = new TextureRegion[framesOriginali.length * 2];
+        
+            // Aggiungi gli sprite originali
+            for (int i = 0; i < framesOriginali.length; i++) {
+                framesConSpeculari[i] = framesOriginali[i];
+            }
+        
+            // Aggiungi gli sprite speculari
+            for (int i = 0; i < framesOriginali.length; i++) {
+                framesConSpeculari[framesOriginali.length + i] = new TextureRegion(framesOriginali[i]);
+                framesConSpeculari[framesOriginali.length + i].flip(true, false); // Specchia orizzontalmente
+            }
+        
+            return framesConSpeculari;
+            
+        } catch (Exception e) {
+            System.out.println("Errore aggiungiSpeculati, " + e);
+            return null;
         }
-    
-        // Aggiungi gli sprite speculari
-        for (int i = 0; i < framesOriginali.length; i++) {
-            framesConSpeculari[framesOriginali.length + i] = new TextureRegion(framesOriginali[i]);
-            framesConSpeculari[framesOriginali.length + i].flip(true, false); // Specchia orizzontalmente
-        }
-    
-        return framesConSpeculari;
+        
     }
 
 

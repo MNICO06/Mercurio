@@ -9,10 +9,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
@@ -32,7 +30,6 @@ public class SceltaStarterScreen extends ScreenAdapter {
     private SpriteBatch batch;
     private BitmapFont font;
 
-    private String nomePoke;
     Array<Image> animationImages = new Array<>();
     Array<Texture> animationTextures = new Array<>();
 
@@ -42,7 +39,6 @@ public class SceltaStarterScreen extends ScreenAdapter {
     private LabelDiscorsi labelLitten;
     private LabelDiscorsi labelRowlet;
     private LabelDiscorsi labelPopplio;
-    private boolean renderTesto = true;
     private int risposta = -1;
 
     private boolean renderizzaDiscLitten = false;
@@ -50,10 +46,9 @@ public class SceltaStarterScreen extends ScreenAdapter {
     private boolean renderizzaDiscPopplio = false;
 
     private boolean scelto = false;
-    
 
-    public SceltaStarterScreen(MercurioMain game){
-        this.game=game;
+    public SceltaStarterScreen(MercurioMain game) {
+        this.game = game;
         batch = new SpriteBatch();
         stage = new Stage();
         font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
@@ -65,139 +60,146 @@ public class SceltaStarterScreen extends ScreenAdapter {
     @Override
     public void show() {
 
-        Texture litten = new Texture("assets/pokemon/litten.png");
-        Texture rowlet = new Texture("assets/pokemon/rowlet.png");
-        Texture popplio = new Texture("assets/pokemon/popplio.png");
+        try {
 
-        Texture cerchioLitten = new Texture("assets/sfondo/sfondoFuoco.png");
-        Texture cerchioRowlet = new Texture("assets/sfondo/sfondoErba.png");
-        Texture cerchioPopplio = new Texture("assets/sfondo/sfondoAcqua.png");
+            Texture litten = new Texture("assets/pokemon/litten.png");
+            Texture rowlet = new Texture("assets/pokemon/rowlet.png");
+            Texture popplio = new Texture("assets/pokemon/popplio.png");
 
-        Image cerchioLittenImage = new Image(cerchioLitten);
-        Image cerchioRowletImage = new Image(cerchioRowlet);
-        Image cerchioPopplioImage = new Image(cerchioPopplio);
+            Texture cerchioLitten = new Texture("assets/sfondo/sfondoFuoco.png");
+            Texture cerchioRowlet = new Texture("assets/sfondo/sfondoErba.png");
+            Texture cerchioPopplio = new Texture("assets/sfondo/sfondoAcqua.png");
 
-        cerchioLittenImage.setSize(250, 250);
-        cerchioRowletImage.setSize(250, 250);
-        cerchioPopplioImage.setSize(250, 250);
+            Image cerchioLittenImage = new Image(cerchioLitten);
+            Image cerchioRowletImage = new Image(cerchioRowlet);
+            Image cerchioPopplioImage = new Image(cerchioPopplio);
 
-        int cols = 4;
-        int rows = 1;
+            cerchioLittenImage.setSize(250, 250);
+            cerchioRowletImage.setSize(250, 250);
+            cerchioPopplioImage.setSize(250, 250);
 
-        // Crea array per contenere i frame
-        TextureRegion[] littenFrames = new TextureRegion[cols];
-        TextureRegion[] rowletFrames = new TextureRegion[cols];
-        TextureRegion[] popplioFrames = new TextureRegion[cols];
+            int cols = 4;
+            int rows = 1;
 
+            // Crea array per contenere i frame
+            TextureRegion[] littenFrames = new TextureRegion[cols];
+            TextureRegion[] rowletFrames = new TextureRegion[cols];
+            TextureRegion[] popplioFrames = new TextureRegion[cols];
 
-        // Suddividi le textures in frame
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                // Suddividi ogni texture in frame usando TextureRegion.split
-                littenFrames[j] = new TextureRegion(litten, j * (litten.getWidth() / cols), i * (litten.getHeight() / rows), litten.getWidth() / cols, litten.getHeight() / rows);
-                rowletFrames[j] = new TextureRegion(rowlet, j * (rowlet.getWidth() / cols), i * (rowlet.getHeight() / rows), rowlet.getWidth() / cols, rowlet.getHeight() / rows);
-                popplioFrames[j] = new TextureRegion(popplio, j * (popplio.getWidth() / cols), i * (popplio.getHeight() / rows), popplio.getWidth() / cols, popplio.getHeight() / rows);
+            // Suddividi le textures in frame
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    // Suddividi ogni texture in frame usando TextureRegion.split
+                    littenFrames[j] = new TextureRegion(litten, j * (litten.getWidth() / cols),
+                            i * (litten.getHeight() / rows), litten.getWidth() / cols, litten.getHeight() / rows);
+                    rowletFrames[j] = new TextureRegion(rowlet, j * (rowlet.getWidth() / cols),
+                            i * (rowlet.getHeight() / rows), rowlet.getWidth() / cols, rowlet.getHeight() / rows);
+                    popplioFrames[j] = new TextureRegion(popplio, j * (popplio.getWidth() / cols),
+                            i * (popplio.getHeight() / rows), popplio.getWidth() / cols, popplio.getHeight() / rows);
+                }
             }
+
+            // Crea immagini per il primo frame (indice 0) di ciascun Pokémon
+            Image littenImage = new Image(littenFrames[0]);
+            Image rowletImage = new Image(rowletFrames[0]);
+            Image popplioImage = new Image(popplioFrames[0]);
+
+            littenImage.setSize(200, 200);
+            rowletImage.setSize(200, 200);
+            popplioImage.setSize(200, 200);
+
+            // Posiziona le immagini sullo stage
+            popplioImage.setPosition(100, 300); // Posizione di litten
+            rowletImage.setPosition(400, 300); // Posizione di rowlet
+            littenImage.setPosition(700, 300); // Posizione di popplio
+
+            cerchioPopplioImage.setPosition(popplioImage.getX() + popplioImage.getWidth() / 2,
+                    popplioImage.getY() + popplioImage.getHeight() / 2, Align.center);
+            cerchioRowletImage.setPosition(rowletImage.getX() + rowletImage.getWidth() / 2,
+                    rowletImage.getY() + rowletImage.getHeight() / 2, Align.center);
+            cerchioLittenImage.setPosition(littenImage.getX() + littenImage.getWidth() / 2,
+                    littenImage.getY() + littenImage.getHeight() / 2, Align.center);
+
+            stage.addActor(cerchioPopplioImage);
+            stage.addActor(cerchioRowletImage);
+            stage.addActor(cerchioLittenImage);
+
+            popplioImage.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    popplioImage.setDrawable(new TextureRegionDrawable(popplioFrames[1]));
+
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            popplioImage.setDrawable(new TextureRegionDrawable(popplioFrames[0]));
+                        }
+                    }, 0.5f);
+
+                    if (!renderizzaDiscPopplio) {
+                        labelPopplio = new LabelDiscorsi(scegliPopplio, 30, 0, false, true);
+                        renderizzaDiscRowlet = false;
+                        renderizzaDiscLitten = false;
+                        labelLitten = null;
+                        labelRowlet = null;
+                        renderizzaDiscPopplio = true;
+                    }
+                }
+            });
+
+            rowletImage.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    rowletImage.setDrawable(new TextureRegionDrawable(rowletFrames[1]));
+
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            rowletImage.setDrawable(new TextureRegionDrawable(rowletFrames[0]));
+                        }
+                    }, 0.5f);
+
+                    if (!renderizzaDiscRowlet) {
+                        labelRowlet = new LabelDiscorsi(sceltaRowlet, 30, 0, false, true);
+                        renderizzaDiscLitten = false;
+                        renderizzaDiscPopplio = false;
+                        labelLitten = null;
+                        labelPopplio = null;
+                        renderizzaDiscRowlet = true;
+                    }
+                }
+            });
+
+            littenImage.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    littenImage.setDrawable(new TextureRegionDrawable(littenFrames[1]));
+
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            littenImage.setDrawable(new TextureRegionDrawable(littenFrames[0]));
+                        }
+                    }, 0.5f);
+
+                    if (!renderizzaDiscLitten) {
+                        labelLitten = new LabelDiscorsi(sceltaLitten, 30, 0, false, true);
+                        renderizzaDiscPopplio = false;
+                        renderizzaDiscRowlet = false;
+                        labelPopplio = null;
+                        labelRowlet = null;
+                        renderizzaDiscLitten = true;
+                    }
+                }
+            });
+
+            // Aggiungi le immagini allo stage
+            stage.addActor(littenImage);
+            stage.addActor(rowletImage);
+            stage.addActor(popplioImage);
+        } catch (Exception e) {
+            System.out.println("Errore show sceltaStarterScreen, " + e);
         }
-
-        // Crea immagini per il primo frame (indice 0) di ciascun Pokémon
-        Image littenImage = new Image(littenFrames[0]);
-        Image rowletImage = new Image(rowletFrames[0]);
-        Image popplioImage = new Image(popplioFrames[0]);
-
-        littenImage.setSize(200, 200);
-        rowletImage.setSize(200, 200);
-        popplioImage.setSize(200, 200);
-
-
-        // Posiziona le immagini sullo stage
-        popplioImage.setPosition(100, 300); // Posizione di litten
-        rowletImage.setPosition(400, 300); // Posizione di rowlet
-        littenImage.setPosition(700, 300); // Posizione di popplio
-
-
-        cerchioPopplioImage.setPosition(popplioImage.getX() + popplioImage.getWidth()/2, popplioImage.getY() + popplioImage.getHeight()/2, Align.center);
-        cerchioRowletImage.setPosition(rowletImage.getX() + rowletImage.getWidth()/2, rowletImage.getY() + rowletImage.getHeight()/2, Align.center);
-        cerchioLittenImage.setPosition(littenImage.getX() + littenImage.getWidth()/2, littenImage.getY() + littenImage.getHeight()/2, Align.center);
-
-        stage.addActor(cerchioPopplioImage);
-        stage.addActor(cerchioRowletImage);
-        stage.addActor(cerchioLittenImage);
-
-
-        popplioImage.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                popplioImage.setDrawable(new TextureRegionDrawable(popplioFrames[1]));
-
-                Timer.schedule(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        popplioImage.setDrawable(new TextureRegionDrawable(popplioFrames[0]));
-                    }
-                }, 0.5f);
-
-                if (!renderizzaDiscPopplio) {
-                    labelPopplio = new LabelDiscorsi(scegliPopplio, 30, 0, false, true);
-                    renderizzaDiscRowlet = false;
-                    renderizzaDiscLitten = false;
-                    labelLitten = null;
-                    labelRowlet = null;
-                    renderizzaDiscPopplio = true;
-                }
-            }
-        });
-
-        rowletImage.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                rowletImage.setDrawable(new TextureRegionDrawable(rowletFrames[1]));
-
-                Timer.schedule(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        rowletImage.setDrawable(new TextureRegionDrawable(rowletFrames[0]));
-                    }
-                }, 0.5f);
-
-                if (!renderizzaDiscRowlet) {
-                    labelRowlet = new LabelDiscorsi(sceltaRowlet, 30, 0, false, true);
-                    renderizzaDiscLitten = false;
-                    renderizzaDiscPopplio = false;
-                    labelLitten = null;
-                    labelPopplio = null;
-                    renderizzaDiscRowlet = true;
-                }
-            }
-        });
-        
-        littenImage.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                littenImage.setDrawable(new TextureRegionDrawable(littenFrames[1]));
-
-                Timer.schedule(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        littenImage.setDrawable(new TextureRegionDrawable(littenFrames[0]));
-                    }
-                }, 0.5f);
-
-                if (!renderizzaDiscLitten) {
-                    labelLitten = new LabelDiscorsi(sceltaLitten, 30, 0, false, true);
-                    renderizzaDiscPopplio = false;
-                    renderizzaDiscRowlet = false;
-                    labelPopplio = null;
-                    labelRowlet = null;
-                    renderizzaDiscLitten = true;
-                }
-            }
-        });
-
-        // Aggiungi le immagini allo stage
-        stage.addActor(littenImage);
-        stage.addActor(rowletImage);
-        stage.addActor(popplioImage);
 
     }
 
@@ -205,79 +207,80 @@ public class SceltaStarterScreen extends ScreenAdapter {
         float deltaTime = Gdx.graphics.getDeltaTime();
         stage.act(deltaTime); // Aggiorna lo stage con il deltaTime
 
+        try {
 
-        if (renderizzaDiscLitten && labelLitten != null) {
-            risposta = labelLitten.renderDisc();
-            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-                //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
-                labelLitten.advanceText();
+            if (renderizzaDiscLitten && labelLitten != null) {
+                risposta = labelLitten.renderDisc();
+                if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+                    // da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
+                    labelLitten.advanceText();
+                }
+
+                if (risposta != -1) {
+                    if (risposta == 1) {
+                        salvaStarter("Litten");
+                        labelLitten.setSceltaUtente(-1);
+                        salvaStarterRivale("Popplio");
+                        scelto = true;
+
+                    } else if (risposta == 0) {
+                        labelLitten.setSceltaUtente(-1);
+                    }
+                }
+            }
+            if (renderizzaDiscPopplio && labelPopplio != null) {
+                risposta = labelPopplio.renderDisc();
+                if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+                    // da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
+                    labelPopplio.advanceText();
+                }
+
+                if (risposta != -1) {
+                    if (risposta == 1) {
+                        salvaStarter("Popplio");
+                        labelPopplio.setSceltaUtente(-1);
+                        salvaStarterRivale("Rowlet");
+                        scelto = true;
+                    } else if (risposta == 0) {
+                        labelPopplio.setSceltaUtente(-1);
+                    }
+                }
+            }
+            if (renderizzaDiscRowlet && labelRowlet != null) {
+                risposta = labelRowlet.renderDisc();
+                if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+                    // da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
+                    labelRowlet.advanceText();
+                }
+
+                if (risposta != -1) {
+                    if (risposta == 1) {
+                        salvaStarter("Rowlet");
+                        labelRowlet.setSceltaUtente(-1);
+                        salvaStarterRivale("Litten");
+                        scelto = true;
+                    } else if (risposta == 0) {
+                        labelRowlet.setSceltaUtente(-1);
+                    }
+                }
             }
 
-            if (risposta != -1) {
-                if (risposta == 1) {
-                    salvaStarter("Litten");
-                    labelLitten.setSceltaUtente(-1);
-                    salvaStarterRivale("Popplio");
-                    scelto = true;
-
-                }
-                else if (risposta == 0) {
-                    labelLitten.setSceltaUtente(-1);
-                }
-            }
+            // Disegna la UI della borsa
+            stage.draw(); // Disegna lo stage sullo SpriteBatch
+        } catch (Exception e) {
+            System.out.println("Errore render sceltaStarterScreen, " + e);
         }
-        if (renderizzaDiscPopplio && labelPopplio != null) {
-            risposta = labelPopplio.renderDisc();
-            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-                //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
-                labelPopplio.advanceText();
-            }
 
-            if (risposta != -1) {
-                if (risposta == 1) {
-                    salvaStarter("Popplio");
-                    labelPopplio.setSceltaUtente(-1);
-                    salvaStarterRivale("Rowlet");
-                    scelto = true;
-                }
-                else if (risposta == 0) {
-                    labelPopplio.setSceltaUtente(-1);
-                }
-            }
-        }
-        if (renderizzaDiscRowlet && labelRowlet != null) {
-            risposta = labelRowlet.renderDisc();
-            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-                //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
-                labelRowlet.advanceText();
-            }
-
-            if (risposta != -1) {
-                if (risposta == 1) {
-                    salvaStarter("Rowlet");
-                    labelRowlet.setSceltaUtente(-1);
-                    salvaStarterRivale("Litten");
-                    scelto = true;
-                }
-                else if (risposta == 0) {
-                    labelRowlet.setSceltaUtente(-1);
-                }
-            }
-        }
-        
-
-        // Disegna la UI della borsa
-        stage.draw(); // Disegna lo stage sullo SpriteBatch
     }
 
     private void salvaStarter(String pokemon) {
-            
+        try {
             // Carica il file JSON
             FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
             String jsonString = file.readString();
 
             JsonValue json = new JsonReader().parse(jsonString);
-            
+
             JsonValue newPokemon = new JsonValue(JsonValue.ValueType.object);
             newPokemon.addChild("nomePokemon", new JsonValue(pokemon));
             newPokemon.addChild("livello", new JsonValue("5"));
@@ -293,7 +296,6 @@ public class SceltaStarterScreen extends ScreenAdapter {
             statistiche.addChild("speed", new JsonValue(0));
             newPokemon.addChild("statistiche", statistiche);
 
-
             JsonValue evStats = new JsonValue(JsonValue.ValueType.object);
             evStats.addChild("Hp", new JsonValue(0));
             evStats.addChild("Att", new JsonValue(0));
@@ -301,13 +303,13 @@ public class SceltaStarterScreen extends ScreenAdapter {
             evStats.addChild("Spec", new JsonValue(0));
             evStats.addChild("Vel", new JsonValue(0));
 
-            newPokemon.addChild("ev",evStats);
+            newPokemon.addChild("ev", evStats);
 
             IV iv = new IV();
-            newPokemon.addChild("iv",iv.creaIV());
-            
+            newPokemon.addChild("iv", iv.creaIV());
+
             JsonValue mosseJson = new JsonValue(JsonValue.ValueType.array);
-            //recupero dal json
+            // recupero dal json
             FileHandle filePokemon = Gdx.files.local("assets/pokemon/pokemon.json");
             JsonValue jsonPokemon = new JsonReader().parse(filePokemon.readString());
             String nomeMossa1 = jsonPokemon.get(pokemon).get("mosseImparabili").getString("M1");
@@ -322,14 +324,14 @@ public class SceltaStarterScreen extends ScreenAdapter {
             mossa1.addChild("ppTot", new JsonValue(jsonMosse.get(nomeMossa1).getInt("pp")));
             mossa1.addChild("ppAtt", new JsonValue(Integer.toString(jsonMosse.get(nomeMossa1).getInt("pp"))));
             mosseJson.addChild(mossa1);
-            
-            JsonValue mossa2= new JsonValue(JsonValue.ValueType.object);
+
+            JsonValue mossa2 = new JsonValue(JsonValue.ValueType.object);
             mossa2.addChild("nome", new JsonValue(nomeMossa2));
             mossa2.addChild("tipo", new JsonValue(jsonMosse.get(nomeMossa2).getString("tipo")));
             mossa2.addChild("ppTot", new JsonValue(jsonMosse.get(nomeMossa2).getInt("pp")));
             mossa2.addChild("ppAtt", new JsonValue(Integer.toString(jsonMosse.get(nomeMossa2).getInt("pp"))));
             mosseJson.addChild(mossa2);
-            
+
             newPokemon.addChild("mosse", mosseJson);
 
             newPokemon.addChild("tipoBall", new JsonValue("pokeball"));
@@ -355,42 +357,49 @@ public class SceltaStarterScreen extends ScreenAdapter {
             }
 
             fileScoperti.writeString(jsonScoperti.prettyPrint(JsonWriter.OutputType.json, 1), false);
+
+        }catch(Exception e) {
+            System.out.println("Errore salvaStarter SceltaStarterScreen, " + e);
+        }
     }
 
     private void salvaStarterRivale(String pokemon) {
-        // Carica il file JSON
-        FileHandle file = Gdx.files.local("assets/bots/bots.json");
-        String jsonString = file.readString();
+        try {
+            // Carica il file JSON
+            FileHandle file = Gdx.files.local("assets/bots/bots.json");
+            String jsonString = file.readString();
 
-        JsonValue json = new JsonReader().parse(jsonString);
+            JsonValue json = new JsonReader().parse(jsonString);
 
-        json.get("rivale").get("poke1").get("nomePokemon").set(pokemon);
-        json.get("rivale").get("poke1").get("livello").set("5");
+            json.get("rivale").get("poke1").get("nomePokemon").set(pokemon);
+            json.get("rivale").get("poke1").get("livello").set("5");
 
-        //recupero dal json del nome delle due mosse
-        FileHandle filePokemon = Gdx.files.local("assets/pokemon/pokemon.json");
-        JsonValue jsonPokemon = new JsonReader().parse(filePokemon.readString());
-        String nomeMossa1 = jsonPokemon.get(pokemon).get("mosseImparabili").getString("M1");
-        String nomeMossa2 = jsonPokemon.get(pokemon).get("mosseImparabili").getString("M2");
+            // recupero dal json del nome delle due mosse
+            FileHandle filePokemon = Gdx.files.local("assets/pokemon/pokemon.json");
+            JsonValue jsonPokemon = new JsonReader().parse(filePokemon.readString());
+            String nomeMossa1 = jsonPokemon.get(pokemon).get("mosseImparabili").getString("M1");
+            String nomeMossa2 = jsonPokemon.get(pokemon).get("mosseImparabili").getString("M2");
 
-        //recupero dal json del tipo delle due mosse
-        FileHandle fileMosse = Gdx.files.local("assets/pokemon/mosse.json");
-        JsonValue jsonMosse = new JsonReader().parse(fileMosse.readString());
+            // recupero dal json del tipo delle due mosse
+            FileHandle fileMosse = Gdx.files.local("assets/pokemon/mosse.json");
+            JsonValue jsonMosse = new JsonReader().parse(fileMosse.readString());
 
+            JsonValue mosseArray = json.get("rivale").get("poke1").get("mosse");
+            JsonValue primaMossa = mosseArray.get(0);
 
-        JsonValue mosseArray = json.get("rivale").get("poke1").get("mosse");
-        JsonValue primaMossa = mosseArray.get(0);
-        
+            primaMossa.get("nome").set(nomeMossa1);
+            primaMossa.get("tipo").set(jsonMosse.get(nomeMossa1).getString("tipo"));
 
-        primaMossa.get("nome").set(nomeMossa1);
-        primaMossa.get("tipo").set(jsonMosse.get(nomeMossa1).getString("tipo"));
+            JsonValue secondaMossa = mosseArray.get(1);
 
-        JsonValue secondaMossa = mosseArray.get(1);
+            secondaMossa.get("nome").set(nomeMossa2);
+            secondaMossa.get("tipo").set(jsonMosse.get(nomeMossa2).getString("tipo"));
 
-        secondaMossa.get("nome").set(nomeMossa2);
-        secondaMossa.get("tipo").set(jsonMosse.get(nomeMossa2).getString("tipo"));
+            file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
 
-        file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
+        } catch (Exception e) {
+            System.out.println("Errore salvaStarterRivale sceltaStarterScreen, " + e);
+        }
 
     }
 
@@ -400,9 +409,6 @@ public class SceltaStarterScreen extends ScreenAdapter {
         stage.dispose();
         game.closeBox();
     }
-
-
-    
 
     public boolean getSceltoStarter() {
         return scelto;

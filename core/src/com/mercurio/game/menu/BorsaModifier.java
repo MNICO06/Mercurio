@@ -61,27 +61,34 @@ public class BorsaModifier {
 
     // Metodo di utilità per aggiungere un oggetto all'inventario specificato
     private void addInventoryItem(JSONArray inventory, String itemName) {
-        boolean found = false;
-        // Cerca se l'oggetto è già presente nell'inventario
-        for (int i = 0; i < inventory.length(); i++) {
-            JSONObject item = inventory.getJSONObject(i);
-            String existingItemName = item.getString("name");
-            if (existingItemName.equals(itemName)) {
-                // Incrementa la quantità se l'oggetto è già presente
-                int quantity = item.getInt("quantity");
-                item.put("quantity", quantity + 1);
-                found = true;
-                break;
+        try {
+            
+            boolean found = false;
+            // Cerca se l'oggetto è già presente nell'inventario
+            for (int i = 0; i < inventory.length(); i++) {
+                JSONObject item = inventory.getJSONObject(i);
+                String existingItemName = item.getString("name");
+                if (existingItemName.equals(itemName)) {
+                    // Incrementa la quantità se l'oggetto è già presente
+                    int quantity = item.getInt("quantity");
+                    item.put("quantity", quantity + 1);
+                    found = true;
+                    break;
+                }
             }
+            // Se l'oggetto non è stato trovato, aggiungilo con quantità 1
+            if (!found) {
+                JSONObject newItem = new JSONObject();
+                newItem.put("name", itemName);
+                newItem.put("quantity", 1);
+                inventory.put(newItem);
+            }
+            writeInventoryToJson();
+
+        } catch (Exception e) {
+            System.out.println("Errore addInvetoryItem, " + e);
         }
-        // Se l'oggetto non è stato trovato, aggiungilo con quantità 1
-        if (!found) {
-            JSONObject newItem = new JSONObject();
-            newItem.put("name", itemName);
-            newItem.put("quantity", 1);
-            inventory.put(newItem);
-        }
-        writeInventoryToJson();
+        
     }
 
 
@@ -109,30 +116,36 @@ public class BorsaModifier {
     // Metodo di utilità per rimuovere un oggetto all'inventario specificato
     // Metodo per rimuovere un oggetto dall'inventario
     public void removeInventoryItem(JSONArray inventory, String itemName) {
-        boolean found = false;
-        // Cerca se l'oggetto è già presente nell'inventario
-        for (int i = 0; i < inventory.length(); i++) {
-            JSONObject item = inventory.getJSONObject(i);
-            String existingItemName = item.getString("name");
-            
-            if (existingItemName.equals(itemName)) {
-                // Decrementa la quantità
-                int quantity = item.getInt("quantity");
-                item.put("quantity", quantity - 1);
+
+        try {
+            // Cerca se l'oggetto è già presente nell'inventario
+            for (int i = 0; i < inventory.length(); i++) {
+                JSONObject item = inventory.getJSONObject(i);
+                String existingItemName = item.getString("name");
                 
-                // Se la quantità diventa 0 o inferiore, rimuove l'oggetto
-                if (item.getInt("quantity") <= 0) {
-                    inventory.remove(i);  // Rimuovi l'oggetto dall'array
-                    i--;  // Decresci l'indice per compensare il cambiamento nell'array
-                }
-    
-                found = true;
-                break;
-            }
-        }
+                if (existingItemName.equals(itemName)) {
+                    // Decrementa la quantità
+                    int quantity = item.getInt("quantity");
+                    item.put("quantity", quantity - 1);
+                    
+                    // Se la quantità diventa 0 o inferiore, rimuove l'oggetto
+                    if (item.getInt("quantity") <= 0) {
+                        inventory.remove(i);  // Rimuovi l'oggetto dall'array
+                        i--;  // Decresci l'indice per compensare il cambiamento nell'array
+                    }
         
-        // Scrivi le modifiche sull'inventario nel file JSON
-        writeInventoryToJson();
+                    break;
+                }
+            }
+            
+            // Scrivi le modifiche sull'inventario nel file JSON
+            writeInventoryToJson();
+
+        } catch (Exception e) {
+            System.out.println("Errore RemoveInvetoryItem, " + e);
+        }
+
+        
     }
     
 
@@ -175,13 +188,20 @@ public class BorsaModifier {
 
     // Metodo di esempio per stampare l'inventario di oggetti di cura
     public void printInventoryCure() {
-        //System.out.println("Inventario di oggetti di cura:");
-        for (int i = 0; i < inventoryCure.length(); i++) {
-            JSONObject item = inventoryCure.getJSONObject(i);
-            String itemName = item.getString("name");
-            int quantity = item.getInt("quantity");
-            //System.out.println(itemName + ": " + quantity);
+
+        try {
+            //System.out.println("Inventario di oggetti di cura:");
+            for (int i = 0; i < inventoryCure.length(); i++) {
+                //JSONObject item = inventoryCure.getJSONObject(i);
+                //String itemName = item.getString("name");
+                //int quantity = item.getInt("quantity");
+                //System.out.println(itemName + ": " + quantity);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Errore printInvetoryCure, " + e);
         }
+        
     }
 
     /* LEGGIMIIIIIIIIIIIIIIIIIIIII  READMEEEEEEEEEEEEEEEEEE
