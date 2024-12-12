@@ -101,12 +101,12 @@ public class MercurioMain extends Game implements InterfacciaComune {
             menuLabel = new MenuLabel(this);
             setPage(Constant.SCHERMATA_LOGO);
 
-            copiaJson("jsonSalvati/borsaSalvato.json", "assets/ashJson/borsa.json");
-            copiaJson("jsonSalvati/squadraSalvato.json", "assets/ashJson/squadra.json");
-            copiaJson("jsonSalvati/botsSalvato.json", "assets/bots/bots.json");
-            copiaJson("jsonSalvati/datiGeneraliSalvato.json", "assets/ashJson/datiGenerali.json");
-            copiaJson("jsonSalvati/boxSalvato.json", "assets/ashJson/box.json");
-            copiaJson("jsonSalvati/pokemonScopertiSalvato.json", "assets/ashJson/pokemonScoperti.json");
+            copiaJson("jsonSalvati/borsaSalvato.json", "ashJson/borsa.json");
+            copiaJson("jsonSalvati/squadraSalvato.json", "ashJson/squadra.json");
+            copiaJson("jsonSalvati/botsSalvato.json", "bots/bots.json");
+            copiaJson("jsonSalvati/datiGeneraliSalvato.json", "ashJson/datiGenerali.json");
+            copiaJson("jsonSalvati/boxSalvato.json", "ashJson/box.json");
+            copiaJson("jsonSalvati/pokemonScopertiSalvato.json", "ashJson/pokemonScoperti.json");
 
             Timer.schedule(new Timer.Task() {
                 @Override
@@ -196,7 +196,7 @@ public class MercurioMain extends Game implements InterfacciaComune {
     public void creaBattaglia(String nomeJson, String nomePokemon) {
         try {
 
-            FileHandle file = Gdx.files.local("assets/jsonPokeSelvatici/" + nomeJson + ".json");
+            FileHandle file = Gdx.files.local("jsonPokeSelvatici/" + nomeJson + ".json");
             String jsonString = file.readString();
             JsonValue json = new JsonReader().parse(jsonString);
             String pokeName = json.get(nomePokemon).getString("nomePokemon");
@@ -421,7 +421,7 @@ public class MercurioMain extends Game implements InterfacciaComune {
     public void loadGame() {
         try {
             // Carica il file JSON
-            FileHandle file = Gdx.files.local("assets/ashJson/datiPosizione.json");
+            FileHandle file = Gdx.files.local("ashJson/datiPosizione.json");
             String jsonString = file.readString();
             // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
             JsonValue json = new JsonReader().parse(jsonString);

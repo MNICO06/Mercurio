@@ -276,7 +276,7 @@ public class Battle extends ScreenAdapter {
             asset.finishLoading();
             batch = new SpriteBatch();
             stage = new Stage();
-            font = new BitmapFont(Gdx.files.local("assets/font/font.fnt"));
+            font = new BitmapFont(Gdx.files.local("font/font.fnt"));
             ballTextureBot = asset.getBattle(AssetBattle.BL_BALL_PL);
             Gdx.input.setInputProcessor(stage);
             dimMax = 200;
@@ -1722,7 +1722,7 @@ public class Battle extends ScreenAdapter {
         try {
 
             // Carica il file JSON
-            FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file = Gdx.files.local("ashJson/squadra.json");
             String jsonString = file.readString();
 
             // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
@@ -1778,7 +1778,7 @@ public class Battle extends ScreenAdapter {
         try {
 
             // Carica il file JSON
-            FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file = Gdx.files.local("ashJson/squadra.json");
             String jsonString = file.readString();
             // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
             JsonValue json = new JsonReader().parse(jsonString);
@@ -2597,7 +2597,7 @@ public class Battle extends ScreenAdapter {
         try {
 
             // Carica il file JSON
-            FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file = Gdx.files.local("ashJson/squadra.json");
             String jsonString = file.readString();
 
             // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
@@ -2875,7 +2875,7 @@ public class Battle extends ScreenAdapter {
         try {
 
             // Carica il file JSON
-            FileHandle file = Gdx.files.local("assets/ashJson/datiGenerali.json");
+            FileHandle file = Gdx.files.local("ashJson/datiGenerali.json");
             String jsonString = file.readString();
 
             // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
@@ -2897,7 +2897,7 @@ public class Battle extends ScreenAdapter {
         try {
 
             // Carica il file JSON
-            FileHandle file = Gdx.files.local("assets/ashJson/datiGenerali.json");
+            FileHandle file = Gdx.files.local("ashJson/datiGenerali.json");
             String jsonString = file.readString();
             // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
             JsonValue json = new JsonReader().parse(jsonString);
@@ -3459,7 +3459,7 @@ public class Battle extends ScreenAdapter {
     private String controllaSquadra() {
         try {
             // Carica il file JSON
-            FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file = Gdx.files.local("ashJson/squadra.json");
             String jsonString = file.readString();
 
             JsonValue json = new JsonReader().parse(jsonString);
@@ -3493,7 +3493,7 @@ public class Battle extends ScreenAdapter {
 
             System.out.println(pokemon);
             // Carica il file JSON
-            FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file = Gdx.files.local("ashJson/squadra.json");
             String jsonString = file.readString();
 
             JsonValue json = new JsonReader().parse(jsonString);
@@ -3552,7 +3552,7 @@ public class Battle extends ScreenAdapter {
         try {
 
             // Carica il file JSON
-            FileHandle file = Gdx.files.local("assets/ashJson/box.json");
+            FileHandle file = Gdx.files.local("ashJson/box.json");
             String jsonString = file.readString();
 
             // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
@@ -3620,7 +3620,7 @@ public class Battle extends ScreenAdapter {
         try {
 
             // Carica il file JSON
-            FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file = Gdx.files.local("ashJson/squadra.json");
             String jsonString = file.readString();
 
             // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
@@ -3687,7 +3687,7 @@ public class Battle extends ScreenAdapter {
 
             for (int i = 0; i < pokeInBattaglia.size(); i++) {
 
-                FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
+                FileHandle file2 = Gdx.files.local("ashJson/squadra.json");
                 String jsonString2 = file2.readString();
                 JsonValue json2 = new JsonReader().parse(jsonString2);
                 String nomePokeEsp = json2.get("poke" + pokeInBattaglia.get(i)).getString("nomePokemon");
@@ -3745,7 +3745,7 @@ public class Battle extends ScreenAdapter {
 
             //// System.out.println("Da fare ancora :)");
             // Apre il file JSON
-            FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file2 = Gdx.files.local("ashJson/squadra.json");
             String jsonString2 = file2.readString();
             JsonValue json2 = new JsonReader().parse(jsonString2);
 
@@ -3772,7 +3772,7 @@ public class Battle extends ScreenAdapter {
             statsM.aggiornaStatistichePokemon(pokeInBattaglia.get(i));
 
             if (pokeInBattaglia.get(i) == numeroIndexPoke) {
-                FileHandle file3 = Gdx.files.local("assets/ashJson/squadra.json");
+                FileHandle file3 = Gdx.files.local("ashJson/squadra.json");
                 String jsonString3 = file3.readString();
                 JsonValue json3 = new JsonReader().parse(jsonString3);
                 // Recupera il Pokémon da modificare
@@ -3900,7 +3900,7 @@ public class Battle extends ScreenAdapter {
             JsonValue json = new JsonReader().parse(jsonString);
             // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
             JsonValue pokeJson = json.get(nomePoke);
-            FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file2 = Gdx.files.local("ashJson/squadra.json");
             String jsonString2 = file2.readString();
             JsonValue json2 = new JsonReader().parse(jsonString2);
 
@@ -3944,7 +3944,7 @@ public class Battle extends ScreenAdapter {
 
             // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
             JsonValue pokeJson = json.get(nomePoke);
-            FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file2 = Gdx.files.local("ashJson/squadra.json");
             String jsonString2 = file2.readString();
             JsonValue json2 = new JsonReader().parse(jsonString2);
 
@@ -4001,7 +4001,7 @@ public class Battle extends ScreenAdapter {
             JsonValue pokeJson = json.get(nomePokeBot);
 
             // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
-            FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file2 = Gdx.files.local("ashJson/squadra.json");
             String jsonString2 = file2.readString();
             JsonValue json2 = new JsonReader().parse(jsonString2);
             JsonValue poke = json2.get("poke" + (numeroIndexPoke));
@@ -4084,7 +4084,7 @@ public class Battle extends ScreenAdapter {
             timerCreatedDelay.add(partialDelay);
             timerCreatedData.add(new timerData(esperienzaVinta, expMaxLvl, i));
 
-            FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file2 = Gdx.files.local("ashJson/squadra.json");
             String jsonString2 = file2.readString();
             JsonValue json2 = new JsonReader().parse(jsonString2);
             String nomePokeEsp = json2.get("poke" + pokeInBattaglia.get(i)).getString("nomePokemon");
@@ -4323,7 +4323,7 @@ public class Battle extends ScreenAdapter {
         try {
 
             // Caricamento dello stato attuale e della grafica di sfondo
-            FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file2 = Gdx.files.local("ashJson/squadra.json");
             String jsonString2 = file2.readString();
             JsonValue json2 = new JsonReader().parse(jsonString2);
 
@@ -4552,7 +4552,7 @@ public class Battle extends ScreenAdapter {
     private void scopriPokemon(String pokeName) {
         try {
 
-            FileHandle file = Gdx.files.local("assets/ashJson/pokemonScoperti.json");
+            FileHandle file = Gdx.files.local("ashJson/pokemonScoperti.json");
             String jsonString = file.readString();
             JsonValue json = new JsonReader().parse(jsonString);
             int numPokePokedex = 0;
@@ -4576,7 +4576,7 @@ public class Battle extends ScreenAdapter {
     private void conosciPokemon(String pokeName) {
         try {
 
-            FileHandle file = Gdx.files.local("assets/ashJson/pokemonScoperti.json");
+            FileHandle file = Gdx.files.local("ashJson/pokemonScoperti.json");
             String jsonString = file.readString();
             JsonValue json = new JsonReader().parse(jsonString);
             int numPokePokedex = 1;

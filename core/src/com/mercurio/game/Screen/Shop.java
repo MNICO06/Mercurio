@@ -59,7 +59,7 @@ public class Shop extends ScreenAdapter {
         stage = new Stage();
 
         font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
-        this.font1 = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
+        this.font1 = new BitmapFont(Gdx.files.local("font/small_letters_font.fnt"));
         Gdx.input.setInputProcessor(stage);
         show();
     }
@@ -105,7 +105,7 @@ public class Shop extends ScreenAdapter {
             stage.addActor(background);
 
             // apertura json per leggere quantitativo denaro da renderizzare
-            FileHandle file = Gdx.files.local("assets/ashJson/datiGenerali.json");
+            FileHandle file = Gdx.files.local("ashJson/datiGenerali.json");
             JsonValue json = new JsonReader().parse(file.readString());
             denaro = json.getInt("denaro");
             labelDenaro = new Label(String.valueOf(denaro), new Label.LabelStyle(font1, null));
@@ -173,7 +173,7 @@ public class Shop extends ScreenAdapter {
     private void renderizzaLabel() {
         try {
 
-            FileHandle file = Gdx.files.local("assets/jsonGenerali/oggettiShop.json");
+            FileHandle file = Gdx.files.local("jsonGenerali/oggettiShop.json");
             JsonValue oggettiShop = new JsonReader().parse(file.readString());
 
             for (int i = inizioRiga; i < inizioRiga + 5; i++) {
@@ -283,13 +283,13 @@ public class Shop extends ScreenAdapter {
                                 // controllo in modo che non vada oltre a 999 in totale
                                 if (qtaInventario + quantita < 1000) {
 
-                                    FileHandle file = Gdx.files.local("assets/ashJson/datiGenerali.json");
+                                    FileHandle file = Gdx.files.local("ashJson/datiGenerali.json");
                                     JsonValue json = new JsonReader().parse(file.readString());
                                     json.get("denaro").set(denaro - costo, "denaro");
                                     denaro = denaro - costo;
                                     file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
 
-                                    FileHandle borsa = Gdx.files.local("assets/ashJson/borsa.json");
+                                    FileHandle borsa = Gdx.files.local("ashJson/borsa.json");
                                     JsonValue oggettoBorsa = new JsonReader().parse(borsa.readString());
                                     for (int gianni = 0; gianni < oggettoBorsa
                                             .get(oggettiShop.get(index).getString("tipo")).size; gianni++) {
@@ -379,7 +379,7 @@ public class Shop extends ScreenAdapter {
                             imageOggettoCopia = imageOggetto;
                             imageLineaCopia = imageOggetto1;
 
-                            FileHandle borsa = Gdx.files.local("assets/ashJson/borsa.json");
+                            FileHandle borsa = Gdx.files.local("ashJson/borsa.json");
                             JsonValue oggettoBorsa = new JsonReader().parse(borsa.readString());
 
                             for (int gianni = 0; gianni < oggettoBorsa

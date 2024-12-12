@@ -17,7 +17,7 @@ public class BorsaModifier {
 
     // Costruttore che legge le informazioni dall'inventario JSON
     public BorsaModifier() {
-        filename = "./assets/ashJson/borsa.json";
+        filename = "/ashJson/borsa.json";
         loadInventoryFromJson(filename);
     }
 

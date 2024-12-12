@@ -83,13 +83,13 @@ public class Borsa {
     public Borsa(Stage stage, boolean battle, Battle battaglia) {
         this.batch = (SpriteBatch) stage.getBatch();
         this.battaglia=battaglia;
-        this.font = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
+        this.font = new BitmapFont(Gdx.files.local("font/small_letters_font.fnt"));
         this.stage = stage;
         this.battle=battle;
         this.borsaActors = new Array<>(); // Inizializza l'array degli attori della borsa
         Gdx.input.setInputProcessor(stage);
 
-        try (FileReader fileReader = new FileReader("assets/ashJson/borsa.json")) {
+        try (FileReader fileReader = new FileReader("ashJson/borsa.json")) {
             // Utilizza JSONTokener per leggere il file JSON
             JSONTokener tokener = new JSONTokener(fileReader);
             JSONObject inventoryData = new JSONObject(tokener);
@@ -167,10 +167,10 @@ public class Borsa {
             stage.addActor(background);
         
             // Load textures and create TextureRegions
-            textureCure = new Texture(Gdx.files.local("assets/sfondo/cureBag.png"));
-            textureBall = new Texture(Gdx.files.local("assets/sfondo/ballBag.png"));
-            textureKey = new Texture(Gdx.files.local("assets/sfondo/keyBag.png"));
-            textureMT = new Texture(Gdx.files.local("assets/sfondo/mtBag.png"));
+            textureCure = new Texture(Gdx.files.local("sfondo/cureBag.png"));
+            textureBall = new Texture(Gdx.files.local("sfondo/ballBag.png"));
+            textureKey = new Texture(Gdx.files.local("sfondo/keyBag.png"));
+            textureMT = new Texture(Gdx.files.local("sfondo/mtBag.png"));
         
             cure = new TextureRegion[3];
             ball = new TextureRegion[3];
@@ -412,14 +412,14 @@ public class Borsa {
                         @Override
                         public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                             // Imposta l'immagine di sfondo con la nuova texture
-                            background2.setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.local("assets/sfondo/sfondo2.png")))));
+                            background2.setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.local("sfondo/sfondo2.png")))));
                             
                         }
                         
                         @Override
                         public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
         
-                            background2.setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.local("assets/sfondo/sfondo1.png")))));
+                            background2.setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.local("sfondo/sfondo1.png")))));
                         }
                     };
         
@@ -485,10 +485,10 @@ public class Borsa {
                     // Carica l'immagine dell'oggetto
                     String primiDueCaratteri = itemName.substring(0, 2);
                     if (primiDueCaratteri.charAt(0) == 'M' && primiDueCaratteri.charAt(1) == 'T'){
-                        itemTexture = new Texture(Gdx.files.local("assets/oggetti/MT.png"));
+                        itemTexture = new Texture(Gdx.files.local("oggetti/MT.png"));
                     }
                     else{
-                        itemTexture = new Texture(Gdx.files.local("assets/oggetti/" + itemName + ".png"));
+                        itemTexture = new Texture(Gdx.files.local("oggetti/" + itemName + ".png"));
                     }
                     Image itemImage = new Image(itemTexture);
                     itemImage.setSize(itemWidth, itemHeight);
@@ -528,7 +528,7 @@ public class Borsa {
         
                 // Aggiungi un pulsante per visualizzare gli oggetti successivi
                 if (inventoryItems.length > maxItemsToShow && maxNumPages!=currentPageIndex+1) {
-                    Texture nextButtonTexture = new Texture(Gdx.files.local("assets/sfondo/avanti.png"));
+                    Texture nextButtonTexture = new Texture(Gdx.files.local("sfondo/avanti.png"));
                     Image nextButton = new Image(nextButtonTexture);
                     nextButton.setSize(45, 80);
                     nextButton.setPosition(btnX + 50, btnY - 60);
@@ -543,7 +543,7 @@ public class Borsa {
                     inventoryItemActors.add(nextButton);
                 }
                     if (currentPageIndex>0){
-                    Texture backButtonTexture = new Texture(Gdx.files.local("assets/sfondo/indietro.png"));
+                    Texture backButtonTexture = new Texture(Gdx.files.local("sfondo/indietro.png"));
                     Image backButton = new Image(backButtonTexture);
                     backButton.setSize(45, 80);
                     backButton.setPosition(btnX, btnY - 60);
@@ -618,7 +618,7 @@ public class Borsa {
     }
     
     private void aggiornaBorsa(){
-        try (FileReader fileReader = new FileReader("assets/ashJson/borsa.json")) {
+        try (FileReader fileReader = new FileReader("ashJson/borsa.json")) {
             // Utilizza JSONTokener per leggere il file JSON
             JSONTokener tokener = new JSONTokener(fileReader);
             JSONObject inventoryData = new JSONObject(tokener);

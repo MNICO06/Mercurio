@@ -12,14 +12,14 @@ public class GameAsset {
      * 
      */
     public enum AssetsAsh {
-        P_INDIETRO("assets/player/personaggioIndietro.png", Texture.class),
-        P_AVANTI("assets/player/personaggioAvanti.png", Texture.class),
-        P_DESTRA("assets/player/personaggioDestra.png", Texture.class),
-        P_SINISTRA("assets/player/personaggioSinistra.png", Texture.class),
-        SURF_P_INDIETRO("assets/player/surf indietro.png", Texture.class),
-        SURF_P_AVANTI("assets/player/surf avanti.png", Texture.class),
-        SURF_P_DESTRA("assets/player/surf destra.png", Texture.class),
-        SURF_P_SINISTRA("assets/player/surf sinistra.png", Texture.class);
+        P_INDIETRO("player/personaggioIndietro.png", Texture.class),
+        P_AVANTI("player/personaggioAvanti.png", Texture.class),
+        P_DESTRA("player/personaggioDestra.png", Texture.class),
+        P_SINISTRA("player/personaggioSinistra.png", Texture.class),
+        SURF_P_INDIETRO("player/surf indietro.png", Texture.class),
+        SURF_P_AVANTI("player/surf avanti.png", Texture.class),
+        SURF_P_DESTRA("player/surf destra.png", Texture.class),
+        SURF_P_SINISTRA("player/surf sinistra.png", Texture.class);
 
         private final String path;
         private final Class<?> type;

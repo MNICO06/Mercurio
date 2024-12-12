@@ -64,7 +64,7 @@ public class Squadra {
         this.cambioObbligatorio = cambioObbligatorio;
         this.battaglia = battaglia;
         this.batch = (SpriteBatch) stage.getBatch();
-        this.font = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
+        this.font = new BitmapFont(Gdx.files.local("font/small_letters_font.fnt"));
         this.stage = stage;
         this.squadActors = new Array<>(); // Inizializza l'array degli attori della borsa
         Gdx.input.setInputProcessor(stage);
@@ -436,7 +436,7 @@ public class Squadra {
         try {
 
             // Carica il file JSON
-            FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file = Gdx.files.local("ashJson/squadra.json");
             String jsonString = file.readString();
             // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
             JsonValue json = new JsonReader().parse(jsonString);
@@ -602,7 +602,7 @@ public class Squadra {
                     // Codice da eseguire quando viene rilevato un clic sullo schermo
 
                     if (indexDaSwitch != 0 && index1 != indexDaSwitch) {
-                        FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+                        FileHandle file = Gdx.files.local("ashJson/squadra.json");
                         String jsonString = file.readString();
                         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
                         JsonValue json = new JsonReader().parse(jsonString);

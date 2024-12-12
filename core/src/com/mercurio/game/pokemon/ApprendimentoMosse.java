@@ -50,7 +50,7 @@ public class ApprendimentoMosse extends ScreenAdapter {
             Gdx.input.setInputProcessor(stage);
 
             // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
-            FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file2 = Gdx.files.local("ashJson/squadra.json");
             String jsonString2 = file2.readString();
             JsonValue json2 = new JsonReader().parse(jsonString2);
             JsonValue poke = json2.get("poke" + indexPoke);
@@ -125,7 +125,7 @@ public class ApprendimentoMosse extends ScreenAdapter {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     if (currentlySelected != null) {
-                        FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
+                        FileHandle file2 = Gdx.files.local("ashJson/squadra.json");
                         String jsonString2 = file2.readString();
                         JsonValue json2 = new JsonReader().parse(jsonString2);
 
@@ -297,7 +297,7 @@ public class ApprendimentoMosse extends ScreenAdapter {
             JsonValue jsonPoke2 = new JsonReader().parse(jsonStringPoke2);
 
             // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
-            FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file2 = Gdx.files.local("ashJson/squadra.json");
             String jsonString2 = file2.readString();
             JsonValue json2 = new JsonReader().parse(jsonString2);
             JsonValue poke = json2.get("poke" + (indexPoke));
@@ -362,7 +362,7 @@ public class ApprendimentoMosse extends ScreenAdapter {
             JsonValue jsonPoke2 = new JsonReader().parse(jsonStringPoke2);
 
             // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
-            FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file2 = Gdx.files.local("ashJson/squadra.json");
             String jsonString2 = file2.readString();
             JsonValue json2 = new JsonReader().parse(jsonString2);
             JsonValue poke = json2.get("poke" + (indexPoke));

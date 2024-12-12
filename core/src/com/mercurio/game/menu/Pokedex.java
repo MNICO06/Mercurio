@@ -65,8 +65,8 @@ public class Pokedex {
         this.pokedexActor = new Array<>();
         this.pokeActorInfo = new Array<>();
 
-        this.font = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
-        this.font1 = new BitmapFont(Gdx.files.local("assets/font/font.fnt"));
+        this.font = new BitmapFont(Gdx.files.local("font/small_letters_font.fnt"));
+        this.font1 = new BitmapFont(Gdx.files.local("font/font.fnt"));
 
         tipoToIndex = new HashMap<>();
         tipoToIndex.put("Coleottero", 0);
@@ -194,14 +194,14 @@ public class Pokedex {
             });
 
             // Aggiungi le immagini "avanti" e "indietro" in alto
-            Texture avantiTexture = new Texture("assets/sfondo/avanti.png");
-            Texture indietroTexture = new Texture("assets/sfondo/indietro.png");
+            Texture avantiTexture = new Texture("sfondo/avanti.png");
+            Texture indietroTexture = new Texture("sfondo/indietro.png");
 
             avantiImage = new Image(avantiTexture);
             indietroImage = new Image(indietroTexture);
 
             // Carica il font personalizzato
-            font = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
+            font = new BitmapFont(Gdx.files.local("font/small_letters_font.fnt"));
             // Crea uno stile per la Label con il font personalizzato
             Label.LabelStyle labelStyle = new Label.LabelStyle();
             labelStyle.font = font;
@@ -272,7 +272,7 @@ public class Pokedex {
         pulisciPagina();
 
         try {
-            FileHandle file = Gdx.files.local("assets/ashJson/pokemonScoperti.json");
+            FileHandle file = Gdx.files.local("ashJson/pokemonScoperti.json");
             JsonValue json = new JsonReader().parse(file.readString());
 
             cont = 1;
@@ -484,7 +484,7 @@ public class Pokedex {
             pulisciPagina();
             rimuoviPagine();
 
-            FileHandle file = Gdx.files.local("assets/ashJson/pokemonScoperti.json");
+            FileHandle file = Gdx.files.local("ashJson/pokemonScoperti.json");
             JsonValue json = new JsonReader().parse(file.readString());
             JsonValue pokeJson = json.get(String.valueOf(numeroPokedex));
 
