@@ -47,7 +47,7 @@ public class MenuLabel{
     
     public MenuLabel(MercurioMain game) {
         batch = new SpriteBatch();
-        font = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
+        font = new BitmapFont(Gdx.files.local("font/small_letters_font.fnt"));
         this.game=game;
         this.asset = game.getGameAsset();
         stage = new Stage();
@@ -67,7 +67,7 @@ public class MenuLabel{
 
         try {
             // Carica il font personalizzato da file .fnt
-            font = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
+            font = new BitmapFont(Gdx.files.local("font/small_letters_font.fnt"));
             Skin skin = new Skin();
             skin.add("custom-font", font);
 
@@ -98,18 +98,20 @@ public class MenuLabel{
             openMenuLabel.setHeight(75); // Imposta l'altezza desiderata della label
             openMenuLabel.setWrap(true);
 
-            openMenuLabel.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    if (!menuOpened) {
-                        // Se il menu non è aperto, apri il menu
-                        apriMenu();
-                    } else {
-                        // Se il menu è aperto, chiudi il menu
-                        chiudiMenu();
-                    }
+        openMenuLabel.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (!menuOpened) {
+                    // Se il menu non è aperto, apri il menu
+                    game.getPlayer().setMovement(false);
+                    apriMenu();
+                } else {
+                    // Se il menu è aperto, chiudi il menu
+                    game.getPlayer().setMovement(true);
+                    chiudiMenu();
                 }
-            });
+            }
+        });
 
             stage.addActor(openMenuLabel);
 
@@ -232,7 +234,7 @@ public class MenuLabel{
 
         try { 
             // Carica il file JSON
-            FileHandle file = Gdx.files.local("assets/ashJson/datiPosizione.json");
+            FileHandle file = Gdx.files.local("ashJson/datiPosizione.json");
             String jsonString = file.readString();
             
             // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
@@ -254,12 +256,12 @@ public class MenuLabel{
             // Scrivi il JSON aggiornato nel file mantenendo la formattazione
             file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
 
-            game.copiaJson("ashJson/borsa.json","assets/jsonSalvati/borsaSalvato.json");
-            game.copiaJson("ashJson/squadra.json","assets/jsonSalvati/squadraSalvato.json");
-            game.copiaJson("bots/bots.json","assets/jsonSalvati/botsSalvato.json");
-            game.copiaJson("ashJson/datiGenerali.json", "assets/jsonSalvati/datiGeneraliSalvato.json");
-            game.copiaJson("ashJson/box.json", "assets/jsonSalvati/boxSalvato.json");
-            game.copiaJson("ashJson/pokemonScoperti.json","assets/jsonSalvati/pokemonScopertiSalvato.json");
+            game.copiaJson("ashJson/borsa.json","jsonSalvati/borsaSalvato.json");
+            game.copiaJson("ashJson/squadra.json","jsonSalvati/squadraSalvato.json");
+            game.copiaJson("bots/bots.json","jsonSalvati/botsSalvato.json");
+            game.copiaJson("ashJson/datiGenerali.json", "jsonSalvati/datiGeneraliSalvato.json");
+            game.copiaJson("ashJson/box.json", "jsonSalvati/boxSalvato.json");
+            game.copiaJson("ashJson/pokemonScoperti.json","jsonSalvati/pokemonScopertiSalvato.json");
 
         } catch (Exception e) {
             System.out.println("Errore salva, " + e);
@@ -293,7 +295,7 @@ public class MenuLabel{
             
             // Aggiungi testo sotto l'immagine come label
             Label.LabelStyle labelStyle = new Label.LabelStyle(); // Stile predefinito
-            labelStyle.font = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
+            labelStyle.font = new BitmapFont(Gdx.files.local("font/small_letters_font.fnt"));
             Label label = new Label(labelText, labelStyle);
             labelStyle.font.getData().setScale(5f);
             label.setPosition(x + (width - label.getPrefWidth()) / 2, y - label.getPrefHeight() + 20); // Posizione testo sotto l'immagine
@@ -379,8 +381,6 @@ public class MenuLabel{
             System.out.println("Errore chiudiMenu, " + e);
         }
     }
-
-
 
     public void render() {
 

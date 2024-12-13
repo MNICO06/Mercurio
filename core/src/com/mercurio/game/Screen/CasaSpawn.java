@@ -19,6 +19,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Interpolation.Exp;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
@@ -54,6 +55,10 @@ public class CasaSpawn extends ScreenAdapter {
     private boolean tieniApertoDiscorsoPrima = false;
     private boolean tieniApertoDiscorsoDopo = false;
     private boolean fPressed = false;
+    private boolean ferma = true;
+    private boolean iniziaMovimento = false;
+    private boolean iniziaPrimoDiscorso = false;
+
 
     public CasaSpawn(MercurioMain game) {
         this.game = game;
@@ -107,9 +112,8 @@ public class CasaSpawn extends ScreenAdapter {
             // aggiungo alla lista dei rettangoli per le collisioni quello della mamma
             rectList.add(mammaAsh.getBoxPlayer());
 
-            game.getPlayer().setPosition(100, 50);
-
-            // prendere rettangolo per mappa
+        
+            //prendere rettangolo per mappa
             MapObjects objects = casaAsh.getLayers().get("exit").getObjects();
             for (MapObject object : objects) {
                 if (object instanceof RectangleMapObject) {
@@ -118,12 +122,14 @@ public class CasaSpawn extends ScreenAdapter {
 
                     // Ottieni il rettangolo
                     rectangleUscita = rectangleObject.getRectangle();
-                }
+                } 
             }
-        } catch (Exception e) {
+
+            settaPlayerPosition();
+            
+        } catch(Exception e) {
             System.out.println("Errore show casaSpawn, " + e);
         }
-
     }
 
     @Override
@@ -143,10 +149,69 @@ public class CasaSpawn extends ScreenAdapter {
         controlloTesto();
         controlloTestoIniziale();
         controllaUscita();
-
+        controllaFermaPlayer();
     }
 
-    // cambio continuamente forground e background in base alla pos del personaggio
+    private void settaPlayerPosition() {
+        //true se proviene dal fullmap, se no non faccio nulla che prende le posizioni salvate nel json
+        if (game.getProvieneDaMappa()) {
+            MapObjects objects = casaAsh.getLayers().get("teleport").getObjects();
+            for (MapObject object : objects) {
+                if (object instanceof RectangleMapObject) {
+                    // Se l'oggetto è un rettangolo
+                    RectangleMapObject rectangleObject = (RectangleMapObject) object;
+                    game.getPlayer().setPosition(rectangleObject.getRectangle().getX(), rectangleObject.getRectangle().getY());
+                } 
+            }
+            game.setProvieneDaMappa(false);
+        }
+    }
+
+    private void fermaPlayer() {
+        game.getPlayer().setMovement(false);
+        game.getPlayer().setFermoDestra();
+        mammaAsh.setSinstra();
+
+        // Pianifica un nuovo compito per far tornare la mamma nella posizione "avanti" dopo 5 secondi
+        mammaTimerTask = new TimerTask() {
+            @Override
+            public void run() {
+                iniziaMovimento = true;
+            }
+        };
+        // Avvia il timer per il compito della mamma
+        timer.schedule(mammaTimerTask, 1000);
+
+
+        if (iniziaMovimento) {
+            if ((mammaAsh.getPosition().x - game.getPlayer().getPlayerPosition().x) > 15) {
+                game.getPlayer().muoviBotDestra();
+            }else {
+                ferma = false;
+                tieniApertoDiscorsoPrima = true;
+            }
+        }
+    }
+
+    private void controllaFermaPlayer() {
+        //true se proviene dal fullmap, se no non faccio nulla che prende le posizioni salvate nel json
+        MapObjects objects = casaAsh.getLayers().get("lineaFerma").getObjects();
+        for (MapObject object : objects) {
+            if (object instanceof RectangleMapObject) {
+                // Se l'oggetto è un rettangolo
+                RectangleMapObject rectangleObject = (RectangleMapObject) object;
+
+                if (game.getPlayer().getBoxPlayer().overlaps(rectangleObject.getRectangle()) && !controllaPresenzaStarter() && ferma) {
+                    fermaPlayer();
+                }
+            } 
+        }
+        game.setProvieneDaMappa(false);
+    }
+    
+
+
+    //cambio continuamente forground e background in base alla pos del personaggio
     private void cambiaProfondita(MapLayer lineeLayer) {
 
         try {
@@ -309,7 +374,7 @@ public class CasaSpawn extends ScreenAdapter {
     private boolean controllaPresenzaStarter() {
         try {
             // Carica il file JSON
-            FileHandle file = Gdx.files.internal("assets/ashJson/squadra.json");
+            FileHandle file = Gdx.files.internal("ashJson/squadra.json");
             String jsonString = file.readString();
 
             JsonValue json = new JsonReader().parse(jsonString);
@@ -334,25 +399,22 @@ public class CasaSpawn extends ScreenAdapter {
 
     // questa funzione serve per il testo base senza scelta
     public void controlloTestoIniziale() {
-        try {
-
-            if (tieniApertoDiscorsoPrima) {
-                labelDiscorsiSenzaStarter.renderDisc();
-                if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-                    // da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
-                    tieniApertoDiscorsoPrima = labelDiscorsiSenzaStarter.advanceText();
-                }
-            } else {
-                // quando deve terminare
-                tieniApertoDiscorsoPrima = false;
-                fPressed = false;
-                game.getPlayer().setMovement(true);
-                labelDiscorsiSenzaStarter.reset();
+        if (tieniApertoDiscorsoPrima) {
+            game.getPlayer().setMovement(false);
+            labelDiscorsiSenzaStarter.renderDisc();
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+                //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
+                tieniApertoDiscorsoPrima = labelDiscorsiSenzaStarter.advanceText();
             }
-        } catch (Exception e) {
-            System.out.println("Errore controlloTestoIniziale casaspawn, " + e);
         }
-
+        else {
+            //quando deve terminare 
+            tieniApertoDiscorsoPrima = false;
+            fPressed = false;
+            iniziaPrimoDiscorso = false;
+            game.getPlayer().setMovement(true);
+            labelDiscorsiSenzaStarter.reset();
+        }
     }
 
     // questa funzione serve per il testo con la scelta
@@ -383,7 +445,7 @@ public class CasaSpawn extends ScreenAdapter {
         try {
 
             // Carica il file JSON
-            FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file = Gdx.files.local("ashJson/squadra.json");
             String jsonString = file.readString();
 
             // Utilizza la classe JsonReader di LibGDX per leggere il file JSON

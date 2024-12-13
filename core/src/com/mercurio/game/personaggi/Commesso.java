@@ -6,11 +6,11 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.bullet.collision._btMprSimplex_t;
 import com.mercurio.game.AssetManager.GameAsset;
-import com.mercurio.game.AssetManager.GameAsset.AssetsBot;
 import com.mercurio.game.Screen.MercurioMain;
 
-public class Professore {
+public class Commesso {
     private float player_width;
     private float player_height;
     private TextureRegion[] indietro;
@@ -34,11 +34,11 @@ public class Professore {
 
     private GameAsset asset;
 
-    public Professore(MercurioMain game) {
-        try {
-            this.asset = game.getGameAsset();
+    public Commesso(MercurioMain game) {
+        try{
 
-            Texture texture = asset.getBot(AssetsBot.PROF);
+            this.asset = game.getGameAsset();
+            Texture texture = asset.getBot(GameAsset.AssetsBot.PROF);
             tmp = TextureRegion.split(texture, texture.getWidth() / 3, texture.getHeight() / 4);
 
             indietro = new TextureRegion[3];
@@ -100,38 +100,10 @@ public class Professore {
             characterPosition = new Vector3();
 
         } catch (Exception e) {
-            System.out.println("Errore constructor Professore, " + e);
+            System.out.println("Errore costruttore commesso, " + e);
         }
     }
 
-    // funzioni per far muovere il bot
-    public void muoviBotBasso() {
-        stateTime += Gdx.graphics.getDeltaTime();
-        currentAnimation = camminaIndietro.getKeyFrame(stateTime, true);
-        characterPosition.y -= 20f * Gdx.graphics.getDeltaTime();
-        boxPlayer = new Rectangle(characterPosition.x + player_width / 4 - 2, characterPosition.y - 2, player_width / 2 + 2, player_height / 6 + 6);
-    }
-
-    public void muoviBotAlto() {
-        stateTime += Gdx.graphics.getDeltaTime();
-        currentAnimation = camminaAvanti.getKeyFrame(stateTime, true);
-        characterPosition.y += 20f * Gdx.graphics.getDeltaTime();
-        boxPlayer = new Rectangle(characterPosition.x + player_width / 4 - 2, characterPosition.y - 2, player_width / 2 + 2, player_height / 6 + 6);
-    }
-
-    public void muoviBotDestra() {
-        stateTime += Gdx.graphics.getDeltaTime();
-        currentAnimation = camminaDestra.getKeyFrame(stateTime, true);
-        characterPosition.x += 20f * Gdx.graphics.getDeltaTime();
-        boxPlayer = new Rectangle(characterPosition.x + player_width / 4 - 2, characterPosition.y - 2, player_width / 2 + 2, player_height / 6 + 6);
-    }
-
-    public void muoviBotSinistra() {
-        stateTime += Gdx.graphics.getDeltaTime();
-        currentAnimation = camminaSinistra.getKeyFrame(stateTime, true);
-        characterPosition.x -= 20f * Gdx.graphics.getDeltaTime();
-        boxPlayer = new Rectangle(characterPosition.x + player_width / 4 - 2, characterPosition.y - 2, player_width / 2 + 2, player_height / 6 + 6);
-    }
 
     // funzioni per settare animazione bot
     public void setFermoSinistra() {
@@ -198,4 +170,6 @@ public class Professore {
     public float getStateTime() {
         return stateTime;
     }
+
+
 }

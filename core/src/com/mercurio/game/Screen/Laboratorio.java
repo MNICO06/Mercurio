@@ -27,6 +27,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.JsonWriter;
 import com.badlogic.gdx.utils.Timer;
 import com.mercurio.game.AssetManager.GameAsset;
 import com.mercurio.game.effects.LabelDiscorsi;
@@ -135,9 +136,8 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
         this.game = game;
         this.asset = game.getGameAsset();
         stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
         professore = new Professore(game);
-        // renderizzo il professore
+        //renderizzo il professore
 
         rivale = new Rivale(game);
 
@@ -343,8 +343,10 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
         if (game.getPlayer().getBoxPlayer().overlaps(rettangoloFerma)) {
 
             if (renderizzaPunto) {
+                game.setisInMovement(true);
                 game.getPlayer().setMovement(false);
                 renderizzaPuntoEsclamativo();
+                Gdx.input.setInputProcessor(stage);
             }
             if (iniziaRiposizionaBot) {
                 riposizionaBot();
@@ -658,18 +660,15 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
     }
 
     private void apriSceltaStarter() {
-        try {
-            game.creaSceltaStarter();
-            if (game.sceltoStarter()) {
-                iniziaScelta = false;
-                game.closeSceltaStarter();
-                iniziaDiscorso3 = true;
-                continuaTesto = true;
-            }
-        } catch (Exception e) {
-            System.out.println("Errore apriSceltaStarter lab, " + e);
+        game.creaSceltaStarter();
+        if (game.sceltoStarter()) {
+            iniziaScelta = false;
+            game.closeSceltaStarter();
+            iniziaDiscorso3 = true;
+            continuaTesto = true;
+            game.getPlayer().setMovement(false);
+            Gdx.input.setInputProcessor(stage);
         }
-
     }
 
     private void renderizzaDiscorso3() {
@@ -721,18 +720,14 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
     }
 
     private void portaRivaleSu3() {
-        try {
-            if ((110 - rivale.getPosition().y) > 5) {
-                rivale.muoviBotAlto();
-            } else {
-                faiSalireRivale3 = false;
-                iniziaDiscorso4Rivale = true;
-                continuaTesto = true;
-            }
-        } catch (Exception e) {
-            System.out.println("Errore portaRivaleSu3 lab, " + e);
+        if ((110 - rivale.getPosition().y) > 5) {
+            rivale.muoviBotAlto();
+        }else {
+            faiSalireRivale3 = false;
+            iniziaDiscorso4Rivale = true;
+            continuaTesto = true;
+            rivale.setFermoAvanti();
         }
-
     }
 
     private void renderizzaDiscorso4() {
@@ -797,7 +792,11 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
             System.out.println("Errore renderizzaDiscorso6 lab, " + e);
         }
 
-    }
+            /* per evitare battaglia committa la creazione e togli questo
+            iniziaDiscorso7Rivale = true;
+            continuaTesto = true;
+            */
+        }
 
     private void renderizzaDiscorso7() {
         try {
@@ -840,22 +839,18 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
     }
 
     private void renderizzaDiscorso9() {
-        try {
-            if (continuaTesto) {
-                nonoDiscorsoRivale.renderDisc();
-                if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-                    // da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
-                    continuaTesto = nonoDiscorsoRivale.advanceText();
-                }
-            } else {
-                iniziaDiscorso9Rivale = false;
-                portaGiuRivale = true;
-                continuaTesto = true;
+        if (continuaTesto) {
+            nonoDiscorsoRivale.renderDisc();
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+                //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
+                continuaTesto = nonoDiscorsoRivale.advanceText();
             }
-        } catch (Exception e) {
-            System.out.println("Errore renderizzaDiscorso9 lab, " + e);
+        }else {
+            cura();
+            iniziaDiscorso9Rivale = false;
+            portaGiuRivale = true;
+            continuaTesto = true;
         }
-
     }
 
     private void portaRivaleGiu1() {
@@ -902,22 +897,22 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
     }
 
     private void renderizzaDiscorso10() {
-        try {
-            if (continuaTesto) {
-                decimoDiscorsoProf.renderDisc();
-                if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-                    // da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
-                    continuaTesto = decimoDiscorsoProf.advanceText();
-                }
-            } else {
-                iniziaDiscorso10Prof = false;
-                game.getPlayer().setMovement(true);
+        if (continuaTesto) {
+            decimoDiscorsoProf.renderDisc();
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+                //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
+                continuaTesto = decimoDiscorsoProf.advanceText();
             }
-        } catch (Exception e) {
-            System.out.println("Errore renderizzaDiscorso10 lab, " + e);
+        }else {
+            iniziaDiscorso10Prof = false;
+            game.getPlayer().setMovement(true);
+            Gdx.input.setInputProcessor(MenuLabel.getStage());
+            game.setisInMovement(false);
+            rectList.clear();
+            rectList.add(professore.getBox());
         }
-
     }
+    
 
     // --------------------------------------------------------------------------------------------------------------------------------
 
@@ -947,7 +942,7 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
     private boolean controllaPresenzaStarter() {
         try {
             // Carica il file JSON
-            FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file = Gdx.files.local("ashJson/squadra.json");
             String jsonString = file.readString();
 
             JsonValue json = new JsonReader().parse(jsonString);
@@ -967,6 +962,40 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
 
         } catch (Exception e) {
             return false;
+        }
+    }
+
+    public void cura() {
+        // Carica il file JSON
+        FileHandle file = Gdx.files.local("ashJson/squadra.json");
+        String jsonString = file.readString();
+        
+        // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+        JsonValue json = new JsonReader().parse(jsonString);
+        
+        for (int i=0; i<6; i++){
+            int index =i+1;
+            JsonValue pokeJson = json.get("poke"+index);
+            //System.out.println(index);
+            String nomePoke = pokeJson.getString("nomePokemon");
+            //System.out.println(index);
+
+            if (!nomePoke.equals("")){
+                JsonValue statistiche = pokeJson.get("statistiche"); 
+                String maxPokeHP = statistiche.getString("hpTot");
+                //ripristina gli hp al massimo
+                statistiche.remove("hp");
+                statistiche.addChild("hp", new JsonValue(maxPokeHP));
+                JsonValue mosse = pokeJson.get("mosse");
+                for (JsonValue mossaJson : mosse) {
+                    String maxPP = mossaJson.getString("ppTot");
+                    // ripristina attPP al massimo per ogni mossa
+                    mossaJson.remove("ppAtt");
+                    mossaJson.addChild("ppAtt", new JsonValue(maxPP));
+                }
+            }
+        
+            file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
         }
     }
 
@@ -993,8 +1022,7 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
 
     @Override
     public void closeBattle() {
-        // game.getPlayer().setMovement(true);
-        Gdx.input.setInputProcessor(MenuLabel.getStage());
+        //game.getPlayer().setMovement(true);
         battle = null;
         iniziaDiscorso7Rivale = true;
         continuaTesto = true;

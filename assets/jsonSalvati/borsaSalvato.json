@@ -8,13 +8,20 @@
     "inventoryKey": [
         {
         "quantity": 1,
-        "name": "Surf"
+        "name": "Mappa Citta'"
         }
     ],
     "inventoryMT": [
         
     ],
     "inventoryCure": [
-        
+        {
+            "quantity": 3,
+            "name": "Acqua Fresca"
+        },
+        {
+            "quantity": 1,
+            "name": "Revitalizzante"
+        }
     ]
 }

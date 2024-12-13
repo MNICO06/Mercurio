@@ -37,7 +37,7 @@ public class MiniMappa {
     public MiniMappa(Stage stage, Borsa chiamanteB) {
 
         this.stage = stage;
-        this.font = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
+        this.font = new BitmapFont(Gdx.files.local("font/small_letters_font.fnt"));
         this.chiamanteB = chiamanteB;
         this.medaglieActor = new Array<>();
 

@@ -74,7 +74,7 @@ public class squadraCure {
         this.battaglia = battaglia;
         this.chiamanteBo = chiamanteBo;
         this.batch = (SpriteBatch) stage.getBatch();
-        this.font = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
+        this.font = new BitmapFont(Gdx.files.local("font/small_letters_font.fnt"));
         this.stage = stage;
         this.squadActors = new Array<>(); // Inizializza l'array degli attori della borsa
         this.itemName = itemName;
@@ -390,7 +390,7 @@ public class squadraCure {
     public void leggiPokeSecondario(int numero) {
         try {
             // Carica il file JSON
-            FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file = Gdx.files.local("ashJson/squadra.json");
             String jsonString = file.readString();
             // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
             JsonValue json = new JsonReader().parse(jsonString);
@@ -579,7 +579,7 @@ public class squadraCure {
 
         try {
             // Carica il file JSON
-            FileHandle file = Gdx.files.internal("assets/oggetti/strumenti.json");
+            FileHandle file = Gdx.files.internal("oggetti/strumenti.json");
             String jsonString = file.readString();
             // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
             JsonValue json = new JsonReader().parse(jsonString);
@@ -595,7 +595,7 @@ public class squadraCure {
             }
 
             // Carica il file JSON
-            FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file2 = Gdx.files.local("ashJson/squadra.json");
             String jsonString2 = file2.readString();
             // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
             JsonValue json2 = new JsonReader().parse(jsonString2);

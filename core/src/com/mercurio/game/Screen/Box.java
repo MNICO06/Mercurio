@@ -70,6 +70,7 @@ public class Box extends ScreenAdapter {
         asset.loadSISCBAsset();
         asset.loadBPBAsset();
         asset.loadBoxAsset();
+        asset.loadSQBoxAsset();
         asset.finishLoading();
         batch = new SpriteBatch();
         stage = new Stage();
@@ -102,6 +103,7 @@ public class Box extends ScreenAdapter {
         asset.unloadAllBox();
         asset.unloadAllBPB();
         asset.unloadAllSISCB();
+        asset.unloadAllSQBox();
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -109,7 +111,7 @@ public class Box extends ScreenAdapter {
 
         try {
             // Carica il file JSON
-            FileHandle file = Gdx.files.local("assets/ashJson/box.json");
+            FileHandle file = Gdx.files.local("ashJson/box.json");
             String jsonString = file.readString();
 
             // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
@@ -275,14 +277,14 @@ public class Box extends ScreenAdapter {
             liberaImage = new Image(pulsanteLibera);
 
             // Posiziona le immagini in alto a sinistra e destra
-            float marginTop = 70; // distanza dal bordo superiore dello schermo
+            float marginTop = 35; // distanza dal bordo superiore dello schermo
             // Calcola la posizione centrale per le immagini
-            float centerX = Gdx.graphics.getWidth() / 2;
+            float centerX = Gdx.graphics.getWidth() / 2 + 30;
             float yPos = (Gdx.graphics.getHeight() + background.getHeight()) / 2 - avantiImage.getHeight() - marginTop;
             float separator = 240;
 
             // Carica il font personalizzato
-            font = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
+            font = new BitmapFont(Gdx.files.local("font/small_letters_font.fnt"));
 
             // Crea uno stile per la Label con il font personalizzato
             Label.LabelStyle labelStyle = new Label.LabelStyle();
@@ -295,13 +297,13 @@ public class Box extends ScreenAdapter {
             Label label = new Label("BOX 1", labelStyle);
 
             // Posiziona la label centrata tra le frecce
-            label.setPosition(centerX - label.getWidth() / 2, yPos);
+            label.setPosition((centerX + 20) - label.getWidth() / 2, yPos);
             stage.addActor(label);
 
             indietroImage.setPosition(centerX - indietroImage.getWidth() - separator, yPos);
             indietroImage.setSize(30, 50);
 
-            avantiImage.setPosition(centerX + separator, yPos);
+            avantiImage.setPosition(centerX + separator + 50, yPos);
             avantiImage.setSize(30, 50);
 
             // listener per la freccia avanti
@@ -454,7 +456,7 @@ public class Box extends ScreenAdapter {
         try {
 
             // Carica il file JSON
-            FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file = Gdx.files.local("ashJson/squadra.json");
             String jsonString = file.readString();
 
             // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
@@ -603,7 +605,7 @@ public class Box extends ScreenAdapter {
 
             if (posizionePokemonSelezionato > 0) {
 
-                FileHandle file = Gdx.files.local("assets/ashJson/box.json");
+                FileHandle file = Gdx.files.local("ashJson/box.json");
                 String jsonString = file.readString();
 
                 // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
@@ -617,7 +619,7 @@ public class Box extends ScreenAdapter {
 
                 if (contaPokeSquadra() > 1) {
 
-                    FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+                    FileHandle file = Gdx.files.local("ashJson/squadra.json");
                     String jsonString = file.readString();
 
                     JsonValue json = new JsonReader().parse(jsonString);
@@ -688,7 +690,7 @@ public class Box extends ScreenAdapter {
 
     private int contaPokeSquadra() {
         try {
-            FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file = Gdx.files.local("ashJson/squadra.json");
             String jsonString = file.readString();
 
             JsonValue json = new JsonReader().parse(jsonString);
@@ -714,7 +716,7 @@ public class Box extends ScreenAdapter {
     private void sistemaSquadraSposta() {
         try {
 
-            FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file = Gdx.files.local("ashJson/squadra.json");
             JsonValue json = new JsonReader().parse(file.readString());
 
             String primoPokeVuoto = "";
@@ -761,7 +763,7 @@ public class Box extends ScreenAdapter {
     private void sistemaSquadra(int posPokeEliminato) {
         try {
 
-            FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file = Gdx.files.local("ashJson/squadra.json");
             String jsonString = file.readString();
 
             JsonValue json = new JsonReader().parse(jsonString);
@@ -814,7 +816,7 @@ public class Box extends ScreenAdapter {
                         // condizione 1: quella della squadra effettiva quindi uso stesso codice di nava
                         if (posizionePokemonSelezionato < 0 && posizioneSpostata < 0) {
 
-                            FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+                            FileHandle file = Gdx.files.local("ashJson/squadra.json");
                             String jsonString = file.readString();
                             // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
                             JsonValue json = new JsonReader().parse(jsonString);
@@ -845,7 +847,7 @@ public class Box extends ScreenAdapter {
                         } // condizione 2: quella con solo il box, copio codice di nava e lo modifico
                         else if (posizionePokemonSelezionato > 0 && posizioneSpostata > 0) {
 
-                            FileHandle file = Gdx.files.local("assets/ashJson/box.json");
+                            FileHandle file = Gdx.files.local("ashJson/box.json");
                             String jsonString = file.readString();
                             // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
                             JsonValue json = new JsonReader().parse(jsonString);
@@ -887,7 +889,7 @@ public class Box extends ScreenAdapter {
 
                             if (posizionePokemonSelezionato > 0) {
 
-                                file1 = Gdx.files.local("assets/ashJson/box.json");
+                                file1 = Gdx.files.local("ashJson/box.json");
                                 json1 = new JsonReader().parse(file1.readString());
 
                                 nomePoke1 = String.valueOf(posizionePokemonSelezionato);
@@ -895,7 +897,7 @@ public class Box extends ScreenAdapter {
 
                             } else {
 
-                                file1 = Gdx.files.local("assets/ashJson/squadra.json");
+                                file1 = Gdx.files.local("ashJson/squadra.json");
                                 json1 = new JsonReader().parse(file1.readString());
 
                                 nomePoke1 = "poke" + (posizionePokemonSelezionato * -1);
@@ -904,7 +906,7 @@ public class Box extends ScreenAdapter {
 
                             if (posizioneSpostata > 0) {
 
-                                file2 = Gdx.files.local("assets/ashJson/box.json");
+                                file2 = Gdx.files.local("ashJson/box.json");
                                 json2 = new JsonReader().parse(file2.readString());
 
                                 nomePoke2 = String.valueOf(posizioneSpostata);
@@ -912,7 +914,7 @@ public class Box extends ScreenAdapter {
 
                             } else {
 
-                                file2 = Gdx.files.local("assets/ashJson/squadra.json");
+                                file2 = Gdx.files.local("ashJson/squadra.json");
                                 json2 = new JsonReader().parse(file2.readString());
 
                                 nomePoke2 = "poke" + (posizioneSpostata * -1);
@@ -969,7 +971,7 @@ public class Box extends ScreenAdapter {
     public void creaPokeBoxVuoto(int posizionePoke) {
         try {
 
-            FileHandle file = Gdx.files.local("assets/ashJson/box.json");
+            FileHandle file = Gdx.files.local("ashJson/box.json");
             JsonValue json = new JsonReader().parse(file.readString());
 
             JsonValue newPokemon = new JsonValue(JsonValue.ValueType.object);

@@ -16,8 +16,8 @@
 	},
 	"4" : {
 		"nomePokemon" : "Kakuna",
-		"livello-min" : 6,
-		"livello-max": 7
+		"livello-min" : 7,
+		"livello-max": 8
 	},
 	"5" : {
 		"nomePokemon" : "Bidoof",

@@ -62,13 +62,13 @@ public class SceltaStarterScreen extends ScreenAdapter {
 
         try {
 
-            Texture litten = new Texture("assets/pokemon/litten.png");
-            Texture rowlet = new Texture("assets/pokemon/rowlet.png");
-            Texture popplio = new Texture("assets/pokemon/popplio.png");
+            Texture litten = new Texture("pokemon/litten.png");
+            Texture rowlet = new Texture("pokemon/rowlet.png");
+            Texture popplio = new Texture("pokemon/popplio.png");
 
-            Texture cerchioLitten = new Texture("assets/sfondo/sfondoFuoco.png");
-            Texture cerchioRowlet = new Texture("assets/sfondo/sfondoErba.png");
-            Texture cerchioPopplio = new Texture("assets/sfondo/sfondoAcqua.png");
+            Texture cerchioLitten = new Texture("sfondo/sfondoFuoco.png");
+            Texture cerchioRowlet = new Texture("sfondo/sfondoErba.png");
+            Texture cerchioPopplio = new Texture("sfondo/sfondoAcqua.png");
 
             Image cerchioLittenImage = new Image(cerchioLitten);
             Image cerchioRowletImage = new Image(cerchioRowlet);
@@ -276,7 +276,7 @@ public class SceltaStarterScreen extends ScreenAdapter {
     private void salvaStarter(String pokemon) {
         try {
             // Carica il file JSON
-            FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
+            FileHandle file = Gdx.files.local("ashJson/squadra.json");
             String jsonString = file.readString();
 
             JsonValue json = new JsonReader().parse(jsonString);
@@ -310,12 +310,12 @@ public class SceltaStarterScreen extends ScreenAdapter {
 
             JsonValue mosseJson = new JsonValue(JsonValue.ValueType.array);
             // recupero dal json
-            FileHandle filePokemon = Gdx.files.local("assets/pokemon/pokemon.json");
+            FileHandle filePokemon = Gdx.files.local("pokemon/pokemon.json");
             JsonValue jsonPokemon = new JsonReader().parse(filePokemon.readString());
             String nomeMossa1 = jsonPokemon.get(pokemon).get("mosseImparabili").getString("M1");
             String nomeMossa2 = jsonPokemon.get(pokemon).get("mosseImparabili").getString("M2");
 
-            FileHandle fileMosse = Gdx.files.local("assets/pokemon/mosse.json");
+            FileHandle fileMosse = Gdx.files.local("pokemon/mosse.json");
             JsonValue jsonMosse = new JsonReader().parse(fileMosse.readString());
 
             JsonValue mossa1 = new JsonValue(JsonValue.ValueType.object);
@@ -346,16 +346,27 @@ public class SceltaStarterScreen extends ScreenAdapter {
 
             Stats stats = new Stats();
             stats.aggiornaStatistichePokemon(1);
-        } catch (Exception e) {
-            System.out.println("Errore salvaStarter sceltaStarterScreen, " + e);
-        }
 
+            // Carica il file JSON
+            FileHandle fileScoperti = Gdx.files.local("ashJson/pokemonScoperti.json");
+            JsonValue jsonScoperti = new JsonReader().parse(fileScoperti.readString());
+            for (int i = 0; i < jsonScoperti.size; i++) {
+                if (jsonScoperti.get(i).getString("nome").equals(pokemon)) {
+                    jsonScoperti.get(i).get("incontrato").set("1");
+                }
+            }
+
+            fileScoperti.writeString(jsonScoperti.prettyPrint(JsonWriter.OutputType.json, 1), false);
+
+        }catch(Exception e) {
+            System.out.println("Errore salvaStarter SceltaStarterScreen, " + e);
+        }
     }
 
     private void salvaStarterRivale(String pokemon) {
         try {
             // Carica il file JSON
-            FileHandle file = Gdx.files.local("assets/bots/bots.json");
+            FileHandle file = Gdx.files.local("bots/bots.json");
             String jsonString = file.readString();
 
             JsonValue json = new JsonReader().parse(jsonString);
@@ -364,13 +375,13 @@ public class SceltaStarterScreen extends ScreenAdapter {
             json.get("rivale").get("poke1").get("livello").set("5");
 
             // recupero dal json del nome delle due mosse
-            FileHandle filePokemon = Gdx.files.local("assets/pokemon/pokemon.json");
+            FileHandle filePokemon = Gdx.files.local("pokemon/pokemon.json");
             JsonValue jsonPokemon = new JsonReader().parse(filePokemon.readString());
             String nomeMossa1 = jsonPokemon.get(pokemon).get("mosseImparabili").getString("M1");
             String nomeMossa2 = jsonPokemon.get(pokemon).get("mosseImparabili").getString("M2");
 
             // recupero dal json del tipo delle due mosse
-            FileHandle fileMosse = Gdx.files.local("assets/pokemon/mosse.json");
+            FileHandle fileMosse = Gdx.files.local("pokemon/mosse.json");
             JsonValue jsonMosse = new JsonReader().parse(fileMosse.readString());
 
             JsonValue mosseArray = json.get("rivale").get("poke1").get("mosse");

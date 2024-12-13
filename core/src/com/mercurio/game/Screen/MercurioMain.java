@@ -52,6 +52,7 @@ public class MercurioMain extends Game implements InterfacciaComune {
     private MapLayer alberiBack;
     private MapLayer alberiFore;
     private MapLayer divAlberi;
+    private MapLayer lineeBloccaStoria;
 
     private float elapsedTime = 0;
 
@@ -74,6 +75,7 @@ public class MercurioMain extends Game implements InterfacciaComune {
     private String ingressoPokeCenter;
     private String ingressoGrotta;
     private String ingressoCittaMontagna;
+    private boolean provieneDaMappa = false;
 
     private String screenString;
 
@@ -99,12 +101,12 @@ public class MercurioMain extends Game implements InterfacciaComune {
             menuLabel = new MenuLabel(this);
             setPage(Constant.SCHERMATA_LOGO);
 
-            copiaJson("jsonSalvati/borsaSalvato.json", "assets/ashJson/borsa.json");
-            copiaJson("jsonSalvati/squadraSalvato.json", "assets/ashJson/squadra.json");
-            copiaJson("jsonSalvati/botsSalvato.json", "assets/bots/bots.json");
-            copiaJson("jsonSalvati/datiGeneraliSalvato.json", "assets/ashJson/datiGenerali.json");
-            copiaJson("jsonSalvati/boxSalvato.json", "assets/ashJson/box.json");
-            copiaJson("jsonSalvati/pokemonScopertiSalvato.json", "assets/ashJson/pokemonScoperti.json");
+            copiaJson("jsonSalvati/borsaSalvato.json", "ashJson/borsa.json");
+            copiaJson("jsonSalvati/squadraSalvato.json", "ashJson/squadra.json");
+            copiaJson("jsonSalvati/botsSalvato.json", "bots/bots.json");
+            copiaJson("jsonSalvati/datiGeneraliSalvato.json", "ashJson/datiGenerali.json");
+            copiaJson("jsonSalvati/boxSalvato.json", "ashJson/box.json");
+            copiaJson("jsonSalvati/pokemonScopertiSalvato.json", "ashJson/pokemonScoperti.json");
 
             Timer.schedule(new Timer.Task() {
                 @Override
@@ -194,7 +196,7 @@ public class MercurioMain extends Game implements InterfacciaComune {
     public void creaBattaglia(String nomeJson, String nomePokemon) {
         try {
 
-            FileHandle file = Gdx.files.local("assets/jsonPokeSelvatici/" + nomeJson + ".json");
+            FileHandle file = Gdx.files.local("jsonPokeSelvatici/" + nomeJson + ".json");
             String jsonString = file.readString();
             JsonValue json = new JsonReader().parse(jsonString);
             String pokeName = json.get(nomePokemon).getString("nomePokemon");
@@ -420,7 +422,7 @@ public class MercurioMain extends Game implements InterfacciaComune {
     public void loadGame() {
         try {
             // Carica il file JSON
-            FileHandle file = Gdx.files.local("assets/ashJson/datiPosizione.json");
+            FileHandle file = Gdx.files.local("ashJson/datiPosizione.json");
             String jsonString = file.readString();
             // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
             JsonValue json = new JsonReader().parse(jsonString);
@@ -459,7 +461,8 @@ public class MercurioMain extends Game implements InterfacciaComune {
             lineeLayer = map.getLayers().get("linee");
             alberiBack = map.getLayers().get("alberiBack");
             alberiFore = map.getLayers().get("alberiFore");
-        } catch (Exception e) {
+            lineeBloccaStoria = map.getLayers().get("lineeBloccaStoria");
+        } catch(Exception e) {
             e.printStackTrace();
         }
     }
@@ -468,6 +471,14 @@ public class MercurioMain extends Game implements InterfacciaComune {
         if (lineeLayer != null) {
             return lineeLayer;
         }
+        return null;
+    }
+
+    public MapLayer getLineeBloccaStoria() {
+        if (lineeBloccaStoria != null) {
+            return lineeBloccaStoria;
+        }
+
         return null;
     }
 
@@ -606,9 +617,19 @@ public class MercurioMain extends Game implements InterfacciaComune {
     }
 
     public MapLayer getOggettiStoria() {
-        return oggettiStoria;
+        if (oggettiStoria != null) {
+            return oggettiStoria;
+        }
+        return null;
     }
 
+    public void setProvieneDaMappa(boolean provieneDaMappa) {
+        this.provieneDaMappa = provieneDaMappa;
+    }
+
+    public boolean getProvieneDaMappa() {
+        return provieneDaMappa;
+    }
     @Override
     public GameAsset getGameAsset() {
         return asset;

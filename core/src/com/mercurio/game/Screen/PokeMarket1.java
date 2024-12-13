@@ -21,6 +21,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.mercurio.game.personaggi.Commesso;
 
 public class PokeMarket1 extends ScreenAdapter {
     private final MercurioMain game;
@@ -31,6 +32,8 @@ public class PokeMarket1 extends ScreenAdapter {
     private OrthographicCamera camera;
     private Vector2 map_size;
     private MapLayer lineeLayer;
+    private Commesso commesso1;
+    private Commesso commesso2;
 
     private boolean nelloShop = false;
 
@@ -48,7 +51,11 @@ public class PokeMarket1 extends ScreenAdapter {
         this.game = game;
 
         rectList = new ArrayList<Rectangle>();
+        commesso1 = new Commesso(game);
+        commesso2 = new Commesso(game);
+        settaCommessiPosition();
         // batch = new SpriteBatch();
+
 
         listaAllawaysBack.add("floor");
         listaAllawaysBack.add("tappeto");
@@ -101,6 +108,32 @@ public class PokeMarket1 extends ScreenAdapter {
             }
         } catch (Exception e) {
             System.out.println("Errore show pokemarket1, " + e);
+        }
+
+    }
+
+    private void settaCommessiPosition() {
+        try {
+            int cont = 0;
+            // recupero il rettangolo per uscire dalla mappa
+            MapObjects objects = pokeMarket.getLayers().get("posizioneCasse").getObjects();
+            for (MapObject object : objects) {
+                if (object instanceof RectangleMapObject) {
+                    RectangleMapObject rectangleObject = (RectangleMapObject) object;
+                    Rectangle rect = rectangleObject.getRectangle();
+
+                    if (cont == 0) {
+                        commesso1.setPosition(rect.getX(), rect.getY());
+                    }else if (cont == 1) {
+                        commesso2.setPosition(rect.getX(), rect.getY());
+                    }
+
+                }
+                cont ++;
+            }
+
+        } catch (Exception e) {
+            System.out.println("Errore settaCommessiPosition pokeMarket1, " + e);
         }
 
     }
@@ -164,6 +197,10 @@ public class PokeMarket1 extends ScreenAdapter {
 
             // Inserisci eventuali personaggio e il giocatore
             render.add(new Render("player", game.getPlayer().getPlayerPosition().y));
+            render.add(new Render("bot", commesso1.getTexture(), commesso1.getPosition().x,
+                    commesso1.getPosition().y, commesso1.getWidth(), commesso1.getHeight(), "commesso1"));
+            render.add(new Render("bot", commesso2.getTexture(), commesso2.getPosition().x,
+                    commesso2.getPosition().y, commesso2.getWidth(), commesso2.getHeight(), "commesso2"));
 
             // Ordina in base alla posizione `y`
             Collections.sort(render, Comparator.comparingDouble(r -> -r.y));
@@ -180,7 +217,13 @@ public class PokeMarket1 extends ScreenAdapter {
                         renderLayer(renderComponent.layerName);
                         break;
                     case "bot":
-                        // quando si mettono i player gestirli qua
+                        if (renderComponent.persona.equals("commesso1")) {
+                            game.renderPersonaggiSecondari(commesso1.getTexture(), commesso1.getPosition().x,
+                                    commesso1.getPosition().y, commesso1.getWidth(), commesso1.getHeight());
+                        } else if (renderComponent.persona.equals("commesso2")) {
+                            game.renderPersonaggiSecondari(commesso2.getTexture(), commesso2.getPosition().x,
+                                    commesso2.getPosition().y, commesso2.getWidth(), commesso2.getHeight());
+                        }
                         break;
                     case "player":
                         game.renderPlayer();

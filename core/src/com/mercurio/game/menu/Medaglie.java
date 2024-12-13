@@ -34,7 +34,7 @@ public class Medaglie {
     public Medaglie(Stage stage, MenuLabel chiamanteM, MercurioMain game){
 
         this.stage = stage;
-        this.font = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
+        this.font = new BitmapFont(Gdx.files.local("font/small_letters_font.fnt"));
         this.chiamanteM = chiamanteM;
         this.medaglieActor = new Array<>();
         this.asset = game.getGameAsset();

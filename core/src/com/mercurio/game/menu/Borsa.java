@@ -91,7 +91,7 @@ public class Borsa {
     public Borsa(Stage stage, boolean battle, Battle battaglia, MercurioMain game) {
         this.batch = (SpriteBatch) stage.getBatch();
         this.battaglia=battaglia;
-        this.font = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
+        this.font = new BitmapFont(Gdx.files.local("font/small_letters_font.fnt"));
         this.stage = stage;
         this.battle=battle;
         this.borsaActors = new Array<>(); // Inizializza l'array degli attori della borsa
@@ -104,7 +104,8 @@ public class Borsa {
         asset.loadBPBAsset();
         asset.finishLoading();
 
-        try (FileReader fileReader = new FileReader("assets/ashJson/borsa.json")) {
+        try (FileReader fileReader = new FileReader("ashJson/borsa.json")) {
+
             // Utilizza JSONTokener per leggere il file JSON
             JSONTokener tokener = new JSONTokener(fileReader);
             JSONObject inventoryData = new JSONObject(tokener);
@@ -431,14 +432,14 @@ public class Borsa {
                         @Override
                         public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                             // Imposta l'immagine di sfondo con la nuova texture
-                            background2.setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.local("assets/sfondo/sfondo2.png")))));
+                            background2.setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.local("sfondo/sfondo2.png")))));
                             
                         }
                         
                         @Override
                         public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
         
-                            background2.setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.local("assets/sfondo/sfondo1.png")))));
+                            background2.setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.local("sfondo/sfondo1.png")))));
                         }
                     };
         
@@ -490,7 +491,7 @@ public class Borsa {
                                     @Override
                                     public void clicked(InputEvent event, float x, float y) {
                                         usaImage.remove();
-                                        if (itemName.equals("Mappa Citta")){
+                                        if (itemName.equals("Mappa Citta'")){
                                             apriMiniMappa();
                                         }
                                     }
@@ -504,10 +505,10 @@ public class Borsa {
                     // Carica l'immagine dell'oggetto
                     String primiDueCaratteri = itemName.substring(0, 2);
                     if (primiDueCaratteri.charAt(0) == 'M' && primiDueCaratteri.charAt(1) == 'T'){
-                        itemTexture = new Texture(Gdx.files.local("assets/oggetti/MT.png"));
+                        itemTexture = new Texture(Gdx.files.local("oggetti/MT.png"));
                     }
                     else{
-                        itemTexture = new Texture(Gdx.files.local("assets/oggetti/" + itemName + ".png"));
+                        itemTexture = new Texture(Gdx.files.local("oggetti/" + itemName + ".png"));
                     }
                     Image itemImage = new Image(itemTexture);
                     itemImage.setSize(itemWidth, itemHeight);
@@ -637,7 +638,7 @@ public class Borsa {
     }
     
     private void aggiornaBorsa(){
-        try (FileReader fileReader = new FileReader("assets/ashJson/borsa.json")) {
+        try (FileReader fileReader = new FileReader("ashJson/borsa.json")) {
             // Utilizza JSONTokener per leggere il file JSON
             JSONTokener tokener = new JSONTokener(fileReader);
             JSONObject inventoryData = new JSONObject(tokener);

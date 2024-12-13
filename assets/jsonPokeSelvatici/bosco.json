@@ -7,11 +7,11 @@
 "2" : {
     "nomePokemon" : "Weedle",
     "livello-min" : 4,
-    "livello-max": 7
+    "livello-max": 6
 },
 "3" : {
     "nomePokemon" : "Kakuna",
-    "livello-min" : 6,
+    "livello-min" : 7,
     "livello-max": 10
 },
 "4" : {
