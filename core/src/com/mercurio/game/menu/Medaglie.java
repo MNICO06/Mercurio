@@ -12,6 +12,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Array;
+import com.mercurio.game.AssetManager.GameAsset;
+import com.mercurio.game.AssetManager.GameAsset.AssetBMMLP;
+import com.mercurio.game.AssetManager.GameAsset.AssetMedaglie;
+import com.mercurio.game.Screen.MercurioMain;
 
 
 public class Medaglie {
@@ -25,12 +29,19 @@ public class Medaglie {
     private boolean isMedaglieChiuso;
     private Image tastoXImage;
 
-    public Medaglie(Stage stage, MenuLabel chiamanteM){
+    private GameAsset asset;
+
+    public Medaglie(Stage stage, MenuLabel chiamanteM, MercurioMain game){
 
         this.stage = stage;
         this.font = new BitmapFont(Gdx.files.local("font/small_letters_font.fnt"));
         this.chiamanteM = chiamanteM;
         this.medaglieActor = new Array<>();
+        this.asset = game.getGameAsset();
+
+        asset.loadMedaglieAsset();
+        asset.loadBMMLPAsset();
+        asset.finishLoading();
 
         show();
 
@@ -45,7 +56,7 @@ public class Medaglie {
 
             // Stato iniziale
             isMedaglieChiuso = true;
-            Texture backgroundTexture = new Texture("sfondo/medaglieChiuse.png");
+            Texture backgroundTexture = asset.getMedaglie(AssetMedaglie.SF_MEDAGLIE_CL);
             background = new Image(backgroundTexture);
             background.setSize(screenWidth, screenHeight);
             stage.addActor(background);
@@ -66,11 +77,11 @@ public class Medaglie {
                 }
             });
 
-            Texture closeButtonTexture = new Texture("sfondo/x.png");
+            Texture closeButtonTexture = asset.getBMMLP(AssetBMMLP.SF_X);
             NinePatch closeButtonPatch = new NinePatch(closeButtonTexture, 10, 10, 10, 10);
             NinePatchDrawable closeButtonDrawable = new NinePatchDrawable(closeButtonPatch);
         
-            Texture tastoX = new Texture("sfondo/X.png");
+            Texture tastoX =  asset.getBMMLP(AssetBMMLP.SF_X);
             tastoXImage = new Image(tastoX);
             tastoXImage.setPosition(screenWidth - 86, 10);
             stage.addActor(tastoXImage);
@@ -103,9 +114,9 @@ public class Medaglie {
             // Carico la texture corretta e aggiorno lo stato
             Texture newTexture;
             if (isMedaglieChiuso) {
-                newTexture = new Texture("sfondo/medaglieAperte.png");
+                newTexture =  asset.getMedaglie(AssetMedaglie.SF_MEDAGLIE_OP);
             } else {
-                newTexture = new Texture("sfondo/medaglieChiuse.png");
+                newTexture =  asset.getMedaglie(AssetMedaglie.SF_MEDAGLIE_CL);
             }
             isMedaglieChiuso = !isMedaglieChiuso;
 
@@ -119,6 +130,8 @@ public class Medaglie {
     }
 
     public void dispose() {
+        asset.unloadAllMedaglie();
+        asset.unloadAllBMMLP();
         stage.dispose();
         batch.dispose();
         font.dispose();

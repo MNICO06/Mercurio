@@ -8,6 +8,8 @@ public interface InterfacciaComune {
 
     public GameAsset getGameAsset();
 
+    public MercurioMain getGame();
+
     void setLuogo(String luogo);
 
     void setPage(String screen);

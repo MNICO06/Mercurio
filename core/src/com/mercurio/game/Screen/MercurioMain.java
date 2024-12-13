@@ -275,6 +275,7 @@ public class MercurioMain extends Game implements InterfacciaComune {
         }
         
         //Dispose degli asset
+        asset.unloadAllAsh();
         asset.dispose();
         // Chiudi il batch
         batch.dispose();
@@ -633,5 +634,9 @@ public class MercurioMain extends Game implements InterfacciaComune {
     public GameAsset getGameAsset() {
         return asset;
     }
-    
+
+    @Override
+    public MercurioMain getGame() {
+        return this;
+    }
 }

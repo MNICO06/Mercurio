@@ -920,7 +920,7 @@ public class Battle extends ScreenAdapter {
                     Timer.schedule(new Timer.Task() {
                         @Override
                         public void run() {
-                            borsa = new Borsa(stage, true, battle);
+                            borsa = new Borsa(stage, true, battle, chiamante.getGame());
                         }
                     }, 0.3f);
 
