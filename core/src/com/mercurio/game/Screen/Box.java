@@ -70,6 +70,7 @@ public class Box extends ScreenAdapter {
         asset.loadSISCBAsset();
         asset.loadBPBAsset();
         asset.loadBoxAsset();
+        asset.loadSQBoxAsset();
         asset.finishLoading();
         batch = new SpriteBatch();
         stage = new Stage();
@@ -102,6 +103,7 @@ public class Box extends ScreenAdapter {
         asset.unloadAllBox();
         asset.unloadAllBPB();
         asset.unloadAllSISCB();
+        asset.unloadAllSQBox();
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -275,9 +277,9 @@ public class Box extends ScreenAdapter {
             liberaImage = new Image(pulsanteLibera);
 
             // Posiziona le immagini in alto a sinistra e destra
-            float marginTop = 70; // distanza dal bordo superiore dello schermo
+            float marginTop = 35; // distanza dal bordo superiore dello schermo
             // Calcola la posizione centrale per le immagini
-            float centerX = Gdx.graphics.getWidth() / 2;
+            float centerX = Gdx.graphics.getWidth() / 2 + 30;
             float yPos = (Gdx.graphics.getHeight() + background.getHeight()) / 2 - avantiImage.getHeight() - marginTop;
             float separator = 240;
 
@@ -295,13 +297,13 @@ public class Box extends ScreenAdapter {
             Label label = new Label("BOX 1", labelStyle);
 
             // Posiziona la label centrata tra le frecce
-            label.setPosition(centerX - label.getWidth() / 2, yPos);
+            label.setPosition((centerX + 20) - label.getWidth() / 2, yPos);
             stage.addActor(label);
 
             indietroImage.setPosition(centerX - indietroImage.getWidth() - separator, yPos);
             indietroImage.setSize(30, 50);
 
-            avantiImage.setPosition(centerX + separator, yPos);
+            avantiImage.setPosition(centerX + separator + 50, yPos);
             avantiImage.setSize(30, 50);
 
             // listener per la freccia avanti
