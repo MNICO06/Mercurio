@@ -64,7 +64,8 @@ public class GameAsset {
         DOC("player/dottoressa.png", Texture.class),
         MOM("player/mammaAsh.png", Texture.class),
         PROF("player/professorRowan.png", Texture.class),
-        RIVALE("player/barry.png", Texture.class);
+        RIVALE("player/barry.png", Texture.class),
+        COMMESSO("player/commesso.png", Texture.class);
 
         private final String path;
         private final Class<?> type;

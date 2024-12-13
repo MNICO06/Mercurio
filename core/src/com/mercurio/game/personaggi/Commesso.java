@@ -38,7 +38,7 @@ public class Commesso {
         try{
 
             this.asset = game.getGameAsset();
-            Texture texture = asset.getBot(GameAsset.AssetsBot.PROF);
+            Texture texture = asset.getBot(GameAsset.AssetsBot.COMMESSO);
             tmp = TextureRegion.split(texture, texture.getWidth() / 3, texture.getHeight() / 4);
 
             indietro = new TextureRegion[3];
