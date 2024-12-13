@@ -471,7 +471,7 @@ public class Borsa {
                                     @Override
                                     public void clicked(InputEvent event, float x, float y) {
                                         usaImage.remove();
-                                        if (itemName.equals("Mappa Citta")){
+                                        if (itemName.equals("Mappa Citta'")){
                                             apriMiniMappa();
                                         }
                                     }
