@@ -53,7 +53,6 @@ public class PokeMarket1 extends ScreenAdapter {
         rectList = new ArrayList<Rectangle>();
         commesso1 = new Commesso(game);
         commesso2 = new Commesso(game);
-        settaCommessiPosition();
         // batch = new SpriteBatch();
 
 
@@ -75,6 +74,7 @@ public class PokeMarket1 extends ScreenAdapter {
             TmxMapLoader mapLoader = new TmxMapLoader();
             pokeMarket = mapLoader.load(Constant.POKEMARKET1_MAP);
             tileRenderer = new OrthogonalTiledMapRenderer(pokeMarket);
+            settaCommessiPosition();
 
             // calcolo e assegno dimensioni alla mappa
             int mapWidth = pokeMarket.getProperties().get("width", Integer.class)
@@ -117,6 +117,7 @@ public class PokeMarket1 extends ScreenAdapter {
             int cont = 0;
             // recupero il rettangolo per uscire dalla mappa
             MapObjects objects = pokeMarket.getLayers().get("posizioneCasse").getObjects();
+            System.out.println("Prova");
             for (MapObject object : objects) {
                 if (object instanceof RectangleMapObject) {
                     RectangleMapObject rectangleObject = (RectangleMapObject) object;
