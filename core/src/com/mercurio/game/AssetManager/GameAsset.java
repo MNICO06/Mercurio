@@ -48,6 +48,12 @@ public class GameAsset {
         return (Texture) assetManager.get(asset.getPath(), asset.getType());
     }
 
+    public void unloadAllAsh (){
+        for (AssetsAsh asset : AssetsAsh.values()) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
     /*
      * 
      * Asset Bot
@@ -113,7 +119,8 @@ public class GameAsset {
         SF_USA("sfondo/usa.png", Texture.class),
         SF_CURE_BG("sfondo/cureBag.png", Texture.class),
         SF_KEY_BG("sfondo/keyBag.png", Texture.class),
-        SF_MT_BAG("sfondo/mtBag.png", Texture.class);
+        SF_MT_BAG("sfondo/mtBag.png", Texture.class),
+        SF_BALL_BG("sfondo/ballBag.png", Texture.class);
 
         private final String path;
         private final Class<?> type;
@@ -469,6 +476,94 @@ public class GameAsset {
 
     public void unloadAllMenu (){
         for (AssetMenu asset : AssetMenu.values()) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
+    /*
+     * 
+     * Asset XSfondo
+     * 
+     */
+    public enum AssetXSfondo {
+        // Textures per la battaglia
+        SF_SFONDO("sfondo/sfondo.png", Texture.class),
+        SF_X("sfondo/x.png", Texture.class);
+
+        private final String path;
+        private final Class<?> type;
+
+        AssetXSfondo(String path, Class<?> type) {
+            this.path = path;
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public Class<?> getType() {
+            return type;
+        }
+    }
+
+    public void loadXSfondoAsset() {
+        for (AssetXSfondo asset : AssetXSfondo.values()) {
+            assetManager.load(asset.getPath(), asset.getType());
+        }
+    }
+
+    public Texture getXSfondo(AssetXSfondo asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
+    }
+
+    public void unloadAllXSfondo (){
+        for (AssetXSfondo asset : AssetXSfondo.values()) {
+            assetManager.unload(asset.getPath());
+        }
+    }
+
+    /*
+     * 
+     * Asset XSfondoAIT
+     * 
+     */
+    public enum AssetXSfondoAIT {
+        // Textures per la battaglia
+        SF_AVANTI("sfondo/avanti.png", Texture.class),
+        SF_INDIETRO("sfondo/indietro.png", Texture.class),
+        SF_TYPES("sfondo/types.png", Texture.class),
+        SF_X("sfondo/x.png", Texture.class);
+
+        private final String path;
+        private final Class<?> type;
+
+        AssetXSfondoAIT(String path, Class<?> type) {
+            this.path = path;
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public Class<?> getType() {
+            return type;
+        }
+    }
+
+    public void loadXSfondoAITAsset() {
+        for (AssetXSfondoAIT asset : AssetXSfondoAIT.values()) {
+            assetManager.load(asset.getPath(), asset.getType());
+        }
+    }
+
+    public Texture getXSfondoAIT(AssetXSfondoAIT asset) {
+        return (Texture) assetManager.get(asset.getPath(), asset.getType());
+    }
+
+    public void unloadAllXSfondoAIT (){
+        for (AssetXSfondoAIT asset : AssetXSfondoAIT.values()) {
             assetManager.unload(asset.getPath());
         }
     }

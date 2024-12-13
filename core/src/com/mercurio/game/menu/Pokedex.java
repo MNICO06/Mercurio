@@ -19,6 +19,10 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import com.mercurio.game.AssetManager.GameAsset;
+import com.mercurio.game.AssetManager.GameAsset.AssetPokeD;
+import com.mercurio.game.AssetManager.GameAsset.AssetXSfondoAIT;
+import com.mercurio.game.Screen.MercurioMain;
 
 public class Pokedex {
     private BitmapFont font;
@@ -59,11 +63,15 @@ public class Pokedex {
     private int cont = 1;
     private int pokePerPag = 30;
 
-    public Pokedex(Stage stage, MenuLabel chiamanteM) {
+    private GameAsset asset;
+
+    public Pokedex(Stage stage, MenuLabel chiamanteM, MercurioMain game) {
         this.stage = stage;
         this.chiamanteM = chiamanteM;
         this.pokedexActor = new Array<>();
         this.pokeActorInfo = new Array<>();
+
+        this.asset = game.getGameAsset();
 
         this.font = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
         this.font1 = new BitmapFont(Gdx.files.local("assets/font/font.fnt"));
@@ -87,6 +95,10 @@ public class Pokedex {
         tipoToIndex.put("Acciaio", 15);
         tipoToIndex.put("Acqua", 16);
         tipoToIndex.put("Folletto", 17);
+
+        asset.loadPokeDexAsset();
+        asset.loadXSfondoAITAsset();
+        asset.finishLoading();
 
         Gdx.input.setInputProcessor(stage);
         renderizzaPokedex();
@@ -114,14 +126,14 @@ public class Pokedex {
             float screenHeight = Gdx.graphics.getHeight();
 
             // renderizzo il background iniziale
-            Texture backgroundTexture = new Texture("sfondo/sfondoPokedex.png");
+            Texture backgroundTexture = asset.getPokeD(AssetPokeD.SF_POKEDEX);
             background = new Image(backgroundTexture);
             background.setSize(screenWidth, screenHeight);
             stage.addActor(background);
             pokedexActor.add(background);
 
             // renderizzo il background dove ci vanno i pokemon
-            Texture backgroundPokedexTexture = new Texture("sfondo/sfondoPokedexAperto.png");
+            Texture backgroundPokedexTexture = asset.getPokeD(AssetPokeD.SF_POKEDEX_OP);
             backgroundPokedex = new Image(backgroundPokedexTexture);
             backgroundPokedex.setSize(256*4.4f, 180*4.4f);
             backgroundPokedex.setPosition(-50, -60);
@@ -131,7 +143,7 @@ public class Pokedex {
             pokedexActor.add(backgroundPokedex);
 
             // renderizzo il background dove ci vanno i pokemon
-            Texture backgroundInfoPokedex = new Texture("sfondo/descrizionePokedex.png");
+            Texture backgroundInfoPokedex = asset.getPokeD(AssetPokeD.SF_POKEDEX_DS);
             backgroundInfo = new Image(backgroundInfoPokedex);
             backgroundInfo.setSize(256*4.4f, 180*4.4f);
             backgroundInfo.setPosition(-50, -60);
@@ -141,7 +153,7 @@ public class Pokedex {
             pokedexActor.add(backgroundInfo);
 
 
-            Texture tastoApriTexture = new Texture("sfondo/tastoAperturaPokedex.png");
+            Texture tastoApriTexture = asset.getPokeD(AssetPokeD.SF_POKEDEX_OPG);
             tastoApriImage = new Image(tastoApriTexture);
             tastoApriImage.setSize(66*4, 27*4);
             tastoApriImage.setPosition((screenWidth/2) - 130, (screenHeight/2) + 100);
@@ -162,7 +174,7 @@ public class Pokedex {
                 }
             });
 
-            Texture tastoX = new Texture("sfondo/X.png");
+            Texture tastoX = asset.getXSfondoAIT(AssetXSfondoAIT.SF_X);
             tastoXImage = new Image(tastoX);
             tastoXImage.setPosition(screenWidth - 86, 10);
             stage.addActor(tastoXImage);
@@ -178,7 +190,7 @@ public class Pokedex {
                 }
             });
 
-            Texture esciInfo = new Texture("sfondo/freccaIndietro.png");
+            Texture esciInfo = asset.getPokeD(AssetPokeD.SF_POKEDEX_FI);
             cancel = new Image(esciInfo);
             cancel.setPosition(790, 630);
             cancel.setSize(56*2, 24*2);
@@ -194,8 +206,8 @@ public class Pokedex {
             });
 
             // Aggiungi le immagini "avanti" e "indietro" in alto
-            Texture avantiTexture = new Texture("assets/sfondo/avanti.png");
-            Texture indietroTexture = new Texture("assets/sfondo/indietro.png");
+            Texture avantiTexture = asset.getXSfondoAIT(AssetXSfondoAIT.SF_AVANTI);
+            Texture indietroTexture = asset.getXSfondoAIT(AssetXSfondoAIT.SF_INDIETRO);
 
             avantiImage = new Image(avantiTexture);
             indietroImage = new Image(indietroTexture);
@@ -359,7 +371,7 @@ public class Pokedex {
                         });
 
                     }else {
-                        Texture animationTexture = new Texture("sfondo/puntoInterrogativo.png");
+                        Texture animationTexture = asset.getPokeD(AssetPokeD.SF_POKEDEX_INT);
                         TextureRegion animationRegion = new TextureRegion(animationTexture, 0, 0, animationTexture.getWidth() , animationTexture.getHeight());
                         Image animationImage = new Image(animationRegion);
                         animationImage.setSize(animationRegion.getRegionWidth() - 20, animationRegion.getRegionHeight() - 30);
@@ -500,7 +512,7 @@ public class Pokedex {
                 labeltipoEffettivo1 = new Label("???", new Label.LabelStyle(font1, null));
                 labeltipoEffettivo2 = new Label("???", new Label.LabelStyle(font1, null));
 
-                Texture animationTexture = new Texture("sfondo/puntoInterrogativo.png");
+                Texture animationTexture = asset.getPokeD(AssetPokeD.SF_POKEDEX_INT);
                 TextureRegion animationRegion = new TextureRegion(animationTexture, 0, 0, animationTexture.getWidth() , animationTexture.getHeight());
                 botImage = new Image(animationRegion);
                 botImage.setSize(animationRegion.getRegionWidth(), animationRegion.getRegionHeight());
@@ -674,7 +686,7 @@ public class Pokedex {
                 String tipo1 = pokeJson.getString("tipoeffettivo1");
                 String tipo2 = pokeJson.getString("tipoeffettivo2");
                 Integer index = tipoToIndex.get(tipo1);
-                Texture textureTipi = new Texture("squadra/types.png");
+                Texture textureTipi = asset.getXSfondoAIT(AssetXSfondoAIT.SF_TYPES);
                 int regionWidthType = textureTipi.getWidth();
                 int regionHeightType = textureTipi.getHeight()/18;
                 TextureRegion[] types = new TextureRegion[18];

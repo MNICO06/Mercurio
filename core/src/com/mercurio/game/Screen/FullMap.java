@@ -1275,4 +1275,9 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
     public void setPage(String screen) {
         game.setPage(screen);
     }
+
+    @Override
+    public MercurioMain getGame() {
+        return game;
+    }
 }

@@ -20,6 +20,8 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.badlogic.gdx.utils.Timer;
+import com.mercurio.game.AssetManager.GameAsset;
+import com.mercurio.game.AssetManager.GameAsset.AssetXSfondo;
 import com.mercurio.game.Screen.MercurioMain;
 import com.mercurio.game.effects.LabelDiscorsi;
 
@@ -40,13 +42,19 @@ public class MenuLabel{
     private Label label1;
     private LabelDiscorsi labelDiscorsi2;
     private Label label2;
+
+    private GameAsset asset;
     
     public MenuLabel(MercurioMain game) {
         batch = new SpriteBatch();
         font = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
         this.game=game;
+        this.asset = game.getGameAsset();
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
+
+        asset.loadXSfondoAsset();
+        asset.finishLoading();
 
         createOpenMenuLabel();
 
@@ -63,7 +71,7 @@ public class MenuLabel{
             Skin skin = new Skin();
             skin.add("custom-font", font);
 
-            Texture backgroundTexture = new Texture("sfondo/x.png");
+            Texture backgroundTexture = asset.getXSfondo(AssetXSfondo.SF_X);
 
             // Crea un NinePatch dalle texture (specificando le dimensioni dei bordi)
             int left = 10;
@@ -119,7 +127,7 @@ public class MenuLabel{
                 float Xlabel = 240;
                 float YLabel = 156;
                 // Aggiungi lo sfondo del menù
-                Texture backgroundTexture = new Texture("sfondo/sfondo.png");
+                Texture backgroundTexture = asset.getXSfondo(AssetXSfondo.SF_SFONDO);
                 Image menuBackground = new Image(backgroundTexture);
                 menuBackground.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
                 stage.addActor(menuBackground);
@@ -166,7 +174,7 @@ public class MenuLabel{
     }
 
     private void apriPokedex() {
-        pokedex = new Pokedex(stage, this);
+        pokedex = new Pokedex(stage, this, game);
     }
     
 	private void apriPokemon() {
@@ -174,11 +182,11 @@ public class MenuLabel{
 	}
 	    
 	private void apriBorsa() {
-	    borsa = new Borsa(getStage(),false,null);
+	    borsa = new Borsa(getStage(),false,null, game);
 	}
 	
 	private void apriMedaglie() {
-		medaglie = new Medaglie(getStage(),this);
+		medaglie = new Medaglie(getStage(),this, game);
 	}
 	
 	private void salvataggio() {
@@ -312,7 +320,7 @@ public class MenuLabel{
             closeLabel.setWrap(openMenuLabel.getWrap());
 
             // Imposta lo sfondo della label "Chiudi" con lo stesso sfondo della label per aprire il menù
-            Texture backgroundTexture = new Texture("sfondo/x.png");
+            Texture backgroundTexture = asset.getXSfondo(AssetXSfondo.SF_X);
             int left = 10;
             int right = 10;
             int top = 10;
@@ -428,6 +436,7 @@ public class MenuLabel{
     }
 
     public void dispose() {
+        asset.unloadAllXSfondo();
         batch.dispose();
         font.dispose();
         stage.dispose();

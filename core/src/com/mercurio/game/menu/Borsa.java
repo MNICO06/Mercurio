@@ -20,6 +20,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
+import com.mercurio.game.AssetManager.GameAsset;
+import com.mercurio.game.AssetManager.GameAsset.AssetBMLSSC;
+import com.mercurio.game.AssetManager.GameAsset.AssetBMMLP;
+import com.mercurio.game.AssetManager.GameAsset.AssetBPB;
+import com.mercurio.game.AssetManager.GameAsset.AssetBorsa;
+import com.mercurio.game.Screen.MercurioMain;
 import com.mercurio.game.pokemon.Battle;
 import com.mercurio.game.pokemon.squadraCure;
 import com.mercurio.game.strumenti.MiniMappa;
@@ -79,15 +85,24 @@ public class Borsa {
     private squadraCure squadraCure;
     private Battle battaglia;
     private MiniMappa miniMappa;
+
+    private GameAsset asset;
     
-    public Borsa(Stage stage, boolean battle, Battle battaglia) {
+    public Borsa(Stage stage, boolean battle, Battle battaglia, MercurioMain game) {
         this.batch = (SpriteBatch) stage.getBatch();
         this.battaglia=battaglia;
         this.font = new BitmapFont(Gdx.files.local("assets/font/small_letters_font.fnt"));
         this.stage = stage;
         this.battle=battle;
         this.borsaActors = new Array<>(); // Inizializza l'array degli attori della borsa
+        this.asset = game.getGameAsset();
         Gdx.input.setInputProcessor(stage);
+
+        asset.loadBorsaAsset();
+        asset.loadBMLSSCPAsset();
+        asset.loadBMMLPAsset();
+        asset.loadBPBAsset();
+        asset.finishLoading();
 
         try (FileReader fileReader = new FileReader("assets/ashJson/borsa.json")) {
             // Utilizza JSONTokener per leggere il file JSON
@@ -149,6 +164,10 @@ public class Borsa {
     }
 
     public void dispose() {
+        asset.unloadAllBorsa();
+        asset.unloadAllBMLSSC();
+        asset.unloadAllBPB();
+        asset.unloadAllBPB();
         batch.dispose();
         font.dispose();
         stage.dispose();
@@ -161,16 +180,16 @@ public class Borsa {
             float screenHeight = Gdx.graphics.getHeight();
 
             // Add background 
-            Texture backgroundTexture = new Texture("sfondo/sfondo.png");
+            Texture backgroundTexture = asset.getBMLSSC(AssetBMLSSC.SF_SFONDO);
             Image background = new Image(backgroundTexture);
             background.setSize(screenWidth, screenHeight);
             stage.addActor(background);
         
             // Load textures and create TextureRegions
-            textureCure = new Texture(Gdx.files.local("assets/sfondo/cureBag.png"));
-            textureBall = new Texture(Gdx.files.local("assets/sfondo/ballBag.png"));
-            textureKey = new Texture(Gdx.files.local("assets/sfondo/keyBag.png"));
-            textureMT = new Texture(Gdx.files.local("assets/sfondo/mtBag.png"));
+            textureCure = asset.getBorsa(AssetBorsa.SF_CURE_BG);
+            textureBall = asset.getBorsa(AssetBorsa.SF_BALL_BG);
+            textureKey = asset.getBorsa(AssetBorsa.SF_KEY_BG);
+            textureMT = asset.getBorsa(AssetBorsa.SF_MT_BAG);
         
             cure = new TextureRegion[3];
             ball = new TextureRegion[3];
@@ -262,7 +281,7 @@ public class Borsa {
         
             
         
-            Texture closeButtonTexture = new Texture("sfondo/x.png");
+            Texture closeButtonTexture = asset.getBMMLP(AssetBMMLP.SF_X);
             NinePatch closeButtonPatch = new NinePatch(closeButtonTexture, 10, 10, 10, 10);
             NinePatchDrawable closeButtonDrawable = new NinePatchDrawable(closeButtonPatch);
         
@@ -400,7 +419,7 @@ public class Borsa {
                     float itemX = 100;
                     float itemY =110+  i * (itemWidth + padding);
         
-                    Texture backgroundTexture = new Texture("sfondo/sfondo1.png");
+                    Texture backgroundTexture = asset.getBorsa(AssetBorsa.SF_1);
                     Image background2 = new Image(backgroundTexture);
                     background2.setSize(680, 82);
                     background2.setPosition(itemX, itemY-5);  
@@ -431,7 +450,7 @@ public class Borsa {
                             //System.out.println(battle);
                             if (battle && inventoryItems==inventoryBall){
                                 //System.out.println("a");
-                                Texture usaTexture = new Texture("sfondo/usa.png");
+                                Texture usaTexture = asset.getBorsa(AssetBorsa.SF_USA);
                                 usaImage = new Image(usaTexture);
                                 usaImage.setPosition(70, 10);
                                 usaImage.setSize(56*3, 24*3);
@@ -446,7 +465,7 @@ public class Borsa {
                                 });
                             }
                             if (inventoryItems==inventoryCure){
-                                Texture usaTexture = new Texture("sfondo/usa.png");
+                                Texture usaTexture = asset.getBorsa(AssetBorsa.SF_USA);
                                 usaImage = new Image(usaTexture);
                                 usaImage.setPosition(70, 10);
                                 usaImage.setSize(56*3, 24*3);
@@ -461,7 +480,7 @@ public class Borsa {
                                 });
                             }
                             if (inventoryItems==inventoryKey){
-                                Texture usaTexture = new Texture("sfondo/usa.png");
+                                Texture usaTexture = asset.getBorsa(AssetBorsa.SF_USA);
                                 usaImage = new Image(usaTexture);
                                 usaImage.setPosition(70, 10);
                                 usaImage.setSize(56*3, 24*3);
@@ -528,7 +547,7 @@ public class Borsa {
         
                 // Aggiungi un pulsante per visualizzare gli oggetti successivi
                 if (inventoryItems.length > maxItemsToShow && maxNumPages!=currentPageIndex+1) {
-                    Texture nextButtonTexture = new Texture(Gdx.files.local("assets/sfondo/avanti.png"));
+                    Texture nextButtonTexture = asset.getBPB(AssetBPB.SF_AVANTI);
                     Image nextButton = new Image(nextButtonTexture);
                     nextButton.setSize(45, 80);
                     nextButton.setPosition(btnX + 50, btnY - 60);
@@ -543,7 +562,7 @@ public class Borsa {
                     inventoryItemActors.add(nextButton);
                 }
                     if (currentPageIndex>0){
-                    Texture backButtonTexture = new Texture(Gdx.files.local("assets/sfondo/indietro.png"));
+                    Texture backButtonTexture = asset.getBPB(AssetBPB.SF_INDIETRO);
                     Image backButton = new Image(backButtonTexture);
                     backButton.setSize(45, 80);
                     backButton.setPosition(btnX, btnY - 60);
