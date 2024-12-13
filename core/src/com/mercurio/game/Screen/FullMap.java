@@ -1270,6 +1270,18 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                             object.getProperties().put("considerare", true);
                         }
                     }
+                }else {
+                    MapLayer oggettiStoria = game.getOggettiStoria();
+                    for (MapObject object : oggettiStoria.getObjects()) {
+                        // Verifica se l'oggetto ha la proprietà "tipoBlocco" con valore "prendiStater"
+                        String tipoBlocco = (String) object.getProperties().get("tipoBlocco");
+
+                        if ("prendiStarter".equals(tipoBlocco)) {
+
+                            // Imposta la proprietà "considerare" su true
+                            object.getProperties().put("considerare", false);
+                        }
+                    }
                 }
             } else {
                 MapLayer oggettiStoria = game.getOggettiStoria();
@@ -1279,7 +1291,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                     if ("prendiStarter".equals(tipoBlocco)) {
                         // Imposta la proprietà "considerare" su true
 
-                        object.getProperties().put("considerare", false);
+                        object.getProperties().put("considerare", true);
                     }
                 }
             }
