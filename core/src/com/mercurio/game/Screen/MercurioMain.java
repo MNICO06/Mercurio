@@ -82,6 +82,7 @@ public class MercurioMain extends Game implements InterfacciaComune {
     private Box box;
     private Shop shop;
     private SceltaStarterScreen sceltaStarterScreen;
+    private boolean sconfitta = false;
 
     // Asset Manager
     public GameAsset asset = new GameAsset();
@@ -205,6 +206,10 @@ public class MercurioMain extends Game implements InterfacciaComune {
 
             getPlayer().setMovement(false);
             battle = new Battle(this, pokeName, false, nomeJson, nomePokemon);
+
+
+
+
         } catch (Exception e) {
             System.out.println("Errore creaBattaglia mercurioMain, " + e);
         }
@@ -576,6 +581,11 @@ public class MercurioMain extends Game implements InterfacciaComune {
         getPlayer().setMovement(true);
         Gdx.input.setInputProcessor(MenuLabel.getStage());
         battle = null;
+        if (sconfitta) {
+            setProvieneDaMappa(true);
+            setLuogo("casaSpawn");
+            setPage("CasaSpawn");
+        }
     }
 
     public void creaBox() {
@@ -638,5 +648,10 @@ public class MercurioMain extends Game implements InterfacciaComune {
     @Override
     public MercurioMain getGame() {
         return this;
+    }
+
+    @Override
+    public void setSconfitta(boolean sconfitta) {
+        this.sconfitta = sconfitta;
     }
 }

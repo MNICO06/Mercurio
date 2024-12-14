@@ -61,6 +61,7 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
     Vector3 screenPosition;
 
     private Battle battle;
+    private boolean sconfitta = false;
 
     // rettangolo con la lista delle persone che collidono
     private ArrayList<Rectangle> rectList = null;
@@ -1047,5 +1048,9 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
     public MercurioMain getGame() {
         return game;
     }
-    
+
+    @Override
+    public void setSconfitta(boolean sconfitta) {
+        this.sconfitta = sconfitta;
+    }
 }

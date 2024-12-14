@@ -76,6 +76,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
     private Bot bot;
 
     private Battle battle;
+    private boolean sconfitta = false;
 
     // quando il personaggio passa di fronte al bot mette il testo di inzio del bot
     // e true il boolean, poi legge e rimette a false e aspetta di nuovo
@@ -812,30 +813,36 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
     // metodo da chiamare dopo la battaglia per dire della vittoria
     private void fineBattaglia() {
         try {
+            if (!sconfitta) {
+                if (renderDiscorso && continuaTesto) {
 
-            if (renderDiscorso && continuaTesto) {
+                    discorsoFinale.renderDisc();
+                    if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+                        // da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
+                        continuaTesto = discorsoFinale.advanceText();
+                    }
+                } else {
+                    if (!continuaTesto) {
+                        // va a mettere torna a true e quindi a far partire l'animazione del ritorno del
+                        // bot
 
-                discorsoFinale.renderDisc();
-                if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-                    // da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
-                    continuaTesto = discorsoFinale.advanceText();
+                        torna = true;
+                        inEsecuzione = false;
+                        battagliaIsFinished = false;
+                        leggiTesto = true;
+
+                    }
+
+                    renderDiscorso = false;
+                    continuaTesto = true;
+                    discorsoFinale.reset();
                 }
-            } else {
-                if (!continuaTesto) {
-                    // va a mettere torna a true e quindi a far partire l'animazione del ritorno del
-                    // bot
-
-                    torna = true;
-                    inEsecuzione = false;
-                    battagliaIsFinished = false;
-                    leggiTesto = true;
-
-                }
-
-                renderDiscorso = false;
-                continuaTesto = true;
-                discorsoFinale.reset();
+            }else {
+                game.setProvieneDaMappa(true);
+                setLuogo("casaSpawn");
+                setPage("CasaSpawn");
             }
+
         } catch (Exception e) {
             System.out.println("Errore fineBattaglia fullMap, " + e);
         }
@@ -1331,5 +1338,10 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
     @Override
     public MercurioMain getGame() {
         return game;
+    }
+
+    @Override
+    public void setSconfitta(boolean sconfitta) {
+        this.sconfitta = sconfitta;
     }
 }

@@ -13,4 +13,6 @@ public interface InterfacciaComune {
     void setLuogo(String luogo);
 
     void setPage(String screen);
+
+    void setSconfitta(boolean sconfitta);
 }

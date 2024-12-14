@@ -2811,16 +2811,7 @@ public class Battle extends ScreenAdapter {
                                         labelDiscorsi18.reset();
                                         label18.remove();
                                         label18 = null;
-
-                                        if (isBotFight) {
-                                            if (!nameBot.equals("rivale")) {
-                                                chiamante.setLuogo("casaSpawn");
-                                                chiamante.setPage("casaSpawn");
-                                            }
-                                        }else {
-                                            chiamante.setLuogo("casaSpawn");
-                                            chiamante.setPage("casaSpawn");
-                                        }
+                                        chiamante.setSconfitta(true);
 
                                         // TODO: da modificare e mettere una funzione in futuro per il l'ultimo
                                         // pokecenter visitato
