@@ -167,7 +167,7 @@ public class Borsa {
     public void dispose() {
         asset.unloadAllBorsa();
         asset.unloadAllBMLSSC();
-        asset.unloadAllBPB();
+        asset.unloadAllBMMLP();
         asset.unloadAllBPB();
         batch.dispose();
         font.dispose();

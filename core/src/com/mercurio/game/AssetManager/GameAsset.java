@@ -141,7 +141,7 @@ public class GameAsset {
     }
 
     public void loadBorsaAsset() {
-        for (AssetPokeD asset : AssetPokeD.values()) {
+        for (AssetBorsa asset : AssetBorsa.values()) {
             assetManager.load(asset.getPath(), asset.getType());
         }
     }
