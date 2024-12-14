@@ -66,7 +66,7 @@ public class MiniMappa {
             stage.addActor(background);
             medaglieActor.add(background);
 
-            Texture closeButtonTexture = new Texture("sfondo/x.png");
+            Texture closeButtonTexture = new Texture("sfondo/X.png");
             NinePatch closeButtonPatch = new NinePatch(closeButtonTexture, 10, 10, 10, 10);
             NinePatchDrawable closeButtonDrawable = new NinePatchDrawable(closeButtonPatch);
 

@@ -489,7 +489,7 @@ public class GameAsset {
     public enum AssetXSfondo {
         // Textures per la battaglia
         SF_SFONDO("sfondo/sfondo.png", Texture.class),
-        SF_X("sfondo/x.png", Texture.class);
+        SF_X("sfondo/X.png", Texture.class);
 
         private final String path;
         private final Class<?> type;
@@ -534,7 +534,7 @@ public class GameAsset {
         SF_AVANTI("sfondo/avanti.png", Texture.class),
         SF_INDIETRO("sfondo/indietro.png", Texture.class),
         SF_TYPES("sfondo/types.png", Texture.class),
-        SF_X("sfondo/x.png", Texture.class);
+        SF_X("sfondo/X.png", Texture.class);
 
         private final String path;
         private final Class<?> type;
@@ -1074,7 +1074,7 @@ public class GameAsset {
      * 
      */
     public enum AssetBMMLP {
-        SF_X("sfondo/x.png", Texture.class);
+        SF_X("sfondo/X.png", Texture.class);
 
         private final String path;
         private final Class<?> type;
