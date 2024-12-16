@@ -17,8 +17,16 @@
         },
         "Ricarica Totale":{
             "curaPs" : 500
+        },
+        "Acqua Fresca":{
+            "curaPs" : 50
+        },
+        "Gazzosa":{
+            "curaPs" : 70
+        },
+        "Lemonsucco":{
+            "curaPs" : 120
         }
-
     },
 
     "pokeballs":{
