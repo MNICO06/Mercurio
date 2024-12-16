@@ -33,13 +33,15 @@ public class MiniMappa {
     private float elapsedTime = 0f; // Tempo accumulato
     private Image cursore;
     private float cambioInterval = 1f; // Intervallo di cambio in secondi
+    private GameAsset asset;
 
-    public MiniMappa(Stage stage, Borsa chiamanteB) {
+    public MiniMappa(Stage stage, Borsa chiamanteB, MercurioMain game) {
 
         this.stage = stage;
         this.font = new BitmapFont(Gdx.files.local("font/small_letters_font.fnt"));
         this.chiamanteB = chiamanteB;
         this.medaglieActor = new Array<>();
+        this.asset = game.getGameAsset();
 
         Gdx.input.setInputProcessor(stage);
         show();
