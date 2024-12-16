@@ -294,7 +294,7 @@ public class GameAsset {
     }
 
     /*
-     * 
+     *  
      * Asset MiniMappa
      * 
      */
