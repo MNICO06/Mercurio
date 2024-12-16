@@ -1053,4 +1053,9 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
     public void setSconfitta(boolean sconfitta) {
         this.sconfitta = sconfitta;
     }
+
+   @Override
+   public void tornaPokecenter() {
+
+   }
 }

@@ -165,6 +165,7 @@ public class CasaSpawn extends ScreenAdapter {
             }
             game.setProvieneDaMappa(false);
         }
+        game.setPokemonMorti(false);
     }
 
     private void fermaPlayer() {

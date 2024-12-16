@@ -15,4 +15,6 @@ public interface InterfacciaComune {
     void setPage(String screen);
 
     void setSconfitta(boolean sconfitta);
+
+    void tornaPokecenter();
 }

@@ -75,6 +75,9 @@ public class MercurioMain extends Game implements InterfacciaComune {
     private String ingressoPokeCenter;
     private String ingressoGrotta;
     private String ingressoCittaMontagna;
+    private String ultimaVisita = Constant.CASA_ASH_SCREEN;
+    private String ultimaVisitaLuogo = "casaSpawn";
+    private boolean pokemonMorti = false;
     private boolean provieneDaMappa = false;
 
     private String screenString;
@@ -305,6 +308,8 @@ public class MercurioMain extends Game implements InterfacciaComune {
                 asset.finishLoading();
                 newScreen = new CasaSpawn(this);
                 luogo = "casaSpawn";
+                ultimaVisitaLuogo = "casaSpawn";
+                ultimaVisita = Constant.CASA_ASH_SCREEN;
                 screen_id = 1;
                 screenString = screen;
                 break;
@@ -315,7 +320,9 @@ public class MercurioMain extends Game implements InterfacciaComune {
                 newScreen = new PokeCenter(this);
                 screen_id = 2;
                 luogo = "pokeCenter";
+                ultimaVisitaLuogo = "pokeCenter";
                 ingressoPokeCenter = "uscitaPokeCenterC";
+                ultimaVisita = Constant.CENTRO_POKEMON_CAPITALE_SCREEN;
                 screenString = screen;
                 break;
 
@@ -325,7 +332,9 @@ public class MercurioMain extends Game implements InterfacciaComune {
                 newScreen = new PokeCenter(this);
                 screen_id = 2;
                 luogo = "pokeCenter";
+                ultimaVisitaLuogo = "pokeCenter";
                 ingressoPokeCenter = "uscitaPokeCenterN";
+                ultimaVisita = Constant.CENTRO_POKEMON_NORD_SCREEN;
                 screenString = screen;
                 break;
 
@@ -335,7 +344,9 @@ public class MercurioMain extends Game implements InterfacciaComune {
                 newScreen = new PokeCenter(this);
                 screen_id = 2;
                 luogo = "pokeCenter";
+                ultimaVisitaLuogo = "pokeCenter";
                 ingressoPokeCenter = "uscitaPokeCenterMontagna";
+                ultimaVisita = Constant.CENTRO_POKEMON_MARE_SCREEN;
                 screenString = screen;
                 break;
 
@@ -433,9 +444,12 @@ public class MercurioMain extends Game implements InterfacciaComune {
             JsonValue json = new JsonReader().parse(jsonString);
 
             getPlayer().setPosition(Float.parseFloat(json.getString("x")), Float.parseFloat(json.getString("y")));
+            ultimaVisita = json.getString("ultimaVisita");
+            ultimaVisitaLuogo = json.getString("ultimaVisitaLuogo");
             setLuogo(json.getString("luogo"));
             setPage(json.getString("screen"));
             musica.startMusic(luogo);
+
 
         } catch (Exception e) {
             System.out.println("Errore loadGame mercurioMain, " + e);
@@ -583,8 +597,7 @@ public class MercurioMain extends Game implements InterfacciaComune {
         battle = null;
         if (sconfitta) {
             setProvieneDaMappa(true);
-            setLuogo("casaSpawn");
-            setPage("CasaSpawn");
+            tornaPokecenter();
         }
     }
 
@@ -653,5 +666,29 @@ public class MercurioMain extends Game implements InterfacciaComune {
     @Override
     public void setSconfitta(boolean sconfitta) {
         this.sconfitta = sconfitta;
+    }
+
+    @Override
+    public void tornaPokecenter() {
+        tornaPokecenterMain();
+    }
+
+    public void tornaPokecenterMain() {
+        setPokemonMorti(true);
+        setLuogo(ultimaVisitaLuogo);
+        setPage(ultimaVisita);
+    }
+
+    public void setPokemonMorti(boolean pokemonMorti) {
+        this.pokemonMorti = pokemonMorti;
+    }
+    public boolean getPokemonMorti() {
+        return pokemonMorti;
+    }
+    public String getUltimaVisita() {
+        return ultimaVisita;
+    }
+    public String getUltimaVisitaLuogo() {
+        return ultimaVisitaLuogo;
     }
 }

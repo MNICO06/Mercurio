@@ -1316,6 +1316,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
     public void closeBattle() {
         // game.getPlayer().setMovement(true);
         Gdx.input.setInputProcessor(MenuLabel.getStage());
+        tornaPokecenter();
         battle = null;
         battagliaIsFinished = true;
     }
@@ -1343,5 +1344,10 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
     @Override
     public void setSconfitta(boolean sconfitta) {
         this.sconfitta = sconfitta;
+    }
+
+    @Override
+    public void tornaPokecenter() {
+        game.tornaPokecenterMain();
     }
 }
