@@ -45,6 +45,9 @@ public class MiniMappa {
         this.medaglieActor = new Array<>();
         this.asset = game.getGameAsset();
 
+        asset.loadMiniMappaAsset();
+        asset.finishLoading();
+
         Gdx.input.setInputProcessor(stage);
         show();
     }
@@ -56,7 +59,7 @@ public class MiniMappa {
             float screenHeight = Gdx.graphics.getHeight();
 
             // Stato iniziale
-            Texture mapTexture = new Texture("sfondo/miniMappaCompleta.png");
+            Texture mapTexture = asset.getMiniMappa(AssetMMappa.SF_MINI_COM);
             map = new Image(mapTexture);
             map.setPosition((screenWidth - 700) / 2, (screenHeight - 700) / 2);
             map.setSize(700, 700);
@@ -64,17 +67,17 @@ public class MiniMappa {
             medaglieActor.add(map);
 
             // sta sopra la minimappa anche se è un bg
-            Texture backgroundTexture = new Texture("sfondo/miniMapBG.png");
+            Texture backgroundTexture = asset.getMiniMappa(AssetMMappa.SF_MINI_MBG);
             background = new Image(backgroundTexture);
             background.setSize(screenWidth, screenHeight);
             stage.addActor(background);
             medaglieActor.add(background);
 
-            Texture closeButtonTexture = new Texture("sfondo/X.png");
+            Texture closeButtonTexture = asset.getMiniMappa(AssetMMappa.SF_X);
             NinePatch closeButtonPatch = new NinePatch(closeButtonTexture, 10, 10, 10, 10);
             NinePatchDrawable closeButtonDrawable = new NinePatchDrawable(closeButtonPatch);
 
-            Texture tastoX = new Texture("sfondo/X.png");
+            Texture tastoX = asset.getMiniMappa(AssetMMappa.SF_X);
             tastoXImage = new Image(tastoX);
             tastoXImage.setPosition(screenWidth - 86, 10);
             stage.addActor(tastoXImage);
@@ -90,8 +93,8 @@ public class MiniMappa {
 
             // Cursori multipli
             cursoreTextures = new Array<>();
-            cursoreTextures.add(new Texture(Gdx.files.internal("cursore/cursoreMiniMap1.png")));
-            cursoreTextures.add(new Texture(Gdx.files.internal("cursore/cursoreMiniMap2.png")));
+            cursoreTextures.add(asset.getMiniMappa(AssetMMappa.CS_CURSORE_MM1));
+            cursoreTextures.add(asset.getMiniMappa(AssetMMappa.CS_CURSORE_MM2));
 
             // Inizializza il cursore
             cursore = new Image(cursoreTextures.get(currentCursorIndex));
@@ -153,6 +156,7 @@ public class MiniMappa {
         stage.dispose();
         batch.dispose();
         font.dispose();
+        asset.unloadAllMiniM();
     }
 
     private void pulsisciInventario() {
