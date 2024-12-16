@@ -670,7 +670,7 @@ public class Borsa {
 
 
     private void apriMiniMappa(){
-        miniMappa= new MiniMappa(stage, this);
+        miniMappa= new MiniMappa(stage, this, game);
     }
 
     public void closeMiniMappa(){
