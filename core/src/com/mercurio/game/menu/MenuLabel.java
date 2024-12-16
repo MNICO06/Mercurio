@@ -252,6 +252,12 @@ public class MenuLabel{
 
             json.remove("screen");
             json.addChild("screen", new JsonValue(game.getScreenString()));
+
+            json.remove("ultimaVisita");
+            json.addChild("ultimaVisita", new JsonValue(game.getUltimaVisita()));
+
+            json.remove("ultimaVisitaLuogo");
+            json.addChild("ultimaVisitaLuogo", new JsonValue(game.getUltimaVisitaLuogo()));
             
             // Scrivi il JSON aggiornato nel file mantenendo la formattazione
             file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);

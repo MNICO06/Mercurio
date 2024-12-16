@@ -40,6 +40,7 @@ public class PokeCenter extends ScreenAdapter {
 
     private boolean nelBox = false;
     private boolean renderizzaTesto = false;
+    private boolean deveScegliere = false;
 
     public PokeCenter(MercurioMain game) {
         this.game = game;
@@ -209,6 +210,7 @@ public class PokeCenter extends ScreenAdapter {
                         discorso = new LabelDiscorsi(
                                 "Benvenuto! Questo e' un centro pokemon! riportero' i tuoi pokemon in perfetta forma in un batter d'occhio! Vuoi che mi prenda cura dei tuoi pokemon??",
                                 30, 0, false, true);
+                        deveScegliere = true;
                         renderizzaTesto = true;
                         game.getPlayer().setMovement(false);
                     }
@@ -252,23 +254,31 @@ public class PokeCenter extends ScreenAdapter {
 
             if (renderTesto) {
 
-                risposta = discorso.renderDisc();
-                if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-                    // da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
-                    discorso.advanceText();
-                }
+                if (deveScegliere) {
+                    risposta = discorso.renderDisc();
+                    if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+                        // da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
+                        discorso.advanceText();
+                    }
 
-                if (risposta != -1) {
-                    if (risposta == 1) {
-                        dottoressa.cura();
-                        renderTesto = false;
-                        discorso.setSceltaUtente(-1);
-                    } else if (risposta == 0) {
-                        renderTesto = false;
-                        discorso.setSceltaUtente(-1);
+                    if (risposta != -1) {
+                        if (risposta == 1) {
+                            dottoressa.cura();
+                            renderTesto = false;
+                            discorso.setSceltaUtente(-1);
+                        } else if (risposta == 0) {
+                            renderTesto = false;
+                            discorso.setSceltaUtente(-1);
+                        }
+                    }
+                }else {
+                    dottoressa.cura();
+                    discorso.renderDisc();
+                    if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+                        // da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
+                        renderTesto = discorso.advanceText();
                     }
                 }
-
             } else {
                 renderizzaTesto = false;
                 renderTesto = true;
@@ -285,13 +295,38 @@ public class PokeCenter extends ScreenAdapter {
     public void setPosition() {
         try {
 
-            MapLayer layerTeleport = pokeCenterMap.getLayers().get("teleport");
-            MapObject obj = layerTeleport.getObjects().get("entra");
-            if (obj instanceof RectangleMapObject) {
-                RectangleMapObject rectObject = (RectangleMapObject) obj;
-                Rectangle rect = rectObject.getRectangle();
-                game.getPlayer().setPosition(rect.getX(), rect.getY());
+            if (game.getPokemonMorti()) {
+                game.getPlayer().setFermoAvanti();
+
+                MapLayer layerTeleport = pokeCenterMap.getLayers().get("cura");
+                MapObject obj = layerTeleport.getObjects().get("curaPokemon");
+                if (obj instanceof RectangleMapObject) {
+                    RectangleMapObject rectObject = (RectangleMapObject) obj;
+                    Rectangle rect = rectObject.getRectangle();
+                    game.getPlayer().setPosition(rect.getX(), rect.getY());
+
+                    discorso = new LabelDiscorsi(
+                            "Benvenuto! Questo e' un centro pokemon! I tuoi pokemon sono stati tutti quanti curati",
+                            30, 0, false, false);
+                    deveScegliere = false;
+                    renderizzaTesto = true;
+                    game.getPlayer().setMovement(false);
+                }
+
+                game.setPokemonMorti(false);
+
+            }else {
+
+                MapLayer layerTeleport = pokeCenterMap.getLayers().get("teleport");
+                MapObject obj = layerTeleport.getObjects().get("entra");
+                if (obj instanceof RectangleMapObject) {
+                    RectangleMapObject rectObject = (RectangleMapObject) obj;
+                    Rectangle rect = rectObject.getRectangle();
+                    game.getPlayer().setPosition(rect.getX(), rect.getY());
+                }
+
             }
+
         } catch (Exception e) {
             System.out.println("Errore setPosition pokecenter, " + e);
         }
