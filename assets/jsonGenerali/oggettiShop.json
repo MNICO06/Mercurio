@@ -3,36 +3,63 @@
         "costo": 200,
         "descrizione": "Strumento dotato di Capsula usato per catturare Pokemon selvatici. Si lancia contro il bersaglio come una palla.",
         "path": "oggetti/pokeball.png",
-        "tipo": "inventoryBall"
+        "tipo": "inventoryBall",
+        "medaglie": 0
     },
     "Megaball": {
         "costo": 600,
         "descrizione": "Ball dalle ottime prestazioni: fornisce maggiori probabilità di cattura rispetto alla Poke Ball.",
         "path": "oggetti/megaball.png",
-        "tipo": "inventoryBall"
+        "tipo": "inventoryBall",
+        "medaglie": 1
     },
     "Ultraball": {
         "costo": 1000,
         "descrizione": "Ball dalle prestazioni eccellenti: fornisce maggiori probabilità di cattura rispetto alla Mega Ball.",
         "path": "oggetti/ultraball.png",
-        "tipo": "inventoryBall"
+        "tipo": "inventoryBall",
+        "medaglie": 2
     },
     "Pozione": {
         "costo": 300,
         "descrizione": "Rimedio spray per le ferite. Restituisce 20 PS ad un Pokemon.",
         "path": "oggetti/pozione.png",
-        "tipo": "inventoryCure"
+        "tipo": "inventoryCure",
+        "medaglie": 0
+    },
+    "Superpozione": {
+        "costo": 700,
+        "descrizione": "Rimedio spray per le ferite. Restituisce 60 PS ad un Pokemon.",
+        "path": "oggetti/superPozione.png",
+        "tipo": "inventoryCure",
+        "medaglie": 1
     },
     "Iperpozione": {
         "costo": 1200,
         "descrizione": "Rimedio spray per le ferite. Restituisce 120 PS ad un Pokemon.",
         "path": "oggetti/iperPozione.png",
-        "tipo": "inventoryCure"
+        "tipo": "inventoryCure",
+        "medaglie": 2
+    },
+    "Ricarica Totale": {
+        "costo": 3000,
+        "descrizione": "Rimedio che restituisce tutti i PS ad un solo Pokemon e risolve i suoi problemi di stato.",
+        "path": "oggetti/Ricarica Totale.png",
+        "tipo": "inventoryCure",
+        "medaglie": 3
     },
     "Revitalizzante": {
         "costo": 1500,
         "descrizione": "Rimedio che rianima un Pokemon esausto e gli restituisce meta' dei suoi PS massimi.",
         "path": "oggetti/revitalizzante.png",
-        "tipo": "inventoryCure"
+        "tipo": "inventoryCure",
+        "medaglie": 1
+    },
+    "Revitalizzante Max": {
+        "costo": 3500,
+        "descrizione": "Rimedio che rianima un Pokemon esausto ridandogli tutti i PS.",
+        "path": "oggetti/Revitalizzante Max.png",
+        "tipo": "inventoryCure",
+        "medaglie": 3
     }
 }

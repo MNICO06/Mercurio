@@ -27,14 +27,18 @@ public class Shop extends ScreenAdapter {
 
     Array<Image> animationImages = new Array<>();
     Array<Actor> animationTextures = new Array<>();
+    Array<Integer> numeroOggetto = new Array<>();
+
+
 
     private int denaro = 0;
     private int quantita = 0;
     private int qtaInventario = 0;
+    private int numMedaglie = 0;
 
     private int inizioRiga = 0; // aumento e diminuisco in base a se premo la freccia in giù o in su
 
-    private int numeroRighe = 5; // da cambiare all'inzio controllando il numero di oggetti con le medagli che si
+    private int numeroRighe = 8; // da cambiare all'inzio controllando il numero di oggetti con le medagli che si
                                  // possiedono
 
     private Label labelDescrizioneCopia;
@@ -97,6 +101,7 @@ public class Shop extends ScreenAdapter {
     public void show() {
 
         try {
+            calcolaNumeroOggetti();
 
             Texture textureBack = new Texture("sfondo/sfondoPokemarket.png");
             // Add background
@@ -171,6 +176,7 @@ public class Shop extends ScreenAdapter {
 
     // 240
     private void renderizzaLabel() {
+
         try {
 
             FileHandle file = Gdx.files.local("jsonGenerali/oggettiShop.json");
@@ -178,237 +184,241 @@ public class Shop extends ScreenAdapter {
 
             for (int i = inizioRiga; i < inizioRiga + 5; i++) {
 
-                JsonValue oggettoJson = oggettiShop.get(i);
+                if (i < numeroOggetto.size) {
 
-                if (oggettoJson != null) {
+                    JsonValue oggettoJson = oggettiShop.get(numeroOggetto.get(i));
 
-                    final String nome = oggettoJson.name;
-                    final int index = i;
+                    if (oggettoJson != null) {
 
-                    // posizionare le varie linee e poi le label al loro interno
-                    Texture texture1 = new Texture("sfondo/lineaOggetto.png");
-                    Image imageOggetto1 = new Image(texture1);
-                    imageOggetto1.setSize(280 * 2, 35 * 2);
-                    imageOggetto1.setPosition(430, yPosIniziale);
-                    final float posImageLineaOggetto = yPosIniziale;
-                    animationImages.add(imageOggetto1);
-                    stage.addActor(imageOggetto1);
+                        final String nome = oggettoJson.name;
+                        final int index = i;
 
-                    Label labelSinistra = new Label(nome, new Label.LabelStyle(font1, null));
-                    labelSinistra.setFontScale(3f);
-                    labelSinistra.setPosition(460, yPosInizialeLabel);
-                    animationTextures.add(labelSinistra);
-                    stage.addActor(labelSinistra);
+                        // posizionare le varie linee e poi le label al loro interno
+                        Texture texture1 = new Texture("sfondo/lineaOggetto.png");
+                        Image imageOggetto1 = new Image(texture1);
+                        imageOggetto1.setSize(280 * 2, 35 * 2);
+                        imageOggetto1.setPosition(430, yPosIniziale);
+                        final float posImageLineaOggetto = yPosIniziale;
+                        animationImages.add(imageOggetto1);
+                        stage.addActor(imageOggetto1);
 
-                    Label labelDestra = new Label(String.valueOf(oggettoJson.getInt("costo")),
-                            new Label.LabelStyle(font1, null));
-                    labelDestra.setFontScale(3f);
-                    labelDestra.setPosition(900, yPosInizialeLabel);
-                    animationTextures.add(labelDestra);
-                    stage.addActor(labelDestra);
+                        Label labelSinistra = new Label(nome, new Label.LabelStyle(font1, null));
+                        labelSinistra.setFontScale(3f);
+                        labelSinistra.setPosition(460, yPosInizialeLabel);
+                        animationTextures.add(labelSinistra);
+                        stage.addActor(labelSinistra);
 
-                    // settaggio dell'immagine dell'oggetto
-                    Texture texture = new Texture(oggettoJson.getString("path"));
-                    Image imageOggetto = new Image(texture);
-                    imageOggetto.setPosition(26, 26);
-                    imageOggetto.setSize(75, 75);
-                    imageOggetto.setVisible(false);
-                    animationImages.add(imageOggetto);
-                    stage.addActor(imageOggetto);
+                        Label labelDestra = new Label(String.valueOf(oggettoJson.getInt("costo")),
+                                new Label.LabelStyle(font1, null));
+                        labelDestra.setFontScale(3f);
+                        labelDestra.setPosition(900, yPosInizialeLabel);
+                        animationTextures.add(labelDestra);
+                        stage.addActor(labelDestra);
 
-                    // settaggio dell'immagine del numero oggetti scelti e delle frecce
-                    texture = new Texture("sfondo/mostraQuantita.png");
-                    Image imageSceltaQta = new Image(texture);
-                    imageSceltaQta.setPosition(10, 250);
-                    imageSceltaQta.setSize(75, 85);
-                    imageSceltaQta.setVisible(false);
-                    animationImages.add(imageSceltaQta);
-                    stage.addActor(imageSceltaQta);
+                        // settaggio dell'immagine dell'oggetto
+                        Texture texture = new Texture(oggettoJson.getString("path"));
+                        Image imageOggetto = new Image(texture);
+                        imageOggetto.setPosition(26, 26);
+                        imageOggetto.setSize(75, 75);
+                        imageOggetto.setVisible(false);
+                        animationImages.add(imageOggetto);
+                        stage.addActor(imageOggetto);
 
-                    texture = new Texture("sfondo/frecciaQtaSu.png");
-                    Image imageFrecciaQtaSu = new Image(texture);
-                    imageFrecciaQtaSu.setPosition(87, 297);
-                    imageFrecciaQtaSu.setVisible(false);
-                    animationImages.add(imageFrecciaQtaSu);
-                    stage.addActor(imageFrecciaQtaSu);
-                    imageFrecciaQtaSu.addListener(new ClickListener() {
-                        @Override
-                        public void clicked(InputEvent event, float x, float y) {
-                            if (quantita < 100) {
-                                quantita += 1;
-                                labelQuantitaCompra.setText(String.valueOf(quantita));
-                                posizionaLabelQuantitaCompra();
-                            }
-                        }
-                    });
+                        // settaggio dell'immagine del numero oggetti scelti e delle frecce
+                        texture = new Texture("sfondo/mostraQuantita.png");
+                        Image imageSceltaQta = new Image(texture);
+                        imageSceltaQta.setPosition(10, 250);
+                        imageSceltaQta.setSize(75, 85);
+                        imageSceltaQta.setVisible(false);
+                        animationImages.add(imageSceltaQta);
+                        stage.addActor(imageSceltaQta);
 
-                    texture = new Texture("sfondo/frecciaQtaGiu.png");
-                    Image imageFrecciaQtaGiu = new Image(texture);
-                    imageFrecciaQtaGiu.setPosition(87, 250);
-                    imageFrecciaQtaGiu.setVisible(false);
-                    animationImages.add(imageFrecciaQtaGiu);
-                    stage.addActor(imageFrecciaQtaGiu);
-                    imageFrecciaQtaGiu.addListener(new ClickListener() {
-                        @Override
-                        public void clicked(InputEvent event, float x, float y) {
-                            if (quantita > 0) {
-                                quantita -= 1;
-                                labelQuantitaCompra.setText(String.valueOf(quantita));
-                                posizionaLabelQuantitaCompra();
-                            }
-                        }
-                    });
-
-                    labelQuantitaCompra = new Label(String.valueOf(quantita), new Label.LabelStyle(font1, null));
-                    labelQuantitaCompra.setFontScale(5f);
-                    posizionaLabelQuantitaCompra();
-                    labelQuantitaCompra.setVisible(false);
-                    animationTextures.add(labelQuantitaCompra);
-                    stage.addActor(labelQuantitaCompra);
-
-                    texture = new Texture("sfondo/okLabel.png");
-                    Image imageOk = new Image(texture);
-                    imageOk.setPosition(140, 250);
-                    imageOk.setSize(35 * 2f, 24 * 2f);
-                    imageOk.setVisible(false);
-                    animationImages.add(imageOk);
-                    stage.addActor(imageOk);
-                    imageOk.addListener(new ClickListener() {
-                        @Override
-                        public void clicked(InputEvent event, float x, float y) {
-                            int costo = oggettoJson.getInt("costo") * quantita;
-
-                            // controllo che io abbia abbastanza soldi per comprarlo
-                            if (costo < denaro) {
-                                // controllo in modo che non vada oltre a 999 in totale
-                                if (qtaInventario + quantita < 1000) {
-
-                                    FileHandle file = Gdx.files.local("ashJson/datiGenerali.json");
-                                    JsonValue json = new JsonReader().parse(file.readString());
-                                    json.get("denaro").set(denaro - costo, "denaro");
-                                    denaro = denaro - costo;
-                                    file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
-
-                                    FileHandle borsa = Gdx.files.local("ashJson/borsa.json");
-                                    JsonValue oggettoBorsa = new JsonReader().parse(borsa.readString());
-                                    for (int gianni = 0; gianni < oggettoBorsa
-                                            .get(oggettiShop.get(index).getString("tipo")).size; gianni++) {
-                                        if (oggettoBorsa.get(oggettiShop.get(index).getString("tipo")).get(gianni)
-                                                .getString("name").equals(nome)) {
-                                            oggettoBorsa.get(oggettiShop.get(index).getString("tipo")).get(gianni)
-                                                    .get("quantity").set(qtaInventario + quantita, "quantity");
-                                        }
-                                    }
-                                    borsa.writeString(oggettoBorsa.prettyPrint(JsonWriter.OutputType.json, 1), false);
-
-                                    svuotaTutto();
-                                    renderizzaLabel();
-                                    aggiornaDenaro();
+                        texture = new Texture("sfondo/frecciaQtaSu.png");
+                        Image imageFrecciaQtaSu = new Image(texture);
+                        imageFrecciaQtaSu.setPosition(87, 297);
+                        imageFrecciaQtaSu.setVisible(false);
+                        animationImages.add(imageFrecciaQtaSu);
+                        stage.addActor(imageFrecciaQtaSu);
+                        imageFrecciaQtaSu.addListener(new ClickListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
+                                if (quantita < 100) {
+                                    quantita += 1;
+                                    labelQuantitaCompra.setText(String.valueOf(quantita));
+                                    posizionaLabelQuantitaCompra();
                                 }
+                            }
+                        });
 
+                        texture = new Texture("sfondo/frecciaQtaGiu.png");
+                        Image imageFrecciaQtaGiu = new Image(texture);
+                        imageFrecciaQtaGiu.setPosition(87, 250);
+                        imageFrecciaQtaGiu.setVisible(false);
+                        animationImages.add(imageFrecciaQtaGiu);
+                        stage.addActor(imageFrecciaQtaGiu);
+                        imageFrecciaQtaGiu.addListener(new ClickListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
+                                if (quantita > 0) {
+                                    quantita -= 1;
+                                    labelQuantitaCompra.setText(String.valueOf(quantita));
+                                    posizionaLabelQuantitaCompra();
+                                }
+                            }
+                        });
+
+                        labelQuantitaCompra = new Label(String.valueOf(quantita), new Label.LabelStyle(font1, null));
+                        labelQuantitaCompra.setFontScale(5f);
+                        posizionaLabelQuantitaCompra();
+                        labelQuantitaCompra.setVisible(false);
+                        animationTextures.add(labelQuantitaCompra);
+                        stage.addActor(labelQuantitaCompra);
+
+                        texture = new Texture("sfondo/okLabel.png");
+                        Image imageOk = new Image(texture);
+                        imageOk.setPosition(140, 250);
+                        imageOk.setSize(35 * 2f, 24 * 2f);
+                        imageOk.setVisible(false);
+                        animationImages.add(imageOk);
+                        stage.addActor(imageOk);
+                        imageOk.addListener(new ClickListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
+                                int costo = oggettoJson.getInt("costo") * quantita;
+
+                                // controllo che io abbia abbastanza soldi per comprarlo
+                                if (costo < denaro) {
+                                    // controllo in modo che non vada oltre a 999 in totale
+                                    if (qtaInventario + quantita < 1000) {
+
+                                        FileHandle file = Gdx.files.local("ashJson/datiGenerali.json");
+                                        JsonValue json = new JsonReader().parse(file.readString());
+                                        json.get("denaro").set(denaro - costo, "denaro");
+                                        denaro = denaro - costo;
+                                        file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
+
+                                        FileHandle borsa = Gdx.files.local("ashJson/borsa.json");
+                                        JsonValue oggettoBorsa = new JsonReader().parse(borsa.readString());
+                                        for (int gianni = 0; gianni < oggettoBorsa
+                                                .get(oggettiShop.get(index).getString("tipo")).size; gianni++) {
+                                            if (oggettoBorsa.get(oggettiShop.get(index).getString("tipo")).get(gianni)
+                                                    .getString("name").equals(nome)) {
+                                                oggettoBorsa.get(oggettiShop.get(index).getString("tipo")).get(gianni)
+                                                        .get("quantity").set(qtaInventario + quantita, "quantity");
+                                            }
+                                        }
+                                        borsa.writeString(oggettoBorsa.prettyPrint(JsonWriter.OutputType.json, 1), false);
+
+                                        svuotaTutto();
+                                        renderizzaLabel();
+                                        aggiornaDenaro();
+                                    }
+
+                                }
+                            }
+                        });
+
+                        // codice per preparare la descrizione in modo da dividerla in righe
+                        String[] parole = oggettoJson.getString("descrizione").split(" ");
+                        StringBuilder rigaCorrente = new StringBuilder(parole[0]);
+
+                        String testoDescrizione = "";
+
+                        for (int j = 1; j < parole.length; j++) {
+                            if (rigaCorrente.length() + 1 + parole[j].length() <= 55) {
+                                rigaCorrente.append(" ").append(parole[j]);
+                            } else {
+                                rigaCorrente.append("\n");
+                                testoDescrizione += rigaCorrente.toString();
+                                rigaCorrente = new StringBuilder(parole[j]);
                             }
                         }
-                    });
 
-                    // codice per preparare la descrizione in modo da dividerla in righe
-                    String[] parole = oggettoJson.getString("descrizione").split(" ");
-                    StringBuilder rigaCorrente = new StringBuilder(parole[0]);
-
-                    String testoDescrizione = "";
-
-                    for (int j = 1; j < parole.length; j++) {
-                        if (rigaCorrente.length() + 1 + parole[j].length() <= 55) {
-                            rigaCorrente.append(" ").append(parole[j]);
-                        } else {
+                        if (rigaCorrente.length() > 0) {
                             rigaCorrente.append("\n");
                             testoDescrizione += rigaCorrente.toString();
-                            rigaCorrente = new StringBuilder(parole[j]);
                         }
-                    }
 
-                    if (rigaCorrente.length() > 0) {
-                        rigaCorrente.append("\n");
-                        testoDescrizione += rigaCorrente.toString();
-                    }
+                        Label labelDescrizione = new Label(testoDescrizione, new Label.LabelStyle(font1, null));
+                        labelDescrizione.setFontScale(3f);
+                        labelDescrizione.setPosition(170, 70, Align.topLeft);
+                        animationTextures.add(labelDescrizione);
+                        labelDescrizione.setVisible(false);
+                        stage.addActor(labelDescrizione);
 
-                    Label labelDescrizione = new Label(testoDescrizione, new Label.LabelStyle(font1, null));
-                    labelDescrizione.setFontScale(3f);
-                    labelDescrizione.setPosition(170, 70, Align.topLeft);
-                    animationTextures.add(labelDescrizione);
-                    labelDescrizione.setVisible(false);
-                    stage.addActor(labelDescrizione);
+                        labelQuantita = new Label("", new Label.LabelStyle(font1, null));
 
-                    labelQuantita = new Label("", new Label.LabelStyle(font1, null));
+                        imageOggetto1.addListener(new ClickListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
 
-                    imageOggetto1.addListener(new ClickListener() {
-                        @Override
-                        public void clicked(InputEvent event, float x, float y) {
-
-                            if (labelDescrizioneCopia != labelDescrizione) {
-                                quantita = 0;
-                            }
-
-                            // rimuovo se c'enerano di precedenti
-                            if (imageOggettoCopia != null) {
-                                imageOggettoCopia.setVisible(false);
-                                imageOggettoCopia = null;
-                            }
-                            if (labelDescrizioneCopia != null) {
-                                labelDescrizioneCopia.setVisible(false);
-                                labelDescrizioneCopia = null;
-                            }
-                            if (imageLineaCopia != null) {
-                                imageLineaCopia.setVisible(true);
-                                imageLineaCopia = null;
-                            }
-
-                            // vado ad aprire il pokedex regionale
-                            labelDescrizione.setVisible(true);
-                            imageOggetto.setVisible(true);
-
-                            imageSceltaQta.setVisible(true);
-                            imageFrecciaQtaGiu.setVisible(true);
-                            imageFrecciaQtaSu.setVisible(true);
-                            labelQuantitaCompra.setVisible(true);
-                            imageOk.setVisible(true);
-
-                            labelQuantitaCompra.setText(String.valueOf(quantita));
-                            posizionaLabelQuantitaCompra();
-
-                            labelDescrizioneCopia = labelDescrizione;
-                            imageOggettoCopia = imageOggetto;
-                            imageLineaCopia = imageOggetto1;
-
-                            FileHandle borsa = Gdx.files.local("ashJson/borsa.json");
-                            JsonValue oggettoBorsa = new JsonReader().parse(borsa.readString());
-
-                            for (int gianni = 0; gianni < oggettoBorsa
-                                    .get(oggettiShop.get(index).getString("tipo")).size; gianni++) {
-                                if (oggettoBorsa.get(oggettiShop.get(index).getString("tipo")).get(gianni)
-                                        .getString("name").equals(nome)) {
-                                    qtaInventario = oggettoBorsa.get(oggettiShop.get(index).getString("tipo"))
-                                            .get(gianni).getInt("quantity");
+                                if (labelDescrizioneCopia != labelDescrizione) {
+                                    quantita = 0;
                                 }
+
+                                // rimuovo se c'enerano di precedenti
+                                if (imageOggettoCopia != null) {
+                                    imageOggettoCopia.setVisible(false);
+                                    imageOggettoCopia = null;
+                                }
+                                if (labelDescrizioneCopia != null) {
+                                    labelDescrizioneCopia.setVisible(false);
+                                    labelDescrizioneCopia = null;
+                                }
+                                if (imageLineaCopia != null) {
+                                    imageLineaCopia.setVisible(true);
+                                    imageLineaCopia = null;
+                                }
+
+                                // vado ad aprire il pokedex regionale
+                                labelDescrizione.setVisible(true);
+                                imageOggetto.setVisible(true);
+
+                                imageSceltaQta.setVisible(true);
+                                imageFrecciaQtaGiu.setVisible(true);
+                                imageFrecciaQtaSu.setVisible(true);
+                                labelQuantitaCompra.setVisible(true);
+                                imageOk.setVisible(true);
+
+                                labelQuantitaCompra.setText(String.valueOf(quantita));
+                                posizionaLabelQuantitaCompra();
+
+                                labelDescrizioneCopia = labelDescrizione;
+                                imageOggettoCopia = imageOggetto;
+                                imageLineaCopia = imageOggetto1;
+
+                                FileHandle borsa = Gdx.files.local("ashJson/borsa.json");
+                                JsonValue oggettoBorsa = new JsonReader().parse(borsa.readString());
+
+                                for (int gianni = 0; gianni < oggettoBorsa
+                                        .get(oggettiShop.get(index).getString("tipo")).size; gianni++) {
+                                    if (oggettoBorsa.get(oggettiShop.get(index).getString("tipo")).get(gianni)
+                                            .getString("name").equals(nome)) {
+                                        qtaInventario = oggettoBorsa.get(oggettiShop.get(index).getString("tipo"))
+                                                .get(gianni).getInt("quantity");
+                                    }
+                                }
+
+                                labelQuantita.setText(String.valueOf(qtaInventario));
+                                labelQuantita.setFontScale(5f);
+                                labelQuantita.setPosition(220, 185);
+                                animationTextures.add(labelQuantita);
+                                stage.addActor(labelQuantita);
+
+                                imageOggetto1.setVisible(false);
+                                imageOggettoSelezionato.setPosition(430, posImageLineaOggetto);
+                                imageOggettoSelezionato.setVisible(true);
                             }
+                        });
 
-                            labelQuantita.setText(String.valueOf(qtaInventario));
-                            labelQuantita.setFontScale(5f);
-                            labelQuantita.setPosition(220, 185);
-                            animationTextures.add(labelQuantita);
-                            stage.addActor(labelQuantita);
-
-                            imageOggetto1.setVisible(false);
-                            imageOggettoSelezionato.setPosition(430, posImageLineaOggetto);
-                            imageOggettoSelezionato.setVisible(true);
-                        }
-                    });
-
-                    yPosIniziale -= 80;
-                    yPosInizialeLabel -= 80;
+                        yPosIniziale -= 80;
+                        yPosInizialeLabel -= 80;
+                    }
                 }
+
             }
         } catch (Exception e) {
-            System.out.println("Errore renderizsaLabel shop, " + e);
+            System.out.println("Errore renderizzaLabel shop, " + e);
         }
 
     }
@@ -438,10 +448,27 @@ public class Shop extends ScreenAdapter {
             imageFrecciaSuPag.setVisible(true);
         }
 
-        if (numeroRighe - inizioRiga <= 4) {
+        if (numeroOggetto.size - inizioRiga <= 5) {
             imageFrecciaGiuPag.setVisible(false);
         } else {
             imageFrecciaGiuPag.setVisible(true);
+        }
+    }
+
+    private void calcolaNumeroOggetti() {
+        FileHandle fileGenerali = Gdx.files.local("ashJson/datiGenerali.json");
+        JsonValue json = new JsonReader().parse(fileGenerali.readString());
+        numMedaglie = json.getInt("numero_medaglie");
+
+
+        FileHandle file = Gdx.files.local("jsonGenerali/oggettiShop.json");
+        JsonValue oggettiShop = new JsonReader().parse(file.readString());
+
+        for (int i = inizioRiga; i < inizioRiga + numeroRighe; i++) {
+            JsonValue oggettoJson = oggettiShop.get(i);
+            if (oggettoJson.getInt("medaglie") <= numMedaglie) {
+                numeroOggetto.add(i);
+            }
         }
     }
 
