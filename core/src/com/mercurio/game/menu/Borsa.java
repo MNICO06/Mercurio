@@ -85,12 +85,14 @@ public class Borsa {
     private squadraCure squadraCure;
     private Battle battaglia;
     private MiniMappa miniMappa;
+    private MercurioMain game;
 
     private GameAsset asset;
     
     public Borsa(Stage stage, boolean battle, Battle battaglia, MercurioMain game) {
         this.batch = (SpriteBatch) stage.getBatch();
         this.battaglia=battaglia;
+        this.game = game;
         this.font = new BitmapFont(Gdx.files.local("font/small_letters_font.fnt"));
         this.stage = stage;
         this.battle=battle;
