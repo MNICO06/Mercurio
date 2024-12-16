@@ -302,7 +302,8 @@ public class GameAsset {
         SF_MINI_COM("sfondo/miniMappaCompleta.png", Texture.class),
         SF_MINI_MBG("sfondo/miniMapBG.png", Texture.class),
         CS_CURSORE_MM1("cursore/cursoreMiniMap1.png", Texture.class),
-        CS_CURSORE_MM2("cursore/cursoreMiniMap2.png", Texture.class);
+        CS_CURSORE_MM2("cursore/cursoreMiniMap2.png", Texture.class),
+        SF_X("sfondo/X.png", Texture.class);
 
         private final String path;
         private final Class<?> type;
@@ -445,7 +446,7 @@ public class GameAsset {
     public enum AssetMenu {
         MI_IMAGINE_SF("menuImage/sfondoImmagine.png", Texture.class),
         MI_MERCURIO_LG("menuImage/logoMercurio.png", Texture.class),
-        MI_mERCURIO_SC("menuImage/scrittaMercurio.jpg", Texture.class),
+        MI_MERCURIO_SC("menuImage/scrittaMercurio.jpg", Texture.class),
         MI_GRUPPO_LG("menuImage/logoGruppo.png", Texture.class);
 
         private final String path;
