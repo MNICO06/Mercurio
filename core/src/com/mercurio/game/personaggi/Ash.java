@@ -56,6 +56,9 @@ public class Ash {
     private float speed_Camminata_verticale_surf = 70;
     private float muovi_X = 0;
     private float muovi_Y = 0;
+    private float poke_X = 0;
+    private float poke_Y = 0;
+
 
     private boolean inAcqua = false;
 
@@ -221,6 +224,7 @@ public class Ash {
                     if (inAcqua == false) {
                         currentAnimation = camminaDestra.getKeyFrame(stateTime, true);
                         muovi_X = speed_Camminata_orizontale;
+                        poke_X = speed_Camminata_orizontale - 40;
                     } else {
                         currentAnimation = surfDestra.getKeyFrame(stateTime, true);
                         muovi_X = speed_Camminata_orizontale_surf;
@@ -234,6 +238,7 @@ public class Ash {
                     if (inAcqua == false) {
                         currentAnimation = camminaSinistra.getKeyFrame(stateTime, true);
                         muovi_X = speed_Camminata_orizontale * -1;
+                        poke_X = (speed_Camminata_orizontale * -1) + 40;
                     } else {
                         currentAnimation = surfSinistra.getKeyFrame(stateTime, true);
                         muovi_X = speed_Camminata_orizontale_surf * -1;
@@ -247,6 +252,7 @@ public class Ash {
                     if (inAcqua == false) {
                         currentAnimation = camminaIndietro.getKeyFrame(stateTime, true);
                         muovi_Y = speed_Camminata_verticale * -1;
+                        poke_Y = (speed_Camminata_verticale * -1) + 40;
                     } else {
                         currentAnimation = surfIndietro.getKeyFrame(stateTime, true);
                         muovi_Y = speed_Camminata_verticale_surf * -1;
@@ -260,6 +266,7 @@ public class Ash {
                     if (inAcqua == false) {
                         currentAnimation = camminaAvanti.getKeyFrame(stateTime, true);
                         muovi_Y = speed_Camminata_verticale;
+                        poke_Y = speed_Camminata_verticale - 40;
                     } else {
                         currentAnimation = surfAvanti.getKeyFrame(stateTime, true);
                         muovi_Y = speed_Camminata_verticale_surf;

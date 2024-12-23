@@ -25,6 +25,7 @@ import com.mercurio.game.AssetManager.GameAsset;
 import com.mercurio.game.effects.Musica;
 import com.mercurio.game.menu.MenuLabel;
 import com.mercurio.game.personaggi.Ash;
+import com.mercurio.game.personaggi.PokemonOW;
 import com.mercurio.game.pokemon.Battle;
 
 public class MercurioMain extends Game implements InterfacciaComune {
@@ -40,6 +41,7 @@ public class MercurioMain extends Game implements InterfacciaComune {
     private Battle battle;
 
     Ash ash;
+    //PokemonOW poke;
     Erba erba;
     Musica musica;
     AssetManager assetManager = new AssetManager();
@@ -99,6 +101,7 @@ public class MercurioMain extends Game implements InterfacciaComune {
             asset.finishLoading();
 
             ash = new Ash(this);
+            //poke = new PokemonOW(this);
             erba = new Erba(this);
             musica = new Musica(this, assetManager);
             batch = new SpriteBatch();
@@ -231,6 +234,10 @@ public class MercurioMain extends Game implements InterfacciaComune {
 
             batch.draw(ash.getAnimazione(), ash.getPlayerPosition().x, ash.getPlayerPosition().y, ash.getCurrentWidht(),
                     ash.getCurrentHeght());
+
+            //batch.draw(poke.getCurrentAnimation(), poke.getCharacterPosition().x, poke.getCharacterPosition().y,
+            //        poke.getWidth(), poke.getHeight());
+
 
             batch.end();
         } catch (Exception e) {
@@ -691,4 +698,33 @@ public class MercurioMain extends Game implements InterfacciaComune {
     public String getUltimaVisitaLuogo() {
         return ultimaVisitaLuogo;
     }
+
+
+    // ritorna false se non si ha ancora lo starter, se no ritorna true
+    private boolean controllaPresenzaStarter() {
+        try {
+            // Carica il file JSON
+            FileHandle file = Gdx.files.local("ashJson/squadra.json");
+            String jsonString = file.readString();
+
+            JsonValue json = new JsonReader().parse(jsonString);
+            JsonValue poke1 = json.get("poke1");
+
+            if (poke1 != null) {
+                String nomePokemon = poke1.getString("nomePokemon", "");
+
+                if (nomePokemon.isEmpty()) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 }
