@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import com.mercurio.game.AssetManager.GameAsset;
+import com.mercurio.game.AssetManager.GameAsset.AssetMMB;
 
 class Mossa {
     private boolean crit = false;
@@ -35,6 +37,7 @@ class Mossa {
     private Texture texture;
     private Sprite[] spriteArray;
     private HashMap<String, Integer> tipoToIndex;
+    private GameAsset asset;
 
     // Lista di tipi di Pokémon e relativa resistenza
     ArrayList<String> listaPEAcqua = new ArrayList<>(
@@ -142,7 +145,7 @@ class Mossa {
 
     public void SpriteCutter() {
         // Carica la texture
-        texture = new Texture("battle/fullLabelFight.png");
+        texture = asset.getMMB(AssetMMB.BL_LABEL_FG);
 
         // Divide la texture in 18 parti in altezza
         TextureRegion[][] textureRegions = TextureRegion.split(texture, texture.getWidth() / 3,
@@ -206,6 +209,10 @@ class Mossa {
         if (battle != null) {
             this.chiamante = battle;
         }
+        this.asset = battle.getAsset();
+
+        asset.loadMMBAsset();
+        asset.finishLoading();
     }
 
     public String getNome() {

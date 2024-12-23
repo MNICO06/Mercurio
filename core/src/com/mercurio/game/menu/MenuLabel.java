@@ -464,6 +464,10 @@ public class MenuLabel{
         medaglie = null;
     }
 
+    public MercurioMain getGame() {
+        return game;
+    }
+
     public void salvaAnimazione(){
         try {
             chiudiMenu();

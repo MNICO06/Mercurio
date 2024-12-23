@@ -24,6 +24,9 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.badlogic.gdx.utils.Timer;
+import com.mercurio.game.AssetManager.GameAsset;
+import com.mercurio.game.AssetManager.GameAsset.AssetBMLSSC;
+import com.mercurio.game.AssetManager.GameAsset.AssetSISCB;
 import com.mercurio.game.effects.LabelDiscorsi;
 import com.mercurio.game.menu.Borsa;
 import com.mercurio.game.menu.BorsaModifier;
@@ -70,8 +73,11 @@ public class squadraCure {
     Array<Boolean> animazionePartita = new Array<>();
     Array<Boolean> controllo = new Array<>();
 
+    private GameAsset asset;
+
     public squadraCure(Stage stage, boolean battaglia, Borsa chiamanteBo, String itemName, String itemQuantity) {
         this.battaglia = battaglia;
+        this.asset = chiamanteBo.getAsset();
         this.chiamanteBo = chiamanteBo;
         this.batch = (SpriteBatch) stage.getBatch();
         this.font = new BitmapFont(Gdx.files.local("font/small_letters_font.fnt"));
@@ -79,6 +85,10 @@ public class squadraCure {
         this.squadActors = new Array<>(); // Inizializza l'array degli attori della borsa
         this.itemName = itemName;
         // this.itemQuantity=itemQuantity;
+
+        asset.loadSISCBAsset();
+        asset.finishLoading();
+
         Gdx.input.setInputProcessor(stage);
         showSquad();
     }
@@ -86,10 +96,10 @@ public class squadraCure {
     private void showSquad() {
         try {
             // Carica le texture
-            Texture normalTexture = new Texture("squadra/nsSquadra.png");
-            Texture firstTexture = new Texture("squadra/nsFirstSquadra.png");
-            Texture selectedFirstTexture = new Texture("squadra/selFirst.png");
-            Texture selectedTexture = new Texture("squadra/selSquadra.png");
+            Texture normalTexture = asset.getBMLSSC(AssetBMLSSC.SQ_SQUADRA_NS);
+            Texture firstTexture = asset.getBMLSSC(AssetBMLSSC.SQ_FIRST_SQ);
+            Texture selectedFirstTexture = asset.getBMLSSC(AssetBMLSSC.SQ_FIRST_SL);
+            Texture selectedTexture = asset.getBMLSSC(AssetBMLSSC.SQ_SQUADRA_SL);
 
             // Posizione iniziale per la prima label
             float initialX = 150;
@@ -106,7 +116,7 @@ public class squadraCure {
             float screenWidth = Gdx.graphics.getWidth();
             float screenHeight = Gdx.graphics.getHeight();
             // Add background
-            Texture backgroundTexture = new Texture("sfondo/sfondo.png");
+            Texture backgroundTexture = asset.getBMLSSC(AssetBMLSSC.SF_SFONDO);
             background = new Image(backgroundTexture);
             background.setSize(screenWidth, screenHeight);
             stage.addActor(background);
@@ -129,16 +139,19 @@ public class squadraCure {
                     if (column == 0) {
                         posY += 50;
                     }
+                    
 
                     // Se è la prima posizione, usa un'immagine differente
-                    String texturePath = "squadra/nsSquadra.png";
+                    Texture tmp = asset.getBMLSSC(AssetBMLSSC.SQ_SQUADRA_NS);
                     Texture selectedTex = selectedTexture;
                     if (i == 0) {
-                        texturePath = "squadra/nsFirstSquadra.png";
+                        tmp = asset.getBMLSSC(AssetBMLSSC.SQ_FIRST_SQ);
                         selectedTex = selectedFirstTexture;
                     }
 
-                    Image image = new Image(new Texture(texturePath));
+                    Image image = new Image(tmp);
+
+                    
                     image.setPosition(posX, posY);
                     image.setSize(126 * 3, 45 * 3);
 
@@ -303,7 +316,7 @@ public class squadraCure {
                 }
             }
             // Label "Cancel"
-            Texture cancelTexture = new Texture("squadra/cancel.png");
+            Texture cancelTexture = asset.getBMLSSC(AssetBMLSSC.SQ_CANCEL);
             cancelImage = new Image(cancelTexture);
             cancelImage.setName("image cancel");
             cancelImage.setPosition(70, 10);
@@ -461,7 +474,7 @@ public class squadraCure {
             float lunghezzaHPBar = 48 * 3 * percentualeHP;
             // Crea e posiziona la hpBar sopra imageHPPlayer con l'offset specificato
             Image hpBar = new Image(
-                    new TextureRegionDrawable(new TextureRegion(new Texture("battle/white_pixel.png"))));
+                    new TextureRegionDrawable(new TextureRegion(asset.getBMLSSC(AssetBMLSSC.BL_WHITE_PX))));
             hpBar.setSize((int) lunghezzaHPBar, 12);
             hpBar.setPosition(image.getX() + diffX, image.getY() + diffY);
             // hpBar.setPosition(400, 400);

@@ -20,6 +20,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import com.mercurio.game.AssetManager.GameAsset;
+import com.mercurio.game.AssetManager.GameAsset.AssetInfoPoke;
 
 public class infoPoke {
 
@@ -44,11 +46,18 @@ public class infoPoke {
     private boolean box;
     String index;
 
-    public infoPoke(Stage stage, int numDelPoke, boolean box) {
+    private GameAsset asset;
+
+    public infoPoke(Stage stage, int numDelPoke, boolean box, GameAsset asset) {
         try {
+            this.asset = asset;
             this.stage = stage;
             this.box = box;
             this.batch = (SpriteBatch) stage.getBatch();
+
+            asset.loadInfoPAsset();
+            asset.finishLoading();
+
             Gdx.input.setInputProcessor(stage);
             font = new BitmapFont(Gdx.files.local("font/small_letters_font.fnt"));
             font2 = new BitmapFont(Gdx.files.local("font/font.fnt"));
@@ -58,14 +67,15 @@ public class infoPoke {
             float screenHeight = Gdx.graphics.getHeight();
 
             // Background dell'info stage
-            Texture backgroundTexture = new Texture("squadra/infoPoke.png");
+            Texture backgroundTexture = asset.getInfoP(AssetInfoPoke.SQ_INFO_PK);
             Image background = new Image(backgroundTexture);
             background.setSize(screenWidth, screenHeight);
             stage.addActor(background);
             infoActors.add(background);
 
             // Label per la chiusura
-            Texture cancelTexture = new Texture("squadra/cancel.png");
+            Texture cancelTexture = asset.getInfoP(AssetInfoPoke.SQ_CANCEL);
+            
             Image cancelImage = new Image(cancelTexture);
             cancelImage.setSize(56 * 3, 24 * 3);
             cancelImage.setPosition(screenWidth - cancelImage.getWidth(), screenHeight - cancelImage.getHeight());
@@ -248,7 +258,8 @@ public class infoPoke {
             String tipo1 = pokeJson.getString("tipo1");
             String tipo2 = pokeJson.getString("tipo2");
             Integer index = tipoToIndex.get(tipo1);
-            Texture textureTipi = new Texture("squadra/types.png");
+            Texture textureTipi = asset.getInfoP(AssetInfoPoke.SQ_TIPO);
+
             int regionWidthType = textureTipi.getWidth();
             int regionHeightType = textureTipi.getHeight() / 18;
             TextureRegion[] types = new TextureRegion[18];
@@ -407,7 +418,7 @@ public class infoPoke {
             float lunghezzaHPBar = 192 * percentualeHP;
             // Crea e posiziona la hpBar sopra imageHPPlayer con l'offset specificato
             Image hpBar = new Image(
-                    new TextureRegionDrawable(new TextureRegion(new Texture("battle/white_pixel.png"))));
+                    new TextureRegionDrawable(new TextureRegion(asset.getInfoP(AssetInfoPoke.BL_WHITE_PX))));
             hpBar.setSize((int) lunghezzaHPBar, 7);
             hpBar.setPosition(800, 345);
             // hpBar.setPosition(400, 400);
@@ -463,7 +474,7 @@ public class infoPoke {
             System.out.println(lunghezzaExpBar);
 
             Image expBar = new Image(
-                    new TextureRegionDrawable(new TextureRegion(new Texture("battle/white_pixel.png"))));
+                    new TextureRegionDrawable(new TextureRegion(asset.getInfoP(AssetInfoPoke.BL_WHITE_PX))));
             expBar.setSize((int) lunghezzaExpBar, 12);
             expBar.setPosition(19 * 4, 115 * 4 + 1);
 

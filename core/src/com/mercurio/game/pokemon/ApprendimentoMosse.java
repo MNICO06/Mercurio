@@ -22,6 +22,8 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.badlogic.gdx.utils.Timer;
+import com.mercurio.game.AssetManager.GameAsset;
+import com.mercurio.game.AssetManager.GameAsset.AssetAM;
 
 public class ApprendimentoMosse extends ScreenAdapter {
 
@@ -39,14 +41,21 @@ public class ApprendimentoMosse extends ScreenAdapter {
     private String pokeName;
     private Mossa mossaL;
 
+    private GameAsset asset;
+
     public ApprendimentoMosse(Battle chiamanteB, Stage stage, int indexPoke) {
         try {
             this.indexPoke = indexPoke;
             this.chiamanteB = chiamanteB;
+            this.asset = chiamanteB.getAsset();
             this.batch = (SpriteBatch) stage.getBatch();
             this.stage = stage;
             font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
             font2 = new BitmapFont(Gdx.files.internal("font/small_letters_font.fnt"));
+
+            asset.loadAMAsset();
+            asset.finishLoading();
+
             Gdx.input.setInputProcessor(stage);
 
             // Ottieni l'oggetto JSON corrispondente al Pokémon specificato
@@ -85,6 +94,7 @@ public class ApprendimentoMosse extends ScreenAdapter {
     }
 
     public void dispose() {
+        asset.unloadAllAM();
         batch.dispose();
         font.dispose();
         stage.dispose();
@@ -93,7 +103,8 @@ public class ApprendimentoMosse extends ScreenAdapter {
     @Override
     public void show() {
         try {
-            Texture textureBack = new Texture("sfondo/newMoveBG.png");
+
+            Texture textureBack = asset.getAM(AssetAM.SF_MOVE_BG);
 
             float screenWidth = Gdx.graphics.getWidth();
             float screenHeight = Gdx.graphics.getHeight();
@@ -189,7 +200,7 @@ public class ApprendimentoMosse extends ScreenAdapter {
             clickArea3.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    infoPoke = new infoPoke(stage, indexPoke, false);
+                    infoPoke = new infoPoke(stage, indexPoke, false, asset);
                 }
             });
 

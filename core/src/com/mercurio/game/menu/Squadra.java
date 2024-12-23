@@ -22,8 +22,11 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.badlogic.gdx.utils.Timer;
+import com.mercurio.game.AssetManager.GameAsset;
+import com.mercurio.game.Screen.MercurioMain;
 import com.mercurio.game.pokemon.Battle;
 import com.mercurio.game.pokemon.infoPoke;
+import com.mercurio.game.AssetManager.GameAsset.AssetSquadra;
 
 public class Squadra {
 
@@ -51,6 +54,8 @@ public class Squadra {
     private int indexDaSwitch = 0;
     private Image background;
     private boolean cambioObbligatorio;
+    private MercurioMain game;
+    private GameAsset asset;
 
     Array<Texture> animationTextures = new Array<>();
     Array<Image> animationImages = new Array<>();
@@ -58,15 +63,21 @@ public class Squadra {
     Array<Boolean> controllo = new Array<>();
 
     public Squadra(Stage stage, boolean battaglia, Battle chiamanteB, MenuLabel chiamanteM,
-            boolean cambioObbligatorio) {
+                   boolean cambioObbligatorio) {
         this.chiamanteB = chiamanteB;
         this.chiamanteM = chiamanteM;
+        this.game = chiamanteM.getGame();
+        this.asset = game.getGameAsset();
         this.cambioObbligatorio = cambioObbligatorio;
         this.battaglia = battaglia;
         this.batch = (SpriteBatch) stage.getBatch();
         this.font = new BitmapFont(Gdx.files.local("font/small_letters_font.fnt"));
         this.stage = stage;
         this.squadActors = new Array<>(); // Inizializza l'array degli attori della borsa
+
+        asset.loadSquadraAsset();
+        asset.finishLoading();
+
         Gdx.input.setInputProcessor(stage);
         showSquad();
     }
@@ -75,10 +86,10 @@ public class Squadra {
 
         try {
             // Carica le texture
-            Texture normalTexture = new Texture("squadra/nsSquadra.png");
-            Texture firstTexture = new Texture("squadra/nsFirstSquadra.png");
-            Texture selectedFirstTexture = new Texture("squadra/selFirst.png");
-            Texture selectedTexture = new Texture("squadra/selSquadra.png");
+            Texture normalTexture = asset.getSquadra(AssetSquadra.SQ_SQUADRA_NS);
+            Texture firstTexture = asset.getSquadra(AssetSquadra.SQ_FIRST_SQ);
+            Texture selectedFirstTexture = asset.getSquadra(AssetSquadra.SQ_FIRST_SL);
+            Texture selectedTexture = asset.getSquadra(AssetSquadra.SQ_SQUADRA_SL);
 
             // Posizione iniziale per la prima label
             float initialX = 150;
@@ -95,7 +106,7 @@ public class Squadra {
             float screenWidth = Gdx.graphics.getWidth();
             float screenHeight = Gdx.graphics.getHeight();
             // Add background
-            Texture backgroundTexture = new Texture("sfondo/sfondo.png");
+            Texture backgroundTexture = asset.getSquadra(AssetSquadra.SF_SFONDO);
             background = new Image(backgroundTexture);
             background.setSize(screenWidth, screenHeight);
             stage.addActor(background);
@@ -120,14 +131,16 @@ public class Squadra {
                     }
 
                     // Se è la prima posizione, usa un'immagine differente
-                    String texturePath = "squadra/nsSquadra.png";
+
+                    Texture tmp = asset.getSquadra(AssetSquadra.SQ_SQUADRA_NS);
                     Texture selectedTex = selectedTexture;
                     if (i == 0) {
-                        texturePath = "squadra/nsFirstSquadra.png";
+                        tmp = asset.getSquadra(AssetSquadra.SQ_FIRST_SQ);
                         selectedTex = selectedFirstTexture;
                     }
 
-                    Image image = new Image(new Texture(texturePath));
+
+                    Image image = new Image(tmp);
                     image.setPosition(posX, posY);
                     image.setSize(126 * 3, 45 * 3);
 
@@ -246,7 +259,7 @@ public class Squadra {
                                 }
 
                                 // Crea e posiziona l'immagine "squadra/info.png"
-                                Texture infoTexture = new Texture("squadra/info.png");
+                                Texture infoTexture = asset.getSquadra(AssetSquadra.SQ_INFO);
                                 infoImage = new Image(infoTexture);
                                 infoImage.setPosition(650, 10); // Posizionamento personalizzato
                                 infoImage.setSize(56 * 3, 24 * 3);
@@ -256,14 +269,14 @@ public class Squadra {
                                 infoImage.addListener(new ClickListener() {
                                     @Override
                                     public void clicked(InputEvent event, float x, float y) {
-                                        infoPoke = new infoPoke(stage, indexNumPoke, false);
+                                        infoPoke = new infoPoke(stage, indexNumPoke, false, asset);
                                     }
                                 });
 
                                 // Crea e posiziona l'immagine "squadra/sposta.png" o di "squadra/cambia.png"
-                                Texture spostaTexture = new Texture("squadra/sposta.png");
+                                Texture spostaTexture = asset.getSquadra(AssetSquadra.SQ_SPOSTA);
                                 spostaImage = new Image(spostaTexture);
-                                Texture cambiaTexture = new Texture("squadra/cambia.png");
+                                Texture cambiaTexture = asset.getSquadra(AssetSquadra.SQ_CAMBIA);
                                 cambiaImage = new Image(cambiaTexture);
                                 if (!battaglia) {
                                     spostaImage.setSize(56 * 3, 24 * 3);
@@ -346,7 +359,7 @@ public class Squadra {
                 }
             }
             // Label "Cancel"
-            Texture cancelTexture = new Texture("squadra/cancel.png");
+            Texture cancelTexture = asset.getSquadra(AssetSquadra.SQ_CANCEL);
             cancelImage = new Image(cancelTexture);
             cancelImage.setName("image cancel");
             cancelImage.setPosition(70, 10);
@@ -401,6 +414,7 @@ public class Squadra {
     }
 
     public void dispose() {
+        asset.unloadAllSquadra();
         batch.dispose();
         font.dispose();
     }
@@ -512,7 +526,7 @@ public class Squadra {
             float lunghezzaHPBar = 48 * 3 * percentualeHP;
             // Crea e posiziona la hpBar sopra imageHPPlayer con l'offset specificato
             Image hpBar = new Image(
-                    new TextureRegionDrawable(new TextureRegion(new Texture("battle/white_pixel.png"))));
+                    new TextureRegionDrawable(new TextureRegion(asset.getSquadra(AssetSquadra.BL_WHITE_PX))));
             hpBar.setSize((int) lunghezzaHPBar, 12);
             hpBar.setPosition(image.getX() + diffX, image.getY() + diffY);
             // hpBar.setPosition(400, 400);

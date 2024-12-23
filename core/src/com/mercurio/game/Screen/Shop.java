@@ -17,13 +17,14 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
+import com.mercurio.game.AssetManager.GameAsset;
+import com.mercurio.game.AssetManager.GameAsset.AssetShop;
 
 public class Shop extends ScreenAdapter {
     private Stage stage;
     private SpriteBatch batch;
     private BitmapFont font;
     private BitmapFont font1;
-    // TODO: da fare il controllo con le medaglie
 
     Array<Image> animationImages = new Array<>();
     Array<Actor> animationTextures = new Array<>();
@@ -47,6 +48,8 @@ public class Shop extends ScreenAdapter {
     private Image imageLineaCopia;
 
     private MercurioMain game;
+    private GameAsset asset;
+
     Image background;
     Image imageFrecciaSuPag;
     Image imageFrecciaGiuPag;
@@ -59,11 +62,16 @@ public class Shop extends ScreenAdapter {
 
     public Shop(MercurioMain game) {
         this.game = game;
+        this.asset = new GameAsset();
         batch = new SpriteBatch();
         stage = new Stage();
 
         font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
         this.font1 = new BitmapFont(Gdx.files.local("font/small_letters_font.fnt"));
+
+        asset.loadShopAsset();
+        asset.finishLoading();
+
         Gdx.input.setInputProcessor(stage);
         show();
     }
@@ -84,6 +92,7 @@ public class Shop extends ScreenAdapter {
     }
 
     public void dispose() {
+        asset.unloadAllShop();
         batch.dispose();
         font.dispose();
         stage.dispose();
@@ -103,7 +112,7 @@ public class Shop extends ScreenAdapter {
         try {
             calcolaNumeroOggetti();
 
-            Texture textureBack = new Texture("sfondo/sfondoPokemarket.png");
+            Texture textureBack = asset.getShop(AssetShop.SF_POKE_MARKET);
             // Add background
             background = new Image(textureBack);
             background.setSize(1024, 720);
@@ -121,7 +130,7 @@ public class Shop extends ScreenAdapter {
             stage.addActor(labelDenaro);
 
             // settaggio freccia in su
-            Texture textureFrecciaSuPag = new Texture("sfondo/frecciaMarketUp.png");
+            Texture textureFrecciaSuPag = asset.getShop(AssetShop.SF_MARKET_UP);
             imageFrecciaSuPag = new Image(textureFrecciaSuPag);
             imageFrecciaSuPag.setPosition(460, 645);
             imageFrecciaSuPag.setSize(46, 25);
@@ -140,7 +149,7 @@ public class Shop extends ScreenAdapter {
             });
 
             // settaggio freccia in giu
-            Texture textureFrecciaGiuPag = new Texture("sfondo/frecciaMarketDown.png");
+            Texture textureFrecciaGiuPag = asset.getShop(AssetShop.SF_MARKET_DW);
             imageFrecciaGiuPag = new Image(textureFrecciaGiuPag);
             imageFrecciaGiuPag.setPosition(460, 200);
             imageFrecciaGiuPag.setSize(46, 25);
@@ -159,7 +168,7 @@ public class Shop extends ScreenAdapter {
             });
 
             // posizionare le varie linee e poi le label al loro interno
-            Texture texture = new Texture("sfondo/lineaOggettoSelezionato.png");
+            Texture texture = asset.getShop(AssetShop.SF_SELECT_OB);
             imageOggettoSelezionato = new Image(texture);
             imageOggettoSelezionato.setSize(280 * 2, 35 * 2);
             stage.addActor(imageOggettoSelezionato);
@@ -194,7 +203,7 @@ public class Shop extends ScreenAdapter {
                         final int index = i;
 
                         // posizionare le varie linee e poi le label al loro interno
-                        Texture texture1 = new Texture("sfondo/lineaOggetto.png");
+                        Texture texture1 = asset.getShop(AssetShop.SF_OGGETTO_LN);
                         Image imageOggetto1 = new Image(texture1);
                         imageOggetto1.setSize(280 * 2, 35 * 2);
                         imageOggetto1.setPosition(430, yPosIniziale);
@@ -225,7 +234,7 @@ public class Shop extends ScreenAdapter {
                         stage.addActor(imageOggetto);
 
                         // settaggio dell'immagine del numero oggetti scelti e delle frecce
-                        texture = new Texture("sfondo/mostraQuantita.png");
+                        texture = asset.getShop(AssetShop.SF_QUANTITA_SH);
                         Image imageSceltaQta = new Image(texture);
                         imageSceltaQta.setPosition(10, 250);
                         imageSceltaQta.setSize(75, 85);
@@ -233,7 +242,7 @@ public class Shop extends ScreenAdapter {
                         animationImages.add(imageSceltaQta);
                         stage.addActor(imageSceltaQta);
 
-                        texture = new Texture("sfondo/frecciaQtaSu.png");
+                        texture = asset.getShop(AssetShop.SF_FRECCIA_QUP);
                         Image imageFrecciaQtaSu = new Image(texture);
                         imageFrecciaQtaSu.setPosition(87, 297);
                         imageFrecciaQtaSu.setVisible(false);
@@ -250,7 +259,7 @@ public class Shop extends ScreenAdapter {
                             }
                         });
 
-                        texture = new Texture("sfondo/frecciaQtaGiu.png");
+                        texture = asset.getShop(AssetShop.SF_FRECCIA_QDW);
                         Image imageFrecciaQtaGiu = new Image(texture);
                         imageFrecciaQtaGiu.setPosition(87, 250);
                         imageFrecciaQtaGiu.setVisible(false);
@@ -274,7 +283,7 @@ public class Shop extends ScreenAdapter {
                         animationTextures.add(labelQuantitaCompra);
                         stage.addActor(labelQuantitaCompra);
 
-                        texture = new Texture("sfondo/okLabel.png");
+                        texture = asset.getShop(AssetShop.SF_LABEL_OK);
                         Image imageOk = new Image(texture);
                         imageOk.setPosition(140, 250);
                         imageOk.setSize(35 * 2f, 24 * 2f);

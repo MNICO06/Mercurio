@@ -15,9 +15,12 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.mercurio.game.AssetManager.GameAsset;
+import com.mercurio.game.AssetManager.GameAsset.AssetMenu;
 
 public class Menu extends ScreenAdapter {
     private final MercurioMain game;
+    private GameAsset asset;
 
     private SpriteBatch spriteBatch;
     private Image background;
@@ -36,6 +39,10 @@ public class Menu extends ScreenAdapter {
 
     public Menu(MercurioMain game) {
         this.game = game;
+        this.asset = new GameAsset();
+
+        asset.loadMenuAsset();
+        asset.finishLoading();
     }
 
     private void createMenu() {
@@ -63,14 +70,14 @@ public class Menu extends ScreenAdapter {
 
         try {
 
-            Texture background_texture = new Texture(Gdx.files.local("menuImage/sfondoImmagine.png"));
+            Texture background_texture = asset.getMenu(AssetMenu.MI_IMAGINE_SF);
 
             background = new Image(background_texture);
             background.setSize(1024, 600);
             background.setPosition(0, x);
 
             // da cambiare con quello nuovo
-            Texture titoloPokemon = new Texture(Gdx.files.local("menuImage/logoMercurio.png"));
+            Texture titoloPokemon = asset.getMenu(AssetMenu.MI_MERCURIO_LG);
             pokemon = new Image(titoloPokemon);
             pokemon.setSize(700, 400);
             pokemon.setPosition(180, 400);
@@ -143,6 +150,7 @@ public class Menu extends ScreenAdapter {
 
     @Override
     public void dispose() {
+        asset.unloadAllMenu();
         spriteBatch.dispose();
         stage.dispose();
     }

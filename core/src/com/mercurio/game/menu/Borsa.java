@@ -679,4 +679,8 @@ public class Borsa {
         miniMappa=null;
         Gdx.input.setInputProcessor(stage);
     }
+
+    public GameAsset getAsset() {
+        return asset;
+    }
 }

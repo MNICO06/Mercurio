@@ -4330,7 +4330,7 @@ public class Battle extends ScreenAdapter {
             stats.aggiornaStatistichePokemon(pokeEvoIndex.get(evoIndex));
 
             // Imposta lo sfondo dell'animazione
-            Texture backgroundTexture = new Texture("sfondo/evolutionBG.png");
+            Texture backgroundTexture = asset.getBattle(AssetBattle.SF_EVOLUTION_BG);
             Image background = new Image(backgroundTexture);
             background.setZIndex(100);
             background.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -4668,6 +4668,10 @@ public class Battle extends ScreenAdapter {
             System.out.println("Errore updateHpBarWidhCura battle, " + e);
         }
 
+    }
+
+    public GameAsset getAsset() {
+        return asset;
     }
 
 } // Fine battaglia :)

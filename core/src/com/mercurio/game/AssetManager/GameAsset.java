@@ -403,7 +403,9 @@ public class GameAsset {
         BL_BOT_HP("battle/botHPBar.png", Texture.class),
         BL_MOVE_NO("battle/noMove.png", Texture.class),
         BL_B("battle/b.png", Texture.class),
-        PK_LIGHT_CL("pokemon/lightCircle.png", Texture.class);
+        PK_LIGHT_CL("pokemon/lightCircle.png", Texture.class),
+        SF_EVOLUTION_BG("sfondo/evolutionBG.png", Texture.class);
+
 
         private final String path;
         private final Class<?> type;
@@ -781,7 +783,7 @@ public class GameAsset {
             assetManager.unload(asset.getPath());
         }
     }
-
+    
     /*
      * 
      * Asset SquadraBattleInfoPoke
@@ -993,7 +995,17 @@ public class GameAsset {
      * 
      */
     public enum AssetSquadra {
-        SQ_CAMBIA("squadra/cambia.png", Texture.class);
+        SQ_CAMBIA("squadra/cambia.png", Texture.class),
+        SQ_SQUADRA_NS("squadra/nsSquadra.png", Texture.class),
+        SQ_FIRST_SQ("squadra/nsFirstSquadra.png", Texture.class),
+        SQ_FIRST_SL("squadra/selFirst.png", Texture.class),
+        SQ_SQUADRA_SL("squadra/selSquadra.png", Texture.class),
+        SF_SFONDO("sfondo/sfondo.png", Texture.class),
+        SQ_INFO("squadra/info.png", Texture.class),
+        SQ_SPOSTA("squadra/sposta.png", Texture.class),
+        SQ_CANCEL("squadra/cancel.png", Texture.class),
+        BL_WHITE_PX("battle/white_pixel.png", Texture.class);
+
 
         private final String path;
         private final Class<?> type;
@@ -1034,7 +1046,10 @@ public class GameAsset {
      * 
      */
     public enum AssetInfoPoke {
-        SQ_INFO_PK("squadra/infoPoke.png", Texture.class);
+        SQ_INFO_PK("squadra/infoPoke.png", Texture.class),
+        SQ_CANCEL("squadra/cancel.png", Texture.class),
+        SQ_TIPO("squadra/types.png", Texture.class),
+        BL_WHITE_PX("battle/white_pixel.png", Texture.class);
 
         private final String path;
         private final Class<?> type;
@@ -1116,7 +1131,13 @@ public class GameAsset {
      * 
      */
     public enum AssetBMLSSC {
-        SF_SFONDO("sfondo/sfondo.png", Texture.class);
+        SQ_SQUADRA_NS("squadra/nsSquadra.png", Texture.class),
+        SQ_FIRST_SQ("squadra/nsFirstSquadra.png", Texture.class),
+        SQ_FIRST_SL("squadra/selFirst.png", Texture.class),
+        SQ_SQUADRA_SL("squadra/selSquadra.png", Texture.class),
+        SF_SFONDO("sfondo/sfondo.png", Texture.class),
+        SQ_CANCEL("squadra/cancel.png", Texture.class),
+        BL_WHITE_PX("battle/white_pixel.png", Texture.class);
 
         private final String path;
         private final Class<?> type;

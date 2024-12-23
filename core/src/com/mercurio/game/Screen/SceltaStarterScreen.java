@@ -19,13 +19,16 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.badlogic.gdx.utils.Timer;
+import com.mercurio.game.AssetManager.GameAsset;
 import com.mercurio.game.effects.LabelDiscorsi;
 import com.mercurio.game.pokemon.IV;
 import com.mercurio.game.pokemon.Stats;
+import com.mercurio.game.AssetManager.GameAsset.AssetSStarterS;
 
 public class SceltaStarterScreen extends ScreenAdapter {
 
     private MercurioMain game;
+    private GameAsset asset;
     private Stage stage;
     private SpriteBatch batch;
     private BitmapFont font;
@@ -49,9 +52,14 @@ public class SceltaStarterScreen extends ScreenAdapter {
 
     public SceltaStarterScreen(MercurioMain game) {
         this.game = game;
+        this.asset = new GameAsset();
         batch = new SpriteBatch();
         stage = new Stage();
         font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
+
+        asset.unloadAllSStarterS();
+        asset.finishLoading();
+
         Gdx.input.setInputProcessor(stage);
 
         show();
@@ -62,13 +70,14 @@ public class SceltaStarterScreen extends ScreenAdapter {
 
         try {
 
-            Texture litten = new Texture("pokemon/litten.png");
-            Texture rowlet = new Texture("pokemon/rowlet.png");
-            Texture popplio = new Texture("pokemon/popplio.png");
+            Texture litten = asset.getStartScreen(AssetSStarterS.PK_LITTEN);
+            Texture rowlet = asset.getStartScreen(AssetSStarterS.PK_ROWLET);
+            Texture popplio = asset.getStartScreen(AssetSStarterS.PK_POPPLIO);
 
-            Texture cerchioLitten = new Texture("sfondo/sfondoFuoco.png");
-            Texture cerchioRowlet = new Texture("sfondo/sfondoErba.png");
-            Texture cerchioPopplio = new Texture("sfondo/sfondoAcqua.png");
+            Texture cerchioLitten = asset.getStartScreen(AssetSStarterS.SF_FUOCO);
+            Texture cerchioRowlet = asset.getStartScreen(AssetSStarterS.SF_ERBA);
+            Texture cerchioPopplio = asset.getStartScreen(AssetSStarterS.SF_ACQUA);
+
 
             Image cerchioLittenImage = new Image(cerchioLitten);
             Image cerchioRowletImage = new Image(cerchioRowlet);
@@ -404,6 +413,7 @@ public class SceltaStarterScreen extends ScreenAdapter {
     }
 
     public void dispose() {
+        asset.unloadAllSStarterS();
         batch.dispose();
         font.dispose();
         stage.dispose();

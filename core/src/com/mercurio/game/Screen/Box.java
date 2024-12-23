@@ -397,9 +397,9 @@ public class Box extends ScreenAdapter {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     if (posizionePokemonSelezionato > 0) {
-                        infoPoke = new infoPoke(stage, posizionePokemonSelezionato, true);
+                        infoPoke = new infoPoke(stage, posizionePokemonSelezionato, true, asset);
                     } else {
-                        infoPoke = new infoPoke(stage, posizionePokemonSelezionato * -1, false);
+                        infoPoke = new infoPoke(stage, posizionePokemonSelezionato * -1, false, asset);
                     }
                 }
             });

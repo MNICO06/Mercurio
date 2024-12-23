@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.bullet.collision._btMprSimplex_t;
 import com.mercurio.game.AssetManager.GameAsset;
 import com.mercurio.game.Screen.MercurioMain;
 
