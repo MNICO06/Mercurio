@@ -189,7 +189,6 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
 
             game.setMap(lab, tileRenderer, camera, map_size.x, map_size.y);
 
-            // aggiungere alla lista delle collisioni quella del professore
 
             game.getPlayer().setPosition(55, 20);
 
@@ -206,7 +205,6 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
                 }
             }
 
-            // ho invertito le cose, TOGLIERE il ! dall'if
             if (controllaPresenzaStarter()) {
                 professore.setPosition(109, 135);
                 haStarter = true;

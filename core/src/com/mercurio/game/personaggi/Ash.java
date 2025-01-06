@@ -451,6 +451,7 @@ public class Ash {
 
     public void setMovement(boolean canMove) {
         this.canMove = canMove;
+        game.getUtilityVariables().setIsInMovement(canMove);
     }
 
     // funzioni per far muovere il bot

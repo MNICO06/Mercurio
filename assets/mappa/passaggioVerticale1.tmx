@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="8" height="12" tilewidth="16" tileheight="16" infinite="0" nextlayerid="28" nextobjectid="1">
+ <tileset firstgid="1" name="1_Generic_Shadowless" tilewidth="16" tileheight="16" tilecount="1248" columns="16">
+  <image source="1_Generic_Shadowless.png" width="256" height="1248"/>
+ </tileset>
+ <tileset firstgid="1249" name="2_LivingRoom_Shadowless" tilewidth="16" tileheight="16" tilecount="720" columns="16">
+  <image source="2_LivingRoom_Shadowless.png" width="256" height="720"/>
+ </tileset>
+ <tileset firstgid="1969" name="Room_Builder_16x16" tilewidth="16" tileheight="16" tilecount="8284" columns="76">
+  <image source="Room_Builder_16x16.png" width="1216" height="1744"/>
+ </tileset>
+ <tileset firstgid="10253" name="hgss_pokemon_center_by_laecoris_dg26kyk" tilewidth="16" tileheight="16" tilecount="2184" columns="52">
+  <image source="hgss_pokemon_center_by_laecoris_dg26kyk.png" width="832" height="672"/>
+ </tileset>
+ <tileset firstgid="12437" name="deco-interni1" tilewidth="16" tileheight="16" tilecount="460" columns="20">
+  <image source="deco-interni1.png" width="320" height="368"/>
+ </tileset>
+ <tileset firstgid="12897" name="lab" tilewidth="16" tileheight="16" tilecount="1050" columns="42">
+  <image source="lab.png" width="672" height="400"/>
+ </tileset>
+ <tileset firstgid="13947" name="banconeTunnel" tilewidth="16" tileheight="16" tilecount="1050" columns="42">
+  <image source="banconeTunnel.png" width="672" height="400"/>
+ </tileset>
+ <layer id="23" name="pavimento" width="8" height="12">
+  <data encoding="csv">
+4140,4140,4140,4140,4140,4140,4140,4140,
+4140,4140,4140,4140,4140,4140,4140,4140,
+4140,4140,4140,4140,4140,4140,4140,4140,
+4140,4140,4140,4140,4140,4140,4140,4140,
+4140,4140,4140,4140,4140,4140,4140,4140,
+4140,4140,4140,4140,4140,4140,4140,4140,
+4140,4140,4140,4140,4140,4140,4140,4140,
+4140,4140,4140,4140,4140,4140,4140,4140,
+4140,4140,4140,4140,4140,4140,4140,4140,
+4140,4140,4140,4140,4140,4140,4140,4140,
+4140,4140,4140,4140,4140,4140,4140,4140,
+0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="24" name="muri" width="8" height="12">
+  <data encoding="csv">
+7191,7344,7344,7344,7344,7344,7345,7194,
+7267,7420,7420,7420,7420,7420,7421,7270,
+7343,0,0,0,0,0,0,7346,
+7343,0,0,0,0,0,0,7346,
+7343,0,0,0,0,0,0,7346,
+7343,0,0,0,0,0,0,7346,
+7343,0,0,0,0,0,0,7346,
+7343,0,0,0,0,0,0,7346,
+7343,0,0,0,0,0,0,7346,
+7343,0,0,0,0,0,0,7346,
+7343,0,0,0,0,0,0,7346,
+7571,7572,7572,7572,7572,7572,7573,7574
+</data>
+ </layer>
+ <layer id="25" name="sempre_back1" width="8" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,12548,12549,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,12548,12549,0,0,0,
+0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="26" name="piantine_sotto" width="8" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,1600,0,0,0,0,1600,0,
+0,1616,0,0,0,0,1616,0,
+0,1632,0,0,0,0,1632,0,
+0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="27" name="piantine_sopra" width="8" height="12">
+  <data encoding="csv">
+0,1600,0,0,0,0,1600,0,
+0,1616,0,0,0,0,1616,0,
+0,1632,0,0,0,0,1632,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0
+</data>
+ </layer>
+</map>
