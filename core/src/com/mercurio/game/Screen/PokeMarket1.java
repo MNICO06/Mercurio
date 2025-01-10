@@ -261,7 +261,8 @@ public class PokeMarket1 extends ScreenAdapter {
             if (rectangleUscita != null) {
                 if (game.getPlayer().getBoxPlayer().overlaps(rectangleUscita)) {
                     game.setTeleport("uscitaPokeMarketC");
-                    game.setPage(Constant.MAPPA_SCREEN);
+                    //game.setPage(Constant.MAPPA_SCREEN);
+                    //TODO: cambiare con la mappa nuova
                 }
             }
         } catch (Exception e) {

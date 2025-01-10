@@ -347,7 +347,8 @@ public class PokeCenter extends ScreenAdapter {
                         game.setPage(Constant.CITTAMONTAGNA);
                     } else {
                         game.setTeleport(game.getIngressoPokeCenter());
-                        game.setPage(Constant.MAPPA_SCREEN);
+                        //TODO: cambiare con mappa nuova
+                        //game.setPage(Constant.MAPPA_SCREEN);
                     }
                 }
             }

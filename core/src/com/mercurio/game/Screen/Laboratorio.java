@@ -1003,7 +1003,7 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
 
             if (game.getPlayer().getBoxPlayer().overlaps(rectangleUscita)) {
                 game.setTeleport("uscitaLab");
-                game.setPage(Constant.MAPPA_SCREEN);
+                game.setPage(Constant.SPAWN_SCREEN);
             }
         } catch (Exception e) {
             System.out.println("Errore controlloUScita lab, " + e);

@@ -839,8 +839,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                 }
             }else {
                 game.setProvieneDaMappa(true);
-                setLuogo("casaSpawn");
-                setPage("CasaSpawn");
+                setPage(Constant.CASA_ASH_SCREEN);
             }
 
         } catch (Exception e) {

@@ -132,7 +132,7 @@ public class Musica {
                 }
                 break;
 
-            case "casaSpawn":
+            case "CasaSpawn":
                 if (current != "casaSpawn") {
                     playMusic("musica/casa.mp3");
                     current = "casaSpawn";

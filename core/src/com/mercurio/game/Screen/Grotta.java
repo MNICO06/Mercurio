@@ -225,7 +225,8 @@ public class Grotta extends ScreenAdapter {
             if (rectangleUscitaCapitale != null) {
                 if (game.getPlayer().getBoxPlayer().overlaps(rectangleUscitaCapitale)) {
                     game.setTeleport("uscitagrottaC");
-                    game.setPage(Constant.MAPPA_SCREEN);
+                    //TODO: cambiare con la nuova mappa giusta
+                    //game.setPage(Constant.MAPPA_SCREEN);
                 }
             }
 
@@ -240,7 +241,8 @@ public class Grotta extends ScreenAdapter {
             if (rectangleUscitaVetta != null) {
                 if (game.getPlayer().getBoxPlayer().overlaps(rectangleUscitaVetta)) {
                     game.setTeleport("uscitaVetta");
-                    game.setPage(Constant.MAPPA_SCREEN); // da settare la città nelle montagne
+                    //TODO: camviare con la nuova mappa giusta
+                    //game.setPage(Constant.MAPPA_SCREEN); // da settare la città nelle montagne
                 }
             }
         } catch (Exception e) {

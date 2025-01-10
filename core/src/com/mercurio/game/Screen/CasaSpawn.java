@@ -1,44 +1,36 @@
 package com.mercurio.game.Screen;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.TimerTask;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Interpolation.Exp;
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
-import com.badlogic.gdx.utils.JsonWriter;
 import com.mercurio.game.effects.LabelDiscorsi;
 import com.mercurio.game.personaggi.MammaAsh;
+import com.mercurio.game.utility.UtilityFunctions;
+
 import java.util.Timer;
 
 public class CasaSpawn extends ScreenAdapter {
     private final MercurioMain game;
+    private UtilityFunctions utilityFunctions;
     private MammaAsh mammaAsh;
+    private List<Render> renderBot = new ArrayList<>();
+    private TiledMap map;
     private LabelDiscorsi labelDiscorsiSenzaStarter;
     private LabelDiscorsi labelDiscorsiConStarter;
-
-    // dati per render della mappa
-    private TiledMap casaAsh;
-    private OrthogonalTiledMapRenderer tileRenderer;
-    private OrthographicCamera camera;
-    private Vector2 map_size;
-    private MapLayer lineeLayer;
 
     // rettangolo con la lista delle persone che collidono
     private ArrayList<Rectangle> rectList = null;
@@ -57,12 +49,13 @@ public class CasaSpawn extends ScreenAdapter {
     private boolean fPressed = false;
     private boolean ferma = true;
     private boolean iniziaMovimento = false;
-    private boolean iniziaPrimoDiscorso = false;
 
 
     public CasaSpawn(MercurioMain game) {
         this.game = game;
+        utilityFunctions = new UtilityFunctions();
         mammaAsh = new MammaAsh(game);
+        
 
         /* variabili che andranno lette da file */
         String discorsoSenzaStarter = "C'era il professor Pokemon che ti cercava, vai al suo laboratorio per vedere cosa ti deve dire";
@@ -79,8 +72,8 @@ public class CasaSpawn extends ScreenAdapter {
 
         try {
 
-            game.setLuogo("casaSpawn");
-            game.getMusica().startMusic("casaSpawn");
+            game.setLuogo(Constant.CASA_ASH_SCREEN);
+            //TODO controllare se mi serve così o no: game.getMusica().startMusic("casaSpawn");
 
             // timer da usare dopo per far girare la mamma sui fornelli
             timer = new Timer();
@@ -92,29 +85,37 @@ public class CasaSpawn extends ScreenAdapter {
             };
 
             TmxMapLoader mapLoader = new TmxMapLoader();
-            casaAsh = mapLoader.load(Constant.CASA_ASH);
-            tileRenderer = new OrthogonalTiledMapRenderer(casaAsh);
+            map = mapLoader.load(Constant.CASA_ASH);
+            OrthogonalTiledMapRenderer tileRenderer = new OrthogonalTiledMapRenderer(map);
 
             // calcolo e assegno dimensioni alla mappa
-            int mapWidth = casaAsh.getProperties().get("width", Integer.class)
-                    * casaAsh.getProperties().get("tilewidth", Integer.class);
-            int mapHeight = casaAsh.getProperties().get("height", Integer.class)
-                    * casaAsh.getProperties().get("tileheight", Integer.class);
-            map_size = new Vector2(mapWidth, mapHeight);
+            int mapWidth = map.getProperties().get("width", Integer.class)
+                    * map.getProperties().get("tilewidth", Integer.class);
+            int mapHeight = map.getProperties().get("height", Integer.class)
+                    * map.getProperties().get("tileheight", Integer.class);
+            Vector2 map_size = new Vector2(mapWidth, mapHeight);
 
             // creo la camera
-            camera = new OrthographicCamera();
+            OrthographicCamera camera = new OrthographicCamera();
             camera.setToOrtho(false, map_size.x / 1.9f, map_size.y / 2f);
             camera.update();
 
-            game.setMap(casaAsh, tileRenderer, camera, map_size.x, map_size.y);
+            game.setMap(map, tileRenderer, camera, map_size.x, map_size.y);
+
+
+            ArrayList<String> background = new ArrayList<String>();
+            background.add("floor");
+            background.add("WallAlwaysBack");
+            background.add("AlwaysBack_1");
+            background.add("AlwaysBack_2");
+            game.aggiornaListaAllawaysBack(background);
 
             // aggiungo alla lista dei rettangoli per le collisioni quello della mamma
             rectList.add(mammaAsh.getBoxPlayer());
 
         
             //prendere rettangolo per mappa
-            MapObjects objects = casaAsh.getLayers().get("exit").getObjects();
+            MapObjects objects = map.getLayers().get("exit").getObjects();
             for (MapObject object : objects) {
                 if (object instanceof RectangleMapObject) {
                     // Se l'oggetto è un rettangolo
@@ -133,18 +134,16 @@ public class CasaSpawn extends ScreenAdapter {
     }
 
     @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
     public void render(float delta) {
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        lineeLayer = game.getLineeLayer();
         game.setRectangleList(rectList);
-        cambiaProfondita(lineeLayer);
+
+        renderBot.clear();
+        renderBot.add(new Render("bot", mammaAsh.getTexture(), mammaAsh.getPosition().x, mammaAsh.getPosition().y, mammaAsh.getWidth(), mammaAsh.getHeight(), "mammaAsh"));
+        game.addBotRender(renderBot);
+
         giraMamma();
         controlloTesto();
         controlloTestoIniziale();
@@ -152,10 +151,11 @@ public class CasaSpawn extends ScreenAdapter {
         controllaFermaPlayer();
     }
 
+
     private void settaPlayerPosition() {
         //true se proviene dal fullmap, se no non faccio nulla che prende le posizioni salvate nel json
         if (game.getProvieneDaMappa()) {
-            MapObjects objects = casaAsh.getLayers().get("teleport").getObjects();
+            MapObjects objects = map.getLayers().get("teleport").getObjects();
             for (MapObject object : objects) {
                 if (object instanceof RectangleMapObject) {
                     // Se l'oggetto è un rettangolo
@@ -196,98 +196,18 @@ public class CasaSpawn extends ScreenAdapter {
 
     private void controllaFermaPlayer() {
         //true se proviene dal fullmap, se no non faccio nulla che prende le posizioni salvate nel json
-        MapObjects objects = casaAsh.getLayers().get("lineaFerma").getObjects();
+        MapObjects objects = map.getLayers().get("lineaFerma").getObjects();
         for (MapObject object : objects) {
             if (object instanceof RectangleMapObject) {
                 // Se l'oggetto è un rettangolo
                 RectangleMapObject rectangleObject = (RectangleMapObject) object;
 
-                if (game.getPlayer().getBoxPlayer().overlaps(rectangleObject.getRectangle()) && !controllaPresenzaStarter() && ferma) {
+                if (game.getPlayer().getBoxPlayer().overlaps(rectangleObject.getRectangle()) && !utilityFunctions.controllaPresenzaStarter() && ferma) {
                     fermaPlayer();
                 }
             } 
         }
         game.setProvieneDaMappa(false);
-    }
-    
-
-
-    //cambio continuamente forground e background in base alla pos del personaggio
-    private void cambiaProfondita(MapLayer lineeLayer) {
-
-        try {
-
-            ArrayList<String> background = new ArrayList<String>();
-            ArrayList<String> foreground = new ArrayList<String>();
-
-            background.add("floor");
-            background.add("WallAlwaysBack");
-            background.add("AlwaysBack_1");
-            background.add("AlwaysBack_2");
-
-            for (MapObject object : lineeLayer.getObjects()) {
-                if (object instanceof RectangleMapObject) {
-                    RectangleMapObject rectangleObject = (RectangleMapObject) object;
-
-                    // salvo il nome del layer che verrà inserito in una delle due liste
-                    String layerName = (String) rectangleObject.getProperties().get("layer");
-
-                    if (game.getPlayer().getPlayerPosition().y < rectangleObject.getRectangle().getY()) {
-                        background.add(layerName);
-                    } else {
-                        foreground.add(layerName);
-                    }
-                }
-            }
-
-            boolean isForeground = false;
-            if (game.getPlayer().getPlayerPosition().y < mammaAsh.getPosition().y) {
-                isForeground = true;
-            }
-
-            // background
-            for (String layerName : background) {
-                renderLayer(layerName);
-            }
-
-            if (isForeground) {
-                game.renderPersonaggiSecondari(mammaAsh.getTexture(), mammaAsh.getPosition().x,
-                        mammaAsh.getPosition().y, mammaAsh.getWidth(), mammaAsh.getHeight());
-            }
-
-            game.renderPlayer();
-
-            // foreground
-            for (String layerName : foreground) {
-                renderLayer(layerName);
-            }
-
-            if (!isForeground) {
-                game.renderPersonaggiSecondari(mammaAsh.getTexture(), mammaAsh.getPosition().x,
-                        mammaAsh.getPosition().y, mammaAsh.getWidth(), mammaAsh.getHeight());
-            }
-        } catch (Exception e) {
-            System.out.println("Errore cambiaProfondita casaspawn, " + e);
-        }
-
-    }
-
-    // Metodo per renderizzare un singolo layer
-    private void renderLayer(String layerName) {
-        try {
-
-            tileRenderer.getBatch().begin();
-
-            // Recupera il layer dalla mappa
-            MapLayer layer = casaAsh.getLayers().get(layerName);
-            // Renderizza il layer
-            tileRenderer.renderTileLayer((TiledMapTileLayer) layer);
-
-            tileRenderer.getBatch().end();
-        } catch (Exception e) {
-            System.out.println("Errore renderLayer casaspawn, " + e);
-        }
-
     }
 
     public void startTimerForMamma() {
@@ -307,7 +227,6 @@ public class CasaSpawn extends ScreenAdapter {
         } catch (Exception e) {
             System.out.println("Errore startTimerForMamma casaSpawn, " + e);
         }
-
     }
 
     // Metodo per annullare il compito del timer della mamma
@@ -343,7 +262,7 @@ public class CasaSpawn extends ScreenAdapter {
 
             if (isInBox && !fPressed) {
                 if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
-                    boolean presenzaStarter = controllaPresenzaStarter();
+                    boolean presenzaStarter = utilityFunctions.controllaPresenzaStarter();
                     if (presenzaStarter) {
                         tieniApertoDiscorsoDopo = true;
                     } else {
@@ -368,35 +287,8 @@ public class CasaSpawn extends ScreenAdapter {
         } catch (Exception e) {
             System.out.println("Errore giraMamma casaSpawn, " + e);
         }
-
     }
 
-    // ritorna false se non si ha ancora lo starter, se no ritorna true
-    private boolean controllaPresenzaStarter() {
-        try {
-            // Carica il file JSON
-            FileHandle file = Gdx.files.internal("ashJson/squadra.json");
-            String jsonString = file.readString();
-
-            JsonValue json = new JsonReader().parse(jsonString);
-            JsonValue poke1 = json.get("poke1");
-
-            if (poke1 != null) {
-                String nomePokemon = poke1.getString("nomePokemon", "");
-
-                if (nomePokemon.isEmpty()) {
-                    return false;
-                } else {
-                    return true;
-                }
-            } else {
-                return false;
-            }
-
-        } catch (Exception e) {
-            return false;
-        }
-    }
 
     // questa funzione serve per il testo base senza scelta
     public void controlloTestoIniziale() {
@@ -412,7 +304,6 @@ public class CasaSpawn extends ScreenAdapter {
             //quando deve terminare 
             tieniApertoDiscorsoPrima = false;
             fPressed = false;
-            iniziaPrimoDiscorso = false;
             game.getPlayer().setMovement(true);
             labelDiscorsiSenzaStarter.reset();
         }
@@ -432,7 +323,7 @@ public class CasaSpawn extends ScreenAdapter {
                 // quando deve terminare
                 tieniApertoDiscorsoDopo = false;
                 fPressed = false;
-                cura();
+                utilityFunctions.cura();
                 game.getPlayer().setMovement(true);
                 labelDiscorsiConStarter.reset();
             }
@@ -442,52 +333,12 @@ public class CasaSpawn extends ScreenAdapter {
 
     }
 
-    public void cura() {
-        try {
-
-            // Carica il file JSON
-            FileHandle file = Gdx.files.local("ashJson/squadra.json");
-            String jsonString = file.readString();
-
-            // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
-            JsonValue json = new JsonReader().parse(jsonString);
-
-            for (int i = 0; i < 6; i++) {
-                int index = i + 1;
-                JsonValue pokeJson = json.get("poke" + index);
-                // System.out.println(index);
-                String nomePoke = pokeJson.getString("nomePokemon");
-                // System.out.println(index);
-
-                if (!nomePoke.equals("")) {
-                    JsonValue statistiche = pokeJson.get("statistiche");
-                    String maxPokeHP = statistiche.getString("hpTot");
-                    // ripristina gli hp al massimo
-                    statistiche.remove("hp");
-                    statistiche.addChild("hp", new JsonValue(maxPokeHP));
-                    JsonValue mosse = pokeJson.get("mosse");
-                    for (JsonValue mossaJson : mosse) {
-                        String maxPP = mossaJson.getString("ppTot");
-                        // ripristina attPP al massimo per ogni mossa
-                        mossaJson.remove("ppAtt");
-                        mossaJson.addChild("ppAtt", new JsonValue(maxPP));
-                    }
-                }
-
-                file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
-            }
-        } catch (Exception e) {
-            System.out.println("Errore cura casaspawn, " + e);
-        }
-
-    }
-
     public void controllaUscita() {
         try {
 
             if (game.getPlayer().getBoxPlayer().overlaps(rectangleUscita)) {
                 game.setTeleport("uscitaCasa");
-                game.setPage(Constant.MAPPA_SCREEN);
+                game.setPage(Constant.SPAWN_SCREEN);
             }
         } catch (Exception e) {
             System.out.println("Errore controlloUscita casaspawn, " + e);
@@ -497,16 +348,12 @@ public class CasaSpawn extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        if (casaAsh != null) {
-            casaAsh.dispose();
-        }
         if (mammaTimerTask != null) {
             mammaTimerTask.cancel();
         }
         if (mammaAsh != null) {
             mammaAsh.dispose();
         }
-        tileRenderer.dispose();
     }
 
 }

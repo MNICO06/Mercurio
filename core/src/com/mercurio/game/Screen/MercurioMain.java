@@ -1,6 +1,9 @@
 package com.mercurio.game.Screen;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -11,9 +14,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -29,8 +33,6 @@ import com.mercurio.game.pokemon.Battle;
 import com.mercurio.game.utility.UtilityVariables;
 
 public class MercurioMain extends Game implements InterfacciaComune {
-
-    private int screen_id;
 
     private TiledMap map;
 
@@ -55,6 +57,10 @@ public class MercurioMain extends Game implements InterfacciaComune {
     private MapLayer alberiFore;
     private MapLayer divAlberi;
     private MapLayer lineeBloccaStoria;
+    private List<Render> render = new ArrayList<>();    //lista per il rendering dei layer in base alla profondità
+    private List<Render> renderBot = new ArrayList<>(); //lista per salvare in anticipo i bot
+    private ArrayList<String> listaAllawaysBack = new ArrayList<String>(); //lista per il rendering dei layer che si trovano sempre il background
+
 
     private float elapsedTime = 0;
 
@@ -64,7 +70,6 @@ public class MercurioMain extends Game implements InterfacciaComune {
 
     private MenuLabel menuLabel;
 
-    private TiledMap mappa;
 
     private String teleport;
 
@@ -115,10 +120,6 @@ public class MercurioMain extends Game implements InterfacciaComune {
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
-                    // Carica la mappa
-                    TmxMapLoader mapLoader = new TmxMapLoader();
-                    mappa = mapLoader.load(Constant.MAPPA);
-
                     setPage(Constant.MENU_SCREEN);
                 }
             }, 1); // Ritarda di 2 secondi (puoi modificare questo valore)
@@ -152,13 +153,15 @@ public class MercurioMain extends Game implements InterfacciaComune {
             // Calcolo del tempo trascorso dall'inizio
             elapsedTime += Gdx.graphics.getDeltaTime();
 
-            if (screen_id != 0) {
+            if (!utilityVariables.getSchermataMercurio()) {
 
                 float cameraX = MathUtils.clamp(ash.getPlayerPosition().x + ash.getPlayerWidth() / 2,
                         camera.viewportWidth / 2, map_size.x - camera.viewportWidth / 2);
                 float cameraY = MathUtils.clamp(ash.getPlayerPosition().y + ash.getPlayerHeight() / 2,
                         camera.viewportHeight / 2, map_size.y - camera.viewportHeight / 2);
 
+                
+                cambiaProfondita();
                 ash.move(oggettiStoria, collisionLayer, rectList);
 
                 menuLabel.render();
@@ -223,98 +226,37 @@ public class MercurioMain extends Game implements InterfacciaComune {
         this.rectList = rectList;
     }
 
-    public void renderPlayer() {
-        try {
-
-            batch.setProjectionMatrix(camera.combined);
-            batch.begin();
-
-            batch.draw(ash.getAnimazione(), ash.getPlayerPosition().x, ash.getPlayerPosition().y, ash.getCurrentWidht(),
-                    ash.getCurrentHeght());
-
-            //batch.draw(poke.getCurrentAnimation(), poke.getCharacterPosition().x, poke.getCharacterPosition().y,
-            //        poke.getWidth(), poke.getHeight());
-
-
-            batch.end();
-        } catch (Exception e) {
-            System.out.println("Errore renerPlayer mercurioMain, " + e);
-        }
-
-    }
-
-    public void renderPersonaggiSecondari(TextureRegion animazione, float x, float y, float width, float height) {
-        try {
-
-            batch.setProjectionMatrix(camera.combined);
-            batch.begin();
-
-            batch.draw(animazione, x, y, width, height);
-
-            batch.end();
-        } catch (Exception e) {
-            System.out.println("Errore renderPersonaggiSecondari mercuriomain, " + e);
-        }
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void dispose() {
-        // System.out.println("Spegnimento in corso...");
-
-        // Termina tutti i thread attivi
-        ThreadGroup rootGroup = Thread.currentThread().getThreadGroup();
-        ThreadGroup parentGroup;
-        while ((parentGroup = rootGroup.getParent()) != null) {
-            rootGroup = parentGroup;
-        }
-        Thread[] threads = new Thread[rootGroup.activeCount()];
-        rootGroup.enumerate(threads);
-        for (Thread thread : threads) {
-            if (thread != null && thread.isAlive()) {
-                thread.interrupt();
-            }
-        }
-        
-        //Dispose degli asset
-        asset.unloadAllAsh();
-        asset.dispose();
-        // Chiudi il batch
-        batch.dispose();
-        // Chiudi l'applicazione
-        Gdx.app.exit();
-        // Chiudi l'applicazione
-        System.exit(0);
-    }
 
     // avvia un altra scheda
     @Override
     public void setPage(String screen) {
         Screen newScreen = null;
         switch (screen) {
+
+            case Constant.SCHERMATA_LOGO:
+                newScreen = new SchermataLogo(this);
+                setPage(Constant.MENU_SCREEN);
+                break;
+
             case Constant.MENU_SCREEN:
                 newScreen = new Menu(this);
-                screen_id = 0;
+                utilityVariables.setSchermataMercurio(true);
                 break;
 
             case Constant.CASA_ASH_SCREEN:
                 asset.loadBotAsset();
                 asset.finishLoading();
                 newScreen = new CasaSpawn(this);
-                utilityVariables.setLuogo("casaSpawn");
-                utilityVariables.setUltimaVisitaLuogo("casaSpawn");
+                utilityVariables.setLuogo(Constant.CASA_ASH_SCREEN);
+                utilityVariables.setUltimaVisitaLuogo(Constant.CASA_ASH_SCREEN);
                 utilityVariables.setUltimaVisita(Constant.CASA_ASH_SCREEN);
-                screen_id = 1;
+                utilityVariables.setSchermataMercurio(false);
+                screenString = screen;
+                break;
+
+            case Constant.SPAWN_SCREEN:
+                //TODO: quando chiamo questo bisogna settare per capire se deve essere p1 o bosco
+                utilityVariables.setSchermataMercurio(false);
                 screenString = screen;
                 break;
 
@@ -322,11 +264,11 @@ public class MercurioMain extends Game implements InterfacciaComune {
                 asset.loadBotAsset();
                 asset.finishLoading();
                 newScreen = new PokeCenter(this);
-                screen_id = 2;
-                utilityVariables.setLuogo("pokeCenter");
                 ingressoPokeCenter = "uscitaPokeCenterC";
-                utilityVariables.setUltimaVisitaLuogo("casaSpawn");
+                utilityVariables.setLuogo(Constant.CENTRO_POKEMON_LUOGO);
+                utilityVariables.setUltimaVisitaLuogo(Constant.CENTRO_POKEMON_LUOGO);
                 utilityVariables.setUltimaVisita(Constant.CENTRO_POKEMON_CAPITALE_SCREEN);
+                utilityVariables.setSchermataMercurio(false);
                 screenString = screen;
                 break;
 
@@ -334,11 +276,11 @@ public class MercurioMain extends Game implements InterfacciaComune {
                 asset.loadBotAsset();
                 asset.finishLoading();
                 newScreen = new PokeCenter(this);
-                screen_id = 2;
-                utilityVariables.setLuogo("pokeCenter");
                 ingressoPokeCenter = "uscitaPokeCenterN";
-                utilityVariables.setUltimaVisitaLuogo("pokeCenter");
+                utilityVariables.setLuogo(Constant.CENTRO_POKEMON_LUOGO);
+                utilityVariables.setUltimaVisitaLuogo(Constant.CENTRO_POKEMON_LUOGO);
                 utilityVariables.setUltimaVisita(Constant.CENTRO_POKEMON_NORD_SCREEN);
+                utilityVariables.setSchermataMercurio(false);
                 screenString = screen;
                 break;
 
@@ -346,34 +288,31 @@ public class MercurioMain extends Game implements InterfacciaComune {
                 asset.loadBotAsset();
                 asset.finishLoading();
                 newScreen = new PokeCenter(this);
-                screen_id = 2;
-                utilityVariables.setLuogo("pokeCenter");
                 ingressoPokeCenter = "uscitaPokeCenterMontagna";
-                utilityVariables.setUltimaVisitaLuogo("pokeCenter");
+                utilityVariables.setLuogo(Constant.CENTRO_POKEMON_LUOGO);
+                utilityVariables.setUltimaVisitaLuogo(Constant.CENTRO_POKEMON_LUOGO);
                 utilityVariables.setUltimaVisita(Constant.CENTRO_POKEMON_MARE_SCREEN);
+                utilityVariables.setSchermataMercurio(false);
                 screenString = screen;
                 break;
 
-            case Constant.MAPPA_SCREEN:
-                if(asset.areAssetsLoaded()){
-                    asset.unloadAllBot();
-                }
-                newScreen = new FullMap(this, mappa);
-                screen_id = 3;
+            case Constant.CENTRO_POKEMON_ROCCIA:
+                asset.loadBotAsset();
+                asset.finishLoading();
+                newScreen = new PokeCenter(this);
+                ingressoPokeCenter = "cittaRoccia";
+                utilityVariables.setLuogo(Constant.CENTRO_POKEMON_LUOGO);
+                utilityVariables.setUltimaVisitaLuogo(Constant.CENTRO_POKEMON_LUOGO);
+                utilityVariables.setSchermataMercurio(false);
                 screenString = screen;
-                break;
-
-            case Constant.SCHERMATA_LOGO:
-                newScreen = new SchermataLogo(this);
-                setPage(Constant.MENU_SCREEN);
                 break;
 
             case Constant.LABORATORIO:
                 asset.loadBotAsset();
                 asset.finishLoading();
                 newScreen = new Laboratorio(this);
-                screen_id = 4;
-                utilityVariables.setLuogo("laboratorio");
+                utilityVariables.setLuogo(Constant.LABORATORIO);
+                utilityVariables.setSchermataMercurio(false);
                 screenString = screen;
                 break;
 
@@ -381,8 +320,8 @@ public class MercurioMain extends Game implements InterfacciaComune {
                 asset.loadBotAsset();
                 asset.finishLoading();
                 newScreen = new PokeMarket1(this);
-                screen_id = 5;
-                utilityVariables.setLuogo("pokemarket");
+                utilityVariables.setLuogo(Constant.POKEMARKET_LUOGO);
+                utilityVariables.setSchermataMercurio(false);
                 screenString = screen;
                 break;
 
@@ -390,15 +329,15 @@ public class MercurioMain extends Game implements InterfacciaComune {
                 asset.loadBotAsset();
                 asset.finishLoading();
                 newScreen = new PokeMarket2(this);
-                screen_id = 6;
-                utilityVariables.setLuogo("pokemarket");
+                utilityVariables.setLuogo(Constant.POKEMARKET_LUOGO);
+                utilityVariables.setSchermataMercurio(false);
                 screenString = screen;
                 break;
 
             case Constant.GROTTA:
                 newScreen = new Grotta(this);
-                screen_id = 7;
-                utilityVariables.setLuogo("grotta");
+                utilityVariables.setLuogo(Constant.GROTTA);
+                utilityVariables.setSchermataMercurio(false);
                 screenString = screen;
                 break;
 
@@ -407,18 +346,8 @@ public class MercurioMain extends Game implements InterfacciaComune {
                     asset.unloadAllBot();
                 }
                 newScreen = new CittaMontagna(this);
-                screen_id = 7;
-                utilityVariables.setLuogo("cittamontagna");
-                screenString = screen;
-                break;
-
-            case Constant.CENTRO_POKEMON_ROCCIA:
-                asset.loadBotAsset();
-                asset.finishLoading();
-                newScreen = new PokeCenter(this);
-                screen_id = 8;
-                utilityVariables.setLuogo("pokeCenter");
-                ingressoPokeCenter = "cittaRoccia";
+                utilityVariables.setLuogo(Constant.CITTAMONTAGNA);
+                utilityVariables.setSchermataMercurio(false);
                 screenString = screen;
                 break;
 
@@ -461,8 +390,11 @@ public class MercurioMain extends Game implements InterfacciaComune {
 
     }
 
-    public void setMap(TiledMap map, OrthogonalTiledMapRenderer render, OrthographicCamera camera, float larghezza,
-            float altezza) {
+
+    /*
+     * Sezione per le mappe, con il settaggio di una nuova mappa, il cambio della telecamera e il rendering in profondità
+     */
+    public void setMap(TiledMap map, OrthogonalTiledMapRenderer render, OrthographicCamera camera, float larghezza, float altezza) {
         this.map = map;
         map_size = new Vector2(larghezza, altezza);
         tileRenderer = render;
@@ -481,13 +413,129 @@ public class MercurioMain extends Game implements InterfacciaComune {
                 oggettiStoria = new TiledMapTileLayer(0, 0, 0, 0); // Crea un layer vuoto
             }
 
+            // Controllo se "lineeBloccaStoria" esiste nel layer, altrimenti assegna un elemento
+            // vuoto
+            if (map.getLayers().get("lineeBloccaStoria") != null) {
+                lineeBloccaStoria = map.getLayers().get("lineeBloccaStoria");
+            } else {
+                lineeBloccaStoria = new TiledMapTileLayer(0, 0, 0, 0); // Crea un layer vuoto
+            }
+
+            
             lineeLayer = map.getLayers().get("linee");
             alberiBack = map.getLayers().get("alberiBack");
             alberiFore = map.getLayers().get("alberiFore");
-            lineeBloccaStoria = map.getLayers().get("lineeBloccaStoria");
+            
         } catch(Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void cambiaProfondita() {
+        render.clear(); // Puliamo la lista
+
+        // Aggiungi i vari oggetti da renderizzare
+        // Aggiungi i layer
+        for (MapObject object : lineeLayer.getObjects()) {
+            if (object instanceof RectangleMapObject) {
+                RectangleMapObject rectangleObject = (RectangleMapObject) object;
+                String layerName = (String) rectangleObject.getProperties().get("layer");
+                float y = rectangleObject.getRectangle().getY();
+                render.add(new Render("layer", layerName, y));
+            }
+        }
+
+        // Aggiungi il player
+        render.add(new Render("player", ash.getPlayerPosition().y));
+
+        for (Render bot : renderBot) {
+            render.add(bot);
+        }
+
+        // Ordina la lista in base alla posizione `y` (per la profondità)
+        Collections.sort(render, Comparator.comparingDouble(r -> -r.y)); // Ordinamento decrescente
+
+        // Ordina anche il background (se necessario)
+        for (String layerName : listaAllawaysBack) {
+            renderLayer(layerName);
+        }
+
+        // Renderizza nell'ordine corretto
+        for (Render renderComponent : render) {
+            switch (renderComponent.type) {
+                case "layer":
+                    renderLayer(renderComponent.layerName);
+                    break;
+
+                case "player":
+                    renderPlayer();
+                    break;
+
+                case "bot":
+                    renderPersonaggiSecondari(renderComponent.texture, renderComponent.x, renderComponent.y, renderComponent.width, renderComponent.height);
+                    break;
+                
+            }
+        }
+    }
+
+
+    private void renderLayer(String layerName) {
+        try {
+            tileRenderer.getBatch().begin();
+    
+            // Recupera il layer dalla mappa
+            MapLayer layer = map.getLayers().get(layerName);
+            // Renderizza il layer
+            tileRenderer.renderTileLayer((TiledMapTileLayer) layer);
+    
+            tileRenderer.getBatch().end();
+        } catch (Exception e) {
+            System.out.println("Errore durante il rendering del layer: " + e);
+        }
+    }
+
+    public void renderPlayer() {
+        try {
+
+            batch.setProjectionMatrix(camera.combined);
+            batch.begin();
+
+            batch.draw(ash.getAnimazione(), ash.getPlayerPosition().x, ash.getPlayerPosition().y, ash.getCurrentWidht(),
+                    ash.getCurrentHeght());
+
+            batch.end();
+        } catch (Exception e) {
+            System.out.println("Errore renderPlayer mercurioMain, " + e);
+        }
+
+    }
+
+    public void renderPersonaggiSecondari(TextureRegion animazione, float x, float y, float width, float height) {
+        try {
+
+            batch.setProjectionMatrix(camera.combined);
+            batch.begin();
+
+            batch.draw(animazione, x, y, width, height);
+
+            batch.end();
+        } catch (Exception e) {
+            System.out.println("Errore renderPersonaggiSecondari mercuriomain, " + e);
+        }
+
+    }
+
+    public void aggiornaListaAllawaysBack(ArrayList<String> nuovaLista) {
+        // Svuota la lista attuale
+        listaAllawaysBack.clear();
+    
+        // Aggiungi tutti gli elementi della nuova lista
+        listaAllawaysBack.addAll(nuovaLista);
+    }
+
+    public void addBotRender(List<Render> newRenderBot) {
+        renderBot = newRenderBot;
     }
 
     public MapLayer getLineeLayer() {
@@ -697,6 +745,46 @@ public class MercurioMain extends Game implements InterfacciaComune {
     }
     public UtilityVariables getUtilityVariables() {
         return utilityVariables;
+    }
+
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void dispose() {
+        // System.out.println("Spegnimento in corso...");
+
+        // Termina tutti i thread attivi
+        ThreadGroup rootGroup = Thread.currentThread().getThreadGroup();
+        ThreadGroup parentGroup;
+        while ((parentGroup = rootGroup.getParent()) != null) {
+            rootGroup = parentGroup;
+        }
+        Thread[] threads = new Thread[rootGroup.activeCount()];
+        rootGroup.enumerate(threads);
+        for (Thread thread : threads) {
+            if (thread != null && thread.isAlive()) {
+                thread.interrupt();
+            }
+        }
+        
+        //Dispose degli asset
+        asset.unloadAllAsh();
+        asset.dispose();
+        // Chiudi il batch
+        batch.dispose();
+        // Chiudi l'applicazione
+        Gdx.app.exit();
+        // Chiudi l'applicazione
+        System.exit(0);
     }
 
 }

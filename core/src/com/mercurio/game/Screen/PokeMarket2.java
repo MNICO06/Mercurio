@@ -214,7 +214,8 @@ public class PokeMarket2 extends ScreenAdapter {
 
             if (game.getPlayer().getBoxPlayer().overlaps(rectangleUscita)) {
                 game.setTeleport("uscitaPokeMarketMare");
-                game.setPage(Constant.MAPPA_SCREEN);
+                //game.setPage(Constant.MAPPA_SCREEN);
+                //TODO: cambiare con la mappa nuova
             }
         } catch (Exception e) {
             System.out.println("Errore controllaUscita pokeMarket2, " + e);
