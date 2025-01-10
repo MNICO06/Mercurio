@@ -1,8 +1,8 @@
 {
 "1" : {
     "nomePokemon" : "Pikachu",
-    "livello-min" : 9,
-    "livello-max": 15
+    "livello-min" : 6,
+    "livello-max": 9
 },
 "2" : {
     "nomePokemon" : "Weedle",
@@ -16,17 +16,17 @@
 },
 "4" : {
     "nomePokemon" : "NidoranM",
-    "livello-min" : 6,
-    "livello-max": 11
+    "livello-min" : 4,
+    "livello-max": 8
 },
 "5" : {
     "nomePokemon" : "Bidoof",
-    "livello-min" : 6,
-    "livello-max": 11
+    "livello-min" : 4,
+    "livello-max": 8
 },
 "6" : {
     "nomePokemon" : "Geodude",
-    "livello-min" : 6,
-    "livello-max": 11
+    "livello-min" : 4,
+    "livello-max": 9
 }
 }
