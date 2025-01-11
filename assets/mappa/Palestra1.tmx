@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="50" height="35" tilewidth="16" tileheight="16" infinite="0" nextlayerid="55" nextobjectid="154">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="50" height="35" tilewidth="16" tileheight="16" infinite="0" nextlayerid="57" nextobjectid="190">
  <tileset firstgid="1" name="ground" tilewidth="16" tileheight="16" tilecount="256" columns="16">
   <image source="ground_grounds_2.png" width="256" height="256"/>
  </tileset>
@@ -849,7 +849,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="25" name="statueStart" width="50" height="35">
+ <layer id="25" name="statue" width="50" height="35">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -1477,20 +1477,49 @@
   <object id="146" x="320.119" y="400.201" width="16.1" height="11.2909"/>
  </objectgroup>
  <objectgroup color="#001aff" id="54" name="linee">
-  <object id="139" name="statue" x="349.114" y="529.461" width="102.526"/>
-  <object id="140" name="rocce0" x="653.843" y="482.59" width="67.4751" height="0.190071"/>
-  <object id="141" name="rocce1" x="475.179" y="372.312" width="76.9843" height="0.331829"/>
-  <object id="142" name="rocce2" x="478.497" y="309.928" width="74.3297" height="0.331829"/>
-  <object id="143" name="rocce3" x="475.511" y="246.217" width="72.6706" height="0.331829"/>
-  <object id="144" name="rocce4" x="479.493" y="180.847" width="76.6525" height="0.331829"/>
-  <object id="148" name="rocce5" x="287.73" y="148.383" width="53.8998" height="0.317058"/>
-  <object id="149" name="rocce6" x="155.834" y="146.164" width="132.847" height="0.317058"/>
-  <object id="150" name="rocce7" x="555.75" y="81.9848" width="40.0516" height="0.268803"/>
-  <object id="151" name="rocce8" x="488.549" y="67.3351" width="63.5719" height="0.134401"/>
-  <object id="152" name="rocce9" x="200.81" y="50.6348" width="61.0087" height="0.246999"/>
-  <object id="153" name="piloniTorcia" x="613.298" y="103.987" width="181.05"/>
+  <object id="139" name="statue" x="341.996" y="529.461" width="119.193"/>
+  <object id="140" name="rocce0" x="643.773" y="482.59" width="77.5449" height="0.190071"/>
+  <object id="141" name="rocce1" x="463.199" y="372.312" width="95.9086" height="0.331829"/>
+  <object id="142" name="rocce2" x="463.219" y="309.928" width="95.8582" height="0.331829"/>
+  <object id="143" name="rocce3" x="465.268" y="246.217" width="91.074" height="0.331829"/>
+  <object id="144" name="rocce4" x="464.041" y="180.847" width="95.4032" height="0.331829"/>
+  <object id="148" name="rocce5" x="281.392" y="148.383" width="63.2268" height="0.317058"/>
+  <object id="149" name="rocce6" x="150.333" y="146.164" width="146.24" height="0.317058"/>
+  <object id="150" name="rocce7" x="550.13" y="81.9848" width="52.5888" height="0.268803"/>
+  <object id="151" name="rocce8" x="483.527" y="67.3351" width="74.6926" height="0.134401"/>
+  <object id="152" name="rocce9" x="198.179" y="50.6348" width="70.6945" height="0.246999"/>
+  <object id="153" name="decoNONBG" x="613.298" y="103.987" width="181.05"/>
  </objectgroup>
  <objectgroup color="#07ff00" id="52" name="exit">
   <object id="136" x="385.12" y="544.748" width="29.4252" height="15.8561"/>
+ </objectgroup>
+ <objectgroup color="#ff00eb" id="55" name="palestra1_bot">
+  <object id="156" name="Montanaro" x="666.788" y="138.876" width="24.8643" height="25.1675"/>
+  <object id="160" name="Minatore" x="545.957" y="219.364" width="29.4268" height="27.8663"/>
+  <object id="161" name="Minatore" x="438.282" y="282.007" width="30.3186" height="29.8727"/>
+  <object id="162" name="Montanaro" x="544.62" y="346.434" width="30.9874" height="30.7644"/>
+  <object id="164" name="Montanaro" x="602.136" y="199.3" width="27.6434" height="27.6434"/>
+  <object id="165" name="Minatore" x="378.692" y="263.605" width="27.4018" height="27.4018"/>
+  <object id="166" name="Minatore" x="171.06" y="251.031" width="24.3859" height="24.7445"/>
+  <object id="167" name="Montanaro" x="123.005" y="251.031" width="24.3859" height="26.1789"/>
+  <object id="168" name="Montanaro" x="91.4171" y="492.012" width="24.6006" height="25.208"/>
+  <object id="169" name="Minatore" x="268.891" y="155.735" width="25.8775" height="25.8775"/>
+  <object id="170" name="Montanaro" x="168.282" y="24.2988" width="29.2103" height="28.6933"/>
+  <object id="171" name="Montanaro" x="456.766" y="71.3455" width="27.6593" height="27.1423"/>
+  <object id="189" name="Brock" x="716.618" y="60.0583" width="23.0321" height="23.6152"/>
+ </objectgroup>
+ <objectgroup color="#00fffb" id="56" name="palestra1_bot_linea">
+  <object id="172" name="palestra1_bot_linea" x="672.07" y="151.055" width="15.9651" height="105.615"/>
+  <object id="173" name="palestra1_bot_linea" x="608.796" y="216.138" width="14.0414" height="191.565"/>
+  <object id="174" name="palestra1_bot_linea" x="435.607" y="224.916" width="122.089" height="13.0386"/>
+  <object id="175" name="palestra1_bot_linea" x="450.72" y="288.627" width="117.94" height="16.0019"/>
+  <object id="176" name="palestra1_bot_linea" x="441.534" y="352.338" width="122.385" height="15.7056"/>
+  <object id="177" name="palestra1_bot_linea" x="385.824" y="280.33" width="13.6312" height="116.458"/>
+  <object id="179" name="palestra1_bot_linea" x="98.8373" y="450.616" width="11.9247" height="57.3302"/>
+  <object id="180" name="palestra1_bot_linea" x="50.6934" y="258.098" width="86.2762" height="12.4296"/>
+  <object id="181" name="palestra1_bot_linea" x="178.158" y="258.098" width="123.565" height="12.6733"/>
+  <object id="184" name="palestra1_bot_linea" x="212.566" y="161.779" width="73.3126" height="13.1062"/>
+  <object id="186" name="palestra1_bot_linea" x="175.295" y="38.0898" width="15.9731" height="54.0629"/>
+  <object id="187" name="palestra1_bot_linea" x="370.249" y="80.6848" width="106.078" height="13.1062"/>
  </objectgroup>
 </map>
