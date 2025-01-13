@@ -6,8 +6,6 @@ import java.util.TimerTask;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
@@ -19,11 +17,12 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mercurio.game.effects.LabelDiscorsi;
 import com.mercurio.game.personaggi.MammaAsh;
+import com.mercurio.game.utility.MapsAbstract;
 import com.mercurio.game.utility.UtilityFunctions;
 
 import java.util.Timer;
 
-public class CasaSpawn extends ScreenAdapter {
+public class CasaSpawn extends MapsAbstract {
     private final MercurioMain game;
     private UtilityFunctions utilityFunctions;
     private MammaAsh mammaAsh;
@@ -52,7 +51,9 @@ public class CasaSpawn extends ScreenAdapter {
 
 
     public CasaSpawn(MercurioMain game) {
+        super(game);
         this.game = game;
+
         utilityFunctions = new UtilityFunctions();
         mammaAsh = new MammaAsh(game);
         
@@ -73,7 +74,6 @@ public class CasaSpawn extends ScreenAdapter {
         try {
 
             game.setLuogo(Constant.CASA_ASH_SCREEN);
-            //TODO controllare se mi serve così o no: game.getMusica().startMusic("casaSpawn");
 
             // timer da usare dopo per far girare la mamma sui fornelli
             timer = new Timer();
@@ -136,8 +136,6 @@ public class CasaSpawn extends ScreenAdapter {
     @Override
     public void render(float delta) {
 
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.setRectangleList(rectList);
 
         renderBot.clear();
@@ -151,22 +149,8 @@ public class CasaSpawn extends ScreenAdapter {
         controllaFermaPlayer();
     }
 
-
-    private void settaPlayerPosition() {
-        //true se proviene dal fullmap, se no non faccio nulla che prende le posizioni salvate nel json
-        if (game.getProvieneDaMappa()) {
-            MapObjects objects = map.getLayers().get("teleport").getObjects();
-            for (MapObject object : objects) {
-                if (object instanceof RectangleMapObject) {
-                    // Se l'oggetto è un rettangolo
-                    RectangleMapObject rectangleObject = (RectangleMapObject) object;
-                    game.getPlayer().setPosition(rectangleObject.getRectangle().getX(), rectangleObject.getRectangle().getY());
-                } 
-            }
-            game.setProvieneDaMappa(false);
-        }
-        game.setPokemonMorti(false);
-    }
+    
+    
 
     private void fermaPlayer() {
         game.getPlayer().setMovement(false);

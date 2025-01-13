@@ -35,7 +35,6 @@ import com.mercurio.game.utility.UtilityVariables;
 public class MercurioMain extends Game implements InterfacciaComune {
 
     private TiledMap map;
-
     private Vector2 map_size;
 
     private OrthogonalTiledMapRenderer tileRenderer;
@@ -160,9 +159,11 @@ public class MercurioMain extends Game implements InterfacciaComune {
                 float cameraY = MathUtils.clamp(ash.getPlayerPosition().y + ash.getPlayerHeight() / 2,
                         camera.viewportHeight / 2, map_size.y - camera.viewportHeight / 2);
 
-                
+
                 cambiaProfondita();
                 ash.move(oggettiStoria, collisionLayer, rectList);
+
+                currentScreen.render(elapsedTime);
 
                 menuLabel.render();
 
