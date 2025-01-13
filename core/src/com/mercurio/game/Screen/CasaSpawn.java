@@ -81,6 +81,7 @@ public class CasaSpawn extends MapsAbstract {
                 @Override
                 public void run() {
                     mammaAsh.setAvanti();
+                    cambiaBot();
                 }
             };
 
@@ -137,9 +138,6 @@ public class CasaSpawn extends MapsAbstract {
     public void render(float delta) {
 
         game.setRectangleList(rectList);
-
-        renderBot.clear();
-        renderBot.add(new Render("bot", mammaAsh.getTexture(), mammaAsh.getPosition().x, mammaAsh.getPosition().y, mammaAsh.getWidth(), mammaAsh.getHeight(), "mammaAsh"));
         game.addBotRender(renderBot);
 
         giraMamma();
@@ -149,13 +147,17 @@ public class CasaSpawn extends MapsAbstract {
         controllaFermaPlayer();
     }
 
-    
+    private void cambiaBot() {
+        renderBot.clear();
+        renderBot.add(new Render("bot", mammaAsh.getTexture(), mammaAsh.getPosition().x, mammaAsh.getPosition().y, mammaAsh.getWidth(), mammaAsh.getHeight(), "mammaAsh"));
+    }
     
 
     private void fermaPlayer() {
         game.getPlayer().setMovement(false);
         game.getPlayer().setFermoDestra();
         mammaAsh.setSinstra();
+        cambiaBot();
 
         // Pianifica un nuovo compito per far tornare la mamma nella posizione "avanti" dopo 5 secondi
         mammaTimerTask = new TimerTask() {
@@ -203,6 +205,7 @@ public class CasaSpawn extends MapsAbstract {
                 @Override
                 public void run() {
                     mammaAsh.setAvanti();
+                    cambiaBot();
                 }
             };
 
@@ -268,6 +271,7 @@ public class CasaSpawn extends MapsAbstract {
             }
 
             wasInBox = isInBox;
+            cambiaBot();
         } catch (Exception e) {
             System.out.println("Errore giraMamma casaSpawn, " + e);
         }

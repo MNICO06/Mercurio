@@ -1,29 +1,24 @@
 package com.mercurio.game.Screen;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mercurio.game.personaggi.Commesso;
+import com.mercurio.game.utility.MapsAbstract;
 
-public class PokeMarket1 extends ScreenAdapter {
+public class PokeMarket1 extends MapsAbstract {
     private final MercurioMain game;
 
     // dati per render della mappa
@@ -31,7 +26,6 @@ public class PokeMarket1 extends ScreenAdapter {
     private OrthogonalTiledMapRenderer tileRenderer;
     private OrthographicCamera camera;
     private Vector2 map_size;
-    private MapLayer lineeLayer;
     private Commesso commesso1;
     private Commesso commesso2;
 
@@ -44,23 +38,17 @@ public class PokeMarket1 extends ScreenAdapter {
     private ArrayList<Rectangle> rectList = null;
     List<Render> render = new ArrayList<>();
     ArrayList<String> listaAllawaysBack = new ArrayList<String>();
+    private List<Render> renderBot = new ArrayList<>();
 
     private Rectangle rectangleUscita;
 
     public PokeMarket1(MercurioMain game) {
+        super(game);
         this.game = game;
 
         rectList = new ArrayList<Rectangle>();
         commesso1 = new Commesso(game);
         commesso2 = new Commesso(game);
-        // batch = new SpriteBatch();
-
-
-        listaAllawaysBack.add("floor");
-        listaAllawaysBack.add("tappeto");
-        listaAllawaysBack.add("WallAlwaysBack");
-        listaAllawaysBack.add("AlwaysBack");
-        listaAllawaysBack.add("AlwaysBack2");
 
     }
 
@@ -90,7 +78,12 @@ public class PokeMarket1 extends ScreenAdapter {
 
             game.setMap(pokeMarket, tileRenderer, camera, map_size.x, map_size.y);
 
-            // aggiungere alla lista delle collisioni quella del professore
+            listaAllawaysBack.add("floor");
+            listaAllawaysBack.add("tappeto");
+            listaAllawaysBack.add("WallAlwaysBack");
+            listaAllawaysBack.add("AlwaysBack");
+            listaAllawaysBack.add("AlwaysBack2");
+            game.aggiornaListaAllawaysBack(listaAllawaysBack);
 
             settaPlayerPosition();
 
@@ -117,7 +110,6 @@ public class PokeMarket1 extends ScreenAdapter {
             int cont = 0;
             // recupero il rettangolo per uscire dalla mappa
             MapObjects objects = pokeMarket.getLayers().get("posizioneCasse").getObjects();
-            System.out.println("Prova");
             for (MapObject object : objects) {
                 if (object instanceof RectangleMapObject) {
                     RectangleMapObject rectangleObject = (RectangleMapObject) object;
@@ -133,13 +125,16 @@ public class PokeMarket1 extends ScreenAdapter {
                 cont ++;
             }
 
+            cambiaCommessi();
+
         } catch (Exception e) {
             System.out.println("Errore settaCommessiPosition pokeMarket1, " + e);
         }
 
     }
 
-    private void settaPlayerPosition() {
+    @Override
+    protected void settaPlayerPosition() {
         try {
 
             // recupero il rettangolo per uscire dalla mappa
@@ -159,19 +154,15 @@ public class PokeMarket1 extends ScreenAdapter {
         } catch (Exception e) {
             System.out.println("Errore settaplayerposition pokemarket, " + e);
         }
-
     }
 
     @Override
     public void render(float delta) {
         try {
 
-            Gdx.gl.glClearColor(0, 0, 0, 1);
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-            lineeLayer = game.getLineeLayer();
             game.setRectangleList(rectList);
-            cambiaProfondita(lineeLayer);
+            game.addBotRender(renderBot);
+
             controllaUscita();
             controllaShop();
         } catch (Exception e) {
@@ -180,79 +171,10 @@ public class PokeMarket1 extends ScreenAdapter {
 
     }
 
-    private void cambiaProfondita(MapLayer lineeLayer) {
-        // pulisco l'array in modo tale che non pesi
-        render.clear();
-
-        try {
-
-            // inserisci i vari layer nella lista
-            for (MapObject object : lineeLayer.getObjects()) {
-                if (object instanceof RectangleMapObject) {
-                    RectangleMapObject rectangleObject = (RectangleMapObject) object;
-                    String layerName = (String) rectangleObject.getProperties().get("layer");
-                    float y = rectangleObject.getRectangle().getY();
-                    render.add(new Render("layer", layerName, y));
-                }
-            }
-
-            // Inserisci eventuali personaggio e il giocatore
-            render.add(new Render("player", game.getPlayer().getPlayerPosition().y));
-            render.add(new Render("bot", commesso1.getTexture(), commesso1.getPosition().x,
-                    commesso1.getPosition().y, commesso1.getWidth(), commesso1.getHeight(), "commesso1"));
-            render.add(new Render("bot", commesso2.getTexture(), commesso2.getPosition().x,
-                    commesso2.getPosition().y, commesso2.getWidth(), commesso2.getHeight(), "commesso2"));
-
-            // Ordina in base alla posizione `y`
-            Collections.sort(render, Comparator.comparingDouble(r -> -r.y));
-
-            // background
-            for (String layerName : listaAllawaysBack) {
-                renderLayer(layerName);
-            }
-
-            // Renderizza nell'ordine corretto
-            for (Render renderComponent : render) {
-                switch (renderComponent.type) {
-                    case "layer":
-                        renderLayer(renderComponent.layerName);
-                        break;
-                    case "bot":
-                        if (renderComponent.persona.equals("commesso1")) {
-                            game.renderPersonaggiSecondari(commesso1.getTexture(), commesso1.getPosition().x,
-                                    commesso1.getPosition().y, commesso1.getWidth(), commesso1.getHeight());
-                        } else if (renderComponent.persona.equals("commesso2")) {
-                            game.renderPersonaggiSecondari(commesso2.getTexture(), commesso2.getPosition().x,
-                                    commesso2.getPosition().y, commesso2.getWidth(), commesso2.getHeight());
-                        }
-                        break;
-                    case "player":
-                        game.renderPlayer();
-                        break;
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("Errore cambiaProfondita pokeMarket1, " + e);
-        }
-
-    }
-
-    // funzione per il rendering dei layer
-    private void renderLayer(String layerName) {
-        try {
-
-            tileRenderer.getBatch().begin();
-
-            // Recupera il layer dalla mappa
-            MapLayer layer = pokeMarket.getLayers().get(layerName);
-            // Renderizza il layer
-            tileRenderer.renderTileLayer((TiledMapTileLayer) layer);
-
-            tileRenderer.getBatch().end();
-        } catch (Exception e) {
-            System.out.println("Errore renderLayer pokemarket1, " + e);
-        }
-
+    private void cambiaCommessi() {
+        renderBot.clear();
+        renderBot.add(new Render("bot", commesso1.getTexture(), commesso1.getPosition().x, commesso1.getPosition().y, commesso1.getWidth(), commesso1.getHeight(), "commesso1"));
+        renderBot.add(new Render("bot", commesso2.getTexture(), commesso2.getPosition().x, commesso2.getPosition().y, commesso2.getWidth(), commesso2.getHeight(), "commesso2"));
     }
 
     private void controllaUscita() {

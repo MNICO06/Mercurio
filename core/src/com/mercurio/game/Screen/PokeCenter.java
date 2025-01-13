@@ -1,38 +1,40 @@
 package com.mercurio.game.Screen;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mercurio.game.effects.LabelDiscorsi;
 import com.mercurio.game.personaggi.Dottoressa;
+import com.mercurio.game.utility.MapsAbstract;
+import com.mercurio.game.utility.UtilityFunctions;
 
-public class PokeCenter extends ScreenAdapter {
+public class PokeCenter extends MapsAbstract {
     private final MercurioMain game;
+    private List<Render> renderBot = new ArrayList<>();
+    ArrayList<String> background = new ArrayList<String>();
 
     // dati per render della mappa
     private TiledMap pokeCenterMap;
     private OrthogonalTiledMapRenderer tileRenderer;
     private OrthographicCamera camera;
     private Vector2 map_size;
-    private MapLayer lineeLayer;
     private float xPosition;
     private float yPosition;
     private int risposta = -1;
 
     private Dottoressa dottoressa;
+    private UtilityFunctions utilityFunctions;
     private LabelDiscorsi discorso;
 
     private boolean renderTesto = true;
@@ -43,8 +45,10 @@ public class PokeCenter extends ScreenAdapter {
     private boolean deveScegliere = false;
 
     public PokeCenter(MercurioMain game) {
+        super(game);
         this.game = game;
         dottoressa = new Dottoressa(game);
+        utilityFunctions = new UtilityFunctions();
     }
 
     @Override
@@ -69,6 +73,15 @@ public class PokeCenter extends ScreenAdapter {
 
             game.setMap(pokeCenterMap, tileRenderer, camera, map_size.x, map_size.y);
 
+
+            background.add("floor");
+            background.add("WallAlwaysBack");
+            background.add("AlwaysBack_1");
+            background.add("bancone");
+            background.add("computer");
+            background.add("deco bancone");
+            game.aggiornaListaAllawaysBack(background);
+
             getPostionDoctor();
 
             game.getMusica().startMusic(game.getLuogo());
@@ -83,11 +96,8 @@ public class PokeCenter extends ScreenAdapter {
     @Override
     public void render(float delta) {
         try {
+            game.addBotRender(renderBot);
 
-            Gdx.gl.glClearColor(0, 0, 0, 1);
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-            lineeLayer = game.getLineeLayer();
-            cambiaProfondita(lineeLayer);
             esci();
             checkCure();
             checkBox();
@@ -102,6 +112,13 @@ public class PokeCenter extends ScreenAdapter {
         }
 
     }
+
+    /*
+    private void cambiaBot() {
+        renderBot.clear();
+        renderBot.add(new Render("bot", dottoressa.getTexture(), dottoressa.getPosition().x, dottoressa.getPosition().y, dottoressa.getWidth(), dottoressa.getHeight(), "dottoressa"));
+    }
+    */
 
     private void muoviPlayerPosition() {
         game.getPlayer().setMovement(true);
@@ -120,79 +137,6 @@ public class PokeCenter extends ScreenAdapter {
             }
         } catch (Exception e) {
             System.out.println("Errore getPostionDoctor pokeCenter, " + e);
-        }
-
-    }
-
-    private void cambiaProfondita(MapLayer lineeLayer) {
-        try {
-
-            ArrayList<String> background = new ArrayList<String>();
-            ArrayList<String> foreground = new ArrayList<String>();
-            ArrayList<String> backbackground = new ArrayList<String>();
-
-            backbackground.add("floor");
-
-            background.add("WallAlwaysBack");
-            background.add("AlwaysBack_1");
-            background.add("bancone");
-            background.add("computer");
-            background.add("deco bancone");
-
-            for (MapObject object : lineeLayer.getObjects()) {
-                if (object instanceof RectangleMapObject) {
-                    RectangleMapObject rectangleObject = (RectangleMapObject) object;
-
-                    // salvo il nome del layer che verrà inserito in una delle due liste
-                    String layerName = (String) rectangleObject.getProperties().get("layer");
-
-                    if (game.getPlayer().getPlayerPosition().y < rectangleObject.getRectangle().getY()) {
-                        background.add(layerName);
-                    } else {
-                        foreground.add(layerName);
-                    }
-                }
-            }
-
-            // pavimento
-            for (String LayerName : backbackground) {
-                renderLayer(LayerName);
-            }
-
-            game.renderPersonaggiSecondari(dottoressa.getTexture(), dottoressa.getPosition().x,
-                    dottoressa.getPosition().y, dottoressa.getWidth(), dottoressa.getHeight());
-
-            // background
-            for (String layerName : background) {
-                renderLayer(layerName);
-            }
-
-            game.renderPlayer();
-
-            // foreground
-            for (String layerName : foreground) {
-                renderLayer(layerName);
-            }
-        } catch (Exception e) {
-            System.out.println("Errore cambiaProfondita pokecenter, " + e);
-        }
-
-    }
-
-    // Metodo per renderizzare un singolo layer
-    private void renderLayer(String layerName) {
-        try {
-
-            tileRenderer.getBatch().begin();
-
-            // Recupera il layer dalla mappa
-            MapLayer layer = pokeCenterMap.getLayers().get(layerName);
-            // Renderizza il layer
-            tileRenderer.renderTileLayer((TiledMapTileLayer) layer);
-
-            tileRenderer.getBatch().end();
-        } catch (Exception e) {
-            System.out.println("Errore renderLayer pokecenter, " + e);
         }
 
     }
@@ -263,7 +207,7 @@ public class PokeCenter extends ScreenAdapter {
 
                     if (risposta != -1) {
                         if (risposta == 1) {
-                            dottoressa.cura();
+                            utilityFunctions.cura();
                             renderTesto = false;
                             discorso.setSceltaUtente(-1);
                         } else if (risposta == 0) {
@@ -272,7 +216,7 @@ public class PokeCenter extends ScreenAdapter {
                         }
                     }
                 }else {
-                    dottoressa.cura();
+                    utilityFunctions.cura();
                     discorso.renderDisc();
                     if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
                         // da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)

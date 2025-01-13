@@ -1,27 +1,22 @@
 package com.mercurio.game.Screen;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.mercurio.game.personaggi.Commesso;
+import com.mercurio.game.utility.MapsAbstract;
 
-public class PokeMarket2 extends ScreenAdapter {
+public class PokeMarket2 extends MapsAbstract {
     private final MercurioMain game;
 
     // dati per render della mappa
@@ -29,7 +24,7 @@ public class PokeMarket2 extends ScreenAdapter {
     private OrthogonalTiledMapRenderer tileRenderer;
     private OrthographicCamera camera;
     private Vector2 map_size;
-    private MapLayer lineeLayer;
+    private Commesso commesso;
 
     // private SpriteBatch batch;
     Vector3 screenPosition;
@@ -38,23 +33,16 @@ public class PokeMarket2 extends ScreenAdapter {
     private ArrayList<Rectangle> rectList = null;
     List<Render> render = new ArrayList<>();
     ArrayList<String> listaAllawaysBack = new ArrayList<String>();
+    private List<Render> renderBot = new ArrayList<>();
 
     private Rectangle rectangleUscita;
 
     public PokeMarket2(MercurioMain game) {
+        super(game);
         this.game = game;
 
         rectList = new ArrayList<Rectangle>();
-        // batch = new SpriteBatch();
-
-        listaAllawaysBack.add("floor");
-        listaAllawaysBack.add("WallAlwaysBack");
-        listaAllawaysBack.add("AlwaysBack");
-        listaAllawaysBack.add("tappeto");
-        listaAllawaysBack.add("bancone");
-        listaAllawaysBack.add("cassa");
-        listaAllawaysBack.add("camino");
-        listaAllawaysBack.add("orsetto");
+        commesso = new Commesso(game);
 
     }
 
@@ -68,6 +56,7 @@ public class PokeMarket2 extends ScreenAdapter {
             TmxMapLoader mapLoader = new TmxMapLoader();
             pokeMarket = mapLoader.load(Constant.POKEMARKET2_MAP);
             tileRenderer = new OrthogonalTiledMapRenderer(pokeMarket);
+            settaCommessoPosition();
 
             // calcolo e assegno dimensioni alla mappa
             int mapWidth = pokeMarket.getProperties().get("width", Integer.class)
@@ -83,7 +72,15 @@ public class PokeMarket2 extends ScreenAdapter {
 
             game.setMap(pokeMarket, tileRenderer, camera, map_size.x, map_size.y);
 
-            // aggiungere alla lista delle collisioni quella del professore
+            listaAllawaysBack.add("floor");
+            listaAllawaysBack.add("WallAlwaysBack");
+            listaAllawaysBack.add("AlwaysBack");
+            listaAllawaysBack.add("tappeto");
+            listaAllawaysBack.add("bancone");
+            listaAllawaysBack.add("cassa");
+            listaAllawaysBack.add("camino");
+            listaAllawaysBack.add("orsetto");
+            game.aggiornaListaAllawaysBack(listaAllawaysBack);
 
             settaPlayerPosition();
 
@@ -99,13 +96,37 @@ public class PokeMarket2 extends ScreenAdapter {
 
                 }
             }
+
+
         } catch (Exception e) {
             System.out.println("Errore show PokeMarket2, " + e);
+        }
+    }
+
+
+    //TODO: da verificare se esiste veramente questo rettangolo
+    private void settaCommessoPosition() {
+        try {
+            // recupero il rettangolo per uscire dalla mappa
+            MapObjects objects = pokeMarket.getLayers().get("posizioneCasse").getObjects();
+            for (MapObject object : objects) {
+                if (object instanceof RectangleMapObject) {
+                    RectangleMapObject rectangleObject = (RectangleMapObject) object;
+                    Rectangle rect = rectangleObject.getRectangle();
+                    commesso.setPosition(rect.getX(), rect.getY());
+                }
+            }
+
+            cambiaBot();
+
+        } catch (Exception e) {
+            System.out.println("Errore settaCommessiPosition pokeMarket1, " + e);
         }
 
     }
 
-    private void settaPlayerPosition() {
+    @Override
+    protected void settaPlayerPosition() {
         try {
             // recupero il rettangolo per uscire dalla mappa
             MapObjects objects = pokeMarket.getLayers().get("teleport").getObjects();
@@ -130,13 +151,9 @@ public class PokeMarket2 extends ScreenAdapter {
     @Override
     public void render(float delta) {
         try {
-
-            Gdx.gl.glClearColor(0, 0, 0, 1);
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-            lineeLayer = game.getLineeLayer();
             game.setRectangleList(rectList);
-            cambiaProfondita(lineeLayer);
+            game.addBotRender(renderBot);
+
             controllaUscita();
         } catch (Exception e) {
             System.out.println("Errore render pokemarket2, " + e);
@@ -144,69 +161,9 @@ public class PokeMarket2 extends ScreenAdapter {
 
     }
 
-    private void cambiaProfondita(MapLayer lineeLayer) {
-        // pulisco l'array in modo tale che non pesi
-        render.clear();
-
-        try {
-
-            // inserisci i vari layer nella lista
-            for (MapObject object : lineeLayer.getObjects()) {
-                if (object instanceof RectangleMapObject) {
-                    RectangleMapObject rectangleObject = (RectangleMapObject) object;
-                    String layerName = (String) rectangleObject.getProperties().get("layer");
-                    float y = rectangleObject.getRectangle().getY();
-                    render.add(new Render("layer", layerName, y));
-                }
-            }
-
-            // Inserisci eventuali personaggio e il giocatore
-            render.add(new Render("player", game.getPlayer().getPlayerPosition().y));
-
-            // Ordina in base alla posizione `y`
-            Collections.sort(render, Comparator.comparingDouble(r -> -r.y));
-
-            // background
-            for (String layerName : listaAllawaysBack) {
-                renderLayer(layerName);
-            }
-
-            // Renderizza nell'ordine corretto
-            for (Render renderComponent : render) {
-                switch (renderComponent.type) {
-                    case "layer":
-                        renderLayer(renderComponent.layerName);
-                        break;
-                    case "bot":
-                        // quando si mettono i player gestirli qua
-                        break;
-                    case "player":
-                        game.renderPlayer();
-                        break;
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("Errore cambiaProfondita pokemarket2, " + e);
-        }
-
-    }
-
-    // funzione per il rendering dei layer
-    private void renderLayer(String layerName) {
-        try {
-
-            tileRenderer.getBatch().begin();
-
-            // Recupera il layer dalla mappa
-            MapLayer layer = pokeMarket.getLayers().get(layerName);
-            // Renderizza il layer
-            tileRenderer.renderTileLayer((TiledMapTileLayer) layer);
-
-            tileRenderer.getBatch().end();
-        } catch (Exception e) {
-            System.out.println("Errore renderLayer pokemarket2, " + e);
-        }
-
+    private void cambiaBot() {
+        renderBot.clear();
+        renderBot.add(new Render("bot", commesso.getTexture(), commesso.getPosition().x, commesso.getPosition().y, commesso.getWidth(), commesso.getHeight(), "commesso"));
     }
 
     private void controllaUscita() {

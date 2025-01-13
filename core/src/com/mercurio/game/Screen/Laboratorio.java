@@ -1,23 +1,17 @@
 package com.mercurio.game.Screen;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -35,6 +29,7 @@ import com.mercurio.game.menu.MenuLabel;
 import com.mercurio.game.personaggi.Professore;
 import com.mercurio.game.personaggi.Rivale;
 import com.mercurio.game.pokemon.Battle;
+import com.mercurio.game.utility.MapsAbstract;
 
 /*
  * mettere un rettangolo di controllo tra le due teche, quando lo si passa e non si ha nessun pkemon si viene bloccati,
@@ -44,7 +39,7 @@ import com.mercurio.game.pokemon.Battle;
  * quando si entra e si possiede già un pokemon il professore si trova in un altro punto
  */
 
-public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
+public class Laboratorio extends MapsAbstract implements InterfacciaComune {
     private final MercurioMain game;
 
     // dati per render della mappa
@@ -52,7 +47,6 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
     private OrthogonalTiledMapRenderer tileRenderer;
     private OrthographicCamera camera;
     private Vector2 map_size;
-    private MapLayer lineeLayer;
     private Professore professore;
     private Rivale rivale;
     private boolean haStarter = false;
@@ -65,6 +59,7 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
 
     // rettangolo con la lista delle persone che collidono
     private ArrayList<Rectangle> rectList = null;
+    private List<Render> renderBot = new ArrayList<>();
     List<Render> render = new ArrayList<>();
     ArrayList<String> listaAllawaysBack = new ArrayList<String>();
 
@@ -134,7 +129,9 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
     public GameAsset asset;
 
     public Laboratorio(MercurioMain game) {
+        super(game);
         this.game = game;
+
         this.asset = game.getGameAsset();
         stage = new Stage();
         professore = new Professore(game);
@@ -150,6 +147,7 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
         listaAllawaysBack.add("AlwaysBack1");
         listaAllawaysBack.add("AlwaysBack2");
         listaAllawaysBack.add("tappeto");
+        game.aggiornaListaAllawaysBack(listaAllawaysBack);
 
         primoDiscorso = new LabelDiscorsi(testoDiscorso1, 30, 0, false, false);
         secondoDiscorso = new LabelDiscorsi(testoDiscorso2, 30, 0, false, false);
@@ -168,8 +166,7 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
     public void show() {
         try {
 
-            game.setLuogo("laboratorio");
-            game.getMusica().startMusic("labPokemon");
+            game.setLuogo(Constant.LABORATORIO);
 
             TmxMapLoader mapLoader = new TmxMapLoader();
             lab = mapLoader.load(Constant.LAB_MAPPA);
@@ -225,13 +222,9 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
     @Override
     public void render(float delta) {
         try {
-
-            Gdx.gl.glClearColor(0, 0, 0, 1);
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-            lineeLayer = game.getLineeLayer();
             game.setRectangleList(rectList);
-            cambiaProfondita(lineeLayer);
+            game.addBotRender(renderBot);
+
             controllaUscita();
 
             if (!haStarter) {
@@ -248,81 +241,14 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
 
     }
 
-    private void cambiaProfondita(MapLayer lineeLayer) {
-        try {
-
-            // pulisco l'array in modo tale che non pesi
-            render.clear();
-
-            // inserisci i vari layer nella lista
-            for (MapObject object : lineeLayer.getObjects()) {
-                if (object instanceof RectangleMapObject) {
-                    RectangleMapObject rectangleObject = (RectangleMapObject) object;
-                    String layerName = (String) rectangleObject.getProperties().get("layer");
-                    float y = rectangleObject.getRectangle().getY();
-                    render.add(new Render("layer", layerName, y));
-                }
-            }
-
-            // Inserisci il professore e il giocatore
-            render.add(new Render("bot", professore.getTexture(), professore.getPosition().x,
-                    professore.getPosition().y, professore.getWidth(), professore.getHeight(), "professore"));
-            render.add(new Render("player", game.getPlayer().getPlayerPosition().y));
-
-            if (iniziaFarComparireRivale) {
-                render.add(new Render("bot", rivale.getTexture(), rivale.getPosition().x, rivale.getPosition().y,
-                        rivale.getWidth(), rivale.getHeight(), "rivale"));
-            }
-
-            // Ordina in base alla posizione `y`
-            Collections.sort(render, Comparator.comparingDouble(r -> -r.y));
-
-            // background
-            for (String layerName : listaAllawaysBack) {
-                renderLayer(layerName);
-            }
-
-            // Renderizza nell'ordine corretto
-            for (Render renderComponent : render) {
-                switch (renderComponent.type) {
-                    case "layer":
-                        renderLayer(renderComponent.layerName);
-                        break;
-                    case "bot":
-                        if (renderComponent.persona.equals("professore")) {
-                            game.renderPersonaggiSecondari(professore.getTexture(), professore.getPosition().x,
-                                    professore.getPosition().y, professore.getWidth(), professore.getHeight());
-                        } else if (renderComponent.persona.equals("rivale")) {
-                            game.renderPersonaggiSecondari(rivale.getTexture(), rivale.getPosition().x,
-                                    rivale.getPosition().y, rivale.getWidth(), rivale.getHeight());
-                        }
-                        break;
-                    case "player":
-                        game.renderPlayer();
-                        break;
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("Errore cambiaProfondita laboratorio, " + e);
-        }
-
+    private void cambiaProfessore() {
+        renderBot.clear();
+        renderBot.add(new Render("bot", professore.getTexture(), professore.getPosition().x, professore.getPosition().y, professore.getWidth(), professore.getHeight(), "professore"));
     }
 
-    private void renderLayer(String layerName) {
-        try {
-
-            tileRenderer.getBatch().begin();
-
-            // Recupera il layer dalla mappa
-            MapLayer layer = lab.getLayers().get(layerName);
-            // Renderizza il layer
-            tileRenderer.renderTileLayer((TiledMapTileLayer) layer);
-
-            tileRenderer.getBatch().end();
-        } catch (Exception e) {
-            System.out.println("Errore renderLayer laboratorio, " + e);
-        }
-
+    private void cambiaRivale() {
+        renderBot.clear();
+        renderBot.add(new Render("bot", rivale.getTexture(), rivale.getPosition().x, rivale.getPosition().y, rivale.getWidth(), rivale.getHeight(), "rivale"));
     }
 
     /*
@@ -500,6 +426,7 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
                 professore.muoviBotBasso();
             } else {
                 professore.setFermoIndietro();
+                cambiaProfessore();
                 iniziaCamminataProf = false; // la setto a false per far terminare la chiama a questa funzione
                 iniziaDiscorso1 = true; // lo setto a true per far iniziare il discorso 1
             }
@@ -584,6 +511,7 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
             } else {
                 muoviProfVersoBancone4 = false;
                 professore.setFermoIndietro();
+                cambiaProfessore();
                 iniziaDiscorso2Bot = true;
             }
         } catch (Exception e) {
@@ -726,6 +654,7 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
             iniziaDiscorso4Rivale = true;
             continuaTesto = true;
             rivale.setFermoAvanti();
+            cambiaRivale();
         }
     }
 
@@ -761,6 +690,7 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
                 iniziaDiscorso6Rivale = true;
                 continuaTesto = true;
                 rivale.setFermoDestra();
+                cambiaRivale();
                 game.getPlayer().setFermoSinistra();
             }
         } catch (Exception e) {
@@ -810,6 +740,7 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
                 iniziaDiscorso8Prof = true;
                 continuaTesto = true;
                 rivale.setFermoAvanti();
+                cambiaRivale();
                 game.getPlayer().setFermoAvanti();
             }
         } catch (Exception e) {
@@ -914,7 +845,7 @@ public class Laboratorio extends ScreenAdapter implements InterfacciaComune {
     
 
     // --------------------------------------------------------------------------------------------------------------------------------
-
+ 
     // metodo per il recupero del rettangolo con il tipo
     private void settaReggangoliStoria() {
         try {
