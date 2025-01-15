@@ -70,7 +70,8 @@ public class MercurioMain extends Game implements InterfacciaComune {
     private MenuLabel menuLabel;
 
 
-    private String teleport;
+    //per capire in che posizione mettere il player quando cambia mappa
+    private String rettangoloPosizioneUscita;
 
     private Screen currentScreen;
 
@@ -582,12 +583,12 @@ public class MercurioMain extends Game implements InterfacciaComune {
         return null;
     }
 
-    public void setTeleport(String teleport) {
-        this.teleport = teleport;
+    //variabile per comprendere dove posizionare il player quando esce di casa
+    public void setRettangoloPosizioneUscita(String rettangoloPosizioneUscita) {
+        this.rettangoloPosizioneUscita = rettangoloPosizioneUscita;
     }
-
-    public String getTeleport() {
-        return teleport;
+    public String getRettangoloPosizioneUscita() {
+        return rettangoloPosizioneUscita;
     }
 
     @Override

@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -23,18 +22,14 @@ import com.mercurio.game.utility.UtilityFunctions;
 import java.util.Timer;
 
 public class CasaSpawn extends MapsAbstract {
-    private final MercurioMain game;
     private UtilityFunctions utilityFunctions;
     private MammaAsh mammaAsh;
     private List<Render> renderBot = new ArrayList<>();
-    private TiledMap map;
     private LabelDiscorsi labelDiscorsiSenzaStarter;
     private LabelDiscorsi labelDiscorsiConStarter;
 
     // rettangolo con la lista delle persone che collidono
     private ArrayList<Rectangle> rectList = null;
-
-    private Rectangle rectangleUscita;
 
     private Timer timer;
     private TimerTask mammaTimerTask;
@@ -52,7 +47,6 @@ public class CasaSpawn extends MapsAbstract {
 
     public CasaSpawn(MercurioMain game) {
         super(game);
-        this.game = game;
 
         utilityFunctions = new UtilityFunctions();
         mammaAsh = new MammaAsh(game);
@@ -114,19 +108,8 @@ public class CasaSpawn extends MapsAbstract {
             // aggiungo alla lista dei rettangoli per le collisioni quello della mamma
             rectList.add(mammaAsh.getBoxPlayer());
 
-        
-            //prendere rettangolo per mappa
-            MapObjects objects = map.getLayers().get("exit").getObjects();
-            for (MapObject object : objects) {
-                if (object instanceof RectangleMapObject) {
-                    // Se l'oggetto è un rettangolo
-                    RectangleMapObject rectangleObject = (RectangleMapObject) object;
-
-                    // Ottieni il rettangolo
-                    rectangleUscita = rectangleObject.getRectangle();
-                } 
-            }
-
+            
+            prendiUscitaCase();     //funzione per il recupero delle variabii per uscire di casa
             settaPlayerPosition();
             
         } catch(Exception e) {
@@ -134,16 +117,18 @@ public class CasaSpawn extends MapsAbstract {
         }
     }
 
+    
+
     @Override
     public void render(float delta) {
 
         game.setRectangleList(rectList);
         game.addBotRender(renderBot);
+        controllaUscita();
 
         giraMamma();
         controlloTesto();
         controlloTestoIniziale();
-        controllaUscita();
         controllaFermaPlayer();
     }
 
@@ -321,18 +306,7 @@ public class CasaSpawn extends MapsAbstract {
 
     }
 
-    public void controllaUscita() {
-        try {
-
-            if (game.getPlayer().getBoxPlayer().overlaps(rectangleUscita)) {
-                game.setTeleport("uscitaCasa");
-                game.setPage(Constant.SPAWN_SCREEN);
-            }
-        } catch (Exception e) {
-            System.out.println("Errore controlloUscita casaspawn, " + e);
-        }
-
-    }
+    
 
     @Override
     public void dispose() {

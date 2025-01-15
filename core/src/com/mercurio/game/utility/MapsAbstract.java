@@ -6,10 +6,19 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.math.Rectangle;
 import com.mercurio.game.Screen.MercurioMain;
 
 public abstract class MapsAbstract extends ScreenAdapter{
+    //TODO: tutte le variabili qua dentro non vanno ridefinite negli altri punti
     protected final MercurioMain game;
+
+    //informazioni per l'uscita dalle case
+    protected Rectangle rettangoloUscita; //il rettangolo per l'uscita dalle case
+    protected String mappaDestinazione;   //il nome della mappa in cui devo andare
+    protected String rettangoloPosizione; //il nome del rettangolo da cui prendere la posizione quando esco
+    
+    
     protected TiledMap map;
 
     
@@ -32,5 +41,52 @@ public abstract class MapsAbstract extends ScreenAdapter{
         }
         game.setPokemonMorti(false);
     }
-    
+
+
+
+    /*
+     * FUNZIONI DA USARE SOLO NELLE CASE
+     */
+
+    /* 
+     * funzione per il recupero del rettangolo di uscita dalle case con le rispettive variabili necessarie
+     *
+     * IMPORTANTE: chiamare questa funzione in show di ogni casa
+     */
+    protected void prendiUscitaCase() {
+        try {
+            
+        //prendere rettangolo per mappa
+        MapObjects objects = map.getLayers().get("exit").getObjects();
+        for (MapObject object : objects) {
+            if (object instanceof RectangleMapObject) {
+                // Se l'oggetto è un rettangolo
+                RectangleMapObject rectangleObject = (RectangleMapObject) object;
+
+                // Ottieni il rettangolo con i rispettivi dati utili
+                rettangoloUscita = rectangleObject.getRectangle();
+                mappaDestinazione = (String) object.getProperties().get("mappaDestinazione");
+                rettangoloPosizione = (String) object.getProperties().get("rettangoloPosizione");
+            }
+        }
+        } catch (Exception e) {
+            System.out.println("Errore prendiUscitaCase" + e);
+        }
+    }
+
+    /*
+     * funzione per uscire da una casa
+     * 
+     * IMPORTANTE: chiamare questa funzione in render di ogni casa
+     */
+    public void controllaUscita() {
+        try {
+            if (game.getPlayer().getBoxPlayer().overlaps(rettangoloUscita)) {
+                game.setRettangoloPosizioneUscita(rettangoloPosizione); //modificare poi setTeleport
+                game.setPage(mappaDestinazione);
+            }
+        } catch (Exception e) {
+            System.out.println("Errore controlloUscita" + e);
+        }
+    }
 }
