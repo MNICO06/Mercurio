@@ -1039,7 +1039,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
 
     public void setPositionPlayer() {
         try {
-            String luogo = game.getTeleport();
+            //String luogo = game.getTeleport();
             float x;
             float y;
             MapLayer uscita = mappa.getLayers().get("uscita");
@@ -1047,12 +1047,13 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
                 if (object instanceof RectangleMapObject) {
                     RectangleMapObject rectObject = (RectangleMapObject) object;
                     Rectangle rect = rectObject.getRectangle();
-
+                    /*
                     if (object.getName().equals(luogo)) {
                         x = rect.getX();
                         y = rect.getY();
                         game.getPlayer().setPosition(x, y);
                     }
+                    */
                 }
             }
         } catch (Exception e) {

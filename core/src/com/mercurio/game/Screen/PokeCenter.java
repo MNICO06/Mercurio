@@ -44,9 +44,12 @@ public class PokeCenter extends MapsAbstract {
     private boolean renderizzaTesto = false;
     private boolean deveScegliere = false;
 
-    public PokeCenter(MercurioMain game) {
+    
+    public PokeCenter(MercurioMain game, String mappaDestinazione, String rettangoloPosizione) {
         super(game);
         this.game = game;
+        this.mappaDestinazione = mappaDestinazione;
+        this.rettangoloPosizione = rettangoloPosizione;
         dottoressa = new Dottoressa(game);
         utilityFunctions = new UtilityFunctions();
     }
@@ -277,6 +280,7 @@ public class PokeCenter extends MapsAbstract {
 
     }
 
+    //TODO: da studiare come fare in questo caso che ci sono più pokecenter
     public void esci() {
         try {
 
@@ -290,8 +294,7 @@ public class PokeCenter extends MapsAbstract {
                         game.setIngressoCittaMontagna("ingressoDaPokecenter");
                         game.setPage(Constant.CITTAMONTAGNA);
                     } else {
-                        game.setTeleport(game.getIngressoPokeCenter());
-                        //TODO: cambiare con mappa nuova
+                        //game.setTeleport(game.getIngressoPokeCenter());
                         //game.setPage(Constant.MAPPA_SCREEN);
                     }
                 }

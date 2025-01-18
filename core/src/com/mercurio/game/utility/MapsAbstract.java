@@ -17,6 +17,12 @@ public abstract class MapsAbstract extends ScreenAdapter{
     protected Rectangle rettangoloUscita; //il rettangolo per l'uscita dalle case
     protected String mappaDestinazione;   //il nome della mappa in cui devo andare
     protected String rettangoloPosizione; //il nome del rettangolo da cui prendere la posizione quando esco
+
+    /*
+     * Idee per come fare l'uscita delle mappe multiple
+     * Idea1 : funzione da chiamare in mercurioMain che salvi i nomi dell'uscita (mappaDestinazione e rettangoloPosizione)
+     * 
+     */
     
     
     protected TiledMap map;

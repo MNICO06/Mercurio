@@ -36,6 +36,9 @@ public class MercurioMain extends Game implements InterfacciaComune {
 
     private TiledMap map;
     private Vector2 map_size;
+    //queste due variabili servono per capire la mappa in cui andare quando esco e in che posizione mettermi
+    private String mappaDestinazione = null;
+    private String rettangoloPosizione = null;
 
     private OrthogonalTiledMapRenderer tileRenderer;
 
@@ -265,7 +268,7 @@ public class MercurioMain extends Game implements InterfacciaComune {
             case Constant.CENTRO_POKEMON_CAPITALE_SCREEN:
                 asset.loadBotAsset();
                 asset.finishLoading();
-                newScreen = new PokeCenter(this);
+                //newScreen = new PokeCenter(this); TODO: mettere rettangolo giusti
                 ingressoPokeCenter = "uscitaPokeCenterC";
                 utilityVariables.setLuogo(Constant.CENTRO_POKEMON_LUOGO);
                 utilityVariables.setUltimaVisitaLuogo(Constant.CENTRO_POKEMON_LUOGO);
@@ -277,7 +280,7 @@ public class MercurioMain extends Game implements InterfacciaComune {
             case Constant.CENTRO_POKEMON_NORD_SCREEN:
                 asset.loadBotAsset();
                 asset.finishLoading();
-                newScreen = new PokeCenter(this);
+                //newScreen = new PokeCenter(this); TODO: mettere rettangolo giusti
                 ingressoPokeCenter = "uscitaPokeCenterN";
                 utilityVariables.setLuogo(Constant.CENTRO_POKEMON_LUOGO);
                 utilityVariables.setUltimaVisitaLuogo(Constant.CENTRO_POKEMON_LUOGO);
@@ -289,7 +292,7 @@ public class MercurioMain extends Game implements InterfacciaComune {
             case Constant.CENTRO_POKEMON_MARE_SCREEN:
                 asset.loadBotAsset();
                 asset.finishLoading();
-                newScreen = new PokeCenter(this);
+                //newScreen = new PokeCenter(this); TODO: mettere rettangolo giusti
                 ingressoPokeCenter = "uscitaPokeCenterMontagna";
                 utilityVariables.setLuogo(Constant.CENTRO_POKEMON_LUOGO);
                 utilityVariables.setUltimaVisitaLuogo(Constant.CENTRO_POKEMON_LUOGO);
@@ -301,7 +304,7 @@ public class MercurioMain extends Game implements InterfacciaComune {
             case Constant.CENTRO_POKEMON_ROCCIA:
                 asset.loadBotAsset();
                 asset.finishLoading();
-                newScreen = new PokeCenter(this);
+                //newScreen = new PokeCenter(this); TODO: mettere rettangolo giusti
                 ingressoPokeCenter = "cittaRoccia";
                 utilityVariables.setLuogo(Constant.CENTRO_POKEMON_LUOGO);
                 utilityVariables.setUltimaVisitaLuogo(Constant.CENTRO_POKEMON_LUOGO);
@@ -380,16 +383,14 @@ public class MercurioMain extends Game implements InterfacciaComune {
 
             getPlayer().setPosition(Float.parseFloat(json.getString("x")), Float.parseFloat(json.getString("y")));
             utilityVariables.setUltimaVisita(json.getString("ultimaVisita"));
-            utilityVariables.setUltimaVisita(json.getString("ultimaVisitaLuogo"));
+            utilityVariables.setUltimaVisitaLuogo(json.getString("ultimaVisitaLuogo"));
             setLuogo(json.getString("luogo"));
             setPage(json.getString("screen"));
             musica.startMusic(utilityVariables.getLuogo());
 
-
         } catch (Exception e) {
             System.out.println("Errore loadGame mercurioMain, " + e);
         }
-
     }
 
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="38" nextobjectid="85">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="38" nextobjectid="86">
  <tileset firstgid="1" name="cat2" tilewidth="16" tileheight="16" tilecount="720" columns="16">
   <image source="2_LivingRoom_Shadowless.png" width="256" height="720"/>
  </tileset>
@@ -603,7 +603,12 @@
   </object>
  </objectgroup>
  <objectgroup color="#62ff00" id="31" name="exit">
+  <properties>
+   <property name="nomeRettangoloPosizione" value=""/>
+   <property name="rettangoloPosizione" value=""/>
+  </properties>
   <object id="73" x="145.497" y="305.289" width="28.0702" height="11.625"/>
+  <object id="85" x="-62.7346" y="204.447"/>
  </objectgroup>
  <objectgroup color="#00fdff" id="36" name="teleport">
   <object id="83" x="146.457" y="282.558" width="27.6148" height="17.2592"/>

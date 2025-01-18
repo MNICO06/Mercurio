@@ -177,22 +177,6 @@ public class PokeMarket1 extends MapsAbstract {
         renderBot.add(new Render("bot", commesso2.getTexture(), commesso2.getPosition().x, commesso2.getPosition().y, commesso2.getWidth(), commesso2.getHeight(), "commesso2"));
     }
 
-    private void controllaUscita() {
-        try {
-
-            if (rectangleUscita != null) {
-                if (game.getPlayer().getBoxPlayer().overlaps(rectangleUscita)) {
-                    game.setTeleport("uscitaPokeMarketC");
-                    //game.setPage(Constant.MAPPA_SCREEN);
-                    //TODO: cambiare con la mappa nuova
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("Errore controllaUscita pokeMarket1, " + e);
-        }
-
-    }
-
     public void controllaShop() {
         try {
 

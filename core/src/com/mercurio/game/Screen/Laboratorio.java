@@ -55,7 +55,6 @@ public class Laboratorio extends MapsAbstract implements InterfacciaComune {
     Vector3 screenPosition;
 
     private Battle battle;
-    private boolean sconfitta = false;
 
     // rettangolo con la lista delle persone che collidono
     private ArrayList<Rectangle> rectList = null;
@@ -63,7 +62,6 @@ public class Laboratorio extends MapsAbstract implements InterfacciaComune {
     List<Render> render = new ArrayList<>();
     ArrayList<String> listaAllawaysBack = new ArrayList<String>();
 
-    private Rectangle rectangleUscita;
     private Rectangle rettangoloFerma;
 
     private Image puntoEsclamativoImage;
@@ -189,19 +187,6 @@ public class Laboratorio extends MapsAbstract implements InterfacciaComune {
 
             game.getPlayer().setPosition(55, 20);
 
-            // recupero il rettangolo per uscire dalla mappa
-            MapObjects objects = lab.getLayers().get("exit").getObjects();
-            for (MapObject object : objects) {
-                if (object instanceof RectangleMapObject) {
-                    // Se l'oggetto è un rettangolo
-                    RectangleMapObject rectangleObject = (RectangleMapObject) object;
-
-                    // Ottieni il rettangolo
-                    rectangleUscita = rectangleObject.getRectangle();
-
-                }
-            }
-
             if (controllaPresenzaStarter()) {
                 professore.setPosition(109, 135);
                 haStarter = true;
@@ -213,6 +198,7 @@ public class Laboratorio extends MapsAbstract implements InterfacciaComune {
             }
 
             rivale.setPosition(115, 20);
+            prendiUscitaCase(); //recupero dei rettangoli per uscire
         } catch (Exception e) {
             System.out.println("Errore show laboratorio, " + e);
         }
@@ -929,18 +915,6 @@ public class Laboratorio extends MapsAbstract implements InterfacciaComune {
         }
     }
 
-    private void controllaUscita() {
-        try {
-
-            if (game.getPlayer().getBoxPlayer().overlaps(rectangleUscita)) {
-                game.setTeleport("uscitaLab");
-                game.setPage(Constant.SPAWN_SCREEN);
-            }
-        } catch (Exception e) {
-            System.out.println("Errore controlloUScita lab, " + e);
-        }
-    }
-
     @Override
     public void dispose() {
         if (lab != null) {
@@ -980,7 +954,6 @@ public class Laboratorio extends MapsAbstract implements InterfacciaComune {
 
     @Override
     public void setSconfitta(boolean sconfitta) {
-        this.sconfitta = sconfitta;
     }
 
    @Override

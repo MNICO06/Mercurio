@@ -166,20 +166,6 @@ public class PokeMarket2 extends MapsAbstract {
         renderBot.add(new Render("bot", commesso.getTexture(), commesso.getPosition().x, commesso.getPosition().y, commesso.getWidth(), commesso.getHeight(), "commesso"));
     }
 
-    private void controllaUscita() {
-        try {
-
-            if (game.getPlayer().getBoxPlayer().overlaps(rectangleUscita)) {
-                game.setTeleport("uscitaPokeMarketMare");
-                //game.setPage(Constant.MAPPA_SCREEN);
-                //TODO: cambiare con la mappa nuova
-            }
-        } catch (Exception e) {
-            System.out.println("Errore controllaUscita pokeMarket2, " + e);
-        }
-
-    }
-
     @Override
     public void dispose() {
         if (pokeMarket != null) {
