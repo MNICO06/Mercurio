@@ -1,0 +1,27 @@
+{
+    "inventoryBall": [
+        {
+            "quantity": 10,
+            "name": "Pokeball"
+        }
+    ],
+    "inventoryKey": [
+        {
+        "quantity": 1,
+        "name": "Mappa Citta'"
+        }
+    ],
+    "inventoryMT": [
+        
+    ],
+    "inventoryCure": [
+        {
+            "quantity": 3,
+            "name": "Acqua Fresca"
+        },
+        {
+            "quantity": 1,
+            "name": "Revitalizzante"
+        }
+    ]
+}

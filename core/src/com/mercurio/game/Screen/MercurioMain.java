@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
@@ -29,6 +30,8 @@ import com.mercurio.game.AssetManager.GameAsset;
 import com.mercurio.game.effects.Musica;
 import com.mercurio.game.menu.MenuLabel;
 import com.mercurio.game.personaggi.Ash;
+import com.mercurio.game.personaggi.Player;
+import com.mercurio.game.personaggi.Player.Direction;
 import com.mercurio.game.pokemon.Battle;
 import com.mercurio.game.utility.UtilityVariables;
 
@@ -93,6 +96,12 @@ public class MercurioMain extends Game implements InterfacciaComune {
     private SceltaStarterScreen sceltaStarterScreen;
     private boolean sconfitta = false;
 
+
+
+    private Player player;
+    private TiledMapTileLayer collisionLayerTile ; // Prendi il primo layer, cambia indice se necessario
+
+
     // Asset Manager
     public GameAsset asset = new GameAsset();
 
@@ -106,13 +115,16 @@ public class MercurioMain extends Game implements InterfacciaComune {
             asset.finishLoading();
 
             ash = new Ash(this);
-            //poke = new PokemonOW(this);
             erba = new Erba(this);
             musica = new Musica(this, assetManager);
             batch = new SpriteBatch();
             menuLabel = new MenuLabel(this);
             setPage(Constant.SCHERMATA_LOGO);
 
+            // Initialize the player (starting at tile position (5, 5) for example)
+            player = new Player(new Vector2(5, 5), 16f, 3f); // Assuming tile size is 32 and speed is 3 tiles per second
+            
+            // Initialize other components as needed...
             copiaJson("jsonSalvati/borsaSalvato.json", "ashJson/borsa.json");
             copiaJson("jsonSalvati/squadraSalvato.json", "ashJson/squadra.json");
             copiaJson("jsonSalvati/botsSalvato.json", "bots/bots.json");
@@ -125,11 +137,10 @@ public class MercurioMain extends Game implements InterfacciaComune {
                 public void run() {
                     setPage(Constant.MENU_SCREEN);
                 }
-            }, 1); // Ritarda di 2 secondi (puoi modificare questo valore)
+            }, 1); // Ritarda di 1 secondo (puoi modificare questo valore)
         } catch (Exception e) {
             System.out.println("Errore create mercurioMain, " + e);
         }
-
     }
 
     public void copiaJson(String pathSorgente, String pathDestinazione) {
@@ -148,62 +159,69 @@ public class MercurioMain extends Game implements InterfacciaComune {
     }
 
     @Override
-    public void render() {
-        try {
+public void render() {
+    try {
+        super.render();
 
-            super.render();
+        // Calcolo del tempo trascorso dall'inizio
+        elapsedTime += Gdx.graphics.getDeltaTime();
 
-            // Calcolo del tempo trascorso dall'inizio
-            elapsedTime += Gdx.graphics.getDeltaTime();
+        if (!utilityVariables.getSchermataMercurio()) {
 
-            if (!utilityVariables.getSchermataMercurio()) {
+            // Gestione del movimento: input e aggiornamento tile-based
+                handlePlayerMovement();
+                player.update(Gdx.graphics.getDeltaTime());
+                // Sincronizza la posizione di Ash con quella calcolata da Player
+                Vector2 pixelPos = player.getPosition();
+                ash.setPosition(pixelPos.x, pixelPos.y);
 
-                float cameraX = MathUtils.clamp(ash.getPlayerPosition().x + ash.getPlayerWidth() / 2,
-                        camera.viewportWidth / 2, map_size.x - camera.viewportWidth / 2);
-                float cameraY = MathUtils.clamp(ash.getPlayerPosition().y + ash.getPlayerHeight() / 2,
-                        camera.viewportHeight / 2, map_size.y - camera.viewportHeight / 2);
 
+            float cameraX = MathUtils.clamp(ash.getPlayerPosition().x + ash.getPlayerWidth() / 2,
+                    camera.viewportWidth / 2, map_size.x - camera.viewportWidth / 2);
+            float cameraY = MathUtils.clamp(ash.getPlayerPosition().y + ash.getPlayerHeight() / 2,
+                    camera.viewportHeight / 2, map_size.y - camera.viewportHeight / 2);
 
-                cambiaProfondita();
-                ash.move(oggettiStoria, collisionLayer, rectList);
+            cambiaProfondita();
 
-                currentScreen.render(elapsedTime);
+            // Move the player based on user input (you should implement the move logic)
+            handlePlayerMovement();
+            player.update(Gdx.graphics.getDeltaTime());  // Update player logic
 
-                menuLabel.render();
+            // Update the game screen and camera
+            currentScreen.render(elapsedTime);
+            menuLabel.render();
 
-                // Imposta la posizione della telecamera in modo che segua il giocatore
-                camera.position.set(cameraX, cameraY, 0);
+            // Imposta la posizione della telecamera in modo che segua il giocatore
+            camera.position.set(cameraX, cameraY, 0);
+            camera.update();
 
-                camera.update();
+            tileRenderer.setView(camera);
 
-                tileRenderer.setView(camera);
-
-                if (map != null) {
-                    erba.controllaPokemon(map);
-                }
-
-                if (battle != null) {
-                    battle.render();
-                }
-
-                if (box != null) {
-                    box.render();
-                }
-
-                if (shop != null) {
-                    shop.render();
-                }
-
-                if (sceltaStarterScreen != null) {
-                    sceltaStarterScreen.render();
-                }
-
+            if (map != null) {
+                erba.controllaPokemon(map);
             }
-        } catch (Exception e) {
-            System.out.println("Errore render mercurioMain, " + e);
-        }
 
+            if (battle != null) {
+                battle.render();
+            }
+
+            if (box != null) {
+                box.render();
+            }
+
+            if (shop != null) {
+                shop.render();
+            }
+
+            if (sceltaStarterScreen != null) {
+                sceltaStarterScreen.render();
+            }
+        }
+    } catch (Exception e) {
+        System.out.println("Errore render mercurioMain, " + e);
     }
+}
+
 
     public void creaBattaglia(String nomeJson, String nomePokemon) {
         try {
@@ -404,6 +422,8 @@ public class MercurioMain extends Game implements InterfacciaComune {
         this.camera = camera;
         camera.update();
 
+        collisionLayerTile = (TiledMapTileLayer) map.getLayers().get("collisioni"); 
+
         // prendo il layer delle collisioni
         try {
             collisionLayer = map.getLayers().get("collisioni");
@@ -439,6 +459,7 @@ public class MercurioMain extends Game implements InterfacciaComune {
 
         // Aggiungi i vari oggetti da renderizzare
         // Aggiungi i layer
+        lineeLayer = map.getLayers().get("linee");
         for (MapObject object : lineeLayer.getObjects()) {
             if (object instanceof RectangleMapObject) {
                 RectangleMapObject rectangleObject = (RectangleMapObject) object;
@@ -790,4 +811,66 @@ public class MercurioMain extends Game implements InterfacciaComune {
         System.exit(0);
     }
 
+
+
+   ////////////////////////////////////////////////////////////////////////////////
+    // Gestione del movimento tile per tile
+    ////////////////////////////////////////////////////////////////////////////////
+
+    private void handlePlayerMovement() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+            movePlayer(Direction.UP);
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
+            movePlayer(Direction.DOWN);
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.A)) {
+            movePlayer(Direction.LEFT);
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
+            movePlayer(Direction.RIGHT);
+        }
+    }
+
+    private void movePlayer(Direction direction) {
+        // Calcola la tile target a partire dalla tile corrente
+        Vector2 currentTile = player.getCurrentTile();
+        Vector2 targetTile = new Vector2(currentTile);
+        switch (direction) {
+            case UP:
+                targetTile.y += 1;
+                break;
+            case DOWN:
+                targetTile.y -= 1;
+                break;
+            case LEFT:
+                targetTile.x -= 1;
+                break;
+            case RIGHT:
+                targetTile.x += 1;
+                break;
+        }
+
+        // Controlla se il targetTile è percorribile usando il layer di collisione
+        TiledMapTileLayer.Cell cell = collisionLayerTile.getCell((int) targetTile.x, (int) targetTile.y);
+        boolean walkable = (cell == null || cell.getTile() == null ||
+                !cell.getTile().getProperties().containsKey("blocked") ||
+                !"true".equals(cell.getTile().getProperties().get("blocked", String.class)));
+
+        // Se percorribile, avvia il movimento e imposta l'animazione corretta in Ash
+        if (walkable) {
+            switch (direction) {
+                case UP:
+                    ash.setCamminaAvanti();
+                    break;
+                case DOWN:
+                    ash.setCamminaIndietro();
+                    break;
+                case LEFT:
+                    ash.setCamminaSinistra();
+                    break;
+                case RIGHT:
+                    ash.setCamminaDestra();
+                    break;
+            }
+            player.move(direction, walkable);
+        }
+    }
 }

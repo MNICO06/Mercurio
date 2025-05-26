@@ -9,15 +9,22 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.mercurio.game.AssetManager.GameAsset;
 import com.mercurio.game.AssetManager.GameAsset.AssetsAsh;
 import com.mercurio.game.Screen.MercurioMain;
 
 public class Ash {
     private boolean canMove = true;
+
+    private boolean isKeyboardEnabled = true;
 
     private TextureRegion[] indietro;
     private TextureRegion[] sinistra;
@@ -91,6 +98,12 @@ public class Ash {
     private Rectangle boxPlayer_surf;
 
     private GameAsset asset;
+
+    TiledMap map = new TmxMapLoader().load("assets/mappa/PrimaCasa.tmx");
+    MapProperties properties = map.getProperties();
+    int tileWidth = properties.get("tilewidth", Integer.class);
+    int tileHeight = properties.get("tileheight", Integer.class);
+
 
     public Ash(MercurioMain game) {
         this.game = game;
@@ -220,61 +233,63 @@ public class Ash {
 
                 
 
-                if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-                    if (inAcqua == false) {
-                        currentAnimation = camminaDestra.getKeyFrame(stateTime, true);
-                        muovi_X = speed_Camminata_orizontale;
-                        poke_X = speed_Camminata_orizontale - 40;
-                    } else {
-                        currentAnimation = surfDestra.getKeyFrame(stateTime, true);
-                        muovi_X = speed_Camminata_orizontale_surf;
+                if (isKeyboardEnabled) {
+                    if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+                        if (inAcqua == false) {
+                            currentAnimation = camminaDestra.getKeyFrame(stateTime, true);
+                            muovi_X = speed_Camminata_orizontale;
+                            poke_X = speed_Camminata_orizontale - 40;
+                        } else {
+                            currentAnimation = surfDestra.getKeyFrame(stateTime, true);
+                            muovi_X = speed_Camminata_orizontale_surf;
+                        }
+
+                        keyPressed = true;
+
+                    
                     }
+                    if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+                        if (inAcqua == false) {
+                            currentAnimation = camminaSinistra.getKeyFrame(stateTime, true);
+                            muovi_X = speed_Camminata_orizontale * -1;
+                            poke_X = (speed_Camminata_orizontale * -1) + 40;
+                        } else {
+                            currentAnimation = surfSinistra.getKeyFrame(stateTime, true);
+                            muovi_X = speed_Camminata_orizontale_surf * -1;
+                        }
 
-                    keyPressed = true;
+                        keyPressed = true;
 
-                   
-                }
-                if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-                    if (inAcqua == false) {
-                        currentAnimation = camminaSinistra.getKeyFrame(stateTime, true);
-                        muovi_X = speed_Camminata_orizontale * -1;
-                        poke_X = (speed_Camminata_orizontale * -1) + 40;
-                    } else {
-                        currentAnimation = surfSinistra.getKeyFrame(stateTime, true);
-                        muovi_X = speed_Camminata_orizontale_surf * -1;
+
                     }
+                    if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+                        if (inAcqua == false) {
+                            currentAnimation = camminaIndietro.getKeyFrame(stateTime, true);
+                            muovi_Y = speed_Camminata_verticale * -1;
+                            poke_Y = (speed_Camminata_verticale * -1) + 40;
+                        } else {
+                            currentAnimation = surfIndietro.getKeyFrame(stateTime, true);
+                            muovi_Y = speed_Camminata_verticale_surf * -1;
+                        }
 
-                    keyPressed = true;
+                        keyPressed = true;
 
 
-                }
-                if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-                    if (inAcqua == false) {
-                        currentAnimation = camminaIndietro.getKeyFrame(stateTime, true);
-                        muovi_Y = speed_Camminata_verticale * -1;
-                        poke_Y = (speed_Camminata_verticale * -1) + 40;
-                    } else {
-                        currentAnimation = surfIndietro.getKeyFrame(stateTime, true);
-                        muovi_Y = speed_Camminata_verticale_surf * -1;
                     }
+                    if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+                        if (inAcqua == false) {
+                            currentAnimation = camminaAvanti.getKeyFrame(stateTime, true);
+                            muovi_Y = speed_Camminata_verticale;
+                            poke_Y = speed_Camminata_verticale - 40;
+                        } else {
+                            currentAnimation = surfAvanti.getKeyFrame(stateTime, true);
+                            muovi_Y = speed_Camminata_verticale_surf;
+                        }
 
-                    keyPressed = true;
+                        keyPressed = true;
 
 
-                }
-                if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-                    if (inAcqua == false) {
-                        currentAnimation = camminaAvanti.getKeyFrame(stateTime, true);
-                        muovi_Y = speed_Camminata_verticale;
-                        poke_Y = speed_Camminata_verticale - 40;
-                    } else {
-                        currentAnimation = surfAvanti.getKeyFrame(stateTime, true);
-                        muovi_Y = speed_Camminata_verticale_surf;
                     }
-
-                    keyPressed = true;
-
-
                 }
 
                 // Se nessun tasto è premuto, imposta l'animazione fermo solo se l'animazione
@@ -313,7 +328,8 @@ public class Ash {
 
                 // metodi controllo collisione in orizzontale (sia oggetti che npc)
                 if (muovi_X != 0) {
-                    characterPosition.x += muovi_X * Gdx.graphics.getDeltaTime();
+                    spostaPlayerX(muovi_X);
+                    //characterPosition.x += muovi_X * Gdx.graphics.getDeltaTime();
                     boxPlayer.setPosition(characterPosition.x + player_width / 4, characterPosition.y + 2);
                     if (checkCollisions(collisionLayer)) {
                         characterPosition.x = old_x;
@@ -574,6 +590,21 @@ public class Ash {
         textureDestra.dispose();
         textureIndietro.dispose();
         textureSinistra.dispose();
+    }
+
+    private void spostaPlayerX(float muovi_X){
+
+        isKeyboardEnabled=false;
+
+        if (muovi_X>0){
+            
+        }
+        else{
+            
+        }
+
+        isKeyboardEnabled=true;
+
     }
 
 }

@@ -85,6 +85,9 @@
 </data>
  </layer>
  <layer id="33" name="Muro Alto" width="20" height="20">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -494,7 +497,11 @@
  </layer>
  <objectgroup color="#ff0000" id="7" name="collisioni" tintcolor="#ff0000">
   <object id="20" x="56.3333" y="61" width="47" height="33"/>
-  <object id="21" x="0.333333" y="0.333333" width="318.333" height="31"/>
+  <object id="21" x="0.333333" y="0.333333" width="318.333" height="31">
+   <properties>
+    <property name="blocked" value="blocked"/>
+   </properties>
+  </object>
   <object id="22" x="0" y="30.6667" width="15.3333" height="288.667"/>
   <object id="23" x="304" y="32.3333" width="15.6667" height="287.667"/>
   <object id="24" x="17" y="31.6667" width="14.6667" height="14.6667"/>
@@ -526,6 +533,9 @@
   <object id="82" x="302.875" y="118.063" width="2.125" height="26.0625"/>
  </objectgroup>
  <objectgroup color="#0000ff" id="30" name="linee">
+  <properties>
+   <property name="linee" value="linee"/>
+  </properties>
   <object id="61" name="Muro Basso" x="127.251" y="181.838" width="191.697" height="3.09731e-14">
    <properties>
     <property name="layer" value="Muro Basso"/>
@@ -608,10 +618,12 @@
    <property name="rettangoloPosizione" value=""/>
   </properties>
   <object id="73" x="145.497" y="305.289" width="28.0702" height="11.625"/>
-  <object id="85" x="-62.7346" y="204.447"/>
  </objectgroup>
  <objectgroup color="#00fdff" id="36" name="teleport">
-  <object id="83" x="146.457" y="282.558" width="27.6148" height="17.2592"/>
+  <properties>
+   <property name="teleport" value="teleport"/>
+  </properties>
+  <object id="83" name="teleport" x="146.457" y="282.558" width="27.6148" height="17.2592"/>
  </objectgroup>
  <objectgroup id="37" name="lineaFerma">
   <object id="84" x="16.0947" y="207.514" width="174.916" height="3.64409"/>

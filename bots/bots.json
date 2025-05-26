@@ -1,0 +1,10935 @@
+{
+"p1_bot1": {
+	"nome": "Alfonso",
+	"testo1": "Vedo che sei un allenatore alle prime armi, vediamo come te la cavi.",
+	"testo2": "Cavolo sei proprio forte, adrai lontano con i tuoi compagni.",
+	"affrontato": 0,
+	"soldi": 16,
+	"tipo": "teenagerM",
+	"poke1": {
+		"nomePokemon": "Bidoof",
+		"livello": "5",
+		"statistiche": {
+			"hpTot": 48,
+			"attack": 37,
+			"defense": 32,
+			"special_attack": 22,
+			"special_defense": 22,
+			"speed": 51,
+			"hp": 48
+		},
+		"mosse": [
+			{
+				"nome": "Azione",
+				"tipo": "Normale"
+			},
+			{
+				"nome": "Pistolacqua",
+				"tipo": "Acqua"
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"p1_bot2": {
+	"nome": "Piera",
+	"testo1": "Vedo che sei un allenatore alle prime armi, vediamo come te la cavi, anche se so gia' che perderderai",
+	"testo2": "non ci credo come hai fatto a sconfiggermi???",
+	"affrontato": 0,
+	"soldi": 10,
+	"tipo": "teenagerF",
+	"poke1": {
+		"nomePokemon": "pidgey",
+		"livello": "5",
+		"statistiche": {
+			"hp": 37,
+			"hpTot": 37,
+			"attack": 38,
+			"defense": 34,
+			"special_attack": 31,
+			"special_defense": 31,
+			"speed": 46
+		},
+		"mosse": [
+			{
+				"nome": "Azione",
+				"tipo": "Normale"
+			},
+			{
+				"nome": "Beccata",
+				"tipo": "Volante"
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"p1_bot3": {
+	"nome": "Walter",
+	"testo1": "Ao uagliu che'ssi pronto pe'ss' arato?!",
+	"testo2": "N'omm saggiu 'na volta me disse: hai da scurdà 'o passat', nun lu puoi mutà!",
+	"affrontato": 0,
+	"soldi": 20,
+	"tipo": "teenagerM",
+	"poke1": {
+		"nomePokemon": "bidoof",
+		"livello": "5",
+		"statistiche": {
+			"hp": 94,
+			"hpTot": 94,
+			"attack": 60,
+			"defense": 54,
+			"special_attack": 48,
+			"special_defense": 54,
+			"speed": 43.2
+		},
+		"mosse": [
+			{
+				"nome": "AttaccoRapido",
+				"tipo": "Normale"
+			},
+			{
+				"nome": "Azione",
+				"tipo": "Normale"
+			},
+			{
+				"nome": "Pistolacqua",
+				"tipo": "Acqua"
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"p1_bot4": {
+	"nome": "Palia",
+	"testo1": "ciao, ti va di giocare con me??",
+	"testo2": "uffa! sei cattivo, potevi lasciarmi vincere",
+	"affrontato": 0,
+	"soldi": 26,
+	"tipo": "teenagerF",
+	"poke1": {
+		"nomePokemon": "pikachu",
+		"livello": "5",
+		"statistiche": {
+			"hp": 72,
+			"hpTot": 72,
+			"attack": 85.2,
+			"defense": 63.6,
+			"special_attack": 78,
+			"special_defense": 78,
+			"speed": 135.6
+		},
+		"mosse": [
+			{
+				"nome": "AttaccoRapido",
+				"tipo": "Normale"
+			},
+			{
+				"nome": "Azione",
+				"tipo": "Normale"
+			},
+			{
+				"nome": "Scintilla",
+				"tipo": "Elettro"
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"p1_bot5": {
+	"nome": "Giannino",
+	"testo1": "fai attenzione stai per essere distrutto!",
+	"testo2": "come e' possibili che i tuoi pokemon siano cosi' forti??",
+	"affrontato": 0,
+	"soldi": 19,
+	"tipo": "teenagerM",
+	"poke1": {
+		"nomePokemon": "kakuna",
+		"livello": "4",
+		"statistiche": {
+			"hp": 72,
+			"hpTot": 72,
+			"attack": 34,
+			"defense": 64,
+			"special_attack": 34,
+			"special_defense": 34,
+			"speed": 46
+		},
+		"mosse": [
+			{
+				"nome": "Velenospina",
+				"tipo": "Veleno"
+			},
+			{
+				"nome": "Azione",
+				"tipo": "Normale"
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"bosco_bot1": {
+	"nome": "Tony",
+	"testo1": "sono proprio belle le farfalline, vuoi catturarle con me?",
+	"testo2": "sei stato bravo, penso che tornere' a catturarle le farfalline",
+	"affrontato": 0,
+	"soldi": 37,
+	"tipo": "retino",
+	"poke1": {
+		"nomePokemon": "nidoranM",
+		"livello": "7",
+		"statistiche": {
+			"hp": 54,
+			"hpTot": 54,
+			"attack": 56,
+			"defense": 42,
+			"special_attack": 42,
+			"special_defense": 42,
+			"speed": 50.4
+		},
+		"mosse": [
+			{
+				"nome": "Azione",
+				"tipo": "Normale"
+			},
+			{
+				"nome": "Velenospina",
+				"tipo": "Veleno"
+			},
+			{
+				"nome": "Taglio",
+				"tipo": "Normale"
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"bosco_bot2": {
+	"nome": "Marica e Sofia",
+	"testo1": "non farti ingannare dalle apparenza, stai pronto perche' stiamo per sconfiggerti",
+	"testo2": "non ci posso credere come e' stato possibili, noi non perdiamo mai",
+	"affrontato": 0,
+	"soldi": 42,
+	"tipo": "gemelle",
+	"poke1": {
+		"nomePokemon": "Geodude",
+		"livello": "7",
+		"statistiche": {
+			"hp": 63,
+			"hpTot": 63,
+			"attack": 94,
+			"defense": 116,
+			"special_attack": 40,
+			"special_defense": 40,
+			"speed": 30
+		},
+		"mosse": [
+			{
+				"nome": "Colpo di fango",
+				"tipo": "Terra"
+			},
+			{
+				"nome": "Sassata",
+				"tipo": "Roccia"
+			},
+			{
+				"nome": "Cadutamassi",
+				"tipo": "Roccia"
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"bosco_bot3": {
+	"nome": "Giulia",
+	"testo1": "Quanto e' bella la natura, l'odore del bosco, i canti degli uccelli e degli altri animali che vivono qua",
+	"testo2": "ricorda, quando sei in difficolta' fermati ad ascoltare il bosco",
+	"affrontato": 0,
+	"soldi": 49,
+	"tipo": "gemelle",
+	"poke1": {
+		"nomePokemon": "nidoranM",
+		"livello": "6",
+		"statistiche": {
+			"hp": 68,
+			"hpTot": 68,
+			"attack": 68,
+			"defense": 50,
+			"special_attack": 50,
+			"special_defense": 50,
+			"speed": 61
+		},
+		"mosse": [
+			{
+				"nome": "Taglio",
+				"tipo": "Normale"
+			},
+			{
+				"nome": "Pungiglione",
+				"tipo": "Coleottero"
+			},
+			{
+				"nome": "AttaccoRapido",
+				"tipo": "Normale"
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "5",
+		"statistiche": {
+			"hp": 72,
+			"hpTot": 72,
+			"attack": 49,
+			"defense": 44,
+			"special_attack": 39,
+			"special_defense": 44,
+			"speed": 35
+		},
+		"mosse": [
+			{
+				"nome": "Pistolacqua",
+				"tipo": "Acqua"
+			},
+			{
+				"nome": "Azione",
+				"tipo": "Normale"
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"bosco_bot4": {
+	"nome": "Maurizio",
+	"testo1": "la mamma mi ha detto ti tornare a casa prima di sera quindi dovro' sconfiggerti in fretta",
+	"testo2": "adesso devo andare se no la mamma mi mette in punizione",
+	"affrontato": 0,
+	"soldi": 87,
+	"tipo": "retino",
+	"poke1": {
+		"nomePokemon": "kakuna",
+		"livello": "7",
+		"statistiche": {
+			"hp": 93,
+			"hpTot": 93,
+			"attack": 44,
+			"defense": 84,
+			"special_attack": 44,
+			"special_defense": 44,
+			"speed": 58
+		},
+		"mosse": [
+			{
+				"nome": "Missispillo",
+				"tipo": "Coleottero"
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "Geodude",
+		"livello": "7",
+		"statistiche": {
+			"hp": 63,
+			"hpTot": 63,
+			"attack": 94,
+			"defense": 116,
+			"special_attack": 40,
+			"special_defense": 40,
+			"speed": 30
+		},
+		"mosse": [
+			{
+				"nome": "Cadutamassi",
+				"tipo": "Roccia"
+			},
+			{
+				"nome": "Sassata",
+				"tipo": "Roccia"
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "kakuna",
+		"livello": "4",
+		"statistiche": {
+			"hp": 72,
+			"hpTot": 72,
+			"attack": 34.8,
+			"defense": 64.8,
+			"special_attack": 34.8,
+			"special_defense": 34.8,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "Missispillo",
+				"tipo": "Coleottero"
+			},
+			{
+				"nome": "Azione",
+				"tipo": "Normale"
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"p2_bot1": {
+	"nome": "Eugenio",
+	"testo1": "ciao figliulo non andarci troppo pesante con me",
+	"testo2": "bravo mi hai sconfitto, ora continua così, FORZAA GIOVANEE!!!",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "anziano",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84,
+			"hpTot": 84,
+			"attack": 58,
+			"defense": 51,
+			"special_attack": 37,
+			"special_defense": 37,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "Azione",
+				"tipo": "Normale"
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99,
+			"hpTot": 99,
+			"attack": 63,
+			"defense": 57,
+			"special_attack": 51,
+			"special_defense": 57,
+			"speed": 46
+		},
+		"mosse": [
+			{
+				"nome": "Azione",
+				"tipo": "Normale"
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"p2_bot2": {
+	"nome": "Ermenegilda",
+	"testo1": "hai mangiato abbastanza a pranzo?? tieni mangia ancora",
+	"testo2": "bravo ti meriti una mancia per come ti sei comportato, mi raccomando vai a prendere il gelato",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "nonnia",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84,
+			"hpTot": 84,
+			"attack": 58,
+			"defense": 51,
+			"special_attack": 37,
+			"special_defense": 37,
+			"speed": 80
+		},
+		"mosse": [
+			{
+				"nome": "Azione",
+				"tipo": "Normale"
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99,
+			"hpTot": 99,
+			"attack": 63,
+			"defense": 57,
+			"special_attack": 51,
+			"special_defense": 57,
+			"speed": 46
+		},
+		"mosse": [
+			{
+				"nome": "Azione",
+				"tipo": "Normale"
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"grotta_bot1": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84,
+			"hpTot": 84,
+			"attack": 58,
+			"defense": 51,
+			"special_attack": 37,
+			"special_defense": 37,
+			"speed": 80
+		},
+		"mosse": [
+			{
+				"nome": "Azione",
+				"tipo": "Normale"
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99,
+			"hpTot": 99,
+			"attack": 63,
+			"defense": 57,
+			"special_attack": 51,
+			"special_defense": 57,
+			"speed": 46
+		},
+		"mosse": [
+			{
+				"nome": "Azione",
+				"tipo": "Normale"
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"grotta_bot2": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"grotta_bot3": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"grotta_bot4": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"grotta_bot5": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"grotta_bot6": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"grotta_bot7": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"grotta_bot8": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"mare_bot1": {
+	"nome": "Michael",
+	"testo1": "mi sto allenando per vincere piu' ori possibili alle prossime olimiadi",
+	"testo2": "augurami buona fortuna, nel caso in cui dovessi vincere ti dedicherò una medaglia",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "nuotatoreM",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84,
+			"hpTot": 84,
+			"attack": 58,
+			"defense": 51,
+			"special_attack": 37,
+			"special_defense": 37,
+			"speed": 80
+		},
+		"mosse": [
+			{
+				"nome": "Azione",
+				"tipo": "Normale"
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 99,
+			"attack": 63,
+			"defense": 57,
+			"special_attack": 51,
+			"special_defense": 57,
+			"speed": 46
+		},
+		"mosse": [
+			{
+				"nome": "Azione",
+				"tipo": "Normale"
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"mare_bot2": {
+	"nome": "Rodriguez",
+	"testo1": "che bello che e' il mare oggi, e' la giornata perfetta' per farsi una bella nuotata",
+	"testo2": "era meglio restare a casa a guardarmi una puntata di mare fuori",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "nuotatoreM",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84,
+			"hpTot": 84,
+			"attack": 58,
+			"defense": 51,
+			"special_attack": 37,
+			"special_defense": 37,
+			"speed": 80
+		},
+		"mosse": [
+			{
+				"nome": "Azione",
+				"tipo": "Normale"
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99,
+			"hpTot": 99,
+			"attack": 63,
+			"defense": 57,
+			"special_attack": 51,
+			"special_defense": 57,
+			"speed": 46
+		},
+		"mosse": [
+			{
+				"nome": "Azione",
+				"tipo": "Normale"
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"mare_bot3": {
+	"nome": "federica",
+	"testo1": "e' sempre bello fare un giro di tutta la costa",
+	"testo2": "penso che tornero' alla mia routin di nuoto",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "nuotatoreF",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"mare_bot4": {
+	"nome": "Alice",
+	"testo1": "Ho mangiato un ora fa, ho paura di stare male",
+	"testo2": "Cavolo, mi sa che avrei dovuto aspettare qualche ora in piu'",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "nuotatoreF",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"mare_bot5": {
+	"nome": "Marco",
+	"testo1": "Ci sono tanti bei pokemon, mi e' sembrato di vedere anche un lugia",
+	"testo2": "Stato scherzando mi sono confuso io, in realta' era un magikarp",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "nuotatoreM",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"mare_bot6": {
+	"nome": "Magikarp",
+	"testo1": "Magikarp!",
+	"testo2": "Magikarp...",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "pescatore",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"mare_bot7": {
+	"nome": "Ettore",
+	"testo1": "Quanto e' divertente andare al mare? A te piace?",
+	"testo2": "sei cattivo! penso che tornero' a fare un castello di sabbia",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "bambinoNuota",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"mare_bot8": {
+	"nome": "Martina",
+	"testo1": "I nonni mi hanno portato qua, anche se io non volevo",
+	"testo2": "In realtà io volevo andare al supermercato a fare compere",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "bambinaNuota",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"p4_bot1": {
+	"nome": "Jenny",
+	"testo1": "Stavamo facendo una sfida tra i boyscout ma mi sono persa, tu per caso sai dove devo andare?",
+	"testo2": "Va bene ho capito tu non sai dove sono i miei compagni, vorrà dire che li cerchere' da sola",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "girlScout",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"p4_bot2": {
+	"nome": "Hal",
+	"testo1": "Non penso che riuscirai a sfonfiggermi, sono uno dei piu' forti qua",
+	"testo2": "Va bene mi hai scoperto, non ho ancora ottenuto la terza medaglia",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "fantaAllenatore",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"p4_bot3": {
+	"nome": "Mara",
+	"testo1": "Se sei arrivato fin qua vuol dire che sei abbastanza forte, ma lo sarai abbastanza per sconfiggermi??",
+	"testo2": "si', sei decisamente forte, sicuramente andrai lontano",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "fantaAllenatrice",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"p4_bot4": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"p4_bot5": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"p4_bot6": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"p4_bot7": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"p4_bot8": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"p4_bot9": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"p4_bot10": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"p4_bot11": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"p4_bot12": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"p4_bot13": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"p4_bot14": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"p4_bot15": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"vittoria_bot1": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"vittoria_bot2": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"vittoria_bot3": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"vittoria_bot4": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"vittoria_bot5": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"vittoria_bot6": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"vittoria_bot7": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"vittoria_bot8": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"vittoria_bot9": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"vittoria_bot10": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"vittoria_bot11": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"vittoria_bot12": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"vittoria_bot13": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"vittoria_bot14": {
+	"nome": "",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 109,
+	"tipo": "",
+	"poke1": {
+		"nomePokemon": "weedle",
+		"livello": "7",
+		"statistiche": {
+			"hp": 84.6,
+			"hpTot": 84.6,
+			"attack": 58.8,
+			"defense": 51.6,
+			"special_attack": 37.2,
+			"special_defense": 37.2,
+			"speed": 80.4
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "bidoof",
+		"livello": "8",
+		"statistiche": {
+			"hp": 99.4,
+			"hpTot": 99.4,
+			"attack": 63.6,
+			"defense": 57.6,
+			"special_attack": 51.6,
+			"special_defense": 57.6,
+			"speed": 46.8
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+},
+"rivale": {
+	"nome": "Barry",
+	"testo1": "",
+	"testo2": "",
+	"affrontato": 0,
+	"soldi": 16,
+	"tipo": "rivale",
+	"poke1": {
+		"nomePokemon": "",
+		"livello": "",
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke2": {
+		"nomePokemon": "",
+		"livello": "",
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke3": {
+		"nomePokemon": "",
+		"livello": "",
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke4": {
+		"nomePokemon": "",
+		"livello": "",
+		"statistiche": {
+			"hp": 0,
+			"hpTot": 0,
+			"attack": 0,
+			"defense": 0,
+			"special_attack": 0,
+			"special_defense": 0,
+			"speed": 0
+		},
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke5": {
+		"nomePokemon": "",
+		"livello": "",
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	},
+	"poke6": {
+		"nomePokemon": "",
+		"livello": "",
+		"mosse": [
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			},
+			{
+				"nome": "",
+				"tipo": ""
+			}
+		]
+	}
+}
+}
