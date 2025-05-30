@@ -754,7 +754,7 @@
 "p1_bot5": {
 	"nome": "Giannino",
 	"testo1": "fai attenzione stai per essere distrutto!",
-	"testo2": "come e' possibili che i tuoi pokemon siano cosi' forti??",
+	"testo2": "come e' possibile che i tuoi pokemon siano cosi' forti??",
 	"affrontato": 0,
 	"soldi": 19,
 	"tipo": "teenagerM",
@@ -1130,7 +1130,7 @@
 "bosco_bot2": {
 	"nome": "Marica e Sofia",
 	"testo1": "non farti ingannare dalle apparenza, stai pronto perche' stiamo per sconfiggerti",
-	"testo2": "non ci posso credere come e' stato possibili, noi non perdiamo mai",
+	"testo2": "non ci posso credere come e' stato possibile, noi non perdiamo mai",
 	"affrontato": 0,
 	"soldi": 42,
 	"tipo": "gemelle",
@@ -3607,7 +3607,7 @@
 },
 "mare_bot1": {
 	"nome": "Michael",
-	"testo1": "mi sto allenando per vincere piu' ori possibili alle prossime olimiadi",
+	"testo1": "mi sto allenando per vincere piu' ori possibile alle prossime olimiadi",
 	"testo2": "augurami buona fortuna, nel caso in cui dovessi vincere ti dedicherò una medaglia",
 	"affrontato": 0,
 	"soldi": 109,
