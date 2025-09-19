@@ -184,7 +184,6 @@ public void render() {
             cambiaProfondita();
 
             // Move the player based on user input (you should implement the move logic)
-            handlePlayerMovement();
             player.update(Gdx.graphics.getDeltaTime());  // Update player logic
 
             // Update the game screen and camera
@@ -422,7 +421,7 @@ public void render() {
         this.camera = camera;
         camera.update();
 
-        collisionLayerTile = (TiledMapTileLayer) map.getLayers().get("collisioni"); 
+        collisionLayerTile = (TiledMapTileLayer) map.getLayers().get("collision"); 
 
         // prendo il layer delle collisioni
         try {
@@ -818,14 +817,17 @@ public void render() {
     ////////////////////////////////////////////////////////////////////////////////
 
     private void handlePlayerMovement() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             movePlayer(Direction.UP);
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             movePlayer(Direction.DOWN);
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.A)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             movePlayer(Direction.LEFT);
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             movePlayer(Direction.RIGHT);
+        }
+        else{
+            ash.fermaAnimazione();
         }
     }
 
@@ -848,11 +850,15 @@ public void render() {
                 break;
         }
 
-        // Controlla se il targetTile è percorribile usando il layer di collisione
-        TiledMapTileLayer.Cell cell = collisionLayerTile.getCell((int) targetTile.x, (int) targetTile.y);
-        boolean walkable = (cell == null || cell.getTile() == null ||
-                !cell.getTile().getProperties().containsKey("blocked") ||
-                !"true".equals(cell.getTile().getProperties().get("blocked", String.class)));
+        boolean walkable = true;
+
+        if (collisionLayerTile != null) {
+            TiledMapTileLayer.Cell cell = collisionLayerTile.getCell((int) targetTile.x, (int) targetTile.y);
+            if (cell!=null){
+                walkable = (!cell.getTile().getProperties().containsKey("blocked"));
+            }
+            
+        }
 
         // Se percorribile, avvia il movimento e imposta l'animazione corretta in Ash
         if (walkable) {

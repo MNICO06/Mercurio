@@ -4426,7 +4426,7 @@ public class Battle extends ScreenAdapter {
                     // Add the fade-in and fade-out effect to the white overlay
                     whiteOverlay.addAction(Actions.sequence(
                             Actions.parallel(
-                                    Actions.fadeIn(2f),
+                                    Actions.fadeIn(2f), 
                                     Actions.repeat(2, Actions.sequence(
                                             Actions.scaleBy(0.3f, 0.3f, 1.5f),
                                             Actions.scaleBy(-0.3f, -0.3f, 1.5f)))),

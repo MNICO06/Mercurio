@@ -222,7 +222,7 @@ public class Ash {
         stateTime = 0f;
     }
 
-    // metodo del movimento che chiama anche il controllo collisione
+    // metodo del movimento che chiama anche il controllo collisione  //mi sa che non serve più 
     public void move(MapLayer oggettiStoria, MapLayer collisionLayer, ArrayList<Rectangle> rectList) {
         try {
             if (canMove) {
@@ -512,19 +512,23 @@ public class Ash {
     }
 
     public void setCamminaSinistra() {
-        currentAnimation = camminaSinistra.getKeyFrame(stateTime);
+        stateTime += Gdx.graphics.getDeltaTime();
+        currentAnimation = camminaSinistra.getKeyFrame(stateTime, true);
     }
 
     public void setCamminaDestra() {
-        currentAnimation = camminaDestra.getKeyFrame(stateTime);
+        stateTime += Gdx.graphics.getDeltaTime();
+        currentAnimation = camminaDestra.getKeyFrame(stateTime, true);
     }
 
     public void setCamminaAvanti() {
-        currentAnimation = camminaAvanti.getKeyFrame(stateTime);
+        stateTime += Gdx.graphics.getDeltaTime();
+        currentAnimation = camminaAvanti.getKeyFrame(stateTime, true);
     }
 
     public void setCamminaIndietro() {
-        currentAnimation = camminaIndietro.getKeyFrame(stateTime);
+        stateTime += Gdx.graphics.getDeltaTime();
+        currentAnimation = camminaIndietro.getKeyFrame(stateTime, true);
     }
 
     public void setSurfSinistra() {
@@ -606,5 +610,15 @@ public class Ash {
         isKeyboardEnabled=true;
 
     }
-
+    public void fermaAnimazione(){
+        if (currentAnimation == camminaSinistra.getKeyFrame(stateTime, true)) {
+            currentAnimation = fermoSinistra.getKeyFrame(0); // Imposta il frame fermo a 0
+        } else if (currentAnimation == camminaDestra.getKeyFrame(stateTime, true)) {
+            currentAnimation = fermoDestra.getKeyFrame(0);
+        } else if (currentAnimation == camminaAvanti.getKeyFrame(stateTime, true)) {
+            currentAnimation = fermoAvanti.getKeyFrame(0);
+        } else if (currentAnimation == camminaIndietro.getKeyFrame(stateTime, true)) {
+            currentAnimation = fermoIndietro.getKeyFrame(0);
+        }
+    }
 }
