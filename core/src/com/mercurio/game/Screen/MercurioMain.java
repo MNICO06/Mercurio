@@ -854,15 +854,11 @@ public void render() {
 
         if (collisionLayerTile != null) {
             TiledMapTileLayer.Cell cell = collisionLayerTile.getCell((int) targetTile.x, (int) targetTile.y);
-            if (cell!=null){
-                walkable = (!cell.getTile().getProperties().containsKey("blocked"));
-            }
-            
+        walkable = (cell == null) && isWalkable((int) targetTile.x, (int) targetTile.y); // Se non c'è cella → camminabile, se c'è → bloccato
+
         }
 
-        // Se percorribile, avvia il movimento e imposta l'animazione corretta in Ash
-        if (walkable) {
-            switch (direction) {
+        switch (direction) {
                 case UP:
                     ash.setCamminaAvanti();
                     break;
@@ -876,7 +872,23 @@ public void render() {
                     ash.setCamminaDestra();
                     break;
             }
+
+        // Se percorribile, avvia il movimento e imposta l'animazione corretta in Ash
+        if (walkable) {
             player.move(direction, walkable);
         }
+    }
+
+    public boolean isWalkable(int x, int y) {
+
+        // Recupero il layer "floor"
+        TiledMapTileLayer floorLayer = (TiledMapTileLayer) map.getLayers().get("floor");
+        if (floorLayer != null) {
+
+            // Controllo se c'è un tile in questa cella
+            TiledMapTileLayer.Cell cell = floorLayer.getCell(x, y);
+            return (cell != null);
+        }
+        return true;
     }
 }

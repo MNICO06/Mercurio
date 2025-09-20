@@ -222,8 +222,10 @@ public class Ash {
         stateTime = 0f;
     }
 
-    // metodo del movimento che chiama anche il controllo collisione  //mi sa che non serve più 
-    public void move(MapLayer oggettiStoria, MapLayer collisionLayer, ArrayList<Rectangle> rectList) {
+    // vecchio metodo del movimento e il vecchio controllo collisione 
+    //ora è stato aggiornato con quello a tile (tipo i veri giochi vecchi), nel caso possa servire ancora lo si lascia qua
+
+    /*public void move(MapLayer oggettiStoria, MapLayer collisionLayer, ArrayList<Rectangle> rectList) {
         try {
             if (canMove) {
 
@@ -439,7 +441,7 @@ public class Ash {
             return false;
         }
 
-    }
+    }*/
 
     public Vector2 getPlayerPosition() {
         return characterPosition;
