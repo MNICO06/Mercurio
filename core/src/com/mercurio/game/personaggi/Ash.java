@@ -415,6 +415,7 @@ public class Ash {
 
     // Metodo per controllare le collisioni solo sugli oggetti con proprietà
     // "considerare" = true
+    
     private boolean checkCollisionsStory(MapLayer oggettiStoria) {
         try {
             // Itera sugli oggetti del livello di collisione

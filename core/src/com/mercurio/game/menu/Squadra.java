@@ -450,7 +450,7 @@ public class Squadra {
         try {
 
             // Carica il file JSON
-            FileHandle file = Gdx.files.local("ashJson/squadra.json");
+            FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
             String jsonString = file.readString();
             // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
             JsonValue json = new JsonReader().parse(jsonString);
@@ -616,7 +616,7 @@ public class Squadra {
                     // Codice da eseguire quando viene rilevato un clic sullo schermo
 
                     if (indexDaSwitch != 0 && index1 != indexDaSwitch) {
-                        FileHandle file = Gdx.files.local("ashJson/squadra.json");
+                        FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
                         String jsonString = file.readString();
                         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
                         JsonValue json = new JsonReader().parse(jsonString);

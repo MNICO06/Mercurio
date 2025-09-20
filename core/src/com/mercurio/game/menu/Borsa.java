@@ -106,7 +106,7 @@ public class Borsa {
         asset.loadBPBAsset();
         asset.finishLoading();
 
-        try (FileReader fileReader = new FileReader("ashJson/borsa.json")) {
+        try (FileReader fileReader = new FileReader("assets/ashJson/borsa.json")) {
 
             // Utilizza JSONTokener per leggere il file JSON
             JSONTokener tokener = new JSONTokener(fileReader);
@@ -640,7 +640,7 @@ public class Borsa {
     }
     
     private void aggiornaBorsa(){
-        try (FileReader fileReader = new FileReader("ashJson/borsa.json")) {
+        try (FileReader fileReader = new FileReader("assets/ashJson/borsa.json")) {
             // Utilizza JSONTokener per leggere il file JSON
             JSONTokener tokener = new JSONTokener(fileReader);
             JSONObject inventoryData = new JSONObject(tokener);

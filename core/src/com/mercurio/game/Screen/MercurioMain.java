@@ -125,12 +125,12 @@ public class MercurioMain extends Game implements InterfacciaComune {
             player = new Player(new Vector2(5, 5), 16f, 3f); // Assuming tile size is 32 and speed is 3 tiles per second
             
             // Initialize other components as needed...
-            copiaJson("jsonSalvati/borsaSalvato.json", "ashJson/borsa.json");
-            copiaJson("jsonSalvati/squadraSalvato.json", "ashJson/squadra.json");
-            copiaJson("jsonSalvati/botsSalvato.json", "bots/bots.json");
-            copiaJson("jsonSalvati/datiGeneraliSalvato.json", "ashJson/datiGenerali.json");
-            copiaJson("jsonSalvati/boxSalvato.json", "ashJson/box.json");
-            copiaJson("jsonSalvati/pokemonScopertiSalvato.json", "ashJson/pokemonScoperti.json");
+            copiaJson("assets/jsonSalvati/borsaSalvato.json", "assets/ashJson/borsa.json");
+            copiaJson("assets/jsonSalvati/squadraSalvato.json", "assets/ashJson/squadra.json");
+            copiaJson("assets/jsonSalvati/botsSalvato.json", "assets/bots/bots.json");
+            copiaJson("assets/jsonSalvati/datiGeneraliSalvato.json", "assets/ashJson/datiGenerali.json");
+            copiaJson("assets/jsonSalvati/boxSalvato.json", "assets/ashJson/box.json");
+            copiaJson("assets/jsonSalvati/pokemonScopertiSalvato.json", "assets/ashJson/pokemonScoperti.json");
 
             Timer.schedule(new Timer.Task() {
                 @Override
@@ -393,7 +393,7 @@ public void render() {
     public void loadGame() {
         try {
             // Carica il file JSON
-            FileHandle file = Gdx.files.local("ashJson/datiPosizione.json");
+            FileHandle file = Gdx.files.local("assets/ashJson/datiPosizione.json");
             String jsonString = file.readString();
             // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
             JsonValue json = new JsonReader().parse(jsonString);

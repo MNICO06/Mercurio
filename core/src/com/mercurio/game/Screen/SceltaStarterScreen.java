@@ -285,7 +285,7 @@ public class SceltaStarterScreen extends ScreenAdapter {
     private void salvaStarter(String pokemon) {
         try {
             // Carica il file JSON
-            FileHandle file = Gdx.files.local("ashJson/squadra.json");
+            FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
             String jsonString = file.readString();
 
             JsonValue json = new JsonReader().parse(jsonString);
@@ -357,7 +357,7 @@ public class SceltaStarterScreen extends ScreenAdapter {
             stats.aggiornaStatistichePokemon(1);
 
             // Carica il file JSON
-            FileHandle fileScoperti = Gdx.files.local("ashJson/pokemonScoperti.json");
+            FileHandle fileScoperti = Gdx.files.local("assets/ashJson/pokemonScoperti.json");
             JsonValue jsonScoperti = new JsonReader().parse(fileScoperti.readString());
             for (int i = 0; i < jsonScoperti.size; i++) {
                 if (jsonScoperti.get(i).getString("nome").equals(pokemon)) {

@@ -1255,7 +1255,7 @@ public class FullMap extends ScreenAdapter implements InterfacciaComune {
     private void controllaPresenzaStarter() {
         try{
             // Carica il file JSON
-            FileHandle file = Gdx.files.internal("ashJson/squadra.json");
+            FileHandle file = Gdx.files.internal("assets/ashJson/squadra.json");
             String jsonString = file.readString();
 
             // Parsea il JSON

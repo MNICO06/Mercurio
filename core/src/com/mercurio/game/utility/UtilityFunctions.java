@@ -14,7 +14,7 @@ public class UtilityFunctions {
     public boolean controllaPresenzaStarter() {
         try {
             // Carica il file JSON
-            FileHandle file = Gdx.files.local("ashJson/squadra.json");
+            FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
             String jsonString = file.readString();
 
             JsonValue json = new JsonReader().parse(jsonString);
@@ -39,7 +39,7 @@ public class UtilityFunctions {
 
     public void cura() {
         // Carica il file JSON
-        FileHandle file = Gdx.files.local("ashJson/squadra.json");
+        FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
         String jsonString = file.readString();
 
         // Utilizza la classe JsonReader di LibGDX per leggere il file JSON

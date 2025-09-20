@@ -234,7 +234,7 @@ public class MenuLabel{
 
         try { 
             // Carica il file JSON
-            FileHandle file = Gdx.files.local("ashJson/datiPosizione.json");
+            FileHandle file = Gdx.files.local("assets/ashJson/datiPosizione.json");
             String jsonString = file.readString();
             
             // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
@@ -262,12 +262,12 @@ public class MenuLabel{
             // Scrivi il JSON aggiornato nel file mantenendo la formattazione
             file.writeString(json.prettyPrint(JsonWriter.OutputType.json, 1), false);
 
-            game.copiaJson("ashJson/borsa.json","jsonSalvati/borsaSalvato.json");
-            game.copiaJson("ashJson/squadra.json","jsonSalvati/squadraSalvato.json");
-            game.copiaJson("bots/bots.json","jsonSalvati/botsSalvato.json");
-            game.copiaJson("ashJson/datiGenerali.json", "jsonSalvati/datiGeneraliSalvato.json");
-            game.copiaJson("ashJson/box.json", "jsonSalvati/boxSalvato.json");
-            game.copiaJson("ashJson/pokemonScoperti.json","jsonSalvati/pokemonScopertiSalvato.json");
+            game.copiaJson("assets/ashJson/borsa.json","assets/jsonSalvati/borsaSalvato.json");
+            game.copiaJson("assets/ashJson/squadra.json","assets/jsonSalvati/squadraSalvato.json");
+            game.copiaJson("assets/bots/bots.json","assets/jsonSalvati/botsSalvato.json");
+            game.copiaJson("assets/ashJson/datiGenerali.json", "assets/jsonSalvati/datiGeneraliSalvato.json");
+            game.copiaJson("assets/ashJson/box.json", "assets/jsonSalvati/boxSalvato.json");
+            game.copiaJson("assets/ashJson/pokemonScoperti.json","assets/jsonSalvati/pokemonScopertiSalvato.json");
 
         } catch (Exception e) {
             System.out.println("Errore salva, " + e);

@@ -124,7 +124,7 @@ public class CasaSpawn extends MapsAbstract {
 
         game.setRectangleList(rectList);
         game.addBotRender(renderBot);
-        //controllaUscita();
+        controllaUscita();
 
         giraMamma();
         controlloTesto();

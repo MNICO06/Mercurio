@@ -17,7 +17,7 @@ public class Stats {
         try {
             JsonValue stats = new JsonValue(JsonValue.ValueType.object);
 
-            FileHandle file2 = Gdx.files.local("ashJson/squadra.json");
+            FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
             String jsonString2 = file2.readString();
             JsonValue json2 = new JsonReader().parse(jsonString2);
 
@@ -66,7 +66,7 @@ public class Stats {
 
     public void aggiornaStatistichePokemon(int num) {
         try {
-            FileHandle file2 = Gdx.files.local("ashJson/squadra.json");
+            FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
             String jsonString2 = file2.readString();
             JsonValue json2 = new JsonReader().parse(jsonString2);
             JsonValue poke = json2.get("poke" + num);

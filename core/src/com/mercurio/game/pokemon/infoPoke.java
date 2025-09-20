@@ -155,10 +155,10 @@ public class infoPoke {
             FileHandle file;
 
             if (box) {
-                file = Gdx.files.local("ashJson/box.json");
+                file = Gdx.files.local("assets/ashJson/box.json");
                 index = "" + numero;
             } else {
-                file = Gdx.files.local("ashJson/squadra.json");
+                file = Gdx.files.local("assets/ashJson/squadra.json");
                 index = "poke" + numero;
             }
 
@@ -454,9 +454,9 @@ public class infoPoke {
             FileHandle file2;
 
             if (box) {
-                file2 = Gdx.files.local("ashJson/box.json");
+                file2 = Gdx.files.local("assets/ashJson/box.json");
             } else {
-                file2 = Gdx.files.local("ashJson/squadra.json");
+                file2 = Gdx.files.local("assets/ashJson/squadra.json");
             }
 
             String jsonString2 = file2.readString();

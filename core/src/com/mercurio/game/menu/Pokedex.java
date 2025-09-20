@@ -283,7 +283,7 @@ public class Pokedex {
         pulisciPagina();
 
         try {
-            FileHandle file = Gdx.files.local("ashJson/pokemonScoperti.json");
+            FileHandle file = Gdx.files.local("assets/ashJson/pokemonScoperti.json");
             JsonValue json = new JsonReader().parse(file.readString());
 
             cont = 1;
@@ -495,7 +495,7 @@ public class Pokedex {
             pulisciPagina();
             rimuoviPagine();
 
-            FileHandle file = Gdx.files.local("ashJson/pokemonScoperti.json");
+            FileHandle file = Gdx.files.local("assets/ashJson/pokemonScoperti.json");
             JsonValue json = new JsonReader().parse(file.readString());
             JsonValue pokeJson = json.get(String.valueOf(numeroPokedex));
 

@@ -403,7 +403,7 @@ public class squadraCure {
     public void leggiPokeSecondario(int numero) {
         try {
             // Carica il file JSON
-            FileHandle file = Gdx.files.local("ashJson/squadra.json");
+            FileHandle file = Gdx.files.local("assets/ashJson/squadra.json");
             String jsonString = file.readString();
             // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
             JsonValue json = new JsonReader().parse(jsonString);
@@ -608,7 +608,7 @@ public class squadraCure {
             }
 
             // Carica il file JSON
-            FileHandle file2 = Gdx.files.local("ashJson/squadra.json");
+            FileHandle file2 = Gdx.files.local("assets/ashJson/squadra.json");
             String jsonString2 = file2.readString();
             // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
             JsonValue json2 = new JsonReader().parse(jsonString2);
