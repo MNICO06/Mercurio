@@ -510,9 +510,11 @@ public void render() {
             // Recupera il layer dalla mappa
             MapLayer layer = map.getLayers().get(layerName);
             // Renderizza il layer
-            tileRenderer.renderTileLayer((TiledMapTileLayer) layer);
-    
-            tileRenderer.getBatch().end();
+            if (layer!=null){
+                tileRenderer.renderTileLayer((TiledMapTileLayer) layer);
+        
+                tileRenderer.getBatch().end();
+            }
         } catch (Exception e) {
             System.out.println("Errore durante il rendering del layer: " + e);
         }
