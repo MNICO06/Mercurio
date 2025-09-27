@@ -391,7 +391,6 @@ public class MenuLabel{
     public void render() {
 
         try {
-            
             // Controlla se il tasto X è premuto per aprire o chiudere il menu
             if (Gdx.input.isKeyJustPressed(Input.Keys.X) && !game.getIsInMovement()) {
                 if (!menuOpened && xKeyPressed) {

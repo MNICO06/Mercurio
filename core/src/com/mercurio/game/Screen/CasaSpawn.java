@@ -271,14 +271,14 @@ public class CasaSpawn extends MapsAbstract {
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
                 //da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
                 tieniApertoDiscorsoPrima = labelDiscorsiSenzaStarter.advanceText();
+                if (!tieniApertoDiscorsoPrima){
+                    //quando deve terminare 
+                    tieniApertoDiscorsoPrima = false;
+                    fPressed = false;
+                    game.getPlayer().setMovement(true);
+                    labelDiscorsiSenzaStarter.reset();
+                }
             }
-        }
-        else {
-            //quando deve terminare 
-            tieniApertoDiscorsoPrima = false;
-            fPressed = false;
-            game.getPlayer().setMovement(true);
-            labelDiscorsiSenzaStarter.reset();
         }
     }
 
@@ -291,15 +291,16 @@ public class CasaSpawn extends MapsAbstract {
                 if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
                     // da fare quando il personaggio deve andare avanti di testo (quindi cambiarlo)
                     tieniApertoDiscorsoDopo = labelDiscorsiConStarter.advanceText();
+                    if (!tieniApertoDiscorsoDopo){
+                        // quando deve terminare
+                        tieniApertoDiscorsoDopo = false;
+                        fPressed = false;
+                        utilityFunctions.cura();
+                        game.getPlayer().setMovement(true);
+                        labelDiscorsiConStarter.reset();
+                    }
                 }
-            } else {
-                // quando deve terminare
-                tieniApertoDiscorsoDopo = false;
-                fPressed = false;
-                utilityFunctions.cura();
-                game.getPlayer().setMovement(true);
-                labelDiscorsiConStarter.reset();
-            }
+            } 
         } catch (Exception e) {
             System.out.println("Errore controllotesto casaSPawn, " + e);
         }

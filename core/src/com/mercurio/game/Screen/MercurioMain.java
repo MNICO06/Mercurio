@@ -121,8 +121,13 @@ public class MercurioMain extends Game implements InterfacciaComune {
             menuLabel = new MenuLabel(this);
             setPage(Constant.SCHERMATA_LOGO);
 
-            // Initialize the player (starting at tile position (5, 5) for example)
-            player = new Player(new Vector2(5, 5), 16f, 3f); // Assuming tile size is 32 and speed is 3 tiles per second
+            FileHandle filePos = Gdx.files.local("assets/ashJson/datiPosizione.json");
+            String jsonStringPos = filePos.readString();
+            // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+            JsonValue jsonPos = new JsonReader().parse(jsonStringPos);
+
+            // Initialize the player (starting at tile position (5, 5) for example) NO BASTARDACCIO ME, NON VA BENE UN ESEMPIO, SERVONO LE COORDINATE DI SALVATAGGIO
+            player = new Player(new Vector2(Float.parseFloat(jsonPos.getString("x"))/16, Float.parseFloat(jsonPos.getString("y"))/16), 16f, 3f); // Assuming tile size is 32 and speed is 3 tiles per second
             
             // Initialize other components as needed...
             copiaJson("assets/jsonSalvati/borsaSalvato.json", "assets/ashJson/borsa.json");
@@ -174,7 +179,6 @@ public void render() {
                 // Sincronizza la posizione di Ash con quella calcolata da Player
                 Vector2 pixelPos = player.getPosition();
                 ash.setPosition(pixelPos.x, pixelPos.y);
-
 
             float cameraX = MathUtils.clamp(ash.getPlayerPosition().x + ash.getPlayerWidth() / 2,
                     camera.viewportWidth / 2, map_size.x - camera.viewportWidth / 2);
@@ -876,9 +880,11 @@ public void render() {
             }
 
         // Se percorribile, avvia il movimento e imposta l'animazione corretta in Ash
-        if (walkable) {
+        if (walkable && ash.canMove) {
+            setisInMovement(true);
             player.move(direction, walkable);
         }
+        
     }
 
     public boolean isWalkable(int x, int y) {

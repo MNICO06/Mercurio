@@ -22,7 +22,7 @@ import com.mercurio.game.AssetManager.GameAsset.AssetsAsh;
 import com.mercurio.game.Screen.MercurioMain;
 
 public class Ash {
-    private boolean canMove = true;
+    public boolean canMove = true;
 
     private boolean isKeyboardEnabled = true;
 
@@ -470,7 +470,6 @@ public class Ash {
 
     public void setMovement(boolean canMove) {
         this.canMove = canMove;
-        game.getUtilityVariables().setIsInMovement(canMove);
     }
 
     // funzioni per far muovere il bot
@@ -623,5 +622,6 @@ public class Ash {
         } else if (currentAnimation == camminaIndietro.getKeyFrame(stateTime, true)) {
             currentAnimation = fermoIndietro.getKeyFrame(0);
         }
+        game.setisInMovement(false);
     }
 }
