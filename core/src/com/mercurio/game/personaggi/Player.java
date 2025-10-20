@@ -1,6 +1,7 @@
 package com.mercurio.game.personaggi;
 
 import com.badlogic.gdx.math.Vector2;
+import com.mercurio.game.Screen.MercurioMain;
 
 public class Player {
     private Vector2 currentTile; // Current tile position
@@ -10,12 +11,13 @@ public class Player {
     private float speed; // Movement speed (tiles per second)
     private boolean moving; // Whether the player is moving
     private Direction facing; // Current facing direction
+    private MercurioMain game;
 
     public enum Direction {
         UP, DOWN, LEFT, RIGHT
     }
 
-    public Player(Vector2 startTile, float tileSize, float speed) {
+    public Player(Vector2 startTile, float tileSize, float speed, MercurioMain game) {
         this.currentTile = new Vector2(startTile);
         this.targetTile = new Vector2(startTile);
         this.position = new Vector2(startTile.x * tileSize, startTile.y * tileSize);
@@ -23,6 +25,7 @@ public class Player {
         this.speed = speed;
         this.moving = false;
         this.facing = Direction.DOWN; // Default facing direction
+        this.game = game;
     }
 
     // Update player logic (movement interpolation)
@@ -33,6 +36,7 @@ public class Player {
             if (position.dst2(new Vector2(targetTile.x * tileSize, targetTile.y * tileSize)) <= moveAmount * moveAmount) {
                 // Se è abbastanza vicino alla destinazione, allinea alla tile
                 position.set(targetTile.x * tileSize, targetTile.y * tileSize);
+                game.getPlayer().updateBoxPlayer(targetTile.x * tileSize, targetTile.y * tileSize);
                 currentTile.set(targetTile);
                 moving = false;
             } else {
@@ -63,6 +67,7 @@ public class Player {
             }
             moving = true;
             facing = direction; // Update facing direction
+            game.setanimazioneAttiva(true);
         }
     }
 
@@ -77,6 +82,10 @@ public class Player {
 
     public boolean isMoving() {
         return moving;
+    }
+    
+    public void setMoving(boolean nuovoVal){
+        moving=nuovoVal;
     }
 
     public Vector2 getCurrentTile() {

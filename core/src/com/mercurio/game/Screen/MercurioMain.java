@@ -101,6 +101,8 @@ public class MercurioMain extends Game implements InterfacciaComune {
     private Player player;
     private TiledMapTileLayer collisionLayerTile ; // Prendi il primo layer, cambia indice se necessario
 
+    private boolean animazioneAttiva = true;
+
 
     // Asset Manager
     public GameAsset asset = new GameAsset();
@@ -127,7 +129,7 @@ public class MercurioMain extends Game implements InterfacciaComune {
             JsonValue jsonPos = new JsonReader().parse(jsonStringPos);
 
             // Initialize the player (starting at tile position (5, 5) for example) NO BASTARDACCIO ME, NON VA BENE UN ESEMPIO, SERVONO LE COORDINATE DI SALVATAGGIO
-            player = new Player(new Vector2(Float.parseFloat(jsonPos.getString("x"))/16, Float.parseFloat(jsonPos.getString("y"))/16), 16f, 3f); // Assuming tile size is 32 and speed is 3 tiles per second
+            player = new Player(new Vector2(Float.parseFloat(jsonPos.getString("x"))/16, Float.parseFloat(jsonPos.getString("y"))/16), 16f, 3f, this); // Assuming tile size is 32 and speed is 3 tiles per second
             
             // Initialize other components as needed...
             copiaJson("assets/jsonSalvati/borsaSalvato.json", "assets/ashJson/borsa.json");
@@ -831,13 +833,12 @@ public void render() {
             movePlayer(Direction.LEFT);
         } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             movePlayer(Direction.RIGHT);
-        }
-        else{
+        } else if (animazioneAttiva){
             ash.fermaAnimazione();
         }
     }
 
-    private void movePlayer(Direction direction) {
+    public void movePlayer(Direction direction) {
         // Calcola la tile target a partire dalla tile corrente
         Vector2 currentTile = player.getCurrentTile();
         Vector2 targetTile = new Vector2(currentTile);
@@ -898,5 +899,17 @@ public void render() {
             return (cell != null);
         }
         return true;
+    }
+
+    public Player getPlayerVero(){
+        return player;
+    }
+
+    public void setanimazioneAttiva(boolean animazioneAttiva){
+        this.animazioneAttiva=animazioneAttiva;
+    }
+
+    public boolean getanimazioneAttiva(){
+        return animazioneAttiva;
     }
 }

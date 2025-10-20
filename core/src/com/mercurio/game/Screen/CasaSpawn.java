@@ -157,8 +157,10 @@ public class CasaSpawn extends MapsAbstract {
 
         if (iniziaMovimento) {
             if ((mammaAsh.getPosition().x - game.getPlayer().getPlayerPosition().x) > 15) {
+                game.setanimazioneAttiva(false);
                 game.getPlayer().muoviBotDestra();
             }else {
+                game.setanimazioneAttiva(true);
                 ferma = false;
                 tieniApertoDiscorsoPrima = true;
             }

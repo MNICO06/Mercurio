@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -17,9 +18,13 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
 import com.mercurio.game.AssetManager.GameAsset;
 import com.mercurio.game.AssetManager.GameAsset.AssetsAsh;
 import com.mercurio.game.Screen.MercurioMain;
+
+import apple.laf.JRSUIConstants.Direction;
 
 public class Ash {
     public boolean canMove = true;
@@ -197,8 +202,13 @@ public class Ash {
             System.out.println("Errore caricamento sprite ash surf, " + e);
         }
 
-        // segnere la posizione del personaggio (poi mettere quella salvata)
-        characterPosition = new Vector2(170, 90);
+        FileHandle filePos = Gdx.files.local("assets/ashJson/datiPosizione.json");
+            String jsonStringPos = filePos.readString();
+            // Utilizza la classe JsonReader di LibGDX per leggere il file JSON
+            JsonValue jsonPos = new JsonReader().parse(jsonStringPos);
+
+        // segnere la posizione del personaggio (poi mettere quella salvata) //si poteva mettere un bel todo mannaggia a ... (indizio, fa rima)
+        characterPosition = new Vector2(Float.parseFloat(jsonPos.getString("x")), Float.parseFloat(jsonPos.getString("y")));
 
         player_width = 18;
         player_height = 24;
@@ -472,29 +482,37 @@ public class Ash {
         this.canMove = canMove;
     }
 
-    // funzioni per far muovere il bot
+    // funzioni per far muovere il bot (in realtà il player ma vabbè)
     public void muoviBotBasso() {
-        stateTime += Gdx.graphics.getDeltaTime();
-        currentAnimation = camminaIndietro.getKeyFrame(stateTime, true);
-        characterPosition.y -= 20f * Gdx.graphics.getDeltaTime();
+        //stateTime += Gdx.graphics.getDeltaTime();
+        //currentAnimation = camminaIndietro.getKeyFrame(stateTime, true);
+        setCamminaAvanti();
+        game.setisInMovement(true);
+        game.getPlayerVero().move(com.mercurio.game.personaggi.Player.Direction.DOWN, true);
     }
 
     public void muoviBotAlto() {
-        stateTime += Gdx.graphics.getDeltaTime();
-        currentAnimation = camminaAvanti.getKeyFrame(stateTime, true);
-        characterPosition.y += 20f * Gdx.graphics.getDeltaTime();
+        //stateTime += Gdx.graphics.getDeltaTime();
+        //currentAnimation = camminaAvanti.getKeyFrame(stateTime, true);
+        setCamminaIndietro();
+        game.setisInMovement(true);
+        game.getPlayerVero().move(com.mercurio.game.personaggi.Player.Direction.UP, true);
     }
 
     public void muoviBotDestra() {
-        stateTime += Gdx.graphics.getDeltaTime();
-        currentAnimation = camminaDestra.getKeyFrame(stateTime, true);
-        characterPosition.x += 20f * Gdx.graphics.getDeltaTime();
+        //stateTime += Gdx.graphics.getDeltaTime();
+        //currentAnimation = camminaDestra.getKeyFrame(stateTime, false);
+        setCamminaDestra();
+        game.setisInMovement(true);
+        game.getPlayerVero().move(com.mercurio.game.personaggi.Player.Direction.RIGHT, true);
     }
 
     public void muoviBotSinistra() {
-        stateTime += Gdx.graphics.getDeltaTime();
-        currentAnimation = camminaSinistra.getKeyFrame(stateTime, true);
-        characterPosition.x -= 20f * Gdx.graphics.getDeltaTime();
+        //stateTime += Gdx.graphics.getDeltaTime();
+        //currentAnimation = camminaSinistra.getKeyFrame(stateTime, true);
+        setCamminaSinistra();
+        game.setisInMovement(true);
+        game.getPlayerVero().move(com.mercurio.game.personaggi.Player.Direction.LEFT, true);
     }
 
     public void setFermoSinistra() {
@@ -623,5 +641,10 @@ public class Ash {
             currentAnimation = fermoIndietro.getKeyFrame(0);
         }
         game.setisInMovement(false);
+        game.setanimazioneAttiva(true);
+    }
+
+    public void updateBoxPlayer(float newX, float newY){
+        boxPlayer.setPosition(newX + player_width / 4, newY + 2);
     }
 }
